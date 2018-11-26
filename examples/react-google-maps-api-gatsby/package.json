@@ -1,0 +1,36 @@
+{
+  "name": "react-google-maps-api-gatsby",
+  "description": "React Google Maps Gatsby example",
+  "version": "1.0.0",
+  "author": "Alexey Lyakhov <justfly1984@gmail.com>",
+  "dependencies": {
+    "gatsby": "^2.0.19",
+    "gatsby-plugin-react-helmet": "^3.0.0",
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1",
+    "react-helmet": "^5.2.0",
+    "react-google-maps-api": "../../src"
+  },
+  "keywords": [
+    "React",
+    "Google Maps",
+    "Google",
+    "Maps",
+    "Gatsby"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "start": "npm run develop",
+    "lint": "npx eslint ./scr --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+  }
+}
