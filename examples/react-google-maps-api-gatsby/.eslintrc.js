@@ -1,7 +1,6 @@
 module.exports = {
   parser: "babel-eslint",
   extends: [
-    "plugin:jest/recommended",
     "plugin:you-dont-need-lodash-underscore/compatible",
     "eslint:recommended",
     "plugin:import/errors",
@@ -13,7 +12,6 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
   ],
   plugins: [
-    "jest",
     "you-dont-need-lodash-underscore",
     "json",
     "dependencies",
@@ -34,8 +32,7 @@ module.exports = {
   ],
   env: {
     browser: true,
-    es6: true,
-    "jest/globals": true,
+    es6: true
   },
   globals: {
     __DEV__: false,
@@ -48,11 +45,6 @@ module.exports = {
     "import/resolver": "webpack",
   },
   rules: {
-    "jest/no-disabled-tests": "warn",
-    "jest/no-focused-tests": "error",
-    "jest/no-identical-title": "error",
-    "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error",
     "ascii/valid-name": 2,
     "optimize-regex/optimize-regex": "warn",
     "promiseparams/promiseparams": 2,

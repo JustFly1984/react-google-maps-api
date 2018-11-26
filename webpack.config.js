@@ -1,5 +1,5 @@
 const path = require('path')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const pkg = require('./package.json')
@@ -42,12 +42,12 @@ module.exports = {
       filename: '[name].js.map',
       exclude: ['./node_modules']
     }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'server',
-      analyzerPort: 3333,
-      defaultSizes: 'gzip',
-      openAnalyzer: true
-    })
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'server',
+    //   analyzerPort: 3333,
+    //   defaultSizes: 'gzip',
+    //   openAnalyzer: true
+    // })
   ],
   externals: {
     'react': {
