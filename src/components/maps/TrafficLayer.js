@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -37,28 +36,27 @@ export class TrafficLayer extends PureComponent {
       props.options
     )
 
-    construct(
-      TrafficLayerPropTypes,
-      updaterMap,
-      props,
-      trafficLayer
-    )
-
-    trafficLayer.setMap(context[MAP])
-
     this.state = {
       [TRAFFIC_LAYER]: trafficLayer,
+      prevProps: construct(
+        TrafficLayerPropTypes,
+        updaterMap,
+        props,
+        trafficLayer
+      )
     }
 
-    this.getMap = this.getMap.bind(this)
+    trafficLayer.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[TRAFFIC_LAYER], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[TRAFFIC_LAYER], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[TRAFFIC_LAYER],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -72,12 +70,11 @@ export class TrafficLayer extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getMap () {
-    return this.state[TRAFFIC_LAYER].getMap()
-  }
+  getMap = () =>
+    this.state[TRAFFIC_LAYER].getMap()
 }
 
 export default TrafficLayer

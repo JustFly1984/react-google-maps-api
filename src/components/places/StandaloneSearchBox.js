@@ -5,8 +5,8 @@ import invariant from 'invariant'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  registerEvents,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -27,21 +27,29 @@ const updaterMap = {
 class StandaloneSearchBox extends PureComponent {
   static propTypes = SearchBoxPropTypes
 
-  state = {
-    [STANDALONE_SEARCH_BOX]: null,
-  }
-
   constructor (props) {
     super(props)
 
-    this.getBounds = this.getBounds.bind(this)
-    this.getPlaces = this.getPlaces.bind(this)
+    this.state = {
+      [STANDALONE_SEARCH_BOX]: null,
+      prevProps: {}
+    }
+  }
+
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[STANDALONE_SEARCH_BOX],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentDidMount () {
     invariant(
       google.maps.places,
-      `Did you include "libraries=places" in the URL?`
+      'Did you include "libraries=places" in the URL?'
     )
 
     // TODO: get rid of findDOMNode
@@ -53,20 +61,16 @@ class StandaloneSearchBox extends PureComponent {
       this.props.options
     )
 
-    construct(
-      SearchBoxPropTypes,
-      updaterMap,
-      this.props,
-      searchBox
-    )
-
-    componentDidMount(this, searchBox, eventMap)
-
-    this.setState(() => ({ [STANDALONE_SEARCH_BOX]: searchBox }))
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[STANDALONE_SEARCH_BOX], eventMap, updaterMap, prevProps)
+    this.setState((state, props) => ({
+      [STANDALONE_SEARCH_BOX]: searchBox,
+      prevProps: construct(
+        SearchBoxPropTypes,
+        updaterMap,
+        props,
+        searchBox
+      ),
+      registeredList: registerEvents(props, searchBox, eventMap)
+    }))
   }
 
   componentWillUnmount () {
@@ -77,13 +81,11 @@ class StandaloneSearchBox extends PureComponent {
     return Children.only(this.props.children)
   }
 
-  getBounds () {
-    return this.state[STANDALONE_SEARCH_BOX].getBounds()
-  }
+  getBounds = () =>
+    this.state[STANDALONE_SEARCH_BOX].getBounds()
 
-  getPlaces () {
-    return this.state[STANDALONE_SEARCH_BOX].getPlaces()
-  }
+  getPlaces = () =>
+    this.state[STANDALONE_SEARCH_BOX].getPlaces()
 }
 
 export default StandaloneSearchBox

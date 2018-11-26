@@ -5,8 +5,7 @@ import invariant from 'invariant'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -37,35 +36,33 @@ export class HeatmapLayer extends PureComponent {
   constructor (props, context) {
     super(props, context)
 
-    invariant(google.maps.visualization, `Did you include "libraries=visualization" in the URL?`)
+    invariant(google.maps.visualization, 'Did you include "libraries=visualization" in the URL?')
 
     const heatmapLayer = new google.maps.visualization.HeatmapLayer(
       props.options
     )
 
-    construct(
-      HeatmapLayerPropTypes,
-      updaterMap,
-      props,
-      heatmapLayer
-    )
-
-    heatmapLayer.setMap(context[MAP])
-
     this.state = {
       [HEATMAP_LAYER]: heatmapLayer,
+      prevProps: construct(
+        HeatmapLayerPropTypes,
+        updaterMap,
+        props,
+        heatmapLayer
+      )
     }
 
-    this.getData = this.getData.bind(this)
-    this.getMap = this.getMap.bind(this)
+    heatmapLayer.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[HEATMAP_LAYER], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[HEATMAP_LAYER], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[HEATMAP_LAYER],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -79,16 +76,14 @@ export class HeatmapLayer extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getData () {
-    return this.state[HEATMAP_LAYER].getData()
-  }
+  getData = () =>
+    this.state[HEATMAP_LAYER].getData()
 
-  getMap () {
-    return this.state[HEATMAP_LAYER].getMap()
-  }
+  getMap = () =>
+    this.state[HEATMAP_LAYER].getMap()
 }
 
 export default HeatmapLayer

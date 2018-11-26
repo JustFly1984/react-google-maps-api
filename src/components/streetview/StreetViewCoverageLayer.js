@@ -3,8 +3,7 @@ import { PureComponent } from 'react'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -28,26 +27,25 @@ export class StreetViewCoverageLayer extends PureComponent {
 
     const streetViewCoverageLayer = new google.maps.StreetViewCoverageLayer()
 
-    construct(
-      StreetViewCoverageLayerPropTypes,
-      updaterMap,
-      props,
-      streetViewCoverageLayer
-    )
-
     this.state = {
       [STREETVIEW_COVERAGE_LAYER]: streetViewCoverageLayer,
+      prevProps: construct(
+        StreetViewCoverageLayerPropTypes,
+        updaterMap,
+        props,
+        streetViewCoverageLayer
+      )
     }
-
-    this.getMap = this.getMap.bind(this)
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[STREETVIEW_COVERAGE_LAYER], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[STREETVIEW_COVERAGE_LAYER], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[STREETVIEW_COVERAGE_LAYER],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -55,12 +53,11 @@ export class StreetViewCoverageLayer extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getMap () {
-    return this.state[STREETVIEW_COVERAGE_LAYER].getMap()
-  }
+  getMap = () =>
+    this.state[STREETVIEW_COVERAGE_LAYER].getMap()
 }
 
 export default StreetViewCoverageLayer

@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -31,28 +30,27 @@ export class BicyclingLayer extends PureComponent {
 
     const bicyclingLayer = new google.maps.BicyclingLayer()
 
-    construct(
-      BicyclingLayer.propTypes,
-      updaterMap,
-      props,
-      bicyclingLayer
-    )
-
-    bicyclingLayer.setMap(context[MAP])
-
     this.state = {
       [BICYCLING_LAYER]: bicyclingLayer,
+      prevProps: construct(
+        BicyclingLayer.propTypes,
+        updaterMap,
+        props,
+        bicyclingLayer
+      )
     }
 
-    this.getMap = this.getMap.bind(this)
+    bicyclingLayer.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[BICYCLING_LAYER], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[BICYCLING_LAYER], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[BICYCLING_LAYER],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -66,12 +64,11 @@ export class BicyclingLayer extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getMap () {
-    return this.state[BICYCLING_LAYER].getMap()
-  }
+  getMap = () =>
+    this.state[BICYCLING_LAYER].getMap()
 }
 
 export default BicyclingLayer

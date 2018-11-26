@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -71,33 +70,27 @@ export class Polygon extends PureComponent {
       props.options
     )
 
-    construct(
-      PolygonPropTypes,
-      updaterMap,
-      props,
-      polygon
-    )
-
-    polygon.setMap(context[MAP])
-
     this.state = {
       [POLYGON]: polygon,
+      prevProps: construct(
+        PolygonPropTypes,
+        updaterMap,
+        props,
+        polygon
+      )
     }
 
-    this.getDraggable = this.getDraggable.bind(this)
-    this.getEditable = this.getEditable.bind(this)
-    this.getMap = this.getMap.bind(this)
-    this.getPath = this.getPath.bind(this)
-    this.getPaths = this.getPaths.bind(this)
-    this.getVisible = this.getVisible.bind(this)
+    polygon.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[POLYGON], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[POLYGON], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[POLYGON],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -111,32 +104,26 @@ export class Polygon extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getDraggable () {
-    return this.state[POLYGON].getDraggable()
-  }
+  getDraggable = () =>
+    this.state[POLYGON].getDraggable()
 
-  getEditable () {
-    return this.state[POLYGON].getEditable()
-  }
+  getEditable = () =>
+    this.state[POLYGON].getEditable()
 
-  getMap () {
-    return this.state[POLYGON].getEditable()
-  }
+  getMap = () =>
+    this.state[POLYGON].getEditable()
 
-  getPath () {
-    return this.state[POLYGON].getMap()
-  }
+  getPath = () =>
+    this.state[POLYGON].getMap()
 
-  getPaths () {
-    return this.state[POLYGON].getPaths()
-  }
+  getPaths = () =>
+    this.state[POLYGON].getPaths()
 
-  getVisible () {
-    return this.state[POLYGON].getVisible()
-  }
+  getVisible = () =>
+    this.state[POLYGON].getVisible()
 }
 
 export default Polygon

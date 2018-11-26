@@ -4,8 +4,7 @@ import invariant from 'invariant'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -70,40 +69,34 @@ export class StreetViewPanorama extends PureComponent {
 
     invariant(
       !!context[MAP],
-      `Did you render <StreetViewPanorama> as a child of <GoogleMap> with withGoogleMap() HOC?`
+      'Did you render <StreetViewPanorama> as a child of <GoogleMap> with withGoogleMap() HOC?'
     )
 
-    construct(
-      StreetViewPanoramaPropTypes,
-      updaterMap,
-      props,
-      context[MAP].getStreetView()
-    )
-
-    this.getLinks = this.getLinks.bind(this)
-    this.getLocation = this.getLocation.bind(this)
-    this.getMotionTracking = this.getMotionTracking.bind(this)
-    this.getPano = this.getPano.bind(this)
-    this.getPhotographerPov = this.getPhotographerPov.bind(this)
-    this.getPosition = this.getPosition.bind(this)
-    this.getPov = this.getPov.bind(this)
-    this.getStatus = this.getStatus.bind(this)
-    this.getVisible = this.getVisible.bind(this)
-    this.getZoom = this.getZoom.bind(this)
-  }
-
-  getChildContext () {
-    return {
-      [MAP]: this.context[MAP].getStreetView(),
+    this.state = {
+      context,
+      prevProps: construct(
+        StreetViewPanoramaPropTypes,
+        updaterMap,
+        props,
+        context[MAP].getStreetView()
+      )
     }
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.context[MAP].getStreetView(), eventMap)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      state.context[MAP].getStreetView(),
+      eventMap,
+      updaterMap
+    )
   }
 
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.context[MAP].getStreetView(), eventMap, updaterMap, prevProps)
+  getChildContext = () => {
+    return {
+      [MAP]: this.context[MAP].getStreetView(),
+    }
   }
 
   componentWillUnmount () {
@@ -120,45 +113,35 @@ export class StreetViewPanorama extends PureComponent {
     return <div>{this.props.children}</div>
   }
 
-  getLinks () {
-    return this.context[MAP].getLinks()
-  }
+  getLinks = () =>
+    this.context[MAP].getLinks()
 
-  getLocation () {
-    return this.context[MAP].getLocation()
-  }
+  getLocation = () =>
+    this.context[MAP].getLocation()
 
-  getMotionTracking () {
-    return this.context[MAP].getMotionTracking()
-  }
+  getMotionTracking = () =>
+    this.context[MAP].getMotionTracking()
 
-  getPano () {
-    return this.context[MAP].getPano()
-  }
+  getPano = () =>
+    this.context[MAP].getPano()
 
-  getPhotographerPov () {
-    return this.context[MAP].getPhotographerPov()
-  }
+  getPhotographerPov = () =>
+    this.context[MAP].getPhotographerPov()
 
-  getPosition () {
-    return this.context[MAP].getPosition()
-  }
+  getPosition = () =>
+    this.context[MAP].getPosition()
 
-  getPov () {
-    return this.context[MAP].getPov()
-  }
+  getPov = () =>
+    this.context[MAP].getPov()
 
-  getStatus () {
-    return this.context[MAP].getStatus()
-  }
+  getStatus = () =>
+    this.context[MAP].getStatus()
 
-  getVisible () {
-    return this.context[MAP].getVisible()
-  }
+  getVisible = () =>
+    this.context[MAP].getVisible()
 
-  getZoom () {
-    return this.context[MAP].getZoom()
-  }
+  getZoom = () =>
+    this.context[MAP].getZoom()
 }
 
 export default StreetViewPanorama

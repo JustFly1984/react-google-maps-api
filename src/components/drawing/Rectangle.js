@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -63,32 +62,27 @@ export class Rectangle extends PureComponent {
       props.options
     )
 
-    construct(
-      RectanglePropTypes,
-      updaterMap,
-      props,
-      rectangle
-    )
-
-    rectangle.setMap(context[MAP])
-
     this.state = {
       [RECTANGLE]: rectangle,
+      prevProps: construct(
+        RectanglePropTypes,
+        updaterMap,
+        props,
+        rectangle
+      )
     }
 
-    this.getBounds = this.getBounds.bind(this)
-    this.getDraggable = this.getDraggable.bind(this)
-    this.getEditable = this.getEditable.bind(this)
-    this.getMap = this.getMap.bind(this)
-    this.getVisible = this.getVisible.bind(this)
+    rectangle.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[RECTANGLE], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[RECTANGLE], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[RECTANGLE],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -102,28 +96,23 @@ export class Rectangle extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getBounds () {
-    return this.state[RECTANGLE].getBounds()
-  }
+  getBounds = () =>
+    this.state[RECTANGLE].getBounds()
 
-  getDraggable () {
-    return this.state[RECTANGLE].getDraggable()
-  }
+  getDraggable = () =>
+    this.state[RECTANGLE].getDraggable()
 
-  getEditable () {
-    return this.state[RECTANGLE].getEditable()
-  }
+  getEditable = () =>
+    this.state[RECTANGLE].getEditable()
 
-  getMap () {
-    return this.state[RECTANGLE].getMap()
-  }
+  getMap = () =>
+    this.state[RECTANGLE].getMap()
 
-  getVisible () {
-    return this.state[RECTANGLE].getVisible()
-  }
+  getVisible = () =>
+    this.state[RECTANGLE].getVisible()
 }
 
 export default Rectangle

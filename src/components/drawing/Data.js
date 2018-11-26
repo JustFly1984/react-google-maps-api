@@ -4,12 +4,11 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
-import { MAP, CIRCLE } from '../../constants'
+import { MAP, DATA } from '../../constants'
 import { DataPropTypes } from '../../proptypes'
 
 const eventMap = {
@@ -86,39 +85,33 @@ export class Data extends PureComponent {
       props.options
     )
 
-    construct(
-      DataPropTypes,
-      updaterMap,
-      props,
-      circle
-    )
-
-    circle.setMap(context[MAP])
-
     this.state = {
-      [CIRCLE]: circle,
+      [DATA]: circle,
+      prevProps: construct(
+        DataPropTypes,
+        updaterMap,
+        props,
+        circle
+      )
     }
 
-    this.getControlPosition = this.getControlPosition.bind(this)
-    this.getControls = this.getControls.bind(this)
-    this.getDrawingMode = this.getDrawingMode.bind(this)
-    this.getFeatureById = this.getFeatureById.bind(this)
-    this.getMap = this.getMap.bind(this)
-    this.getStyle = this.getStyle.bind(this)
+    circle.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[CIRCLE], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[CIRCLE], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[DATA],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
     componentWillUnmount(this)
 
-    const circle = this.state[CIRCLE]
+    const circle = this.state[DATA]
 
     if (circle) {
       circle.setMap(null)
@@ -126,27 +119,26 @@ export class Data extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getControlPosition () {
-    return this.state[CIRCLE].getControlPosition()
-  }
-  getControls () {
-    return this.state[CIRCLE].getControls()
-  }
-  getDrawingMode () {
-    return this.state[CIRCLE].getDrawingMode()
-  }
-  getFeatureById () {
-    return this.state[CIRCLE].getFeatureById()
-  }
-  getMap () {
-    return this.state[CIRCLE].getMap()
-  }
-  getStyle () {
-    return this.state[CIRCLE].getStyle()
-  }
+  getControlPosition = () =>
+    this.state[DATA].getControlPosition()
+
+  getControls = () =>
+    this.state[DATA].getControls()
+
+  getDrawingMode = () =>
+    this.state[DATA].getDrawingMode()
+
+  getFeatureById = () =>
+    this.state[DATA].getFeatureById()
+
+  getMap = () =>
+    this.state[DATA].getMap()
+
+  getStyle = () =>
+    this.state[DATA].getStyle()
 }
 
 export default Data

@@ -5,8 +5,7 @@ import invariant from 'invariant'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -46,36 +45,34 @@ export class DrawingManager extends PureComponent {
 
     invariant(
       google.maps.drawing,
-      `Did you include "libraries=drawing" in the URL?`
+      'Did you include "libraries=drawing" in the URL?'
     )
 
     const drawingManager = new google.maps.drawing.DrawingManager(
       props.options
     )
 
-    this.getDrawingMode = this.getDrawingMode.bind(this)
-    this.getMap = this.getMap.bind(this)
-
-    construct(
-      DrawingManagerPropTypes,
-      updaterMap,
-      props,
-      drawingManager
-    )
-
-    drawingManager.setMap(context[MAP])
-
     this.state = {
       [DRAWING_MANAGER]: drawingManager,
+      prevProps: construct(
+        DrawingManagerPropTypes,
+        updaterMap,
+        props,
+        drawingManager
+      )
     }
+
+    drawingManager.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[DRAWING_MANAGER], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[DRAWING_MANAGER], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[DRAWING_MANAGER],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -89,16 +86,14 @@ export class DrawingManager extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getDrawingMode () {
-    return this.state[DRAWING_MANAGER].getDrawingMode()
-  }
+  getDrawingMode = () =>
+    this.state[DRAWING_MANAGER].getDrawingMode()
 
-  getMap () {
-    return this.state[DRAWING_MANAGER].getMap()
-  }
+  getMap = () =>
+    this.state[DRAWING_MANAGER].getMap()
 }
 
 export default DrawingManager

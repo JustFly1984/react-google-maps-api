@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -47,26 +46,27 @@ export class KmlLayer extends PureComponent {
       props.options
     )
 
-    construct(
-      KmlLayerPropTypes,
-      updaterMap,
-      props,
-      kmlLayer
-    )
-
-    kmlLayer.setMap(context[MAP])
-
     this.state = {
       [KML_LAYER]: kmlLayer,
+      prevProps: construct(
+        KmlLayerPropTypes,
+        updaterMap,
+        props,
+        kmlLayer
+      )
     }
+
+    kmlLayer.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[KML_LAYER], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[KML_LAYER], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[KML_LAYER],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -80,32 +80,26 @@ export class KmlLayer extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getDefaultViewport () {
-    return this.state[KML_LAYER].getDefaultViewport()
-  }
+  getDefaultViewport = () =>
+    this.state[KML_LAYER].getDefaultViewport()
 
-  getMap () {
-    return this.state[KML_LAYER].getMap()
-  }
+  getMap = () =>
+    this.state[KML_LAYER].getMap()
 
-  getMetadata () {
-    return this.state[KML_LAYER].getMetadata()
-  }
+  getMetadata = () =>
+    this.state[KML_LAYER].getMetadata()
 
-  getStatus () {
-    return this.state[KML_LAYER].getStatus()
-  }
+  getStatus = () =>
+    this.state[KML_LAYER].getStatus()
 
-  getUrl () {
-    return this.state[KML_LAYER].getUrl()
-  }
+  getUrl = () =>
+    this.state[KML_LAYER].getUrl()
 
-  getZIndex () {
-    return this.state[KML_LAYER].getZIndex()
-  }
+  getZIndex = () =>
+    this.state[KML_LAYER].getZIndex()
 }
 
 export default KmlLayer

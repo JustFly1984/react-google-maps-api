@@ -1,19 +1,13 @@
 /* global google */
-import { PureComponent, version, Children } from 'react'
-import {
-  // eslint-disable-next-line camelcase
-  unstable_renderSubtreeIntoContainer,
-  unmountComponentAtNode,
-  createPortal
-} from 'react-dom'
+import { PureComponent, Children } from 'react'
+import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import invariant from 'invariant'
 import canUseDOM from 'can-use-dom'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -42,150 +36,114 @@ export class SearchBox extends PureComponent {
   constructor (props, context) {
     super(props, context)
 
-    this.state = {
-      [SEARCH_BOX]: null,
-    }
+    invariant(google.maps.places, 'Did you include "libraries=places" in the URL?')
 
-    this.handleInitializeSearchBox = this.handleInitializeSearchBox.bind(this)
-    this.handleRenderChildToContainerElement = this.handleRenderChildToContainerElement.bind(this)
-    this.handleMountAtControlPosition = this.handleMountAtControlPosition.bind(this)
-    this.handleUnmountAtControlPosition = this.handleUnmountAtControlPosition.bind(this)
-    this.getBounds = this.getBounds.bind(this)
-    this.getPlaces = this.getPlaces.bind(this)
+    this.state = {
+      context,
+      [SEARCH_BOX]: null,
+      prevProps: {},
+      mountControlIndex: -1,
+      containerElement: canUseDOM
+        ? document.createElement('div')
+        : {}
+    }
   }
 
-  componentWillMount () {
-    if (!canUseDOM || this.containerElement) {
-      return
+  static getDerivedStateFromProps (props, state) {
+    let obj = null
+
+    if (props.controlPosition !== state.prevProps.controlPosition) {
+      SearchBox.handleUnmountAtControlPosition(props, state)
+
+      obj = Object.assing({
+        mountControlIndex: SearchBox.handleMountAtControlPosition(props, state)
+      }, obj)
     }
 
-    invariant(google.maps.places, `Did you include "libraries=places" in the URL?`)
-
-    this.containerElement = document.createElement(`div`)
-
-    this.handleRenderChildToContainerElement()
-
-    if (version.match(/^16/)) {
-      return
-    }
-
-    this.handleInitializeSearchBox()
+    return Object.assing(
+      getDerivedStateFromProps(
+        props,
+        state,
+        this.state[SEARCH_BOX],
+        eventMap,
+        updaterMap
+      ), obj
+    )
   }
 
   componentDidMount () {
-    let searchBox = this.state[SEARCH_BOX]
+    this.handleInitializeSearchBox()
 
-    if (version.match(/^16/)) {
-      searchBox = this.handleInitializeSearchBox()
-    }
+    this.setState(
+      (state, props) => {
+        SearchBox.handleUnmountAtControlPosition(props, state)
 
-    componentDidMount(this, searchBox, eventMap)
-
-    this.handleMountAtControlPosition()
-  }
-
-  componentWillUpdate (nextProp) {
-    if (this.props.controlPosition !== nextProp.controlPosition) {
-      this.handleUnmountAtControlPosition()
-    }
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[SEARCH_BOX], eventMap, updaterMap, prevProps)
-
-    if (this.props.children !== prevProps.children) {
-      this.handleRenderChildToContainerElement()
-    }
-
-    if (this.props.controlPosition !== prevProps.controlPosition) {
-      this.handleMountAtControlPosition()
-    }
+        return {
+          mountControlIndex: SearchBox.handleMountAtControlPosition(props, state)
+        }
+      }
+    )
   }
 
   componentWillUnmount () {
     componentWillUnmount(this)
 
-    this.handleUnmountAtControlPosition()
-
-    if (version.match(/^16/)) {
-      return
-    }
-
-    if (this.containerElement) {
-      unmountComponentAtNode(this.containerElement)
-
-      this.containerElement = null
-    }
+    SearchBox.handleUnmountAtControlPosition(this.props, this.state)
   }
 
   render () {
-    if (version.match(/^16/)) {
-      return createPortal(
-        Children.only(this.props.children),
-        this.containerElement
-      )
-    }
-
-    return false
+    return createPortal(
+      Children.only(this.props.children),
+      this.state.containerElement
+    )
   }
 
-  handleInitializeSearchBox () {
-    const searchBox = new google.maps.places.SearchBox(
-      this.containerElement.querySelector('input'),
-      this.props.options
-    )
-
-    construct(
-      SearchBoxPropTypes,
-      updaterMap,
-      this.pprops,
-      searchBox
-    )
-
-    this.setState(() => ({ [SEARCH_BOX]: searchBox }))
-
-    return searchBox
-  }
-
-  handleRenderChildToContainerElement () {
-    if (version.match(/^16/)) {
+  handleInitializeSearchBox = () => {
+    if (!canUseDOM) {
       return
     }
 
-    unstable_renderSubtreeIntoContainer(
-      this,
-      Children.only(this.props.children),
-      this.containerElement
+    const searchBox = new google.maps.places.SearchBox(
+      this.state.containerElement.querySelector('input'),
+      this.props.options
     )
+
+    this.setState((state, props) => ({
+      [SEARCH_BOX]: searchBox,
+      prevProps: construct(
+        SearchBoxPropTypes,
+        updaterMap,
+        props,
+        searchBox
+      )
+    }))
   }
 
-  handleMountAtControlPosition () {
-    if (isValidControlPosition(this.props.controlPosition)) {
-      this.mountControlIndex = -1 + this.context[MAP].controls[this.props.controlPosition].push(
-        this.containerElement.firstChild
+  static handleMountAtControlPosition (props, state) {
+    if (isValidControlPosition(props.controlPosition)) {
+      return -1 + state.context[MAP].controls[props.controlPosition].push(
+        this.state.containerElement.firstChild
       )
     }
   }
 
-  handleUnmountAtControlPosition () {
-    if (isValidControlPosition(this.props.controlPosition)) {
-      const child = this.context[MAP].controls[this.props.controlPosition].removeAt(
-        this.mountControlIndex
+  static handleUnmountAtControlPosition (props, state) {
+    if (isValidControlPosition(props.controlPosition)) {
+      const child = state.context[MAP].controls[props.controlPosition].removeAt(
+        state.mountControlIndex
       )
 
       if (child !== undefined) {
-        this.containerElement.appendChild(child)
+        state.containerElement.appendChild(child)
       }
     }
   }
 
-  getBounds () {
-    return this.state[SEARCH_BOX].getBounds()
-  }
+  getBounds = () =>
+    this.state[SEARCH_BOX].getBounds()
 
-  getPlaces () {
-    return this.state[SEARCH_BOX].getPlaces()
-  }
+  getPlaces = () =>
+    this.state[SEARCH_BOX].getPlaces()
 }
 
 export default SearchBox

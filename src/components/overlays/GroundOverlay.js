@@ -5,8 +5,7 @@ import warning from 'warning'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -39,18 +38,16 @@ export class GroundOverlay extends PureComponent {
 
     warning(
       !props.url || !props.bounds,
-      `
-For GroundOveray, url and bounds are passed in to constructor and are immutable
- after iinstantiated. This is the behavior of Google Maps JavaScript API v3 (
- See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay)
- Hence, use the corresponding two props provided by \`react-google-maps\`.
- They're prefixed with _default_ (defaultUrl, defaultBounds).
+      `For GroundOveray, url and bounds are passed in to constructor and are immutable
+after iinstantiated. This is the behavior of Google Maps JavaScript API v3 (
+See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay)
+Hence, use the corresponding two props provided by \`react-google-maps\`.
+They're prefixed with _default_ (defaultUrl, defaultBounds).
 
- In some cases, you'll need the GroundOverlay component to reflect the changes
- of url and bounds. You can leverage the React's key property to remount the
- component. Typically, just \`key={url}\` would serve your need.
- See https://github.com/tomchentw/react-google-maps/issues/655
-`
+In some cases, you'll need the GroundOverlay component to reflect the changes
+of url and bounds. You can leverage the React's key property to remount the
+component. Typically, just \`key={url}\` would serve your need.
+See https://github.com/tomchentw/react-google-maps/issues/655`
     )
 
     const groundOverlay = new google.maps.GroundOverlay(
@@ -59,62 +56,54 @@ For GroundOveray, url and bounds are passed in to constructor and are immutable
       props.options
     )
 
-    construct(
-      GroundOverlayPropTypes,
-      updaterMap,
-      props,
-      groundOverlay
-    )
-
-    groundOverlay.setMap(context[MAP])
-
     this.state = {
       [GROUND_LAYER]: groundOverlay,
+      prevProps: construct(
+        GroundOverlayPropTypes,
+        updaterMap,
+        props,
+        groundOverlay
+      )
     }
 
-    this.getBounds = this.getBounds.bind(this)
-    this.getMap = this.getMap.bind(this)
-    this.getOpacity = this.getOpacity.bind(this)
-    this.getUrl = this.getUrl.bind(this)
+    groundOverlay.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[GROUND_LAYER], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[GROUND_LAYER], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[GROUND_LAYER],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
     componentWillUnmount(this)
 
-    const GroundOverlay = this.state[GROUND_LAYER]
+    const groundOverlay = this.state[GROUND_LAYER]
 
-    if (GroundOverlay) {
-      GroundOverlay.setMap(null)
+    if (groundOverlay) {
+      groundOverlay.setMap(null)
     }
   }
 
   render () {
-    return false
+    return null
   }
 
-  getBounds () {
-    return this.state[GROUND_LAYER].getBounds()
-  }
+  getBounds = () =>
+    this.state[GROUND_LAYER].getBounds()
 
-  getMap () {
-    return this.state[GROUND_LAYER].getMap()
-  }
+  getMap = () =>
+    this.state[GROUND_LAYER].getMap()
 
-  getOpacity () {
-    return this.state[GROUND_LAYER].getOpacity()
-  }
+  getOpacity = () =>
+    this.state[GROUND_LAYER].getOpacity()
 
-  getUrl () {
-    return this.state[GROUND_LAYER].getUrl()
-  }
+  getUrl = () =>
+    this.state[GROUND_LAYER].getUrl()
 }
 
 export default GroundOverlay

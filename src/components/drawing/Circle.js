@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -66,34 +65,27 @@ export class Circle extends PureComponent {
       props.options
     )
 
-    construct(
-      CirclePropTypes,
-      updaterMap,
-      props,
-      circle
-    )
-
-    circle.setMap(context[MAP])
-
     this.state = {
       [CIRCLE]: circle,
+      prevProps: construct(
+        CirclePropTypes,
+        updaterMap,
+        props,
+        circle
+      )
     }
 
-    this.getBounds = this.getBounds.bind(this)
-    this.getCenter = this.getCenter.bind(this)
-    this.getDraggable = this.getDraggable.bind(this)
-    this.getEditable = this.getEditable.bind(this)
-    this.getMap = this.getMap.bind(this)
-    this.getRadius = this.getRadius.bind(this)
-    this.getVisible = this.getVisible.bind(this)
+    circle.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[CIRCLE], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[CIRCLE], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[CIRCLE],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -107,36 +99,30 @@ export class Circle extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getBounds () {
-    return this.state[CIRCLE].getBounds()
-  }
+  getBounds = () =>
+    this.state[CIRCLE].getBounds()
 
-  getCenter () {
-    return this.state[CIRCLE].getCenter()
-  }
+  getCenter = () =>
+    this.state[CIRCLE].getCenter()
 
-  getDraggable () {
+  getDraggable = () => {
     return this.state[CIRCLE].getDraggable()
   }
 
-  getEditable () {
-    return this.state[CIRCLE].getEditable()
-  }
+  getEditable = () =>
+    this.state[CIRCLE].getEditable()
 
-  getMap () {
-    return this.state[CIRCLE].getMap()
-  }
+  getMap = () =>
+    this.state[CIRCLE].getMap()
 
-  getRadius () {
-    return this.state[CIRCLE].getRadius()
-  }
+  getRadius = () =>
+    this.state[CIRCLE].getRadius()
 
-  getVisible () {
-    return this.state[CIRCLE].getVisible()
-  }
+  getVisible = () =>
+    this.state[CIRCLE].getVisible()
 }
 
 export default Circle

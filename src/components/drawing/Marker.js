@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -101,12 +100,15 @@ export class Marker extends PureComponent {
       props.options
     )
 
-    construct(
-      MarkerPropTypes,
-      updaterMap,
-      this.props,
-      marker
-    )
+    this.state = {
+      [MARKER]: marker,
+      prevProps: construct(
+        MarkerPropTypes,
+        updaterMap,
+        this.props,
+        marker
+      )
+    }
 
     const markerClusterer = this.context[MARKER_CLUSTERER]
 
@@ -115,38 +117,22 @@ export class Marker extends PureComponent {
     } else {
       marker.setMap(this.context[MAP])
     }
-
-    this.state = {
-      [MARKER]: marker,
-    }
-
-    this.getAnimation = this.getAnimation.bind(this)
-    this.getClickable = this.getClickable.bind(this)
-    this.getCursor = this.getCursor.bind(this)
-    this.getDraggable = this.getDraggable.bind(this)
-    this.getIcon = this.getIcon.bind(this)
-    this.getLabel = this.getLabel.bind(this)
-    this.getMap = this.getMap(this)
-    this.getOpacity = this.getOpacity.bind(this)
-    this.getPosition = this.getPosition.bind(this)
-    this.getShape = this.getShape.bind(this)
-    this.getTitle = this.getTitle.bind(this)
-    this.getVisible = this.getVisible.bind(this)
-    this.getZIndex = this.getZIndex.bind(this)
   }
 
-  getChildContext () {
+  getChildContext = () => {
     return {
       [ANCHOR]: this.context[ANCHOR] || this.state[MARKER],
     }
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[MARKER], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[MARKER], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[MARKER],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -173,57 +159,44 @@ export class Marker extends PureComponent {
     )
   }
 
-  getAnimation () {
-    return this.state[MARKER].getAnimation()
-  }
+  getAnimation = () =>
+    this.state[MARKER].getAnimation()
 
-  getClickable () {
-    return this.state[MARKER].getClickable()
-  }
+  getClickable = () =>
+    this.state[MARKER].getClickable()
 
-  getCursor () {
-    return this.state[MARKER].getCursor()
-  }
+  getCursor = () =>
+    this.state[MARKER].getCursor()
 
-  getDraggable () {
-    return this.state[MARKER].getDraggable()
-  }
+  getDraggable = () =>
+    this.state[MARKER].getDraggable()
 
-  getIcon () {
-    return this.state[MARKER].getIcon()
-  }
+  getIcon = () =>
+    this.state[MARKER].getIcon()
 
-  getLabel () {
-    return this.state[MARKER].getLabel()
-  }
+  getLabel = () =>
+    this.state[MARKER].getLabel()
 
-  getMap () {
-    return this.state[MARKER].getMap()
-  }
+  getMap = () =>
+    this.state[MARKER].getMap()
 
-  getOpacity () {
-    return this.state[MARKER].getOpacity()
-  }
+  getOpacity = () =>
+    this.state[MARKER].getOpacity()
 
-  getPosition () {
-    return this.state[MARKER].getPosition()
-  }
+  getPosition = () =>
+    this.state[MARKER].getPosition()
 
-  getShape () {
-    return this.state[MARKER].getShape()
-  }
+  getShape = () =>
+    this.state[MARKER].getShape()
 
-  getTitle () {
-    return this.state[MARKER].getTitle()
-  }
+  getTitle = () =>
+    this.state[MARKER].getTitle()
 
-  getVisible () {
-    return this.state[MARKER].getVisible()
-  }
+  getVisible = () =>
+    this.state[MARKER].getVisible()
 
-  getZIndex () {
-    return this.state[MARKER].getZIndex()
-  }
+  getZIndex = () =>
+    this.state[MARKER].getZIndex()
 }
 
 export default Marker

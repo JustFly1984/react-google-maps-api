@@ -16,6 +16,8 @@ export const POLYGON = `__SECRET_POLYGON`
 
 export const CIRCLE = `__SECRET_CIRCLE`
 
+export const DATA = `__SECRET_DATA`
+
 export const KML_LAYER = `__SECRET_KML_LAYER`
 
 export const DIRECTIONS_RENDERER = `__SECRET_DIRECTIONS_RENDERER`

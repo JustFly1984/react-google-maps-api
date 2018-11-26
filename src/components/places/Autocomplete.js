@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -49,28 +48,25 @@ export class Autocomplete extends PureComponent {
       props.options
     )
 
-    construct(
-      AutocompletePropTypes,
-      updaterMap,
-      props,
-      autocomplete
-    )
-
     this.state = {
       [AUTOCOMPLETE]: autocomplete,
+      prevProps: construct(
+        AutocompletePropTypes,
+        updaterMap,
+        props,
+        autocomplete
+      )
     }
-
-    this.getBounds = this.getBounds.bind(this)
-    this.getFields = this.getFields.bind(this)
-    this.getPlace = this.getPlace.bind(this)
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[AUTOCOMPLETE], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[AUTOCOMPLETE], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[AUTOCOMPLETE],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -78,20 +74,17 @@ export class Autocomplete extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getBounds () {
-    return this.state[AUTOCOMPLETE].getBounds()
-  }
+  getBounds = () =>
+    this.state[AUTOCOMPLETE].getBounds()
 
-  getFields () {
-    return this.state[AUTOCOMPLETE].getFields()
-  }
+  getFields = () =>
+    this.state[AUTOCOMPLETE].getFields()
 
-  getPlace () {
-    return this.state[AUTOCOMPLETE].getPlace()
-  }
+  getPlace = () =>
+    this.state[AUTOCOMPLETE].getPlace()
 }
 
 export default Autocomplete

@@ -1,17 +1,12 @@
 import { PureComponent, Children } from 'react'
-import {
-  // eslint-disable-next-line camelcase
-  unstable_renderSubtreeIntoContainer,
-  unmountComponentAtNode
-} from 'react-dom'
+import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import canUseDOM from 'can-use-dom'
 import invariant from 'invariant'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -27,7 +22,7 @@ const open = (infoBox, anchor) => {
   } else {
     invariant(
       false,
-      `You must provide either an anchor (typically render it inside a <Marker>) or a position props for <InfoBox>.`
+      'You must provide either an anchor (typically render it inside a <Marker>) or a position props for <InfoBox>.'
     )
   }
 }
@@ -67,7 +62,9 @@ export class InfoBox extends PureComponent {
     [INFO_BOX]: null,
   }
 
-  componentWillMount () {
+  constructor (props, context) {
+    super(props, context)
+
     if (!canUseDOM || this.state[INFO_BOX]) {
       return
     }
@@ -77,54 +74,36 @@ export class InfoBox extends PureComponent {
      * As a result, we import "google-maps-infobox" here to prevent an error on
      * a isomorphic server.
      */
-    const { InfoBox: GoogleMapsInfobox } = require(`google-maps-infobox`)
+    const { InfoBox: GoogleMapsInfobox } = require('google-maps-infobox')
 
     const infoBox = new GoogleMapsInfobox()
 
-    construct(
-      InfoBoxPropTypes,
-      updaterMap,
-      this.props,
-      infoBox
-    )
-
     infoBox.setMap(this.context[MAP])
 
-    this.setState(() => ({ [INFO_BOX]: infoBox }))
-  }
+    this.state = {
+      [INFO_BOX]: infoBox,
+      prevProps: construct(
+        InfoBoxPropTypes,
+        updaterMap,
+        this.props,
+        infoBox
+      )
+    }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[INFO_BOX], eventMap)
-
-    const content = document.createElement(`div`)
-
-    unstable_renderSubtreeIntoContainer(
-      this,
-      Children.only(this.props.children),
-      content
-    )
-
-    this.state[INFO_BOX].setContent(content)
+    this.contentElement = document.createElement('div')
+    this.state[INFO_BOX].setContent(this.contentElement)
 
     open(this.state[INFO_BOX], this.context[ANCHOR])
   }
 
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(
-      this,
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
       this.state[INFO_BOX],
       eventMap,
-      updaterMap,
-      prevProps
+      updaterMap
     )
-
-    if (this.props.children !== prevProps.children) {
-      unstable_renderSubtreeIntoContainer(
-        this,
-        Children.only(this.props.children),
-        this.state[INFO_BOX].getContent()
-      )
-    }
   }
 
   componentWillUnmount () {
@@ -133,29 +112,25 @@ export class InfoBox extends PureComponent {
     const infoBox = this.state[INFO_BOX]
 
     if (infoBox) {
-      if (infoBox.getContent()) {
-        unmountComponentAtNode(infoBox.getContent())
-      }
-
       infoBox.setMap(null)
     }
   }
 
   render () {
-    return false
+    return createPortal(
+      Children.only(this.props.children),
+      this.contentElement
+    )
   }
 
-  getPosition () {
-    return this.state[INFO_BOX].getPosition()
-  }
+  getPosition = () =>
+    this.state[INFO_BOX].getPosition()
 
-  getVisible () {
-    return this.state[INFO_BOX].getVisible()
-  }
+  getVisible = () =>
+    this.state[INFO_BOX].getVisible()
 
-  getZIndex () {
-    return this.state[INFO_BOX].getZIndex()
-  }
+  getZIndex = () =>
+    this.state[INFO_BOX].getZIndex()
 }
 
 export default InfoBox

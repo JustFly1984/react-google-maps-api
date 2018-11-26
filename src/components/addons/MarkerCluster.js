@@ -5,8 +5,7 @@ import MarkerClustererPlus from 'marker-clusterer-plus'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -104,29 +103,27 @@ export class MarkerClusterer extends PureComponent {
     }
   }
 
-  getChildContext () {
+  static getDerivedStateFromProps (props, state) {
+    const obj = getDerivedStateFromProps(
+      props,
+      state,
+      this.state[MARKER_CLUSTERER],
+      eventMap,
+      updaterMap
+    )
+
+    this.state[MARKER_CLUSTERER].repaint()
+
+    return obj
+  }
+
+  getChildContext = () => {
     const markerClusterer = this.state[MARKER_CLUSTERER]
 
     return {
       [ANCHOR]: markerClusterer,
       [MARKER_CLUSTERER]: markerClusterer,
     }
-  }
-
-  componentDidMount () {
-    componentDidMount(this, this.state[MARKER_CLUSTERER], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(
-      this,
-      this.state[MARKER_CLUSTERER],
-      eventMap,
-      updaterMap,
-      prevProps
-    )
-
-    this.state[MARKER_CLUSTERER].repaint()
   }
 
   componentWillUnmount () {

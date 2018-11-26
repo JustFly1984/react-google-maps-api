@@ -3,8 +3,7 @@ import { PureComponent } from 'react'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -24,26 +23,25 @@ export class StreetViewService extends PureComponent {
 
     const streetViewService = new google.maps.StreetViewService()
 
-    construct(
-      StreetViewServicePropTypes,
-      updaterMap,
-      props,
-      streetViewService
-    )
-
     this.state = {
       [STREETVIEW_SERVICE]: streetViewService,
+      prevProps: construct(
+        StreetViewServicePropTypes,
+        updaterMap,
+        props,
+        streetViewService
+      )
     }
-
-    this.getPanorama = this.getPanorama.bind(this)
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[STREETVIEW_SERVICE], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[STREETVIEW_SERVICE], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[STREETVIEW_SERVICE],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -51,12 +49,11 @@ export class StreetViewService extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getPanorama () {
-    return this.state[STREETVIEW_SERVICE].getPanorama()
-  }
+  getPanorama = () =>
+    this.state[STREETVIEW_SERVICE].getPanorama()
 }
 
 export default StreetViewService

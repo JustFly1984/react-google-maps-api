@@ -23,10 +23,14 @@ import {
   // BicyclingLayer,
   // compose
 } from 'react-google-maps-api'
+
+import MapWithASearchBox from '../components/search-box'
+import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
+
 // Past your GoogleMaps API key here
 // You can obtain the API key here:
 // https://developers.google.com/maps/documentation/javascript/get-api-key
-const googleMapsApiKey = 'AIzaSyBVco9uGWY5IvgU6wK571iRu1G9eJkn4PQ'
+import { googleMapsApiKey } from '../const'
 
 const style = {
   maxWidth: '300px',
@@ -95,7 +99,7 @@ const IndexPage = () => (
     <h1>Hello People!</h1>
     <p>Welcome to React Google Maps Light Example.</p>
 
-    <div style={style}>
+    {/*<div style={style}>
       <EnhancedMap
         isMarkerShown
         googleMapURL={`https://maps.googleapis.com/maps/api/js?v=weekly&key=${googleMapsApiKey}&language=en&region=EN`} // &callback=initMap
@@ -103,6 +107,14 @@ const IndexPage = () => (
         containerElement={Container}
         mapElement={MapElement}
       />
+    </div>
+
+    <div style={style}>
+      <MapWithASearchBox />
+    </div>*/}
+
+    <div style={style}>
+      <PlacesWithStandaloneSearchBox />
     </div>
   </Layout>
 )

@@ -4,8 +4,7 @@ import invariant from 'invariant'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -75,37 +74,26 @@ export class GoogleMap extends PureComponent {
   constructor (props, context) {
     super(props, context)
 
-    invariant(!!context[MAP], `Did you wrap <GoogleMap> component with withGoogleMap() HOC?`)
+    invariant(!!context[MAP], 'id you wrap <GoogleMap> component with withGoogleMap() HOC?')
 
-    construct(
-      GoogleMapPropTypes,
-      updaterMap,
+    this.state = {
+      prevProps: construct(
+        GoogleMapPropTypes,
+        updaterMap,
+        props,
+        context[MAP]
+      )
+    }
+  }
+
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
       props,
-      context[MAP]
+      state,
+      this.context[MAP],
+      eventMap,
+      updaterMap
     )
-
-    this.fitBounds = this.fitBounds.bind(this)
-    this.getBounds = this.getBounds.bind(this)
-    this.getCenter = this.getCenter.bind(this)
-    this.getClickableIcons = this.getClickableIcons.bind(this)
-    this.getDiv = this.getDiv.bind(this)
-    this.getHeading = this.getHeading.bind(this)
-    this.getMapTypeId = this.getMapTypeId.bind(this)
-    this.getProjection = this.getProjection.bind(this)
-    this.getStreetView = this.getStreetView.bind(this)
-    this.getTilt = this.getTilt.bind(this)
-    this.getZoom = this.getZoom.bind(this)
-    this.panBy = this.panBy.bind(this)
-    this.panTo = this.panTo.bind(this)
-    this.panToBounds = this.panToBounds.bind(this)
-  }
-
-  componentDidMount () {
-    componentDidMount(this, this.context[MAP], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.context[MAP], eventMap, updaterMap, prevProps)
   }
 
   componentWillUnmount () {
@@ -120,61 +108,47 @@ export class GoogleMap extends PureComponent {
     )
   }
 
-  fitBounds (...args) {
-    return this.context[MAP].fitBounds(...args)
-  }
+  fitBounds = (...args) =>
+    this.context[MAP].fitBounds(...args)
 
-  panBy (...args) {
-    return this.context[MAP].panBy(...args)
-  }
+  panBy = (...args) =>
+    this.context[MAP].panBy(...args)
 
-  panTo (...args) {
-    return this.context[MAP].panTo(...args)
-  }
+  panTo = (...args) =>
+    this.context[MAP].panTo(...args)
 
-  panToBounds (...args) {
-    return this.context[MAP].panToBounds(...args)
-  }
+  panToBounds = (...args) =>
+    this.context[MAP].panToBounds(...args)
 
-  getBounds () {
-    return this.context[MAP].getBounds()
-  }
+  getBounds = () =>
+    this.context[MAP].getBounds()
 
-  getCenter () {
-    return this.context[MAP].getCenter()
-  }
+  getCenter = () =>
+    this.context[MAP].getCenter()
 
-  getClickableIcons () {
-    return this.context[MAP].getClickableIcons()
-  }
+  getClickableIcons = () =>
+    this.context[MAP].getClickableIcons()
 
-  getDiv () {
-    return this.context[MAP].getDiv()
-  }
+  getDiv = () =>
+    this.context[MAP].getDiv()
 
-  getHeading () {
-    return this.context[MAP].getHeading()
-  }
+  getHeading = () =>
+    this.context[MAP].getHeading()
 
-  getMapTypeId () {
-    return this.context[MAP].getMapTypeId()
-  }
+  getMapTypeId = () =>
+    this.context[MAP].getMapTypeId()
 
-  getProjection () {
-    return this.context[MAP].getProjection()
-  }
+  getProjection = () =>
+    this.context[MAP].getProjection()
 
-  getStreetView () {
-    return this.context[MAP].getStreetView()
-  }
+  getStreetView = () =>
+    this.context[MAP].getStreetView()
 
-  getTilt () {
-    return this.context[MAP].getTilt()
-  }
+  getTilt = () =>
+    this.context[MAP].getTilt()
 
-  getZoom () {
-    return this.context[MAP].getZoom()
-  }
+  getZoom = () =>
+    this.context[MAP].getZoom()
 }
 
 export default GoogleMap

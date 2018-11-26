@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -62,32 +61,27 @@ export class Polyline extends PureComponent {
       props.options
     )
 
-    construct(
-      PolylinePropTypes,
-      updaterMap,
-      this.props,
-      polyline
-    )
-
-    polyline.setMap(this.context[MAP])
-
     this.state = {
       [POLYLINE]: polyline,
+      prevProps: construct(
+        PolylinePropTypes,
+        updaterMap,
+        this.props,
+        polyline
+      )
     }
 
-    this.getDraggable = this.getDraggable.bind(this)
-    this.getEditable = this.getEditable.bind(this)
-    this.getMap = this.getMap.bind(this)
-    this.getPath = this.getPath.bind(this)
-    this.getVisible = this.getVisible.bind(this)
+    polyline.setMap(this.context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[POLYLINE], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[POLYLINE], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[POLYLINE],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -101,28 +95,23 @@ export class Polyline extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getDraggable () {
-    return this.state[POLYLINE].getDraggable()
-  }
+  getDraggable = () =>
+    this.state[POLYLINE].getDraggable()
 
-  getEditable () {
-    return this.state[POLYLINE].getEditable()
-  }
+  getEditable = () =>
+    this.state[POLYLINE].getEditable()
 
-  getPath () {
-    return this.state[POLYLINE].getPath()
-  }
+  getPath = () =>
+    this.state[POLYLINE].getPath()
 
-  getVisible () {
-    return this.state[POLYLINE].getVisible()
-  }
+  getVisible = () =>
+    this.state[POLYLINE].getVisible()
 
-  getMap () {
-    return this.state[POLYLINE].getMap()
-  }
+  getMap = () =>
+    this.state[POLYLINE].getMap()
 }
 
 export default Polyline

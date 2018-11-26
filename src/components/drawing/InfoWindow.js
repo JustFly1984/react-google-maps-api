@@ -1,19 +1,12 @@
 /* global google */
-import { PureComponent, version, Children } from 'react'
-import {
-  // eslint-disable-next-line camelcase
-  unstable_renderSubtreeIntoContainer,
-  unmountComponentAtNode,
-  createPortal
-} from 'react-dom'
+import { PureComponent, Children } from 'react'
+import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import invariant from 'invariant'
-import canUseDOM from 'can-use-dom'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -75,68 +68,32 @@ export class InfoWindow extends PureComponent {
       props.options
     )
 
-    construct(
-      InfoWindowPropTypes,
-      updaterMap,
-      this.props,
-      infoWindow
-    )
+    this.state = {
+      [INFO_WINDOW]: infoWindow,
+      prevProps: construct(
+        InfoWindowPropTypes,
+        updaterMap,
+        this.props,
+        infoWindow
+      )
+    }
 
     infoWindow.setMap(this.context[MAP])
 
-    this.state = {
-      [INFO_WINDOW]: infoWindow,
-    }
-
-    this.getContent = this.getContent.bind(this)
-    this.getPosition = this.getPosition.bind(this)
-    this.getZIndex = this.getZIndex.bind(this)
-  }
-
-  componentWillMount () {
-    if (!canUseDOM || this.containerElement) {
-      return
-    }
-
-    if (version.match(/^16/)) {
-      this.containerElement = document.createElement(`div`)
-    }
-  }
-
-  componentDidMount () {
-    componentDidMount(this, this.state[INFO_WINDOW], eventMap)
-
-    if (version.match(/^16/)) {
-      this.state[INFO_WINDOW].setContent(this.containerElement)
-
-      open(this.state[INFO_WINDOW], this.context[ANCHOR])
-
-      return
-    }
-
-    const content = document.createElement(`div`)
-
-    unstable_renderSubtreeIntoContainer(this, Children.only(this.props.children), content)
-
-    this.state[INFO_WINDOW].setContent(content)
+    this.containerElement = document.createElement('div')
+    this.state[INFO_WINDOW].setContent(this.containerElement)
 
     open(this.state[INFO_WINDOW], this.context[ANCHOR])
   }
 
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[INFO_WINDOW], eventMap, updaterMap, prevProps)
-
-    if (version.match(/^16/)) {
-      return
-    }
-
-    if (this.props.children !== prevProps.children) {
-      unstable_renderSubtreeIntoContainer(
-        this,
-        Children.only(this.props.children),
-        this.state[INFO_WINDOW].getContent()
-      )
-    }
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[INFO_WINDOW],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -145,31 +102,25 @@ export class InfoWindow extends PureComponent {
     const infoWindow = this.state[INFO_WINDOW]
 
     if (infoWindow) {
-      if (!version.match(/^16/) && infoWindow.getContent()) {
-        unmountComponentAtNode(infoWindow.getContent())
-      }
-
       infoWindow.setMap(null)
     }
   }
 
   render () {
-    return version.match(/^16/)
-      ? createPortal(Children.only(this.props.children), this.containerElement)
-      : null
+    return createPortal(
+      Children.only(this.props.children),
+      this.containerElement
+    )
   }
 
-  getContent () {
-    return this.state[INFO_WINDOW].getContent()
-  }
+  getContent = () =>
+    this.state[INFO_WINDOW].getContent()
 
-  getPosition () {
-    return this.state[INFO_WINDOW].getPosition()
-  }
+  getPosition = () =>
+    this.state[INFO_WINDOW].getPosition()
 
-  getZIndex () {
-    return this.state[INFO_WINDOW].getZIndex()
-  }
+  getZIndex = () =>
+    this.state[INFO_WINDOW].getZIndex()
 }
 
 export default InfoWindow

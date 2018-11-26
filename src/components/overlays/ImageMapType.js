@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -36,28 +35,27 @@ export class ImageMapType extends PureComponent {
       props.options
     )
 
-    construct(
-      ImageMapTypePropTypes,
-      updaterMap,
-      props,
-      circle
-    )
-
-    circle.setMap(context[MAP])
-
     this.state = {
       [IMAGEMAPTYPE]: circle,
+      prevProps: construct(
+        ImageMapTypePropTypes,
+        updaterMap,
+        props,
+        circle
+      )
     }
 
-    this.getOpacity = this.getOpacity.bind(this)
+    circle.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[IMAGEMAPTYPE], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[IMAGEMAPTYPE], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[IMAGEMAPTYPE],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -71,20 +69,17 @@ export class ImageMapType extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getOpacity () {
-    return this.state[IMAGEMAPTYPE].getOpacity()
-  }
+  getOpacity = () =>
+    this.state[IMAGEMAPTYPE].getOpacity()
 
-  getTile (tileCoord, zoom, ownerDocument) {
-    return this.state[IMAGEMAPTYPE].getTile(tileCoord, zoom, ownerDocument)
-  }
+  getTile = (tileCoord, zoom, ownerDocument) =>
+    this.state[IMAGEMAPTYPE].getTile(tileCoord, zoom, ownerDocument)
 
-  releaseTile (tileDiv) {
-    return this.state[IMAGEMAPTYPE].releaseTile(tileDiv)
-  }
+  releaseTile = tileDiv =>
+    this.state[IMAGEMAPTYPE].releaseTile(tileDiv)
 }
 
 export default ImageMapType

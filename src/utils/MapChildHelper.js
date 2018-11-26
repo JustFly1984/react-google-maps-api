@@ -24,15 +24,20 @@ const rdcUncontrolledAndControlledProps = (acc, value, key) => {
 }
 
 const applyUpdaterToNextProps = (updaterMap, prevProps, nextProps, instance) => {
+  let map = {}
+
   const iter = (fn, key) => {
     const nextValue = nextProps[key]
 
     if (nextValue !== prevProps[key]) {
+      map[key] = nextValue
       fn(instance, nextValue)
     }
   }
 
   forEach(updaterMap, iter)
+
+  return map
 }
 
 export const construct = (propTypes, updaterMap, prevProps, instance) => {
@@ -41,44 +46,52 @@ export const construct = (propTypes, updaterMap, prevProps, instance) => {
     prevProps,
   })
 
-  applyUpdaterToNextProps(
+  return applyUpdaterToNextProps(
     updaterMap,
-    {
-      /* empty prevProps for construct */
-    },
+    {}, // empty prevProps for construct
     nextProps,
     instance
   )
 }
 
-export function componentDidMount (component, instance, eventMap) {
-  registerEvents(component, instance, eventMap)
+/*
+export function componentDidMount (props, instance, eventMap) {
+  return registerEvents(props, instance, eventMap)
 }
 
-export function componentDidUpdate (component, instance, eventMap, updaterMap, prevProps) {
-  component.unregisterAllEvents()
+export function componentDidUpdate (props, instance, eventMap, updaterMap, state) {
+  unregisterEvent(state.registeredList)
 
-  applyUpdaterToNextProps(updaterMap, prevProps, component.props, instance)
+  applyUpdaterToNextProps(updaterMap, state.prevProps, props, instance)
 
-  registerEvents(component, instance, eventMap)
+  return registerEvents(props, instance, eventMap)
+}
+*/
+export function getDerivedStateFromProps (props, state, instance, eventMap, updaterMap) {
+  unregisterEvent(state.registeredList)
+
+  return {
+    prevProps: applyUpdaterToNextProps(updaterMap, state.prevProps, props, instance),
+    registeredList: registerEvents(props, instance, eventMap)
+  }
 }
 
 export function componentWillUnmount (component) {
-  component.unregisterAllEvents()
+  unregisterEvent(component.state.registeredList)
 }
 
-function registerEvents (component, instance, eventMap) {
+export function registerEvents (props, instance, eventMap) {
   const registeredList = reduce(eventMap, (acc, googleEventName, onEventName) => {
-    if (typeof component.props[onEventName] === 'function') {
+    if (typeof props[onEventName] === 'function') {
       acc.push(
-        google.maps.event.addListener(instance, googleEventName, component.props[onEventName])
+        google.maps.event.addListener(instance, googleEventName, props[onEventName])
       )
     }
 
     return acc
   }, [])
 
-  component.unregisterAllEvents = forEach.bind(null, registeredList, unregisterEvent)
+  return registeredList
 }
 
 function unregisterEvent (registered) {

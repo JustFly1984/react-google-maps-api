@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 
 import {
   construct,
-  componentDidMount,
-  componentDidUpdate,
+  getDerivedStateFromProps,
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
@@ -39,26 +38,27 @@ export class FusionTablesLayer extends PureComponent {
       props.options
     )
 
-    construct(
-      FusionTablesLayerPropTypes,
-      updaterMap,
-      props,
-      fusionTablesLayer
-    )
-
-    fusionTablesLayer.setMap(context[MAP])
-
     this.state = {
       [FUSION_TABLES_LAYER]: fusionTablesLayer,
+      prevProps: construct(
+        FusionTablesLayerPropTypes,
+        updaterMap,
+        props,
+        fusionTablesLayer
+      )
     }
+
+    fusionTablesLayer.setMap(context[MAP])
   }
 
-  componentDidMount () {
-    componentDidMount(this, this.state[FUSION_TABLES_LAYER], eventMap)
-  }
-
-  componentDidUpdate (prevProps) {
-    componentDidUpdate(this, this.state[FUSION_TABLES_LAYER], eventMap, updaterMap, prevProps)
+  static getDerivedStateFromProps (props, state) {
+    return getDerivedStateFromProps(
+      props,
+      state,
+      this.state[FUSION_TABLES_LAYER],
+      eventMap,
+      updaterMap
+    )
   }
 
   componentWillUnmount () {
@@ -72,12 +72,11 @@ export class FusionTablesLayer extends PureComponent {
   }
 
   render () {
-    return false
+    return null
   }
 
-  getMap () {
-    return this.state[FUSION_TABLES_LAYER].getMap()
-  }
+  getMap = () =>
+    this.state[FUSION_TABLES_LAYER].getMap()
 }
 
 export default FusionTablesLayer
