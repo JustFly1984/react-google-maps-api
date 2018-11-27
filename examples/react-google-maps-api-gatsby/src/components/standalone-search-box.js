@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+// eslint-disable-next-line filenames/match-exported
 import React from 'react'
 import { compose, withProps, lifecycle } from 'recompose'
 import { withScriptjs } from 'react-google-maps-api'
@@ -12,7 +14,7 @@ const PlacesWithStandaloneSearchBox = compose(
     containerElement: <div style={{ height: '400px' }} />
   }),
   lifecycle({
-    componentDidMount() {
+    componentDidMount () {
       const refs = {}
 
       this.setState({

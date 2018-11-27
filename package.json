@@ -52,7 +52,17 @@
     "withGoogleMap",
     "withScriptjs"
   ],
+  "watch": {
+    "build:dev": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "js",
+      "quiet": false
+    }
+  },
   "scripts": {
+    "watch": "npm-watch build:dev",
     "precommit": "npm run build && npx lint-staged",
     "dtslint": "dtslint types",
     "test": "npx jest",
@@ -133,6 +143,7 @@
     "eslint-plugin-you-dont-need-lodash-underscore": "^6.4.0",
     "husky": "^1.2.0",
     "lint-staged": "^8.1.0",
+    "npm-watch": "^0.4.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "standard-version": "^4.2.0",

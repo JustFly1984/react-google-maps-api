@@ -1,3 +1,5 @@
+/* global google */
+/* eslint-disable filenames/match-exported */
 import React from 'react'
 import { compose, withProps, lifecycle } from 'recompose'
 
@@ -5,7 +7,7 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker,
+  Marker
 } from 'react-google-maps-api'
 
 import { SearchBox } from 'react-google-maps-api/lib/components/places/SearchBox'
@@ -20,10 +22,11 @@ const MapWithASearchBox = compose(
     mapElement: <div style={{ height: '100%' }} />
   }),
   lifecycle({
-    componentDidMount() {
+    componentDidMount () {
       const refs = {}
 
-      this.setState({
+      // eslint-disable-next-line react-functional-set-state/no-this-state-props
+      this.setState(() => ({
         bounds: null,
         center: {
           lat: 41.9, lng: -87.624
@@ -33,10 +36,10 @@ const MapWithASearchBox = compose(
           refs.map = ref
         },
         onBoundsChanged: () => {
-          this.setState({
+          this.setState(() => ({
             bounds: refs.map.getBounds(),
             center: refs.map.getCenter()
-          })
+          }))
         },
         onSearchBoxMounted: ref => {
           refs.searchBox = ref
@@ -61,13 +64,13 @@ const MapWithASearchBox = compose(
             ? nextMarkers[0].position
             : this.state.center
 
-          this.setState({
+          this.setState(() => ({
             center: nextCenter,
             markers: nextMarkers
-          })
+          }))
           // refs.map.fitBounds(bounds)
         }
-      })
+      }))
     }
   }),
   withScriptjs,

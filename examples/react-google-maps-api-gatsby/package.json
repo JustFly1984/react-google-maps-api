@@ -4,12 +4,14 @@
   "version": "1.0.0",
   "author": "Alexey Lyakhov <justfly1984@gmail.com>",
   "dependencies": {
+    "@types/googlemaps": "^3.30.16",
+    "@types/markerclustererplus": "^2.1.33",
     "gatsby": "^2.0.19",
     "gatsby-plugin-react-helmet": "^3.0.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
-    "react-helmet": "^5.2.0",
-    "react-google-maps-api": "../../"
+    "react-google-maps-api": "../../",
+    "react-helmet": "^5.2.0"
   },
   "keywords": [
     "React",

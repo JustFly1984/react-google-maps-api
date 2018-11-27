@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import canUseDOM from 'can-use-dom'
 import invariant from 'invariant'
+import { WithGoogleMapContext } from '../../GoogleMapProvider'
 
 import {
   construct,

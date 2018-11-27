@@ -1,16 +1,11 @@
+/* global google */
+/* eslint-disable filenames/match-regex */
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import invariant from 'invariant'
 
-import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
-} from '../../utils/MapChildHelper'
-
-import { MAP } from '../../constants'
-
 import { GoogleMapPropTypes } from '../../proptypes'
+import { map } from '../../utils/map'
+import { GoogleMapContext, withGoogleMapContext } from '../../GoogleMapProvider'
 
 const eventMap = {
   onDblClick: 'dblclick',
@@ -34,121 +29,223 @@ const eventMap = {
   onZoomChanged: 'zoom_changed',
 }
 
+const defaultPropNameList = [
+  'defaultExtraMapTypes',
+  'defaultCenter',
+  'defaultClickableIcons',
+  'defaultHeading',
+  'defaultMapTypeId',
+  'defaultOptions',
+  'defaultStreetView',
+  'streetView',
+  'defaultTilt',
+  'defaultZoom'
+]
+
+const propNameList = [
+  'center',
+  'clickableIcons',
+  'heading',
+  'mapTypeId',
+  'options',
+  'streetView',
+  'tilt',
+  'zoom'
+]
+
+const defaultPropsMap = {
+  defaultExtraMapTypes: 'setExtraMapTypes',
+  defaultCenter: 'setCenter',
+  defaultClickableIcons: 'setClickableIcons',
+  defaultHeading: 'setHeading',
+  defaultMapTypeId: 'setMapTypeId',
+  defaultOptions: 'setOptions',
+  defaultStreetView: 'setStreetView',
+  defaultTilt: 'setTilt',
+  defaultZoom: 'setZoom',
+}
+
+const propsMap = {
+  extraMapTypes: 'setExtraMapTypes',
+  center: 'setCenter',
+  clickableIcons: 'setClickableIcons',
+  heading: 'setHeading',
+  mapTypeId: 'setMapTypeId',
+  options: 'setOptions',
+  streetView: 'setStreetView',
+  tilt: 'setTilt',
+  zoom: 'setZoom'
+}
+
 const updaterMap = {
-  extraMapTypes (instance, extra) {
-    extra.forEach(it => instance.mapTypes.set(...it))
+  setExtraMapTypes (map, extra) {
+    extra.forEach(it => map.mapTypes.set(...it))
   },
-  center (instance, center) {
-    instance.setCenter(center)
+  setCenter (map, ...args) {
+    map.setCenter(...args)
   },
-  clickableIcons (instance, clickableIcons) {
-    instance.setClickableIcons(clickableIcons)
+  setClickableIcons (map, ...args) {
+    map.setClickableIcons(...args)
   },
-  heading (instance, heading) {
-    instance.setHeading(heading)
+  setHeading (map, ...args) {
+    map.setHeading(...args)
   },
-  mapTypeId (instance, mapTypeId) {
-    instance.setMapTypeId(mapTypeId)
+  setMapTypeId (map, ...args) {
+    map.setMapTypeId(...args)
   },
-  options (instance, options) {
-    instance.setOptions(options)
+  setOptions (map, ...args) {
+    map.setOptions(...args)
   },
-  streetView (instance, streetView) {
-    instance.setStreetView(streetView)
+  setStreetView (map, ...args) {
+    map.setStreetView(...args)
   },
-  tilt (instance, tilt) {
-    instance.setTilt(tilt)
+  setTilt (map, ...args) {
+    map.setTilt(...args)
   },
-  zoom (instance, zoom) {
-    instance.setZoom(zoom)
-  },
+  setZoom (map, ...args) {
+    map.setZoom(...args)
+  }
 }
 
 export class GoogleMap extends PureComponent {
   static propTypes = GoogleMapPropTypes
+  static contextType = GoogleMapContext
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-  }
-
-  constructor (props, context) {
-    super(props, context)
-
-    invariant(!!context[MAP], 'id you wrap <GoogleMap> component with withGoogleMap() HOC?')
+  constructor (props) {
+    super(props)
 
     this.state = {
-      prevProps: construct(
-        GoogleMapPropTypes,
-        updaterMap,
-        props,
-        context[MAP]
-      )
+      prevProps: {},
+      registered: []
     }
+
+    console.log(`GoogleMap props: `, props)
+
+    invariant(
+      typeof props.map !== 'undefined',
+      'Did you wrap <GoogleMap> component with <GoogleMapProvider />?'
+    )
+
+    invariant(
+      typeof props.mapContainerClassName !== 'undefined' || typeof props.mapContainerStyle !== 'undefined',
+      'Did you set mapContainerClassName or mapContainerStyle props to <GoogleMap> component ? You need to set one of them, or map will be invisible.'
+    )
   }
 
   static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.context[MAP],
-      eventMap,
-      updaterMap
-    )
+    state.registered.length > 0 &&
+    state.registered.forEach((event, i) => {
+      google.maps.event.removeListener(event)
+    })
+
+    if (props.map !== null) {
+      const prevProps = Object.keys(state.prevProps).length === 0
+        ? defaultPropNameList.reduce((acc, propName) => {
+          if (typeof props[propName] !== 'undefined') {
+            const shortPropName = propName.slice(7).toLowerCase()
+
+            updaterMap[defaultPropsMap[propName]](props.map, props[propName])
+
+            acc[shortPropName] = props[propName]
+          }
+
+          return acc
+        }, {})
+        : propNameList.reduce((acc, propName) => {
+          if (typeof props[propName] !== 'undefined') {
+            if (state.prevProps[propName] === props[propName]) {
+              acc[propName] = state.prevProps[propName]
+
+              return acc
+            } else {
+              updaterMap[propsMap[propName]](props.map, props[propName])
+
+              acc[propName] = props[propName]
+
+              return acc
+            }
+          }
+
+          return acc
+        })
+
+      const registered = map(eventMap, (googleEventName, onEventName) => {
+        typeof props[onEventName] === 'function' &&
+        google.maps.event.addListener(props.map, googleEventName, props[onEventName])
+      })
+
+      return {
+        prevProps,
+        registered
+      }
+    }
+
+    return null
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
+  componentWillUnmount = () => {
+    this.state.registered.forEach(event => {
+      google.maps.event.removeListener(event)
+    })
   }
 
-  render () {
-    return (
-      <div>
-        { this.props.children }
-      </div>
-    )
+  getRef = ref => {
+    this.mapRef = ref
   }
+
+  render = () => (
+    <div
+      ref={this.props.mapRef}
+      style={this.props.mapContainerStyle}
+      className={this.props.mapContainerClassName}
+    >
+      {
+        this.props.children
+      }
+    </div>
+  )
 
   fitBounds = (...args) =>
-    this.context[MAP].fitBounds(...args)
+    this.props.map.fitBounds(...args)
 
   panBy = (...args) =>
-    this.context[MAP].panBy(...args)
+    this.props.map.panBy(...args)
 
   panTo = (...args) =>
-    this.context[MAP].panTo(...args)
+    this.props.map.panTo(...args)
 
   panToBounds = (...args) =>
-    this.context[MAP].panToBounds(...args)
+    this.props.map.panToBounds(...args)
 
   getBounds = () =>
-    this.context[MAP].getBounds()
+    this.props.map.getBounds()
 
   getCenter = () =>
-    this.context[MAP].getCenter()
+    this.props.map.getCenter()
 
   getClickableIcons = () =>
-    this.context[MAP].getClickableIcons()
+    this.props.map.getClickableIcons()
 
   getDiv = () =>
-    this.context[MAP].getDiv()
+    this.props.map.getDiv()
 
   getHeading = () =>
-    this.context[MAP].getHeading()
+    this.props.map.getHeading()
 
   getMapTypeId = () =>
-    this.context[MAP].getMapTypeId()
+    this.props.map.getMapTypeId()
 
   getProjection = () =>
-    this.context[MAP].getProjection()
+    this.props.map.getProjection()
 
   getStreetView = () =>
-    this.context[MAP].getStreetView()
+    this.props.map.getStreetView()
 
   getTilt = () =>
-    this.context[MAP].getTilt()
+    this.props.map.getTilt()
 
   getZoom = () =>
-    this.context[MAP].getZoom()
+    this.props.map.getZoom()
 }
 
-export default GoogleMap
+export default withGoogleMapContext(GoogleMap)

@@ -1,5 +1,4 @@
-export { default as withScriptjs } from './withScriptjs'
-export { default as withGoogleMap } from './withGoogleMap'
+export { default as GoogleMapProvider } from './GoogleMapProvider'
 
 export { default as GoogleMap } from './components/maps/GoogleMap'
 export { default as TrafficLayer } from './components/maps/TrafficLayer'
