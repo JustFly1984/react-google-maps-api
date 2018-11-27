@@ -1,23 +1,30 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-
-import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
-} from '../../utils/MapChildHelper'
-
-import { MAP, TRAFFIC_LAYER } from '../../constants'
 import { TrafficLayerPropTypes } from '../../proptypes'
 
-const eventMap = {}
+const propsMap = {
+  map: 'setMap',
+  options: 'setOptions'
+}
+
+const propNameList = [
+  'map',
+  'options'
+]
+
+const defaultPropNameList = [
+  'defaultOptions'
+]
+
+const defaultPropsMap = {
+  defaultOptions: 'setOptions'
+}
 
 const updaterMap = {
-  options (instance, options) {
+  setOptions (instance, options) {
     instance.setOptions(options)
   },
-  map (instance, map) {
+  setMap (instance, map) {
     instance.setMap(map)
   }
 }
@@ -25,47 +32,76 @@ const updaterMap = {
 export class TrafficLayer extends PureComponent {
   static propTypes = TrafficLayerPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-  }
-
-  constructor (props, context) {
-    super(props, context)
-
-    const trafficLayer = new google.maps.TrafficLayer(
-      props.options
-    )
+  constructor (props) {
+    super(props)
 
     this.state = {
-      [TRAFFIC_LAYER]: trafficLayer,
-      prevProps: construct(
-        TrafficLayerPropTypes,
-        updaterMap,
-        props,
-        trafficLayer
-      )
+      trafficLayer: null,
+      prevProps: {}
     }
-
-    trafficLayer.setMap(context[MAP])
   }
 
   static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[TRAFFIC_LAYER],
-      eventMap,
-      updaterMap
-    )
+    if (props.loaded && props.map !== null) {
+      const trafficLayer = state.trafficLayer === null
+        ? new google.maps.TrafficLayer(
+          props.options || props.defaultOptions
+        )
+        : state.trafficLayer
+
+      if (state.trafficLayer === null) {
+        console.log('TrafficLayer componentDidMount map: ', props.map)
+
+        trafficLayer.setMap(props.map)
+      }
+
+      return {
+        trafficLayer,
+        prevProps: Object.keys(state.prevProps).length === 0
+          ? defaultPropNameList.reduce((acc, propName) => {
+            if (typeof props[propName] !== 'undefined') {
+              const shortPropName = propName.slice(7).toLowerCase()
+
+              updaterMap[defaultPropsMap[propName]](props.map, props[propName])
+
+              acc[shortPropName] = props[propName]
+            }
+
+            return acc
+          }, {})
+          : propNameList.reduce((acc, propName) => {
+            if (typeof props[propName] !== 'undefined') {
+              if (state.prevProps[propName] === props[propName]) {
+                acc[propName] = state.prevProps[propName]
+
+                return acc
+              } else {
+                updaterMap[propsMap[propName]](props.map, props[propName])
+
+                acc[propName] = props[propName]
+
+                return acc
+              }
+            }
+
+            return acc
+          })
+      }
+    }
+
+    return {
+      prevProps: {},
+      trafficLayer: state.trafficLayer
+    }
+  }
+
+  componentDidMount = () => {
+    console.log('TrafficLayer didMount')
   }
 
   componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const trafficLayer = this.state[TRAFFIC_LAYER]
-
-    if (trafficLayer) {
-      trafficLayer.setMap(null)
+    if (this.state.trafficLayer !== null) {
+      this.state.trafficLayer.setMap(null)
     }
   }
 
@@ -74,7 +110,7 @@ export class TrafficLayer extends PureComponent {
   }
 
   getMap = () =>
-    this.state[TRAFFIC_LAYER].getMap()
+    this.state.trafficLayer.getMap()
 }
 
 export default TrafficLayer

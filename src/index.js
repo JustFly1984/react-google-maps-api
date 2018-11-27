@@ -1,7 +1,7 @@
 export { default as GoogleMapProvider, LoadScript } from './GoogleMapProvider'
 
 export { default as GoogleMap } from './components/maps/GoogleMap'
-// export { default as TrafficLayer } from './components/maps/TrafficLayer'
+export { default as TrafficLayer } from './components/maps/TrafficLayer'
 export { default as BicyclingLayer } from './components/maps/BicyclingLayer'
 
 // export { default as Marker } from './components/drawing/Marker'
@@ -19,7 +19,7 @@ export { default as BicyclingLayer } from './components/maps/BicyclingLayer'
 // export { default as FusionTablesLayer } from './components/fusion/FusionTablesLayer'
 
 // export { default as ImageMapType } from './components/overlays/ImageMapType'
-// export { default as GroundOverlay } from './components/overlays/GroundOverlay'
+export { default as GroundOverlay } from './components/overlays/GroundOverlay'
 
 // export { default as HeatmapLayer } from './components/heatmap/HeatmapLayer'
 

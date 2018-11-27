@@ -7,7 +7,9 @@ import indexStyles from './index.module.css'
 import {
   LoadScript,
   GoogleMapProvider,
-  GoogleMap
+  GoogleMap,
+  TrafficLayer,
+  BicyclingLayer,
   // Circle,
   // Marker
   // Polyline,
@@ -15,13 +17,12 @@ import {
   // Rectangle,
   // InfoWindow,
   // OverlayView,
-  // GroundOverlay,
+  GroundOverlay
   // DirectionsRenderer,
   // FusionTablesLayer,
   // KmlLayer,
-  // TrafficLayer,
+
   // StreetViewPanorama,
-  // BicyclingLayer,
   // compose
 } from 'react-google-maps-api'
 
@@ -32,7 +33,6 @@ import {
 // You can obtain the API key here:
 // https://developers.google.com/maps/documentation/javascript/get-api-key
 import { googleMapsApiKey } from '../const'
-import { BicyclingLayer } from '../../../../src/components/maps/BicyclingLayer'
 
 const style = {
   maxWidth: '300px',
@@ -90,6 +90,7 @@ const IndexPage = () => (
                   <GoogleMap
                     map={map}
                     mapRef={mapRef}
+                    loaded={loaded}
                     defaultZoom={8}
                     defaultCenter={defaultCenter}
                     mapContainerStyle={mapContainerStyle}
@@ -112,6 +113,7 @@ const IndexPage = () => (
                     <GoogleMap
                       map={map}
                       mapRef={mapRef}
+                      loaded={loaded}
                       defaultZoom={8}
                       defaultCenter={defaultCenter}
                       mapContainerStyle={mapContainerStyle}
@@ -119,11 +121,33 @@ const IndexPage = () => (
                       onClick={(...args) => {
                         console.log('onClick args: ', args)
                       }}
-                    />
+                    >
+                      <TrafficLayer />
 
-                    <BicyclingLayer
-                      map={map}
-                    />
+                      {
+                        (map && loaded) && (
+                          <BicyclingLayer />
+                        )
+                      }
+
+                      {
+                        (map && loaded) && (
+                          <GroundOverlay
+                            defaultUrl='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
+                            defaultBounds={new google.maps.LatLngBounds(
+                              new google.maps.LatLng(40.712216, -74.22655),
+                              new google.maps.LatLng(40.773941, -74.12544)
+                            )}
+                            defaultOptions={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+                              map,
+                              clickable: true,
+                              opacity: 0.5
+                            }}
+                          />
+                        )
+                      }
+
+                    </GoogleMap>
                   </Fragment>
                 )}
               />

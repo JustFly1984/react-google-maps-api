@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 
 export const GoogleMapProviderPropTypes = {
   id: PropTypes.string.isRequired,
+  loaded: PropTypes.bool.isRequired,
   render: PropTypes.func.isRequired,
   loadingElement: PropTypes.node.isRequired
   // googleMapsApiKey: PropTypes.string.isRequired,
@@ -307,6 +308,7 @@ export const GoogleMapOptionsInterface = {
 
 export const GoogleMapPropTypes = {
   children: PropTypes.node,
+  loaded: PropTypes.bool.isRequired,
   map: PropTypes.object, // it is null while map is not loaded
   mapContainerStyle: PropTypes.object,
   mapContainerClassName: PropTypes.string,
@@ -387,7 +389,7 @@ export const GoogleMapInterface = {
   fitBounds: PropTypes.func.isRequired,
   getBounds: PropTypes.func.isRequired,
   getCenter: PropTypes.func.isRequired,
-  getClicableIcons: PropTypes.func.isRequired,
+  getClicableIcons: PropTypes.func, // .isRequired, // WTF
   getDiv: PropTypes.func.isRequired,
   getHeading: PropTypes.func.isRequired,
   getMapTypeId: PropTypes.func.isRequired,
@@ -428,11 +430,11 @@ export const TrafficLayerOptionsInterface = {
   ).isRequired
 }
 
-export const TrafficLayerPropTypes = {
-  defaultOptions: PropTypes.any,
-  options: PropTypes.shape(
-    TrafficLayerOptionsInterface
-  ),
+export const TrafficLayerDefaultOptionsInterface = {
+  autoRefresh: PropTypes.bool,
+  map: PropTypes.shape(
+    GoogleMapInterface
+  )
 }
 
 export const PathInterface = PropTypes.oneOfType([
@@ -1050,18 +1052,12 @@ export const GroundOverlayOptionsInterface = {
   opacity: PropTypes.number.isRequired
 }
 
-export const GroundOverlayPropTypes = {
-  options: PropTypes.shape(
-    GroundOverlayOptionsInterface
+export const GroundOverlayDefaultOptionsInterface = {
+  clickable: PropTypes.bool,
+  map: PropTypes.shape(
+    GoogleMapInterface
   ),
-  defaultUrl: PropTypes.string.isRequired,
-  defaultBounds: PropTypes.object.isRequired,
-  url: PropTypes.string,
-  bounds: PropTypes.object,
-  defaultOpacity: PropTypes.number,
-  opacity: PropTypes.number,
-  onDblClick: PropTypes.func,
-  onClick: PropTypes.func,
+  opacity: PropTypes.number
 }
 
 export const HeatmapLayerOptionsInterface = {
@@ -1582,5 +1578,35 @@ export const MarkerWithLabelPropTypes = {
 }
 
 export const BicyclingLayerPropTypes = {
-  map: PropTypes.object
+  map: PropTypes.object,
+  loaded: PropTypes.bool.isRequired
+}
+
+export const TrafficLayerPropTypes = {
+  defaultOptions: PropTypes.shape(
+    TrafficLayerDefaultOptionsInterface
+  ),
+  options: PropTypes.shape(
+    TrafficLayerOptionsInterface
+  ),
+  map: PropTypes.object,
+  loaded: PropTypes.bool.isRequired
+}
+
+export const GroundOverlayPropTypes = {
+  options: PropTypes.shape(
+    GroundOverlayOptionsInterface
+  ),
+  defaultOptions: PropTypes.shape(
+    GroundOverlayDefaultOptionsInterface
+  ).isRequired,
+  defaultUrl: PropTypes.string.isRequired,
+  url: PropTypes.string,
+  defaultBounds: PropTypes.object.isRequired,
+  bounds: PropTypes.object,
+  defaultOpacity: PropTypes.number,
+  opacity: PropTypes.number,
+
+  onDblClick: PropTypes.func,
+  onClick: PropTypes.func,
 }

@@ -23,13 +23,27 @@ export class BicyclingLayer extends PureComponent {
     super(props)
 
     this.state = {
+      bicyclingLayer: null,
       prevProps: {}
     }
   }
 
   static getDerivedStateFromProps (props, state) {
-    if (props.map !== null) {
+    console.log('BicyclingLayer getDerivedStateFromProps map: ', props.map)
+    console.log('BicyclingLayer getDerivedStateFromProps loaded: ', props.loaded)
+    if (props.loaded && props.map !== null) {
+      const bicyclingLayer = state.bicyclingLayer === null
+        ? new google.maps.BicyclingLayer()
+        : state.bicyclingLayer
+
+      if (state.bicyclingLayer === null) {
+        console.log('BicyclingLayer componentDidMount map: ', props.map)
+
+        bicyclingLayer.setMap(props.map)
+      }
+
       return {
+        bicyclingLayer,
         prevProps: propNameList.reduce((acc, propName) => {
           if (typeof props[propName] !== 'undefined') {
             if (state.prevProps[propName] === props[propName]) {
@@ -50,18 +64,19 @@ export class BicyclingLayer extends PureComponent {
       }
     }
 
-    return null
+    return {
+      bicyclingLayer: state.bicyclingLayer,
+      prevProps: state.prevProps
+    }
   }
 
   componentDidMount = () => {
-    this.bicyclingLayer = new google.maps.BicyclingLayer()
-    console.log('BicyclingLayer componentDidMount map: ', this.props.map)
-    this.bicyclingLayer.setMap(this.props.map)
+    console.log('BicyclingLayer didMount')
   }
 
   componentWillUnmount () {
-    if (this.bicyclingLayer) {
-      this.bicyclingLayer.setMap(null)
+    if (this.state.bicyclingLayer !== null) {
+      this.state.bicyclingLayer.setMap(null)
     }
   }
 
@@ -70,7 +85,7 @@ export class BicyclingLayer extends PureComponent {
   }
 
   getMap = () =>
-    this.bicyclingLayer.getMap()
+    this.state.bicyclingLayer.getMap()
 }
 
 export default BicyclingLayer

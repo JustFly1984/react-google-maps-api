@@ -104,14 +104,13 @@ export class GoogleMapProvider extends PureComponent {
     )
   }
 
-  render = () => (
+  render = () =>
     this.props.loaded
-  )
-    ? this.props.render({
-      map: this.state.map,
-      mapRef: this.getRef
-    })
-    : this.props.loadingElement
+      ? this.props.render({
+        map: this.state.map,
+        mapRef: this.getRef
+      })
+      : this.props.loadingElement
 }
 
 export default GoogleMapProvider

@@ -1,6 +1,6 @@
 /* global google */
 /* eslint-disable filenames/match-regex */
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Children, cloneElement } from 'react'
 import invariant from 'invariant'
 
 import { GoogleMapPropTypes } from '../../proptypes'
@@ -128,6 +128,10 @@ export class GoogleMap extends PureComponent {
     )
   }
 
+  componentDidMount = () => {
+    console.log('GoogleMap this.props.loaded: ', this.props.loaded)
+  }
+
   static getDerivedStateFromProps (props, state) {
     state.registered.length > 0 &&
     state.registered.forEach((event, i) => {
@@ -172,7 +176,10 @@ export class GoogleMap extends PureComponent {
       }
     }
 
-    return null
+    return {
+      prevProps: {},
+      registered: []
+    }
   }
 
   componentWillUnmount = () => {
@@ -192,7 +199,15 @@ export class GoogleMap extends PureComponent {
       className={this.props.mapContainerClassName}
     >
       {
-        this.props.children
+        this.props.loaded &&
+        Children.map(this.props.children, child => {
+          return child !== null
+            ? cloneElement(child, {
+              map: this.props.map,
+              loaded: this.props.loaded
+            })
+            : child
+        })
       }
     </div>
   )
