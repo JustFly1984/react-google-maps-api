@@ -1,75 +1,51 @@
 /* global google */
-import React, { PureComponent, Component, createContext } from 'react'
+import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import invariant from 'invariant'
 
-let isInstalled = false
-let isLoading = false
+import { GoogleMapProviderPropTypes } from './proptypes'
 
-const GoogleMapProviderPropTypes = {
-  children: PropTypes.node.isRequired,
-  loadingElement: PropTypes.node.isRequired,
+let isInstalled = false
+
+const LoadScriptPropTypes = {
   googleMapsApiKey: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
   region: PropTypes.string.isRequired,
-  version: PropTypes.string.isRequired
+  version: PropTypes.string.isRequired,
+  onLoad: PropTypes.func.isRequired,
+  render: PropTypes.func.isRequired
 }
-
-export const GoogleMapContext = createContext('map')
-
-export class GoogleMapProvider extends PureComponent {
-  static propTypes = GoogleMapProviderPropTypes
+export class LoadScript extends PureComponent {
+  static propTypes = LoadScriptPropTypes
 
   constructor (props) {
     super(props)
 
     this.state = {
-      loaded: false,
-      map: null
+      loaded: false
     }
-  }
 
-  static getDerivedStateFromProps (props, state) {
-    invariant(
-      !!props.loadingElement,
-      'Required prop loadingElement is missing in <GoogleMapProvider />.'
-    )
     invariant(
       props.googleMapsApiKey,
-      'Required prop googleMapsApiKey is missingin <GoogleMapProvider />.'
-    )
-    invariant(
-      props.googleMapsApiKey,
-      'Required prop googleMapsApiKey is missing in <GoogleMapProvider />.'
+      'Required prop googleMapsApiKey is missingin <LoadScript />.'
     )
     invariant(
       props.language,
-      'Required prop language is missing in <GoogleMapProvider />.'
+      'Required prop language is missing in <LoadScript />.'
     )
     invariant(
       props.region,
-      'Required prop region is missing in <GoogleMapProvider />.'
+      'Required prop region is missing in <LoadScript />.'
     )
 
     invariant(
       props.version,
-      'Required prop version is missing in <GoogleMapProvider />.'
+      'Required prop version is missing in <LoadScript />.'
     )
-
-    if (isInstalled && !isLoading) {
-      return {
-        loaded: true
-      }
-    }
-
-    return null
   }
 
   componentDidMount = () => {
-    console.log('provider did mount')
-    if (!isInstalled && !isLoading) {
-      isLoading = true
-
+    if (!isInstalled) {
       const scriptjs = require(`scriptjs`)
 
       const {
@@ -83,15 +59,41 @@ export class GoogleMapProvider extends PureComponent {
 
       scriptjs.ready('googlemaps', () => {
         isInstalled = true
-        isLoading = false
 
+        this.props.onLoad()
         this.setState(() => ({ loaded: true }))
       })
     }
 
-    if (isInstalled && !isLoading) {
+    if (isInstalled) {
+      this.props.onLoad()
       this.setState(() => ({ loaded: true }))
     }
+  }
+
+  render = () => this.props.render({
+    loaded: this.state.loaded
+  })
+}
+
+export class GoogleMapProvider extends PureComponent {
+  static propTypes = GoogleMapProviderPropTypes
+
+  state = {
+    map: null
+  }
+
+  static getDerivedStateFromProps (props) {
+    invariant(
+      !!props.loadingElement,
+      'Required prop loadingElement is missing in <GoogleMapProvider />.'
+    )
+
+    return null
+  }
+
+  componentDidMount = () => {
+    console.log(`Provider id ${this.props.id} did mount`)
   }
 
   getRef = ref => {
@@ -102,52 +104,14 @@ export class GoogleMapProvider extends PureComponent {
     )
   }
 
-  render = () => {
-    const value = { // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+  render = () => (
+    this.props.loaded
+  )
+    ? this.props.render({
       map: this.state.map,
       mapRef: this.getRef
-    }
-
-    console.log('value: ', value)
-
-    return (
-      <GoogleMapContext.Provider
-        value={value}
-      >
-        {
-          (
-            isInstalled &&
-            !isLoading &&
-            this.state.loaded
-          )
-            ? this.props.children
-            : this.props.loadingElement
-        }
-      </GoogleMapContext.Provider>
-    )
-  }
-}
-
-export const withGoogleMapContext = BaseComponent => {
-  console.log('withGoogleMapContext BaseComponent: ', BaseComponent)
-  return class GoogleMapContextContainer extends Component {
-    render = () => (
-      <GoogleMapContext.Consumer>
-        {
-          ({ map, mapRef }) => {
-            console.log('map: ', map, ' mapRef: ', mapRef)
-            return (
-              <BaseComponent
-                map={map}
-                mapRef={mapRef}
-                {...this.props}
-              />
-            )
-          }
-        }
-      </GoogleMapContext.Consumer>
-    )
-  }
+    })
+    : this.props.loadingElement
 }
 
 export default GoogleMapProvider

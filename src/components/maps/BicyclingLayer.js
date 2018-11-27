@@ -1,65 +1,67 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import { BicyclingLayerPropTypes } from '../../proptypes'
 
-import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
-} from '../../utils/MapChildHelper'
+const propsMap = {
+  map: 'setMap'
+}
 
-import { MAP, BICYCLING_LAYER } from '../../constants'
-
-const eventMap = {}
+const propNameList = [
+  'map'
+]
 
 const updaterMap = {
-  map (instance, map) {
+  setMap (instance, map) {
     instance.setMap(map)
   }
 }
 
 export class BicyclingLayer extends PureComponent {
-  static propTypes = {}
+  static propTypes = BicyclingLayerPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-  }
-
-  constructor (props, context) {
-    super(props, context)
-
-    const bicyclingLayer = new google.maps.BicyclingLayer()
+  constructor (props) {
+    super(props)
 
     this.state = {
-      [BICYCLING_LAYER]: bicyclingLayer,
-      prevProps: construct(
-        BicyclingLayer.propTypes,
-        updaterMap,
-        props,
-        bicyclingLayer
-      )
+      prevProps: {}
     }
-
-    bicyclingLayer.setMap(context[MAP])
   }
 
   static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[BICYCLING_LAYER],
-      eventMap,
-      updaterMap
-    )
+    if (props.map !== null) {
+      return {
+        prevProps: propNameList.reduce((acc, propName) => {
+          if (typeof props[propName] !== 'undefined') {
+            if (state.prevProps[propName] === props[propName]) {
+              acc[propName] = state.prevProps[propName]
+
+              return acc
+            } else {
+              updaterMap[propsMap[propName]](props.map, props[propName])
+
+              acc[propName] = props[propName]
+
+              return acc
+            }
+          }
+
+          return acc
+        })
+      }
+    }
+
+    return null
+  }
+
+  componentDidMount = () => {
+    this.bicyclingLayer = new google.maps.BicyclingLayer()
+    console.log('BicyclingLayer componentDidMount map: ', this.props.map)
+    this.bicyclingLayer.setMap(this.props.map)
   }
 
   componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const bicyclingLayer = this.state[BICYCLING_LAYER]
-
-    if (bicyclingLayer) {
-      bicyclingLayer.setMap(null)
+    if (this.bicyclingLayer) {
+      this.bicyclingLayer.setMap(null)
     }
   }
 
@@ -68,7 +70,7 @@ export class BicyclingLayer extends PureComponent {
   }
 
   getMap = () =>
-    this.state[BICYCLING_LAYER].getMap()
+    this.bicyclingLayer.getMap()
 }
 
 export default BicyclingLayer

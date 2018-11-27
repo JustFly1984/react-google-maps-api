@@ -1,5 +1,15 @@
 import PropTypes from 'prop-types'
 
+export const GoogleMapProviderPropTypes = {
+  id: PropTypes.string.isRequired,
+  render: PropTypes.func.isRequired,
+  loadingElement: PropTypes.node.isRequired
+  // googleMapsApiKey: PropTypes.string.isRequired,
+  // language: PropTypes.string.isRequired,
+  // region: PropTypes.string.isRequired,
+  // version: PropTypes.string.isRequired
+}
+
 export const PointInterface = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
@@ -1569,4 +1579,8 @@ export const MarkerWithLabelPropTypes = {
   onTitleChanged: PropTypes.func,
   onVisibleChanged: PropTypes.func,
   onZindexChanged: PropTypes.func,
+}
+
+export const BicyclingLayerPropTypes = {
+  map: PropTypes.object
 }

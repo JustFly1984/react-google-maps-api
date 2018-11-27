@@ -5,7 +5,6 @@ import invariant from 'invariant'
 
 import { GoogleMapPropTypes } from '../../proptypes'
 import { map } from '../../utils/map'
-import { GoogleMapContext, withGoogleMapContext } from '../../GoogleMapProvider'
 
 const eventMap = {
   onDblClick: 'dblclick',
@@ -109,7 +108,6 @@ const updaterMap = {
 
 export class GoogleMap extends PureComponent {
   static propTypes = GoogleMapPropTypes
-  static contextType = GoogleMapContext
 
   constructor (props) {
     super(props)
@@ -118,8 +116,6 @@ export class GoogleMap extends PureComponent {
       prevProps: {},
       registered: []
     }
-
-    console.log(`GoogleMap props: `, props)
 
     invariant(
       typeof props.map !== 'undefined',
@@ -139,44 +135,40 @@ export class GoogleMap extends PureComponent {
     })
 
     if (props.map !== null) {
-      const prevProps = Object.keys(state.prevProps).length === 0
-        ? defaultPropNameList.reduce((acc, propName) => {
-          if (typeof props[propName] !== 'undefined') {
-            const shortPropName = propName.slice(7).toLowerCase()
-
-            updaterMap[defaultPropsMap[propName]](props.map, props[propName])
-
-            acc[shortPropName] = props[propName]
-          }
-
-          return acc
-        }, {})
-        : propNameList.reduce((acc, propName) => {
-          if (typeof props[propName] !== 'undefined') {
-            if (state.prevProps[propName] === props[propName]) {
-              acc[propName] = state.prevProps[propName]
-
-              return acc
-            } else {
-              updaterMap[propsMap[propName]](props.map, props[propName])
-
-              acc[propName] = props[propName]
-
-              return acc
-            }
-          }
-
-          return acc
-        })
-
-      const registered = map(eventMap, (googleEventName, onEventName) => {
-        typeof props[onEventName] === 'function' &&
-        google.maps.event.addListener(props.map, googleEventName, props[onEventName])
-      })
-
       return {
-        prevProps,
-        registered
+        prevProps: Object.keys(state.prevProps).length === 0
+          ? defaultPropNameList.reduce((acc, propName) => {
+            if (typeof props[propName] !== 'undefined') {
+              const shortPropName = propName.slice(7).toLowerCase()
+
+              updaterMap[defaultPropsMap[propName]](props.map, props[propName])
+
+              acc[shortPropName] = props[propName]
+            }
+
+            return acc
+          }, {})
+          : propNameList.reduce((acc, propName) => {
+            if (typeof props[propName] !== 'undefined') {
+              if (state.prevProps[propName] === props[propName]) {
+                acc[propName] = state.prevProps[propName]
+
+                return acc
+              } else {
+                updaterMap[propsMap[propName]](props.map, props[propName])
+
+                acc[propName] = props[propName]
+
+                return acc
+              }
+            }
+
+            return acc
+          }),
+        registered: map(eventMap, (googleEventName, onEventName) => {
+          typeof props[onEventName] === 'function' &&
+            google.maps.event.addListener(props.map, googleEventName, props[onEventName])
+        })
       }
     }
 
@@ -248,4 +240,4 @@ export class GoogleMap extends PureComponent {
     this.props.map.getZoom()
 }
 
-export default withGoogleMapContext(GoogleMap)
+export default GoogleMap

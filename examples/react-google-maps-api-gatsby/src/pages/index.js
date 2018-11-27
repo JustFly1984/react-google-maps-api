@@ -1,10 +1,11 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
+import React, { Fragment } from 'react'
 // import PropTypes from 'prop-types'
 import Layout from '../components/layout'
 import indexStyles from './index.module.css'
 
 import {
+  LoadScript,
   GoogleMapProvider,
   GoogleMap
   // Circle,
@@ -31,6 +32,7 @@ import {
 // You can obtain the API key here:
 // https://developers.google.com/maps/documentation/javascript/get-api-key
 import { googleMapsApiKey } from '../const'
+import { BicyclingLayer } from '../../../../src/components/maps/BicyclingLayer'
 
 const style = {
   maxWidth: '300px',
@@ -68,25 +70,68 @@ const IndexPage = () => (
     <h1>Hello People!</h1>
     <p>Welcome to React Google Maps Light Example.</p>
 
-    <div style={style}>
-      <GoogleMapProvider
-        googleMapsApiKey={googleMapsApiKey}
-        language={'en'}
-        region={'EN'}
-        version={'weekly'}
-        loadingElement={Loading}
-      >
-        <GoogleMap
-          defaultZoom={8}
-          defaultCenter={defaultCenter}
-          mapContainerStyle={mapContainerStyle}
-          mapContainerClassName={indexStyles.mapContainer}
-          onClick={(...args) => {
-            console.log('onClick args: ', args)
-          }}
-        />
-      </GoogleMapProvider>
-    </div>
+    <LoadScript
+      googleMapsApiKey={googleMapsApiKey}
+      language={'en'}
+      region={'EN'}
+      version={'weekly'}
+      onLoad={() => (
+        console.log('script loaded')
+      )}
+      render={({ loaded }) => (
+        loaded && (
+          <Fragment>
+            <div style={style}>
+              <GoogleMapProvider
+                id='first'
+                loaded={loaded}
+                loadingElement={Loading}
+                render={({ map, mapRef }) => (
+                  <GoogleMap
+                    map={map}
+                    mapRef={mapRef}
+                    defaultZoom={8}
+                    defaultCenter={defaultCenter}
+                    mapContainerStyle={mapContainerStyle}
+                    mapContainerClassName={indexStyles.mapContainer}
+                    onClick={(...args) => {
+                      console.log('onClick args: ', args)
+                    }}
+                  />
+                )}
+              />
+            </div>
+
+            <div style={style}>
+              <GoogleMapProvider
+                id='second'
+                loaded={loaded}
+                loadingElement={Loading}
+                render={({ map, mapRef }) => (
+                  <Fragment>
+                    <GoogleMap
+                      map={map}
+                      mapRef={mapRef}
+                      defaultZoom={8}
+                      defaultCenter={defaultCenter}
+                      mapContainerStyle={mapContainerStyle}
+                      mapContainerClassName={indexStyles.mapContainer}
+                      onClick={(...args) => {
+                        console.log('onClick args: ', args)
+                      }}
+                    />
+
+                    <BicyclingLayer
+                      map={map}
+                    />
+                  </Fragment>
+                )}
+              />
+            </div>
+          </Fragment>
+        )
+      )}
+    />
   </Layout>
 )
 

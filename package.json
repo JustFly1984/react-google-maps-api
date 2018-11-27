@@ -76,6 +76,10 @@
   "lint-staged": {
     "*.{js,json}": [
       "npm run lint"
+    ],
+    "ignore": [
+      "/dist/*.js",
+      "/lib/*.js"
     ]
   },
   "types": "types",
