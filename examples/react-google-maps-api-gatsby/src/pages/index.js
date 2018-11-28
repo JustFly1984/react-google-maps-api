@@ -4,6 +4,7 @@ import React, { Fragment } from 'react'
 // import PropTypes from 'prop-types'
 import Layout from '../components/layout'
 import indexStyles from './index.module.css'
+import uuid from 'uuidv4'
 
 import {
   LoadScript,
@@ -40,7 +41,7 @@ const style = {
   marginBottom: '1.45rem'
 }
 
-const defaultCenter = {
+const center = {
   lat: -34.397,
   lng: 150.644
 }
@@ -66,12 +67,15 @@ const Loading = (
   />
 )
 
+const id = uuid()
+
 const IndexPage = () => (
   <Layout>
     <h1>Hello People!</h1>
     <p>Welcome to React Google Maps Light Example.</p>
 
     <LoadScript
+      id={id}
       googleMapsApiKey={googleMapsApiKey}
       language={'en'}
       region={'EN'}
@@ -92,8 +96,8 @@ const IndexPage = () => (
                     map={map}
                     mapRef={mapRef}
                     loaded={loaded}
-                    defaultZoom={8}
-                    defaultCenter={defaultCenter}
+                    zoom={8}
+                    center={center}
                     mapContainerStyle={mapContainerStyle}
                     mapContainerClassName={indexStyles.mapContainer}
                     onClick={(...args) => {
@@ -115,8 +119,8 @@ const IndexPage = () => (
                       map={map}
                       mapRef={mapRef}
                       loaded={loaded}
-                      defaultZoom={8}
-                      defaultCenter={defaultCenter}
+                      zoom={8}
+                      center={center}
                       mapContainerStyle={mapContainerStyle}
                       mapContainerClassName={indexStyles.mapContainer}
                       onClick={(...args) => {

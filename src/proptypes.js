@@ -403,68 +403,6 @@ export const MarkerOptionsInterface = {
   ]).isRequired
 }
 
-export const MarkerPropTypes = {
-  children: PropTypes.node,
-  options: PropTypes.shape(
-    MarkerOptionsInterface
-  ),
-  noRedraw: PropTypes.func,
-  // defaultAnimation: PropTypes.any,
-  // defaultClickable: PropTypes.bool,
-  // defaultCursor: PropTypes.string,
-  // defaultDraggable: PropTypes.bool,
-  // defaultIcon: PropTypes.any,
-  // defaultLabel: PropTypes.any,
-  // defaultOpacity: PropTypes.number,
-  // defaultOptions: PropTypes.any,
-  // defaultPlace: PropTypes.any,
-  // defaultPosition: PropTypes.any,
-  // defaultShape: PropTypes.any,
-  // defaultTitle: PropTypes.string,
-  // defaultVisible: PropTypes.bool,
-  // defaultZIndex: PropTypes.number,
-  animation: PropTypes.any,
-  clickable: PropTypes.bool,
-  cursor: PropTypes.string,
-  draggable: PropTypes.bool,
-  icon: PropTypes.any,
-  label: PropTypes.any,
-  opacity: PropTypes.number,
-  position: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngInterface
-    ),
-    PropTypes.shape(
-      LatLngLiteralInterface
-    )
-  ]),
-  shape: PropTypes.any,
-  title: PropTypes.string,
-  visible: PropTypes.bool,
-  zIndex: PropTypes.number,
-  onDblClick: PropTypes.func,
-  onDragEnd: PropTypes.func,
-  onDragStart: PropTypes.func,
-  onMouseDown: PropTypes.func,
-  onMouseOut: PropTypes.func,
-  onMouseOver: PropTypes.func,
-  onMouseUp: PropTypes.func,
-  onRightClick: PropTypes.func,
-  onAnimationChanged: PropTypes.func,
-  onClick: PropTypes.func,
-  onClickableChanged: PropTypes.func,
-  onCursorChanged: PropTypes.func,
-  onDrag: PropTypes.func,
-  onDraggableChanged: PropTypes.func,
-  onFlatChanged: PropTypes.func,
-  onIconChanged: PropTypes.func,
-  onPositionChanged: PropTypes.func,
-  onShapeChanged: PropTypes.func,
-  onTitleChanged: PropTypes.func,
-  onVisibleChanged: PropTypes.func,
-  onZindexChanged: PropTypes.func,
-}
-
 export const InfoWindowOptionsInterface = {
   content: PropTypes.oneOfType([
     PropTypes.string,
@@ -501,30 +439,6 @@ export const InfoWindowInterface = {
   onDomReady: PropTypes.func.isRequired,
   onPositionChanged: PropTypes.func.isRequired,
   onZindexChanged: PropTypes.func.isRequired
-}
-
-export const InfoWindowPropTypes = {
-  children: PropTypes.node,
-  options: PropTypes.shape(
-    InfoWindowOptionsInterface
-  ),
-  // defaultOptions: PropTypes.any,
-  // defaultPosition: PropTypes.any,
-  // defaultZIndex: PropTypes.number,
-  position: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngInterface
-    ),
-    PropTypes.shape(
-      LatLngLiteralInterface
-    )
-  ]).isRequired,
-  zIndex: PropTypes.number,
-  onCloseClick: PropTypes.func,
-  onDomReady: PropTypes.func,
-  onContentChanged: PropTypes.func,
-  onPositionChanged: PropTypes.func,
-  onZindexChanged: PropTypes.func,
 }
 
 export const PolylineOptionsInterface = {
@@ -1008,46 +922,6 @@ export const HeatmapLayerOptionsInterface = {
   radius: PropTypes.number.isRequired
 }
 
-export const HeatmapLayerPropTypes = {
-  options: PropTypes.shape(
-    HeatmapLayerOptionsInterface
-  ),
-  // defaultOptions: PropTypes.any,
-  // defaultData: PropTypes.any,
-  data: PropTypes.any,
-}
-
-export const StreetViewPanoramaPropTypes = {
-  options: PropTypes.shape(
-    StreetViewPanoramaOptionsInterface
-  ),
-  children: PropTypes.node,
-  // defaultLinks: PropTypes.any,
-  // defaultMotionTracking: PropTypes.bool,
-  // defaultOptions: PropTypes.any,
-  // defaultPano: PropTypes.string,
-  // defaultPosition: PropTypes.any,
-  // defaultPov: PropTypes.any,
-  // defaultVisible: PropTypes.bool,
-  // defaultZoom: PropTypes.number,
-  links: PropTypes.any,
-  motionTracking: PropTypes.bool,
-
-  pano: PropTypes.string,
-  position: PropTypes.any,
-  pov: PropTypes.any,
-  visible: PropTypes.bool,
-  zoom: PropTypes.number,
-  onCloseClick: PropTypes.func,
-  onPanoChanged: PropTypes.func,
-  onPositionChanged: PropTypes.func,
-  onPovChanged: PropTypes.func,
-  onResize: PropTypes.func,
-  onStatusChanged: PropTypes.func,
-  onVisibleChanged: PropTypes.func,
-  onZoomChanged: PropTypes.func,
-}
-
 export const ComponentRestrictionsInterface = {
   country: PropTypes.oneOfType([
     PropTypes.string,
@@ -1335,10 +1209,6 @@ export const DirectionsRendererPropTypes = {
   options: PropTypes.shape(
     DirectionsRendererOptionsInterface
   ),
-  // defaultDirections: PropTypes.any,
-  // defaultOptions: PropTypes.any,
-  // defaultPanel: PropTypes.any,
-  // defaultRouteIndex: PropTypes.number,
   directions: PropTypes.any,
   panel: PropTypes.any,
   routeIndex: PropTypes.number,
@@ -1382,8 +1252,6 @@ export const DrawingManagerPropTypes = {
   options: PropTypes.shape(
     DrawingManagerOptionsInterface
   ),
-  // defaultDrawingMode: PropTypes.any,
-  // defaultOptions: PropTypes.any,
   drawingMode: PropTypes.any,
   onCircleComplete: PropTypes.func,
   onMarkerComplete: PropTypes.func,
@@ -1393,13 +1261,30 @@ export const DrawingManagerPropTypes = {
   onRectangleComplete: PropTypes.func,
 }
 
+export const InfoWindowPropTypes = {
+  children: PropTypes.node,
+  options: PropTypes.shape(
+    InfoWindowOptionsInterface
+  ),
+  position: PropTypes.oneOfType([
+    PropTypes.shape(
+      LatLngInterface
+    ),
+    PropTypes.shape(
+      LatLngLiteralInterface
+    )
+  ]).isRequired,
+  zIndex: PropTypes.number,
+  onCloseClick: PropTypes.func,
+  onDomReady: PropTypes.func,
+  onContentChanged: PropTypes.func,
+  onPositionChanged: PropTypes.func,
+  onZindexChanged: PropTypes.func,
+}
+
 export const InfoBoxPropTypes = {
   options: PropTypes.any,
   children: PropTypes.node,
-  // defaultOptions: PropTypes.any,
-  // defaultPosition: PropTypes.any,
-  // defaultVisible: PropTypes.bool,
-  // defaultZIndex: PropTypes.number,
   position: PropTypes.any,
   visible: PropTypes.bool,
   zIndex: PropTypes.number,
@@ -1410,24 +1295,86 @@ export const InfoBoxPropTypes = {
   onZindexChanged: PropTypes.func,
 }
 
+export const HeatmapLayerPropTypes = {
+  options: PropTypes.shape(
+    HeatmapLayerOptionsInterface
+  ),
+  data: PropTypes.any,
+}
+
+export const StreetViewPanoramaPropTypes = {
+  options: PropTypes.shape(
+    StreetViewPanoramaOptionsInterface
+  ),
+  children: PropTypes.node,
+  links: PropTypes.any,
+  motionTracking: PropTypes.bool,
+
+  pano: PropTypes.string,
+  position: PropTypes.any,
+  pov: PropTypes.any,
+  visible: PropTypes.bool,
+  zoom: PropTypes.number,
+  onCloseClick: PropTypes.func,
+  onPanoChanged: PropTypes.func,
+  onPositionChanged: PropTypes.func,
+  onPovChanged: PropTypes.func,
+  onResize: PropTypes.func,
+  onStatusChanged: PropTypes.func,
+  onVisibleChanged: PropTypes.func,
+  onZoomChanged: PropTypes.func,
+}
+
+export const MarkerPropTypes = {
+  children: PropTypes.node,
+  options: PropTypes.shape(
+    MarkerOptionsInterface
+  ),
+  noRedraw: PropTypes.func,
+  animation: PropTypes.any,
+  clickable: PropTypes.bool,
+  cursor: PropTypes.string,
+  draggable: PropTypes.bool,
+  icon: PropTypes.any,
+  label: PropTypes.any,
+  opacity: PropTypes.number,
+  position: PropTypes.oneOfType([
+    PropTypes.shape(
+      LatLngInterface
+    ),
+    PropTypes.shape(
+      LatLngLiteralInterface
+    )
+  ]),
+  shape: PropTypes.any,
+  title: PropTypes.string,
+  visible: PropTypes.bool,
+  zIndex: PropTypes.number,
+  onDblClick: PropTypes.func,
+  onDragEnd: PropTypes.func,
+  onDragStart: PropTypes.func,
+  onMouseDown: PropTypes.func,
+  onMouseOut: PropTypes.func,
+  onMouseOver: PropTypes.func,
+  onMouseUp: PropTypes.func,
+  onRightClick: PropTypes.func,
+  onAnimationChanged: PropTypes.func,
+  onClick: PropTypes.func,
+  onClickableChanged: PropTypes.func,
+  onCursorChanged: PropTypes.func,
+  onDrag: PropTypes.func,
+  onDraggableChanged: PropTypes.func,
+  onFlatChanged: PropTypes.func,
+  onIconChanged: PropTypes.func,
+  onPositionChanged: PropTypes.func,
+  onShapeChanged: PropTypes.func,
+  onTitleChanged: PropTypes.func,
+  onVisibleChanged: PropTypes.func,
+  onZindexChanged: PropTypes.func,
+}
+
 export const MarkerClustererPropTypes = {
   children: PropTypes.node,
-  // defaultAverageCenter: PropTypes.bool,
-  // defaultBatchSizeIE: PropTypes.number,
-  // defaultBatchSize: PropTypes.number,
-  // defaultCalculator: PropTypes.func,
-  // defaultClusterClass: PropTypes.string,
-  // defaultEnableRetinaIcons: PropTypes.bool,
-  // defaultGridSize: PropTypes.number,
-  // defaultIgnoreHidden: PropTypes.bool,
-  // defaultImageExtension: PropTypes.string,
-  // defaultImagePath: PropTypes.string,
-  // defaultImageSizes: PropTypes.array,
-  // defaultMaxZoom: PropTypes.number,
-  // defaultMinimumClusterSize: PropTypes.number,
-  // defaultStyles: PropTypes.array,
-  // defaultTitle: PropTypes.string,
-  // defaultZoomOnClick: PropTypes.bool,
   averageCenter: PropTypes.bool,
   batchSizeIE: PropTypes.number,
   batchSize: PropTypes.number,
@@ -1458,20 +1405,6 @@ export const MarkerWithLabelPropTypes = {
   labelStyle: PropTypes.object,
   labelVisible: PropTypes.bool,
   noRedraw: PropTypes.bool,
-  // defaultAnimation: PropTypes.any,
-  // defaultClickable: PropTypes.bool,
-  // defaultCursor: PropTypes.string,
-  // defaultDraggable: PropTypes.bool,
-  // defaultIcon: PropTypes.any,
-  // defaultLabel: PropTypes.any,
-  // defaultOpacity: PropTypes.number,
-  // defaultOptions: PropTypes.any,
-  // defaultPlace: PropTypes.any,
-  // defaultPosition: PropTypes.any,
-  // defaultShape: PropTypes.any,
-  // defaultTitle: PropTypes.string,
-  // defaultVisible: PropTypes.bool,
-  // defaultZIndex: PropTypes.number,
   animation: PropTypes.any,
   clickable: PropTypes.bool,
   cursor: PropTypes.string,
@@ -1537,10 +1470,6 @@ export const GoogleMapProviderPropTypes = {
   loaded: PropTypes.bool.isRequired,
   render: PropTypes.func.isRequired,
   loadingElement: PropTypes.node.isRequired
-  // googleMapsApiKey: PropTypes.string.isRequired,
-  // language: PropTypes.string.isRequired,
-  // region: PropTypes.string.isRequired,
-  // version: PropTypes.string.isRequired
 }
 
 export const GoogleMapPropTypes = {
@@ -1553,18 +1482,6 @@ export const GoogleMapPropTypes = {
   options: PropTypes.shape(
     GoogleMapOptionsInterface
   ),
-  // defaultExtraMapTypes: PropTypes.arrayOf(
-  //   PropTypes.arrayOf(PropTypes.any)
-  // ),
-  // defaultCenter: PropTypes.any,
-  // defaultClickableIcons: PropTypes.bool,
-  // defaultHeading: PropTypes.number,
-  // defaultMapTypeId: PropTypes.any,
-  // defaultOptions: PropTypes.any,
-  // defaultStreetView: PropTypes.any,
-  // defaultTilt: PropTypes.number,
-  // defaultZoom: PropTypes.number,
-
   extraMapTypes: PropTypes.arrayOf(
     PropTypes.arrayOf(
       PropTypes.any
@@ -1597,4 +1514,13 @@ export const GoogleMapPropTypes = {
   onResize: PropTypes.func,
   onTiltChanged: PropTypes.func,
   onZoomChanged: PropTypes.func,
+}
+
+export const LoadScriptPropTypes = {
+  id: PropTypes.string.isRequired,
+  googleMapsApiKey: PropTypes.string.isRequired,
+  language: PropTypes.string.isRequired,
+  region: PropTypes.string.isRequired,
+  version: PropTypes.string.isRequired,
+  onLoad: PropTypes.func
 }

@@ -1,5 +1,5 @@
-export { default as GoogleMapProvider, LoadScript } from './GoogleMapProvider'
-
+export { default as GoogleMapProvider } from './GoogleMapProvider'
+export { default as LoadScript } from './LoadScript'
 export { default as GoogleMap } from './components/maps/GoogleMap'
 export { default as TrafficLayer } from './components/maps/TrafficLayer'
 export { default as BicyclingLayer } from './components/maps/BicyclingLayer'

@@ -1,17 +1,6 @@
 import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
-import PropTypes from 'prop-types'
-import canUseDOM from 'can-use-dom'
 import invariant from 'invariant'
-import { WithGoogleMapContext } from '../../GoogleMapProvider'
-
-import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
-} from '../../utils/MapChildHelper'
-
-import { MAP, ANCHOR, INFO_BOX } from '../../constants'
 
 import { InfoBoxPropTypes } from '../../proptypes'
 
@@ -36,6 +25,22 @@ const eventMap = {
   onZindexChanged: 'zindex_changed',
 }
 
+const propsMap = {
+  map: 'setMap',
+  options: 'setOptions',
+  position: 'setPosition',
+  visible: 'setVisible',
+  zIndex: 'setZIndex'
+}
+
+const propNameList = [
+  'map',
+  'options',
+  'position',
+  'visible',
+  'zIndex'
+]
+
 const updaterMap = {
   options (instance, options) {
     instance.setOptions(options)
@@ -54,66 +59,35 @@ const updaterMap = {
 export class InfoBox extends PureComponent {
   static propTypes = InfoBoxPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-    [ANCHOR]: PropTypes.object,
-  }
-
   state = {
-    [INFO_BOX]: null,
+    infoBox: null,
+    prevProps: {},
+    registered: []
   }
 
-  constructor (props, context) {
-    super(props, context)
+  constructor (props) {
+    super(props)
 
-    if (!canUseDOM || this.state[INFO_BOX]) {
-      return
-    }
-
-    /* "google-maps-infobox" uses "google" as a global variable. Since we don't
-     * have "google" on the server, we can not use it in server-side rendering.
-     * As a result, we import "google-maps-infobox" here to prevent an error on
-     * a isomorphic server.
-     */
     const { InfoBox: GoogleMapsInfobox } = require('google-maps-infobox')
 
     const infoBox = new GoogleMapsInfobox()
 
-    infoBox.setMap(this.context[MAP])
-
-    this.state = {
-      [INFO_BOX]: infoBox,
-      prevProps: construct(
-        InfoBoxPropTypes,
-        updaterMap,
-        this.props,
-        infoBox
-      )
-    }
+    infoBox.setMap(props.map)
 
     this.contentElement = document.createElement('div')
-    this.state[INFO_BOX].setContent(this.contentElement)
 
-    open(this.state[INFO_BOX], this.context[ANCHOR])
+    this.state.infoBox.setContent(this.contentElement)
+
+    open(this.state.infoBox, this.props.anchor)
   }
 
   static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[INFO_BOX],
-      eventMap,
-      updaterMap
-    )
+
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const infoBox = this.state[INFO_BOX]
-
-    if (infoBox) {
-      infoBox.setMap(null)
+  componentWillUnmount = () => {
+    if (this.state.infoBox) {
+      this.state.infoBox.setMap(null)
     }
   }
 
@@ -125,13 +99,13 @@ export class InfoBox extends PureComponent {
   }
 
   getPosition = () =>
-    this.state[INFO_BOX].getPosition()
+    this.state.infoBox.getPosition()
 
   getVisible = () =>
-    this.state[INFO_BOX].getVisible()
+    this.state.infoBox.getVisible()
 
   getZIndex = () =>
-    this.state[INFO_BOX].getZIndex()
+    this.state.infoBox.getZIndex()
 }
 
 export default InfoBox

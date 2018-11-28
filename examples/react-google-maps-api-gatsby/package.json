@@ -11,7 +11,8 @@
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-google-maps-api": "../../",
-    "react-helmet": "^5.2.0"
+    "react-helmet": "^5.2.0",
+    "uuidv4": "^2.0.0"
   },
   "keywords": [
     "React",
