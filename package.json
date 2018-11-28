@@ -62,6 +62,7 @@
     }
   },
   "scripts": {
+    "start": "npm run watch",
     "watch": "npm-watch build:dev",
     "dtslint": "dtslint types",
     "test": "npx jest",

@@ -1,3 +1,4 @@
+/* global google */
 // eslint-disable-next-line filenames/match-exported
 import React, { Fragment } from 'react'
 // import PropTypes from 'prop-types'

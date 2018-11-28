@@ -1,3 +1,4 @@
+// eslint-disable-next-line filenames/match-exported
 import React from 'react'
 import Layout from '../components/layout'
 
