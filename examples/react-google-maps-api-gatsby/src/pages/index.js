@@ -134,12 +134,12 @@ const IndexPage = () => (
                       {
                         (map && loaded) && (
                           <GroundOverlay
-                            defaultUrl='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
-                            defaultBounds={new google.maps.LatLngBounds(
+                            url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
+                            bounds={new google.maps.LatLngBounds(
                               new google.maps.LatLng(40.712216, -74.22655),
                               new google.maps.LatLng(40.773941, -74.12544)
                             )}
-                            defaultOptions={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+                            options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
                               map,
                               clickable: true,
                               opacity: 0.5

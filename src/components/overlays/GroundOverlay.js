@@ -43,21 +43,14 @@ export class GroundOverlay extends PureComponent {
     super(props)
 
     warning(
-      !(
-        props.url ||
-        props.defaultUrl
-      ) ||
-      !(
-        props.bounds ||
-        props.defaultBounds
-      ),
+      !props.url || !props.bounds,
       `For GroundOveray, url and bounds are passed in to constructor and are immutable after iinstantiated. This is the behavior of Google Maps JavaScript API v3 ( See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay) Hence, use the corresponding two props provided by \`react-google-maps\`. They're prefixed with _default_ (defaultUrl, defaultBounds). In some cases, you'll need the GroundOverlay component to reflect the changes of url and bounds. You can leverage the React's key property to remount the component. Typically, just \`key={url}\` would serve your need. See https://github.com/tomchentw/react-google-maps/issues/655`
     )
 
     const groundOverlay = new google.maps.GroundOverlay(
-      props.url || props.defaultUrl,
-      props.bounds || props.defaultBounds,
-      props.options || props.defaultOptions
+      props.url,
+      props.bounds,
+      props.options
     )
 
     this.state = {
