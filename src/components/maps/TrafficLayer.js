@@ -12,14 +12,6 @@ const propNameList = [
   'options'
 ]
 
-const defaultPropNameList = [
-  'defaultOptions'
-]
-
-const defaultPropsMap = {
-  defaultOptions: 'setOptions'
-}
-
 const updaterMap = {
   setOptions (instance, options) {
     instance.setOptions(options)
@@ -32,20 +24,16 @@ const updaterMap = {
 export class TrafficLayer extends PureComponent {
   static propTypes = TrafficLayerPropTypes
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      trafficLayer: null,
-      prevProps: {}
-    }
+  state = {
+    trafficLayer: null,
+    prevProps: {}
   }
 
   static getDerivedStateFromProps (props, state) {
-    if (props.loaded && props.map !== null) {
+    if (props.map !== null) {
       const trafficLayer = state.trafficLayer === null
         ? new google.maps.TrafficLayer(
-          props.options || props.defaultOptions
+          props.options
         )
         : state.trafficLayer
 
@@ -57,19 +45,8 @@ export class TrafficLayer extends PureComponent {
 
       return {
         trafficLayer,
-        prevProps: Object.keys(state.prevProps).length === 0
-          ? defaultPropNameList.reduce((acc, propName) => {
-            if (typeof props[propName] !== 'undefined') {
-              const shortPropName = propName.slice(7).toLowerCase()
-
-              updaterMap[defaultPropsMap[propName]](props.map, props[propName])
-
-              acc[shortPropName] = props[propName]
-            }
-
-            return acc
-          }, {})
-          : propNameList.reduce((acc, propName) => {
+        prevProps: Object.keys(state.prevProps).length !== 0
+          ? propNameList.reduce((acc, propName) => {
             if (typeof props[propName] !== 'undefined') {
               if (state.prevProps[propName] === props[propName]) {
                 acc[propName] = state.prevProps[propName]
@@ -86,6 +63,7 @@ export class TrafficLayer extends PureComponent {
 
             return acc
           })
+          : state.prevProps
       }
     }
 

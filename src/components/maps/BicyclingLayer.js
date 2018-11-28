@@ -30,8 +30,7 @@ export class BicyclingLayer extends PureComponent {
 
   static getDerivedStateFromProps (props, state) {
     console.log('BicyclingLayer getDerivedStateFromProps map: ', props.map)
-    console.log('BicyclingLayer getDerivedStateFromProps loaded: ', props.loaded)
-    if (props.loaded && props.map !== null) {
+    if (props.map !== null) {
       const bicyclingLayer = state.bicyclingLayer === null
         ? new google.maps.BicyclingLayer()
         : state.bicyclingLayer
