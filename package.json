@@ -63,7 +63,6 @@
   },
   "scripts": {
     "watch": "npm-watch build:dev",
-    "precommit": "npm run build && npx lint-staged",
     "dtslint": "dtslint types",
     "test": "npx jest",
     "build": "concurrently \"NODE_ENV=production npm run build:webpack\" \"NODE_ENV=production npm run build:babel\"",
