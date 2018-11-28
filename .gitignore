@@ -40,3 +40,7 @@ node_modules
 
 # IntelliJ
 .idea
+
+# These folders contain auto-generated files. No reason to commit them to Git
+lib/
+dist/
