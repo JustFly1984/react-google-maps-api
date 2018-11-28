@@ -9,28 +9,15 @@ const eventMap = {
   onClick: 'click',
 }
 
-const defaultPropNameList = [
-  'defaultOpacity'
-]
-
 const propNameList = [
   'opacity',
-  'map'
 ]
 
-const defaultPropsMap = {
-  defaultOpacity: 'setOpacity'
-}
-
 const propsMap = {
-  map: 'setMap',
   opacity: 'setOpacity'
 }
 
 const updaterMap = {
-  setMap (instance, map) {
-    instance.setMap(map)
-  },
   setOpacity (instance, opacity) {
     instance.setOpacity(opacity)
   },
@@ -39,27 +26,17 @@ const updaterMap = {
 export class GroundOverlay extends PureComponent {
   static propTypes = GroundOverlayPropTypes
 
-  constructor (props) {
-    super(props)
-
+  componentDidMount = () => {
     warning(
-      !props.url || !props.bounds,
+      !this.props.url || !this.props.bounds,
       `For GroundOveray, url and bounds are passed in to constructor and are immutable after iinstantiated. This is the behavior of Google Maps JavaScript API v3 ( See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay) Hence, use the corresponding two props provided by \`react-google-maps\`. They're prefixed with _default_ (defaultUrl, defaultBounds). In some cases, you'll need the GroundOverlay component to reflect the changes of url and bounds. You can leverage the React's key property to remount the component. Typically, just \`key={url}\` would serve your need. See https://github.com/tomchentw/react-google-maps/issues/655`
     )
+  }
 
-    const groundOverlay = new google.maps.GroundOverlay(
-      props.url,
-      props.bounds,
-      props.options
-    )
-
-    this.state = {
-      groundOverlay,
-      prevProps: {},
-      registered: []
-    }
-
-    groundOverlay.setMap(props.map)
+  state = {
+    groundOverlay: null,
+    prevProps: {},
+    registered: []
   }
 
   static getDerivedStateFromProps (props, state) {
@@ -69,37 +46,37 @@ export class GroundOverlay extends PureComponent {
       })
 
     if (props.map !== null) {
+      const groundOverlay = state.groundOverlay === null
+        ? new google.maps.GroundOverlay(
+          props.url,
+          props.bounds,
+          props.options
+        )
+        : state.groundOverlay
+
+      if (state.groundOverlay === null) {
+        groundOverlay.setMap(props.map)
+      }
+
       return {
-        groundOverlay: state.groundOverlay,
-        prevProps: Object.keys(state.prevProps).length === 0
-          ? defaultPropNameList.reduce((acc, propName) => {
-            if (typeof props[propName] !== 'undefined') {
-              const shortPropName = propName.slice(7).toLowerCase()
+        groundOverlay,
+        prevProps: propNameList.reduce((acc, propName) => {
+          if (typeof props[propName] !== 'undefined') {
+            if (state.prevProps[propName] === props[propName]) {
+              acc[propName] = state.prevProps[propName]
 
-              updaterMap[defaultPropsMap[propName]](props.map, props[propName])
+              return acc
+            } else {
+              updaterMap[propsMap[propName]](props.map, props[propName])
 
-              acc[shortPropName] = props[propName]
+              acc[propName] = props[propName]
+
+              return acc
             }
+          }
 
-            return acc
-          }, {})
-          : propNameList.reduce((acc, propName) => {
-            if (typeof props[propName] !== 'undefined') {
-              if (state.prevProps[propName] === props[propName]) {
-                acc[propName] = state.prevProps[propName]
-
-                return acc
-              } else {
-                updaterMap[propsMap[propName]](props.map, props[propName])
-
-                acc[propName] = props[propName]
-
-                return acc
-              }
-            }
-
-            return acc
-          }),
+          return acc
+        }, {}),
         registered: map(eventMap, (googleEventName, onEventName) => {
           typeof props[onEventName] === 'function' &&
             google.maps.event.addListener(props.map, googleEventName, props[onEventName])

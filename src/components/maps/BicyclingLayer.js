@@ -2,20 +2,6 @@
 import { PureComponent } from 'react'
 import { BicyclingLayerPropTypes } from '../../proptypes'
 
-const propsMap = {
-  map: 'setMap'
-}
-
-const propNameList = [
-  'map'
-]
-
-const updaterMap = {
-  setMap (instance, map) {
-    instance.setMap(map)
-  }
-}
-
 export class BicyclingLayer extends PureComponent {
   static propTypes = BicyclingLayerPropTypes
 
@@ -23,54 +9,28 @@ export class BicyclingLayer extends PureComponent {
     super(props)
 
     this.state = {
-      bicyclingLayer: null,
-      prevProps: {}
+      bicyclingLayer: null
     }
   }
 
   static getDerivedStateFromProps (props, state) {
-    console.log('BicyclingLayer getDerivedStateFromProps map: ', props.map)
     if (props.map !== null) {
       const bicyclingLayer = state.bicyclingLayer === null
         ? new google.maps.BicyclingLayer()
         : state.bicyclingLayer
 
       if (state.bicyclingLayer === null) {
-        console.log('BicyclingLayer componentDidMount map: ', props.map)
-
         bicyclingLayer.setMap(props.map)
       }
 
       return {
-        bicyclingLayer,
-        prevProps: propNameList.reduce((acc, propName) => {
-          if (typeof props[propName] !== 'undefined') {
-            if (state.prevProps[propName] === props[propName]) {
-              acc[propName] = state.prevProps[propName]
-
-              return acc
-            } else {
-              updaterMap[propsMap[propName]](props.map, props[propName])
-
-              acc[propName] = props[propName]
-
-              return acc
-            }
-          }
-
-          return acc
-        })
+        bicyclingLayer
       }
     }
 
     return {
-      bicyclingLayer: state.bicyclingLayer,
-      prevProps: state.prevProps
+      bicyclingLayer: state.bicyclingLayer
     }
-  }
-
-  componentDidMount = () => {
-    console.log('BicyclingLayer didMount')
   }
 
   componentWillUnmount () {

@@ -2,22 +2,17 @@
 import { PureComponent } from 'react'
 import { TrafficLayerPropTypes } from '../../proptypes'
 
-const propsMap = {
-  map: 'setMap',
-  options: 'setOptions'
-}
-
 const propNameList = [
-  'map',
   'options'
 ]
+
+const propsMap = {
+  options: 'setOptions'
+}
 
 const updaterMap = {
   setOptions (instance, options) {
     instance.setOptions(options)
-  },
-  setMap (instance, map) {
-    instance.setMap(map)
   }
 }
 
@@ -38,32 +33,29 @@ export class TrafficLayer extends PureComponent {
         : state.trafficLayer
 
       if (state.trafficLayer === null) {
-        console.log('TrafficLayer componentDidMount map: ', props.map)
-
         trafficLayer.setMap(props.map)
       }
 
       return {
         trafficLayer,
-        prevProps: Object.keys(state.prevProps).length !== 0
-          ? propNameList.reduce((acc, propName) => {
-            if (typeof props[propName] !== 'undefined') {
-              if (state.prevProps[propName] === props[propName]) {
-                acc[propName] = state.prevProps[propName]
+        prevProps: propNameList.reduce((acc, propName) => {
+          if (typeof props[propName] !== 'undefined') {
+            if (state.prevProps[propName] === props[propName]) {
+              acc[propName] = state.prevProps[propName]
 
-                return acc
-              } else {
-                updaterMap[propsMap[propName]](props.map, props[propName])
+              return acc
+            } else {
+              console.log('props.map: ', props.map, ' props[propName] ', props[propName])
+              updaterMap[propsMap[propName]](props.map, props[propName])
 
-                acc[propName] = props[propName]
+              acc[propName] = props[propName]
 
-                return acc
-              }
+              return acc
             }
+          }
 
-            return acc
-          })
-          : state.prevProps
+          return acc
+        }, {}),
       }
     }
 
@@ -71,10 +63,6 @@ export class TrafficLayer extends PureComponent {
       prevProps: {},
       trafficLayer: state.trafficLayer
     }
-  }
-
-  componentDidMount = () => {
-    console.log('TrafficLayer didMount')
   }
 
   componentWillUnmount () {
