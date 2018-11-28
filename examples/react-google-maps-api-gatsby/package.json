@@ -23,7 +23,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop --https",
     "start": "npm run develop",
     "lint": "npx eslint ./src --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
