@@ -146,7 +146,6 @@ const IndexPage = () => (
                           />
                         )
                       }
-
                     </GoogleMap>
                   </Fragment>
                 )}

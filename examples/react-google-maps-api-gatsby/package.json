@@ -25,7 +25,7 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "start": "npm run develop",
-    "lint": "npx eslint ./scr --fix",
+    "lint": "npx eslint ./src --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf ./package-lock.json ./node_modules/ && npm i"
   },
