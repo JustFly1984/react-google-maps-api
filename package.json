@@ -74,12 +74,15 @@
     "lint": "npx eslint ./src --fix"
   },
   "lint-staged": {
-    "*.{js,json}": [
-      "npm run lint"
-    ],
+    "linters": {
+      "*.js": [
+        "some command",
+        "git add"
+      ]
+    },
     "ignore": [
-      "/dist/*.js",
-      "/lib/*.js"
+      "dist/*.js",
+      "lib/*.js"
     ]
   },
   "types": "types",
