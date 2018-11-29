@@ -45,12 +45,15 @@ export class GroundOverlay extends PureComponent {
       google.maps.event.removeListener(event)
     })
 
-    if (props.options.map !== null) {
+    if (props.map !== null) {
       const groundOverlay = (state.groundOverlay === null)
         ? new google.maps.GroundOverlay(
           props.url,
-          props.bounds,
-          props.options
+          new google.maps.LatLngBounds(
+            new google.maps.LatLng(props.bounds[0].x, props.bounds[0].y),
+            new google.maps.LatLng(props.bounds[1].x, props.bounds[1].y)
+          ),
+          Object.assign(props.options, { map: props.map })
         )
         : state.groundOverlay
 
@@ -63,7 +66,7 @@ export class GroundOverlay extends PureComponent {
 
               return acc
             } else {
-              updaterMap[propsMap[propName]](props.options.map, props[propName])
+              updaterMap[propsMap[propName]](props.map, props[propName])
 
               acc[propName] = props[propName]
 
@@ -75,7 +78,7 @@ export class GroundOverlay extends PureComponent {
         }, {}),
         registered: map(eventMap, (googleEventName, onEventName) => {
           typeof props[onEventName] === 'function' &&
-            google.maps.event.addListener(props.options.map, googleEventName, props[onEventName])
+            google.maps.event.addListener(props.map, googleEventName, props[onEventName])
         })
       }
     }
