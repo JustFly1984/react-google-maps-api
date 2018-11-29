@@ -2,8 +2,6 @@
 import { PureComponent } from 'react'
 
 import {
-  applyUpdaterToNextProps,
-  registerEvents,
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
