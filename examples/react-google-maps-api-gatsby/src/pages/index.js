@@ -24,7 +24,7 @@ import {
 
   // StreetViewPanorama,
   // compose
-} from 'react-google-maps-api'
+} from "../../../../src"
 
 // import MapWithASearchBox from '../components/search-box'
 // import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
