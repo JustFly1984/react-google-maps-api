@@ -1426,14 +1426,12 @@ export const GroundOverlayPropTypes = {
 
 export const GoogleMapProviderPropTypes = {
   id: PropTypes.string.isRequired,
-  loaded: PropTypes.bool.isRequired,
   render: PropTypes.func.isRequired,
   loadingElement: PropTypes.node.isRequired
 }
 
 export const GoogleMapPropTypes = {
   children: PropTypes.node,
-  loaded: PropTypes.bool.isRequired,
   map: PropTypes.object, // it is null while map is not loaded
   mapContainerStyle: PropTypes.object,
   mapContainerClassName: PropTypes.string,
@@ -1476,6 +1474,7 @@ export const GoogleMapPropTypes = {
 }
 
 export const LoadScriptPropTypes = {
+  children: PropTypes.node.isRequired,
   id: PropTypes.string.isRequired,
   googleMapsApiKey: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,

@@ -1,7 +1,7 @@
 /* global google */
-import { PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import { GoogleMapProviderPropTypes } from './proptypes'
-
+import { LoadScriptContextConsumer } from './loadscriptcontext'
 export class GoogleMapProvider extends PureComponent {
   static propTypes = GoogleMapProviderPropTypes
 
@@ -21,13 +21,18 @@ export class GoogleMapProvider extends PureComponent {
     )
   }
 
-  render = () =>
-    this.props.loaded
-      ? this.props.render({
-        map: this.state.map,
-        mapRef: this.getRef
-      })
-      : this.props.loadingElement
+  render = () => (
+    <LoadScriptContextConsumer>
+      {
+        loaded => loaded
+          ? this.props.render({
+            map: this.state.map,
+            mapRef: this.getRef
+          })
+          : this.props.loadingElement
+      }
+    </LoadScriptContextConsumer>
+  )
 }
 
 export default GoogleMapProvider

@@ -87,133 +87,120 @@ const IndexPage = () => (
       onLoad={() => (
         console.log('script loaded')
       )}
-      render={({ loaded }) => (
-        loaded && (
-          <>
-            <div style={mapBoxStyle}>
-              <h2 style={mapHeaderStyle}>
-                Plain Google Map
-              </h2>
+    >
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>
+          Plain Google Map
+        </h2>
 
-              <GoogleMapProvider
-                id={providerOneId}
-                loaded={loaded}
-                loadingElement={Loading}
-                render={({ map, mapRef }) => (
-                  <GoogleMap
-                    map={map}
-                    mapRef={mapRef}
-                    loaded={loaded}
-                    zoom={8}
-                    center={center}
-                    mapContainerStyle={mapContainerStyle}
-                    mapContainerClassName={indexStyles.mapContainer}
-                    onClick={(...args) => {
-                      console.log('onClick args: ', args)
-                    }}
-                  />
+        <GoogleMapProvider
+          id={providerOneId}
+          loadingElement={Loading}
+          render={({ map, mapRef }) => (
+            <GoogleMap
+              map={map}
+              mapRef={mapRef}
+              zoom={8}
+              center={center}
+              mapContainerStyle={mapContainerStyle}
+              mapContainerClassName={indexStyles.mapContainer}
+              onClick={(...args) => {
+                console.log('onClick args: ', args)
+              }}
+            />
+          )}
+        />
+      </div>
+
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>
+          Google Map with Traffic Layer
+        </h2>
+
+        <GoogleMapProvider
+          id={providerTwoId}
+          loadingElement={Loading}
+          render={({ map, mapRef }) => (
+            <GoogleMap
+              map={map}
+              mapRef={mapRef}
+              zoom={8}
+              center={center}
+              mapContainerStyle={mapContainerStyle}
+              mapContainerClassName={indexStyles.mapContainer}
+              onClick={(...args) => {
+                console.log('onClick args: ', args)
+              }}
+            >
+              <TrafficLayer />
+            </GoogleMap>
+          )}
+        />
+      </div>
+
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>
+          Google Map with Bicycling Layer
+        </h2>
+
+        <GoogleMapProvider
+          id={providerThreeId}
+          loadingElement={Loading}
+          render={({ map, mapRef }) => (
+            <GoogleMap
+              map={map}
+              mapRef={mapRef}
+              zoom={8}
+              center={center}
+              mapContainerStyle={mapContainerStyle}
+              mapContainerClassName={indexStyles.mapContainer}
+              onClick={(...args) => {
+                console.log('onClick args: ', args)
+              }}
+            >
+              <BicyclingLayer />
+            </GoogleMap>
+          )}
+        />
+      </div>
+
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>
+          Google Map with Ground Overlay
+        </h2>
+
+        <GoogleMapProvider
+          id={providerFourId}
+          loadingElement={Loading}
+          render={({ map, mapRef }) => (
+            <GoogleMap
+              map={map}
+              mapRef={mapRef}
+              zoom={8}
+              center={center}
+              mapContainerStyle={mapContainerStyle}
+              mapContainerClassName={indexStyles.mapContainer}
+              onClick={(...args) => {
+                console.log('onClick args: ', args)
+              }}
+            >
+              <GroundOverlay
+                url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
+                bounds={new google.maps.LatLngBounds(
+                  new google.maps.LatLng(40.712216, -74.22655),
+                  new google.maps.LatLng(40.773941, -74.12544)
                 )}
+                options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+                  map,
+                  clickable: true,
+                  opacity: 0.5
+                }}
               />
-            </div>
-
-            <div style={mapBoxStyle}>
-              <h2 style={mapHeaderStyle}>
-                Google Map with Traffic Layer
-              </h2>
-
-              <GoogleMapProvider
-                id={providerTwoId}
-                loaded={loaded}
-                loadingElement={Loading}
-                render={({ map, mapRef }) => (
-                  <GoogleMap
-                    map={map}
-                    mapRef={mapRef}
-                    loaded={loaded}
-                    zoom={8}
-                    center={center}
-                    mapContainerStyle={mapContainerStyle}
-                    mapContainerClassName={indexStyles.mapContainer}
-                    onClick={(...args) => {
-                      console.log('onClick args: ', args)
-                    }}
-                  >
-                    <TrafficLayer />
-                  </GoogleMap>
-                )}
-              />
-            </div>
-
-            <div style={mapBoxStyle}>
-              <h2 style={mapHeaderStyle}>
-                Google Map with Bicycling Layer
-              </h2>
-
-              <GoogleMapProvider
-                id={providerThreeId}
-                loaded={loaded}
-                loadingElement={Loading}
-                render={({ map, mapRef }) => (
-                  <GoogleMap
-                    map={map}
-                    mapRef={mapRef}
-                    loaded={loaded}
-                    zoom={8}
-                    center={center}
-                    mapContainerStyle={mapContainerStyle}
-                    mapContainerClassName={indexStyles.mapContainer}
-                    onClick={(...args) => {
-                      console.log('onClick args: ', args)
-                    }}
-                  >
-                    <BicyclingLayer />
-                  </GoogleMap>
-                )}
-              />
-            </div>
-
-            <div style={mapBoxStyle}>
-              <h2 style={mapHeaderStyle}>
-                Google Map with Ground Overlay
-              </h2>
-
-              <GoogleMapProvider
-                id={providerFourId}
-                loaded={loaded}
-                loadingElement={Loading}
-                render={({ map, mapRef }) => (
-                  <GoogleMap
-                    map={map}
-                    mapRef={mapRef}
-                    loaded={loaded}
-                    zoom={8}
-                    center={center}
-                    mapContainerStyle={mapContainerStyle}
-                    mapContainerClassName={indexStyles.mapContainer}
-                    onClick={(...args) => {
-                      console.log('onClick args: ', args)
-                    }}
-                  >
-                    <GroundOverlay
-                      url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
-                      bounds={new google.maps.LatLngBounds(
-                        new google.maps.LatLng(40.712216, -74.22655),
-                        new google.maps.LatLng(40.773941, -74.12544)
-                      )}
-                      options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-                        map,
-                        clickable: true,
-                        opacity: 0.5
-                      }}
-                    />
-                  </GoogleMap>
-                )}
-              />
-            </div>
-          </>
-        )
-      )}
-    />
+            </GoogleMap>
+          )}
+        />
+      </div>
+    </LoadScript>
   </Layout>
 )
 

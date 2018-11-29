@@ -2,7 +2,7 @@
 /* eslint-disable filenames/match-regex */
 import React, { PureComponent, Children, cloneElement } from 'react'
 import invariant from 'invariant'
-
+import { LoadScriptContextConsumer } from '../../loadscriptcontext'
 import { GoogleMapPropTypes } from '../../proptypes'
 import { map } from '../../utils/map'
 
@@ -158,17 +158,20 @@ export class GoogleMap extends PureComponent {
       style={this.props.mapContainerStyle}
       className={this.props.mapContainerClassName}
     >
-      {
-        this.props.loaded &&
-        Children.map(this.props.children, child => {
-          return child !== null
-            ? cloneElement(child, {
-              map: this.props.map,
-              loaded: this.props.loaded
+      <LoadScriptContextConsumer>
+        {
+          loaded => loaded
+            ? Children.map(this.props.children, child => {
+              return child !== null
+                ? cloneElement(child, {
+                  map: this.props.map,
+                  loaded: this.props.loaded
+                })
+                : child
             })
-            : child
-        })
-      }
+            : null
+        }
+      </LoadScriptContextConsumer>
     </div>
   )
 
