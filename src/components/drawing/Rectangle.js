@@ -1,14 +1,10 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
-
-import { MAP, RECTANGLE } from '../../constants'
 
 import { RectanglePropTypes } from '../../proptypes'
 
@@ -28,22 +24,22 @@ const eventMap = {
 }
 
 const updaterMap = {
-  bounds (instance, bounds) {
+  bounds(instance, bounds) {
     instance.setBounds(bounds)
   },
-  draggable (instance, draggable) {
+  draggable(instance, draggable) {
     instance.setDraggable(draggable)
   },
-  editable (instance, editable) {
+  editable(instance, editable) {
     instance.setEditable(editable)
   },
-  map (instance, map) {
+  map(instance, map) {
     instance.setMap(map)
   },
-  options (instance, options) {
+  options(instance, options) {
     instance.setOptions(options)
   },
-  visible (instance, visible) {
+  visible(instance, visible) {
     instance.setVisible(visible)
   },
 }
@@ -51,68 +47,64 @@ const updaterMap = {
 export class Rectangle extends PureComponent {
   static propTypes = RectanglePropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-  }
+  constructor(props) {
+    super(props)
 
-  constructor (props, context) {
-    super(props, context)
-
-    const rectangle = new google.maps.Rectangle(
-      props.options
-    )
+    this.registeredEvents = [];
 
     this.state = {
-      [RECTANGLE]: rectangle,
-      prevProps: construct(
-        RectanglePropTypes,
+      rectangle: null
+    }
+  }
+  componentDidMount() {
+    const rectangle = new google.maps.Rectangle()
+
+    this.setState({ rectangle }, () => {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
-        props,
-        rectangle
-      )
-    }
-
-    rectangle.setMap(context[MAP])
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.rectangle
+      })
+    })
   }
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[RECTANGLE],
+  componentDidUpdate(prevProps) {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
       eventMap,
-      updaterMap
-    )
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.rectangle
+    })
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const rectangle = this.state[RECTANGLE]
-
-    if (rectangle) {
-      rectangle.setMap(null)
-    }
+  componentWillUnmount() {
+    unregisterEvents(this.registeredEvents)
+    this.state.rectangle && this.state.rectangle.setMap(null)
   }
 
-  render () {
+
+  render() {
     return null
   }
 
   getBounds = () =>
-    this.state[RECTANGLE].getBounds()
+    this.state.rectangle.getBounds()
 
   getDraggable = () =>
-    this.state[RECTANGLE].getDraggable()
+    this.state.rectangle.getDraggable()
 
   getEditable = () =>
-    this.state[RECTANGLE].getEditable()
+    this.state.rectangle.getEditable()
 
   getMap = () =>
-    this.state[RECTANGLE].getMap()
+    this.state.rectangle.getMap()
 
   getVisible = () =>
-    this.state[RECTANGLE].getVisible()
+    this.state.rectangle.getVisible()
 }
 
 export default Rectangle

@@ -4,7 +4,9 @@ import {
   GoogleMapProvider,
   GoogleMap,
   Polyline,
-  Polygon
+  Polygon,
+  Rectangle,
+  Circle
 } from "../../../../src"
 
 const FLIGHT_PLAN_COORDS = [
@@ -27,6 +29,13 @@ const SAN_FRANCISCO_COORDS = [
   { lat: 35.772, lng: -120.214 },
   { lat: 37.772, lng: -122.214 }
 ]
+
+const RECTANGLE_BOUNDS = {
+  north: 38.685,
+  south: 33.671,
+  east: -115.234,
+  west: -118.251
+}
 
 const POLYLINE_OPTIONS = {
   strokeColor: '#FF0000',
@@ -85,14 +94,26 @@ export default class ShapesExample extends React.Component {
             mapContainerStyle={styles.container}
             mapContainerClassName={styles.mapContainer}
           >
-            {this.state.polylineVisible && <Polyline path={FLIGHT_PLAN_COORDS} options={polylineOptions} />}
+            {
+              this.state.polylineVisible &&
+              <Polyline path={FLIGHT_PLAN_COORDS} options={polylineOptions} />
+            }
             <Polygon
               path={BRISBANE_COORDS}
-              options={{ fillColor: "green", fillOpacity: 1 }}></Polygon>
+              options={{ fillColor: "green", fillOpacity: 1 }} />
 
             <Polygon
               path={SAN_FRANCISCO_COORDS}
-              options={{ fillColor: "purple", fillOpacity: 1 }}></Polygon>
+              options={{ fillColor: "purple", fillOpacity: 1 }} />
+
+            <Rectangle bounds={RECTANGLE_BOUNDS} />
+            <Circle center={{ lat: 34.052, lng: -118.243 }} radius={300000} options={{
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: '#FF0000',
+              fillOpacity: 0.35,
+            }} />
           </GoogleMap>
         </GoogleMapProvider>
       </div>

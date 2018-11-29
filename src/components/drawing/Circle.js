@@ -1,14 +1,11 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP, CIRCLE } from '../../constants'
 import { CirclePropTypes } from '../../proptypes'
 
 const eventMap = {
@@ -28,25 +25,25 @@ const eventMap = {
 }
 
 const updaterMap = {
-  center (instance, center) {
+  center(instance, center) {
     instance.setCenter(center)
   },
-  draggable (instance, draggable) {
+  draggable(instance, draggable) {
     instance.setDraggable(draggable)
   },
-  editable (instance, editable) {
+  editable(instance, editable) {
     instance.setEditable(editable)
   },
-  map (instance, map) {
+  map(instance, map) {
     instance.setMap(map)
   },
-  options (instance, options) {
+  options(instance, options) {
     instance.setOptions(options)
   },
-  radius (instance, radius) {
+  radius(instance, radius) {
     instance.setRadius(radius)
   },
-  visible (instance, visible) {
+  visible(instance, visible) {
     instance.setVisible(visible)
   },
 }
@@ -54,75 +51,71 @@ const updaterMap = {
 export class Circle extends PureComponent {
   static propTypes = CirclePropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-  }
+  constructor(props) {
+    super(props)
 
-  constructor (props, context) {
-    super(props, context)
-
-    const circle = new google.maps.Circle(
-      props.options
-    )
+    this.registeredEvents = [];
 
     this.state = {
-      [CIRCLE]: circle,
-      prevProps: construct(
-        CirclePropTypes,
+      circle: null
+    }
+  }
+
+  componentDidMount() {
+    const circle = new google.maps.Circle()
+
+    this.setState({ circle }, () => {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
-        props,
-        circle
-      )
-    }
-
-    circle.setMap(context[MAP])
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.circle
+      })
+    })
   }
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[CIRCLE],
+  componentDidUpdate(prevProps) {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
       eventMap,
-      updaterMap
-    )
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.circle
+    })
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const circle = this.state[CIRCLE]
-
-    if (circle) {
-      circle.setMap(null)
-    }
+  componentWillUnmount() {
+    unregisterEvents(this.registeredEvents)
+    this.state.circle && this.state.circle.setMap(null)
   }
 
-  render () {
+  render() {
     return null
   }
 
   getBounds = () =>
-    this.state[CIRCLE].getBounds()
+    this.state.circle.getBounds()
 
   getCenter = () =>
-    this.state[CIRCLE].getCenter()
+    this.state.circle.getCenter()
 
   getDraggable = () => {
-    return this.state[CIRCLE].getDraggable()
+    return this.state.circle.getDraggable()
   }
 
   getEditable = () =>
-    this.state[CIRCLE].getEditable()
+    this.state.circle.getEditable()
 
   getMap = () =>
-    this.state[CIRCLE].getMap()
+    this.state.circle.getMap()
 
   getRadius = () =>
-    this.state[CIRCLE].getRadius()
+    this.state.circle.getRadius()
 
   getVisible = () =>
-    this.state[CIRCLE].getVisible()
+    this.state.circle.getVisible()
 }
 
 export default Circle
