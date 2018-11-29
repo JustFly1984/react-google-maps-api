@@ -10,6 +10,7 @@ module.exports = {
     "standard",
     "standard-react",
     "plugin:jsx-a11y/recommended",
+    'plugin:css-modules/recommended'
   ],
   plugins: [
     "you-dont-need-lodash-underscore",
@@ -27,6 +28,7 @@ module.exports = {
     "optimize-regex",
     "react-perf",
     "standard",
+    'css-modules',
     "no-inferred-method-name",
     "react-functional-set-state",
   ],
