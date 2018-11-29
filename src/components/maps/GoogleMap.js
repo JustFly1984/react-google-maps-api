@@ -2,7 +2,7 @@
 /* eslint-disable filenames/match-regex */
 import React, { PureComponent, Children, cloneElement } from 'react'
 import invariant from 'invariant'
-import { LoadScriptContextConsumer } from '../../loadscriptcontext'
+import { LoadScriptContext } from '../../loadscriptcontext'
 import { GoogleMapPropTypes } from '../../proptypes'
 import { map } from '../../utils/map'
 
@@ -53,39 +53,42 @@ const propsMap = {
 }
 
 const updaterMap = {
-  setExtraMapTypes (map, extra) {
+  setExtraMapTypes(map, extra) {
     extra.forEach(it => {
-      map.mapTypes.set(...it) }
+      map.mapTypes.set(...it)
+    }
     )
   },
-  setCenter (map, ...args) {
+  setCenter(map, ...args) {
     map.setCenter(...args)
   },
-  setClickableIcons (map, ...args) {
+  setClickableIcons(map, ...args) {
     map.setClickableIcons(...args)
   },
-  setHeading (map, ...args) {
+  setHeading(map, ...args) {
     map.setHeading(...args)
   },
-  setMapTypeId (map, ...args) {
+  setMapTypeId(map, ...args) {
     map.setMapTypeId(...args)
   },
-  setOptions (map, ...args) {
+  setOptions(map, ...args) {
     map.setOptions(...args)
   },
-  setStreetView (map, ...args) {
+  setStreetView(map, ...args) {
     map.setStreetView(...args)
   },
-  setTilt (map, ...args) {
+  setTilt(map, ...args) {
     map.setTilt(...args)
   },
-  setZoom (map, ...args) {
+  setZoom(map, ...args) {
     map.setZoom(...args)
   }
 }
 
 export class GoogleMap extends PureComponent {
   static propTypes = GoogleMapPropTypes
+
+  static contextType = LoadScriptContext;
 
   state = {
     prevProps: {},
@@ -104,11 +107,11 @@ export class GoogleMap extends PureComponent {
     )
   }
 
-  static getDerivedStateFromProps (props, state) {
+  static getDerivedStateFromProps(props, state) {
     state.registered.length > 0 &&
-    state.registered.forEach((event, i) => {
-      google.maps.event.removeListener(event)
-    })
+      state.registered.forEach((event, i) => {
+        google.maps.event.removeListener(event)
+      })
 
     if (props.map !== null) {
       return {
@@ -154,20 +157,20 @@ export class GoogleMap extends PureComponent {
       style={this.props.mapContainerStyle}
       className={this.props.mapContainerClassName}
     >
-      <LoadScriptContextConsumer>
-        {
-          loaded => loaded
-            ? Children.map(this.props.children, child => {
-              return child !== null
-                ? cloneElement(child, {
-                  map: this.props.map,
-                  loaded: this.props.loaded
-                })
-                : child
-            })
-            : null
-        }
-      </LoadScriptContextConsumer>
+
+      {
+        this.context
+          ? Children.map(this.props.children, child => {
+            return child !== null
+              ? cloneElement(child, {
+                map: this.props.map,
+                loaded: this.props.loaded
+              })
+              : child
+          })
+          : null
+      }
+
     </div>
   )
 
