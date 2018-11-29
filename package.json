@@ -98,9 +98,9 @@
     "prop-types": "^15.5.8",
     "@types/googlemaps": "^3.0.0",
     "@types/markerclustererplus": "^2.1.29",
-    "@types/react": "^15.0.0 || ^16.0.0",
-    "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
+    "@types/react": "^16.7.8",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
