@@ -67,7 +67,11 @@ const Loading = (
   />
 )
 
-const id = uuid()
+const loaderId = uuid()
+const providerOneId = uuid()
+const providerTwoId = uuid()
+const providerThreeId = uuid()
+const providerFourId = uuid()
 
 const IndexPage = () => (
   <Layout>
@@ -75,7 +79,7 @@ const IndexPage = () => (
     <p>Welcome to React Google Maps Light Example.</p>
 
     <LoadScript
-      id={id}
+      id={loaderId}
       googleMapsApiKey={googleMapsApiKey}
       language={'en'}
       region={'EN'}
@@ -85,10 +89,10 @@ const IndexPage = () => (
       )}
       render={({ loaded }) => (
         loaded && (
-          <Fragment>
+          <>
             <div style={style}>
               <GoogleMapProvider
-                id='first'
+                id={providerOneId}
                 loaded={loaded}
                 loadingElement={Loading}
                 render={({ map, mapRef }) => (
@@ -110,7 +114,7 @@ const IndexPage = () => (
 
             <div style={style}>
               <GoogleMapProvider
-                id='second'
+                id={providerTwoId}
                 loaded={loaded}
                 loadingElement={Loading}
                 render={({ map, mapRef }) => (
@@ -128,35 +132,75 @@ const IndexPage = () => (
                       }}
                     >
                       <TrafficLayer />
-
-                      {
-                        (map && loaded) && (
-                          <BicyclingLayer />
-                        )
-                      }
-
-                      {
-                        (map && loaded) && (
-                          <GroundOverlay
-                            url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
-                            bounds={new google.maps.LatLngBounds(
-                              new google.maps.LatLng(40.712216, -74.22655),
-                              new google.maps.LatLng(40.773941, -74.12544)
-                            )}
-                            options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-                              map,
-                              clickable: true,
-                              opacity: 0.5
-                            }}
-                          />
-                        )
-                      }
                     </GoogleMap>
                   </Fragment>
                 )}
               />
             </div>
-          </Fragment>
+
+            <div style={style}>
+              <GoogleMapProvider
+                id={providerThreeId}
+                loaded={loaded}
+                loadingElement={Loading}
+                render={({ map, mapRef }) => (
+                  <Fragment>
+                    <GoogleMap
+                      map={map}
+                      mapRef={mapRef}
+                      loaded={loaded}
+                      zoom={8}
+                      center={center}
+                      mapContainerStyle={mapContainerStyle}
+                      mapContainerClassName={indexStyles.mapContainer}
+                      onClick={(...args) => {
+                        console.log('onClick args: ', args)
+                      }}
+                    >
+                      <BicyclingLayer />
+                    </GoogleMap>
+                  </Fragment>
+                )}
+              />
+            </div>
+
+            <div style={style}>
+              <GoogleMapProvider
+                id={providerFourId}
+                loaded={loaded}
+                loadingElement={Loading}
+                render={({ map, mapRef }) => (
+                  <Fragment>
+                    <GoogleMap
+                      map={map}
+                      mapRef={mapRef}
+                      loaded={loaded}
+                      zoom={8}
+                      center={center}
+                      mapContainerStyle={mapContainerStyle}
+                      mapContainerClassName={indexStyles.mapContainer}
+                      onClick={(...args) => {
+                        console.log('onClick args: ', args)
+                      }}
+                    >
+                      <GroundOverlay
+                        url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
+                        bounds={new google.maps.LatLngBounds(
+                          new google.maps.LatLng(40.712216, -74.22655),
+                          new google.maps.LatLng(40.773941, -74.12544)
+                        )}
+                        options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+                          map,
+                          clickable: true,
+                          opacity: 0.5
+                        }}
+                      />
+                    </GoogleMap>
+                  </Fragment>
+                )}
+              />
+            </div>
+          </>
         )
       )}
     />

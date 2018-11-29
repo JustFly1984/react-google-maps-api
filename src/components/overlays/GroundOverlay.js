@@ -18,8 +18,8 @@ const propsMap = {
 }
 
 const updaterMap = {
-  setOpacity (instance, opacity) {
-    instance.setOpacity(opacity)
+  setOpacity (map, opacity) {
+    map.setOpacity(opacity)
   },
 }
 
@@ -27,6 +27,7 @@ export class GroundOverlay extends PureComponent {
   static propTypes = GroundOverlayPropTypes
 
   componentDidMount = () => {
+    console.log('this.props.options: ', this.props.options)
     warning(
       !this.props.url || !this.props.bounds,
       `For GroundOveray, url and bounds are passed in to constructor and are immutable after iinstantiated. This is the behavior of Google Maps JavaScript API v3 ( See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay) Hence, use the corresponding two props provided by \`react-google-maps\`. They're prefixed with _default_ (defaultUrl, defaultBounds). In some cases, you'll need the GroundOverlay component to reflect the changes of url and bounds. You can leverage the React's key property to remount the component. Typically, just \`key={url}\` would serve your need. See https://github.com/tomchentw/react-google-maps/issues/655`
@@ -41,22 +42,19 @@ export class GroundOverlay extends PureComponent {
 
   static getDerivedStateFromProps (props, state) {
     state.registered.length > 0 &&
-      state.registered.forEach((event, i) => {
-        google.maps.event.removeListener(event)
-      })
+    state.registered.forEach((event, i) => {
+      google.maps.event.removeListener(event)
+    })
 
-    if (props.map !== null) {
-      const groundOverlay = state.groundOverlay === null
+    if (props.options.map !== null) {
+      console.log('props.options.map: ', props.options.map)
+      const groundOverlay = (state.groundOverlay === null)
         ? new google.maps.GroundOverlay(
           props.url,
           props.bounds,
           props.options
         )
         : state.groundOverlay
-
-      if (state.groundOverlay === null) {
-        groundOverlay.setMap(props.map)
-      }
 
       return {
         groundOverlay,
@@ -67,7 +65,7 @@ export class GroundOverlay extends PureComponent {
 
               return acc
             } else {
-              updaterMap[propsMap[propName]](props.map, props[propName])
+              updaterMap[propsMap[propName]](props.options.map, props[propName])
 
               acc[propName] = props[propName]
 
@@ -79,7 +77,7 @@ export class GroundOverlay extends PureComponent {
         }, {}),
         registered: map(eventMap, (googleEventName, onEventName) => {
           typeof props[onEventName] === 'function' &&
-            google.maps.event.addListener(props.map, googleEventName, props[onEventName])
+            google.maps.event.addListener(props.options.map, googleEventName, props[onEventName])
         })
       }
     }
