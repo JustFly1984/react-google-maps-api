@@ -1,14 +1,11 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP, POLYGON } from '../../constants'
 
 import { PolygonPropTypes } from '../../proptypes'
 
@@ -27,31 +24,31 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable (instance, draggable) {
+  draggable(instance, draggable) {
     instance.setDraggable(draggable)
   },
 
-  editable (instance, editable) {
+  editable(instance, editable) {
     instance.setEditable(editable)
   },
 
-  options (instance, options) {
+  options(instance, options) {
     instance.setOptions(options)
   },
 
-  map (instance, map) {
+  map(instance, map) {
     instance.setMap(map)
   },
 
-  path (instance, path) {
+  path(instance, path) {
     instance.setPath(path)
   },
 
-  paths (instance, paths) {
+  paths(instance, paths) {
     instance.setPaths(paths)
   },
 
-  visible (instance, visible) {
+  visible(instance, visible) {
     instance.setVisible(visible)
   },
 }
@@ -59,71 +56,65 @@ const updaterMap = {
 export class Polygon extends PureComponent {
   static propTypes = PolygonPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-  }
-
-  constructor (props, context) {
-    super(props, context)
-
-    const polygon = new google.maps.Polygon(
-      props.options
-    )
+  constructor(props) {
+    super(props)
 
     this.state = {
-      [POLYGON]: polygon,
-      prevProps: construct(
-        PolygonPropTypes,
+      polygon: null
+    }
+  }
+
+  componentDidMount() {
+    const polygon = new google.maps.Polygon()
+
+    this.setState({ polygon }, () => {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
-        props,
-        polygon
-      )
-    }
-
-    polygon.setMap(context[MAP])
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.polygon
+      })
+    })
   }
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[POLYGON],
+  componentDidUpdate(prevProps) {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
       eventMap,
-      updaterMap
-    )
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.polygon
+    })
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const polygon = this.state[POLYGON]
-
-    if (polygon) {
-      polygon.setMap(null)
-    }
+  componentWillUnmount() {
+    unregisterEvents(this.registeredEvents)
+    this.state.polygon && this.state.polygon.setMap(null)
   }
 
-  render () {
+  render() {
     return null
   }
 
   getDraggable = () =>
-    this.state[POLYGON].getDraggable()
+    this.state.polygon.getDraggable()
 
   getEditable = () =>
-    this.state[POLYGON].getEditable()
+    this.state.polygon.getEditable()
 
   getMap = () =>
-    this.state[POLYGON].getEditable()
+    this.state.polygon.getEditable()
 
   getPath = () =>
-    this.state[POLYGON].getMap()
+    this.state.polygon.getMap()
 
   getPaths = () =>
-    this.state[POLYGON].getPaths()
+    this.state.polygon.getPaths()
 
   getVisible = () =>
-    this.state[POLYGON].getVisible()
+    this.state.polygon.getVisible()
 }
 
 export default Polygon

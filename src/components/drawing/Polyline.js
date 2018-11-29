@@ -46,10 +46,6 @@ const updaterMap = {
 export class Polyline extends PureComponent {
   static propTypes = PolylinePropTypes
 
-  static defaultProps = {
-
-  }
-
   constructor(props) {
     super(props);
     this.registeredEvents = [];
