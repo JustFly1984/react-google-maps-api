@@ -27,6 +27,8 @@ import {
   // compose
 } from 'react-google-maps-api'
 
+import { Polyline } from "../../../../src/components/drawing/Polyline"
+
 // import MapWithASearchBox from '../components/search-box'
 // import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
 
@@ -125,13 +127,23 @@ const IndexPage = () => (
               map={map}
               mapRef={mapRef}
               zoom={8}
-              center={center}
+              center={{ lat: 0, lng: -180 }}
               mapContainerStyle={mapContainerStyle}
               mapContainerClassName={indexStyles.mapContainer}
               onClick={(...args) => {
                 console.log('onClick args: ', args)
               }}
             >
+              <Polyline path={[
+                { lat: 37.772, lng: -122.214 },
+                { lat: 21.291, lng: -157.821 },
+                { lat: -18.142, lng: 178.431 },
+                { lat: -27.467, lng: 153.027 }
+              ]} options={{
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+              }} />
               <TrafficLayer />
             </GoogleMap>
           )}

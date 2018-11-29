@@ -1,14 +1,12 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  applyUpdaterToNextProps,
+  registerEvents,
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
-
-import { MAP, POLYLINE } from '../../constants'
 
 import { PolylinePropTypes } from '../../proptypes'
 
@@ -27,22 +25,22 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable (instance, draggable) {
+  draggable(instance, draggable) {
     instance.setDraggable(draggable)
   },
-  editable (instance, editable) {
+  editable(instance, editable) {
     instance.setEditable(editable)
   },
-  map (instance, map) {
+  map(instance, map) {
     instance.setMap(map)
   },
-  options (instance, options) {
+  options(instance, options) {
     instance.setOptions(options)
   },
-  path (instance, path) {
+  path(instance, path) {
     instance.setPath(path)
   },
-  visible (instance, visible) {
+  visible(instance, visible) {
     instance.setVisible(visible)
   },
 }
@@ -50,68 +48,63 @@ const updaterMap = {
 export class Polyline extends PureComponent {
   static propTypes = PolylinePropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-  }
-
-  constructor (props, context) {
-    super(props, context)
-
-    const polyline = new google.maps.Polyline(
-      props.options
-    )
+  constructor(props) {
+    super(props);
+    this.registeredEvents = [];
 
     this.state = {
-      [POLYLINE]: polyline,
-      prevProps: construct(
-        PolylinePropTypes,
+      polyline: null
+    }
+  }
+
+  componentDidMount() {
+    const polyline = new google.maps.Polyline()
+
+    this.setState({ polyline }, () => {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
-        this.props,
-        polyline
-      )
-    }
-
-    polyline.setMap(this.context[MAP])
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.polyline
+      })
+    })
   }
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[POLYLINE],
+  componentDidUpdate(prevProps) {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
       eventMap,
-      updaterMap
-    )
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.polyline
+    })
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const polyline = this.state[POLYLINE]
-
-    if (polyline) {
-      polyline.setMap(null)
-    }
+  componentWillUnmount() {
+    unregisterEvents(this.registeredEvents)
+    this.state.polyline && this.state.polyline.setMap(null)
   }
 
-  render () {
+  render() {
     return null
   }
 
   getDraggable = () =>
-    this.state[POLYLINE].getDraggable()
+    this.state.polyline.getDraggable()
 
   getEditable = () =>
-    this.state[POLYLINE].getEditable()
+    this.state.polyline.getEditable()
 
   getPath = () =>
-    this.state[POLYLINE].getPath()
+    this.state.polyline.getPath()
 
   getVisible = () =>
-    this.state[POLYLINE].getVisible()
+    this.state.polyline.getVisible()
 
   getMap = () =>
-    this.state[POLYLINE].getMap()
+    this.state.polyline.getMap()
 }
 
 export default Polyline
