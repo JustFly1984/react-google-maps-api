@@ -435,24 +435,24 @@ export const InfoWindowInterface = {
 }
 
 export const PolylineOptionsInterface = {
-  clickable: PropTypes.bool.isRequired,
-  draggable: PropTypes.bool.isRequired,
-  editable: PropTypes.bool.isRequired,
-  geodesic: PropTypes.bool.isRequired,
+  clickable: PropTypes.bool,
+  draggable: PropTypes.bool,
+  editable: PropTypes.bool,
+  geodesic: PropTypes.bool,
   icons: PropTypes.arrayOf(
     PropTypes.shape(
       IconSequenceInterface
     )
-  ).isRequired,
+  ),
   map: PropTypes.shape(
     GoogleMapInterface
   ).isRequired,
   path: PathInterface.isRequired,
-  strokeColor: PropTypes.string.isRequired,
-  strokeOpacity: PropTypes.number.isRequired,
-  strokeWeight: PropTypes.number.isRequired,
-  visible: PropTypes.bool.isRequired,
-  zIndex: PropTypes.number.isRequired
+  strokeColor: PropTypes.string,
+  strokeOpacity: PropTypes.number,
+  strokeWeight: PropTypes.number,
+  visible: PropTypes.bool,
+  zIndex: PropTypes.number
 }
 
 export const PolylinePropTypes = {
