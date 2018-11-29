@@ -36,20 +36,20 @@ import {
 // https://developers.google.com/maps/documentation/javascript/get-api-key
 import { googleMapsApiKey } from '../const'
 
-const style = {
-  maxWidth: '300px',
-  marginBottom: '1.45rem'
+const mapBoxStyle = {
+  marginTop: '2rem',
+  marginBottom: '3rem'
+}
+
+const mapHeaderStyle = {
+  fontSize: '1.5rem',
+  marginBottom: '1.5rem'
 }
 
 const center = {
   lat: -34.397,
   lng: 150.644
 }
-
-// const position = {
-//   lat: -34.397,
-//   lng: 150.644
-// }
 
 const loadingStyle = {
   height: `100%`,
@@ -72,6 +72,7 @@ const providerOneId = uuid()
 const providerTwoId = uuid()
 const providerThreeId = uuid()
 const providerFourId = uuid()
+// const providerFiveId = uuid()
 
 const IndexPage = () => (
   <Layout>
@@ -90,7 +91,11 @@ const IndexPage = () => (
       render={({ loaded }) => (
         loaded && (
           <>
-            <div style={style}>
+            <div style={mapBoxStyle}>
+              <h2 style={mapHeaderStyle}>
+                Plain Google Map
+              </h2>
+
               <GoogleMapProvider
                 id={providerOneId}
                 loaded={loaded}
@@ -112,7 +117,11 @@ const IndexPage = () => (
               />
             </div>
 
-            <div style={style}>
+            <div style={mapBoxStyle}>
+              <h2 style={mapHeaderStyle}>
+                Google Map with Traffic Layer
+              </h2>
+
               <GoogleMapProvider
                 id={providerTwoId}
                 loaded={loaded}
@@ -138,7 +147,11 @@ const IndexPage = () => (
               />
             </div>
 
-            <div style={style}>
+            <div style={mapBoxStyle}>
+              <h2 style={mapHeaderStyle}>
+                Google Map with Bicycling Layer
+              </h2>
+
               <GoogleMapProvider
                 id={providerThreeId}
                 loaded={loaded}
@@ -164,7 +177,11 @@ const IndexPage = () => (
               />
             </div>
 
-            <div style={style}>
+            <div style={mapBoxStyle}>
+              <h2 style={mapHeaderStyle}>
+                Google Map with Ground Overlay
+              </h2>
+
               <GoogleMapProvider
                 id={providerFourId}
                 loaded={loaded}
