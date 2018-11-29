@@ -26,6 +26,8 @@ import {
   // compose
 } from "../../../../src"
 
+import ShapesExample from "../examples/shapes"
+
 // import MapWithASearchBox from '../components/search-box'
 // import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
 
@@ -190,9 +192,22 @@ const IndexPage = () => (
             />
           </GoogleMap>
         </GoogleMapProvider>
+
+        <div style={mapBoxStyle}>
+          <h2 style={mapHeaderStyle}>
+            Google Map with Shapes
+        </h2>
+          <ShapesExample styles={{
+            container: mapContainerStyle,
+            mapContainer: indexStyles.mapContainer
+          }} loadingElement={Loading}></ShapesExample>
+        </div>
       </div>
+
+
+
     </LoadScript>
-  </Layout>
+  </Layout >
 )
 
 export default IndexPage
