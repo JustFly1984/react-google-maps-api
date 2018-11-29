@@ -363,13 +363,6 @@ export const TrafficLayerOptionsInterface = {
   ).isRequired
 }
 
-export const TrafficLayerDefaultOptionsInterface = {
-  autoRefresh: PropTypes.bool,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  )
-}
-
 export const PathInterface = PropTypes.oneOfType([
   PropTypes.shape(
     MVCArrayInterface
@@ -466,11 +459,6 @@ export const PolylinePropTypes = {
   options: PropTypes.shape(
     PolylineOptionsInterface
   ),
-  // defaultDraggable: PropTypes.bool,
-  // defaultEditable: PropTypes.bool,
-  // defaultOptions: PropTypes.object,
-  // defaultPath: PropTypes.any,
-  // defaultVisible: PropTypes.bool,
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   path: PathInterface,
@@ -537,12 +525,6 @@ export const PolygonPropTypes = {
   options: PropTypes.shape(
     PolygonOptionsInterface
   ),
-  // defaultDraggable: PropTypes.bool,
-  // defaultEditable: PropTypes.bool,
-  // defaultOptions: PropTypes.any,
-  // defaultPath: PropTypes.any,
-  // defaultPaths: PropTypes.any,
-  // defaultVisible: PropTypes.bool,
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   path: PropTypes.any,
@@ -613,11 +595,6 @@ export const RectanglePropTypes = {
   options: PropTypes.shape(
     RectangleOptionsInterface
   ),
-  // defaultBounds: PropTypes.any,
-  // defaultDraggable: PropTypes.bool,
-  // defaultEditable: PropTypes.bool,
-  // defaultOptions: PropTypes.any,
-  // defaultVisible: PropTypes.bool,
   bounds: PropTypes.any,
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
@@ -666,12 +643,6 @@ export const CirclePropTypes = {
   options: PropTypes.shape(
     CircleOptionsInterface
   ),
-  // defaultCenter: PropTypes.any,
-  // defaultDraggable: PropTypes.bool,
-  // defaultEditable: PropTypes.bool,
-  // defaultOptions: PropTypes.object,
-  // defaultRadius: PropTypes.number,
-  // defaultVisible: PropTypes.bool,
   center: PropTypes.oneOfType([
     PropTypes.shape(
       LatLngInterface
@@ -793,9 +764,6 @@ export const KmlLayerPropTypes = {
   options: PropTypes.shape(
     KmlLayerOptionsInterface
   ),
-  // defaultOptions: PropTypes.any,
-  // defaultUrl: PropTypes.string,
-  // defaultZIndex: PropTypes.number,
   url: PropTypes.string,
   zIndex: PropTypes.number,
   onDefaultViewportChanged: PropTypes.func,
@@ -894,16 +862,8 @@ export const GroundOverlayOptionsInterface = {
   clickable: PropTypes.bool.isRequired,
   map: PropTypes.shape(
     GoogleMapInterface
-  ).isRequired,
+  ), // it does not required, cos it is null initially
   opacity: PropTypes.number.isRequired
-}
-
-export const GroundOverlayDefaultOptionsInterface = {
-  clickable: PropTypes.bool,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ),
-  opacity: PropTypes.number
 }
 
 export const HeatmapLayerOptionsInterface = {
@@ -979,7 +939,6 @@ export const SearchBoxPropTypes = {
   ),
   children: PropTypes.node,
   controlPosition: PropTypes.number,
-  // defaultBounds: PropTypes.any,
   bounds: PropTypes.any,
   onPlacesChanged: PropTypes.func,
 }
