@@ -1,7 +1,6 @@
 /* global google */
 // eslint-disable-next-line filenames/match-exported
-import React, { Fragment } from 'react'
-// import PropTypes from 'prop-types'
+import React from 'react'
 import Layout from '../components/layout'
 import indexStyles from './index.module.css'
 import uuid from 'uuidv4'
@@ -127,22 +126,20 @@ const IndexPage = () => (
                 loaded={loaded}
                 loadingElement={Loading}
                 render={({ map, mapRef }) => (
-                  <Fragment>
-                    <GoogleMap
-                      map={map}
-                      mapRef={mapRef}
-                      loaded={loaded}
-                      zoom={8}
-                      center={center}
-                      mapContainerStyle={mapContainerStyle}
-                      mapContainerClassName={indexStyles.mapContainer}
-                      onClick={(...args) => {
-                        console.log('onClick args: ', args)
-                      }}
-                    >
-                      <TrafficLayer />
-                    </GoogleMap>
-                  </Fragment>
+                  <GoogleMap
+                    map={map}
+                    mapRef={mapRef}
+                    loaded={loaded}
+                    zoom={8}
+                    center={center}
+                    mapContainerStyle={mapContainerStyle}
+                    mapContainerClassName={indexStyles.mapContainer}
+                    onClick={(...args) => {
+                      console.log('onClick args: ', args)
+                    }}
+                  >
+                    <TrafficLayer />
+                  </GoogleMap>
                 )}
               />
             </div>
@@ -157,22 +154,20 @@ const IndexPage = () => (
                 loaded={loaded}
                 loadingElement={Loading}
                 render={({ map, mapRef }) => (
-                  <Fragment>
-                    <GoogleMap
-                      map={map}
-                      mapRef={mapRef}
-                      loaded={loaded}
-                      zoom={8}
-                      center={center}
-                      mapContainerStyle={mapContainerStyle}
-                      mapContainerClassName={indexStyles.mapContainer}
-                      onClick={(...args) => {
-                        console.log('onClick args: ', args)
-                      }}
-                    >
-                      <BicyclingLayer />
-                    </GoogleMap>
-                  </Fragment>
+                  <GoogleMap
+                    map={map}
+                    mapRef={mapRef}
+                    loaded={loaded}
+                    zoom={8}
+                    center={center}
+                    mapContainerStyle={mapContainerStyle}
+                    mapContainerClassName={indexStyles.mapContainer}
+                    onClick={(...args) => {
+                      console.log('onClick args: ', args)
+                    }}
+                  >
+                    <BicyclingLayer />
+                  </GoogleMap>
                 )}
               />
             </div>
@@ -187,33 +182,31 @@ const IndexPage = () => (
                 loaded={loaded}
                 loadingElement={Loading}
                 render={({ map, mapRef }) => (
-                  <Fragment>
-                    <GoogleMap
-                      map={map}
-                      mapRef={mapRef}
-                      loaded={loaded}
-                      zoom={8}
-                      center={center}
-                      mapContainerStyle={mapContainerStyle}
-                      mapContainerClassName={indexStyles.mapContainer}
-                      onClick={(...args) => {
-                        console.log('onClick args: ', args)
+                  <GoogleMap
+                    map={map}
+                    mapRef={mapRef}
+                    loaded={loaded}
+                    zoom={8}
+                    center={center}
+                    mapContainerStyle={mapContainerStyle}
+                    mapContainerClassName={indexStyles.mapContainer}
+                    onClick={(...args) => {
+                      console.log('onClick args: ', args)
+                    }}
+                  >
+                    <GroundOverlay
+                      url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
+                      bounds={new google.maps.LatLngBounds(
+                        new google.maps.LatLng(40.712216, -74.22655),
+                        new google.maps.LatLng(40.773941, -74.12544)
+                      )}
+                      options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+                        map,
+                        clickable: true,
+                        opacity: 0.5
                       }}
-                    >
-                      <GroundOverlay
-                        url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
-                        bounds={new google.maps.LatLngBounds(
-                          new google.maps.LatLng(40.712216, -74.22655),
-                          new google.maps.LatLng(40.773941, -74.12544)
-                        )}
-                        options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-                          map,
-                          clickable: true,
-                          opacity: 0.5
-                        }}
-                      />
-                    </GoogleMap>
-                  </Fragment>
+                    />
+                  </GoogleMap>
                 )}
               />
             </div>
