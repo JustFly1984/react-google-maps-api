@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { injectScript } from './utils/injectscript'
 import { LoadScriptPropTypes } from './proptypes'
-import { LoadScriptContextProvider } from './loadscriptcontext'
 
 class LoadScript extends Component {
   static propTypes = LoadScriptPropTypes
@@ -44,15 +43,7 @@ Otherwise it is a Network issues.
     })
   }
 
-  render = () => (
-    <LoadScriptContextProvider
-      value={this.state.loaded}
-    >
-      {
-        this.state.loaded ? this.props.children : this.props.loadingElement
-      }
-    </LoadScriptContextProvider>
-  )
+  render = () => this.state.loaded ? this.props.children : this.props.loadingElement
 }
 
 export default LoadScript

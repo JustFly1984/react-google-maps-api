@@ -1,6 +1,6 @@
 /* global google */
 /* eslint-disable filenames/match-regex */
-import React, { PureComponent, Children, cloneElement } from 'react'
+import React, { PureComponent } from 'react'
 import invariant from 'invariant'
 import MapContext from '../../mapcontext'
 import { GoogleMapPropTypes } from '../../proptypes'
