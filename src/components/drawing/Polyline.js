@@ -5,6 +5,7 @@ import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
+import MapContext from '../../mapcontext'
 
 import { PolylinePropTypes } from '../../proptypes'
 
@@ -46,16 +47,15 @@ const updaterMap = {
 export class Polyline extends PureComponent {
   static propTypes = PolylinePropTypes
 
-  constructor(props) {
-    super(props);
-    this.registeredEvents = [];
+  static contextType = MapContext
 
-    this.state = {
-      polyline: null
-    }
+  registerEvents = []
+
+  state = {
+    polyline: null
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     const polyline = new google.maps.Polyline()
 
     this.setState({ polyline }, () => {
@@ -66,10 +66,11 @@ export class Polyline extends PureComponent {
         nextProps: this.props,
         instance: this.state.polyline
       })
+      this.state.polyline.setMap(this.context)
     })
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate = (prevProps) => {
     unregisterEvents(this.registeredEvents)
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
@@ -80,14 +81,12 @@ export class Polyline extends PureComponent {
     })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
     this.state.polyline && this.state.polyline.setMap(null)
   }
 
-  render() {
-    return null
-  }
+  render = () => null
 
   getDraggable = () =>
     this.state.polyline.getDraggable()

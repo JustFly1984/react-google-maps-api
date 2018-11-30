@@ -2,9 +2,13 @@
 /* eslint-disable filenames/match-regex */
 import React, { PureComponent, Children, cloneElement } from 'react'
 import invariant from 'invariant'
-import { LoadScriptContext } from '../../loadscriptcontext'
+import MapContext from '../../mapcontext'
 import { GoogleMapPropTypes } from '../../proptypes'
-import { map } from '../../utils/map'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/MapChildHelper'
+
 
 const eventMap = {
   onDblClick: 'dblclick',
@@ -28,151 +32,71 @@ const eventMap = {
   onZoomChanged: 'zoom_changed',
 }
 
-const propNameList = [
-  'defaultExtraMapTypes',
-  'center',
-  'clickableIcons',
-  'heading',
-  'mapTypeId',
-  'options',
-  'streetView',
-  'tilt',
-  'zoom'
-]
-
-const propsMap = {
-  defaultExtraMapTypes: 'setExtraMapTypes',
-  center: 'setCenter',
-  clickableIcons: 'setClickableIcons',
-  heading: 'setHeading',
-  mapTypeId: 'setMapTypeId',
-  options: 'setOptions',
-  streetView: 'setStreetView',
-  tilt: 'setTilt',
-  zoom: 'setZoom'
-}
-
 const updaterMap = {
-  setExtraMapTypes(map, extra) {
+  extraMapTypes(map, extra) {
     extra.forEach(it => {
       map.mapTypes.set(...it)
-    }
-    )
+    })
   },
-  setCenter(map, ...args) {
-    map.setCenter(...args)
+  center(map, center) {
+    map.setCenter(center)
   },
-  setClickableIcons(map, ...args) {
-    map.setClickableIcons(...args)
+  clickableIcons(map, icons) {
+    map.setClickableIcons(...icons)
   },
-  setHeading(map, ...args) {
-    map.setHeading(...args)
+  heading(map, heading) {
+    map.setHeading(heading)
   },
-  setMapTypeId(map, ...args) {
-    map.setMapTypeId(...args)
+  mapTypeId(map, mapTypeId) {
+    map.setMapTypeId(mapTypeId)
   },
-  setOptions(map, ...args) {
-    map.setOptions(...args)
+  options(map, options) {
+    map.setOptions(options)
   },
-  setStreetView(map, ...args) {
-    map.setStreetView(...args)
+  streetView(map, streetView) {
+    map.setStreetView(streetView)
   },
-  setTilt(map, ...args) {
-    map.setTilt(...args)
+  tilt(map, tile) {
+    map.setTilt(tile)
   },
-  setZoom(map, ...args) {
-    map.setZoom(...args)
+  zoom(map, zoom) {
+    map.setZoom(zoom)
   }
 }
 
 export class GoogleMap extends PureComponent {
   static propTypes = GoogleMapPropTypes
 
-  static contextType = LoadScriptContext;
+  static contextType = MapContext
 
-  state = {
-    prevProps: {},
-    registered: []
-  }
+  registeredEvents = []
 
   componentDidMount = () => {
-    invariant(
-      typeof this.props.map !== 'undefined',
-      'Did you wrap <GoogleMap> component with <GoogleMapProvider />?'
-    )
-
-    invariant(
-      typeof this.props.mapContainerClassName !== 'undefined' || typeof this.props.mapContainerStyle !== 'undefined',
-      'Did you set mapContainerClassName or mapContainerStyle props to <GoogleMap> component ? You need to set one of them, or map will be invisible.'
-    )
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    state.registered.length > 0 &&
-      state.registered.forEach((event, i) => {
-        google.maps.event.removeListener(event)
-      })
-
-    if (props.map !== null) {
-      return {
-        prevProps: propNameList.reduce((acc, propName) => {
-          if (typeof props[propName] !== 'undefined') {
-            if (state.prevProps[propName] === props[propName]) {
-              acc[propName] = state.prevProps[propName]
-
-              return acc
-            } else {
-              updaterMap[propsMap[propName]](props.map, props[propName])
-
-              acc[propName] = props[propName]
-
-              return acc
-            }
-          }
-
-          return acc
-        }, {}),
-        registered: map(eventMap, (googleEventName, onEventName) => {
-          typeof props[onEventName] === 'function' &&
-            google.maps.event.addListener(props.map, googleEventName, props[onEventName])
-        })
-      }
-    }
-
-    return {
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
       prevProps: {},
-      registered: []
-    }
-  }
-
-  componentWillUnmount = () => {
-    this.state.registered.forEach(event => {
-      google.maps.event.removeListener(event)
+      nextProps: this.props,
+      instance: this.context
     })
   }
 
-  render = () => (
-    <div
-      ref={this.props.mapRef}
-      style={this.props.mapContainerStyle}
-      className={this.props.mapContainerClassName}
-    >
+  componentDidUpdate = (prevProps) => {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.context
+    })
+  }
 
-      {
-        this.context
-          ? Children.map(this.props.children, child => {
-            return child !== null
-              ? cloneElement(child, {
-                map: this.props.map,
-                loaded: this.props.loaded
-              })
-              : child
-          })
-          : null
-      }
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+  }
 
-    </div>
-  )
+  render = () => this.props.children || null
 
   fitBounds = (...args) =>
     this.props.map.fitBounds(...args)

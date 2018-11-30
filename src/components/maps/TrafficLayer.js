@@ -1,6 +1,7 @@
 /* global google */
 import { PureComponent } from 'react'
 import { TrafficLayerPropTypes } from '../../proptypes'
+import MapContext from "../../mapcontext"
 
 const propNameList = [
   'options'
@@ -11,21 +12,22 @@ const propsMap = {
 }
 
 const updaterMap = {
-  setOptions (instance, options) {
+  setOptions(instance, options) {
     instance.setOptions(options)
   }
 }
 
 export class TrafficLayer extends PureComponent {
   static propTypes = TrafficLayerPropTypes
+  static contextType = MapContext
 
   state = {
     trafficLayer: null,
     prevProps: {}
   }
 
-  static getDerivedStateFromProps (props, state) {
-    if (props.map !== null) {
+  static getDerivedStateFromProps(props, state) {
+    if (this.context !== null) {
       const trafficLayer = state.trafficLayer === null
         ? new google.maps.TrafficLayer(
           props.options
@@ -33,7 +35,7 @@ export class TrafficLayer extends PureComponent {
         : state.trafficLayer
 
       if (state.trafficLayer === null) {
-        trafficLayer.setMap(props.map)
+        trafficLayer.setMap(this.context)
       }
 
       return {
@@ -45,8 +47,8 @@ export class TrafficLayer extends PureComponent {
 
               return acc
             } else {
-              console.log('props.map: ', props.map, ' props[propName] ', props[propName])
-              updaterMap[propsMap[propName]](props.map, props[propName])
+              console.log('props.map: ', this.context, ' props[propName] ', props[propName])
+              updaterMap[propsMap[propName]](this.context, props[propName])
 
               acc[propName] = props[propName]
 
@@ -65,13 +67,13 @@ export class TrafficLayer extends PureComponent {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.state.trafficLayer !== null) {
       this.state.trafficLayer.setMap(null)
     }
   }
 
-  render () {
+  render() {
     return null
   }
 

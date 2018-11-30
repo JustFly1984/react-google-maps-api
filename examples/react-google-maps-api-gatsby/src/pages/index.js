@@ -12,7 +12,7 @@ import {
   BicyclingLayer,
   // Circle,
   // Marker
-  // Polyline,
+  Polyline,
   // Polygon,
   // Rectangle,
   // InfoWindow,
@@ -96,27 +96,28 @@ const IndexPage = () => (
       onLoad={() => (
         console.log('script loaded')
       )}
+      loadingElement={Loading}
     >
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>
           Plain Google Map
         </h2>
-
         <GoogleMapProvider
           id={providerOneId}
-          loadingElement={Loading}
-        >
+          mapContainerStyle={mapContainerStyle}
+          mapContainerClassName={indexStyles.mapContainer}>
           <GoogleMap
             zoom={8}
             center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
+
             onClick={(...args) => {
               console.log('onClick args: ', args)
             }}
           />
         </GoogleMapProvider>
+
       </div>
+
 
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>
@@ -125,21 +126,26 @@ const IndexPage = () => (
 
         <GoogleMapProvider
           id={providerTwoId}
-          loadingElement={Loading}
-        >
+          mapContainerStyle={mapContainerStyle}
+          mapContainerClassName={indexStyles.mapContainer}>
+          >
           <GoogleMap
-            zoom={8}
-            center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
+            zoom={3}
+            center={{ lat: 0, lng: -180 }}
             onClick={(...args) => {
               console.log('onClick args: ', args)
             }}
           >
-            <TrafficLayer />
+            <Polyline path={[
+              { lat: 37.772, lng: -122.214 },
+              { lat: 21.291, lng: -157.821 },
+              { lat: -18.142, lng: 178.431 },
+              { lat: -27.467, lng: 153.027 }
+            ]} />
           </GoogleMap>
         </GoogleMapProvider>
       </div>
+      {/* 
 
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>
@@ -203,7 +209,7 @@ const IndexPage = () => (
           }} loadingElement={Loading}></ShapesExample>
         </div>
       </div>
-
+ */}
 
 
     </LoadScript>
