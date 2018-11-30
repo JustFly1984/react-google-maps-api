@@ -26,7 +26,7 @@ import {
   // compose
 } from "../../../../src"
 
-import ShapesExample from "../examples/shapes"
+import ShapesExample from "../examples/shapes-example"
 
 // import MapWithASearchBox from '../components/search-box'
 // import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
@@ -118,32 +118,14 @@ const IndexPage = () => (
 
       </div>
 
-
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>
-          Google Map with Traffic Layer
+          Google Map with Shapes
         </h2>
-
-        <GoogleMapProvider
-          id={providerTwoId}
-          mapContainerStyle={mapContainerStyle}
-          mapContainerClassName={indexStyles.mapContainer}>
-          >
-          <GoogleMap
-            zoom={3}
-            center={{ lat: 0, lng: -180 }}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          >
-            <Polyline path={[
-              { lat: 37.772, lng: -122.214 },
-              { lat: 21.291, lng: -157.821 },
-              { lat: -18.142, lng: 178.431 },
-              { lat: -27.467, lng: 153.027 }
-            ]} />
-          </GoogleMap>
-        </GoogleMapProvider>
+        <ShapesExample styles={{
+          container: mapContainerStyle,
+          mapContainer: indexStyles.mapContainer
+        }} loadingElement={Loading} />
       </div>
       {/* 
 
@@ -199,16 +181,7 @@ const IndexPage = () => (
           </GoogleMap>
         </GoogleMapProvider>
 
-        <div style={mapBoxStyle}>
-          <h2 style={mapHeaderStyle}>
-            Google Map with Shapes
-        </h2>
-          <ShapesExample styles={{
-            container: mapContainerStyle,
-            mapContainer: indexStyles.mapContainer
-          }} loadingElement={Loading}></ShapesExample>
-        </div>
-      </div>
+       
  */}
 
 

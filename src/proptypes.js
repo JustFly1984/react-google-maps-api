@@ -446,8 +446,8 @@ export const PolylineOptionsInterface = {
   ),
   map: PropTypes.shape(
     GoogleMapInterface
-  ).isRequired,
-  path: PathInterface.isRequired,
+  ),
+  path: PathInterface,
   strokeColor: PropTypes.string,
   strokeOpacity: PropTypes.number,
   strokeWeight: PropTypes.number,
@@ -477,15 +477,15 @@ export const PolylinePropTypes = {
 }
 
 export const PolygonOptionsInterface = {
-  clickable: PropTypes.bool.isRequired,
-  draggable: PropTypes.bool.isRequired,
-  editable: PropTypes.bool.isRequired,
-  fillColor: PropTypes.string.isRequired,
-  fillOpacity: PropTypes.number.isRequired,
-  geodesic: PropTypes.bool.isRequired,
+  clickable: PropTypes.backgroundColor,
+  draggable: PropTypes.backgroundColor,
+  editable: PropTypes.backgroundColor,
+  fillColor: PropTypes.stringbackgroundColor,
+  fillOpacity: PropTypes.numberbackgroundColor,
+  geodesic: PropTypes.backgroundColor,
   map: PropTypes.shape(
     GoogleMapInterface
-  ).isRequired,
+  ),
   paths: PropTypes.oneOfType([
     PropTypes.shape(
       MVCArrayInterface
@@ -512,13 +512,13 @@ export const PolygonOptionsInterface = {
         )
       ])
     )
-  ]).isRequired,
-  strokeColor: PropTypes.string.isRequired,
-  strokeOpacity: PropTypes.number.isRequired,
-  strokePosition: PropTypes.string.isRequired, // StrokePosition constants
-  strokeWeight: PropTypes.number.isRequired,
-  visible: PropTypes.bool.isRequired,
-  zIndex: PropTypes.number.isRequired
+  ]),
+  strokeColor: PropTypes.string,
+  strokeOpacity: PropTypes.number,
+  strokePosition: PropTypes.string, // StrokePosition constants
+  strokeWeight: PropTypes.number,
+  visible: PropTypes.bool,
+  zIndex: PropTypes.number
 }
 
 export const PolygonPropTypes = {
@@ -621,22 +621,22 @@ export const CircleOptionsInterface = {
     PropTypes.shape(
       LatLngLiteralInterface
     )
-  ]).isRequired,
-  clickable: PropTypes.bool.isRequired,
-  draggable: PropTypes.bool.isRequired,
-  editable: PropTypes.bool.isRequired,
-  fillColor: PropTypes.string.isRequired,
-  fillOpacity: PropTypes.number.isRequired,
+  ]),
+  clickable: PropTypes.bool,
+  draggable: PropTypes.bool,
+  editable: PropTypes.bool,
+  fillColor: PropTypes.string,
+  fillOpacity: PropTypes.number,
   map: PropTypes.shape(
     GoogleMapInterface
-  ).isRequired,
-  radius: PropTypes.number.isRequired,
-  strokeColor: PropTypes.string.isRequired,
-  strokeOpacity: PropTypes.number.isRequired,
-  strokePosition: PropTypes.string.isRequired, // StrokePosition constants
-  strokeWeight: PropTypes.number.isRequired,
-  visible: PropTypes.bool.isRequired,
-  zIndex: PropTypes.number.isRequired,
+  ),
+  radius: PropTypes.number,
+  strokeColor: PropTypes.string,
+  strokeOpacity: PropTypes.number,
+  strokePosition: PropTypes.string, // StrokePosition constants
+  strokeWeight: PropTypes.number,
+  visible: PropTypes.bool,
+  zIndex: PropTypes.number,
 }
 
 export const CirclePropTypes = {
@@ -650,10 +650,10 @@ export const CirclePropTypes = {
     PropTypes.shape(
       LatLngLiteralInterface
     )
-  ]),
+  ]).isRequired,
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
-  radius: PropTypes.number,
+  radius: PropTypes.number.isRequired,
   visible: PropTypes.bool,
   onDblClick: PropTypes.func,
   onDragEnd: PropTypes.func,

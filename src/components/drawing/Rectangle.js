@@ -5,6 +5,7 @@ import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
+import MapContext from '../../mapcontext'
 
 import { RectanglePropTypes } from '../../proptypes'
 
@@ -47,19 +48,19 @@ const updaterMap = {
 export class Rectangle extends PureComponent {
   static propTypes = RectanglePropTypes
 
-  constructor(props) {
-    super(props)
+  static contextType = MapContext
 
-    this.registeredEvents = [];
+  registerEvents = []
 
-    this.state = {
-      rectangle: null
-    }
+  state = {
+    rectangle: null
   }
-  componentDidMount() {
+
+  componentDidMount = () => {
     const rectangle = new google.maps.Rectangle()
 
     this.setState({ rectangle }, () => {
+      this.state.rectangle.setMap(this.context)
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
         eventMap,
@@ -70,7 +71,7 @@ export class Rectangle extends PureComponent {
     })
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate = (prevProps) => {
     unregisterEvents(this.registeredEvents)
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
@@ -81,15 +82,12 @@ export class Rectangle extends PureComponent {
     })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
     this.state.rectangle && this.state.rectangle.setMap(null)
   }
 
-
-  render() {
-    return null
-  }
+  render = () => null
 
   getBounds = () =>
     this.state.rectangle.getBounds()
