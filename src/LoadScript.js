@@ -49,7 +49,7 @@ Otherwise it is a Network issues.
       value={this.state.loaded}
     >
       {
-        this.props.children
+        this.state.loaded ? this.props.children : this.props.loadingElement
       }
     </LoadScriptContextProvider>
   )

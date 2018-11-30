@@ -1,0 +1,8 @@
+{
+  "eslint.options": {
+    "configFile": "./.eslintrc.js"
+  },
+  "eslint.autoFixOnSave": true,
+  "eslint.packageManager": "yarn",
+  "editor.formatOnSave": true
+}

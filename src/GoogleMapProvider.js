@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react'
 import { GoogleMapProviderPropTypes } from './proptypes'
 import { LoadScriptContext } from './loadscriptcontext'
+import MapContext from './mapcontext'
 export class GoogleMapProvider extends PureComponent {
   static propTypes = GoogleMapProviderPropTypes
 
@@ -23,14 +24,17 @@ export class GoogleMapProvider extends PureComponent {
     )
   }
 
-  render = () =>
-    this.context
-      ? React.cloneElement(
-        this.props.children, {
-          map: this.state.map,
-          mapRef: this.getRef
-        })
-      : this.props.loadingElement
+  render = () => (
+    <div
+      ref={this.getRef}
+      style={this.props.mapContainerStyle}
+      className={this.props.mapContainerClassName}
+    >
+      <MapContext.Provider value={this.state.map}>
+        {this.state.map && this.props.children}
+      </MapContext.Provider>
+    </div>
+  )
 }
 
 export default GoogleMapProvider

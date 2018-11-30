@@ -1433,15 +1433,12 @@ export const GroundOverlayPropTypes = {
 
 export const GoogleMapProviderPropTypes = {
   id: PropTypes.string.isRequired,
-  loadingElement: PropTypes.node.isRequired
+  mapContainerStyle: PropTypes.object,
+  mapContainerClassName: PropTypes.string,
 }
 
 export const GoogleMapPropTypes = {
   children: PropTypes.node,
-  map: PropTypes.object, // it is null while map is not loaded
-  mapContainerStyle: PropTypes.object,
-  mapContainerClassName: PropTypes.string,
-  // mapRef: PropTypes.func.isRequired,
   options: PropTypes.shape(
     GoogleMapOptionsInterface
   ),
@@ -1486,5 +1483,7 @@ export const LoadScriptPropTypes = {
   language: PropTypes.string.isRequired,
   region: PropTypes.string.isRequired,
   version: PropTypes.string.isRequired,
+  loadingElement: PropTypes.element.isRequired,
   onLoad: PropTypes.func
+
 }
