@@ -8,8 +8,6 @@ import {
   componentWillUnmount
 } from '../../utils/MapChildHelper'
 
-import { MAP, MARKER, ANCHOR, MARKER_CLUSTERER } from '../../constants'
-
 import { MarkerPropTypes } from '../../proptypes'
 
 const eventMap = {

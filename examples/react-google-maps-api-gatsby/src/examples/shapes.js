@@ -1,5 +1,7 @@
+/* eslint-disable filenames/match-exported */
 
-import React from "react"
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
   GoogleMapProvider,
   GoogleMap,
@@ -7,14 +9,14 @@ import {
   Polygon,
   Rectangle,
   Circle
-} from "../../../../src"
+} from '../../../../src'
 
 const FLIGHT_PLAN_COORDS = [
   { lat: 37.772, lng: -122.214 },
   { lat: 21.291, lng: -157.821 },
   { lat: -18.142, lng: 178.431 },
   { lat: -27.467, lng: 153.027 }
-];
+]
 
 const BRISBANE_COORDS = [
   { lat: -27.467, lng: 153.027 },
@@ -43,9 +45,67 @@ const POLYLINE_OPTIONS = {
   strokeWeight: 2
 }
 
-export default class ShapesExample extends React.Component {
-  constructor(props) {
-    super(props);
+const ShapesExamplePropTypes = {
+  styles: PropTypes.object.isRequired,
+  loadingElement: PropTypes.node.isRequired
+}
+
+const mapCenter = {
+  lat: 0,
+  lng: -180
+}
+
+const brisbonPolygonOptions = {
+  fillColor: '#00FF00',
+  fillOpacity: 1,
+  strokeColor: '#22FF22',
+  strokeOpacity: 1,
+  strokeWeight: 2,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  geodesic: false,
+  paths: BRISBANE_COORDS,
+  zIndex: 1
+}
+
+const sfPolygonOptions = {
+  fillColor: '#FF5500',
+  fillOpacity: 1,
+  strokeColor: '#FF7700',
+  strokeOpacity: 1,
+  strokeWeight: 2,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  geodesic: false,
+  paths: SAN_FRANCISCO_COORDS,
+  zIndex: 1
+}
+
+const circleOptions = {
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35,
+  center: {
+    lat: 34.052,
+    lng: -118.243
+  },
+  radius: 300000,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  visible: true,
+  zIndex: 1
+}
+
+export default class ShapesExample extends Component {
+  static propTypes = ShapesExamplePropTypes
+
+  constructor (props) {
+    super(props)
 
     this.state = {
       polylineVisible: true,
@@ -53,10 +113,24 @@ export default class ShapesExample extends React.Component {
     }
   }
 
-  render() {
-    const { styles, loadingElement } = this.props
+  onCheckboxChange = () => {
+    this.setState(
+      prevState => ({
+        polylineVisible: !prevState.polylineVisible
+      })
+    )
+  }
 
-    let polylineOptions;
+  onTextAreaCange = ({ targer: { value } }) => {
+    this.setState(
+      () => ({
+        polylineOptions: value
+      })
+    )
+  }
+
+  render = () => {
+    let polylineOptions
 
     try {
       polylineOptions = JSON.parse(this.state.polylineOptions)
@@ -68,52 +142,68 @@ export default class ShapesExample extends React.Component {
       <div>
         <div>
           <input
-            id="show-polyline-checkbox"
-            type="checkbox"
+            id='show-polyline-checkbox'
+            type='checkbox'
             checked={this.state.polylineVisible}
-            onChange={() => this.setState({ polylineVisible: !this.state.polylineVisible })} />
-          <label htmlFor="show-polyline-checkbox">Show flight path</label>
+            onChange={this.onCheckboxChange}
+          />
+
+          <label htmlFor='show-polyline-checkbox'>
+            Show flight path
+          </label>
         </div>
+
         <br />
+
         <div>
-          <label htmlFor="polyline-options-input">Polyline options (will persist once valid JSON):</label> <br />
+          <label htmlFor='polyline-options-input'>
+            Polyline options (will persist once valid JSON):
+          </label>
+
+          <br />
+
           <textarea
-            id="polyline-options-input"
-            type="text"
+            id='polyline-options-input'
+            type='text'
             value={this.state.polylineOptions}
-            onChange={(e) => this.setState({ polylineOptions: e.target.value })} />
+            onChange={this.onTextAreaCange}
+          />
         </div>
 
         <GoogleMapProvider
-          id="shapes-example"
-          loadingElement={loadingElement}
+          id='shapes-example'
+          loadingElement={this.props.loadingElement}
         >
           <GoogleMap
             zoom={2}
-            center={{ lat: 0, lng: -180 }}
-            mapContainerStyle={styles.container}
-            mapContainerClassName={styles.mapContainer}
+            center={mapCenter}
+            mapContainerStyle={this.props.styles.container}
+            mapContainerClassName={this.props.styles.mapContainer}
           >
             {
-              this.state.polylineVisible &&
-              <Polyline path={FLIGHT_PLAN_COORDS} options={polylineOptions} />
+              this.state.polylineVisible && (
+                <Polyline
+                  path={FLIGHT_PLAN_COORDS}
+                  options={polylineOptions}
+                />
+              )
             }
-            <Polygon
-              path={BRISBANE_COORDS}
-              options={{ fillColor: "green", fillOpacity: 1 }} />
 
             <Polygon
-              path={SAN_FRANCISCO_COORDS}
-              options={{ fillColor: "purple", fillOpacity: 1 }} />
+              options={brisbonPolygonOptions}
+            />
 
-            <Rectangle bounds={RECTANGLE_BOUNDS} />
-            <Circle center={{ lat: 34.052, lng: -118.243 }} radius={300000} options={{
-              strokeColor: '#FF0000',
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillColor: '#FF0000',
-              fillOpacity: 0.35,
-            }} />
+            <Polygon
+              options={sfPolygonOptions}
+            />
+
+            <Rectangle
+              bounds={RECTANGLE_BOUNDS}
+            />
+
+            <Circle
+              options={circleOptions}
+            />
           </GoogleMap>
         </GoogleMapProvider>
       </div>

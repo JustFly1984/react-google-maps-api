@@ -23,22 +23,22 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable(instance, draggable) {
+  draggable (instance, draggable) {
     instance.setDraggable(draggable)
   },
-  editable(instance, editable) {
+  editable (instance, editable) {
     instance.setEditable(editable)
   },
-  map(instance, map) {
+  map (instance, map) {
     instance.setMap(map)
   },
-  options(instance, options) {
+  options (instance, options) {
     instance.setOptions(options)
   },
-  path(instance, path) {
+  path (instance, path) {
     instance.setPath(path)
   },
-  visible(instance, visible) {
+  visible (instance, visible) {
     instance.setVisible(visible)
   },
 }
@@ -46,48 +46,69 @@ const updaterMap = {
 export class Polyline extends PureComponent {
   static propTypes = PolylinePropTypes
 
-  constructor(props) {
-    super(props);
-    this.registeredEvents = [];
+  registeredEvents = []
 
-    this.state = {
-      polyline: null
+  state = {
+    polyline: null
+  }
+
+  initializePolyline = () => {
+    const polyline = new google.maps.Polyline(
+      Object.assign(
+        this.props.options, {
+          map: this.props.map
+        }
+      )
+    )
+
+    this.setState(
+      () => ({
+        polyline
+      }),
+      () => {
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.polyline
+        })
+      })
+  }
+
+  componentDidMount = () => {
+    if (this.props.map !== null) {
+      this.initializePolyline()
     }
   }
 
-  componentDidMount() {
-    const polyline = new google.maps.Polyline()
+  componentDidUpdate = prevProps => {
+    if (this.props.map !== null && this.state.polyline === null) {
+      this.initializePolyline()
+    }
 
-    this.setState({ polyline }, () => {
+    if (this.state.polyline !== null) {
+      unregisterEvents(this.registeredEvents)
+
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
         eventMap,
-        prevProps: {},
+        prevProps,
         nextProps: this.props,
         instance: this.state.polyline
       })
-    })
+    }
   }
 
-  componentDidUpdate(prevProps) {
+  componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.polyline
-    })
+
+    if (this.state.polyline !== null) {
+      this.state.polyline.setMap(null)
+    }
   }
 
-  componentWillUnmount() {
-    unregisterEvents(this.registeredEvents)
-    this.state.polyline && this.state.polyline.setMap(null)
-  }
-
-  render() {
-    return null
-  }
+  render = () => null
 
   getDraggable = () =>
     this.state.polyline.getDraggable()
