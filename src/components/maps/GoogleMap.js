@@ -53,34 +53,34 @@ const propsMap = {
 }
 
 const updaterMap = {
-  setExtraMapTypes(map, extra) {
+  setExtraMapTypes (map, extra) {
     extra.forEach(it => {
       map.mapTypes.set(...it)
     }
     )
   },
-  setCenter(map, ...args) {
+  setCenter (map, ...args) {
     map.setCenter(...args)
   },
-  setClickableIcons(map, ...args) {
+  setClickableIcons (map, ...args) {
     map.setClickableIcons(...args)
   },
-  setHeading(map, ...args) {
+  setHeading (map, ...args) {
     map.setHeading(...args)
   },
-  setMapTypeId(map, ...args) {
+  setMapTypeId (map, ...args) {
     map.setMapTypeId(...args)
   },
-  setOptions(map, ...args) {
+  setOptions (map, ...args) {
     map.setOptions(...args)
   },
-  setStreetView(map, ...args) {
+  setStreetView (map, ...args) {
     map.setStreetView(...args)
   },
-  setTilt(map, ...args) {
+  setTilt (map, ...args) {
     map.setTilt(...args)
   },
-  setZoom(map, ...args) {
+  setZoom (map, ...args) {
     map.setZoom(...args)
   }
 }
@@ -107,7 +107,7 @@ export class GoogleMap extends PureComponent {
     )
   }
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps (props, state) {
     state.registered.length > 0 &&
       state.registered.forEach((event, i) => {
         google.maps.event.removeListener(event)
@@ -170,7 +170,6 @@ export class GoogleMap extends PureComponent {
           })
           : null
       }
-
     </div>
   )
 

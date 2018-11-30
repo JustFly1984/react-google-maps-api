@@ -24,9 +24,9 @@ import {
 
   // StreetViewPanorama,
   // compose
-} from "../../../../src"
+} from '../../../../src'
 
-import ShapesExample from "../examples/shapes"
+import ShapesExample from '../examples/shapes'
 
 // import MapWithASearchBox from '../components/search-box'
 // import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
@@ -67,6 +67,11 @@ const loadingStyle = {
 const mapContainerStyle = {
   height: `400px`,
   width: `800px`
+}
+
+const shapesStyles = {
+  container: mapContainerStyle,
+  mapContainer: indexStyles.mapContainer
 }
 
 const Loading = (
@@ -196,16 +201,14 @@ const IndexPage = () => (
         <div style={mapBoxStyle}>
           <h2 style={mapHeaderStyle}>
             Google Map with Shapes
-        </h2>
-          <ShapesExample styles={{
-            container: mapContainerStyle,
-            mapContainer: indexStyles.mapContainer
-          }} loadingElement={Loading}></ShapesExample>
+          </h2>
+
+          <ShapesExample
+            styles={shapesStyles}
+            loadingElement={Loading}
+          />
         </div>
       </div>
-
-
-
     </LoadScript>
   </Layout >
 )
