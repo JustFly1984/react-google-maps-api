@@ -1,14 +1,11 @@
 /* global google */
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP, MARKER, ANCHOR, MARKER_CLUSTERER } from '../../constants'
 
 import { MarkerPropTypes } from '../../proptypes'
 
@@ -37,46 +34,46 @@ const eventMap = {
 }
 
 const updaterMap = {
-  animation (instance, animation) {
+  animation(instance, animation) {
     instance.setAnimation(animation)
   },
-  clickable (instance, clickable) {
+  clickable(instance, clickable) {
     instance.setClickable(clickable)
   },
-  cursor (instance, cursor) {
+  cursor(instance, cursor) {
     instance.setCursor(cursor)
   },
-  draggable (instance, draggable) {
+  draggable(instance, draggable) {
     instance.setDraggable(draggable)
   },
-  icon (instance, icon) {
+  icon(instance, icon) {
     instance.setIcon(icon)
   },
-  label (instance, label) {
+  label(instance, label) {
     instance.setLabel(label)
   },
-  map (instance, map) {
+  map(instance, map) {
     instance.setMap(map)
   },
-  opacity (instance, opacity) {
+  opacity(instance, opacity) {
     instance.setOpacity(opacity)
   },
-  options (instance, options) {
+  options(instance, options) {
     instance.setOptions(options)
   },
-  position (instance, position) {
+  position(instance, position) {
     instance.setPosition(position)
   },
-  shape (instance, shape) {
+  shape(instance, shape) {
     instance.setShape(shape)
   },
-  title (instance, title) {
+  title(instance, title) {
     instance.setTitle(title)
   },
-  visible (instance, visible) {
+  visible(instance, visible) {
     instance.setVisible(visible)
   },
-  zIndex (instance, zIndex) {
+  zIndex(instance, zIndex) {
     instance.setZIndex(zIndex)
   },
 }
@@ -84,119 +81,94 @@ const updaterMap = {
 export class Marker extends PureComponent {
   static propTypes = MarkerPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-    [MARKER_CLUSTERER]: PropTypes.object,
-  }
+  constructor(props) {
+    super(props)
 
-  static childContextTypes = {
-    [ANCHOR]: PropTypes.object,
-  }
-
-  constructor (props, context) {
-    super(props, context)
-
-    const marker = new google.maps.Marker(
-      props.options
-    )
+    this.registeredEvents = [];
 
     this.state = {
-      [MARKER]: marker,
-      prevProps: construct(
-        MarkerPropTypes,
+      marker: null
+    }
+  }
+
+  componentDidMount() {
+    const marker = new google.maps.Marker()
+
+    this.setState({ marker }, () => {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
-        this.props,
-        marker
-      )
-    }
-
-    const markerClusterer = this.context[MARKER_CLUSTERER]
-
-    if (markerClusterer) {
-      markerClusterer.addMarker(marker, !!props.noRedraw)
-    } else {
-      marker.setMap(this.context[MAP])
-    }
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.marker
+      })
+    })
   }
 
-  getChildContext = () => {
-    return {
-      [ANCHOR]: this.context[ANCHOR] || this.state[MARKER],
-    }
-  }
-
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[MARKER],
+  componentDidUpdate(prevProps) {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
       eventMap,
-      updaterMap
-    )
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.marker
+    })
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const marker = this.state[MARKER]
-
-    if (marker) {
-      const markerClusterer = this.context[MARKER_CLUSTERER]
-
-      if (markerClusterer) {
-        markerClusterer.removeMarker(marker, !!this.props.noRedraw)
-      }
-
-      marker.setMap(null)
-    }
+  componentWillUnmount() {
+    unregisterEvents(this.registeredEvents)
+    this.state.marker && this.state.marker.setMap(null)
   }
 
-  render () {
+
+
+  render() {
     return (
       <div>
-        { this.props.children }
+        {this.props.children}
       </div>
     )
   }
 
   getAnimation = () =>
-    this.state[MARKER].getAnimation()
+    this.state.marker.getAnimation()
 
   getClickable = () =>
-    this.state[MARKER].getClickable()
+    this.state.marker.getClickable()
 
   getCursor = () =>
-    this.state[MARKER].getCursor()
+    this.state.marker.getCursor()
 
   getDraggable = () =>
-    this.state[MARKER].getDraggable()
+    this.state.marker.getDraggable()
 
   getIcon = () =>
-    this.state[MARKER].getIcon()
+    this.state.marker.getIcon()
 
   getLabel = () =>
-    this.state[MARKER].getLabel()
+    this.state.marker.getLabel()
 
   getMap = () =>
-    this.state[MARKER].getMap()
+    this.state.marker.getMap()
 
   getOpacity = () =>
-    this.state[MARKER].getOpacity()
+    this.state.marker.getOpacity()
 
   getPosition = () =>
-    this.state[MARKER].getPosition()
+    this.state.marker.getPosition()
 
   getShape = () =>
-    this.state[MARKER].getShape()
+    this.state.marker.getShape()
 
   getTitle = () =>
-    this.state[MARKER].getTitle()
+    this.state.marker.getTitle()
 
   getVisible = () =>
-    this.state[MARKER].getVisible()
+    this.state.marker.getVisible()
 
   getZIndex = () =>
-    this.state[MARKER].getZIndex()
+    this.state.marker.getZIndex()
 }
 
 export default Marker

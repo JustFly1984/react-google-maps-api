@@ -6,7 +6,8 @@ import {
   Polyline,
   Polygon,
   Rectangle,
-  Circle
+  Circle,
+  Marker
 } from "../../../../src"
 
 const FLIGHT_PLAN_COORDS = [
@@ -114,9 +115,11 @@ export default class ShapesExample extends React.Component {
               fillColor: '#FF0000',
               fillOpacity: 0.35,
             }} />
+
+            <Marker position={{ lat: 37.772, lng: -122.214 }} />
           </GoogleMap>
         </GoogleMapProvider>
-      </div>
+      </div >
 
     )
   }

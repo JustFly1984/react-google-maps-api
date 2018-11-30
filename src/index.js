@@ -4,7 +4,7 @@ export { default as GoogleMap } from './components/maps/GoogleMap'
 export { default as TrafficLayer } from './components/maps/TrafficLayer'
 export { default as BicyclingLayer } from './components/maps/BicyclingLayer'
 
-// export { default as Marker } from './components/drawing/Marker'
+export { default as Marker } from './components/drawing/Marker'
 // export { default as InfoWindow } from './components/drawing/InfoWindow'
 export { default as Polyline } from './components/drawing/Polyline'
 export { default as Polygon } from './components/drawing/Polygon'
