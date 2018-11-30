@@ -4,5 +4,6 @@
   },
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "eslint.run": "onSave"
 }

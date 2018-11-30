@@ -6,6 +6,7 @@ import {
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
+import MapContext from '../../mapcontext'
 
 import { PolygonPropTypes } from '../../proptypes'
 
@@ -56,20 +57,19 @@ const updaterMap = {
 export class Polygon extends PureComponent {
   static propTypes = PolygonPropTypes
 
-  constructor(props) {
-    super(props)
+  static contextType = MapContext
 
-    this.registeredEvents = [];
+  registeredEvents = []
 
-    this.state = {
-      polygon: null
-    }
+  state = {
+    polygon: null
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     const polygon = new google.maps.Polygon()
 
     this.setState({ polygon }, () => {
+      this.state.polygon.setMap(this.context)
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
         eventMap,
@@ -80,7 +80,7 @@ export class Polygon extends PureComponent {
     })
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate = (prevProps) => {
     unregisterEvents(this.registeredEvents)
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
@@ -91,15 +91,13 @@ export class Polygon extends PureComponent {
     })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
     this.state.polygon && this.state.polygon.setMap(null)
   }
 
-  render() {
-    return null
-  }
-
+  render = () => null
+  
   getDraggable = () =>
     this.state.polygon.getDraggable()
 

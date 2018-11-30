@@ -59,6 +59,7 @@ export class Polyline extends PureComponent {
     const polyline = new google.maps.Polyline()
 
     this.setState({ polyline }, () => {
+      this.state.polyline.setMap(this.context)
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
         eventMap,
@@ -66,7 +67,6 @@ export class Polyline extends PureComponent {
         nextProps: this.props,
         instance: this.state.polyline
       })
-      this.state.polyline.setMap(this.context)
     })
   }
 

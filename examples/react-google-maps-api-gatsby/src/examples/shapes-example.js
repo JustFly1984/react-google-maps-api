@@ -87,13 +87,12 @@ export default class ShapesExample extends React.Component {
 
         <GoogleMapProvider
           id="shapes-example"
-          loadingElement={loadingElement}
+          mapContainerStyle={styles.container}
+          mapContainerClassName={styles.mapContainer}
         >
           <GoogleMap
             zoom={2}
             center={{ lat: 0, lng: -180 }}
-            mapContainerStyle={styles.container}
-            mapContainerClassName={styles.mapContainer}
           >
             {
               this.state.polylineVisible &&
