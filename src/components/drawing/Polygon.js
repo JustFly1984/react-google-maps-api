@@ -59,6 +59,8 @@ export class Polygon extends PureComponent {
   constructor(props) {
     super(props)
 
+    this.registeredEvents = [];
+
     this.state = {
       polygon: null
     }
