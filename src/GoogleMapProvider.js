@@ -1,12 +1,9 @@
 /* global google */
 import React, { PureComponent } from 'react'
 import { GoogleMapProviderPropTypes } from './proptypes'
-import { LoadScriptContext } from './loadscriptcontext'
 import MapContext from './mapcontext'
 export class GoogleMapProvider extends PureComponent {
   static propTypes = GoogleMapProviderPropTypes
-
-  static contextType = LoadScriptContext
 
   state = {
     map: null
