@@ -101,6 +101,15 @@ const circleOptions = {
   zIndex: 1
 }
 
+const textareaStyle = {
+  minHeight: '6rem',
+  maxHeight: '12rem',
+  marginTop: '2rem',
+  marginBottom: '2rem',
+  width: '40rem',
+  minWidth: '40rem',
+  maxWidth: '40rem'
+}
 export default class ShapesExample extends Component {
   static propTypes = ShapesExamplePropTypes
 
@@ -165,6 +174,7 @@ export default class ShapesExample extends Component {
           <textarea
             id='polyline-options-input'
             type='text'
+            style={textareaStyle}
             value={this.state.polylineOptions}
             onChange={this.onTextAreaCange}
           />
