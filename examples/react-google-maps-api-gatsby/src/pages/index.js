@@ -24,9 +24,9 @@ import {
 
   // StreetViewPanorama,
   // compose
-} from "../../../../src"
+} from '../../../../src'
 
-import ShapesExample from "../examples/shapes-example"
+import ShapesExample from '../examples/shapes-example'
 
 // import MapWithASearchBox from '../components/search-box'
 // import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
@@ -36,13 +36,16 @@ import ShapesExample from "../examples/shapes-example"
 // https://developers.google.com/maps/documentation/javascript/get-api-key
 import { googleMapsApiKey } from '../const'
 
-const groundOverlayBounds = [{
-  x: 233.94664370659723,
-  y: 153.67749447485028
-}, {
-  x: 36.34117495659723,
-  y: 154.66186947485028
-}]
+const groundOverlayBounds = [
+  {
+    x: 233.94664370659723,
+    y: 153.67749447485028
+  },
+  {
+    x: 36.34117495659723,
+    y: 154.66186947485028
+  }
+]
 
 const mapBoxStyle = {
   marginTop: '2rem',
@@ -69,11 +72,7 @@ const mapContainerStyle = {
   width: `800px`
 }
 
-const Loading = (
-  <div
-    style={loadingStyle}
-  />
-)
+const Loading = <div style={loadingStyle} />
 
 const loaderId = uuid()
 const providerOneId = uuid()
@@ -93,40 +92,39 @@ const IndexPage = () => (
       language={'en'}
       region={'EN'}
       version={'weekly'}
-      onLoad={() => (
-        console.log('script loaded')
-      )}
+      onLoad={() => console.log('script loaded')}
       loadingElement={Loading}
     >
       <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Plain Google Map
-        </h2>
+        <h2 style={mapHeaderStyle}>Plain Google Map</h2>
         <GoogleMapProvider
           id={providerOneId}
           mapContainerStyle={mapContainerStyle}
-          mapContainerClassName={indexStyles.mapContainer}>
+          mapContainerClassName={indexStyles.mapContainer}
+        >
           <GoogleMap
             zoom={8}
             center={center}
-
             onClick={(...args) => {
               console.log('onClick args: ', args)
             }}
-          />
+          >
+            <TrafficLayer />
+          </GoogleMap>
         </GoogleMapProvider>
-
       </div>
 
       <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Google Map with Shapes
-        </h2>
-        <ShapesExample styles={{
-          container: mapContainerStyle,
-          mapContainer: indexStyles.mapContainer
-        }} loadingElement={Loading} />
+        <h2 style={mapHeaderStyle}>Google Map with Shapes</h2>
+        <ShapesExample
+          styles={{
+            container: mapContainerStyle,
+            mapContainer: indexStyles.mapContainer
+          }}
+          loadingElement={Loading}
+        />
       </div>
+
       {/* 
 
       <div style={mapBoxStyle}>
@@ -170,23 +168,12 @@ const IndexPage = () => (
               console.log('onClick args: ', args)
             }}
           >
-            <GroundOverlay
-              url='https://legacy.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
-              bounds={groundOverlayBounds}
-              options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-                clickable: true,
-                opacity: 0.5
-              }}
-            />
-          </GoogleMap>
+          
         </GoogleMapProvider>
-
        
  */}
-
-
     </LoadScript>
-  </Layout >
+  </Layout>
 )
 
 export default IndexPage

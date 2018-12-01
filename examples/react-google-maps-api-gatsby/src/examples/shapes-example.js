@@ -1,5 +1,4 @@
-
-import React from "react"
+import React from 'react'
 import {
   GoogleMapProvider,
   GoogleMap,
@@ -7,15 +6,16 @@ import {
   Polygon,
   Rectangle,
   Circle,
-  Marker
-} from "../../../../src"
+  Marker,
+  OverlayView
+} from '../../../../src'
 
 const FLIGHT_PLAN_COORDS = [
   { lat: 37.772, lng: -122.214 },
   { lat: 21.291, lng: -157.821 },
   { lat: -18.142, lng: 178.431 },
   { lat: -27.467, lng: 153.027 }
-];
+]
 
 const BRISBANE_COORDS = [
   { lat: -27.467, lng: 153.027 },
@@ -45,8 +45,8 @@ const POLYLINE_OPTIONS = {
 }
 
 export default class ShapesExample extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       polylineVisible: true,
@@ -54,10 +54,10 @@ export default class ShapesExample extends React.Component {
     }
   }
 
-  render() {
+  render () {
     const { styles, loadingElement } = this.props
 
-    let polylineOptions;
+    let polylineOptions
 
     try {
       polylineOptions = JSON.parse(this.state.polylineOptions)
@@ -69,57 +69,71 @@ export default class ShapesExample extends React.Component {
       <div>
         <div>
           <input
-            id="show-polyline-checkbox"
-            type="checkbox"
+            id='show-polyline-checkbox'
+            type='checkbox'
             checked={this.state.polylineVisible}
-            onChange={() => this.setState({ polylineVisible: !this.state.polylineVisible })} />
-          <label htmlFor="show-polyline-checkbox">Show flight path</label>
+            onChange={() => this.setState({ polylineVisible: !this.state.polylineVisible })}
+          />
+          <label htmlFor='show-polyline-checkbox'>Show flight path</label>
         </div>
         <br />
         <div>
-          <label htmlFor="polyline-options-input">Polyline options (will persist once valid JSON):</label> <br />
+          <label htmlFor='polyline-options-input'>
+            Polyline options (will persist once valid JSON):
+          </label>{' '}
+          <br />
           <textarea
-            id="polyline-options-input"
-            type="text"
+            id='polyline-options-input'
+            type='text'
             value={this.state.polylineOptions}
-            onChange={(e) => this.setState({ polylineOptions: e.target.value })} />
+            onChange={e => this.setState({ polylineOptions: e.target.value })}
+          />
         </div>
 
         <GoogleMapProvider
-          id="shapes-example"
+          id='shapes-example'
           mapContainerStyle={styles.container}
           mapContainerClassName={styles.mapContainer}
         >
-          <GoogleMap
-            zoom={2}
-            center={{ lat: 0, lng: -180 }}
-          >
-            {
-              this.state.polylineVisible &&
+          <GoogleMap zoom={2} center={{ lat: 0, lng: -180 }}>
+            {this.state.polylineVisible && (
               <Polyline path={FLIGHT_PLAN_COORDS} options={polylineOptions} />
-            }
-            <Polygon
-              path={BRISBANE_COORDS}
-              options={{ fillColor: "green", fillOpacity: 1 }} />
+            )}
+            <Polygon path={BRISBANE_COORDS} options={{ fillColor: 'green', fillOpacity: 1 }} />
 
             <Polygon
               path={SAN_FRANCISCO_COORDS}
-              options={{ fillColor: "purple", fillOpacity: 1 }} />
+              options={{ fillColor: 'purple', fillOpacity: 1 }}
+            />
 
             <Rectangle bounds={RECTANGLE_BOUNDS} />
-            <Circle center={{ lat: 34.052, lng: -118.243 }} radius={300000} options={{
-              strokeColor: '#FF0000',
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillColor: '#FF0000',
-              fillOpacity: 0.35,
-            }} />
+            <Circle
+              center={{ lat: 34.052, lng: -118.243 }}
+              radius={300000}
+              options={{
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35
+              }}
+            />
 
             <Marker position={{ lat: 37.772, lng: -122.214 }} />
+            <OverlayView
+              position={{ lat: 35.772, lng: -120.214 }}
+              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+            >
+              <div style={{ background: `white`, border: `1px solid #ccc`, padding: 15 }}>
+                <h1>OverlayView</h1>
+                <button onClick={() => {}} style={{ height: 60 }}>
+                  I have been clicked
+                </button>
+              </div>
+            </OverlayView>
           </GoogleMap>
         </GoogleMapProvider>
-      </div >
-
+      </div>
     )
   }
 }
