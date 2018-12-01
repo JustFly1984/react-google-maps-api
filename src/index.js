@@ -14,7 +14,7 @@ export { default as Circle } from './components/drawing/Circle'
 
 // export { default as KmlLayer } from './components/kml/KmlLayer'
 
-// export { default as OverlayView } from './components/dom/OverlayView'
+export { default as OverlayView } from './components/dom/OverlayView'
 
 // export { default as FusionTablesLayer } from './components/fusion/FusionTablesLayer'
 
