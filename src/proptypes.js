@@ -1128,5 +1128,6 @@ export const LoadScriptPropTypes = {
   region: PropTypes.string.isRequired,
   version: PropTypes.string.isRequired,
   loadingElement: PropTypes.element.isRequired,
-  onLoad: PropTypes.func
+  onLoad: PropTypes.func,
+  libraries: PropTypes.arrayOf(PropTypes.string).isRequired
 }
