@@ -38,7 +38,6 @@ export class OverlayView extends PureComponent {
 
     overlayView.setMap(this.context)
 
-    console.log('cDM')
     // You must call setMap() with a valid Map object to trigger the call to
     // the onAdd() method and setMap(null) in order to trigger the onRemove() method.
 
