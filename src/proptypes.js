@@ -15,18 +15,11 @@ export const SizeInterface = {
 }
 
 export const SymbolInterface = {
-  anchor: PropTypes.shape(
-    PointInterface
-  ).isRequired,
+  anchor: PropTypes.shape(PointInterface).isRequired,
   fillColor: PropTypes.string.isRequired,
   fillOpacity: PropTypes.number.isRequired,
-  labelOrigin: PropTypes.shape(
-    PointInterface
-  ).isRequired,
-  path: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ]),
+  labelOrigin: PropTypes.shape(PointInterface).isRequired,
+  path: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   rotation: PropTypes.number,
   scale: PropTypes.number,
   strokeColor: PropTypes.string,
@@ -44,7 +37,7 @@ export const MVCArrayInterface = {
   pop: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   removeAt: PropTypes.func.isRequired,
-  setAt: PropTypes.func.isRequired,
+  setAt: PropTypes.func.isRequired
 }
 
 export const MapTypeRegistryInterface = {
@@ -57,12 +50,12 @@ export const LatLngInterface = {
   lng: PropTypes.func.isRequired,
   toJSON: PropTypes.func.isRequired,
   toString: PropTypes.func.isRequired,
-  toUrlValue: PropTypes.func.isRequired,
+  toUrlValue: PropTypes.func.isRequired
 }
 
 export const LatLngLiteralInterface = {
   lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired
 }
 
 export const FullscreenControlOptionsInterface = {
@@ -70,9 +63,7 @@ export const FullscreenControlOptionsInterface = {
 }
 
 export const MapTypeControlOptionsInterface = {
-  mapTypeIds: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
+  mapTypeIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   position: PropTypes.string.isRequired, // ControlPosition constants
   style: PropTypes.string.isRequired // MapTypeControlStyle constants
 }
@@ -99,7 +90,7 @@ export const MotionTrackingControlOptionsInterface = {
 
 export const StreetViewPovInterface = {
   heading: PropTypes.number.isRequired,
-  pitch: PropTypes.number.isRequired,
+  pitch: PropTypes.number.isRequired
 }
 
 export const ZoomControlOptionsInterface = {
@@ -113,89 +104,57 @@ export const StreetViewControlOptionsInterface = {
 export const MapTypeStyleInterface = {
   elementType: PropTypes.string.isRequired,
   featureType: PropTypes.string.isRequired,
-  stylers: PropTypes.arrayOf(
-    PropTypes.object
-  ).isRequired
+  stylers: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 export const IconInterface = {
-  anchor: PropTypes.shape(
-    PointInterface
-  ).isRequired,
-  labelOrigin: PropTypes.shape(
-    PointInterface
-  ).isRequired,
-  origin: PropTypes.shape(
-    PointInterface
-  ).isRequired,
-  scaledSize: PropTypes.shape(
-    SizeInterface
-  ).isRequired,
-  size: PropTypes.shape(
-    SizeInterface
-  ).isRequired,
+  anchor: PropTypes.shape(PointInterface).isRequired,
+  labelOrigin: PropTypes.shape(PointInterface).isRequired,
+  origin: PropTypes.shape(PointInterface).isRequired,
+  scaledSize: PropTypes.shape(SizeInterface).isRequired,
+  size: PropTypes.shape(SizeInterface).isRequired,
   url: PropTypes.string.isRequired
 }
 
 export const IconSequenceInterface = {
   fixedRotation: PropTypes.bool.isRequired,
-  icon: PropTypes.shape(
-    SymbolInterface
-  ),
+  icon: PropTypes.shape(SymbolInterface),
   offset: PropTypes.string.isRequired,
   repeat: PropTypes.string.isRequired
 }
 
 export const StreetViewPanoramaOptionsInterface = {
   addressControl: PropTypes.bool.isRequired,
-  addressControlOptions: PropTypes.shape(
-    StreetViewAddressControlOptionsInterface
-  ).isRequired,
+  addressControlOptions: PropTypes.shape(StreetViewAddressControlOptionsInterface).isRequired,
   clickToGo: PropTypes.bool.isRequired,
   disableDefaultUI: PropTypes.bool.isRequired,
   disableDoubleClickZoom: PropTypes.bool.isRequired,
   enableCloseButton: PropTypes.bool.isRequired,
   fullscreenControl: PropTypes.bool.isRequired,
-  fullscreenControlOptions: PropTypes.shape(
-    FullscreenControlOptionsInterface
-  ).isRequired,
+  fullscreenControlOptions: PropTypes.shape(FullscreenControlOptionsInterface).isRequired,
   imageDateControl: PropTypes.bool.isRequired,
   linksControl: PropTypes.bool.isRequired,
   motionTracking: PropTypes.bool.isRequired,
   motionTrackingControl: PropTypes.bool.isRequired,
-  motionTrackingControlOptions: PropTypes.shape(
-    MotionTrackingControlOptionsInterface
-  ).isRequired,
+  motionTrackingControlOptions: PropTypes.shape(MotionTrackingControlOptionsInterface).isRequired,
   panControl: PropTypes.bool,
-  panControlOptions: PropTypes.shape(
-    PanControlOptionsInterface
-  ).isRequired,
+  panControlOptions: PropTypes.shape(PanControlOptionsInterface).isRequired,
   pano: PropTypes.string.isRequired,
   position: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngInterface
-    ),
-    PropTypes.shape(
-      LatLngLiteralInterface
-    )
+    PropTypes.shape(LatLngInterface),
+    PropTypes.shape(LatLngLiteralInterface)
   ]).isRequired,
-  pov: PropTypes.shape(
-    StreetViewPovInterface
-  ).isRequired,
+  pov: PropTypes.shape(StreetViewPovInterface).isRequired,
   scrollwheel: PropTypes.bool.isRequired,
   showRoadLabels: PropTypes.bool.isRequired,
   visible: PropTypes.bool.isRequired,
   zoom: PropTypes.number.isRequired,
   zoomControl: PropTypes.bool.isRequired,
-  zoomControlOptions: PropTypes.shape(
-    ZoomControlOptionsInterface
-  ).isRequired,
+  zoomControlOptions: PropTypes.shape(ZoomControlOptionsInterface).isRequired
 }
 
 export const StreetViewPanoramaInterface = {
-  options: PropTypes.shape(
-    StreetViewPanoramaOptionsInterface
-  ).isRequired,
+  options: PropTypes.shape(StreetViewPanoramaOptionsInterface).isRequired,
   onCloseclick: PropTypes.func.isRequired,
   onPanoChanged: PropTypes.func.isRequired,
   onPositionChanged: PropTypes.func.isRequired,
@@ -224,22 +183,14 @@ export const StreetViewPanoramaInterface = {
   setPov: PropTypes.func.isRequired,
   setVisible: PropTypes.func.isRequired,
   setZoom: PropTypes.func.isRequired,
-  controls: PropTypes.arrayOf(
-    PropTypes.shape(
-      MVCArrayInterface
-    )
-  ).isRequired
+  controls: PropTypes.arrayOf(PropTypes.shape(MVCArrayInterface)).isRequired
 }
 
 export const GoogleMapOptionsInterface = {
   backgroundColor: PropTypes.string.isRequired,
   center: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngInterface
-    ),
-    PropTypes.shape(
-      LatLngLiteralInterface
-    )
+    PropTypes.shape(LatLngInterface),
+    PropTypes.shape(LatLngLiteralInterface)
   ]).isRequired,
   clickableIcons: PropTypes.bool.isRequired,
   disableDefaultUI: PropTypes.bool.isRequired,
@@ -248,51 +199,31 @@ export const GoogleMapOptionsInterface = {
   draggableCursor: PropTypes.string.isRequired,
   draggingCursor: PropTypes.string.isRequired,
   fullscreenControl: PropTypes.bool.isRequired,
-  fullscreenControlOptions: PropTypes.shape(
-    FullscreenControlOptionsInterface
-  ).isRequired,
+  fullscreenControlOptions: PropTypes.shape(FullscreenControlOptionsInterface).isRequired,
   gestureHandling: PropTypes.string.isRequired,
   heading: PropTypes.number.isRequired,
   keyboardShortcuts: PropTypes.bool.isRequired,
   mapTypeControl: PropTypes.bool.isRequired,
-  mapTypeControlOptions: PropTypes.shape(
-    MapTypeControlOptionsInterface
-  ).isRequired,
+  mapTypeControlOptions: PropTypes.shape(MapTypeControlOptionsInterface).isRequired,
   mapTypeId: PropTypes.string.isRequired,
   maxZoom: PropTypes.number.isRequired,
   minZoom: PropTypes.number.isRequired,
   noClear: PropTypes.bool.isRequired,
   panControl: PropTypes.bool.isRequired,
-  panControlOptions: PropTypes.shape(
-    PanControlOptionsInterface
-  ).isRequired,
+  panControlOptions: PropTypes.shape(PanControlOptionsInterface).isRequired,
   rotateControl: PropTypes.bool.isRequired,
-  rotateControlOptions: PropTypes.shape(
-    RotateControlOptionsInterface
-  ).isRequired,
+  rotateControlOptions: PropTypes.shape(RotateControlOptionsInterface).isRequired,
   scaleControl: PropTypes.bool.isRequired,
-  scaleControlOptions: PropTypes.shape(
-    ScaleControlOptionsInterface
-  ).isRequired,
+  scaleControlOptions: PropTypes.shape(ScaleControlOptionsInterface).isRequired,
   scrollwheel: PropTypes.bool.isRequired,
-  streetView: PropTypes.shape(
-    StreetViewPanoramaInterface
-  ).isRequired,
+  streetView: PropTypes.shape(StreetViewPanoramaInterface).isRequired,
   streetViewControl: PropTypes.bool.isRequired,
-  streetViewControlOptions: PropTypes.shape(
-    StreetViewControlOptionsInterface
-  ).isRequired,
-  styles: PropTypes.arrayOf(
-    PropTypes.shape(
-      MapTypeStyleInterface
-    )
-  ).isRequired,
+  streetViewControlOptions: PropTypes.shape(StreetViewControlOptionsInterface).isRequired,
+  styles: PropTypes.arrayOf(PropTypes.shape(MapTypeStyleInterface)).isRequired,
   tilt: PropTypes.number.isRequired,
   zoom: PropTypes.number.isRequired,
   zoomControl: PropTypes.bool.isRequired,
-  zoomControlOptions: PropTypes.shape(
-    ZoomControlOptionsInterface
-  ).isRequired
+  zoomControlOptions: PropTypes.shape(ZoomControlOptionsInterface).isRequired
 }
 
 export const DataInterface = {
@@ -315,7 +246,7 @@ export const DataInterface = {
   setDrawingMode: PropTypes.func.isRequired,
   setMap: PropTypes.func.isRequired,
   setStyle: PropTypes.func.isRequired,
-  toGeoJson: PropTypes.func.isRequired,
+  toGeoJson: PropTypes.func.isRequired
 }
 
 export const GoogleMapInterface = {
@@ -340,81 +271,43 @@ export const GoogleMapInterface = {
   setStreetView: PropTypes.func.isRequired,
   setTilt: PropTypes.func.isRequired,
   setZoom: PropTypes.func.isRequired,
-  controls: PropTypes.arrayOf(
-    PropTypes.shape(
-      MVCArrayInterface
-    )
-  ).isRequired,
-  data: PropTypes.shape(
-    DataInterface
-  ).isRequired,
-  mapTypes: PropTypes.shape(
-    MapTypeRegistryInterface
-  ).isRequired,
-  overlayMapTypes: PropTypes.shape(
-    MVCArrayInterface
-  ).isRequired
+  controls: PropTypes.arrayOf(PropTypes.shape(MVCArrayInterface)).isRequired,
+  data: PropTypes.shape(DataInterface).isRequired,
+  mapTypes: PropTypes.shape(MapTypeRegistryInterface).isRequired,
+  overlayMapTypes: PropTypes.shape(MVCArrayInterface).isRequired
 }
 
 export const TrafficLayerOptionsInterface = {
   autoRefresh: PropTypes.bool.isRequired,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ).isRequired
+  map: PropTypes.shape(GoogleMapInterface).isRequired
 }
 
 export const PathInterface = PropTypes.oneOfType([
-  PropTypes.shape(
-    MVCArrayInterface
-  ),
-  PropTypes.arrayOf(
-    PropTypes.shape(
-      LatLngInterface
-    )
-  ),
-  PropTypes.arrayOf(
-    PropTypes.shape(
-      LatLngLiteralInterface
-    )
-  )
+  PropTypes.shape(MVCArrayInterface),
+  PropTypes.arrayOf(PropTypes.shape(LatLngInterface)),
+  PropTypes.arrayOf(PropTypes.shape(LatLngLiteralInterface))
 ])
 
 export const MarkerOptionsInterface = {
-  anchorPoint: PropTypes.shape(
-    PointInterface
-  ).isRequired,
+  anchorPoint: PropTypes.shape(PointInterface).isRequired,
   animation: PropTypes.string.isRequired, // Animation constants
   clickable: PropTypes.bool.isRequired,
   crossOnDrag: PropTypes.bool.isRequired,
   cursor: PropTypes.string.isRequired,
   draggable: PropTypes.bool.isRequired,
-  icon: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape(
-      IconInterface
-    )
-  ]).isRequired
+  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.shape(IconInterface)]).isRequired
 }
 
 export const InfoWindowOptionsInterface = {
-  content: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node
-  ]).isRequired,
-  disableAutoPan: PropTypes.bool.isRequired,
-  maxWidth: PropTypes.number.isRequired,
-  pixelOffset: PropTypes.shape(
-    SizeInterface
-  ).isRequired,
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+  disableAutoPan: PropTypes.bool,
+  maxWidth: PropTypes.number,
+  pixelOffset: PropTypes.shape(SizeInterface),
   position: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngInterface
-    ),
-    PropTypes.shape(
-      LatLngLiteralInterface
-    )
-  ]).isRequired,
-  zIndex: PropTypes.number.isRequired
+    PropTypes.shape(LatLngInterface),
+    PropTypes.shape(LatLngLiteralInterface)
+  ]),
+  zIndex: PropTypes.number
 }
 
 export const InfoWindowInterface = {
@@ -439,14 +332,8 @@ export const PolylineOptionsInterface = {
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   geodesic: PropTypes.bool,
-  icons: PropTypes.arrayOf(
-    PropTypes.shape(
-      IconSequenceInterface
-    )
-  ),
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ),
+  icons: PropTypes.arrayOf(PropTypes.shape(IconSequenceInterface)),
+  map: PropTypes.shape(GoogleMapInterface),
   path: PathInterface,
   strokeColor: PropTypes.string,
   strokeOpacity: PropTypes.number,
@@ -456,9 +343,7 @@ export const PolylineOptionsInterface = {
 }
 
 export const PolylinePropTypes = {
-  options: PropTypes.shape(
-    PolylineOptionsInterface
-  ),
+  options: PropTypes.shape(PolylineOptionsInterface),
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   path: PathInterface,
@@ -473,7 +358,7 @@ export const PolylinePropTypes = {
   onMouseUp: PropTypes.func,
   onRightClick: PropTypes.func,
   onClick: PropTypes.func,
-  onDrag: PropTypes.func,
+  onDrag: PropTypes.func
 }
 
 export const PolygonOptionsInterface = {
@@ -483,33 +368,21 @@ export const PolygonOptionsInterface = {
   fillColor: PropTypes.stringbackgroundColor,
   fillOpacity: PropTypes.numberbackgroundColor,
   geodesic: PropTypes.backgroundColor,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ),
+  map: PropTypes.shape(GoogleMapInterface),
   paths: PropTypes.oneOfType([
-    PropTypes.shape(
-      MVCArrayInterface
-    ),
+    PropTypes.shape(MVCArrayInterface),
     PropTypes.arrayOf(
       PropTypes.arrayOf(
         PropTypes.oneOfType([
-          PropTypes.shape(
-            LatLngInterface
-          ),
-          PropTypes.shape(
-            LatLngLiteralInterface
-          )
+          PropTypes.shape(LatLngInterface),
+          PropTypes.shape(LatLngLiteralInterface)
         ])
       )
     ),
     PropTypes.arrayOf(
       PropTypes.oneOfType([
-        PropTypes.shape(
-          LatLngInterface
-        ),
-        PropTypes.shape(
-          LatLngLiteralInterface
-        )
+        PropTypes.shape(LatLngInterface),
+        PropTypes.shape(LatLngLiteralInterface)
       ])
     )
   ]),
@@ -522,9 +395,7 @@ export const PolygonOptionsInterface = {
 }
 
 export const PolygonPropTypes = {
-  options: PropTypes.shape(
-    PolygonOptionsInterface
-  ),
+  options: PropTypes.shape(PolygonOptionsInterface),
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   path: PropTypes.any,
@@ -540,7 +411,7 @@ export const PolygonPropTypes = {
   onMouseUp: PropTypes.func,
   onRightClick: PropTypes.func,
   onClick: PropTypes.func,
-  onDrag: PropTypes.func,
+  onDrag: PropTypes.func
 }
 
 export const LatLngBoundsInterface = {
@@ -556,45 +427,37 @@ export const LatLngBoundsInterface = {
   toSpan: PropTypes.func.isRequired,
   toString: PropTypes.func.isRequired,
   toUrlValue: PropTypes.func.isRequired,
-  union: PropTypes.func.isRequired,
+  union: PropTypes.func.isRequired
 }
 
 export const LatLngBoundsLiteralInterface = {
   east: PropTypes.number.isRequired,
   north: PropTypes.number.isRequired,
   south: PropTypes.number.isRequired,
-  west: PropTypes.number.isRequired,
+  west: PropTypes.number.isRequired
 }
 
 export const RectangleOptionsInterface = {
   bounds: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngBoundsInterface
-    ),
-    PropTypes.shape(
-      LatLngBoundsLiteralInterface
-    )
+    PropTypes.shape(LatLngBoundsInterface),
+    PropTypes.shape(LatLngBoundsLiteralInterface)
   ]).isRequired,
   clickable: PropTypes.bool.isRequired,
   draggable: PropTypes.bool.isRequired,
   editable: PropTypes.bool.isRequired,
   fillColor: PropTypes.string.isRequired,
   fillOpacity: PropTypes.number.isRequired,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ).isRequired,
+  map: PropTypes.shape(GoogleMapInterface).isRequired,
   strokeColor: PropTypes.string.isRequired,
   strokeOpacity: PropTypes.number.isRequired,
   strokePosition: PropTypes.string.isRequired, // StrokePosition constants
   strokeWeight: PropTypes.number.isRequired,
   visible: PropTypes.bool.isRequired,
-  zIndex: PropTypes.number.isRequired,
+  zIndex: PropTypes.number.isRequired
 }
 
 export const RectanglePropTypes = {
-  options: PropTypes.shape(
-    RectangleOptionsInterface
-  ),
+  options: PropTypes.shape(RectangleOptionsInterface),
   bounds: PropTypes.any,
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
@@ -610,46 +473,34 @@ export const RectanglePropTypes = {
   onRightClick: PropTypes.func,
   onBoundsChanged: PropTypes.func,
   onClick: PropTypes.func,
-  onDrag: PropTypes.func,
+  onDrag: PropTypes.func
 }
 
 export const CircleOptionsInterface = {
   center: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngInterface
-    ),
-    PropTypes.shape(
-      LatLngLiteralInterface
-    )
+    PropTypes.shape(LatLngInterface),
+    PropTypes.shape(LatLngLiteralInterface)
   ]),
   clickable: PropTypes.bool,
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   fillColor: PropTypes.string,
   fillOpacity: PropTypes.number,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ),
+  map: PropTypes.shape(GoogleMapInterface),
   radius: PropTypes.number,
   strokeColor: PropTypes.string,
   strokeOpacity: PropTypes.number,
   strokePosition: PropTypes.string, // StrokePosition constants
   strokeWeight: PropTypes.number,
   visible: PropTypes.bool,
-  zIndex: PropTypes.number,
+  zIndex: PropTypes.number
 }
 
 export const CirclePropTypes = {
-  options: PropTypes.shape(
-    CircleOptionsInterface
-  ),
+  options: PropTypes.shape(CircleOptionsInterface),
   center: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngInterface
-    ),
-    PropTypes.shape(
-      LatLngLiteralInterface
-    )
+    PropTypes.shape(LatLngInterface),
+    PropTypes.shape(LatLngLiteralInterface)
   ]).isRequired,
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
@@ -667,13 +518,11 @@ export const CirclePropTypes = {
   onCenterChanged: PropTypes.func,
   onClick: PropTypes.func,
   onDrag: PropTypes.func,
-  onRadiusChanged: PropTypes.func,
+  onRadiusChanged: PropTypes.func
 }
 
 export const MarkerShapeInterface = {
-  coords: PropTypes.arrayOf(
-    PropTypes.number
-  ),
+  coords: PropTypes.arrayOf(PropTypes.number),
   type: PropTypes.string
 }
 
@@ -686,46 +535,30 @@ export const DataStyleOptionsInterface = {
   fillOpacity: PropTypes.number.isRequired,
   icon: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.shape(
-      IconInterface
-    ),
-    PropTypes.shape(
-      SymbolInterface
-    )
+    PropTypes.shape(IconInterface),
+    PropTypes.shape(SymbolInterface)
   ]).isRequired,
-  shape: PropTypes.shape(
-    MarkerShapeInterface
-  ).isRequired,
+  shape: PropTypes.shape(MarkerShapeInterface).isRequired,
   strokeColor: PropTypes.string.isRequired,
   strokeOpacity: PropTypes.number.isRequired,
   strokeWeight: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
-  zIndex: PropTypes.number.isRequired,
+  zIndex: PropTypes.number.isRequired
 }
 
 export const DataOptionsInterface = {
   controlPosition: PropTypes.object.isRequired, // ControlPosition constants
-  controls: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
+  controls: PropTypes.arrayOf(PropTypes.string).isRequired,
   drawingMode: PropTypes.string.isRequired,
   featureFactory: PropTypes.func.isRequired,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ).isRequired,
-  style: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape(
-      DataStyleOptionsInterface
-    )
-  ]).isRequired
+  map: PropTypes.shape(GoogleMapInterface).isRequired,
+  style: PropTypes.oneOfType([PropTypes.func, PropTypes.shape(DataStyleOptionsInterface)])
+    .isRequired
 }
 
 export const DataPropTypes = {
-  options: PropTypes.shape(
-    DataOptionsInterface
-  ),
+  options: PropTypes.shape(DataOptionsInterface),
   onAddFeature: PropTypes.func,
   onClick: PropTypes.func,
   onDblClick: PropTypes.func,
@@ -737,7 +570,7 @@ export const DataPropTypes = {
   onRemoveProperty: PropTypes.func,
   onRightClick: PropTypes.func,
   onSetGeometry: PropTypes.func,
-  onSetProperty: PropTypes.func,
+  onSetProperty: PropTypes.func
 }
 
 export const OverlayViewPropTypes = {
@@ -745,14 +578,12 @@ export const OverlayViewPropTypes = {
   children: PropTypes.node,
   position: PropTypes.object,
   bounds: PropTypes.object,
-  getPixelPositionOffset: PropTypes.func,
+  getPixelPositionOffset: PropTypes.func
 }
 
 export const KmlLayerOptionsInterface = {
   clickable: PropTypes.bool.isRequired,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ).isRequired,
+  map: PropTypes.shape(GoogleMapInterface).isRequired,
   preserveViewport: PropTypes.bool.isRequired,
   screenOverlays: PropTypes.bool.isRequired,
   suppressInfoWindows: PropTypes.bool.isRequired,
@@ -761,14 +592,12 @@ export const KmlLayerOptionsInterface = {
 }
 
 export const KmlLayerPropTypes = {
-  options: PropTypes.shape(
-    KmlLayerOptionsInterface
-  ),
+  options: PropTypes.shape(KmlLayerOptionsInterface),
   url: PropTypes.string,
   zIndex: PropTypes.number,
   onDefaultViewportChanged: PropTypes.func,
   onClick: PropTypes.func,
-  onStatusChanged: PropTypes.func,
+  onStatusChanged: PropTypes.func
 }
 
 export const FusionTablesHeatmapInterface = {
@@ -781,7 +610,7 @@ export const FusionTablesQueryInterface = {
   offset: PropTypes.number.isRequired,
   orderBy: PropTypes.string.isRequired,
   select: PropTypes.string.isRequired,
-  where: PropTypes.string.isRequired,
+  where: PropTypes.string.isRequired
 }
 
 export const FusionTablesMarkerOptionsInterface = {
@@ -803,40 +632,24 @@ export const FusionTablesPolylineOptionsInterface = {
 }
 
 export const FusionTablesStyleInterface = {
-  markerOptions: PropTypes.shape(
-    FusionTablesMarkerOptionsInterface
-  ).isRequired,
-  polygonOptions: PropTypes.shape(
-    FusionTablesPolygonOptionsInterface
-  ).isRequired,
-  polylineOptions: PropTypes.shape(
-    FusionTablesPolylineOptionsInterface
-  ).isRequired,
+  markerOptions: PropTypes.shape(FusionTablesMarkerOptionsInterface).isRequired,
+  polygonOptions: PropTypes.shape(FusionTablesPolygonOptionsInterface).isRequired,
+  polylineOptions: PropTypes.shape(FusionTablesPolylineOptionsInterface).isRequired,
   where: PropTypes.string.isRequired
 }
 
 export const FusionTablesLayerOptionsInterface = {
   clickable: PropTypes.bool.isRequired,
-  heatmap: PropTypes.shape(
-    FusionTablesHeatmapInterface
-  ).isRequired,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ).isRequired,
-  query: PropTypes.shape(
-    FusionTablesQueryInterface
-  ).isRequired,
-  styles: PropTypes.arrayOf(
-    FusionTablesStyleInterface
-  ).isRequired,
+  heatmap: PropTypes.shape(FusionTablesHeatmapInterface).isRequired,
+  map: PropTypes.shape(GoogleMapInterface).isRequired,
+  query: PropTypes.shape(FusionTablesQueryInterface).isRequired,
+  styles: PropTypes.arrayOf(FusionTablesStyleInterface).isRequired,
   suppressInfoWindows: PropTypes.bool.isRequired
 }
 
 export const FusionTablesLayerPropTypes = {
-  options: PropTypes.shape(
-    FusionTablesLayerOptionsInterface
-  ),
-  onClick: PropTypes.func,
+  options: PropTypes.shape(FusionTablesLayerOptionsInterface),
+  onClick: PropTypes.func
 }
 
 export const ImageMapTypeOptionsInterface = {
@@ -846,16 +659,12 @@ export const ImageMapTypeOptionsInterface = {
   minZoom: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   opacity: PropTypes.number.isRequired,
-  tileSize: PropTypes.shape(
-    SizeInterface
-  ).isRequired
+  tileSize: PropTypes.shape(SizeInterface).isRequired
 }
 
 export const ImageMapTypePropTypes = {
-  options: PropTypes.shape(
-    ImageMapTypeOptionsInterface
-  ),
-  onTilesLoaded: PropTypes.func,
+  options: PropTypes.shape(ImageMapTypeOptionsInterface),
+  onTilesLoaded: PropTypes.func
 }
 
 export const GroundOverlayOptionsInterface = {
@@ -868,80 +677,50 @@ export const GroundOverlayOptionsInterface = {
 }
 
 export const HeatmapLayerOptionsInterface = {
-  data: PropTypes.shape(
-    MVCArrayInterface
-  ).isRequired,
+  data: PropTypes.shape(MVCArrayInterface).isRequired,
   dissipating: PropTypes.bool.isRequired,
-  gradient: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ).isRequired,
+  gradient: PropTypes.arrayOf(PropTypes.string).isRequired,
+  map: PropTypes.shape(GoogleMapInterface).isRequired,
   maxIntensity: PropTypes.number.isRequired,
   opacity: PropTypes.number.isRequired,
   radius: PropTypes.number.isRequired
 }
 
 export const ComponentRestrictionsInterface = {
-  country: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(
-      PropTypes.string
-    )
-  ]).isRequired
+  country: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired
 }
 
 export const AutocompleteOptionsInterface = {
   bounds: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngBoundsInterface
-    ),
-    PropTypes.shape(
-      LatLngBoundsLiteralInterface
-    )
+    PropTypes.shape(LatLngBoundsInterface),
+    PropTypes.shape(LatLngBoundsLiteralInterface)
   ]).isRequired,
-  componentRestrictions: PropTypes.shape(
-    ComponentRestrictionsInterface
-  ).isRequired,
-  fields: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
+  componentRestrictions: PropTypes.shape(ComponentRestrictionsInterface).isRequired,
+  fields: PropTypes.arrayOf(PropTypes.string).isRequired,
   placeIdOnly: PropTypes.bool.isRequired,
   strictBounds: PropTypes.bool.isRequired,
-  types: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired
+  types: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
 export const AutocompletePropTypes = {
   inputField: PropTypes.node.isRequired,
-  options: PropTypes.shape(
-    AutocompleteOptionsInterface
-  ),
-  onPlaceChanged: PropTypes.func,
-
+  options: PropTypes.shape(AutocompleteOptionsInterface),
+  onPlaceChanged: PropTypes.func
 }
 
 export const SearchBoxOptionsInterface = {
   bounds: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngBoundsInterface
-    ),
-    PropTypes.shape(
-      LatLngBoundsLiteralInterface
-    )
+    PropTypes.shape(LatLngBoundsInterface),
+    PropTypes.shape(LatLngBoundsLiteralInterface)
   ]).isRequired
 }
 
 export const SearchBoxPropTypes = {
-  options: PropTypes.shape(
-    SearchBoxOptionsInterface
-  ),
+  options: PropTypes.shape(SearchBoxOptionsInterface),
   children: PropTypes.node,
   controlPosition: PropTypes.number,
   bounds: PropTypes.any,
-  onPlacesChanged: PropTypes.func,
+  onPlacesChanged: PropTypes.func
 }
 
 export const TimeInterface = {
@@ -961,9 +740,7 @@ export const DurationInterface = {
 }
 
 export const TransitStopInterface = {
-  location: PropTypes.shape(
-    LatLngInterface
-  ).isRequired,
+  location: PropTypes.shape(LatLngInterface).isRequired,
   name: PropTypes.string.isRequired
 }
 
@@ -981,108 +758,56 @@ export const TransitVehicleInterface = {
 }
 
 export const TransitLineInterface = {
-  agencies: PropTypes.arrayOf(
-    PropTypes.shape(
-      TransitAgencyInterface
-    )
-  ).isRequired,
+  agencies: PropTypes.arrayOf(PropTypes.shape(TransitAgencyInterface)).isRequired,
   color: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   short_name: PropTypes.string.isRequired,
   text_color: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  vehicle: PropTypes.shape(
-    TransitVehicleInterface
-  ).isRequired
+  vehicle: PropTypes.shape(TransitVehicleInterface).isRequired
 }
 
 export const TransitDetailsInterface = {
-  arrival_stop: PropTypes.shape(
-    TransitStopInterface
-  ).isRequired,
-  arrival_time: PropTypes.shape(
-    TimeInterface
-  ).isRequired,
-  departure_stop: PropTypes.shape(
-    TransitStopInterface
-  ).isRequired,
-  departure_time: PropTypes.shape(
-    TimeInterface
-  ).isRequired,
+  arrival_stop: PropTypes.shape(TransitStopInterface).isRequired,
+  arrival_time: PropTypes.shape(TimeInterface).isRequired,
+  departure_stop: PropTypes.shape(TransitStopInterface).isRequired,
+  departure_time: PropTypes.shape(TimeInterface).isRequired,
   headsign: PropTypes.string.isRequired,
   headway: PropTypes.number.isRequired,
-  line: PropTypes.shape(
-    TransitLineInterface
-  ).isRequired,
+  line: PropTypes.shape(TransitLineInterface).isRequired,
   num_stops: PropTypes.number.isRequired
 }
 
 export const DirectionsStepInterface = {
-  distance: PropTypes.shape(
-    DistanceInterface
-  ).isRequired,
-  duration: PropTypes.shape(
-    DurationInterface
-  ).isRequired,
-  end_location: PropTypes.shape(
-    LatLngInterface
-  ).isRequired,
+  distance: PropTypes.shape(DistanceInterface).isRequired,
+  duration: PropTypes.shape(DurationInterface).isRequired,
+  end_location: PropTypes.shape(LatLngInterface).isRequired,
   instructions: PropTypes.string.isRequired,
-  path: PropTypes.arrayOf(
-    PropTypes.shape(
-      LatLngInterface
-    )
-  ).isRequired,
-  start_location: PropTypes.shape(
-    LatLngInterface
-  ).isRequired,
+  path: PropTypes.arrayOf(PropTypes.shape(LatLngInterface)).isRequired,
+  start_location: PropTypes.shape(LatLngInterface).isRequired,
   steps: PropTypes.arrayOf(
     PropTypes.shape(
       // eslint-disable-next-line babel/no-invalid-this
       this
     )
   ).isRequired,
-  transit: PropTypes.shape(
-    TransitDetailsInterface
-  ).isRequired,
+  transit: PropTypes.shape(TransitDetailsInterface).isRequired,
   travel_mode: PropTypes.string.isRequired // TravelMode constants
 }
 
 export const DirectionsLegInterface = {
-  arrival_time: PropTypes.shape(
-    TimeInterface
-  ).isRequired,
-  departure_time: PropTypes.shape(
-    TimeInterface
-  ).isRequired,
-  distance: PropTypes.shape(
-    DistanceInterface
-  ).isRequired,
-  duration: PropTypes.shape(
-    DurationInterface
-  ).isRequired,
-  duration_in_traffic: PropTypes.shape(
-    DurationInterface
-  ).isRequired,
+  arrival_time: PropTypes.shape(TimeInterface).isRequired,
+  departure_time: PropTypes.shape(TimeInterface).isRequired,
+  distance: PropTypes.shape(DistanceInterface).isRequired,
+  duration: PropTypes.shape(DurationInterface).isRequired,
+  duration_in_traffic: PropTypes.shape(DurationInterface).isRequired,
   end_address: PropTypes.string.isRequired,
-  end_location: PropTypes.shape(
-    LatLngInterface
-  ).isRequired,
+  end_location: PropTypes.shape(LatLngInterface).isRequired,
   start_address: PropTypes.string.isRequired,
-  start_location: PropTypes.shape(
-    LatLngInterface
-  ).isRequired,
-  steps: PropTypes.arrayOf(
-    PropTypes.shape(
-      DirectionsStepInterface
-    )
-  ).isRequired,
-  via_waypoints: PropTypes.arrayOf(
-    PropTypes.shape(
-      LatLngInterface
-    )
-  ).isRequired
+  start_location: PropTypes.shape(LatLngInterface).isRequired,
+  steps: PropTypes.arrayOf(PropTypes.shape(DirectionsStepInterface)).isRequired,
+  via_waypoints: PropTypes.arrayOf(PropTypes.shape(LatLngInterface)).isRequired
 }
 
 export const TransitFareInterface = {
@@ -1091,72 +816,37 @@ export const TransitFareInterface = {
 }
 
 export const DirectionsRouteInterface = {
-  bounds: PropTypes.shape(
-    LatLngBoundsInterface
-  ).isRequired,
+  bounds: PropTypes.shape(LatLngBoundsInterface).isRequired,
   copyrights: PropTypes.string.isRequired,
-  fare: PropTypes.shape(
-    TransitFareInterface
-  ).isRequired,
-  legs: PropTypes.arrayOf(
-    PropTypes.shape(
-      DirectionsLegInterface
-    )
-  ).isRequired,
-  overview_path: PropTypes.arrayOf(
-    PropTypes.shape(
-      LatLngInterface
-    )
-  ).isRequired,
+  fare: PropTypes.shape(TransitFareInterface).isRequired,
+  legs: PropTypes.arrayOf(PropTypes.shape(DirectionsLegInterface)).isRequired,
+  overview_path: PropTypes.arrayOf(PropTypes.shape(LatLngInterface)).isRequired,
   overview_polyline: PropTypes.string.isRequired,
-  warnings: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
-  waypoint_order: PropTypes.arrayOf(
-    PropTypes.number
-  ).isRequired
+  warnings: PropTypes.arrayOf(PropTypes.string).isRequired,
+  waypoint_order: PropTypes.arrayOf(PropTypes.number).isRequired
 }
 
 export const DirectionsGeocodedWaypointInterface = {
   partial_match: PropTypes.bool.isRequired,
   place_id: PropTypes.string.isRequired,
-  types: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired
+  types: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
 export const DirectionsResultInterface = {
-  geocoded_waypoints: PropTypes.arrayOf(
-    PropTypes.shape(
-      DirectionsGeocodedWaypointInterface
-    )
-  ).isRequired,
-  routes: PropTypes.arrayOf(
-    PropTypes.shape(
-      DirectionsRouteInterface
-    )
-  ).isRequired
+  geocoded_waypoints: PropTypes.arrayOf(PropTypes.shape(DirectionsGeocodedWaypointInterface))
+    .isRequired,
+  routes: PropTypes.arrayOf(PropTypes.shape(DirectionsRouteInterface)).isRequired
 }
 
 export const DirectionsRendererOptionsInterface = {
-  directions: PropTypes.shape(
-    DirectionsResultInterface
-  ).isRequired,
+  directions: PropTypes.shape(DirectionsResultInterface).isRequired,
   draggable: PropTypes.bool.isRequired,
   hideRouteList: PropTypes.bool.isRequired,
-  infoWindow: PropTypes.shape(
-    InfoWindowInterface
-  ).isRequired,
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ).isRequired,
-  markerOptions: PropTypes.shape(
-    MarkerOptionsInterface
-  ).isRequired,
+  infoWindow: PropTypes.shape(InfoWindowInterface).isRequired,
+  map: PropTypes.shape(GoogleMapInterface).isRequired,
+  markerOptions: PropTypes.shape(MarkerOptionsInterface).isRequired,
   panel: PropTypes.node.isRequired,
-  polylineOptions: PropTypes.shape(
-    PolylineOptionsInterface
-  ).isRequired,
+  polylineOptions: PropTypes.shape(PolylineOptionsInterface).isRequired,
   preserveViewport: PropTypes.bool.isRequired,
   routeIndex: PropTypes.number.isRequired,
   suppressBicyclingLayer: PropTypes.bool.isRequired,
@@ -1166,80 +856,54 @@ export const DirectionsRendererOptionsInterface = {
 }
 
 export const DirectionsRendererPropTypes = {
-  options: PropTypes.shape(
-    DirectionsRendererOptionsInterface
-  ),
+  options: PropTypes.shape(DirectionsRendererOptionsInterface),
   directions: PropTypes.any,
   panel: PropTypes.any,
   routeIndex: PropTypes.number,
-  onDirectionsChanged: PropTypes.func,
+  onDirectionsChanged: PropTypes.func
 }
 
 export const DrawingControlOptionsInterface = {
-  drawingModes: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
+  drawingModes: PropTypes.arrayOf(PropTypes.string).isRequired,
   position: PropTypes.string.isRequired // ControlPosition constants
 }
 
 export const DrawingManagerOptionsInterface = {
-  circleOptions: PropTypes.shape(
-    CircleOptionsInterface
-  ).isRequired,
+  circleOptions: PropTypes.shape(CircleOptionsInterface).isRequired,
   drawingControl: PropTypes.bool.isRequired,
-  drawingControlOptions: PropTypes.shape(
-    DrawingControlOptionsInterface
-  ).isRequired,
+  drawingControlOptions: PropTypes.shape(DrawingControlOptionsInterface).isRequired,
   drawingMode: PropTypes.string.isRequired, // OverlayType constants
-  map: PropTypes.shape(
-    GoogleMapInterface
-  ).isRequired,
-  markerOptions: PropTypes.shape(
-    MarkerOptionsInterface
-  ).isRequired,
-  polygonOptions: PropTypes.shape(
-    PolygonOptionsInterface
-  ).isRequired,
-  polylineOptions: PropTypes.shape(
-    PolylineOptionsInterface
-  ).isRequired,
-  rectangleOptions: PropTypes.shape(
-    RectangleOptionsInterface
-  ).isRequired
+  map: PropTypes.shape(GoogleMapInterface).isRequired,
+  markerOptions: PropTypes.shape(MarkerOptionsInterface).isRequired,
+  polygonOptions: PropTypes.shape(PolygonOptionsInterface).isRequired,
+  polylineOptions: PropTypes.shape(PolylineOptionsInterface).isRequired,
+  rectangleOptions: PropTypes.shape(RectangleOptionsInterface).isRequired
 }
 
 export const DrawingManagerPropTypes = {
-  options: PropTypes.shape(
-    DrawingManagerOptionsInterface
-  ),
+  options: PropTypes.shape(DrawingManagerOptionsInterface),
   drawingMode: PropTypes.any,
   onCircleComplete: PropTypes.func,
   onMarkerComplete: PropTypes.func,
   onOverlayComplete: PropTypes.func,
   onPolygonComplete: PropTypes.func,
   onPolylineComplete: PropTypes.func,
-  onRectangleComplete: PropTypes.func,
+  onRectangleComplete: PropTypes.func
 }
 
 export const InfoWindowPropTypes = {
   children: PropTypes.node,
-  options: PropTypes.shape(
-    InfoWindowOptionsInterface
-  ),
+  options: PropTypes.shape(InfoWindowOptionsInterface),
   position: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngInterface
-    ),
-    PropTypes.shape(
-      LatLngLiteralInterface
-    )
+    PropTypes.shape(LatLngInterface),
+    PropTypes.shape(LatLngLiteralInterface)
   ]).isRequired,
   zIndex: PropTypes.number,
   onCloseClick: PropTypes.func,
   onDomReady: PropTypes.func,
   onContentChanged: PropTypes.func,
   onPositionChanged: PropTypes.func,
-  onZindexChanged: PropTypes.func,
+  onZindexChanged: PropTypes.func
 }
 
 export const InfoBoxPropTypes = {
@@ -1252,20 +916,16 @@ export const InfoBoxPropTypes = {
   onDomReady: PropTypes.func,
   onContentChanged: PropTypes.func,
   onPositionChanged: PropTypes.func,
-  onZindexChanged: PropTypes.func,
+  onZindexChanged: PropTypes.func
 }
 
 export const HeatmapLayerPropTypes = {
-  options: PropTypes.shape(
-    HeatmapLayerOptionsInterface
-  ),
-  data: PropTypes.any,
+  options: PropTypes.shape(HeatmapLayerOptionsInterface),
+  data: PropTypes.any
 }
 
 export const StreetViewPanoramaPropTypes = {
-  options: PropTypes.shape(
-    StreetViewPanoramaOptionsInterface
-  ),
+  options: PropTypes.shape(StreetViewPanoramaOptionsInterface),
   children: PropTypes.node,
   links: PropTypes.any,
   motionTracking: PropTypes.bool,
@@ -1282,14 +942,12 @@ export const StreetViewPanoramaPropTypes = {
   onResize: PropTypes.func,
   onStatusChanged: PropTypes.func,
   onVisibleChanged: PropTypes.func,
-  onZoomChanged: PropTypes.func,
+  onZoomChanged: PropTypes.func
 }
 
 export const MarkerPropTypes = {
   children: PropTypes.node,
-  options: PropTypes.shape(
-    MarkerOptionsInterface
-  ),
+  options: PropTypes.shape(MarkerOptionsInterface),
   noRedraw: PropTypes.func,
   animation: PropTypes.any,
   clickable: PropTypes.bool,
@@ -1299,12 +957,8 @@ export const MarkerPropTypes = {
   label: PropTypes.any,
   opacity: PropTypes.number,
   position: PropTypes.oneOfType([
-    PropTypes.shape(
-      LatLngInterface
-    ),
-    PropTypes.shape(
-      LatLngLiteralInterface
-    )
+    PropTypes.shape(LatLngInterface),
+    PropTypes.shape(LatLngLiteralInterface)
   ]),
   shape: PropTypes.any,
   title: PropTypes.string,
@@ -1330,7 +984,7 @@ export const MarkerPropTypes = {
   onShapeChanged: PropTypes.func,
   onTitleChanged: PropTypes.func,
   onVisibleChanged: PropTypes.func,
-  onZindexChanged: PropTypes.func,
+  onZindexChanged: PropTypes.func
 }
 
 export const MarkerClustererPropTypes = {
@@ -1355,7 +1009,7 @@ export const MarkerClustererPropTypes = {
   onClusteringBegin: PropTypes.func,
   onClusteringEnd: PropTypes.func,
   onMouseOut: PropTypes.func,
-  onMouseOver: PropTypes.func,
+  onMouseOver: PropTypes.func
 }
 
 export const MarkerWithLabelPropTypes = {
@@ -1399,7 +1053,7 @@ export const MarkerWithLabelPropTypes = {
   onShapeChanged: PropTypes.func,
   onTitleChanged: PropTypes.func,
   onVisibleChanged: PropTypes.func,
-  onZindexChanged: PropTypes.func,
+  onZindexChanged: PropTypes.func
 }
 
 export const BicyclingLayerPropTypes = {
@@ -1407,17 +1061,13 @@ export const BicyclingLayerPropTypes = {
 }
 
 export const TrafficLayerPropTypes = {
-  options: PropTypes.shape(
-    TrafficLayerOptionsInterface
-  ),
+  options: PropTypes.shape(TrafficLayerOptionsInterface),
   map: PropTypes.object
 }
 
 export const GroundOverlayPropTypes = {
   map: PropTypes.object, // it is null at initialization, so can't be required
-  options: PropTypes.shape(
-    GroundOverlayOptionsInterface
-  ),
+  options: PropTypes.shape(GroundOverlayOptionsInterface),
   url: PropTypes.string,
   bounds: PropTypes.arrayOf(
     PropTypes.shape({
@@ -1428,25 +1078,19 @@ export const GroundOverlayPropTypes = {
   opacity: PropTypes.number,
 
   onDblClick: PropTypes.func,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 }
 
 export const GoogleMapProviderPropTypes = {
   id: PropTypes.string.isRequired,
   mapContainerStyle: PropTypes.object,
-  mapContainerClassName: PropTypes.string,
+  mapContainerClassName: PropTypes.string
 }
 
 export const GoogleMapPropTypes = {
   children: PropTypes.node,
-  options: PropTypes.shape(
-    GoogleMapOptionsInterface
-  ),
-  extraMapTypes: PropTypes.arrayOf(
-    PropTypes.arrayOf(
-      PropTypes.any
-    )
-  ),
+  options: PropTypes.shape(GoogleMapOptionsInterface),
+  extraMapTypes: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)),
   center: PropTypes.any,
   clickableIcons: PropTypes.bool,
   heading: PropTypes.number,
@@ -1473,7 +1117,7 @@ export const GoogleMapPropTypes = {
   onProjectionChanged: PropTypes.func,
   onResize: PropTypes.func,
   onTiltChanged: PropTypes.func,
-  onZoomChanged: PropTypes.func,
+  onZoomChanged: PropTypes.func
 }
 
 export const LoadScriptPropTypes = {
@@ -1485,5 +1129,4 @@ export const LoadScriptPropTypes = {
   version: PropTypes.string.isRequired,
   loadingElement: PropTypes.element.isRequired,
   onLoad: PropTypes.func
-
 }

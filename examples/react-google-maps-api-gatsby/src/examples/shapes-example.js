@@ -7,7 +7,8 @@ import {
   Rectangle,
   Circle,
   Marker,
-  OverlayView
+  OverlayView,
+  InfoWindow
 } from '../../../../src'
 
 const FLIGHT_PLAN_COORDS = [
@@ -131,6 +132,12 @@ export default class ShapesExample extends React.Component {
                 </button>
               </div>
             </OverlayView>
+
+            <InfoWindow position={{ lat: 33.772, lng: -117.214 }}>
+              <div style={{ background: `white`, border: `1px solid #ccc`, padding: 15 }}>
+                <h1>InfoWindow</h1>
+              </div>
+            </InfoWindow>
           </GoogleMap>
         </GoogleMapProvider>
       </div>
