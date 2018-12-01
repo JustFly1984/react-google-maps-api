@@ -2,8 +2,8 @@
   "eslint.options": {
     "configFile": "./.eslintrc.js"
   },
-  "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
   "editor.formatOnSave": true,
-  "eslint.run": "onSave"
+  "eslint.run": "onSave",
+  "prettier.eslintIntegration": true
 }
