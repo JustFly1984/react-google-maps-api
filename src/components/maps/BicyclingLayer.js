@@ -1,40 +1,27 @@
 /* global google */
 import { PureComponent } from 'react'
+
+import MapContext from '../../mapcontext'
+
 import { BicyclingLayerPropTypes } from '../../proptypes'
 
 export class BicyclingLayer extends PureComponent {
   static propTypes = BicyclingLayerPropTypes
+  static contextType = MapContext
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      bicyclingLayer: null
-    }
+  state = {
+    polyline: null
   }
 
-  static getDerivedStateFromProps (props, state) {
-    if (props.map !== null) {
-      const bicyclingLayer = state.bicyclingLayer === null
-        ? new google.maps.BicyclingLayer()
-        : state.bicyclingLayer
+  componentDidMount = () => {
+    const bicyclingLayer = new google.maps.BicyclingLayer()
 
-      if (state.bicyclingLayer === null) {
-        bicyclingLayer.setMap(props.map)
-      }
-
-      return {
-        bicyclingLayer
-      }
-    }
-
-    return {
-      bicyclingLayer: state.bicyclingLayer
-    }
+    bicyclingLayer.setMap(this.context)
+    this.setState({ bicyclingLayer })
   }
 
   componentWillUnmount () {
-    if (this.state.bicyclingLayer !== null) {
+    if (this.state.bicyclingLayer) {
       this.state.bicyclingLayer.setMap(null)
     }
   }
@@ -43,8 +30,7 @@ export class BicyclingLayer extends PureComponent {
     return null
   }
 
-  getMap = () =>
-    this.state.bicyclingLayer.getMap()
+  getMap = () => this.state.bicyclingLayer.getMap()
 }
 
 export default BicyclingLayer
