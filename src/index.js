@@ -33,7 +33,7 @@ export { default as GroundOverlay } from './components/overlays/GroundOverlay'
 // export { default as MarkerCluster } from './components/addons/MarkerCluster'
 // export { default as MarkerWithLabel } from './components/addons/MarkerWithLabel'
 
-// export { default as DrawingManager } from './components/drawing/DrawingManager'
+export { default as DrawingManager } from './components/drawing/DrawingManager'
 
 // export { default as SearchBox } from './components/places/SearchBox'
 // export { default as StandaloneSearchBox } from './components/places/StandaloneSearchBox'
