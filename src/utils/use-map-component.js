@@ -1,0 +1,36 @@
+import { useState, useEffect, useContext } from 'react'
+import MapContext from '../mapcontext'
+
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from './MapChildHelper'
+
+export default function useMapComponent (props) {
+  const [instance, setInstance] = useState(null)
+  const context = useContext(MapContext)
+
+  let tempInstance
+
+  console.log({ context })
+
+  if (!instance) {
+    console.log(props.className, new window.google.maps[props.className]())
+    tempInstance = new window.google.maps[props.className]()
+    setInstance(tempInstance)
+    tempInstance.setMap(context)
+  }
+
+  console.log({ tempInstance })
+
+  useEffect(() => {
+    console.log(props, tempInstance)
+    const registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      ...props,
+      instance: tempInstance
+    })
+
+    return () => {
+      unregisterEvents(registeredEvents)
+    }
+  })
+
+  return 'was here'
+}
