@@ -25,6 +25,8 @@ export class OverlayView extends PureComponent {
 
   static contextType = MapContext
 
+  registeredEvents = []
+
   state = {
     overlayView: null
   }
