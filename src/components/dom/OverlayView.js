@@ -1,27 +1,18 @@
 /* global google */
 import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
-import PropTypes from 'prop-types'
 import invariant from 'invariant'
 
-import {
-  getDerivedStateFromProps,
-  componentWillUnmount
-} from '../../utils/MapChildHelper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
+import MapContext from '../../mapcontext'
 
 import { getOffsetOverride, getLayoutStyles } from '../../utils/OverlayViewHelper'
-
-import { MAP, ANCHOR, OVERLAY_VIEW } from '../../constants'
 
 import { OverlayViewPropTypes } from '../../proptypes'
 
 const eventMap = {}
 
-const updaterMap = {
-  map (instance, map) {
-    instance.setMap(map)
-  }
-}
+const updaterMap = {}
 
 export class OverlayView extends PureComponent {
   static FLOAT_PANE = `floatPane`
@@ -32,108 +23,102 @@ export class OverlayView extends PureComponent {
 
   static propTypes = OverlayViewPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-    [ANCHOR]: PropTypes.object,
+  static contextType = MapContext
+
+  state = {
+    overlayView: null
   }
 
-  constructor (props, context) {
-    super(props, context)
-
+  componentDidMount = () => {
     const overlayView = new google.maps.OverlayView()
-
+    // You must implement three methods: onAdd(), draw(), and onRemove().
     overlayView.onAdd = this.onAdd
     overlayView.draw = this.draw
     overlayView.onRemove = this.onRemove
 
-    overlayView.setMap(context[MAP])
+    overlayView.setMap(this.context)
 
-    this.state = {
-      [OVERLAY_VIEW]: overlayView,
-    }
+    console.log('cDM')
+    // You must call setMap() with a valid Map object to trigger the call to
+    // the onAdd() method and setMap(null) in order to trigger the onRemove() method.
+
+    this.setState({ overlayView }, () => {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.overlayView
+      })
+    })
   }
 
-  static getDerivedStateFromProps (props, state) {
-    const obj = getDerivedStateFromProps(
-      props,
-      state,
-      this.state[OVERLAY_VIEW],
+  componentDidUpdate (prevProps) {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
       eventMap,
-      updaterMap
-    )
-
-    setTimeout(this.state[OVERLAY_VIEW].draw, 0)
-
-    return obj
-  }
-
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const overlayView = this.state[OVERLAY_VIEW]
-
-    if (overlayView) {
-      overlayView.setMap(null)
-      overlayView.onAdd = null
-      overlayView.draw = null
-      overlayView.onRemove = null
-    }
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.overlayView
+    })
   }
 
   render () {
-    return createPortal(
-      Children.only(this.props.children),
-      this.containerElement
-    )
+    if (this.containerElement) {
+      return createPortal(Children.only(this.props.children), this.containerElement)
+    }
+
+    return null
   }
 
   preventMapHitsAndGesturesFrom = element =>
-    this.state[OVERLAY_VIEW].preventMapHitsAndGesturesFrom(element)
+    this.state.overlayView.preventMapHitsAndGesturesFrom(element)
 
-  preventMapHitsFrom = element =>
-    this.state[OVERLAY_VIEW].preventMapHitsFrom(element)
+  preventMapHitsFrom = element => this.state.overlayView.preventMapHitsFrom(element)
 
   draw = () => {
     const { mapPaneName } = this.props
-
     invariant(
       !!mapPaneName,
-      'OverlayView requires either props.mapPaneName or props.defaultMapPaneName but got %s',
+      `OverlayView requires either props.mapPaneName or props.defaultMapPaneName but got %s`,
       mapPaneName
     )
+    const overlayView = this.state.overlayView
 
-    const mapPanes = this.state[OVERLAY_VIEW].getPanes()
+    if (!overlayView) {
+      return
+    }
 
+    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapPanes
+    const mapPanes = overlayView.getPanes()
+
+    if (!mapPanes) {
+      return
+    }
     mapPanes[mapPaneName].appendChild(this.containerElement)
-
-    this.state[OVERLAY_VIEW].draw()
     this.onPositionElement()
+    this.forceUpdate()
   }
 
-  getMap = () =>
-    this.state[OVERLAY_VIEW].getMap()
+  getMap = () => this.state.overlayView.getMap()
 
-  getPanes = () =>
-    this.state[OVERLAY_VIEW].getPanes()
+  getPanes = () => this.state.overlayView.getPanes()
 
-  getProjection = () =>
-    this.state[OVERLAY_VIEW].getProjection()
+  getProjection = () => this.state.overlayView.getProjection()
 
   onAdd = () => {
     this.containerElement = document.createElement('div')
-
     this.containerElement.style.position = 'absolute'
-
-    this.state[OVERLAY_VIEW].onAdd()
   }
 
   onPositionElement = () => {
-    const mapCanvasProjection = this.state[OVERLAY_VIEW].getProjection()
+    const mapCanvasProjection = this.state.overlayView.getProjection()
 
     const offset = {
       x: 0,
       y: 0,
-      ...getOffsetOverride(this.containerElement, this.props),
+      ...getOffsetOverride(this.containerElement, this.props)
     }
 
     const layoutStyles = getLayoutStyles(mapCanvasProjection, offset, this.props)
@@ -142,11 +127,10 @@ export class OverlayView extends PureComponent {
   }
 
   onRemove = () => {
-    this.containerElement.parentNode.removeChild(this.containerElement)
-
+    if (this.containerElement) {
+      this.containerElement.parentNode.removeChild(this.containerElement)
+    }
     this.containerElement = null
-
-    this.state[OVERLAY_VIEW].onRemove()
   }
 }
 

@@ -1,18 +1,18 @@
 /* global google */
 import { PureComponent } from 'react'
+
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/MapChildHelper'
+import MapContext from '../../mapcontext'
+
 import { TrafficLayerPropTypes } from '../../proptypes'
-import MapContext from "../../mapcontext"
 
-const propNameList = [
-  'options'
-]
-
-const propsMap = {
-  options: 'setOptions'
-}
+const eventMap = {}
 
 const updaterMap = {
-  setOptions(instance, options) {
+  options (instance, options) {
     instance.setOptions(options)
   }
 }
@@ -22,63 +22,43 @@ export class TrafficLayer extends PureComponent {
   static contextType = MapContext
 
   state = {
-    trafficLayer: null,
-    prevProps: {}
+    trafficLayer: null
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (this.context !== null) {
-      const trafficLayer = state.trafficLayer === null
-        ? new google.maps.TrafficLayer(
-          props.options
-        )
-        : state.trafficLayer
+  componentDidMount = () => {
+    const trafficLayer = new google.maps.TrafficLayer()
 
-      if (state.trafficLayer === null) {
-        trafficLayer.setMap(this.context)
-      }
-
-      return {
-        trafficLayer,
-        prevProps: propNameList.reduce((acc, propName) => {
-          if (typeof props[propName] !== 'undefined') {
-            if (state.prevProps[propName] === props[propName]) {
-              acc[propName] = state.prevProps[propName]
-
-              return acc
-            } else {
-              console.log('props.map: ', this.context, ' props[propName] ', props[propName])
-              updaterMap[propsMap[propName]](this.context, props[propName])
-
-              acc[propName] = props[propName]
-
-              return acc
-            }
-          }
-
-          return acc
-        }, {}),
-      }
-    }
-
-    return {
-      prevProps: {},
-      trafficLayer: state.trafficLayer
-    }
+    this.setState({ trafficLayer }, () => {
+      this.state.trafficLayer.setMap(this.context)
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.trafficLayer
+      })
+    })
   }
 
-  componentWillUnmount() {
-    if (this.state.trafficLayer !== null) {
-      this.state.trafficLayer.setMap(null)
-    }
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.trafficLayer
+    })
   }
 
-  render() {
-    return null
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+    this.state.trafficLayer && this.state.trafficLayer.setMap(null)
   }
 
-  getMap = () =>
-    this.state.trafficLayer.getMap()
+  render = () => null
+
+  getMap = () => this.state.trafficLayer.getMap()
 }
 
 export default TrafficLayer
