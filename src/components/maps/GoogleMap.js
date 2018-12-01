@@ -9,7 +9,6 @@ import {
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-
 const eventMap = {
   onDblClick: 'dblclick',
   onDragEnd: 'dragend',
@@ -33,33 +32,33 @@ const eventMap = {
 }
 
 const updaterMap = {
-  extraMapTypes(map, extra) {
+  extraMapTypes (map, extra) {
     extra.forEach(it => {
       map.mapTypes.set(...it)
     })
   },
-  center(map, center) {
+  center (map, center) {
     map.setCenter(center)
   },
-  clickableIcons(map, icons) {
+  clickableIcons (map, icons) {
     map.setClickableIcons(...icons)
   },
-  heading(map, heading) {
+  heading (map, heading) {
     map.setHeading(heading)
   },
-  mapTypeId(map, mapTypeId) {
+  mapTypeId (map, mapTypeId) {
     map.setMapTypeId(mapTypeId)
   },
-  options(map, options) {
+  options (map, options) {
     map.setOptions(options)
   },
-  streetView(map, streetView) {
+  streetView (map, streetView) {
     map.setStreetView(streetView)
   },
-  tilt(map, tile) {
+  tilt (map, tile) {
     map.setTilt(tile)
   },
-  zoom(map, zoom) {
+  zoom (map, zoom) {
     map.setZoom(zoom)
   }
 }

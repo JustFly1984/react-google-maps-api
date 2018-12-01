@@ -1,10 +1,7 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
 import MapContext from '../../mapcontext'
 
 import { PolylinePropTypes } from '../../proptypes'
@@ -24,24 +21,24 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable(instance, draggable) {
+  draggable (instance, draggable) {
     instance.setDraggable(draggable)
   },
-  editable(instance, editable) {
+  editable (instance, editable) {
     instance.setEditable(editable)
   },
-  map(instance, map) {
+  map (instance, map) {
     instance.setMap(map)
   },
-  options(instance, options) {
+  options (instance, options) {
     instance.setOptions(options)
   },
-  path(instance, path) {
+  path (instance, path) {
     instance.setPath(path)
   },
-  visible(instance, visible) {
+  visible (instance, visible) {
     instance.setVisible(visible)
-  },
+  }
 }
 
 export class Polyline extends PureComponent {
@@ -70,7 +67,7 @@ export class Polyline extends PureComponent {
     })
   }
 
-  componentDidUpdate = (prevProps) => {
+  componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
@@ -88,20 +85,15 @@ export class Polyline extends PureComponent {
 
   render = () => null
 
-  getDraggable = () =>
-    this.state.polyline.getDraggable()
+  getDraggable = () => this.state.polyline.getDraggable()
 
-  getEditable = () =>
-    this.state.polyline.getEditable()
+  getEditable = () => this.state.polyline.getEditable()
 
-  getPath = () =>
-    this.state.polyline.getPath()
+  getPath = () => this.state.polyline.getPath()
 
-  getVisible = () =>
-    this.state.polyline.getVisible()
+  getVisible = () => this.state.polyline.getVisible()
 
-  getMap = () =>
-    this.state.polyline.getMap()
+  getMap = () => this.state.polyline.getMap()
 }
 
 export default Polyline
