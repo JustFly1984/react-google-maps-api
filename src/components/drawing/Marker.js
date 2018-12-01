@@ -1,11 +1,8 @@
 /* global google */
 import React, { PureComponent } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
-
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
+import MapContext from '../../mapcontext'
 
 import { MarkerPropTypes } from '../../proptypes'
 
@@ -30,71 +27,70 @@ const eventMap = {
   onShapeChanged: 'shape_changed',
   onTitleChanged: 'title_changed',
   onVisibleChanged: 'visible_changed',
-  onZindexChanged: 'zindex_changed',
+  onZindexChanged: 'zindex_changed'
 }
 
 const updaterMap = {
-  animation(instance, animation) {
+  animation (instance, animation) {
     instance.setAnimation(animation)
   },
-  clickable(instance, clickable) {
+  clickable (instance, clickable) {
     instance.setClickable(clickable)
   },
-  cursor(instance, cursor) {
+  cursor (instance, cursor) {
     instance.setCursor(cursor)
   },
-  draggable(instance, draggable) {
+  draggable (instance, draggable) {
     instance.setDraggable(draggable)
   },
-  icon(instance, icon) {
+  icon (instance, icon) {
     instance.setIcon(icon)
   },
-  label(instance, label) {
+  label (instance, label) {
     instance.setLabel(label)
   },
-  map(instance, map) {
+  map (instance, map) {
     instance.setMap(map)
   },
-  opacity(instance, opacity) {
+  opacity (instance, opacity) {
     instance.setOpacity(opacity)
   },
-  options(instance, options) {
+  options (instance, options) {
     instance.setOptions(options)
   },
-  position(instance, position) {
+  position (instance, position) {
     instance.setPosition(position)
   },
-  shape(instance, shape) {
+  shape (instance, shape) {
     instance.setShape(shape)
   },
-  title(instance, title) {
+  title (instance, title) {
     instance.setTitle(title)
   },
-  visible(instance, visible) {
+  visible (instance, visible) {
     instance.setVisible(visible)
   },
-  zIndex(instance, zIndex) {
+  zIndex (instance, zIndex) {
     instance.setZIndex(zIndex)
-  },
+  }
 }
 
 export class Marker extends PureComponent {
   static propTypes = MarkerPropTypes
 
-  constructor(props) {
-    super(props)
+  static contextType = MapContext
 
-    this.registeredEvents = [];
+  registerEvents = []
 
-    this.state = {
-      marker: null
-    }
+  state = {
+    marker: null
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     const marker = new google.maps.Marker()
 
     this.setState({ marker }, () => {
+      this.state.marker.setMap(this.context)
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
         eventMap,
@@ -105,7 +101,7 @@ export class Marker extends PureComponent {
     })
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate = (prevProps) => {
     unregisterEvents(this.registeredEvents)
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
@@ -116,59 +112,40 @@ export class Marker extends PureComponent {
     })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
     this.state.marker && this.state.marker.setMap(null)
   }
 
-
-
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    )
+  render = () => {
+    return <div>{this.props.children}</div>
   }
 
-  getAnimation = () =>
-    this.state.marker.getAnimation()
+  getAnimation = () => this.state.marker.getAnimation()
 
-  getClickable = () =>
-    this.state.marker.getClickable()
+  getClickable = () => this.state.marker.getClickable()
 
-  getCursor = () =>
-    this.state.marker.getCursor()
+  getCursor = () => this.state.marker.getCursor()
 
-  getDraggable = () =>
-    this.state.marker.getDraggable()
+  getDraggable = () => this.state.marker.getDraggable()
 
-  getIcon = () =>
-    this.state.marker.getIcon()
+  getIcon = () => this.state.marker.getIcon()
 
-  getLabel = () =>
-    this.state.marker.getLabel()
+  getLabel = () => this.state.marker.getLabel()
 
-  getMap = () =>
-    this.state.marker.getMap()
+  getMap = () => this.state.marker.getMap()
 
-  getOpacity = () =>
-    this.state.marker.getOpacity()
+  getOpacity = () => this.state.marker.getOpacity()
 
-  getPosition = () =>
-    this.state.marker.getPosition()
+  getPosition = () => this.state.marker.getPosition()
 
-  getShape = () =>
-    this.state.marker.getShape()
+  getShape = () => this.state.marker.getShape()
 
-  getTitle = () =>
-    this.state.marker.getTitle()
+  getTitle = () => this.state.marker.getTitle()
 
-  getVisible = () =>
-    this.state.marker.getVisible()
+  getVisible = () => this.state.marker.getVisible()
 
-  getZIndex = () =>
-    this.state.marker.getZIndex()
+  getZIndex = () => this.state.marker.getZIndex()
 }
 
 export default Marker

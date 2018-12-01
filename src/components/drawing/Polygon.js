@@ -25,31 +25,31 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable(instance, draggable) {
+  draggable (instance, draggable) {
     instance.setDraggable(draggable)
   },
 
-  editable(instance, editable) {
+  editable (instance, editable) {
     instance.setEditable(editable)
   },
 
-  options(instance, options) {
+  options (instance, options) {
     instance.setOptions(options)
   },
 
-  map(instance, map) {
+  map (instance, map) {
     instance.setMap(map)
   },
 
-  path(instance, path) {
+  path (instance, path) {
     instance.setPath(path)
   },
 
-  paths(instance, paths) {
+  paths (instance, paths) {
     instance.setPaths(paths)
   },
 
-  visible(instance, visible) {
+  visible (instance, visible) {
     instance.setVisible(visible)
   },
 }
