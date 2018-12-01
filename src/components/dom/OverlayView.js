@@ -63,6 +63,11 @@ export class OverlayView extends PureComponent {
     })
   }
 
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+    this.state.overlayView && this.state.overlayView.setMap(null)
+  }
+
   render () {
     if (this.containerElement) {
       return createPortal(Children.only(this.props.children), this.containerElement)
