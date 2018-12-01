@@ -27,6 +27,7 @@ import {
 } from '../../../../src'
 
 import ShapesExample from '../examples/shapes-example'
+import DrawingManagerExample from '../examples/drawing-manager-example'
 
 // import MapWithASearchBox from '../components/search-box'
 // import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
@@ -72,6 +73,8 @@ const mapContainerStyle = {
   width: `800px`
 }
 
+const googleMapsLibraries = ['drawing']
+
 const Loading = <div style={loadingStyle} />
 
 const loaderId = uuid()
@@ -94,6 +97,7 @@ const IndexPage = () => (
       version={'weekly'}
       onLoad={() => console.log('script loaded')}
       loadingElement={Loading}
+      libraries={googleMapsLibraries}
     >
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>Plain Google Map</h2>
@@ -121,7 +125,16 @@ const IndexPage = () => (
             container: mapContainerStyle,
             mapContainer: indexStyles.mapContainer
           }}
-          loadingElement={Loading}
+        />
+      </div>
+
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>Google Map with DrawingManager</h2>
+        <DrawingManagerExample
+          styles={{
+            container: mapContainerStyle,
+            mapContainer: indexStyles.mapContainer
+          }}
         />
       </div>
 
