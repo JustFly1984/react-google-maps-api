@@ -11,6 +11,8 @@ import {
   InfoWindow
 } from '../../../../src'
 
+import pinIcon from "../assets/pin.svg"
+
 const FLIGHT_PLAN_COORDS = [
   { lat: 37.772, lng: -122.214 },
   { lat: 21.291, lng: -157.821 },
@@ -120,7 +122,7 @@ export default class ShapesExample extends React.Component {
               }}
             />
 
-            <Marker position={{ lat: 37.772, lng: -122.214 }} />
+            <Marker position={{ lat: 37.772, lng: -122.214 }} icon={pinIcon} />
             <OverlayView
               position={{ lat: 35.772, lng: -120.214 }}
               mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
