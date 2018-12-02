@@ -118,7 +118,7 @@ export class Marker extends PureComponent {
   }
 
   render = () => {
-    return <div>{this.props.children}</div>
+    return <>{this.props.children}</>
   }
 
   getAnimation = () => this.state.marker.getAnimation()
