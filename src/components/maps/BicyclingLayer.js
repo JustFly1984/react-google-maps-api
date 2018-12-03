@@ -10,7 +10,7 @@ export class BicyclingLayer extends PureComponent {
   static contextType = MapContext
 
   state = {
-    polyline: null
+    bicyclingLayer: null
   }
 
   componentDidMount = () => {
