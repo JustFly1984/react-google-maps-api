@@ -1,6 +1,4 @@
-/* eslint-disable filenames/match-exported */
-
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMapProvider,
@@ -8,8 +6,13 @@ import {
   Polyline,
   Polygon,
   Rectangle,
-  Circle
+  Circle,
+  Marker,
+  OverlayView,
+  InfoWindow
 } from '../../../../src'
+
+import pinIcon from '../assets/pin.svg'
 
 const FLIGHT_PLAN_COORDS = [
   { lat: 37.772, lng: -122.214 },
@@ -55,7 +58,11 @@ const mapCenter = {
   lng: -180
 }
 
-const brisbonPolygonOptions = {
+const MARKER_POSITION = { lat: 37.772, lng: -122.214 }
+const OVERLAY_VIEW_POSITION = { lat: 35.772, lng: -120.214 }
+const INFO_WINDOW_POSITION = { lat: 33.772, lng: -117.214 }
+
+const brisbanePolygonOptions = {
   fillColor: '#00FF00',
   fillOpacity: 1,
   strokeColor: '#22FF22',
@@ -110,32 +117,31 @@ const textareaStyle = {
   minWidth: '40rem',
   maxWidth: '40rem'
 }
-export default class ShapesExample extends Component {
+
+const infoWindowStyle = {
+  background: `white`,
+  border: `1px solid #ccc`,
+  padding: 15
+}
+
+export default class ShapesExample extends React.Component {
   static propTypes = ShapesExamplePropTypes
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      polylineVisible: true,
-      polylineOptions: JSON.stringify(POLYLINE_OPTIONS)
-    }
+  state = {
+    polylineVisible: true,
+    polylineOptions: JSON.stringify(POLYLINE_OPTIONS)
   }
 
   onCheckboxChange = () => {
-    this.setState(
-      prevState => ({
-        polylineVisible: !prevState.polylineVisible
-      })
-    )
+    this.setState(prevState => ({
+      polylineVisible: !prevState.polylineVisible
+    }))
   }
 
-  onTextAreaCange = ({ targer: { value } }) => {
-    this.setState(
-      () => ({
-        polylineOptions: value
-      })
-    )
+  onTextAreaChange = ({ target: { value } }) => {
+    this.setState(() => ({
+      polylineOptions: value
+    }))
   }
 
   render = () => {
@@ -156,68 +162,58 @@ export default class ShapesExample extends Component {
             checked={this.state.polylineVisible}
             onChange={this.onCheckboxChange}
           />
-
-          <label htmlFor='show-polyline-checkbox'>
-            Show flight path
-          </label>
+          <label htmlFor='show-polyline-checkbox'>Show flight path</label>
         </div>
-
         <br />
-
         <div>
           <label htmlFor='polyline-options-input'>
             Polyline options (will persist once valid JSON):
-          </label>
-
+          </label>{' '}
           <br />
-
           <textarea
             id='polyline-options-input'
             type='text'
-            style={textareaStyle}
             value={this.state.polylineOptions}
-            onChange={this.onTextAreaCange}
+            style={textareaStyle}
+            onChange={this.onTextAreaChange}
           />
         </div>
 
         <GoogleMapProvider
           id='shapes-example'
-          loadingElement={this.props.loadingElement}
+          mapContainerStyle={this.props.styles.container}
+          mapContainerClassName={this.props.styles.mapContainer}
         >
-          <GoogleMap
-            zoom={2}
-            center={mapCenter}
-            mapContainerStyle={this.props.styles.container}
-            mapContainerClassName={this.props.styles.mapContainer}
-          >
-            {
-              this.state.polylineVisible && (
-                <Polyline
-                  path={FLIGHT_PLAN_COORDS}
-                  options={polylineOptions}
-                />
-              )
-            }
+          <GoogleMap zoom={2} center={mapCenter}>
+            {this.state.polylineVisible && (
+              <Polyline path={FLIGHT_PLAN_COORDS} options={polylineOptions} />
+            )}
+            <Polygon path={BRISBANE_COORDS} options={brisbanePolygonOptions} />
 
-            <Polygon
-              options={brisbonPolygonOptions}
-            />
+            <Polygon path={SAN_FRANCISCO_COORDS} options={sfPolygonOptions} />
 
-            <Polygon
-              options={sfPolygonOptions}
-            />
+            <Rectangle bounds={RECTANGLE_BOUNDS} />
+            <Circle options={circleOptions} />
 
-            <Rectangle
-              bounds={RECTANGLE_BOUNDS}
-            />
+            <Marker position={MARKER_POSITION} icon={pinIcon} />
+            <OverlayView
+              position={OVERLAY_VIEW_POSITION}
+              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+            >
+              <div style={infoWindowStyle}>
+                <h1>OverlayView</h1>
+                <button onClick={() => {}}>I have been clicked</button>
+              </div>
+            </OverlayView>
 
-            <Circle
-              options={circleOptions}
-            />
+            <InfoWindow position={INFO_WINDOW_POSITION}>
+              <div style={infoWindowStyle}>
+                <h1>InfoWindow</h1>
+              </div>
+            </InfoWindow>
           </GoogleMap>
         </GoogleMapProvider>
       </div>
-
     )
   }
 }

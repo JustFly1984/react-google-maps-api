@@ -1,38 +1,19 @@
 /* global google */
 import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
-import PropTypes from 'prop-types'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
+
+import MapContext from '../../mapcontext'
 import invariant from 'invariant'
 
-import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
-} from '../../utils/MapChildHelper'
-
-import { MAP, ANCHOR, INFO_WINDOW } from '../../constants'
-
 import { InfoWindowPropTypes } from '../../proptypes'
-
-const open = (infoWindow, anchor) => {
-  if (anchor) {
-    infoWindow.open(infoWindow.getMap(), anchor)
-  } else if (infoWindow.getPosition()) {
-    infoWindow.open(infoWindow.getMap())
-  } else {
-    invariant(
-      false,
-      `You must provide either an anchor (typically render it inside a <Marker>) or a position props for <InfoWindow>.`
-    )
-  }
-}
 
 const eventMap = {
   onCloseClick: 'closeclick',
   onContentChanged: 'content_changed',
   onDomReady: 'domready',
   onPositionChanged: 'position_changed',
-  onZindexChanged: 'zindex_changed',
+  onZindexChanged: 'zindex_changed'
 }
 
 const updaterMap = {
@@ -50,77 +31,82 @@ const updaterMap = {
   },
   zIndex (instance, zIndex) {
     instance.setZIndex(zIndex)
-  },
+  }
 }
 
 export class InfoWindow extends PureComponent {
   static propTypes = InfoWindowPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-    [ANCHOR]: PropTypes.object,
+  static contextType = MapContext
+
+  registeredEvents = []
+
+  state = {
+    infoWindow: null
   }
 
-  constructor (props, context) {
-    super(props, context)
+  componentDidMount = () => {
+    const infoWindow = new google.maps.InfoWindow()
 
-    const infoWindow = new google.maps.InfoWindow(
-      props.options
-    )
-
-    this.state = {
-      [INFO_WINDOW]: infoWindow,
-      prevProps: construct(
-        InfoWindowPropTypes,
-        updaterMap,
-        this.props,
-        infoWindow
-      )
-    }
-
-    infoWindow.setMap(this.context[MAP])
-
+    infoWindow.setMap(this.context)
     this.containerElement = document.createElement('div')
-    this.state[INFO_WINDOW].setContent(this.containerElement)
 
-    open(this.state[INFO_WINDOW], this.context[ANCHOR])
+    this.setState({ infoWindow }, () => {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.infoWindow
+      })
+
+      this.state.infoWindow.setContent(this.containerElement)
+      this.open(this.state.infoWindow, this.props.anchor)
+    })
   }
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[INFO_WINDOW],
+  componentDidUpdate (prevProps) {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
       eventMap,
-      updaterMap
-    )
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.infoWindow
+    })
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const infoWindow = this.state[INFO_WINDOW]
-
-    if (infoWindow) {
-      infoWindow.setMap(null)
-    }
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+    this.state.infoWindow && this.state.infoWindow.setMap(null)
   }
 
   render () {
-    return createPortal(
-      Children.only(this.props.children),
-      this.containerElement
-    )
+    if (this.containerElement) {
+      return createPortal(Children.only(this.props.children), this.containerElement)
+    }
+
+    return null
   }
 
-  getContent = () =>
-    this.state[INFO_WINDOW].getContent()
+  open = (infoWindow, anchor) => {
+    if (anchor) {
+      infoWindow.open(infoWindow.getMap(), anchor)
+    } else if (infoWindow.getPosition()) {
+      infoWindow.open(infoWindow.getMap())
+    } else {
+      invariant(
+        false,
+        `You must provide either an anchor (typically render it inside a <Marker>) or a position props for <InfoWindow>.`
+      )
+    }
+  }
 
-  getPosition = () =>
-    this.state[INFO_WINDOW].getPosition()
+  getContent = () => this.state.infoWindow.getContent()
 
-  getZIndex = () =>
-    this.state[INFO_WINDOW].getZIndex()
+  getPosition = () => this.state.infoWindow.getPosition()
+
+  getZIndex = () => this.state.infoWindow.getZIndex()
 }
 
 export default InfoWindow
