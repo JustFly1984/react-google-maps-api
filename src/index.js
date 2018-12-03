@@ -4,8 +4,8 @@ export { default as GoogleMap } from './components/maps/GoogleMap'
 export { default as TrafficLayer } from './components/maps/TrafficLayer'
 export { default as BicyclingLayer } from './components/maps/BicyclingLayer'
 
-// export { default as Marker } from './components/drawing/Marker'
-// export { default as InfoWindow } from './components/drawing/InfoWindow'
+export { default as Marker } from './components/drawing/Marker'
+export { default as InfoWindow } from './components/drawing/InfoWindow'
 export { default as Polyline } from './components/drawing/Polyline'
 export { default as Polygon } from './components/drawing/Polygon'
 export { default as Rectangle } from './components/drawing/Rectangle'
@@ -14,7 +14,7 @@ export { default as Circle } from './components/drawing/Circle'
 
 // export { default as KmlLayer } from './components/kml/KmlLayer'
 
-// export { default as OverlayView } from './components/dom/OverlayView'
+export { default as OverlayView } from './components/dom/OverlayView'
 
 // export { default as FusionTablesLayer } from './components/fusion/FusionTablesLayer'
 
@@ -33,7 +33,7 @@ export { default as GroundOverlay } from './components/overlays/GroundOverlay'
 // export { default as MarkerCluster } from './components/addons/MarkerCluster'
 // export { default as MarkerWithLabel } from './components/addons/MarkerWithLabel'
 
-// export { default as DrawingManager } from './components/drawing/DrawingManager'
+export { default as DrawingManager } from './components/drawing/DrawingManager'
 
 // export { default as SearchBox } from './components/places/SearchBox'
 // export { default as StandaloneSearchBox } from './components/places/StandaloneSearchBox'
