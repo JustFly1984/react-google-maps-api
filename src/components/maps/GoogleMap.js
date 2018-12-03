@@ -1,13 +1,9 @@
 /* global google */
 /* eslint-disable filenames/match-regex */
-import React, { PureComponent } from 'react'
-import invariant from 'invariant'
+import { PureComponent } from 'react'
 import MapContext from '../../mapcontext'
 import { GoogleMapPropTypes } from '../../proptypes'
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
 
 const eventMap = {
   onDblClick: 'dblclick',
@@ -28,7 +24,7 @@ const eventMap = {
   onProjectionChanged: 'projection_changed',
   onResize: 'resize',
   onTiltChanged: 'tilt_changed',
-  onZoomChanged: 'zoom_changed',
+  onZoomChanged: 'zoom_changed'
 }
 
 const updaterMap = {
@@ -55,8 +51,8 @@ const updaterMap = {
   streetView (map, streetView) {
     map.setStreetView(streetView)
   },
-  tilt (map, tile) {
-    map.setTilt(tile)
+  tilt (map, tilt) {
+    map.setTilt(tilt)
   },
   zoom (map, zoom) {
     map.setZoom(zoom)
@@ -80,7 +76,7 @@ export class GoogleMap extends PureComponent {
     })
   }
 
-  componentDidUpdate = (prevProps) => {
+  componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
@@ -97,47 +93,33 @@ export class GoogleMap extends PureComponent {
 
   render = () => this.props.children || null
 
-  fitBounds = (...args) =>
-    this.props.map.fitBounds(...args)
+  fitBounds = (...args) => this.props.map.fitBounds(...args)
 
-  panBy = (...args) =>
-    this.props.map.panBy(...args)
+  panBy = (...args) => this.props.map.panBy(...args)
 
-  panTo = (...args) =>
-    this.props.map.panTo(...args)
+  panTo = (...args) => this.props.map.panTo(...args)
 
-  panToBounds = (...args) =>
-    this.props.map.panToBounds(...args)
+  panToBounds = (...args) => this.props.map.panToBounds(...args)
 
-  getBounds = () =>
-    this.props.map.getBounds()
+  getBounds = () => this.props.map.getBounds()
 
-  getCenter = () =>
-    this.props.map.getCenter()
+  getCenter = () => this.props.map.getCenter()
 
-  getClickableIcons = () =>
-    this.props.map.getClickableIcons()
+  getClickableIcons = () => this.props.map.getClickableIcons()
 
-  getDiv = () =>
-    this.props.map.getDiv()
+  getDiv = () => this.props.map.getDiv()
 
-  getHeading = () =>
-    this.props.map.getHeading()
+  getHeading = () => this.props.map.getHeading()
 
-  getMapTypeId = () =>
-    this.props.map.getMapTypeId()
+  getMapTypeId = () => this.props.map.getMapTypeId()
 
-  getProjection = () =>
-    this.props.map.getProjection()
+  getProjection = () => this.props.map.getProjection()
 
-  getStreetView = () =>
-    this.props.map.getStreetView()
+  getStreetView = () => this.props.map.getStreetView()
 
-  getTilt = () =>
-    this.props.map.getTilt()
+  getTilt = () => this.props.map.getTilt()
 
-  getZoom = () =>
-    this.props.map.getZoom()
+  getZoom = () => this.props.map.getZoom()
 }
 
 export default GoogleMap
