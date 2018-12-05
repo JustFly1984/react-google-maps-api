@@ -1,99 +1,83 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import invariant from 'invariant'
 
-import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
-} from '../../utils/MapChildHelper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
 
-import { MAP, DRAWING_MANAGER } from '../../constants'
+import MapContext from '../../mapcontext'
+
 import { DrawingManagerPropTypes } from '../../proptypes'
 
 const eventMap = {
   onCircleComplete: 'circlecomplete',
   onMarkerComplete: 'markercomplete',
   onOverlayComplete: 'overlaycomplete',
-  onPolygonComplete: 'polygoncomplete',
+  ondrawingManagerComplete: 'drawingManagercomplete',
   onPolylineComplete: 'polylinecomplete',
-  onRectangleComplete: 'rectanglecomplete',
+  onRectangleComplete: 'rectanglecomplete'
 }
 
 const updaterMap = {
   drawingMode (instance, drawingMode) {
     instance.setDrawingMode(drawingMode)
   },
-  map (instance, map) {
-    instance.setMap(map)
-  },
   options (instance, options) {
     instance.setOptions(options)
-  },
+  }
 }
 
 export class DrawingManager extends PureComponent {
   static propTypes = DrawingManagerPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
+  static contextType = MapContext
+
+  registeredEvents = []
+
+  state = {
+    drawingManager: null
+  }
+  constructor (props) {
+    super(props)
+
+    invariant(google.maps.drawing, 'Did you include "libraries=drawing" in the URL?')
   }
 
-  constructor (props, context) {
-    super(props, context)
+  componentDidMount = () => {
+    const drawingManager = new google.maps.drawing.DrawingManager()
 
-    invariant(
-      google.maps.drawing,
-      'Did you include "libraries=drawing" in the URL?'
-    )
-
-    const drawingManager = new google.maps.drawing.DrawingManager(
-      props.options
-    )
-
-    this.state = {
-      [DRAWING_MANAGER]: drawingManager,
-      prevProps: construct(
-        DrawingManagerPropTypes,
+    this.setState({ drawingManager }, () => {
+      this.state.drawingManager.setMap(this.context)
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
-        props,
-        drawingManager
-      )
-    }
-
-    drawingManager.setMap(context[MAP])
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.drawingManager
+      })
+    })
   }
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[DRAWING_MANAGER],
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
       eventMap,
-      updaterMap
-    )
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.drawingManager
+    })
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const drawingManager = this.state[DRAWING_MANAGER]
-
-    if (drawingManager) {
-      drawingManager.setMap(null)
-    }
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+    this.state.drawingManager && this.state.drawingManager.setMap(null)
   }
 
-  render () {
-    return null
-  }
+  render = () => null
 
-  getDrawingMode = () =>
-    this.state[DRAWING_MANAGER].getDrawingMode()
+  getDrawingMode = () => this.state.drawingManager.getDrawingMode()
 
-  getMap = () =>
-    this.state[DRAWING_MANAGER].getMap()
+  getMap = () => this.state.drawingManager.getMap()
 }
 
 export default DrawingManager

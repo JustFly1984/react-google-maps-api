@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { injectScript } from './utils/injectscript'
 import { LoadScriptPropTypes } from './proptypes'
-import { LoadScriptContextProvider } from './loadscriptcontext'
 
 class LoadScript extends Component {
   static propTypes = LoadScriptPropTypes
@@ -11,17 +10,13 @@ class LoadScript extends Component {
   }
 
   componentDidMount = () => {
-    const {
-      id,
-      googleMapsApiKey,
-      language,
-      region,
-      version
-    } = this.props
+    const { id, googleMapsApiKey, language, region, version, libraries } = this.props
 
     injectScript({
       id,
-      url: `https://maps.googleapis.com/maps/api/js?v=${version}&key=${googleMapsApiKey}&language=${language}&region=${region}`,
+      url: `https://maps.googleapis.com/maps/api/js?v=${version}&key=${googleMapsApiKey}&language=${language}&region=${region}${
+        libraries ? `&libraries=${libraries.join(',')}` : ''
+      }`,
       onSuccess: () => {
         this.props.onLoad()
 
@@ -36,23 +31,15 @@ googleMapsApiKey: ${this.props.googleMapsApiKey}
 language: ${this.props.language}
 region: ${this.props.region}
 version: ${this.props.version}
+libraries: ${(this.props.libraries || []).join(',')}
 
 Otherwise it is a Network issues.
-`
-        )
+`)
       }
     })
   }
 
-  render = () => (
-    <LoadScriptContextProvider
-      value={this.state.loaded}
-    >
-      {
-        this.props.children
-      }
-    </LoadScriptContextProvider>
-  )
+  render = () => (this.state.loaded ? this.props.children : this.props.loadingElement)
 }
 
 export default LoadScript

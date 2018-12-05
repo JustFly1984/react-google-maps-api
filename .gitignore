@@ -44,3 +44,4 @@ node_modules
 # These folders contain auto-generated files. No reason to commit them to Git
 lib/
 dist/
+.vscode/settings.json
