@@ -67,7 +67,7 @@ export function componentDidUpdate (props, instance, eventMap, updaterMap, state
   return registerEvents(props, instance, eventMap)
 }
 */
-export function getDerivedStateFromProps(props, state, instance, eventMap, updaterMap) {
+export function getDerivedStateFromProps (props, state, instance, eventMap, updaterMap) {
   unregisterEvent(state.registeredList)
 
   return {
@@ -76,11 +76,11 @@ export function getDerivedStateFromProps(props, state, instance, eventMap, updat
   }
 }
 
-export function componentWillUnmount(component) {
+export function componentWillUnmount (component) {
   unregisterEvent(component.state.registeredList)
 }
 
-export function registerEvents(props, instance, eventMap) {
+export function registerEvents (props, instance, eventMap) {
   const registeredList = reduce(eventMap, (acc, googleEventName, onEventName) => {
     if (typeof props[onEventName] === 'function') {
       acc.push(
@@ -94,21 +94,17 @@ export function registerEvents(props, instance, eventMap) {
   return registeredList
 }
 
-export function unregisterEvents(events = []) {
-  events.map(unregisterEvent);
+export function unregisterEvents (events = []) {
+  events.map(unregisterEvent)
 }
 
-function unregisterEvent(registered) {
+function unregisterEvent (registered) {
   google.maps.event.removeListener(registered)
 }
 
-
-export function applyUpdatersToPropsAndRegisterEvents({
+export function applyUpdatersToPropsAndRegisterEvents ({
   updaterMap, eventMap, prevProps, nextProps, instance
 }) {
-  applyUpdaterToNextProps(updaterMap, prevProps, nextProps, instance);
-  return registerEvents(nextProps, instance, eventMap);
+  applyUpdaterToNextProps(updaterMap, prevProps, nextProps, instance)
+  return registerEvents(nextProps, instance, eventMap)
 }
-
-
-

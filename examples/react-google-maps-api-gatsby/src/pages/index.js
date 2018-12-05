@@ -12,7 +12,7 @@ import {
   BicyclingLayer,
   // Circle,
   // Marker
-  // Polyline,
+  Polyline,
   // Polygon,
   // Rectangle,
   // InfoWindow,
@@ -26,7 +26,8 @@ import {
   // compose
 } from '../../../../src'
 
-import ShapesExample from '../examples/shapes'
+import ShapesExample from '../examples/shapes-example'
+import DrawingManagerExample from '../examples/drawing-manager-example'
 
 // import MapWithASearchBox from '../components/search-box'
 // import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
@@ -36,13 +37,16 @@ import ShapesExample from '../examples/shapes'
 // https://developers.google.com/maps/documentation/javascript/get-api-key
 import { googleMapsApiKey } from '../const'
 
-const groundOverlayBounds = [{
-  x: 233.94664370659723,
-  y: 153.67749447485028
-}, {
-  x: 36.34117495659723,
-  y: 154.66186947485028
-}]
+const groundOverlayBounds = [
+  {
+    x: 233.94664370659723,
+    y: 153.67749447485028
+  },
+  {
+    x: 36.34117495659723,
+    y: 154.66186947485028
+  }
+]
 
 const mapBoxStyle = {
   marginTop: '2rem',
@@ -74,11 +78,8 @@ const shapesStyles = {
   mapContainer: indexStyles.mapContainer
 }
 
-const Loading = (
-  <div
-    style={loadingStyle}
-  />
-)
+const Loading = <div style={loadingStyle} />
+const googleMapsLibraries = ['drawing']
 
 const loaderId = uuid()
 const providerOneId = uuid()
@@ -98,45 +99,20 @@ const IndexPage = () => (
       language={'en'}
       region={'EN'}
       version={'weekly'}
-      onLoad={() => (
-        console.log('script loaded')
-      )}
+      onLoad={() => console.log('script loaded')}
+      loadingElement={Loading}
+      libraries={googleMapsLibraries}
     >
       <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Plain Google Map
-        </h2>
-
+        <h2 style={mapHeaderStyle}>Plain Google Map</h2>
         <GoogleMapProvider
           id={providerOneId}
-          loadingElement={Loading}
+          mapContainerStyle={mapContainerStyle}
+          mapContainerClassName={indexStyles.mapContainer}
         >
           <GoogleMap
             zoom={8}
             center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          />
-        </GoogleMapProvider>
-      </div>
-
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Google Map with Traffic Layer
-        </h2>
-
-        <GoogleMapProvider
-          id={providerTwoId}
-          loadingElement={Loading}
-        >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
             onClick={(...args) => {
               console.log('onClick args: ', args)
             }}
@@ -145,6 +121,25 @@ const IndexPage = () => (
           </GoogleMap>
         </GoogleMapProvider>
       </div>
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>Google Map with Shapes</h2>
+        <ShapesExample
+          styles={{
+            container: mapContainerStyle,
+            mapContainer: indexStyles.mapContainer
+          }}
+        />
+      </div>
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>Google Map with DrawingManager</h2>
+        <DrawingManagerExample
+          styles={{
+            container: mapContainerStyle,
+            mapContainer: indexStyles.mapContainer
+          }}
+        />
+      </div>
+      {/* 
 
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>
@@ -187,16 +182,9 @@ const IndexPage = () => (
               console.log('onClick args: ', args)
             }}
           >
-            <GroundOverlay
-              url='https://legacy.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
-              bounds={groundOverlayBounds}
-              options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-                clickable: true,
-                opacity: 0.5
-              }}
-            />
-          </GoogleMap>
+          
         </GoogleMapProvider>
+<<<<<<< HEAD
 
         <div style={mapBoxStyle}>
           <h2 style={mapHeaderStyle}>
@@ -209,8 +197,11 @@ const IndexPage = () => (
           />
         </div>
       </div>
+=======
+       
+ */}
     </LoadScript>
-  </Layout >
+  </Layout>
 )
 
 export default IndexPage

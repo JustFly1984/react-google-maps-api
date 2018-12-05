@@ -6,6 +6,8 @@ import {
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
+import MapContext from '../../mapcontext'
+
 import { PolygonPropTypes } from '../../proptypes'
 
 const eventMap = {
@@ -55,68 +57,47 @@ const updaterMap = {
 export class Polygon extends PureComponent {
   static propTypes = PolygonPropTypes
 
+  static contextType = MapContext
+
   registeredEvents = []
 
   state = {
     polygon: null
   }
 
-  initializePoligon = () => {
-    const polygon = new google.maps.Polygon(
-      Object.assign(this.props.options, {
-        map: this.props.map
-      })
-    )
-
-    this.setState(
-      () => ({
-        polygon
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.polygon
-        })
-      })
-  }
-
   componentDidMount = () => {
-    if (this.props.map !== null) {
-      this.initializePoligon()
-    }
-  }
+    const polygon = new google.maps.Polygon()
 
-  componentDidUpdate = prevProps => {
-    if (this.props.map !== null && this.state.polygon === null) {
-      this.initializePoligon()
-    }
-
-    if (this.state.polygon !== null) {
-      unregisterEvents(this.registeredEvents)
-
+    this.setState({ polygon }, () => {
+      this.state.polygon.setMap(this.context)
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
         eventMap,
-        prevProps,
+        prevProps: {},
         nextProps: this.props,
         instance: this.state.polygon
       })
-    }
+    })
+  }
+
+  componentDidUpdate = (prevProps) => {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.polygon
+    })
   }
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
-
-    if (this.state.polygon !== 'undefined') {
-      this.state.polygon.setMap(null)
-    }
+    this.state.polygon && this.state.polygon.setMap(null)
   }
 
   render = () => null
-
+  
   getDraggable = () =>
     this.state.polygon.getDraggable()
 
