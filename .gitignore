@@ -45,3 +45,4 @@ node_modules
 lib/
 dist/
 .vscode/settings.json
+.docz/cache

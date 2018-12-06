@@ -1,0 +1,14 @@
+{
+  "config": {
+    "title": "React Google Maps Api",
+    "description": "React.js Google Maps API integration",
+    "menu": [],
+    "ordering": "descending",
+    "version": "1.0.0",
+    "repository": "https://github.com/JustFly1984/react-google-maps-api",
+    "native": false,
+    "codeSandbox": true,
+    "themeConfig": {}
+  },
+  "entries": {}
+}
