@@ -39,3 +39,4 @@ export { default as DrawingManager } from './components/drawing/DrawingManager'
 // export { default as StandaloneSearchBox } from './components/places/StandaloneSearchBox'
 
 // export { compose } from './utils/compose'
+export { default as Map } from './Map'

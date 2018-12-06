@@ -1,0 +1,79 @@
+---
+name: Basic map example
+---
+
+import { GoogleMapProvider, GoogleMap, LoadScript, Map } from "../";
+import { googleMapsApiKey } from "./const";
+
+# GoogleMap
+
+```jsx
+<LoadScript
+  id="script-loader"
+  googleMapsApiKey={googleMapsApiKey}
+  language={"en"}
+  region={"EN"}
+  version={"weekly"}
+  onLoad={() => console.log("script loaded")}
+  loadingElement={<div>Loading...</div>}
+>
+  <GoogleMapProvider
+    id="basic-map-example"
+    mapContainerStyle={{
+      height: "400px",
+      width: "800px"
+    }}
+  >
+    <GoogleMap
+      zoom={8}
+      center={{
+        lat: -34.397,
+        lng: 150.644
+      }}
+    />
+  </GoogleMapProvider>
+</LoadScript>
+```
+
+<LoadScript
+  id="script-loader"
+  googleMapsApiKey={googleMapsApiKey}
+  language={"en"}
+  region={"EN"}
+  version={"weekly"}
+  onLoad={() => console.log("script loaded")}
+  loadingElement={<div>Loading...</div>}
+>
+  <GoogleMapProvider
+    id="basic-map-example"
+    mapContainerStyle={{
+      height: "400px",
+      width: "800px"
+    }}
+  >
+    <GoogleMap
+      zoom={8}
+      center={{
+        lat: -34.397,
+        lng: 150.644
+      }}
+    />
+  </GoogleMapProvider>
+</LoadScript>
+
+<Map
+  loadScriptId="script-loader-2"
+  googleMapsApiKey={googleMapsApiKey}
+  version="weekly"
+  onScriptLoad={() => {}}
+  loadingElement={<div>Loading...</div>}
+  mapContainerStyle={{
+    height: "400px",
+    width: "800px"
+  }}
+  zoom={8}
+  center={{
+    lat: -34.397,
+    lng: 150.644
+  }}
+/>
