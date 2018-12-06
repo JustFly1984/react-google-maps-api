@@ -71,7 +71,9 @@
     "build:webpack": "rm -rf ./dist && webpack",
     "build:babel": "rm -rf ./lib && babel ./src -d ./lib",
     "clean": "rm -rf ./package-lock.json ./node_modules/ && npm i",
-    "lint": "npx eslint ./src --fix"
+    "lint": "npx eslint ./src --fix",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   },
   "lint-staged": {
     "linters": {
@@ -95,10 +97,10 @@
     "warning": "^4.0.2"
   },
   "peerDependencies": {
-    "prop-types": "^15.5.8",
     "@types/googlemaps": "^3.0.0",
     "@types/markerclustererplus": "^2.1.29",
     "@types/react": "^16.7.8",
+    "prop-types": "^15.5.8",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
   },
@@ -123,6 +125,7 @@
     "babel-plugin-transform-react-remove-prop-types": "0.4.20",
     "concurrently": "^4.1.0",
     "cross-env": "^5.1.1",
+    "docz": "^0.12.15",
     "eslint": "5.9.0",
     "eslint-config-standard": "12.0.0",
     "eslint-config-standard-react": "7.0.2",
