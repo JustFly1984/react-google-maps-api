@@ -1082,7 +1082,7 @@ export const GroundOverlayPropTypes = {
 }
 
 export const GoogleMapProviderPropTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string, // TODO: do we need this?
   mapContainerStyle: PropTypes.object,
   mapContainerClassName: PropTypes.string
 }
