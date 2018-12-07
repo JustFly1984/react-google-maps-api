@@ -1,16 +1,13 @@
 /* global google */
 import { PureComponent, Children } from 'react'
-import { findDOMNode } from 'react-dom'
 import invariant from 'invariant'
 
 import {
-  construct,
-  registerEvents,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { STANDALONE_SEARCH_BOX } from '../../constants'
+import MapContext from '../../mapcontext'
 
 import { SearchBoxPropTypes } from '../../proptypes'
 
@@ -27,65 +24,72 @@ const updaterMap = {
 class StandaloneSearchBox extends PureComponent {
   static propTypes = SearchBoxPropTypes
 
-  constructor (props) {
-    super(props)
+  static contextType = MapContext
 
-    this.state = {
-      [STANDALONE_SEARCH_BOX]: null,
-      prevProps: {}
-    }
+  registeredEvents = []
+
+  state = {
+    standaloneSearchBox: null
   }
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[STANDALONE_SEARCH_BOX],
-      eventMap,
-      updaterMap
-    )
-  }
+  constructor (props, context) {
+    super(props, context)
 
-  componentDidMount () {
     invariant(
       google.maps.places,
       'Did you include "libraries=places" in the URL?'
     )
+  }
 
-    // TODO: get rid of findDOMNode
-    // eslint-disable-next-line react/no-find-dom-node
-    const element = findDOMNode(this)
-
+  componentDidMount = () => {
     const searchBox = new google.maps.places.SearchBox(
-      element.querySelector('input') || element,
+      this.props.containerElement.querySelector('input'),
+      Object.assign({
+        map: this.context
+      },
       this.props.options
+      )
     )
 
-    this.setState((state, props) => ({
-      [STANDALONE_SEARCH_BOX]: searchBox,
-      prevProps: construct(
-        SearchBoxPropTypes,
-        updaterMap,
-        props,
+    this.setState(
+      () => ({
         searchBox
-      ),
-      registeredList: registerEvents(props, searchBox, eventMap)
-    }))
+      }),
+      () => {
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.searchBox
+        })
+      }
+    )
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.searchBox
+    })
   }
 
-  render () {
-    return Children.only(this.props.children)
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
   }
+
+  render = () => Children.only(this.props.children)
 
   getBounds = () =>
-    this.state[STANDALONE_SEARCH_BOX].getBounds()
+    this.state.searchBox.getBounds()
 
   getPlaces = () =>
-    this.state[STANDALONE_SEARCH_BOX].getPlaces()
+    this.state.searchBox.getPlaces()
 }
 
 export default StandaloneSearchBox

@@ -37,12 +37,15 @@ export class SearchBox extends PureComponent {
   constructor (props, context) {
     super(props, context)
 
-    invariant(google.maps.places, 'Did you include "libraries=places" in the URL?')
+    invariant(
+      google.maps.places,
+      'Did you include "libraries=places" in the URL?'
+    )
   }
 
   componentDidMount = () => {
     const searchBox = new google.maps.places.SearchBox(
-      this.state.containerElement.querySelector('input'),
+      this.props.containerElement.querySelector('input'),
       Object.assign({
         map: this.context
       },
@@ -83,6 +86,14 @@ export class SearchBox extends PureComponent {
         )
       }
     }
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.searchBox
+    })
   }
 
   componentWillUnmount = () => {

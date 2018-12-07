@@ -40,6 +40,7 @@ export class OverlayView extends PureComponent {
         this.props.options
       )
     )
+
     // You must implement three methods: onAdd(), draw(), and onRemove().
     overlayView.onAdd = this.onAdd
     overlayView.draw = this.draw

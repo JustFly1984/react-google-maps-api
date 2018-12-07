@@ -1,59 +1,33 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
-} from '../../utils/MapChildHelper'
-
-import { STREETVIEW_SERVICE } from '../../constants'
-
-const eventMap = {}
-
-const updaterMap = {}
+import MapContext from '../../mapcontext'
 
 const StreetViewServicePropTypes = {}
 
 export class StreetViewService extends PureComponent {
   static propTypes = StreetViewServicePropTypes
 
-  constructor (props) {
-    super(props)
+  static contextType = MapContext
 
-    const streetViewService = new google.maps.StreetViewService()
-
-    this.state = {
-      [STREETVIEW_SERVICE]: streetViewService,
-      prevProps: construct(
-        StreetViewServicePropTypes,
-        updaterMap,
-        props,
-        streetViewService
-      )
-    }
+  state = {
+    streetViewService: null
   }
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[STREETVIEW_SERVICE],
-      eventMap,
-      updaterMap
+  componentDidMount = () => {
+    const streetViewService = new google.maps.StreetViewService()
+
+    this.setState(
+      () => ({
+        streetViewService
+      })
     )
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-  }
-
-  render () {
-    return null
-  }
+  render = () => null
 
   getPanorama = () =>
-    this.state[STREETVIEW_SERVICE].getPanorama()
+    this.state.streetViewService.getPanorama()
 }
 
 export default StreetViewService
