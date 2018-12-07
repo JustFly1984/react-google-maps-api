@@ -1,16 +1,15 @@
 /* global google */
 import { PureComponent, Children } from 'react'
-import PropTypes from 'prop-types'
 import makeMarkerWithLabel from 'markerwithlabel'
 import { createPortal } from 'react-dom'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP, MARKER_CLUSTERER, MARKER_WITH_LABEL } from '../../constants'
+import { MarkerClusterContext } from './MarkerCluster'
+
 import { MarkerWithLabelPropTypes } from '../../proptypes'
 
 const eventMap = {
@@ -97,115 +96,105 @@ const updaterMap = {
 export class MarkerWithLabel extends PureComponent {
   static propTypes = MarkerWithLabelPropTypes
 
-  static defaultProps = {
-    labelVisible: true,
-  }
+  static contextTypes = MarkerClusterContext
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-    [MARKER_CLUSTERER]: PropTypes.object,
-  }
-
-  constructor (props, context) {
-    super(props, context)
-
+  componentDidMount = () => {
     const NativeMarkerWithLabel = makeMarkerWithLabel(google.maps)
 
     const markerWithLabel = new NativeMarkerWithLabel()
 
-    this.state = {
-      [MARKER_WITH_LABEL]: markerWithLabel,
-      prevProps: construct(
-        MarkerWithLabelPropTypes,
-        updaterMap,
-        props,
+    this.setState(
+      () => ({
         markerWithLabel
-      )
-    }
+      }),
+      () => {
+        this.state.markerWithLabel.setMap(this.context.map)
 
-    const markerClusterer = this.context[MARKER_CLUSTERER]
+        this.context.markerClusterer.addMarker(
+          this.state.markerWithLabel,
+          this.props.noRedraw
+        )
 
-    if (markerClusterer) {
-      markerClusterer.addMarker(markerWithLabel, !!props.noRedraw)
-    } else {
-      markerWithLabel.setMap(this.context[MAP])
-    }
+        this.containerElement = document.createElement('div')
 
-    this.containerElement = document.createElement('div')
-    this.state[MARKER_WITH_LABEL].set('labelContent', this.containerElement)
-  }
-
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[MARKER_WITH_LABEL],
-      eventMap,
-      updaterMap
+        this.state.markerWithLabel.set('labelContent', this.containerElement)
+      }
     )
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
 
-    const markerWithLabel = this.state[MARKER_WITH_LABEL]
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.markerClusterer
+    })
 
-    if (markerWithLabel) {
-      const markerClusterer = this.context[MARKER_CLUSTERER]
+    this.state.markerClusterer.repaint()
+  }
 
-      if (markerClusterer) {
-        markerClusterer.removeMarker(markerWithLabel, !!this.props.noRedraw)
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+
+    if (this.state.markerWithLabel) {
+      if (this.context.cluster) {
+        this.context.cluster.removeMarker(
+          this.state.markerWithLabel,
+          this.props.noRedraw
+        )
       }
 
-      markerWithLabel.setMap(null)
+      this.state.markerWithLabel.setMap(null)
     }
   }
 
-  render () {
-    return createPortal(
+  render = () =>
+    createPortal(
       Children.only(this.props.children),
       this.containerElement
     )
-  }
 
   getAnimation = () =>
-    this.state[MARKER_WITH_LABEL].getAnimation()
+    this.state.markerWithLabel.getAnimation()
 
   getClickable = () =>
-    this.state[MARKER_WITH_LABEL].getClickable()
+    this.state.markerWithLabel.getClickable()
 
   getCursor = () =>
-    this.state[MARKER_WITH_LABEL].getCursor()
+    this.state.markerWithLabel.getCursor()
 
   getDraggable = () =>
-    this.state[MARKER_WITH_LABEL].getDraggable()
+    this.state.markerWithLabel.getDraggable()
 
   getIcon = () =>
-    this.state[MARKER_WITH_LABEL].getIcon()
+    this.state.markerWithLabel.getIcon()
 
   getLabel = () =>
-    this.state[MARKER_WITH_LABEL].getLabel()
+    this.state.markerWithLabel.getLabel()
 
   getOpacity = () =>
-    this.state[MARKER_WITH_LABEL].getOpacity()
+    this.state.markerWithLabel.getOpacity()
 
   getPlace = () =>
-    this.state[MARKER_WITH_LABEL].getPlace()
+    this.state.markerWithLabel.getPlace()
 
   getPosition = () =>
-    this.state[MARKER_WITH_LABEL].getPosition()
+    this.state.markerWithLabel.getPosition()
 
   getShape = () =>
-    this.state[MARKER_WITH_LABEL].getShape()
+    this.state.markerWithLabel.getShape()
 
   getTitle = () =>
-    this.state[MARKER_WITH_LABEL].getTitle()
+    this.state.markerWithLabel.getTitle()
 
   getVisible = () =>
-    this.state[MARKER_WITH_LABEL].getVisible()
+    this.state.markerWithLabel.getVisible()
 
   getZIndex = () =>
-    this.state[MARKER_WITH_LABEL].getZIndex()
+    this.state.markerWithLabel.getZIndex()
 }
 
 export default MarkerWithLabel

@@ -987,7 +987,7 @@ export const MarkerPropTypes = {
   onZindexChanged: PropTypes.func
 }
 
-export const MarkerClustererPropTypes = {
+export const MarkerClusterPropTypes = {
   children: PropTypes.node,
   averageCenter: PropTypes.bool,
   batchSizeIE: PropTypes.number,

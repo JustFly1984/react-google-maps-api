@@ -1,7 +1,10 @@
 /* global google */
 import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/MapChildHelper'
 
 import MapContext from '../../mapcontext'
 import invariant from 'invariant'
@@ -46,27 +49,42 @@ export class InfoWindow extends PureComponent {
   }
 
   componentDidMount = () => {
-    const infoWindow = new google.maps.InfoWindow()
+    const infoWindow = new google.maps.InfoWindow(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
 
     infoWindow.setMap(this.context)
+
     this.containerElement = document.createElement('div')
 
-    this.setState({ infoWindow }, () => {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.infoWindow
-      })
+    this.setState(
+      () => ({
+        infoWindow
+      }),
+      () => {
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.infoWindow
+        })
 
-      this.state.infoWindow.setContent(this.containerElement)
-      this.open(this.state.infoWindow, this.props.anchor)
-    })
+        this.state.infoWindow.setContent(this.containerElement)
+
+        this.open(this.state.infoWindow, this.props.anchor)
+      }
+    )
   }
 
   componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -78,16 +96,14 @@ export class InfoWindow extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
+
     this.state.infoWindow && this.state.infoWindow.setMap(null)
   }
 
-  render () {
-    if (this.containerElement) {
-      return createPortal(Children.only(this.props.children), this.containerElement)
-    }
-
-    return null
-  }
+  render = () =>
+    this.containerElement
+      ? createPortal(Children.only(this.props.children), this.containerElement)
+      : null
 
   open = (infoWindow, anchor) => {
     if (anchor) {

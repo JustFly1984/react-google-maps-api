@@ -2,7 +2,10 @@
 import { PureComponent } from 'react'
 import invariant from 'invariant'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/MapChildHelper'
 
 import MapContext from '../../mapcontext'
 
@@ -36,6 +39,7 @@ export class DrawingManager extends PureComponent {
   state = {
     drawingManager: null
   }
+
   constructor (props) {
     super(props)
 
@@ -43,22 +47,36 @@ export class DrawingManager extends PureComponent {
   }
 
   componentDidMount = () => {
-    const drawingManager = new google.maps.drawing.DrawingManager()
+    const drawingManager = new google.maps.drawing.DrawingManager(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
 
-    this.setState({ drawingManager }, () => {
-      this.state.drawingManager.setMap(this.context)
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.drawingManager
-      })
-    })
+    this.setState(
+      () => ({
+        drawingManager
+      }),
+      () => {
+        this.state.drawingManager.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.drawingManager
+        })
+      }
+    )
   }
 
   componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -70,6 +88,7 @@ export class DrawingManager extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
+
     this.state.drawingManager && this.state.drawingManager.setMap(null)
   }
 

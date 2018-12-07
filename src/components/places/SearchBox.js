@@ -1,17 +1,15 @@
 /* global google */
 import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
-import PropTypes from 'prop-types'
 import invariant from 'invariant'
-import canUseDOM from 'can-use-dom'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP, SEARCH_BOX } from '../../constants'
+import MapContext from '../../mapcontext'
+
 import { SearchBoxPropTypes } from '../../proptypes'
 
 const isValidControlPosition = value => typeof value === 'number'
@@ -29,24 +27,22 @@ const updaterMap = {
 export class SearchBox extends PureComponent {
   static propTypes = SearchBoxPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
+  static contextTypes = MapContext
+
+  registeredEvents = []
+
+  state = {
+    searchBox: null
   }
 
   constructor (props, context) {
     super(props, context)
 
     invariant(google.maps.places, 'Did you include "libraries=places" in the URL?')
+  }
 
-    this.state = {
-      context,
-      [SEARCH_BOX]: null,
-      prevProps: {},
-      mountControlIndex: -1,
-      containerElement: canUseDOM
-        ? document.createElement('div')
-        : {}
-    }
+  componentDidMount = () => {
+
   }
 
   static getDerivedStateFromProps (props, state) {

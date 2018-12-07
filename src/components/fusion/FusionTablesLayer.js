@@ -1,14 +1,13 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP, FUSION_TABLES_LAYER } from '../../constants'
+import MapContext from '../../mapcontext'
+
 import { FusionTablesLayerPropTypes } from '../../proptypes'
 
 const eventMap = {
@@ -27,56 +26,58 @@ const updaterMap = {
 export class FusionTablesLayer extends PureComponent {
   static propTypes = FusionTablesLayerPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
+  static contextTypes = MapContext
+
+  registeredEvents = []
+
+  state = {
+    fusionTablesLayer: null
   }
 
-  constructor (props, context) {
-    super(props, context)
-
+  componentDidMount = () => {
     const fusionTablesLayer = new google.maps.FusionTablesLayer(
-      props.options
-    )
-
-    this.state = {
-      [FUSION_TABLES_LAYER]: fusionTablesLayer,
-      prevProps: construct(
-        FusionTablesLayerPropTypes,
-        updaterMap,
-        props,
-        fusionTablesLayer
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
       )
-    }
+    )
 
-    fusionTablesLayer.setMap(context[MAP])
-  }
-
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[FUSION_TABLES_LAYER],
-      eventMap,
-      updaterMap
+    this.setState(
+      () => ({
+        fusionTablesLayer
+      }),
+      () => {
+        this.state.fusionTablesLayer.setMap(this.context)
+      }
     )
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
 
-    const fusionTablesLayer = this.state[FUSION_TABLES_LAYER]
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.fusionTablesLayer
+    })
+  }
 
-    if (fusionTablesLayer) {
-      fusionTablesLayer.setMap(null)
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+
+    if (this.state.fusionTablesLayer) {
+      this.state.fusionTablesLayer.setMap(null)
     }
   }
 
-  render () {
-    return null
-  }
+  render = () => null
 
   getMap = () =>
-    this.state[FUSION_TABLES_LAYER].getMap()
+    this.state.fusionTablesLayer.getMap()
 }
 
 export default FusionTablesLayer

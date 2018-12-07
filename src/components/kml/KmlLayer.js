@@ -36,22 +36,36 @@ export class KmlLayer extends PureComponent {
   }
 
   componentDidMount = () => {
-    const kmlLayer = new google.maps.KmlLayer()
+    const kmlLayer = new google.maps.KmlLayer(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
 
-    this.setState({ kmlLayer }, () => {
-      this.state.kmlLayer.setMap(this.context)
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.kmlLayer
-      })
-    })
+    this.setState(
+      () => ({
+        kmlLayer
+      }),
+      () => {
+        this.state.kmlLayer.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.kmlLayer
+        })
+      }
+    )
   }
 
   componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -63,6 +77,7 @@ export class KmlLayer extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
+
     this.state.kmlLayer && this.state.kmlLayer.setMap(null)
   }
 

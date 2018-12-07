@@ -1,14 +1,13 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP, AUTOCOMPLETE } from '../../constants'
+import MapContext from '../../mapcontext'
+
 import { AutocompletePropTypes } from '../../proptypes'
 
 const eventMap = {
@@ -36,55 +35,57 @@ const updaterMap = {
 export class Autocomplete extends PureComponent {
   static propTypes = AutocompletePropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
+  static contextTypes = MapContext
+
+  registeredEvents = []
+
+  state = {
+    autocomplete: null
   }
 
-  constructor (props, context) {
-    super(props, context)
-
+  componentDidMount = () => {
     const autocomplete = new google.maps.places.Autocomplete(
-      props.inputField,
-      props.options
-    )
-
-    this.state = {
-      [AUTOCOMPLETE]: autocomplete,
-      prevProps: construct(
-        AutocompletePropTypes,
-        updaterMap,
-        props,
-        autocomplete
+      this.props.inputField,
+      Object.assign({
+        map: this.context
+      },
+      this.props.options
       )
-    }
-  }
+    )
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[AUTOCOMPLETE],
-      eventMap,
-      updaterMap
+    this.setState(
+      () => ({
+        autocomplete
+      })
     )
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.autocomplete
+    })
   }
 
-  render () {
-    return null
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
   }
+
+  render = () => null
 
   getBounds = () =>
-    this.state[AUTOCOMPLETE].getBounds()
+    this.state.autocomplete.getBounds()
 
   getFields = () =>
-    this.state[AUTOCOMPLETE].getFields()
+    this.state.autocomplete.getFields()
 
   getPlace = () =>
-    this.state[AUTOCOMPLETE].getPlace()
+    this.state.autocomplete.getPlace()
 }
 
 export default Autocomplete

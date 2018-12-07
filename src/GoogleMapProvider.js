@@ -9,9 +9,9 @@ export class GoogleMapProvider extends PureComponent {
     map: null
   }
 
-  componentDidMount = () => {
-    console.log(`Provider id ${this.props.id} did mount`)
-  }
+  // componentDidMount = () => {
+  //   console.log(`Provider id ${this.props.id} did mount`)
+  // }
 
   getRef = ref => {
     this.setState(
@@ -27,8 +27,12 @@ export class GoogleMapProvider extends PureComponent {
       style={this.props.mapContainerStyle}
       className={this.props.mapContainerClassName}
     >
-      <MapContext.Provider value={this.state.map}>
-        {this.state.map && this.props.children}
+      <MapContext.Provider
+        value={this.state.map}
+      >
+        {
+          this.state.map && this.props.children
+        }
       </MapContext.Provider>
     </div>
   )
