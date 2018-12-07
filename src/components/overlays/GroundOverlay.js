@@ -8,7 +8,7 @@ import {
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import MapContext from '../../mapcontext'
+import MapContext from '../../map-context'
 
 const eventMap = {
   onDblClick: 'dblclick',

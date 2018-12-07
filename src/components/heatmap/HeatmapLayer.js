@@ -7,7 +7,7 @@ import {
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import MapContext from '../../mapcontext'
+import MapContext from '../../map-context'
 
 import { HeatmapLayerPropTypes } from '../../proptypes'
 
@@ -28,7 +28,7 @@ const updaterMap = {
 export class HeatmapLayer extends PureComponent {
   static propTypes = HeatmapLayerPropTypes
 
-  static contextTypes = MapContext
+  static contextType = MapContext
 
   registeredEvents = []
 
@@ -36,10 +36,13 @@ export class HeatmapLayer extends PureComponent {
     heatmapLayer: null
   }
 
-  constructor (props, context) {
-    super(props, context)
+  constructor (props) {
+    super(props)
 
-    invariant(google.maps.visualization, 'Did you include "libraries=visualization" in the URL?')
+    invariant(
+      google.maps.visualization,
+      'Did you include "libraries=visualization" in the URL?'
+    )
   }
 
   componentDidMount = () => {
@@ -57,14 +60,14 @@ export class HeatmapLayer extends PureComponent {
         heatmapLayer
       }),
       () => {
-        this.state.heatmapLayer.setMap(this.context)
+        // this.state.heatmapLayer.setMap(this.context)
 
         this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
           updaterMap,
           eventMap,
           prevProps: {},
           nextProps: this.props,
-          instance: this.state.drawingManager
+          instance: this.state.heatmapLayer
         })
       }
     )
@@ -78,7 +81,7 @@ export class HeatmapLayer extends PureComponent {
       eventMap,
       prevProps,
       nextProps: this.props,
-      instance: this.state.drawingManager
+      instance: this.state.heatmapLayer
     })
   }
 

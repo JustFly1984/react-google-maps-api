@@ -2,7 +2,7 @@
 import { PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
-import MapContext from '../../mapcontext'
+import MapContext from '../../map-context'
 
 import { KmlLayerPropTypes } from '../../proptypes'
 
