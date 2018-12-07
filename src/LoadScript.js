@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { injectScript } from './utils/injectscript'
 import { LoadScriptPropTypes } from './proptypes'
 
@@ -10,7 +10,14 @@ class LoadScript extends Component {
   }
 
   componentDidMount = () => {
-    const { id, googleMapsApiKey, language, region, version, libraries } = this.props
+    const {
+      id,
+      googleMapsApiKey,
+      language,
+      region,
+      version,
+      libraries
+    } = this.props
 
     injectScript({
       id,
@@ -20,7 +27,11 @@ class LoadScript extends Component {
       onSuccess: () => {
         this.props.onLoad()
 
-        this.setState(() => ({ loaded: true }))
+        this.setState(
+          () => ({
+            loaded: true
+          })
+        )
       },
       onError: () => {
         throw new Error(`
@@ -39,7 +50,11 @@ Otherwise it is a Network issues.
     })
   }
 
-  render = () => (this.state.loaded ? this.props.children : this.props.loadingElement)
+  render = () => (
+    this.state.loaded
+      ? this.props.children
+      : this.props.loadingElement
+  )
 }
 
 export default LoadScript

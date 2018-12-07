@@ -25,22 +25,22 @@ const eventMap = {
 }
 
 const updaterMap = {
-  bounds(instance, bounds) {
+  bounds (instance, bounds) {
     instance.setBounds(bounds)
   },
-  draggable(instance, draggable) {
+  draggable (instance, draggable) {
     instance.setDraggable(draggable)
   },
-  editable(instance, editable) {
+  editable (instance, editable) {
     instance.setEditable(editable)
   },
-  map(instance, map) {
+  map (instance, map) {
     instance.setMap(map)
   },
-  options(instance, options) {
+  options (instance, options) {
     instance.setOptions(options)
   },
-  visible(instance, visible) {
+  visible (instance, visible) {
     instance.setVisible(visible)
   },
 }
@@ -57,22 +57,36 @@ export class Rectangle extends PureComponent {
   }
 
   componentDidMount = () => {
-    const rectangle = new google.maps.Rectangle()
+    const rectangle = new google.maps.Rectangle(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
 
-    this.setState({ rectangle }, () => {
-      this.state.rectangle.setMap(this.context)
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.rectangle
-      })
-    })
+    this.setState(
+      () => ({
+        rectangle
+      }),
+      () => {
+        this.state.rectangle.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.rectangle
+        })
+      }
+    )
   }
 
-  componentDidUpdate = (prevProps) => {
+  componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -84,6 +98,7 @@ export class Rectangle extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
+
     this.state.rectangle && this.state.rectangle.setMap(null)
   }
 

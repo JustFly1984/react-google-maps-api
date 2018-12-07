@@ -1,7 +1,11 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/MapChildHelper'
+
 import MapContext from '../../mapcontext'
 
 import { PolylinePropTypes } from '../../proptypes'
@@ -53,22 +57,36 @@ export class Polyline extends PureComponent {
   }
 
   componentDidMount = () => {
-    const polyline = new google.maps.Polyline()
+    const polyline = new google.maps.Polyline(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
 
-    this.setState({ polyline }, () => {
-      this.state.polyline.setMap(this.context)
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.polyline
-      })
-    })
+    this.setState(
+      () => ({
+        polyline
+      }),
+      () => {
+        this.state.polyline.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.polyline
+        })
+      }
+    )
   }
 
   componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -80,6 +98,7 @@ export class Polyline extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
+
     this.state.polyline && this.state.polyline.setMap(null)
   }
 

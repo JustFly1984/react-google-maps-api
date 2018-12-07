@@ -7,6 +7,7 @@ import { BicyclingLayerPropTypes } from '../../proptypes'
 
 export class BicyclingLayer extends PureComponent {
   static propTypes = BicyclingLayerPropTypes
+
   static contextType = MapContext
 
   state = {
@@ -14,21 +15,32 @@ export class BicyclingLayer extends PureComponent {
   }
 
   componentDidMount = () => {
-    const bicyclingLayer = new google.maps.BicyclingLayer()
+    const bicyclingLayer = new google.maps.BicyclingLayer(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
 
-    bicyclingLayer.setMap(this.context)
-    this.setState({ bicyclingLayer })
+    this.setState(
+      () => ({
+        bicyclingLayer
+      }),
+      () => {
+        bicyclingLayer.setMap(this.context)
+      }
+    )
   }
 
-  componentWillUnmount () {
+  componentWillUnmount = () => {
     if (this.state.bicyclingLayer) {
       this.state.bicyclingLayer.setMap(null)
     }
   }
 
-  render () {
-    return null
-  }
+  render = () => null
 
   getMap = () => this.state.bicyclingLayer.getMap()
 }

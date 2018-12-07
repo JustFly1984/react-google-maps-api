@@ -19,6 +19,7 @@ const updaterMap = {
 
 export class TrafficLayer extends PureComponent {
   static propTypes = TrafficLayerPropTypes
+
   static contextType = MapContext
 
   state = {
@@ -26,22 +27,36 @@ export class TrafficLayer extends PureComponent {
   }
 
   componentDidMount = () => {
-    const trafficLayer = new google.maps.TrafficLayer()
+    const trafficLayer = new google.maps.TrafficLayer(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
 
-    this.setState({ trafficLayer }, () => {
-      this.state.trafficLayer.setMap(this.context)
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.trafficLayer
-      })
-    })
+    this.setState(
+      () => ({
+        trafficLayer
+      }),
+      () => {
+        this.state.trafficLayer.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.trafficLayer
+        })
+      }
+    )
   }
 
   componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -53,6 +68,7 @@ export class TrafficLayer extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
+
     this.state.trafficLayer && this.state.trafficLayer.setMap(null)
   }
 

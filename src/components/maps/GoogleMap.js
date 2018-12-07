@@ -1,4 +1,3 @@
-/* global google */
 /* eslint-disable filenames/match-regex */
 import { PureComponent } from 'react'
 import MapContext from '../../mapcontext'
@@ -78,6 +77,7 @@ export class GoogleMap extends PureComponent {
 
   componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,

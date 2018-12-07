@@ -66,18 +66,31 @@ export class Polygon extends PureComponent {
   }
 
   componentDidMount = () => {
-    const polygon = new google.maps.Polygon()
+    const polygon = new google.maps.Polygon(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
 
-    this.setState({ polygon }, () => {
-      this.state.polygon.setMap(this.context)
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.polygon
-      })
-    })
+    this.setState(
+      () => ({
+        polygon
+      }),
+      () => {
+        this.state.polygon.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.polygon
+        })
+      }
+    )
   }
 
   componentDidUpdate = (prevProps) => {
@@ -97,7 +110,7 @@ export class Polygon extends PureComponent {
   }
 
   render = () => null
-  
+
   getDraggable = () =>
     this.state.polygon.getDraggable()
 

@@ -1,7 +1,10 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/MapChildHelper'
 import MapContext from '../../mapcontext'
 
 import { CirclePropTypes } from '../../proptypes'
@@ -58,18 +61,31 @@ export class Circle extends PureComponent {
   }
 
   componentDidMount = () => {
-    const circle = new google.maps.Circle()
+    const circle = new google.maps.Circle(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
 
-    this.setState({ circle }, () => {
-      this.state.circle.setMap(this.context)
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.circle
-      })
-    })
+    this.setState(
+      () => ({
+        circle
+      }),
+      () => {
+        this.state.circle.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.circle
+        })
+      }
+    )
   }
 
   componentDidUpdate = prevProps => {
@@ -85,6 +101,7 @@ export class Circle extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
+
     this.state.circle && this.state.circle.setMap(null)
   }
 

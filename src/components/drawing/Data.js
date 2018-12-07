@@ -1,14 +1,13 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+
+import MapContext from '../../mapcontext'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP, DATA } from '../../constants'
 import { DataPropTypes } from '../../proptypes'
 
 const eventMap = {
@@ -74,71 +73,72 @@ const updaterMap = {
 export class Data extends PureComponent {
   static propTypes = DataPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
+  static contextTypes = MapContext
+
+  registeredEvents = []
+
+  state = {
+    data: null
   }
 
-  constructor (props, context) {
-    super(props, context)
-
-    const circle = new google.maps.Data(
-      props.options
-    )
-
-    this.state = {
-      [DATA]: circle,
-      prevProps: construct(
-        DataPropTypes,
-        updaterMap,
-        props,
-        circle
+  componentDidMount = () => {
+    const data = new google.maps.Data(
+      Object.assign({
+        map: this.context
+      },
+      this.props.options
       )
-    }
+    )
 
-    circle.setMap(context[MAP])
-  }
-
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[DATA],
-      eventMap,
-      updaterMap
+    this.setState(
+      () => ({
+        data
+      }),
+      () => {
+        this.state.data.setMap(this.context)
+      }
     )
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
 
-    const circle = this.state[DATA]
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.data
+    })
+  }
 
-    if (circle) {
-      circle.setMap(null)
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+
+    if (this.props.data) {
+      this.props.data.setMap(null)
     }
   }
 
-  render () {
-    return null
-  }
+  render = () => null
 
   getControlPosition = () =>
-    this.state[DATA].getControlPosition()
+    this.state.data.getControlPosition()
 
   getControls = () =>
-    this.state[DATA].getControls()
+    this.state.data.getControls()
 
   getDrawingMode = () =>
-    this.state[DATA].getDrawingMode()
+    this.state.data.getDrawingMode()
 
   getFeatureById = () =>
-    this.state[DATA].getFeatureById()
+    this.state.data.getFeatureById()
 
   getMap = () =>
-    this.state[DATA].getMap()
+    this.state.data.getMap()
 
   getStyle = () =>
-    this.state[DATA].getStyle()
+    this.state.data.getStyle()
 }
 
 export default Data

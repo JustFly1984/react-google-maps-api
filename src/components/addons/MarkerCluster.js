@@ -1,17 +1,17 @@
 // eslint-disable-next-line filenames/match-exported
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import MarkerClustererPlus from 'marker-clusterer-plus'
+import React, { PureComponent, createContext } from 'react'
+import MarkerClusterPlus from 'marker-clusterer-plus'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP, ANCHOR, MARKER_CLUSTERER } from '../../constants'
+import MapContext from '../../mapcontext'
 
-import { MarkerClustererPropTypes } from '../../proptypes'
+import { MarkerClusterPropTypes } from '../../proptypes'
+
+export const MarkerClusterContext = createContext('markerClusterer')
 
 const eventMap = {
   onClick: 'click',
@@ -72,77 +72,69 @@ const updaterMap = {
   },
 }
 
-export class MarkerClusterer extends PureComponent {
-  static propTypes = MarkerClustererPropTypes
+export class MarkerCluster extends PureComponent {
+  static propTypes = MarkerClusterPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
+  static contextTypes = MapContext
+
+  registeredEvents = []
+
+  state = {
+    markerClusterer: null
   }
 
-  static childContextTypes = {
-    [ANCHOR]: PropTypes.object,
-    [MARKER_CLUSTERER]: PropTypes.object,
+  componentDidMount = () => {
+    const markerClusterer = new MarkerClusterPlus(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
+
+    this.setState(
+      () => ({
+        markerClusterer
+      }),
+      () => {
+        this.state.markerClusterer.setMap(this.context)
+      }
+    )
   }
 
-  constructor (props, context) {
-    super(props, context)
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
 
-    const markerClusterer = new MarkerClustererPlus()
-
-    construct(
-      MarkerClusterer.propTypes,
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
-      props,
-      markerClusterer
-    )
-
-    markerClusterer.setMap(context[MAP])
-
-    this.state = {
-      [MARKER_CLUSTERER]: markerClusterer,
-    }
-  }
-
-  static getDerivedStateFromProps (props, state) {
-    const obj = getDerivedStateFromProps(
-      props,
-      state,
-      this.state[MARKER_CLUSTERER],
       eventMap,
-      updaterMap
-    )
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.markerClusterer
+    })
 
-    this.state[MARKER_CLUSTERER].repaint()
-
-    return obj
+    this.state.markerClusterer.repaint()
   }
 
-  getChildContext = () => {
-    const markerClusterer = this.state[MARKER_CLUSTERER]
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
 
-    return {
-      [ANCHOR]: markerClusterer,
-      [MARKER_CLUSTERER]: markerClusterer,
+    if (this.state.markerClusterer) {
+      this.state.markerClusterer.setMap(null)
     }
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const markerClusterer = this.state[MARKER_CLUSTERER]
-
-    if (markerClusterer) {
-      markerClusterer.setMap(null)
-    }
-  }
-
-  render () {
-    return (
-      <div>
-        { this.props.children }
-      </div>
-    )
-  }
+  render = () => (
+    <MarkerClusterContext.Provider
+      value={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+        map: this.context,
+        cluster: this.state.markerClusterer
+      }}
+    >
+      {this.props.children}
+    </MarkerClusterContext.Provider>
+  )
 }
 
-export default MarkerClusterer
+export default MarkerCluster

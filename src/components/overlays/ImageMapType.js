@@ -1,14 +1,13 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP, IMAGEMAPTYPE } from '../../constants'
+import MapContext from '../../mapcontext'
+
 import { ImageMapTypePropTypes } from '../../proptypes'
 
 const eventMap = {
@@ -24,62 +23,62 @@ const updaterMap = {
 export class ImageMapType extends PureComponent {
   static propTypes = ImageMapTypePropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
+  static contextTypes = MapContext
+
+  state = {
+    imageMapType: null
   }
 
-  constructor (props, context) {
-    super(props, context)
-
-    const circle = new google.maps.ImageMapType(
-      props.options
-    )
-
-    this.state = {
-      [IMAGEMAPTYPE]: circle,
-      prevProps: construct(
-        ImageMapTypePropTypes,
-        updaterMap,
-        props,
-        circle
+  componentDidMount = () => {
+    const imageMapType = new google.maps.ImageMapType(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
       )
-    }
+    )
 
-    circle.setMap(context[MAP])
-  }
-
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[IMAGEMAPTYPE],
-      eventMap,
-      updaterMap
+    this.setState(
+      () => ({
+        imageMapType
+      }),
+      () => {
+        this.state.imageMapType.setMap(this.context)
+      }
     )
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
 
-    const circle = this.state[IMAGEMAPTYPE]
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.imageMapType
+    })
+  }
 
-    if (circle) {
-      circle.setMap(null)
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+
+    if (this.state.imageMapType) {
+      this.state.imageMapType.setMap(null)
     }
   }
 
-  render () {
-    return null
-  }
+  render = () => null
 
   getOpacity = () =>
-    this.state[IMAGEMAPTYPE].getOpacity()
+    this.state.imageMapType.getOpacity()
 
   getTile = (tileCoord, zoom, ownerDocument) =>
-    this.state[IMAGEMAPTYPE].getTile(tileCoord, zoom, ownerDocument)
+    this.state.imageMapType.getTile(tileCoord, zoom, ownerDocument)
 
   releaseTile = tileDiv =>
-    this.state[IMAGEMAPTYPE].releaseTile(tileDiv)
+    this.state.imageMapType.releaseTile(tileDiv)
 }
 
 export default ImageMapType

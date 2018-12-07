@@ -4,6 +4,13 @@ import invariant from 'invariant'
 
 import { InfoBoxPropTypes } from '../../proptypes'
 
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/MapChildHelper'
+
+import MapContext from '../../mapcontext'
+
 const open = (infoBox, anchor) => {
   if (anchor) {
     infoBox.open(infoBox.getMap(), anchor)
@@ -25,22 +32,6 @@ const eventMap = {
   onZindexChanged: 'zindex_changed',
 }
 
-const propsMap = {
-  map: 'setMap',
-  options: 'setOptions',
-  position: 'setPosition',
-  visible: 'setVisible',
-  zIndex: 'setZIndex'
-}
-
-const propNameList = [
-  'map',
-  'options',
-  'position',
-  'visible',
-  'zIndex'
-]
-
 const updaterMap = {
   options (instance, options) {
     instance.setOptions(options)
@@ -59,44 +50,68 @@ const updaterMap = {
 export class InfoBox extends PureComponent {
   static propTypes = InfoBoxPropTypes
 
+  static contextType = MapContext
+
+  registeredEvents = []
+
   state = {
-    infoBox: null,
-    prevProps: {},
-    registered: []
+    infoBox: null
   }
 
-  constructor (props) {
-    super(props)
-
+  componentDidMount = () => {
     const { InfoBox: GoogleMapsInfobox } = require('google-maps-infobox')
 
     const infoBox = new GoogleMapsInfobox()
 
-    infoBox.setMap(props.map)
+    this.setState(
+      () => ({
+        infoBox
+      }),
+      () => {
+        this.state.infoBox.setMap(this.context)
 
-    this.contentElement = document.createElement('div')
+        this.contentElement = document.createElement('div')
 
-    this.state.infoBox.setContent(this.contentElement)
+        this.state.infoBox.setContent(this.contentElement)
 
-    open(this.state.infoBox, this.props.anchor)
+        open(this.state.infoBox, this.props.anchor)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.infoBox
+        })
+      }
+    )
   }
 
-  static getDerivedStateFromProps (props, state) {
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
 
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.infoBox
+    })
   }
 
   componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+
     if (this.state.infoBox) {
       this.state.infoBox.setMap(null)
     }
   }
 
-  render () {
-    return createPortal(
+  render = () =>
+    createPortal(
       Children.only(this.props.children),
       this.contentElement
     )
-  }
 
   getPosition = () =>
     this.state.infoBox.getPosition()
