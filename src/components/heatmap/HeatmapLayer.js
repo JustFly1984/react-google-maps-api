@@ -41,7 +41,7 @@ export class HeatmapLayer extends PureComponent {
 
     invariant(
       google.maps.visualization,
-      'Did you include "libraries=visualization" in the URL?'
+      'Did you include "visualization" in the libraries array prop in <LoadScript />?'
     )
   }
 
