@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  GoogleMapProvider,
   GoogleMap,
   GroundOverlay
 } from '../../../../src'
@@ -28,23 +27,20 @@ const BOUNDS = [{
 
 const GroundOverlayExample = ({ styles }) => (
   <div>
-    <GoogleMapProvider
+    <GoogleMap
       id='traffic-example'
       mapContainerStyle={styles.container}
       mapContainerClassName={styles.mapContainer}
+      zoom={2}
+      center={center}
+      onClick={(...args) => {
+        console.log('onClick args: ', args)
+      }}
     >
-      <GoogleMap
-        zoom={2}
-        center={center}
-        onClick={(...args) => {
-          console.log('onClick args: ', args)
-        }}
-      >
-        <GroundOverlay
-          bounds={BOUNDS}
-        />
-      </GoogleMap>
-    </GoogleMapProvider>
+      <GroundOverlay
+        bounds={BOUNDS}
+      />
+    </GoogleMap>
   </div>
 )
 

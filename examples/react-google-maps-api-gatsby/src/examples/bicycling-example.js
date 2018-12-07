@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  GoogleMapProvider,
   GoogleMap,
   BicyclingLayer
 } from '../../../../src'
@@ -20,21 +19,19 @@ const center = {
 
 const BicyclingExample = ({ styles }) => (
   <div>
-    <GoogleMapProvider
+    <GoogleMap
       id='bicycling-example'
       mapContainerStyle={styles.container}
       mapContainerClassName={styles.mapContainer}
+
+      zoom={2}
+      center={center}
+      onClick={(...args) => {
+        console.log('onClick args: ', args)
+      }}
     >
-      <GoogleMap
-        zoom={2}
-        center={center}
-        onClick={(...args) => {
-          console.log('onClick args: ', args)
-        }}
-      >
-        <BicyclingLayer />
-      </GoogleMap>
-    </GoogleMapProvider>
+      <BicyclingLayer />
+    </GoogleMap>
   </div>
 )
 

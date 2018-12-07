@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
-  GoogleMapProvider,
   GoogleMap,
   Polyline,
   Polygon,
@@ -177,12 +176,16 @@ class ShapesExample extends Component {
           />
           <label htmlFor='show-polyline-checkbox'>Show flight path</label>
         </div>
+
         <br />
+
         <div>
           <label htmlFor='polyline-options-input'>
             Polyline options (will persist once valid JSON):
           </label>{' '}
+
           <br />
+
           <textarea
             id='polyline-options-input'
             type='text'
@@ -192,57 +195,68 @@ class ShapesExample extends Component {
           />
         </div>
 
-        <GoogleMapProvider
+        <GoogleMap
           id='shapes-example'
           mapContainerStyle={this.props.styles.container}
           mapContainerClassName={this.props.styles.mapContainer}
+          zoom={2}
+          center={mapCenter}
         >
-          <GoogleMap zoom={2} center={mapCenter}>
-            {
-              this.state.polylineVisible && (
-                <Polyline
-                  path={FLIGHT_PLAN_COORDS}
-                  options={polylineOptions}
-                />
-              )
-            }
+          {
+            this.state.polylineVisible && (
+              <Polyline
+                path={FLIGHT_PLAN_COORDS}
+                options={polylineOptions}
+              />
+            )
+          }
 
-            <Polygon
-              path={BRISBANE_COORDS}
-              options={brisbanePolygonOptions}
-            />
+          <Polygon
+            path={BRISBANE_COORDS}
+            options={brisbanePolygonOptions}
+          />
 
-            <Polygon
-              path={SAN_FRANCISCO_COORDS}
-              options={sfPolygonOptions}
-            />
+          <Polygon
+            path={SAN_FRANCISCO_COORDS}
+            options={sfPolygonOptions}
+          />
 
-            <Rectangle
-              bounds={RECTANGLE_BOUNDS}
-            />
+          <Rectangle
+            bounds={RECTANGLE_BOUNDS}
+          />
 
-            <Circle
-              options={circleOptions}
-            />
+          <Circle
+            options={circleOptions}
+          />
 
-            <Marker position={MARKER_POSITION} icon={pinIcon} />
-            <OverlayView
-              position={OVERLAY_VIEW_POSITION}
-              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-            >
-              <div style={infoWindowStyle}>
-                <h1>OverlayView</h1>
-                <button onClick={() => { }}>I have been clicked</button>
-              </div>
-            </OverlayView>
+          <Marker
+            position={MARKER_POSITION}
+            icon={pinIcon}
+          />
 
-            <InfoWindow position={INFO_WINDOW_POSITION}>
-              <div style={infoWindowStyle}>
-                <h1>InfoWindow</h1>
-              </div>
-            </InfoWindow>
-          </GoogleMap>
-        </GoogleMapProvider>
+          <OverlayView
+            position={OVERLAY_VIEW_POSITION}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+          >
+            <div style={infoWindowStyle}>
+              <h1>OverlayView</h1>
+              <button
+                onClick={() => { }}
+                type='button'
+              >
+                I have been clicked
+              </button>
+            </div>
+          </OverlayView>
+
+          <InfoWindow
+            position={INFO_WINDOW_POSITION}
+          >
+            <div style={infoWindowStyle}>
+              <h1>InfoWindow</h1>
+            </div>
+          </InfoWindow>
+        </GoogleMap>
       </div>
     )
   }
