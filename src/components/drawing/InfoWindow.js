@@ -6,7 +6,7 @@ import {
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import MapContext from '../../mapcontext'
+import MapContext from '../../map-context'
 import invariant from 'invariant'
 
 import { InfoWindowPropTypes } from '../../proptypes'

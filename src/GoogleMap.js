@@ -1,7 +1,7 @@
 /* global google */
 import React, { PureComponent } from 'react'
 import { GoogleMapPropTypes } from './proptypes'
-import MapContext from './mapcontext'
+import MapContext from './map-context'
 
 import {
   unregisterEvents,
@@ -118,7 +118,7 @@ export class GoogleMap extends PureComponent {
         value={this.state.map}
       >
         {
-          this.state.map
+          this.state.map !== null
             ? this.props.children
             : null
         }

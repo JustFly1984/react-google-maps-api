@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom'
 import invariant from 'invariant'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
-import MapContext from '../../mapcontext'
+import MapContext from '../../map-context'
 
 import { getOffsetOverride, getLayoutStyles } from '../../utils/OverlayViewHelper'
 

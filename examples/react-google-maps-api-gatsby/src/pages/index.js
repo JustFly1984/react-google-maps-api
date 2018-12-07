@@ -10,11 +10,12 @@ import {
 
 import { googleMapsApiKey } from '../const'
 
-import ShapesExample from '../examples/shapes-example'
-import DrawingManagerExample from '../examples/drawing-manager-example'
-import BicyclingExample from '../examples/bicycling-example'
-import TrafficExample from '../examples/traffic-example'
-import GroundOverlayExample from '../examples/ground-overlay-example'
+// import ShapesExample from '../examples/shapes-example'
+// import DrawingManagerExample from '../examples/drawing-manager-example'
+// import BicyclingExample from '../examples/bicycling-example'
+// import TrafficExample from '../examples/traffic-example'
+// import GroundOverlayExample from '../examples/ground-overlay-example'
+import HeatmapLayerExample from '../examples/heatmap-example'
 
 const mapBoxStyle = {
   marginTop: '2rem',
@@ -50,7 +51,10 @@ const Loading = (
   <div style={loadingStyle} />
 )
 
-const googleMapsLibraries = ['drawing']
+const googleMapsLibraries = [
+  'drawing',
+  'visualization'
+]
 
 const loaderId = uuid()
 
@@ -71,6 +75,14 @@ const IndexPage = () => (
       libraries={googleMapsLibraries}
     >
       <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>Heatmap Layer Google Map example</h2>
+
+        <HeatmapLayerExample
+          styles={shapeExampleStyles}
+        />
+      </div>
+
+      {/*       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>Traffic Layer Google Map example</h2>
 
         <TrafficExample
@@ -104,7 +116,7 @@ const IndexPage = () => (
         />
       </div>
 
-      <div style={mapBoxStyle}>
+     <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>
           Google Map with Ground Overlay
         </h2>
@@ -112,7 +124,7 @@ const IndexPage = () => (
         <GroundOverlayExample
           styles={shapeExampleStyles}
         />
-      </div>
+</div>*/}
     </LoadScript>
   </Layout>
 )

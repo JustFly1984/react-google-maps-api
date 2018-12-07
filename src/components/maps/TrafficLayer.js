@@ -5,7 +5,7 @@ import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
-import MapContext from '../../mapcontext'
+import MapContext from '../../map-context'
 
 import { TrafficLayerPropTypes } from '../../proptypes'
 
