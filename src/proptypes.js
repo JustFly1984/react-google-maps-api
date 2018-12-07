@@ -1081,13 +1081,11 @@ export const GroundOverlayPropTypes = {
   onClick: PropTypes.func
 }
 
-export const GoogleMapProviderPropTypes = {
+export const GoogleMapPropTypes = {
   id: PropTypes.string.isRequired,
   mapContainerStyle: PropTypes.object,
-  mapContainerClassName: PropTypes.string
-}
+  mapContainerClassName: PropTypes.string,
 
-export const GoogleMapPropTypes = {
   children: PropTypes.node,
   options: PropTypes.shape(GoogleMapOptionsInterface),
   extraMapTypes: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)),

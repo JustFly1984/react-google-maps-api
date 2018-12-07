@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  GoogleMapProvider,
   GoogleMap,
   DrawingManager
 } from '../../../../src'
@@ -20,18 +19,15 @@ const DrawingManagerExamplePropTypes = {
 
 const DrawingManagerExample = ({ styles }) => (
   <div>
-    <GoogleMapProvider
+    <GoogleMap
       id='drawing-manager-example'
       mapContainerStyle={styles.container}
       mapContainerClassName={styles.mapContainer}
+      zoom={2}
+      center={center}
     >
-      <GoogleMap
-        zoom={2}
-        center={center}
-      >
-        <DrawingManager />
-      </GoogleMap>
-    </GoogleMapProvider>
+      <DrawingManager />
+    </GoogleMap>
   </div>
 )
 
