@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMapProvider,
@@ -49,8 +49,10 @@ const POLYLINE_OPTIONS = {
 }
 
 const ShapesExamplePropTypes = {
-  styles: PropTypes.object.isRequired,
-  loadingElement: PropTypes.node.isRequired
+  styles: PropTypes.shape({
+    container: PropTypes.object.isRequired,
+    mapContainer: PropTypes.string.isRequired
+  }).isRequired
 }
 
 const mapCenter = {
@@ -58,9 +60,20 @@ const mapCenter = {
   lng: -180
 }
 
-const MARKER_POSITION = { lat: 37.772, lng: -122.214 }
-const OVERLAY_VIEW_POSITION = { lat: 35.772, lng: -120.214 }
-const INFO_WINDOW_POSITION = { lat: 33.772, lng: -117.214 }
+const MARKER_POSITION = {
+  lat: 37.772,
+  lng: -122.214
+}
+
+const OVERLAY_VIEW_POSITION = {
+  lat: 35.772,
+  lng: -120.214
+}
+
+const INFO_WINDOW_POSITION = {
+  lat: 33.772,
+  lng: -117.214
+}
 
 const brisbanePolygonOptions = {
   fillColor: '#00FF00',
@@ -124,7 +137,7 @@ const infoWindowStyle = {
   padding: 15
 }
 
-export default class ShapesExample extends React.Component {
+class ShapesExample extends Component {
   static propTypes = ShapesExamplePropTypes
 
   state = {
@@ -185,15 +198,32 @@ export default class ShapesExample extends React.Component {
           mapContainerClassName={this.props.styles.mapContainer}
         >
           <GoogleMap zoom={2} center={mapCenter}>
-            {this.state.polylineVisible && (
-              <Polyline path={FLIGHT_PLAN_COORDS} options={polylineOptions} />
-            )}
-            <Polygon path={BRISBANE_COORDS} options={brisbanePolygonOptions} />
+            {
+              this.state.polylineVisible && (
+                <Polyline
+                  path={FLIGHT_PLAN_COORDS}
+                  options={polylineOptions}
+                />
+              )
+            }
 
-            <Polygon path={SAN_FRANCISCO_COORDS} options={sfPolygonOptions} />
+            <Polygon
+              path={BRISBANE_COORDS}
+              options={brisbanePolygonOptions}
+            />
 
-            <Rectangle bounds={RECTANGLE_BOUNDS} />
-            <Circle options={circleOptions} />
+            <Polygon
+              path={SAN_FRANCISCO_COORDS}
+              options={sfPolygonOptions}
+            />
+
+            <Rectangle
+              bounds={RECTANGLE_BOUNDS}
+            />
+
+            <Circle
+              options={circleOptions}
+            />
 
             <Marker position={MARKER_POSITION} icon={pinIcon} />
             <OverlayView
@@ -202,7 +232,7 @@ export default class ShapesExample extends React.Component {
             >
               <div style={infoWindowStyle}>
                 <h1>OverlayView</h1>
-                <button onClick={() => {}}>I have been clicked</button>
+                <button onClick={() => { }}>I have been clicked</button>
               </div>
             </OverlayView>
 
@@ -217,3 +247,5 @@ export default class ShapesExample extends React.Component {
     )
   }
 }
+
+export default ShapesExample

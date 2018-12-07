@@ -3,38 +3,41 @@ import PropTypes from 'prop-types'
 import {
   GoogleMapProvider,
   GoogleMap,
-  DrawingManager
+  TrafficLayer
 } from '../../../../src'
 
-const center = {
-  lat: 0,
-  lng: -180
-}
-
-const DrawingManagerExamplePropTypes = {
+const TrafficExamplePropTypes = {
   styles: PropTypes.shape({
     container: PropTypes.object.isRequired,
     mapContainer: PropTypes.string.isRequired
   }).isRequired
 }
 
-const DrawingManagerExample = ({ styles }) => (
+const center = {
+  lat: 0,
+  lng: -180
+}
+
+const TrafficExample = ({ styles }) => (
   <div>
     <GoogleMapProvider
-      id='drawing-manager-example'
+      id='traffic-example'
       mapContainerStyle={styles.container}
       mapContainerClassName={styles.mapContainer}
     >
       <GoogleMap
         zoom={2}
         center={center}
+        onClick={(...args) => {
+          console.log('onClick args: ', args)
+        }}
       >
-        <DrawingManager />
+        <TrafficLayer />
       </GoogleMap>
     </GoogleMapProvider>
   </div>
 )
 
-DrawingManagerExample.propTypes = DrawingManagerExamplePropTypes
+TrafficExample.propTypes = TrafficExamplePropTypes
 
-export default DrawingManagerExample
+export default TrafficExample

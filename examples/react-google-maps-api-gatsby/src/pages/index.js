@@ -5,48 +5,16 @@ import indexStyles from './index.module.css'
 import uuid from 'uuidv4'
 
 import {
-  LoadScript,
-  GoogleMapProvider,
-  GoogleMap,
-  TrafficLayer,
-  BicyclingLayer,
-  // Circle,
-  // Marker
-  Polyline,
-  // Polygon,
-  // Rectangle,
-  // InfoWindow,
-  // OverlayView,
-  GroundOverlay
-  // DirectionsRenderer,
-  // FusionTablesLayer,
-  // KmlLayer,
-
-  // StreetViewPanorama,
-  // compose
+  LoadScript
 } from '../../../../src'
+
+import { googleMapsApiKey } from '../const'
 
 import ShapesExample from '../examples/shapes-example'
 import DrawingManagerExample from '../examples/drawing-manager-example'
-
-// import MapWithASearchBox from '../components/search-box'
-// import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
-
-// Past your GoogleMaps API key here
-// You can obtain the API key here:
-// https://developers.google.com/maps/documentation/javascript/get-api-key
-import { googleMapsApiKey } from '../const'
-
-const groundOverlayBounds = [
-  {
-    x: 233.94664370659723,
-    y: 153.67749447485028
-  },
-  {
-    x: 36.34117495659723,
-    y: 154.66186947485028
-  }
-]
+import BicyclingExample from '../examples/bicycling-example'
+import TrafficExample from '../examples/traffic-example'
+import GroundOverlayExample from '../examples/ground-overlay-example'
 
 const mapBoxStyle = {
   marginTop: '2rem',
@@ -58,10 +26,10 @@ const mapHeaderStyle = {
   marginBottom: '1.5rem'
 }
 
-const center = {
-  lat: -34.397,
-  lng: 150.644
-}
+// const center = {
+//   lat: -34.397,
+//   lng: 150.644
+// }
 
 const loadingStyle = {
   height: `100%`,
@@ -73,24 +41,23 @@ const mapContainerStyle = {
   width: `800px`
 }
 
-const shapesStyles = {
+const shapeExampleStyles = {
   container: mapContainerStyle,
   mapContainer: indexStyles.mapContainer
 }
 
-const Loading = <div style={loadingStyle} />
+const Loading = (
+  <div style={loadingStyle} />
+)
+
 const googleMapsLibraries = ['drawing']
 
 const loaderId = uuid()
-const providerOneId = uuid()
-const providerTwoId = uuid()
-const providerThreeId = uuid()
-const providerFourId = uuid()
-// const providerFiveId = uuid()
 
 const IndexPage = () => (
   <Layout>
     <h1>Hello People!</h1>
+
     <p>Welcome to React Google Maps Light Example.</p>
 
     <LoadScript
@@ -104,64 +71,37 @@ const IndexPage = () => (
       libraries={googleMapsLibraries}
     >
       <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>Plain Google Map</h2>
-        <GoogleMapProvider
-          id={providerOneId}
-          mapContainerStyle={mapContainerStyle}
-          mapContainerClassName={indexStyles.mapContainer}
-        >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          >
-            <TrafficLayer />
-          </GoogleMap>
-        </GoogleMapProvider>
+        <h2 style={mapHeaderStyle}>Traffic Layer Google Map example</h2>
+
+        <TrafficExample
+          styles={shapeExampleStyles}
+        />
       </div>
+
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>Google Map with Shapes</h2>
+
         <ShapesExample
-          styles={{
-            container: mapContainerStyle,
-            mapContainer: indexStyles.mapContainer
-          }}
+          styles={shapeExampleStyles}
         />
       </div>
+
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>Google Map with DrawingManager</h2>
+
         <DrawingManagerExample
-          styles={{
-            container: mapContainerStyle,
-            mapContainer: indexStyles.mapContainer
-          }}
+          styles={shapeExampleStyles}
         />
       </div>
-      {/* 
 
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>
           Google Map with Bicycling Layer
         </h2>
 
-        <GoogleMapProvider
-          id={providerThreeId}
-          loadingElement={Loading}
-        >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          >
-            <BicyclingLayer />
-          </GoogleMap>
-        </GoogleMapProvider>
+        <BicyclingExample
+          styles={shapeExampleStyles}
+        />
       </div>
 
       <div style={mapBoxStyle}>
@@ -169,37 +109,10 @@ const IndexPage = () => (
           Google Map with Ground Overlay
         </h2>
 
-        <GoogleMapProvider
-          id={providerFourId}
-          loadingElement={Loading}
-        >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          >
-          
-        </GoogleMapProvider>
-<<<<<<< HEAD
-
-        <div style={mapBoxStyle}>
-          <h2 style={mapHeaderStyle}>
-            Google Map with Shapes
-          </h2>
-
-          <ShapesExample
-            styles={shapesStyles}
-            loadingElement={Loading}
-          />
-        </div>
+        <GroundOverlayExample
+          styles={shapeExampleStyles}
+        />
       </div>
-=======
-       
- */}
     </LoadScript>
   </Layout>
 )

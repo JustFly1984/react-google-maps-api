@@ -501,10 +501,10 @@ export const CirclePropTypes = {
   center: PropTypes.oneOfType([
     PropTypes.shape(LatLngInterface),
     PropTypes.shape(LatLngLiteralInterface)
-  ]).isRequired,
+  ]),
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
-  radius: PropTypes.number.isRequired,
+  radius: PropTypes.number,
   visible: PropTypes.bool,
   onDblClick: PropTypes.func,
   onDragEnd: PropTypes.func,

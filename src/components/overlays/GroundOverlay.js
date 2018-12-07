@@ -68,7 +68,7 @@ export class GroundOverlay extends PureComponent {
     )
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

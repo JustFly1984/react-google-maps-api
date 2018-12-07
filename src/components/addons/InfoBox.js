@@ -44,7 +44,7 @@ const updaterMap = {
   },
   zIndex (instance, zIndex) {
     instance.setZIndex(zIndex)
-  },
+  }
 }
 
 export class InfoBox extends PureComponent {
