@@ -3,38 +3,41 @@ import PropTypes from 'prop-types'
 import {
   GoogleMapProvider,
   GoogleMap,
-  DrawingManager
+  BicyclingLayer
 } from '../../../../src'
 
-const center = {
-  lat: 0,
-  lng: -180
-}
-
-const DrawingManagerExamplePropTypes = {
+const BicyclingExamplePropTypes = {
   styles: PropTypes.shape({
     container: PropTypes.object.isRequired,
     mapContainer: PropTypes.string.isRequired
   }).isRequired
 }
 
-const DrawingManagerExample = ({ styles }) => (
+const center = {
+  lat: 0,
+  lng: -180
+}
+
+const BicyclingExample = ({ styles }) => (
   <div>
     <GoogleMapProvider
-      id='drawing-manager-example'
+      id='bicycling-example'
       mapContainerStyle={styles.container}
       mapContainerClassName={styles.mapContainer}
     >
       <GoogleMap
         zoom={2}
         center={center}
+        onClick={(...args) => {
+          console.log('onClick args: ', args)
+        }}
       >
-        <DrawingManager />
+        <BicyclingLayer />
       </GoogleMap>
     </GoogleMapProvider>
   </div>
 )
 
-DrawingManagerExample.propTypes = DrawingManagerExamplePropTypes
+BicyclingExample.propTypes = BicyclingExamplePropTypes
 
-export default DrawingManagerExample
+export default BicyclingExample
