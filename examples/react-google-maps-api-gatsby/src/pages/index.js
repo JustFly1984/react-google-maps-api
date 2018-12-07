@@ -1,5 +1,5 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
+import React, { Component } from 'react'
 import Layout from '../components/layout'
 import indexStyles from './index.module.css'
 import uuid from 'uuidv4'
@@ -58,31 +58,59 @@ const googleMapsLibraries = [
 
 const loaderId = uuid()
 
-const IndexPage = () => (
-  <Layout>
-    <h1>Hello People!</h1>
+class IndexPage extends Component {
+  state = {
+    checked: true
+  }
 
-    <p>Welcome to React Google Maps Light Example.</p>
+  onChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        checked
+      })
+    )
+  }
 
-    <LoadScript
-      id={loaderId}
-      googleMapsApiKey={googleMapsApiKey}
-      language={'en'}
-      region={'EN'}
-      version={'weekly'}
-      onLoad={() => console.log('script loaded')}
-      loadingElement={Loading}
-      libraries={googleMapsLibraries}
-    >
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>Heatmap Layer Google Map example</h2>
+  render = () => (
+    <Layout>
+      <h1>Hello People!</h1>
 
-        <HeatmapLayerExample
-          styles={shapeExampleStyles}
+      <p>Welcome to React Google Maps Light Example.</p>
+
+      <div>
+        <input
+          id='toggle-script'
+          type='checkbox'
+          checked={this.state.checked}
+          onChange={this.onChange}
         />
+        {` `}
+        <label htmlFor='toggle-script'>{`Toggle <LoadScript />`}</label>
       </div>
 
-      {/*       <div style={mapBoxStyle}>
+      {
+        this.state.checked
+          ? (
+            <LoadScript
+              id={loaderId}
+              googleMapsApiKey={googleMapsApiKey}
+              language={'en'}
+              region={'EN'}
+              version={'weekly'}
+              onLoad={() => console.log('script loaded')}
+              loadingElement={Loading}
+              libraries={googleMapsLibraries}
+              preventGoogleFontsLoading
+            >
+              <div style={mapBoxStyle}>
+                <h2 style={mapHeaderStyle}>Heatmap Layer Google Map example</h2>
+
+                <HeatmapLayerExample
+                  styles={shapeExampleStyles}
+                />
+              </div>
+
+              {/*       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>Traffic Layer Google Map example</h2>
 
         <TrafficExample
@@ -125,8 +153,12 @@ const IndexPage = () => (
           styles={shapeExampleStyles}
         />
 </div>*/}
-    </LoadScript>
-  </Layout>
-)
+            </LoadScript>
+          )
+          : null
+      }
+    </Layout>
+  )
+}
 
 export default IndexPage
