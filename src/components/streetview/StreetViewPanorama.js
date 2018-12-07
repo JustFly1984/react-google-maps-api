@@ -1,14 +1,12 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent, Fragment } from 'react'
 import invariant from 'invariant'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { MAP } from '../../constants'
+import MapContext from '../../mapcontext'
 
 import { StreetViewPanoramaPropTypes } from '../../proptypes'
 
@@ -50,98 +48,99 @@ const updaterMap = {
   },
   zoom (instance, zoom) {
     instance.setZoom(zoom)
-  },
+  }
 }
 
 export class StreetViewPanorama extends PureComponent {
   static propTypes = StreetViewPanoramaPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
-  }
+  static contextTypes = MapContext
 
-  static childContextTypes = {
-    [MAP]: PropTypes.object,
+  registerEvents = []
+
+  state = {
+    streetViewPanorama: null
   }
 
   constructor (props, context) {
     super(props, context)
 
     invariant(
-      !!context[MAP],
-      'Did you render <StreetViewPanorama> as a child of <GoogleMap> with withGoogleMap() HOC?'
+      this.context,
+      'Did you render <StreetViewPanorama> as a child of <GoogleMapProvider>?'
     )
-
-    this.state = {
-      context,
-      prevProps: construct(
-        StreetViewPanoramaPropTypes,
-        updaterMap,
-        props,
-        context[MAP].getStreetView()
-      )
-    }
   }
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      state.context[MAP].getStreetView(),
+  componentDidMount = () => {
+    const streetViewPanorama = this.context.getStreetView()
+
+    this.setState(
+      () => ({
+        streetViewPanorama
+      }),
+      () => {
+        this.state.streetViewPanorama.setVisible(true)
+      }
+    )
+  }
+
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
       eventMap,
-      updaterMap
-    )
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.streetViewPanorama
+    })
   }
 
-  getChildContext = () => {
-    return {
-      [MAP]: this.context[MAP].getStreetView(),
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+
+    if (this.state.streetViewPanorama) {
+      this.state.streetViewPanorama.setVisible(false)
     }
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
-
-    const streetViewPanorama = this.context[MAP].getStreetView()
-
-    if (streetViewPanorama) {
-      streetViewPanorama.setVisible(false)
-    }
-  }
-
-  render () {
-    return <div>{this.props.children}</div>
-  }
+  render = () => (
+    <Fragment>
+      {
+        this.props.children
+      }
+    </Fragment>
+  )
 
   getLinks = () =>
-    this.context[MAP].getLinks()
+    this.state.streetViewPanorama.getLinks()
 
   getLocation = () =>
-    this.context[MAP].getLocation()
+    this.state.streetViewPanorama.getLocation()
 
   getMotionTracking = () =>
-    this.context[MAP].getMotionTracking()
+    this.state.streetViewPanorama.getMotionTracking()
 
   getPano = () =>
-    this.context[MAP].getPano()
+    this.state.streetViewPanorama.getPano()
 
   getPhotographerPov = () =>
-    this.context[MAP].getPhotographerPov()
+    this.state.streetViewPanorama.getPhotographerPov()
 
   getPosition = () =>
-    this.context[MAP].getPosition()
+    this.state.streetViewPanorama.getPosition()
 
   getPov = () =>
-    this.context[MAP].getPov()
+    this.state.streetViewPanorama.getPov()
 
   getStatus = () =>
-    this.context[MAP].getStatus()
+    this.state.streetViewPanorama.getStatus()
 
   getVisible = () =>
-    this.context[MAP].getVisible()
+    this.state.streetViewPanorama.getVisible()
 
   getZoom = () =>
-    this.context[MAP].getZoom()
+    this.state.streetViewPanorama.getZoom()
 }
 
 export default StreetViewPanorama

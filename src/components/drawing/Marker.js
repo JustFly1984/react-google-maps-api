@@ -1,7 +1,11 @@
 /* global google */
 import React, { Fragment, PureComponent } from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/MapChildHelper'
+
 import MapContext from '../../mapcontext'
 
 import { MarkerPropTypes } from '../../proptypes'
@@ -128,7 +132,9 @@ export class Marker extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
-    this.state.marker && this.state.marker.setMap(null)
+
+    this.state.marker &&
+      this.state.marker.setMap(null)
   }
 
   render = () => (

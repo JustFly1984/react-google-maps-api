@@ -2,12 +2,11 @@
 import { PureComponent } from 'react'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
-import { STREETVIEW_COVERAGE_LAYER } from '../../constants'
+import MapContext from '../../mapcontext'
 
 const eventMap = {}
 
@@ -22,42 +21,58 @@ const StreetViewCoverageLayerPropTypes = {}
 export class StreetViewCoverageLayer extends PureComponent {
   static propTypes = StreetViewCoverageLayerPropTypes
 
-  constructor (props) {
-    super(props)
+  static contextType = MapContext
 
-    const streetViewCoverageLayer = new google.maps.StreetViewCoverageLayer()
+  registerEvents = []
 
-    this.state = {
-      [STREETVIEW_COVERAGE_LAYER]: streetViewCoverageLayer,
-      prevProps: construct(
-        StreetViewCoverageLayerPropTypes,
-        updaterMap,
-        props,
-        streetViewCoverageLayer
-      )
-    }
+  state = {
+    streetViewCoverageLayer: null
   }
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[STREETVIEW_COVERAGE_LAYER],
-      eventMap,
-      updaterMap
+  componentDidMount = () => {
+    const streetViewCoverageLayer = new google.maps.StreetViewCoverageLayer()
+
+    this.setState(
+      () => ({
+        streetViewCoverageLayer
+      }),
+      () => {
+        this.state.streetViewCoverageLayer.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.streetViewCoverageLayer
+        })
+      }
     )
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.streetViewCoverageLayer
+    })
   }
 
-  render () {
-    return null
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+
+    this.state.streetViewCoverageLayer &&
+      this.state.streetViewCoverageLayer.setMap(null)
   }
+
+  render = () => null
 
   getMap = () =>
-    this.state[STREETVIEW_COVERAGE_LAYER].getMap()
+    this.state.streetViewCoverageLayer.getMap()
 }
 
 export default StreetViewCoverageLayer
