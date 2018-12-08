@@ -20,7 +20,7 @@ const center = {
 const HeatmapExample = ({ styles }) => (
   <div>
     <GoogleMap
-      id='traffic-example'
+      id='heatmap-example'
       mapContainerStyle={styles.container}
       mapContainerClassName={styles.mapContainer}
       zoom={10}

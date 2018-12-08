@@ -76,8 +76,7 @@
   "lint-staged": {
     "linters": {
       "*.js": [
-        "some command",
-        "git add"
+        "git add -A"
       ]
     },
     "ignore": [
