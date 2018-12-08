@@ -28,7 +28,7 @@ const BOUNDS = [{
 const GroundOverlayExample = ({ styles }) => (
   <div>
     <GoogleMap
-      id='traffic-example'
+      id='ground-overlay-example'
       mapContainerStyle={styles.container}
       mapContainerClassName={styles.mapContainer}
       zoom={2}

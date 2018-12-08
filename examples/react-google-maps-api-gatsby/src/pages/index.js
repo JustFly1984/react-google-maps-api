@@ -15,7 +15,8 @@ import { googleMapsApiKey } from '../const'
 // import BicyclingExample from '../examples/bicycling-example'
 // import TrafficExample from '../examples/traffic-example'
 // import GroundOverlayExample from '../examples/ground-overlay-example'
-import HeatmapLayerExample from '../examples/heatmap-example'
+// import HeatmapLayerExample from '../examples/heatmap-example'
+import DirectionsRendererExample from '../examples/directions-renderer-example'
 
 const mapBoxStyle = {
   marginTop: '2rem',
@@ -103,56 +104,74 @@ class IndexPage extends Component {
               preventGoogleFontsLoading
             >
               <div style={mapBoxStyle}>
-                <h2 style={mapHeaderStyle}>Heatmap Layer Google Map example</h2>
+                <h2 style={mapHeaderStyle}>
+                  Directions Renderer Google Map example
+                </h2>
+
+                <DirectionsRendererExample
+                  styles={shapeExampleStyles}
+                />
+              </div>
+
+              {/*<div style={mapBoxStyle}>
+                <h2 style={mapHeaderStyle}>
+                  Heatmap Layer Google Map example
+                </h2>
 
                 <HeatmapLayerExample
                   styles={shapeExampleStyles}
                 />
               </div>
 
-              {/*       <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>Traffic Layer Google Map example</h2>
+              <div style={mapBoxStyle}>
+                <h2 style={mapHeaderStyle}>
+                  Traffic Layer Google Map example
+                </h2>
 
-        <TrafficExample
-          styles={shapeExampleStyles}
-        />
-      </div>
+                <TrafficExample
+                  styles={shapeExampleStyles}
+                />
+              </div>
 
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>Google Map with Shapes</h2>
+              <div style={mapBoxStyle}>
+                <h2 style={mapHeaderStyle}>
+                  Google Map with Shapes
+                </h2>
 
-        <ShapesExample
-          styles={shapeExampleStyles}
-        />
-      </div>
+                <ShapesExample
+                  styles={shapeExampleStyles}
+                />
+              </div>
 
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>Google Map with DrawingManager</h2>
+              <div style={mapBoxStyle}>
+                <h2 style={mapHeaderStyle}>
+                  Google Map with DrawingManager
+                </h2>
 
-        <DrawingManagerExample
-          styles={shapeExampleStyles}
-        />
-      </div>
+                <DrawingManagerExample
+                  styles={shapeExampleStyles}
+                />
+              </div>
 
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Google Map with Bicycling Layer
-        </h2>
+              <div style={mapBoxStyle}>
+                <h2 style={mapHeaderStyle}>
+                  Google Map with Bicycling Layer
+                </h2>
 
-        <BicyclingExample
-          styles={shapeExampleStyles}
-        />
-      </div>
+                <BicyclingExample
+                  styles={shapeExampleStyles}
+                />
+              </div>
 
-     <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Google Map with Ground Overlay
-        </h2>
+              <div style={mapBoxStyle}>
+                <h2 style={mapHeaderStyle}>
+                  Google Map with Ground Overlay
+                </h2>
 
-        <GroundOverlayExample
-          styles={shapeExampleStyles}
-        />
-</div>*/}
+                <GroundOverlayExample
+                  styles={shapeExampleStyles}
+                />
+          </div>*/}
             </LoadScript>
           )
           : null

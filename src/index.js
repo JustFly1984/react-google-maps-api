@@ -26,7 +26,8 @@ export { default as HeatmapLayer } from './components/heatmap/HeatmapLayer'
 // export { default as StreetViewCoverageLayer } from './components/streetview/StreetViewCoverageLayer'
 // export { default as StreetViewService } from './components/streetview/StreetViewService'
 
-// export { default as DirectionsRenderer } from './components/directions/DirectionsRenderer'
+export { default as DirectionsService } from './components/directions/DirectionsService'
+export { default as DirectionsRenderer } from './components/directions/DirectionsRenderer'
 
 // export { default as InfoBox } from './components/addons/InfoBox'
 // export { default as MarkerCluster } from './components/addons/MarkerCluster'
