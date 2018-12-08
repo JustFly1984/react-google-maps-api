@@ -1,7 +1,7 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import MapContext from '../../mapcontext'
+import MapContext from '../../map-context'
 
 const StreetViewServicePropTypes = {}
 
