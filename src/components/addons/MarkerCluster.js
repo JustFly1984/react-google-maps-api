@@ -5,7 +5,7 @@ import MarkerClusterPlus from 'marker-clusterer-plus'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+} from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
@@ -75,7 +75,7 @@ const updaterMap = {
 export class MarkerCluster extends PureComponent {
   static propTypes = MarkerClusterPropTypes
 
-  static contextTypes = MapContext
+  static contextType = MapContext
 
   registeredEvents = []
 

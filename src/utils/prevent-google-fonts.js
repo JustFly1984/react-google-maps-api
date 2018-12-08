@@ -48,7 +48,6 @@ export const preventGoogleFonts = () => {
   head.insertBefore = (newElement, referenceElement) => {
     if (!isRobotoStyle(newElement)) {
       Reflect.apply(insertBefore, head, [newElement, referenceElement])
-      // insertBefore.call(head, newElement, referenceElement)
     }
   }
 
@@ -57,7 +56,6 @@ export const preventGoogleFonts = () => {
   head.appendChild = textNode => {
     if (!isRobotoStyle(textNode)) {
       Reflect.apply(appendChild, head, [textNode])
-      // appendChild.call(head, textNode)
     }
   }
 }

@@ -6,7 +6,7 @@ import MapContext from './map-context'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from './utils/MapChildHelper'
+} from './utils/helper'
 
 const eventMap = {
   onDblClick: 'dblclick',

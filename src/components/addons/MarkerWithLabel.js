@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+} from '../../utils/helper'
 
 import { MarkerClusterContext } from './MarkerCluster'
 
@@ -96,7 +96,7 @@ const updaterMap = {
 export class MarkerWithLabel extends PureComponent {
   static propTypes = MarkerWithLabelPropTypes
 
-  static contextTypes = MarkerClusterContext
+  static contextType = MarkerClusterContext
 
   componentDidMount = () => {
     const NativeMarkerWithLabel = makeMarkerWithLabel(google.maps)

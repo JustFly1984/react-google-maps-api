@@ -4,7 +4,7 @@ import { PureComponent } from 'react'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+} from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
@@ -35,7 +35,7 @@ const updaterMap = {
 export class Autocomplete extends PureComponent {
   static propTypes = AutocompletePropTypes
 
-  static contextTypes = MapContext
+  static contextType = MapContext
 
   registeredEvents = []
 
