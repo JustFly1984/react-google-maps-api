@@ -180,14 +180,21 @@ class DirectionsRendererExample extends Component {
           console.log('onClick args: ', args)
         }}
       >
-        <DirectionsService
-          options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-            destination: this.state.destination,
-            origin: this.state.origin,
-            travelMode: this.state.travelMode
-          }}
-          callback={this.directionsCallback}
-        />
+        {
+          (
+            this.state.destination !== '' &&
+            this.state.origin !== ''
+          ) && (
+            <DirectionsService
+              options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+                destination: this.state.destination,
+                origin: this.state.origin,
+                travelMode: this.state.travelMode
+              }}
+              callback={this.directionsCallback}
+            />
+          )
+        }
 
         {
           this.state.response !== null && (
