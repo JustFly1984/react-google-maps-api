@@ -4,9 +4,9 @@ import { PureComponent } from 'react'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+} from '../../utils/helper'
 
-import MapContext from '../../mapcontext'
+import MapContext from '../../map-context'
 
 import { FusionTablesLayerPropTypes } from '../../proptypes'
 
@@ -26,7 +26,7 @@ const updaterMap = {
 export class FusionTablesLayer extends PureComponent {
   static propTypes = FusionTablesLayerPropTypes
 
-  static contextTypes = MapContext
+  static contextType = MapContext
 
   registeredEvents = []
 

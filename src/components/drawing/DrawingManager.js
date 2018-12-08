@@ -5,7 +5,7 @@ import invariant from 'invariant'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+} from '../../utils/helper'
 
 import MapContext from '../../map-context'
 

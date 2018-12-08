@@ -1,7 +1,7 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
 
 import { KmlLayerPropTypes } from '../../proptypes'

@@ -7,7 +7,7 @@ import { InfoBoxPropTypes } from '../../proptypes'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+} from '../../utils/helper'
 
 import MapContext from '../../map-context'
 

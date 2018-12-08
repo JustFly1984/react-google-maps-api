@@ -1,12 +1,12 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import MapContext from '../../mapcontext'
-
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+} from '../../utils/helper'
+
+import MapContext from '../../map-context'
 
 import { DataPropTypes } from '../../proptypes'
 
@@ -73,7 +73,7 @@ const updaterMap = {
 export class Data extends PureComponent {
   static propTypes = DataPropTypes
 
-  static contextTypes = MapContext
+  static contextType = MapContext
 
   registeredEvents = []
 

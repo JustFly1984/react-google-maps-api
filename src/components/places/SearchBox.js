@@ -6,7 +6,7 @@ import invariant from 'invariant'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+} from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
@@ -25,7 +25,7 @@ const updaterMap = {
 export class SearchBox extends PureComponent {
   static propTypes = SearchBoxPropTypes
 
-  static contextTypes = MapContext
+  static contextType = MapContext
 
   registeredEvents = []
 

@@ -4,7 +4,7 @@ import { PureComponent } from 'react'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+} from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
@@ -23,7 +23,7 @@ const updaterMap = {
 export class ImageMapType extends PureComponent {
   static propTypes = ImageMapTypePropTypes
 
-  static contextTypes = MapContext
+  static contextType = MapContext
 
   state = {
     imageMapType: null

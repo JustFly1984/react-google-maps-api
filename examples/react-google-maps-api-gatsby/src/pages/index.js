@@ -17,6 +17,7 @@ import { googleMapsApiKey } from '../const'
 // import GroundOverlayExample from '../examples/ground-overlay-example'
 // import HeatmapLayerExample from '../examples/heatmap-example'
 import DirectionsRendererExample from '../examples/directions-renderer-example'
+import FusionTablesLayerExample from '../examples/fusion-tables-layer-example'
 
 const mapBoxStyle = {
   marginTop: '2rem',
@@ -103,6 +104,16 @@ class IndexPage extends Component {
               libraries={googleMapsLibraries}
               preventGoogleFontsLoading
             >
+              <div style={mapBoxStyle}>
+                <h2 style={mapHeaderStyle}>
+                  Fusion Tables Layer Google Map example
+                </h2>
+
+                <FusionTablesLayerExample
+                  styles={shapeExampleStyles}
+                />
+              </div>
+
               <div style={mapBoxStyle}>
                 <h2 style={mapHeaderStyle}>
                   Directions Renderer Google Map example

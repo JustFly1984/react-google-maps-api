@@ -4,7 +4,8 @@ import { PureComponent } from 'react'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/MapChildHelper'
+} from '../../utils/helper'
+
 import MapContext from '../../map-context'
 
 import { CirclePropTypes } from '../../proptypes'

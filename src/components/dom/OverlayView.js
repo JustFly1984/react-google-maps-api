@@ -3,10 +3,17 @@ import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
 import invariant from 'invariant'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/helper'
+
 import MapContext from '../../map-context'
 
-import { getOffsetOverride, getLayoutStyles } from '../../utils/OverlayViewHelper'
+import {
+  getOffsetOverride,
+  getLayoutStyles
+} from './helper'
 
 import { OverlayViewPropTypes } from '../../proptypes'
 
