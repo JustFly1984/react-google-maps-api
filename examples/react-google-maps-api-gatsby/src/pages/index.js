@@ -8,14 +8,12 @@ import {
   LoadScript
 } from '../../../../src'
 
-import { googleMapsApiKey } from '../const'
-
-// import ShapesExample from '../examples/shapes-example'
-// import DrawingManagerExample from '../examples/drawing-manager-example'
-// import BicyclingExample from '../examples/bicycling-example'
-// import TrafficExample from '../examples/traffic-example'
-// import GroundOverlayExample from '../examples/ground-overlay-example'
-// import HeatmapLayerExample from '../examples/heatmap-example'
+import ShapesExample from '../examples/shapes-example'
+import DrawingManagerExample from '../examples/drawing-manager-example'
+import BicyclingExample from '../examples/bicycling-example'
+import TrafficExample from '../examples/traffic-example'
+import GroundOverlayExample from '../examples/ground-overlay-example'
+import HeatmapLayerExample from '../examples/heatmap-example'
 import DirectionsRendererExample from '../examples/directions-renderer-example'
 import FusionTablesLayerExample from '../examples/fusion-tables-layer-example'
 
@@ -62,7 +60,8 @@ const loaderId = uuid()
 
 class IndexPage extends Component {
   state = {
-    checked: true
+    checked: true,
+    googleMapsApiKey: ''
   }
 
   onChange = ({ target: { checked } }) => {
@@ -73,11 +72,34 @@ class IndexPage extends Component {
     )
   }
 
+  onGoogleMapChange = ({ target: { value } }) => {
+    this.setState(
+      () => ({
+        googleMapsApiKey: value
+      })
+    )
+  }
+
   render = () => (
     <Layout>
       <h1>Hello People!</h1>
 
       <p>Welcome to React Google Maps Light Example.</p>
+
+      <div>
+        <label
+          htmlFor='apikey'
+        >
+          Enter your Google API key here:
+        </label>
+        {` `}
+        <input
+          id='apikey'
+          type='text'
+          onChange={this.onGoogleMapChange}
+          value={this.state.googleMapsApiKey}
+        />
+      </div>
 
       <div>
         <input
@@ -91,11 +113,14 @@ class IndexPage extends Component {
       </div>
 
       {
-        this.state.checked
+        (
+          this.state.checked &&
+          this.state.googleMapsApiKey.length >= 38
+        )
           ? (
             <LoadScript
               id={loaderId}
-              googleMapsApiKey={googleMapsApiKey}
+              googleMapsApiKey={this.state.googleMapsApiKey}
               language={'en'}
               region={'EN'}
               version={'weekly'}
@@ -124,7 +149,7 @@ class IndexPage extends Component {
                 />
               </div>
 
-              {/*<div style={mapBoxStyle}>
+              <div style={mapBoxStyle}>
                 <h2 style={mapHeaderStyle}>
                   Heatmap Layer Google Map example
                 </h2>
@@ -182,7 +207,7 @@ class IndexPage extends Component {
                 <GroundOverlayExample
                   styles={shapeExampleStyles}
                 />
-          </div>*/}
+              </div>
             </LoadScript>
           )
           : null
