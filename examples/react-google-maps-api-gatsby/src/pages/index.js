@@ -181,123 +181,123 @@ class IndexPage extends Component {
 
       <div>
         <div>
-          <label
-            htmlFor='fusion'
-          >
-            Fusion Layer Example
-          </label>
-          {` `}
           <input
             id='fusion'
             type='checkbox'
             onChange={this.onFusionChange}
             value={this.state.fusion}
           />
+          {` `}
+          <label
+            htmlFor='fusion'
+          >
+            Fusion Layer Example
+          </label>
         </div>
 
         <div>
-          <label
-            htmlFor='directions'
-          >
-            Directions Example
-          </label>
-          {` `}
           <input
             id='directions'
             type='checkbox'
             onChange={this.onDirectionsChange}
             value={this.state.directions}
           />
+          {` `}
+          <label
+            htmlFor='directions'
+          >
+            Directions Example
+          </label>
         </div>
 
         <div>
-          <label
-            htmlFor='heatmap'
-          >
-            Heatmap Layer Example
-          </label>
-          {` `}
           <input
             id='heatmap'
             type='checkbox'
             onChange={this.onHeatmapChange}
             value={this.state.heatmap}
           />
+          {` `}
+          <label
+            htmlFor='heatmap'
+          >
+            Heatmap Layer Example
+          </label>
         </div>
 
         <div>
-          <label
-            htmlFor='traffic'
-          >
-            Traffic Layer Example
-          </label>
-          {` `}
           <input
             id='traffic'
             type='checkbox'
             onChange={this.onTrafficChange}
             value={this.state.traffic}
           />
+          {` `}
+          <label
+            htmlFor='traffic'
+          >
+            Traffic Layer Example
+          </label>
         </div>
 
         <div>
-          <label
-            htmlFor='shapes'
-          >
-            Shapes Example
-          </label>
-          {` `}
           <input
             id='shapes'
             type='checkbox'
             onChange={this.onShapesChange}
             value={this.state.shapes}
           />
+          {` `}
+          <label
+            htmlFor='shapes'
+          >
+            Shapes Example
+          </label>
         </div>
 
         <div>
-          <label
-            htmlFor='drawing'
-          >
-            Drawing Layer Example
-          </label>
-          {` `}
           <input
             id='drawing'
             type='checkbox'
             onChange={this.onDrawingChange}
             value={this.state.drawing}
           />
+          {` `}
+          <label
+            htmlFor='drawing'
+          >
+            Drawing Layer Example
+          </label>
         </div>
 
         <div>
-          <label
-            htmlFor='bicycling'
-          >
-            Bicycling Layer Example
-          </label>
-          {` `}
           <input
             id='bicycling'
             type='checkbox'
             onChange={this.onBicyclingChange}
             value={this.state.bicycling}
           />
+          {` `}
+          <label
+            htmlFor='bicycling'
+          >
+            Bicycling Layer Example
+          </label>
         </div>
 
         <div>
-          <label
-            htmlFor='ground'
-          >
-            Ground Layer Example
-          </label>
-          {` `}
           <input
             id='ground'
             type='checkbox'
             onChange={this.onGroundChange}
             value={this.state.ground}
           />
+          {` `}
+          <label
+            htmlFor='ground'
+          >
+            Ground Layer Example
+          </label>
         </div>
       </div>
 
