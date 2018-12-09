@@ -1,0 +1,32 @@
+{
+  "config": {
+    "title": "React Google Maps Api",
+    "description": "React.js Google Maps API integration",
+    "menu": [],
+    "ordering": "descending",
+    "version": "1.0.0",
+    "repository": "https://github.com/JustFly1984/react-google-maps-api",
+    "native": false,
+    "codeSandbox": true,
+    "themeConfig": {}
+  },
+  "entries": {
+    "src/docs/GoogleMap.mdx": {
+      "name": "Basic map example",
+      "id": "99da35cb3e754c8805ffb2f567c98710",
+      "filepath": "src/docs/GoogleMap.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/GoogleMap.mdx",
+      "slug": "src-docs-google-map",
+      "route": "/src-docs-google-map",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "googlemap",
+          "value": "GoogleMap"
+        }
+      ]
+    }
+  }
+}
