@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
-  GoogleMapProvider,
   GoogleMap,
   Polyline,
   Polygon,
@@ -49,8 +48,10 @@ const POLYLINE_OPTIONS = {
 }
 
 const ShapesExamplePropTypes = {
-  styles: PropTypes.object.isRequired,
-  loadingElement: PropTypes.node.isRequired
+  styles: PropTypes.shape({
+    container: PropTypes.object.isRequired,
+    mapContainer: PropTypes.string.isRequired
+  }).isRequired
 }
 
 const mapCenter = {
@@ -58,9 +59,20 @@ const mapCenter = {
   lng: -180
 }
 
-const MARKER_POSITION = { lat: 37.772, lng: -122.214 }
-const OVERLAY_VIEW_POSITION = { lat: 35.772, lng: -120.214 }
-const INFO_WINDOW_POSITION = { lat: 33.772, lng: -117.214 }
+const MARKER_POSITION = {
+  lat: 37.772,
+  lng: -122.214
+}
+
+const OVERLAY_VIEW_POSITION = {
+  lat: 35.772,
+  lng: -120.214
+}
+
+const INFO_WINDOW_POSITION = {
+  lat: 33.772,
+  lng: -117.214
+}
 
 const brisbanePolygonOptions = {
   fillColor: '#00FF00',
@@ -124,7 +136,7 @@ const infoWindowStyle = {
   padding: 15
 }
 
-export default class ShapesExample extends React.Component {
+class ShapesExample extends Component {
   static propTypes = ShapesExamplePropTypes
 
   state = {
@@ -164,12 +176,16 @@ export default class ShapesExample extends React.Component {
           />
           <label htmlFor='show-polyline-checkbox'>Show flight path</label>
         </div>
+
         <br />
+
         <div>
           <label htmlFor='polyline-options-input'>
             Polyline options (will persist once valid JSON):
           </label>{' '}
+
           <br />
+
           <textarea
             id='polyline-options-input'
             type='text'
@@ -179,41 +195,71 @@ export default class ShapesExample extends React.Component {
           />
         </div>
 
-        <GoogleMapProvider
+        <GoogleMap
           id='shapes-example'
           mapContainerStyle={this.props.styles.container}
           mapContainerClassName={this.props.styles.mapContainer}
+          zoom={2}
+          center={mapCenter}
         >
-          <GoogleMap zoom={2} center={mapCenter}>
-            {this.state.polylineVisible && (
-              <Polyline path={FLIGHT_PLAN_COORDS} options={polylineOptions} />
-            )}
-            <Polygon path={BRISBANE_COORDS} options={brisbanePolygonOptions} />
+          {
+            this.state.polylineVisible && (
+              <Polyline
+                path={FLIGHT_PLAN_COORDS}
+                options={polylineOptions}
+              />
+            )
+          }
 
-            <Polygon path={SAN_FRANCISCO_COORDS} options={sfPolygonOptions} />
+          <Polygon
+            path={BRISBANE_COORDS}
+            options={brisbanePolygonOptions}
+          />
 
-            <Rectangle bounds={RECTANGLE_BOUNDS} />
-            <Circle options={circleOptions} />
+          <Polygon
+            path={SAN_FRANCISCO_COORDS}
+            options={sfPolygonOptions}
+          />
 
-            <Marker position={MARKER_POSITION} icon={pinIcon} />
-            <OverlayView
-              position={OVERLAY_VIEW_POSITION}
-              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-            >
-              <div style={infoWindowStyle}>
-                <h1>OverlayView</h1>
-                <button onClick={() => {}}>I have been clicked</button>
-              </div>
-            </OverlayView>
+          <Rectangle
+            bounds={RECTANGLE_BOUNDS}
+          />
 
-            <InfoWindow position={INFO_WINDOW_POSITION}>
-              <div style={infoWindowStyle}>
-                <h1>InfoWindow</h1>
-              </div>
-            </InfoWindow>
-          </GoogleMap>
-        </GoogleMapProvider>
+          <Circle
+            options={circleOptions}
+          />
+
+          <Marker
+            position={MARKER_POSITION}
+            icon={pinIcon}
+          />
+
+          <OverlayView
+            position={OVERLAY_VIEW_POSITION}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+          >
+            <div style={infoWindowStyle}>
+              <h1>OverlayView</h1>
+              <button
+                onClick={() => { }}
+                type='button'
+              >
+                I have been clicked
+              </button>
+            </div>
+          </OverlayView>
+
+          <InfoWindow
+            position={INFO_WINDOW_POSITION}
+          >
+            <div style={infoWindowStyle}>
+              <h1>InfoWindow</h1>
+            </div>
+          </InfoWindow>
+        </GoogleMap>
       </div>
     )
   }
 }
+
+export default ShapesExample

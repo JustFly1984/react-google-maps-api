@@ -3,10 +3,17 @@ import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
 import invariant from 'invariant'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
-import MapContext from '../../mapcontext'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/helper'
 
-import { getOffsetOverride, getLayoutStyles } from '../../utils/OverlayViewHelper'
+import MapContext from '../../map-context'
+
+import {
+  getOffsetOverride,
+  getLayoutStyles
+} from './helper'
 
 import { OverlayViewPropTypes } from '../../proptypes'
 
@@ -32,7 +39,15 @@ export class OverlayView extends PureComponent {
   }
 
   componentDidMount = () => {
-    const overlayView = new google.maps.OverlayView()
+    const overlayView = new google.maps.OverlayView(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
+
     // You must implement three methods: onAdd(), draw(), and onRemove().
     overlayView.onAdd = this.onAdd
     overlayView.draw = this.draw
@@ -43,19 +58,25 @@ export class OverlayView extends PureComponent {
     // You must call setMap() with a valid Map object to trigger the call to
     // the onAdd() method and setMap(null) in order to trigger the onRemove() method.
 
-    this.setState({ overlayView }, () => {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.overlayView
-      })
-    })
+    this.setState(
+      () => ({
+        overlayView
+      }),
+      () => {
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.overlayView
+        })
+      }
+    )
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -67,16 +88,14 @@ export class OverlayView extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
+
     this.state.overlayView && this.state.overlayView.setMap(null)
   }
 
-  render () {
-    if (this.containerElement) {
-      return createPortal(Children.only(this.props.children), this.containerElement)
-    }
-
-    return null
-  }
+  render = () =>
+    this.containerElement
+      ? createPortal(Children.only(this.props.children), this.containerElement)
+      : null
 
   preventMapHitsAndGesturesFrom = element =>
     this.state.overlayView.preventMapHitsAndGesturesFrom(element)
@@ -102,8 +121,11 @@ export class OverlayView extends PureComponent {
     if (!mapPanes) {
       return
     }
+
     mapPanes[mapPaneName].appendChild(this.containerElement)
+
     this.onPositionElement()
+
     this.forceUpdate()
   }
 
@@ -115,6 +137,7 @@ export class OverlayView extends PureComponent {
 
   onAdd = () => {
     this.containerElement = document.createElement('div')
+
     this.containerElement.style.position = 'absolute'
   }
 
@@ -136,6 +159,7 @@ export class OverlayView extends PureComponent {
     if (this.containerElement) {
       this.containerElement.parentNode.removeChild(this.containerElement)
     }
+
     this.containerElement = null
   }
 }

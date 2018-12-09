@@ -1,14 +1,13 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
-} from '../../utils/MapChildHelper'
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/helper'
 
-import { MAP, DIRECTIONS_RENDERER } from '../../constants'
+import MapContext from '../../map-context'
+
 import { DirectionsRendererPropTypes } from '../../proptypes'
 
 const eventMap = {
@@ -36,65 +35,75 @@ const updaterMap = {
 export class DirectionsRenderer extends PureComponent {
   static propTypes = DirectionsRendererPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
+  static contextType = MapContext
+
+  registeredEvents = []
+
+  state = {
+    directionsRenderer: null
   }
 
-  constructor (props, context) {
-    super(props, context)
-
+  componentDidMount = () => {
     const directionsRenderer = new google.maps.DirectionsRenderer(
-      props.options
-    )
-
-    directionsRenderer.setMap(context[MAP])
-
-    this.state = {
-      [DIRECTIONS_RENDERER]: directionsRenderer,
-      prevProps: construct(
-        DirectionsRendererPropTypes,
-        updaterMap,
-        props,
-        directionsRenderer
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
       )
-    }
-  }
+    )
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[DIRECTIONS_RENDERER],
-      eventMap,
-      updaterMap
+    this.setState(
+      () => ({
+        directionsRenderer
+      }),
+      () => {
+        this.state.directionsRenderer.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.directionsRenderer
+        })
+      }
     )
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
 
-    const directionsRenderer = this.state[DIRECTIONS_RENDERER]
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.directionsRenderer
+    })
+  }
 
-    if (directionsRenderer) {
-      directionsRenderer.setMap(null)
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+
+    if (this.state.directionsRenderer) {
+      this.state.directionsRenderer.setMap(null)
     }
   }
 
-  render () {
-    return null
-  }
+  render = () => null
 
   getDirections = () =>
-    this.state[DIRECTIONS_RENDERER].getDirections()
+    this.state.directionsRenderer.getDirections()
 
   getMap = () =>
-    this.state[DIRECTIONS_RENDERER].getMap()
+    this.state.directionsRenderer.getMap()
 
   getPanel = () =>
-    this.state[DIRECTIONS_RENDERER].getPanel()
+    this.state.directionsRenderer.getPanel()
 
   getRouteIndex = () =>
-    this.state[DIRECTIONS_RENDERER].getRouteIndex()
+    this.state.directionsRenderer.getRouteIndex()
 }
 
 export default DirectionsRenderer
