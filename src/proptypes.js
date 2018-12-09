@@ -1264,7 +1264,7 @@ export const GroundOverlayPropTypes = {
   onClick: PropTypes.func
 }
 
-export const GoogleMapProviderPropTypes = {
+export const GoogleMapPropTypes = {
   id: PropTypes.string, // TODO: do we need this?
   mapContainerStyle: PropTypes.object,
   mapContainerClassName: PropTypes.string,
