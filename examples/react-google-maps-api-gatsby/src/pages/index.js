@@ -1,52 +1,21 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
+import React, { Component } from 'react'
 import Layout from '../components/layout'
 import indexStyles from './index.module.css'
 import uuid from 'uuidv4'
 
 import {
-  LoadScript,
-  GoogleMapProvider,
-  GoogleMap,
-  TrafficLayer,
-  BicyclingLayer,
-  // Circle,
-  // Marker
-  Polyline,
-  // Polygon,
-  // Rectangle,
-  // InfoWindow,
-  // OverlayView,
-  GroundOverlay
-  // DirectionsRenderer,
-  // FusionTablesLayer,
-  // KmlLayer,
-
-  // StreetViewPanorama,
-  // compose
+  LoadScript
 } from '../../../../src'
 
 import ShapesExample from '../examples/shapes-example'
 import DrawingManagerExample from '../examples/drawing-manager-example'
-
-// import MapWithASearchBox from '../components/search-box'
-// import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
-
-// Past your GoogleMaps API key here
-// You can obtain the API key here:
-// https://developers.google.com/maps/documentation/javascript/get-api-key
-import { googleMapsApiKey } from '../const'
-
-const groundOverlayBounds = [
-  {
-    x: 233.94664370659723,
-    y: 153.67749447485028
-  },
-  {
-    x: 36.34117495659723,
-    y: 154.66186947485028
-  }
-]
+import BicyclingExample from '../examples/bicycling-example'
+import TrafficExample from '../examples/traffic-example'
+import GroundOverlayExample from '../examples/ground-overlay-example'
+import HeatmapLayerExample from '../examples/heatmap-example'
+import DirectionsRendererExample from '../examples/directions-renderer-example'
+import FusionTablesLayerExample from '../examples/fusion-tables-layer-example'
 
 const mapBoxStyle = {
   marginTop: '2rem',
@@ -56,11 +25,6 @@ const mapBoxStyle = {
 const mapHeaderStyle = {
   fontSize: '1.5rem',
   marginBottom: '1.5rem'
-}
-
-const center = {
-  lat: -34.397,
-  lng: 150.644
 }
 
 const loadingStyle = {
@@ -73,135 +37,404 @@ const mapContainerStyle = {
   width: `800px`
 }
 
-const shapesStyles = {
+const shapeExampleStyles = {
   container: mapContainerStyle,
   mapContainer: indexStyles.mapContainer
 }
 
-const Loading = <div style={loadingStyle} />
-const googleMapsLibraries = ['drawing']
+const Loading = (
+  <div style={loadingStyle} />
+)
+
+const googleMapsLibraries = [
+  'drawing',
+  'visualization'
+]
 
 const loaderId = uuid()
-const providerOneId = uuid()
-const providerTwoId = uuid()
-const providerThreeId = uuid()
-const providerFourId = uuid()
-// const providerFiveId = uuid()
 
-const IndexPage = () => (
-  <Layout>
-    <h1>Hello People!</h1>
-    <p>Welcome to React Google Maps Light Example.</p>
+class IndexPage extends Component {
+  state = {
+    checked: false,
+    googleMapsApiKey: '',
+    fusion: false,
+    directions: false,
+    heatmap: false,
+    traffic: false,
+    shapes: false,
+    drawing: false,
+    bicycling: false,
+    ground: false
+  }
 
-    <LoadScript
-      id={loaderId}
-      googleMapsApiKey={googleMapsApiKey}
-      language={'en'}
-      region={'EN'}
-      version={'weekly'}
-      onLoad={() => console.log('script loaded')}
-      loadingElement={Loading}
-      libraries={googleMapsLibraries}
-    >
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>Plain Google Map</h2>
-        <GoogleMapProvider
-          id={providerOneId}
-          mapContainerStyle={mapContainerStyle}
-          mapContainerClassName={indexStyles.mapContainer}
+  onChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        checked
+      })
+    )
+  }
+
+  onGoogleMapChange = ({ target: { value } }) => {
+    this.setState(
+      () => ({
+        googleMapsApiKey: value
+      })
+    )
+  }
+
+  onFusionChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        fusion: checked
+      })
+    )
+  }
+
+  onDirectionsChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        directions: checked
+      })
+    )
+  }
+
+  onHeatmapChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        heatmap: checked
+      })
+    )
+  }
+
+  onTrafficChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        traffic: checked
+      })
+    )
+  }
+
+  onShapesChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        shapes: checked
+      })
+    )
+  }
+
+  onDrawingChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        drawing: checked
+      })
+    )
+  }
+
+  onBicyclingChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        bicycling: checked
+      })
+    )
+  }
+
+  onGroundChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        ground: checked
+      })
+    )
+  }
+
+  render = () => (
+    <Layout>
+      <h1>Hello People!</h1>
+
+      <p>Welcome to React Google Maps Light Example.</p>
+
+      <div>
+        <label
+          htmlFor='apikey'
         >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          >
-            <TrafficLayer />
-          </GoogleMap>
-        </GoogleMapProvider>
-      </div>
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>Google Map with Shapes</h2>
-        <ShapesExample
-          styles={{
-            container: mapContainerStyle,
-            mapContainer: indexStyles.mapContainer
-          }}
+          Enter your Google API key here:
+        </label>
+        {` `}
+        <input
+          id='apikey'
+          type='text'
+          onChange={this.onGoogleMapChange}
+          value={this.state.googleMapsApiKey}
         />
       </div>
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>Google Map with DrawingManager</h2>
-        <DrawingManagerExample
-          styles={{
-            container: mapContainerStyle,
-            mapContainer: indexStyles.mapContainer
-          }}
+
+      <div>
+        <input
+          id='toggle-script'
+          type='checkbox'
+          checked={this.state.checked}
+          onChange={this.onChange}
         />
-      </div>
-      {/* 
-
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Google Map with Bicycling Layer
-        </h2>
-
-        <GoogleMapProvider
-          id={providerThreeId}
-          loadingElement={Loading}
-        >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          >
-            <BicyclingLayer />
-          </GoogleMap>
-        </GoogleMapProvider>
+        {` `}
+        <label htmlFor='toggle-script'>{`Toggle <LoadScript />`}</label>
       </div>
 
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Google Map with Ground Overlay
-        </h2>
-
-        <GoogleMapProvider
-          id={providerFourId}
-          loadingElement={Loading}
-        >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          >
-          
-        </GoogleMapProvider>
-<<<<<<< HEAD
-
-        <div style={mapBoxStyle}>
-          <h2 style={mapHeaderStyle}>
-            Google Map with Shapes
-          </h2>
-
-          <ShapesExample
-            styles={shapesStyles}
-            loadingElement={Loading}
+      <div>
+        <div>
+          <input
+            id='fusion'
+            type='checkbox'
+            onChange={this.onFusionChange}
+            value={this.state.fusion}
           />
+          {` `}
+          <label
+            htmlFor='fusion'
+          >
+            Fusion Layer Example
+          </label>
+        </div>
+
+        <div>
+          <input
+            id='directions'
+            type='checkbox'
+            onChange={this.onDirectionsChange}
+            value={this.state.directions}
+          />
+          {` `}
+          <label
+            htmlFor='directions'
+          >
+            Directions Example
+          </label>
+        </div>
+
+        <div>
+          <input
+            id='heatmap'
+            type='checkbox'
+            onChange={this.onHeatmapChange}
+            value={this.state.heatmap}
+          />
+          {` `}
+          <label
+            htmlFor='heatmap'
+          >
+            Heatmap Layer Example
+          </label>
+        </div>
+
+        <div>
+          <input
+            id='traffic'
+            type='checkbox'
+            onChange={this.onTrafficChange}
+            value={this.state.traffic}
+          />
+          {` `}
+          <label
+            htmlFor='traffic'
+          >
+            Traffic Layer Example
+          </label>
+        </div>
+
+        <div>
+          <input
+            id='shapes'
+            type='checkbox'
+            onChange={this.onShapesChange}
+            value={this.state.shapes}
+          />
+          {` `}
+          <label
+            htmlFor='shapes'
+          >
+            Shapes Example
+          </label>
+        </div>
+
+        <div>
+          <input
+            id='drawing'
+            type='checkbox'
+            onChange={this.onDrawingChange}
+            value={this.state.drawing}
+          />
+          {` `}
+          <label
+            htmlFor='drawing'
+          >
+            Drawing Layer Example
+          </label>
+        </div>
+
+        <div>
+          <input
+            id='bicycling'
+            type='checkbox'
+            onChange={this.onBicyclingChange}
+            value={this.state.bicycling}
+          />
+          {` `}
+          <label
+            htmlFor='bicycling'
+          >
+            Bicycling Layer Example
+          </label>
+        </div>
+
+        <div>
+          <input
+            id='ground'
+            type='checkbox'
+            onChange={this.onGroundChange}
+            value={this.state.ground}
+          />
+          {` `}
+          <label
+            htmlFor='ground'
+          >
+            Ground Layer Example
+          </label>
         </div>
       </div>
-=======
-       
- */}
-    </LoadScript>
-  </Layout>
-)
+
+      {
+        (
+          this.state.checked &&
+          this.state.googleMapsApiKey.length >= 38
+        )
+          ? (
+            <LoadScript
+              id={loaderId}
+              googleMapsApiKey={this.state.googleMapsApiKey}
+              language={'en'}
+              region={'EN'}
+              version={'weekly'}
+              onLoad={() => console.log('script loaded')}
+              loadingElement={Loading}
+              libraries={googleMapsLibraries}
+              preventGoogleFontsLoading
+            >
+              {
+                this.state.fusion && (
+                  <div style={mapBoxStyle}>
+                    <h2 style={mapHeaderStyle}>
+                      Fusion Tables Layer Google Map example
+                    </h2>
+
+                    <FusionTablesLayerExample
+                      styles={shapeExampleStyles}
+                    />
+                  </div>
+                )
+              }
+
+              {
+                this.state.directions && (
+                  <div style={mapBoxStyle}>
+                    <h2 style={mapHeaderStyle}>
+                      Directions Renderer Google Map example
+                    </h2>
+
+                    <DirectionsRendererExample
+                      styles={shapeExampleStyles}
+                    />
+                  </div>
+                )
+              }
+
+              {
+                this.state.heatmap && (
+                  <div style={mapBoxStyle}>
+                    <h2 style={mapHeaderStyle}>
+                      Heatmap Layer Google Map example
+                    </h2>
+
+                    <HeatmapLayerExample
+                      styles={shapeExampleStyles}
+                    />
+                  </div>
+                )
+              }
+
+              {
+                this.state.traffic && (
+                  <div style={mapBoxStyle}>
+                    <h2 style={mapHeaderStyle}>
+                      Traffic Layer Google Map example
+                    </h2>
+
+                    <TrafficExample
+                      styles={shapeExampleStyles}
+                    />
+                  </div>
+                )
+              }
+
+              {
+                this.state.shapes && (
+                  <div style={mapBoxStyle}>
+                    <h2 style={mapHeaderStyle}>
+                      Google Map with Shapes
+                    </h2>
+
+                    <ShapesExample
+                      styles={shapeExampleStyles}
+                    />
+                  </div>
+                )
+              }
+
+              {
+                this.state.drawing && (
+                  <div style={mapBoxStyle}>
+                    <h2 style={mapHeaderStyle}>
+                      Google Map with DrawingManager
+                    </h2>
+
+                    <DrawingManagerExample
+                      styles={shapeExampleStyles}
+                    />
+                  </div>
+                )
+              }
+
+              {
+                this.state.bicycling && (
+                  <div style={mapBoxStyle}>
+                    <h2 style={mapHeaderStyle}>
+                      Google Map with Bicycling Layer
+                    </h2>
+
+                    <BicyclingExample
+                      styles={shapeExampleStyles}
+                    />
+                  </div>
+                )
+              }
+
+              {
+                this.state.ground && (
+                  <div style={mapBoxStyle}>
+                    <h2 style={mapHeaderStyle}>
+                      Google Map with Ground Overlay
+                    </h2>
+
+                    <GroundOverlayExample
+                      styles={shapeExampleStyles}
+                    />
+                  </div>
+                )
+              }
+            </LoadScript>
+          )
+          : null
+      }
+    </Layout>
+  )
+}
 
 export default IndexPage

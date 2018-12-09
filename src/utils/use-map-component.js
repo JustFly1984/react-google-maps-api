@@ -1,7 +1,15 @@
-import { useState, useEffect, useContext } from 'react'
-import MapContext from '../mapcontext'
+import {
+  useState,
+  useEffect,
+  useContext
+} from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from './MapChildHelper'
+import MapContext from '../map-context'
+
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from './helper'
 
 export default function useMapComponent (props) {
   const [instance, setInstance] = useState(null)
@@ -13,8 +21,11 @@ export default function useMapComponent (props) {
 
   if (!instance) {
     console.log(props.className, new window.google.maps[props.className]())
+
     tempInstance = new window.google.maps[props.className]()
+
     setInstance(tempInstance)
+
     tempInstance.setMap(context)
   }
 

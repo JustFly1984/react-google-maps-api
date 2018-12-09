@@ -1,15 +1,14 @@
 /* global google */
 import { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import invariant from 'invariant'
 
 import {
-  construct,
-  getDerivedStateFromProps,
-  componentWillUnmount
-} from '../../utils/MapChildHelper'
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/helper'
 
-import { MAP, HEATMAP_LAYER } from '../../constants'
+import MapContext from '../../map-context'
+
 import { HeatmapLayerPropTypes } from '../../proptypes'
 
 const eventMap = {}
@@ -29,61 +28,78 @@ const updaterMap = {
 export class HeatmapLayer extends PureComponent {
   static propTypes = HeatmapLayerPropTypes
 
-  static contextTypes = {
-    [MAP]: PropTypes.object,
+  static contextType = MapContext
+
+  registeredEvents = []
+
+  state = {
+    heatmapLayer: null
   }
 
-  constructor (props, context) {
-    super(props, context)
+  constructor (props) {
+    super(props)
 
-    invariant(google.maps.visualization, 'Did you include "libraries=visualization" in the URL?')
+    invariant(
+      google.maps.visualization,
+      'Did you include "visualization" in the libraries array prop in <LoadScript />?'
+    )
+  }
 
+  componentDidMount = () => {
     const heatmapLayer = new google.maps.visualization.HeatmapLayer(
-      props.options
-    )
-
-    this.state = {
-      [HEATMAP_LAYER]: heatmapLayer,
-      prevProps: construct(
-        HeatmapLayerPropTypes,
-        updaterMap,
-        props,
-        heatmapLayer
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
       )
-    }
+    )
 
-    heatmapLayer.setMap(context[MAP])
-  }
+    this.setState(
+      () => ({
+        heatmapLayer
+      }),
+      () => {
+        // this.state.heatmapLayer.setMap(this.context)
 
-  static getDerivedStateFromProps (props, state) {
-    return getDerivedStateFromProps(
-      props,
-      state,
-      this.state[HEATMAP_LAYER],
-      eventMap,
-      updaterMap
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.heatmapLayer
+        })
+      }
     )
   }
 
-  componentWillUnmount () {
-    componentWillUnmount(this)
+  componentDidUpdate = prevProps => {
+    unregisterEvents(this.registeredEvents)
 
-    const heatmapLayer = this.state[HEATMAP_LAYER]
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.heatmapLayer
+    })
+  }
 
-    if (heatmapLayer) {
-      heatmapLayer.setMap(null)
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
+
+    if (this.state.heatmapLayer) {
+      this.state.heatmapLayer.setMap(null)
     }
   }
 
-  render () {
-    return null
-  }
+  render = () => null
 
   getData = () =>
-    this.state[HEATMAP_LAYER].getData()
+    this.state.heatmapLayer.getData()
 
   getMap = () =>
-    this.state[HEATMAP_LAYER].getMap()
+    this.state.heatmapLayer.getMap()
 }
 
 export default HeatmapLayer

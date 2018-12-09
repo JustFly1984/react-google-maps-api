@@ -1,8 +1,12 @@
 /* global google */
-import React, { PureComponent } from 'react'
+import React, { Fragment, PureComponent } from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/MapChildHelper'
-import MapContext from '../../mapcontext'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from '../../utils/helper'
+
+import MapContext from '../../map-context'
 
 import { MarkerPropTypes } from '../../proptypes'
 
@@ -87,22 +91,36 @@ export class Marker extends PureComponent {
   }
 
   componentDidMount = () => {
-    const marker = new google.maps.Marker()
+    const marker = new google.maps.Marker(
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
+      )
+    )
 
-    this.setState({ marker }, () => {
-      this.state.marker.setMap(this.context)
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.marker
-      })
-    })
+    this.setState(
+      () => ({
+        marker
+      }),
+      () => {
+        this.state.marker.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.marker
+        })
+      }
+    )
   }
 
-  componentDidUpdate = (prevProps) => {
+  componentDidUpdate = prevProps => {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -114,12 +132,16 @@ export class Marker extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
-    this.state.marker && this.state.marker.setMap(null)
+
+    this.state.marker &&
+      this.state.marker.setMap(null)
   }
 
-  render = () => {
-    return <>{this.props.children}</>
-  }
+  render = () => (
+    <Fragment>
+      {this.props.children}
+    </Fragment>
+  )
 
   getAnimation = () => this.state.marker.getAnimation()
 
