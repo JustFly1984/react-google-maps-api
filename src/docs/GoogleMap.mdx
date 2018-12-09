@@ -1,9 +1,8 @@
 ---
-name: Basic map example
+name: GoogleMap
 ---
 
 import { GoogleMap, LoadScript } from "../";
-import { googleMapsApiKey } from "./const";
 import WithApiKey from "./WithApiKey";
 
 # GoogleMap
@@ -43,7 +42,7 @@ import WithApiKey from "./WithApiKey";
     region={"EN"}
     version={"weekly"}
     onLoad={() => console.log("script loaded")}
-    loadingElement="Loading...">
+    loadingElement={<div>Loading...</div>}>
 
     <GoogleMap
       id="basic-map-example"
