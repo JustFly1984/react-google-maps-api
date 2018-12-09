@@ -42,7 +42,10 @@ const SymbolInterface = {
   fillColor: PropTypes.string,
   fillOpacity: PropTypes.number,
   labelOrigin: PropTypes.shape(PointInterface),
-  path: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  path: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
   rotation: PropTypes.number,
   scale: PropTypes.number,
   strokeColor: PropTypes.string,
@@ -100,7 +103,11 @@ const MapTypeControlOptionsInterface = {
     'TOP_LEFT',
     'TOP_RIGHT'
   ]),
-  style: PropTypes.oneOf(['DEFAULT', 'DROPDOWN_MENU', 'HORIZONTAL_BAR'])
+  style: PropTypes.oneOf([
+    'DEFAULT',
+    'DROPDOWN_MENU',
+    'HORIZONTAL_BAR'
+  ])
 }
 
 const PanControlOptionsInterface = {
@@ -138,7 +145,9 @@ const RotateControlOptionsInterface = {
 }
 
 const ScaleControlOptionsInterface = {
-  style: PropTypes.oneOf(['DEFAULT'])
+  style: PropTypes.oneOf([
+    'DEFAULT'
+  ])
 }
 
 const StreetViewAddressControlOptionsInterface = {
@@ -282,10 +291,20 @@ const GoogleMapInterface = {
   setStreetView: PropTypes.func,
   setTilt: PropTypes.func,
   setZoom: PropTypes.func,
-  controls: PropTypes.arrayOf(PropTypes.shape(MVCArrayInterface)),
-  data: PropTypes.shape(DataInterface),
-  mapTypes: PropTypes.shape(MapTypeRegistryInterface),
-  overlayMapTypes: PropTypes.shape(MVCArrayInterface)
+  controls: PropTypes.arrayOf(
+    PropTypes.shape(
+      MVCArrayInterface
+    )
+  ),
+  data: PropTypes.shape(
+    DataInterface
+  ),
+  mapTypes: PropTypes.shape(
+    MapTypeRegistryInterface
+  ),
+  overlayMapTypes: PropTypes.shape(
+    MVCArrayInterface
+  )
 }
 
 const RectangleOptionsInterface = {
@@ -301,7 +320,11 @@ const RectangleOptionsInterface = {
   map: PropTypes.shape(GoogleMapInterface),
   strokeColor: PropTypes.string,
   strokeOpacity: PropTypes.number,
-  strokePosition: PropTypes.oneOf(['CENTER', 'INSIDE', 'OUTSIDE']),
+  strokePosition: PropTypes.oneOf([
+    'CENTER',
+    'INSIDE',
+    'OUTSIDE'
+  ]),
   strokeWeight: PropTypes.number,
   visible: PropTypes.bool,
   zIndex: PropTypes.number
@@ -316,53 +339,79 @@ const MapTypeStyleInterface = {
 }
 
 const IconInterface = {
-  anchor: PropTypes.shape(PointInterface),
-  labelOrigin: PropTypes.shape(PointInterface),
-  origin: PropTypes.shape(PointInterface),
-  scaledSize: PropTypes.shape(SizeInterface),
-  size: PropTypes.shape(SizeInterface),
+  anchor: PropTypes.shape(
+    PointInterface
+  ),
+  labelOrigin: PropTypes.shape(
+    PointInterface
+  ),
+  origin: PropTypes.shape(
+    PointInterface
+  ),
+  scaledSize: PropTypes.shape(
+    SizeInterface
+  ),
+  size: PropTypes.shape(
+    SizeInterface
+  ),
   url: PropTypes.string
 }
 
 const IconSequenceInterface = {
   fixedRotation: PropTypes.bool,
-  icon: PropTypes.shape(SymbolInterface),
+  icon: PropTypes.shape(
+    SymbolInterface
+  ),
   offset: PropTypes.string,
   repeat: PropTypes.string
 }
 
 const StreetViewPanoramaOptionsInterface = {
   addressControl: PropTypes.bool,
-  addressControlOptions: PropTypes.shape(StreetViewAddressControlOptionsInterface),
+  addressControlOptions: PropTypes.shape(
+    StreetViewAddressControlOptionsInterface
+  ),
   clickToGo: PropTypes.bool,
   disableDefaultUI: PropTypes.bool,
   disableDoubleClickZoom: PropTypes.bool,
   enableCloseButton: PropTypes.bool,
   fullscreenControl: PropTypes.bool,
-  fullscreenControlOptions: PropTypes.shape(FullscreenControlOptionsInterface),
+  fullscreenControlOptions: PropTypes.shape(
+    FullscreenControlOptionsInterface
+  ),
   imageDateControl: PropTypes.bool,
   linksControl: PropTypes.bool,
   motionTracking: PropTypes.bool,
   motionTrackingControl: PropTypes.bool,
-  motionTrackingControlOptions: PropTypes.shape(MotionTrackingControlOptionsInterface),
+  motionTrackingControlOptions: PropTypes.shape(
+    MotionTrackingControlOptionsInterface
+  ),
   panControl: PropTypes.bool,
-  panControlOptions: PropTypes.shape(PanControlOptionsInterface),
+  panControlOptions: PropTypes.shape(
+    PanControlOptionsInterface
+  ),
   pano: PropTypes.string,
   position: PropTypes.oneOfType([
     PropTypes.shape(LatLngInterface),
     PropTypes.shape(LatLngLiteralInterface)
   ]),
-  pov: PropTypes.shape(StreetViewPovInterface),
+  pov: PropTypes.shape(
+    StreetViewPovInterface
+  ),
   scrollwheel: PropTypes.bool,
   showRoadLabels: PropTypes.bool,
   visible: PropTypes.bool,
   zoom: PropTypes.number,
   zoomControl: PropTypes.bool,
-  zoomControlOptions: PropTypes.shape(ZoomControlOptionsInterface)
+  zoomControlOptions: PropTypes.shape(
+    ZoomControlOptionsInterface
+  )
 }
 
 const StreetViewPanoramaInterface = {
-  options: PropTypes.shape(StreetViewPanoramaOptionsInterface),
+  options: PropTypes.shape(
+    StreetViewPanoramaOptionsInterface
+  ),
   onCloseclick: PropTypes.func,
   onPanoChanged: PropTypes.func,
   onPositionChanged: PropTypes.func,
@@ -391,7 +440,9 @@ const StreetViewPanoramaInterface = {
   setPov: PropTypes.func,
   setVisible: PropTypes.func,
   setZoom: PropTypes.func,
-  controls: PropTypes.arrayOf(PropTypes.shape(MVCArrayInterface))
+  controls: PropTypes.arrayOf(
+    PropTypes.shape(MVCArrayInterface)
+  )
 }
 
 const GoogleMapOptionsInterface = {
@@ -407,62 +458,110 @@ const GoogleMapOptionsInterface = {
   draggableCursor: PropTypes.string,
   draggingCursor: PropTypes.string,
   fullscreenControl: PropTypes.bool,
-  fullscreenControlOptions: PropTypes.shape(FullscreenControlOptionsInterface),
+  fullscreenControlOptions: PropTypes.shape(
+    FullscreenControlOptionsInterface
+  ),
   gestureHandling: PropTypes.string,
   heading: PropTypes.number,
   keyboardShortcuts: PropTypes.bool,
   mapTypeControl: PropTypes.bool,
-  mapTypeControlOptions: PropTypes.shape(MapTypeControlOptionsInterface),
+  mapTypeControlOptions: PropTypes.shape(
+    MapTypeControlOptionsInterface
+  ),
   mapTypeId: PropTypes.string,
   maxZoom: PropTypes.number,
   minZoom: PropTypes.number,
   noClear: PropTypes.bool,
   panControl: PropTypes.bool,
-  panControlOptions: PropTypes.shape(PanControlOptionsInterface),
+  panControlOptions: PropTypes.shape(
+    PanControlOptionsInterface
+  ),
   rotateControl: PropTypes.bool,
-  rotateControlOptions: PropTypes.shape(RotateControlOptionsInterface),
+  rotateControlOptions: PropTypes.shape(
+    RotateControlOptionsInterface
+  ),
   scaleControl: PropTypes.bool,
-  scaleControlOptions: PropTypes.shape(ScaleControlOptionsInterface),
+  scaleControlOptions: PropTypes.shape(
+    ScaleControlOptionsInterface
+  ),
   scrollwheel: PropTypes.bool,
-  streetView: PropTypes.shape(StreetViewPanoramaInterface),
+  streetView: PropTypes.shape(
+    StreetViewPanoramaInterface
+  ),
   streetViewControl: PropTypes.bool,
-  streetViewControlOptions: PropTypes.shape(StreetViewControlOptionsInterface),
-  styles: PropTypes.arrayOf(PropTypes.shape(MapTypeStyleInterface)),
+  streetViewControlOptions: PropTypes.shape(
+    StreetViewControlOptionsInterface
+  ),
+  styles: PropTypes.arrayOf(
+    PropTypes.shape(
+      MapTypeStyleInterface
+    )
+  ),
   tilt: PropTypes.number,
   zoom: PropTypes.number,
   zoomControl: PropTypes.bool,
-  zoomControlOptions: PropTypes.shape(ZoomControlOptionsInterface)
+  zoomControlOptions: PropTypes.shape(
+    ZoomControlOptionsInterface
+  )
 }
 
 const TrafficLayerOptionsInterface = {
   autoRefresh: PropTypes.bool,
-  map: PropTypes.shape(GoogleMapInterface)
+  map: PropTypes.shape(
+    GoogleMapInterface
+  )
 }
 
 const PathInterface = PropTypes.oneOfType([
-  PropTypes.shape(MVCArrayInterface),
-  PropTypes.arrayOf(PropTypes.shape(LatLngInterface)),
-  PropTypes.arrayOf(PropTypes.shape(LatLngLiteralInterface))
+  PropTypes.shape(
+    MVCArrayInterface
+  ),
+  PropTypes.arrayOf(
+    PropTypes.shape(
+      LatLngInterface
+    )
+  ),
+  PropTypes.arrayOf(
+    PropTypes.shape(
+      LatLngLiteralInterface
+    )
+  )
 ])
 
 const MarkerOptionsInterface = {
-  anchorPoint: PropTypes.shape(PointInterface),
+  anchorPoint: PropTypes.shape(
+    PointInterface
+  ),
   animation: PropTypes.string, // Animation constants
   clickable: PropTypes.bool,
   crossOnDrag: PropTypes.bool,
   cursor: PropTypes.string,
   draggable: PropTypes.bool,
-  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.shape(IconInterface)])
+  icon: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape(
+      IconInterface
+    )
+  ])
 }
 
 const InfoWindowOptionsInterface = {
-  content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  content: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node
+  ]),
   disableAutoPan: PropTypes.bool,
   maxWidth: PropTypes.number,
-  pixelOffset: PropTypes.shape(SizeInterface),
+  pixelOffset: PropTypes.shape(
+    SizeInterface
+  ),
   position: PropTypes.oneOfType([
-    PropTypes.shape(LatLngInterface),
-    PropTypes.shape(LatLngLiteralInterface)
+    PropTypes.shape(
+      LatLngInterface
+    ),
+    PropTypes.shape(
+      LatLngLiteralInterface
+    )
   ]),
   zIndex: PropTypes.number
 }
@@ -489,8 +588,14 @@ const PolylineOptionsInterface = {
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   geodesic: PropTypes.bool,
-  icons: PropTypes.arrayOf(PropTypes.shape(IconSequenceInterface)),
-  map: PropTypes.shape(GoogleMapInterface),
+  icons: PropTypes.arrayOf(
+    PropTypes.shape(
+      IconSequenceInterface
+    )
+  ),
+  map: PropTypes.shape(
+    GoogleMapInterface
+  ),
   path: PathInterface,
   strokeColor: PropTypes.string,
   strokeOpacity: PropTypes.number,
@@ -506,27 +611,43 @@ const PolygonOptionsInterface = {
   fillColor: PropTypes.stringbackgroundColor,
   fillOpacity: PropTypes.numberbackgroundColor,
   geodesic: PropTypes.backgroundColor,
-  map: PropTypes.shape(GoogleMapInterface),
+  map: PropTypes.shape(
+    GoogleMapInterface
+  ),
   paths: PropTypes.oneOfType([
-    PropTypes.shape(MVCArrayInterface),
+    PropTypes.shape(
+      MVCArrayInterface
+    ),
     PropTypes.arrayOf(
       PropTypes.arrayOf(
         PropTypes.oneOfType([
-          PropTypes.shape(LatLngInterface),
-          PropTypes.shape(LatLngLiteralInterface)
+          PropTypes.shape(
+            LatLngInterface
+          ),
+          PropTypes.shape(
+            LatLngLiteralInterface
+          )
         ])
       )
     ),
     PropTypes.arrayOf(
       PropTypes.oneOfType([
-        PropTypes.shape(LatLngInterface),
-        PropTypes.shape(LatLngLiteralInterface)
+        PropTypes.shape(
+          LatLngInterface
+        ),
+        PropTypes.shape(
+          LatLngLiteralInterface
+        )
       ])
     )
   ]),
   strokeColor: PropTypes.string,
   strokeOpacity: PropTypes.number,
-  strokePosition: PropTypes.oneOf(['CENTER', 'INSIDE', 'OUTSIDE']),
+  strokePosition: PropTypes.oneOf([
+    'CENTER',
+    'INSIDE',
+    'OUTSIDE'
+  ]),
   strokeWeight: PropTypes.number,
   visible: PropTypes.bool,
   zIndex: PropTypes.number
@@ -534,19 +655,29 @@ const PolygonOptionsInterface = {
 
 const CircleOptionsInterface = {
   center: PropTypes.oneOfType([
-    PropTypes.shape(LatLngInterface),
-    PropTypes.shape(LatLngLiteralInterface)
+    PropTypes.shape(
+      LatLngInterface
+    ),
+    PropTypes.shape(
+      LatLngLiteralInterface
+    )
   ]),
   clickable: PropTypes.bool,
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   fillColor: PropTypes.string,
   fillOpacity: PropTypes.number,
-  map: PropTypes.shape(GoogleMapInterface),
+  map: PropTypes.shape(
+    GoogleMapInterface
+  ),
   radius: PropTypes.number,
   strokeColor: PropTypes.string,
   strokeOpacity: PropTypes.number,
-  strokePosition: PropTypes.oneOf(['CENTER', 'INSIDE', 'OUTSIDE']),
+  strokePosition: PropTypes.oneOf([
+    'CENTER',
+    'INSIDE',
+    'OUTSIDE'
+  ]),
   strokeWeight: PropTypes.number,
   visible: PropTypes.bool,
   zIndex: PropTypes.number
@@ -554,7 +685,9 @@ const CircleOptionsInterface = {
 
 const KmlLayerOptionsInterface = {
   clickable: PropTypes.bool,
-  map: PropTypes.shape(GoogleMapInterface),
+  map: PropTypes.shape(
+    GoogleMapInterface
+  ),
   preserveViewport: PropTypes.bool,
   screenOverlays: PropTypes.bool,
   suppressInfoWindows: PropTypes.bool,
@@ -563,7 +696,9 @@ const KmlLayerOptionsInterface = {
 }
 
 const MarkerShapeInterface = {
-  coords: PropTypes.arrayOf(PropTypes.number),
+  coords: PropTypes.arrayOf(
+    PropTypes.number
+  ),
   type: PropTypes.string
 }
 
@@ -576,10 +711,16 @@ const DataStyleOptionsInterface = {
   fillOpacity: PropTypes.number,
   icon: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.shape(IconInterface),
-    PropTypes.shape(SymbolInterface)
+    PropTypes.shape(
+      IconInterface
+    ),
+    PropTypes.shape(
+      SymbolInterface
+    )
   ]),
-  shape: PropTypes.shape(MarkerShapeInterface),
+  shape: PropTypes.shape(
+    MarkerShapeInterface
+  ),
   strokeColor: PropTypes.string,
   strokeOpacity: PropTypes.number,
   strokeWeight: PropTypes.number,
@@ -590,11 +731,18 @@ const DataStyleOptionsInterface = {
 
 const DataOptionsInterface = {
   controlPosition: PropTypes.object, // ControlPosition constants
-  controls: PropTypes.arrayOf(PropTypes.string),
+  controls: PropTypes.arrayOf(
+    PropTypes.string
+  ),
   drawingMode: PropTypes.string,
   featureFactory: PropTypes.func,
-  map: PropTypes.shape(GoogleMapInterface),
-  style: PropTypes.oneOfType([PropTypes.func, PropTypes.shape(DataStyleOptionsInterface)])
+  map: PropTypes.shape(
+    GoogleMapInterface
+  ),
+  style: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape(DataStyleOptionsInterface)
+  ])
 }
 
 const FusionTablesHeatmapInterface = {
@@ -629,18 +777,32 @@ const FusionTablesPolylineOptionsInterface = {
 }
 
 const FusionTablesStyleInterface = {
-  markerOptions: PropTypes.shape(FusionTablesMarkerOptionsInterface),
-  polygonOptions: PropTypes.shape(FusionTablesPolygonOptionsInterface),
-  polylineOptions: PropTypes.shape(FusionTablesPolylineOptionsInterface),
+  markerOptions: PropTypes.shape(
+    FusionTablesMarkerOptionsInterface
+  ),
+  polygonOptions: PropTypes.shape(
+    FusionTablesPolygonOptionsInterface
+  ),
+  polylineOptions: PropTypes.shape(
+    FusionTablesPolylineOptionsInterface
+  ),
   where: PropTypes.string
 }
 
 const FusionTablesLayerOptionsInterface = {
   clickable: PropTypes.bool,
-  heatmap: PropTypes.shape(FusionTablesHeatmapInterface),
-  map: PropTypes.shape(GoogleMapInterface),
-  query: PropTypes.shape(FusionTablesQueryInterface),
-  styles: PropTypes.arrayOf(FusionTablesStyleInterface),
+  heatmap: PropTypes.shape(
+    FusionTablesHeatmapInterface
+  ),
+  map: PropTypes.shape(
+    GoogleMapInterface
+  ),
+  query: PropTypes.shape(
+    FusionTablesQueryInterface
+  ),
+  styles: PropTypes.arrayOf(
+    FusionTablesStyleInterface
+  ),
   suppressInfoWindows: PropTypes.bool
 }
 
@@ -651,7 +813,9 @@ const ImageMapTypeOptionsInterface = {
   minZoom: PropTypes.number,
   name: PropTypes.string,
   opacity: PropTypes.number,
-  tileSize: PropTypes.shape(SizeInterface)
+  tileSize: PropTypes.shape(
+    SizeInterface
+  )
 }
 
 const GroundOverlayOptionsInterface = {
@@ -664,35 +828,60 @@ const GroundOverlayOptionsInterface = {
 }
 
 const HeatmapLayerOptionsInterface = {
-  data: PropTypes.shape(MVCArrayInterface),
+  data: PropTypes.shape(
+    MVCArrayInterface
+  ),
   dissipating: PropTypes.bool,
-  gradient: PropTypes.arrayOf(PropTypes.string),
-  map: PropTypes.shape(GoogleMapInterface),
+  gradient: PropTypes.arrayOf(
+    PropTypes.string
+  ),
+  map: PropTypes.shape(
+    GoogleMapInterface
+  ),
   maxIntensity: PropTypes.number,
   opacity: PropTypes.number,
   radius: PropTypes.number
 }
 
 const ComponentRestrictionsInterface = {
-  country: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)])
+  country: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(
+      PropTypes.string
+    )
+  ])
 }
 
 const AutocompleteOptionsInterface = {
   bounds: PropTypes.oneOfType([
-    PropTypes.shape(LatLngBoundsInterface),
-    PropTypes.shape(LatLngBoundsLiteralInterface)
+    PropTypes.shape(
+      LatLngBoundsInterface
+    ),
+    PropTypes.shape(
+      LatLngBoundsLiteralInterface
+    )
   ]),
-  componentRestrictions: PropTypes.shape(ComponentRestrictionsInterface),
-  fields: PropTypes.arrayOf(PropTypes.string),
+  componentRestrictions: PropTypes.shape(
+    ComponentRestrictionsInterface
+  ),
+  fields: PropTypes.arrayOf(
+    PropTypes.string
+  ),
   placeIdOnly: PropTypes.bool,
   strictBounds: PropTypes.bool,
-  types: PropTypes.arrayOf(PropTypes.string)
+  types: PropTypes.arrayOf(
+    PropTypes.string
+  )
 }
 
 const SearchBoxOptionsInterface = {
   bounds: PropTypes.oneOfType([
-    PropTypes.shape(LatLngBoundsInterface),
-    PropTypes.shape(LatLngBoundsLiteralInterface)
+    PropTypes.shape(
+      LatLngBoundsInterface
+    ),
+    PropTypes.shape(
+      LatLngBoundsLiteralInterface
+    )
   ])
 }
 
@@ -713,7 +902,9 @@ const DurationInterface = {
 }
 
 const TransitStopInterface = {
-  location: PropTypes.shape(LatLngInterface),
+  location: PropTypes.shape(
+    LatLngInterface
+  ),
   name: PropTypes.string
 }
 
@@ -749,56 +940,108 @@ const TransitVehicleInterface = {
 }
 
 const TransitLineInterface = {
-  agencies: PropTypes.arrayOf(PropTypes.shape(TransitAgencyInterface)),
+  agencies: PropTypes.arrayOf(
+    PropTypes.shape(
+      TransitAgencyInterface
+    )
+  ),
   color: PropTypes.string,
   icon: PropTypes.string,
   name: PropTypes.string,
   short_name: PropTypes.string,
   text_color: PropTypes.string,
   url: PropTypes.string,
-  vehicle: PropTypes.shape(TransitVehicleInterface)
+  vehicle: PropTypes.shape(
+    TransitVehicleInterface
+  )
 }
 
 const TransitDetailsInterface = {
-  arrival_stop: PropTypes.shape(TransitStopInterface),
-  arrival_time: PropTypes.shape(TimeInterface),
-  departure_stop: PropTypes.shape(TransitStopInterface),
-  departure_time: PropTypes.shape(TimeInterface),
+  arrival_stop: PropTypes.shape(
+    TransitStopInterface
+  ),
+  arrival_time: PropTypes.shape(
+    TimeInterface
+  ),
+  departure_stop: PropTypes.shape(
+    TransitStopInterface
+  ),
+  departure_time: PropTypes.shape(
+    TimeInterface
+  ),
   headsign: PropTypes.string,
   headway: PropTypes.number,
-  line: PropTypes.shape(TransitLineInterface),
+  line: PropTypes.shape(
+    TransitLineInterface
+  ),
   num_stops: PropTypes.number
 }
 
 const DirectionsStepInterface = {
-  distance: PropTypes.shape(DistanceInterface),
-  duration: PropTypes.shape(DurationInterface),
-  end_location: PropTypes.shape(LatLngInterface),
+  distance: PropTypes.shape(
+    DistanceInterface
+  ),
+  duration: PropTypes.shape(
+    DurationInterface
+  ),
+  end_location: PropTypes.shape(
+    LatLngInterface
+  ),
   instructions: PropTypes.string,
-  path: PropTypes.arrayOf(PropTypes.shape(LatLngInterface)),
-  start_location: PropTypes.shape(LatLngInterface),
+  path: PropTypes.arrayOf(
+    PropTypes.shape(
+      LatLngInterface
+    )
+  ),
+  start_location: PropTypes.shape(
+    LatLngInterface
+  ),
   steps: PropTypes.arrayOf(
     PropTypes.shape(
       // eslint-disable-next-line babel/no-invalid-this
       this
     )
   ),
-  transit: PropTypes.shape(TransitDetailsInterface),
+  transit: PropTypes.shape(
+    TransitDetailsInterface
+  ),
   travel_mode: PropTypes.string // TravelMode constants
 }
 
 const DirectionsLegInterface = {
-  arrival_time: PropTypes.shape(TimeInterface),
-  departure_time: PropTypes.shape(TimeInterface),
-  distance: PropTypes.shape(DistanceInterface),
-  duration: PropTypes.shape(DurationInterface),
-  duration_in_traffic: PropTypes.shape(DurationInterface),
+  arrival_time: PropTypes.shape(
+    TimeInterface
+  ),
+  departure_time: PropTypes.shape(
+    TimeInterface
+  ),
+  distance: PropTypes.shape(
+    DistanceInterface
+  ),
+  duration: PropTypes.shape(
+    DurationInterface
+  ),
+  duration_in_traffic: PropTypes.shape(
+    DurationInterface
+  ),
   end_address: PropTypes.string,
-  end_location: PropTypes.shape(LatLngInterface),
+  end_location: PropTypes.shape(
+    LatLngInterface
+  ),
   start_address: PropTypes.string,
-  start_location: PropTypes.shape(LatLngInterface),
-  steps: PropTypes.arrayOf(PropTypes.shape(DirectionsStepInterface)),
-  via_waypoints: PropTypes.arrayOf(PropTypes.shape(LatLngInterface))
+  start_location: PropTypes.shape(
+    LatLngInterface
+  ),
+  steps: PropTypes.arrayOf(
+    PropTypes.shape(
+      DirectionsStepInterface
+    )
+  ),
+  via_waypoints: PropTypes.arrayOf(
+    PropTypes.shape(
+      LatLngInterface
+    )
+  )
 }
 
 const TransitFareInterface = {
@@ -807,36 +1050,72 @@ const TransitFareInterface = {
 }
 
 const DirectionsRouteInterface = {
-  bounds: PropTypes.shape(LatLngBoundsInterface),
+  bounds: PropTypes.shape(
+    LatLngBoundsInterface
+  ),
   copyrights: PropTypes.string,
-  fare: PropTypes.shape(TransitFareInterface),
-  legs: PropTypes.arrayOf(PropTypes.shape(DirectionsLegInterface)),
-  overview_path: PropTypes.arrayOf(PropTypes.shape(LatLngInterface)),
+  fare: PropTypes.shape(
+    TransitFareInterface
+  ),
+  legs: PropTypes.arrayOf(
+    PropTypes.shape(
+      DirectionsLegInterface
+    )
+  ),
+  overview_path: PropTypes.arrayOf(
+    PropTypes.shape(
+      LatLngInterface
+    )
+  ),
   overview_polyline: PropTypes.string,
-  warnings: PropTypes.arrayOf(PropTypes.string),
-  waypoint_order: PropTypes.arrayOf(PropTypes.number)
+  warnings: PropTypes.arrayOf(
+    PropTypes.string
+  ),
+  waypoint_order: PropTypes.arrayOf(
+    PropTypes.number
+  )
 }
 
 const DirectionsGeocodedWaypointInterface = {
   partial_match: PropTypes.bool,
   place_id: PropTypes.string,
-  types: PropTypes.arrayOf(PropTypes.string)
+  types: PropTypes.arrayOf(
+    PropTypes.string
+  )
 }
 
 const DirectionsResultInterface = {
-  geocoded_waypoints: PropTypes.arrayOf(PropTypes.shape(DirectionsGeocodedWaypointInterface)),
-  routes: PropTypes.arrayOf(PropTypes.shape(DirectionsRouteInterface))
+  geocoded_waypoints: PropTypes.arrayOf(
+    PropTypes.shape(
+      DirectionsGeocodedWaypointInterface
+    )
+  ),
+  routes: PropTypes.arrayOf(
+    PropTypes.shape(
+      DirectionsRouteInterface
+    )
+  )
 }
 
 const DirectionsRendererOptionsInterface = {
-  directions: PropTypes.shape(DirectionsResultInterface),
+  directions: PropTypes.shape(
+    DirectionsResultInterface
+  ),
   draggable: PropTypes.bool,
   hideRouteList: PropTypes.bool,
-  infoWindow: PropTypes.shape(InfoWindowInterface),
-  map: PropTypes.shape(GoogleMapInterface),
-  markerOptions: PropTypes.shape(MarkerOptionsInterface),
+  infoWindow: PropTypes.shape(
+    InfoWindowInterface
+  ),
+  map: PropTypes.shape(
+    GoogleMapInterface
+  ),
+  markerOptions: PropTypes.shape(
+    MarkerOptionsInterface
+  ),
   panel: PropTypes.node,
-  polylineOptions: PropTypes.shape(PolylineOptionsInterface),
+  polylineOptions: PropTypes.shape(
+    PolylineOptionsInterface
+  ),
   preserveViewport: PropTypes.bool,
   routeIndex: PropTypes.number,
   suppressBicyclingLayer: PropTypes.bool,
@@ -846,7 +1125,9 @@ const DirectionsRendererOptionsInterface = {
 }
 
 const DrawingControlOptionsInterface = {
-  drawingModes: PropTypes.arrayOf(PropTypes.string),
+  drawingModes: PropTypes.arrayOf(
+    PropTypes.string
+  ),
   position: PropTypes.oneOf([
     'BOTTOM_CENTER',
     'BOTTOM_LEFT',
@@ -864,27 +1145,62 @@ const DrawingControlOptionsInterface = {
 }
 
 const DrawingManagerOptionsInterface = {
-  circleOptions: PropTypes.shape(CircleOptionsInterface),
+  circleOptions: PropTypes.shape(
+    CircleOptionsInterface
+  ),
   drawingControl: PropTypes.bool,
-  drawingControlOptions: PropTypes.shape(DrawingControlOptionsInterface),
-  drawingMode: PropTypes.oneOf(['CIRCLE', 'MARKER', 'POLYGON', 'POLYLINE', 'RECTANGLE']),
-  map: PropTypes.shape(GoogleMapInterface),
-  markerOptions: PropTypes.shape(MarkerOptionsInterface),
-  polygonOptions: PropTypes.shape(PolygonOptionsInterface),
-  polylineOptions: PropTypes.shape(PolylineOptionsInterface),
-  rectangleOptions: PropTypes.shape(RectangleOptionsInterface)
+  drawingControlOptions: PropTypes.shape(
+    DrawingControlOptionsInterface
+  ),
+  drawingMode: PropTypes.oneOf([
+    'CIRCLE',
+    'MARKER',
+    'POLYGON',
+    'POLYLINE',
+    'RECTANGLE'
+  ]),
+  map: PropTypes.shape(
+    GoogleMapInterface
+  ),
+  markerOptions: PropTypes.shape(
+    MarkerOptionsInterface
+  ),
+  polygonOptions: PropTypes.shape(
+    PolygonOptionsInterface
+  ),
+  polylineOptions: PropTypes.shape(
+    PolylineOptionsInterface
+  ),
+  rectangleOptions: PropTypes.shape(
+    RectangleOptionsInterface
+  )
 }
 
 const DrivingOptionsInterface = {
   departureTime: PropTypes.instanceOf(Date),
-  trafficModel: PropTypes.oneOf(['BEST_GUESS', 'OPTIMISTIC', 'PESSIMISTIC'])
+  trafficModel: PropTypes.oneOf([
+    'BEST_GUESS',
+    'OPTIMISTIC',
+    'PESSIMISTIC'
+  ])
 }
 
 const TransitOptionsInterface = {
   arrivalTime: PropTypes.instanceOf(Date),
   departureTime: PropTypes.instanceOf(Date),
-  modes: PropTypes.arrayOf(PropTypes.oneOf(['BUS', 'RAIL', 'SUBWAY', 'TRAIN', 'TRAM'])),
-  routingPreference: PropTypes.oneOf(['FEWER_TRANSFERS', 'LESS_WALKING'])
+  modes: PropTypes.arrayOf(
+    PropTypes.oneOf([
+      'BUS',
+      'RAIL',
+      'SUBWAY',
+      'TRAIN',
+      'TRAM'
+    ])
+  ),
+  routingPreference: PropTypes.oneOf([
+    'FEWER_TRANSFERS',
+    'LESS_WALKING'
+  ])
 }
 
 const DirectionsWaypointInterface = {
@@ -902,28 +1218,58 @@ const DirectionsRequestInterface = {
   avoidTolls: PropTypes.bool,
   destination: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.shape(LatLngInterface),
-    PropTypes.shape(PlaceInterface),
-    PropTypes.shape(LatLngLiteralInterface)
+    PropTypes.shape(
+      LatLngInterface
+    ),
+    PropTypes.shape(
+      PlaceInterface
+    ),
+    PropTypes.shape(
+      LatLngLiteralInterface
+    )
   ]).isRequired, // required
-  drivingOptions: PropTypes.shape(DrivingOptionsInterface),
+  drivingOptions: PropTypes.shape(
+    DrivingOptionsInterface
+  ),
   optimizeWaypoints: PropTypes.bool,
   origin: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.shape(LatLngInterface),
-    PropTypes.shape(PlaceInterface),
-    PropTypes.shape(LatLngLiteralInterface)
+    PropTypes.shape(
+      LatLngInterface
+    ),
+    PropTypes.shape(
+      PlaceInterface
+    ),
+    PropTypes.shape(
+      LatLngLiteralInterface
+    )
   ]).isRequired, // required
   provideRouteAlternatives: PropTypes.bool,
   region: PropTypes.string,
-  transitOptions: PropTypes.shape(TransitOptionsInterface),
-  travelMode: PropTypes.oneOf(['BICYCLING', 'DRIVING', 'TRANSIT', 'WALKING']).isRequired, // required
-  unitSystem: PropTypes.oneOf(['IMPERIAL', 'METRIC']),
-  waypoints: PropTypes.arrayOf(PropTypes.shape(DirectionsWaypointInterface))
+  transitOptions: PropTypes.shape(
+    TransitOptionsInterface
+  ),
+  travelMode: PropTypes.oneOf([
+    'BICYCLING',
+    'DRIVING',
+    'TRANSIT',
+    'WALKING'
+  ]).isRequired, // required
+  unitSystem: PropTypes.oneOf([
+    'IMPERIAL',
+    'METRIC'
+  ]),
+  waypoints: PropTypes.arrayOf(
+    PropTypes.shape(
+      DirectionsWaypointInterface
+    )
+  )
 }
 
 export const PolylinePropTypes = {
-  options: PropTypes.shape(PolylineOptionsInterface),
+  options: PropTypes.shape(
+    PolylineOptionsInterface
+  ),
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   path: PathInterface,
@@ -942,7 +1288,9 @@ export const PolylinePropTypes = {
 }
 
 export const PolygonPropTypes = {
-  options: PropTypes.shape(PolygonOptionsInterface),
+  options: PropTypes.shape(
+    PolygonOptionsInterface
+  ),
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   path: PropTypes.any, // TODO
@@ -962,7 +1310,9 @@ export const PolygonPropTypes = {
 }
 
 export const RectanglePropTypes = {
-  options: PropTypes.shape(RectangleOptionsInterface),
+  options: PropTypes.shape(
+    RectangleOptionsInterface
+  ),
   bounds: PropTypes.any, // TODO
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
@@ -982,10 +1332,16 @@ export const RectanglePropTypes = {
 }
 
 export const CirclePropTypes = {
-  options: PropTypes.shape(CircleOptionsInterface),
+  options: PropTypes.shape(
+    CircleOptionsInterface
+  ),
   center: PropTypes.oneOfType([
-    PropTypes.shape(LatLngInterface),
-    PropTypes.shape(LatLngLiteralInterface)
+    PropTypes.shape(
+      LatLngInterface
+    ),
+    PropTypes.shape(
+      LatLngLiteralInterface
+    )
   ]),
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
@@ -1007,7 +1363,9 @@ export const CirclePropTypes = {
 }
 
 export const DataPropTypes = {
-  options: PropTypes.shape(DataOptionsInterface),
+  options: PropTypes.shape(
+    DataOptionsInterface
+  ),
   onAddFeature: PropTypes.func,
   onClick: PropTypes.func,
   onDblClick: PropTypes.func,
@@ -1031,7 +1389,9 @@ export const OverlayViewPropTypes = {
 }
 
 export const KmlLayerPropTypes = {
-  options: PropTypes.shape(KmlLayerOptionsInterface),
+  options: PropTypes.shape(
+    KmlLayerOptionsInterface
+  ),
   url: PropTypes.string,
   zIndex: PropTypes.number,
   onDefaultViewportChanged: PropTypes.func,
@@ -1040,23 +1400,31 @@ export const KmlLayerPropTypes = {
 }
 
 export const FusionTablesLayerPropTypes = {
-  options: PropTypes.shape(FusionTablesLayerOptionsInterface),
+  options: PropTypes.shape(
+    FusionTablesLayerOptionsInterface
+  ),
   onClick: PropTypes.func
 }
 
 export const ImageMapTypePropTypes = {
-  options: PropTypes.shape(ImageMapTypeOptionsInterface),
+  options: PropTypes.shape(
+    ImageMapTypeOptionsInterface
+  ),
   onTilesLoaded: PropTypes.func
 }
 
 export const AutocompletePropTypes = {
   inputField: PropTypes.node.isRequired,
-  options: PropTypes.shape(AutocompleteOptionsInterface),
+  options: PropTypes.shape(
+    AutocompleteOptionsInterface
+  ),
   onPlaceChanged: PropTypes.func
 }
 
 export const SearchBoxPropTypes = {
-  options: PropTypes.shape(SearchBoxOptionsInterface),
+  options: PropTypes.shape(
+    SearchBoxOptionsInterface
+  ),
   children: PropTypes.node,
   controlPosition: PropTypes.number,
   bounds: PropTypes.any, // TODO
@@ -1064,7 +1432,9 @@ export const SearchBoxPropTypes = {
 }
 
 export const DrawingManagerPropTypes = {
-  options: PropTypes.shape(DrawingManagerOptionsInterface),
+  options: PropTypes.shape(
+    DrawingManagerOptionsInterface
+  ),
   drawingMode: PropTypes.any, // TODO
   onCircleComplete: PropTypes.func,
   onMarkerComplete: PropTypes.func,
@@ -1076,10 +1446,16 @@ export const DrawingManagerPropTypes = {
 
 export const InfoWindowPropTypes = {
   children: PropTypes.node,
-  options: PropTypes.shape(InfoWindowOptionsInterface),
+  options: PropTypes.shape(
+    InfoWindowOptionsInterface
+  ),
   position: PropTypes.oneOfType([
-    PropTypes.shape(LatLngInterface),
-    PropTypes.shape(LatLngLiteralInterface)
+    PropTypes.shape(
+      LatLngInterface
+    ),
+    PropTypes.shape(
+      LatLngLiteralInterface
+    )
   ]).isRequired,
   zIndex: PropTypes.number,
   onCloseClick: PropTypes.func,
@@ -1103,12 +1479,16 @@ export const InfoBoxPropTypes = {
 }
 
 export const HeatmapLayerPropTypes = {
-  options: PropTypes.shape(HeatmapLayerOptionsInterface),
+  options: PropTypes.shape(
+    HeatmapLayerOptionsInterface
+  ),
   data: PropTypes.any // TODO
 }
 
 export const StreetViewPanoramaPropTypes = {
-  options: PropTypes.shape(StreetViewPanoramaOptionsInterface),
+  options: PropTypes.shape(
+    StreetViewPanoramaOptionsInterface
+  ),
   children: PropTypes.node,
   links: PropTypes.any, // TODO
   motionTracking: PropTypes.bool,
@@ -1130,7 +1510,9 @@ export const StreetViewPanoramaPropTypes = {
 
 export const MarkerPropTypes = {
   children: PropTypes.node,
-  options: PropTypes.shape(MarkerOptionsInterface),
+  options: PropTypes.shape(
+    MarkerOptionsInterface
+  ),
   noRedraw: PropTypes.func,
   animation: PropTypes.any, // TODO
   clickable: PropTypes.bool,
@@ -1140,8 +1522,12 @@ export const MarkerPropTypes = {
   label: PropTypes.any, // TODO
   opacity: PropTypes.number,
   position: PropTypes.oneOfType([
-    PropTypes.shape(LatLngInterface),
-    PropTypes.shape(LatLngLiteralInterface)
+    PropTypes.shape(
+      LatLngInterface
+    ),
+    PropTypes.shape(
+      LatLngLiteralInterface
+    )
   ]),
   shape: PropTypes.any, // TODO
   title: PropTypes.string,
@@ -1244,13 +1630,17 @@ export const BicyclingLayerPropTypes = {
 }
 
 export const TrafficLayerPropTypes = {
-  options: PropTypes.shape(TrafficLayerOptionsInterface),
+  options: PropTypes.shape(
+    TrafficLayerOptionsInterface
+  ),
   map: PropTypes.object // it is null at initialization, so can't be required
 }
 
 export const GroundOverlayPropTypes = {
   map: PropTypes.object, // it is null at initialization, so can't be required
-  options: PropTypes.shape(GroundOverlayOptionsInterface),
+  options: PropTypes.shape(
+    GroundOverlayOptionsInterface
+  ),
   url: PropTypes.string,
   bounds: PropTypes.arrayOf(
     PropTypes.shape({
@@ -1265,12 +1655,14 @@ export const GroundOverlayPropTypes = {
 }
 
 export const GoogleMapPropTypes = {
-  id: PropTypes.string, // TODO: do we need this?
+  id: PropTypes.string.isRequired,
   mapContainerStyle: PropTypes.object,
   mapContainerClassName: PropTypes.string,
 
   children: PropTypes.node,
-  options: PropTypes.shape(GoogleMapOptionsInterface),
+  options: PropTypes.shape(
+    GoogleMapOptionsInterface
+  ),
   extraMapTypes: PropTypes.arrayOf(
     PropTypes.arrayOf(
       PropTypes.any // TODO
@@ -1314,11 +1706,15 @@ export const LoadScriptPropTypes = {
   version: PropTypes.string.isRequired,
   loadingElement: PropTypes.element.isRequired,
   onLoad: PropTypes.func,
-  libraries: PropTypes.arrayOf(PropTypes.string).isRequired
+  libraries: PropTypes.arrayOf(
+    PropTypes.string
+  ).isRequired
 }
 
 export const DirectionsRendererPropTypes = {
-  options: PropTypes.shape(DirectionsRendererOptionsInterface),
+  options: PropTypes.shape(
+    DirectionsRendererOptionsInterface
+  ),
   directions: PropTypes.any, // TODO
   panel: PropTypes.any, // TODO
   routeIndex: PropTypes.number,
@@ -1326,6 +1722,8 @@ export const DirectionsRendererPropTypes = {
 }
 
 export const DirectionsServicePropTypes = {
-  options: PropTypes.shape(DirectionsRequestInterface).isRequired,
+  options: PropTypes.shape(
+    DirectionsRequestInterface
+  ).isRequired,
   callback: PropTypes.func.isRequired
 }
