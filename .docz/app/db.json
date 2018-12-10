@@ -44,6 +44,23 @@
           "value": "GroundOverlay"
         }
       ]
+    },
+    "src/docs/Shapes.mdx": {
+      "name": "Shapes",
+      "id": "e82b1f8dfd591b903667963658029352",
+      "filepath": "src/docs/Shapes.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Shapes.mdx",
+      "slug": "src-docs-shapes",
+      "route": "/src-docs-shapes",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "shapes",
+          "value": "Shapes"
+        }
+      ]
     }
   }
 }
