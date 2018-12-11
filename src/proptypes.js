@@ -1704,6 +1704,7 @@ export const LoadScriptPropTypes = {
   version: PropTypes.string.isRequired,
   loadingElement: PropTypes.element.isRequired,
   onLoad: PropTypes.func,
+  onError: PropTypes.func,
   libraries: PropTypes.arrayOf(
     PropTypes.string
   ).isRequired

@@ -18,18 +18,20 @@ class LoadScript extends Component {
       region,
       version,
       libraries,
-      preventGoogleFontsLoading
+      preventGoogleFontsLoading,
+      onLoad,
+      onError
     } = this.props
 
-    if (preventGoogleFontsLoading) {
-      preventGoogleFonts()
-    }
+    preventGoogleFontsLoading &&
+    preventGoogleFonts()
 
     injectScript({
       id,
       url: `https://maps.googleapis.com/maps/api/js?v=${version}&key=${googleMapsApiKey}&language=${language}&region=${region}${libraries ? `&libraries=${libraries.join(',')}` : ''}`,
       onSuccess: () => {
-        this.props.onLoad()
+        typeof onLoad === 'function' &&
+        onLoad()
 
         this.setState(
           () => ({
@@ -38,6 +40,9 @@ class LoadScript extends Component {
         )
       },
       onError: () => {
+        typeof onError === 'function' &&
+        onError()
+
         throw new Error(`
 There has been an Error with loading Google Maps API script, please check that you provided all required props to <LoadScript />
 Props you have provided:
