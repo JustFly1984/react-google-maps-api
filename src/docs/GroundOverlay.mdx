@@ -2,23 +2,66 @@
 name: GroundOverlay
 ---
 
-import { GoogleMap, LoadScript, GroundOverlay } from "../";
-import WithApiKey from "./WithApiKey";
+import {
+  GoogleMap,
+  LoadScript,
+  GroundOverlay
+} from "../"
+import WithApiKey from "./WithApiKey"
 
 # GroundOverlay
 
 ```jsx
 <LoadScript
+  id="script-loader"
+  googleMapsApiKey={API_KEY}
+  language={"en"}
+  region={"EN"}
+  version={"weekly"}
+  libraries={[]}
+  onLoad={() => console.log("script loaded")}
+  loadingElement={<div>Loading...</div>}>
+
+  <GoogleMap
+    id="ground-overlay-example"
+    mapContainerStyle={{
+      height: "400px",
+      width: "800px"
+    }}
+    zoom={13}
+    center={{
+      lat: 40.740,
+      lng: -74.18
+    }}
+  >
+    <GroundOverlay
+      url="https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg"
+      bounds={{
+        north: 40.773941,
+        south: 40.712216,
+        east: -74.12544,
+        west: -74.22655
+      }}
+    />
+  </GoogleMap>
+</LoadScript>
+```
+
+<WithApiKey>
+  {
+    apiKey => (
+      <LoadScript
         id="script-loader"
-        googleMapsApiKey={API_KEY}
+        googleMapsApiKey={apiKey}
         language={"en"}
         region={"EN"}
         version={"weekly"}
+        libraries={[]}
         onLoad={() => console.log("script loaded")}
         loadingElement={<div>Loading...</div>}>
 
         <GoogleMap
-          id="basic-map-example"
+          id="ground-overlay-example"
           mapContainerStyle={{
             height: "400px",
             width: "800px"
@@ -29,7 +72,7 @@ import WithApiKey from "./WithApiKey";
             lng: -74.18
           }}
         >
-          <GroundOverlay 
+          <GroundOverlay
             url="https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg"
             bounds={{
               north: 40.773941,
@@ -40,43 +83,6 @@ import WithApiKey from "./WithApiKey";
           />
         </GoogleMap>
       </LoadScript>
-```
-
-<WithApiKey>
-  {
-    (apiKey) => (
-      <LoadScript
-        id="script-loader"
-        googleMapsApiKey={apiKey}
-        language={"en"}
-        region={"EN"}
-        version={"weekly"}
-        onLoad={() => console.log("script loaded")}
-        loadingElement={<div>Loading...</div>}>
-
-        <GoogleMap
-          id="basic-map-example"
-          mapContainerStyle={{
-            height: "400px",
-            width: "800px"
-          }}
-          zoom={13}
-          center={{
-            lat: 40.740,
-            lng: -74.18
-          }}
-        >
-          <GroundOverlay 
-            url="https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg"
-            bounds={{
-              north: 40.773941,
-              south: 40.712216,
-              east: -74.12544,
-              west: -74.22655
-            }}
-          />
-        </GoogleMap>
-      </LoadScript> 
     )
   }
 </WithApiKey>
