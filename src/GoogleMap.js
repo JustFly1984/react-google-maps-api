@@ -64,6 +64,9 @@ const updaterMap = {
 
 export class GoogleMap extends PureComponent {
   static propTypes = GoogleMapPropTypes
+  static defaultProps = {
+    onLoad: () => {}
+  }
 
   state = {
     map: null
@@ -84,6 +87,7 @@ export class GoogleMap extends PureComponent {
           nextProps: this.props,
           instance: this.state.map
         })
+        this.props.onLoad(this.state.map)
       }
     )
   }
