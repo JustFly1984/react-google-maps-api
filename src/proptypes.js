@@ -1692,7 +1692,8 @@ export const GoogleMapPropTypes = {
   onProjectionChanged: PropTypes.func,
   onResize: PropTypes.func,
   onTiltChanged: PropTypes.func,
-  onZoomChanged: PropTypes.func
+  onZoomChanged: PropTypes.func,
+  onLoad: PropTypes.func
 }
 
 export const LoadScriptPropTypes = {
