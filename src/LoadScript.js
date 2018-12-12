@@ -5,6 +5,10 @@ import { preventGoogleFonts } from './utils/prevent-google-fonts'
 
 class LoadScript extends Component {
   static propTypes = LoadScriptPropTypes
+  static defaultProps = {
+    onLoad: () => {},
+    onError: () => {}
+  }
 
   state = {
     loaded: false
@@ -18,31 +22,26 @@ class LoadScript extends Component {
       region,
       version,
       libraries,
-      preventGoogleFontsLoading,
-      onLoad,
-      onError
+      preventGoogleFontsLoading
     } = this.props
 
-    preventGoogleFontsLoading &&
-    preventGoogleFonts()
+    if (preventGoogleFontsLoading) {
+      preventGoogleFonts()
+    }
 
     injectScript({
       id,
-      url: `https://maps.googleapis.com/maps/api/js?v=${version}&key=${googleMapsApiKey}&language=${language}&region=${region}${libraries ? `&libraries=${libraries.join(',')}` : ''}`,
+      url: `https://maps.googleapis.com/maps/api/js?v=${version}&key=${googleMapsApiKey}&language=${language}&region=${region}${
+        libraries ? `&libraries=${libraries.join(',')}` : ''
+      }`,
       onSuccess: () => {
-        typeof onLoad === 'function' &&
-        onLoad()
+        this.props.onLoad()
 
-        this.setState(
-          () => ({
-            loaded: true
-          })
-        )
+        this.setState(() => ({
+          loaded: true
+        }))
       },
       onError: () => {
-        typeof onError === 'function' &&
-        onError()
-
         throw new Error(`
 There has been an Error with loading Google Maps API script, please check that you provided all required props to <LoadScript />
 Props you have provided:
@@ -64,38 +63,34 @@ Otherwise it is a Network issues.
 
     script.parentNode.removeChild(script)
 
-    Array.prototype
-      .slice
+    Array.prototype.slice
       .call(document.getElementsByTagName('script'))
       .filter(script => script.src.includes('maps.googleapis'))
       .forEach(script => {
         script.parentNode.removeChild(script)
       })
 
-    Array.prototype
-      .slice
+    Array.prototype.slice
       .call(document.getElementsByTagName('link'))
-      .filter(link =>
-        link.href === 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans'
+      .filter(
+        link =>
+          link.href === 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans'
       )
       .forEach(link => {
         link.parentNode.removeChild(link)
       })
 
-    Array.prototype
-      .slice
+    Array.prototype.slice
       .call(document.getElementsByTagName('style'))
       .filter(style => style.innerText.includes('.gm-'))
-      .forEach(style => { style.parentNode.removeChild(style) })
+      .forEach(style => {
+        style.parentNode.removeChild(style)
+      })
 
     delete window.google.maps.version
   }
 
-  render = () => (
-    this.state.loaded
-      ? this.props.children
-      : this.props.loadingElement
-  )
+  render = () => (this.state.loaded ? this.props.children : this.props.loadingElement)
 }
 
 export default LoadScript
