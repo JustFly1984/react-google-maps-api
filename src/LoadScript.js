@@ -37,9 +37,11 @@ class LoadScript extends Component {
       onSuccess: () => {
         this.props.onLoad()
 
-        this.setState(() => ({
-          loaded: true
-        }))
+        this.setState(
+          () => ({
+            loaded: true
+          })
+        )
       },
       onError: () => {
         throw new Error(`
