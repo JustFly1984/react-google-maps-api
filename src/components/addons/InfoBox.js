@@ -59,7 +59,9 @@ export class InfoBox extends PureComponent {
   }
 
   componentDidMount = () => {
-    const { InfoBox: GoogleMapsInfobox } = require('google-maps-infobox')
+    const {
+      InfoBox: GoogleMapsInfobox
+    } = require('google-maps-infobox')
 
     const infoBox = new GoogleMapsInfobox()
 
