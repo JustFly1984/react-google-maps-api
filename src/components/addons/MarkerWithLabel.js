@@ -98,6 +98,12 @@ export class MarkerWithLabel extends PureComponent {
 
   static contextType = MarkerClusterContext
 
+  registeredEvents = []
+
+  state = {
+    markerWithLabel: null
+  }
+
   componentDidMount = () => {
     const NativeMarkerWithLabel = makeMarkerWithLabel(google.maps)
 
@@ -108,12 +114,14 @@ export class MarkerWithLabel extends PureComponent {
         markerWithLabel
       }),
       () => {
-        this.state.markerWithLabel.setMap(this.context.map)
+        this.state.markerWithLabel
+          .setMap(this.context.map)
 
-        this.context.markerClusterer.addMarker(
-          this.state.markerWithLabel,
-          this.props.noRedraw
-        )
+        this.context.cluster
+          .addMarker(
+            this.state.markerWithLabel,
+            this.props.noRedraw
+          )
 
         this.containerElement = document.createElement('div')
 
@@ -130,10 +138,10 @@ export class MarkerWithLabel extends PureComponent {
       eventMap,
       prevProps,
       nextProps: this.props,
-      instance: this.state.markerClusterer
+      instance: this.state.markerWithLabel
     })
 
-    this.state.markerClusterer.repaint()
+    this.state.markerWithLabel.repaint()
   }
 
   componentWillUnmount = () => {

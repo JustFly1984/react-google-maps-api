@@ -114,7 +114,8 @@ export class MarkerCluster extends PureComponent {
       instance: this.state.markerClusterer
     })
 
-    this.state.markerClusterer.repaint()
+    this.state.markerClusterer
+      .repaint()
   }
 
   componentWillUnmount = () => {
