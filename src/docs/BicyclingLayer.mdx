@@ -1,13 +1,17 @@
 ---
-name: GoogleMap
+name: Bicycling Layer
 ---
 
-import { GoogleMap, LoadScript } from "../";
+import {
+  GoogleMap,
+  LoadScript,
+  BicyclingLayer
+} from "../";
 import WithApiKey from "./WithApiKey";
 
 const center = {
-  lat: -34.397,
-  lng: 150.644
+  lat: 0,
+  lng: -180
 }
 
 const mapContainerStyle = {
@@ -15,7 +19,7 @@ const mapContainerStyle = {
   width: "800px"
 }
 
-# GoogleMap
+# Bicycling Layer
 
 ```jsx
 <LoadScript
@@ -31,11 +35,16 @@ const mapContainerStyle = {
   }
 >
   <GoogleMap
-    id="basic-map-example"
+    id='bicycling-example'
     mapContainerStyle={mapContainerStyle}
-    zoom={8}
+    zoom={2}
     center={center}
-  />
+    onClick={(...args) => {
+      console.log('onClick args: ', args)
+    }}
+  >
+    <BicyclingLayer />
+  </GoogleMap>
 </LoadScript>
 ```
 
@@ -55,12 +64,21 @@ const mapContainerStyle = {
         }
       >
         <GoogleMap
-          id="basic-map-example"
-          mapContainerStyle={mapContainerStyle}
-          zoom={8}
+          id='bicycling-example'
+          mapContainerStyle={styles.container}
+          mapContainerClassName={styles.mapContainer}
+
+          zoom={2}
           center={center}
-        />
+          onClick={(...args) => {
+            console.log('onClick args: ', args)
+          }}
+        >
+          <BicyclingLayer />
+        </GoogleMap>
       </LoadScript>
     )
-  }
+
+}
+
 </WithApiKey>
