@@ -11,6 +11,40 @@
     "themeConfig": {}
   },
   "entries": {
+    "src/docs/BicyclingLayer.mdx": {
+      "name": "Bicycling Layer",
+      "id": "05287bcfadda3c3296ef90e173a6a3eb",
+      "filepath": "src/docs/BicyclingLayer.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/BicyclingLayer.mdx",
+      "slug": "src-docs-bicycling-layer",
+      "route": "/src-docs-bicycling-layer",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "bicycling-layer",
+          "value": "Bicycling Layer"
+        }
+      ]
+    },
+    "src/docs/DirectionsRenderer.mdx": {
+      "name": "Directions Renderer",
+      "id": "5f244a7672c780bf76af0ef1e4d550ff",
+      "filepath": "src/docs/DirectionsRenderer.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/DirectionsRenderer.mdx",
+      "slug": "src-docs-directions-renderer",
+      "route": "/src-docs-directions-renderer",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "directions-renderer",
+          "value": "Directions Renderer"
+        }
+      ]
+    },
     "src/docs/GoogleMap.mdx": {
       "name": "GoogleMap",
       "id": "99da35cb3e754c8805ffb2f567c98710",

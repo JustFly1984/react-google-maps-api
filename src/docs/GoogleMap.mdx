@@ -5,16 +5,6 @@ name: GoogleMap
 import { GoogleMap, LoadScript } from "../";
 import WithApiKey from "./WithApiKey";
 
-const center = {
-  lat: -34.397,
-  lng: 150.644
-}
-
-const mapContainerStyle = {
-  height: "400px",
-  width: "800px"
-}
-
 # GoogleMap
 
 ```jsx
@@ -32,9 +22,15 @@ const mapContainerStyle = {
 >
   <GoogleMap
     id="basic-map-example"
-    mapContainerStyle={mapContainerStyle}
+    mapContainerStyle={{
+      height: "400px",
+      width: "800px"
+    }}
     zoom={8}
-    center={center}
+    center={{
+      lat: -34.397,
+      lng: 150.644
+    }}
   />
 </LoadScript>
 ```
@@ -56,9 +52,15 @@ const mapContainerStyle = {
       >
         <GoogleMap
           id="basic-map-example"
-          mapContainerStyle={mapContainerStyle}
+          mapContainerStyle={{
+            height: "400px",
+            width: "800px"
+          }}
           zoom={8}
-          center={center}
+          center={{
+            lat: -34.397,
+            lng: 150.644
+          }}
         />
       </LoadScript>
     )
