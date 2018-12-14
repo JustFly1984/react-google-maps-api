@@ -1,17 +1,32 @@
+> This library requires React v16.6 or later. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)
+
 # react-google-maps-api
+
 React Google Maps API
 
-This is complete rewrite based on new Google Maps API version. Sadly previos library served our needs currently unmaintained about a year, and has a lot of unmerged PR's and unsolved issues.
-I've encountered whole wopping lodash as dependency while debugging my webpack build, and while trying to fork it, found out, that build had a step which involved parsing google's map api reference url, which in turn had a redesign and broke a build.
+This is complete re-write of the (sadly unmaintained) ```react-google-maps``` library. We thank [tomchentw](https://github.com/tomchentw/) for his great work that made possible.
+
+react-google-maps-api provides very simple bindings to the google maps api and lets you use it in your app as React components.
+
+Here are the main additions to react-google-maps that were the motivation behind this re-write
 
 ## Main features:
 
 - Simplified API
-- Based on new React.createContext API
-- Supports async React
-- Does not requires extra dependencies (no lodash), smalles bundle size
-- Cleanup on unMount
+- Uses the new Context API
+- Supports async React (StrictMode complient)
+- Removes lodash dependency => smaller bundle size
 
-We have examples in gatsby and docz.
 
-Maintainers and contributors are welcome!
+## Examples:
+
+Examples can be found in two places:
+1. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/examples/react-google-maps-api-gatsby/src/examples) folder
+2. Official docs (powered by [docz](https://github.com/pedronauck/docz)). See the [docs](https://github.com/JustFly1984/react-google-maps-api/tree/master/src/docs) folder
+
+> Using the examples requires you to generate a google maps api key. For instructions on how to do that please see the following [guide](https://developers.google.com/maps/documentation/embed/get-api-key)
+
+
+## Contribute:
+
+Maintainers and contributors are very welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.
