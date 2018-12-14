@@ -14,4 +14,4 @@ I've encountered whole wopping lodash as dependency while debugging my webpack b
 
 We have examples in gatsby and docz.
 
-Maintainers are welcome!
+Maintainers and contributors are welcome!
