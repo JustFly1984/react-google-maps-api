@@ -1,5 +1,6 @@
 ---
 name: GoogleMap
+route: "/"
 ---
 
 import { GoogleMap, LoadScript } from "../";
@@ -16,9 +17,7 @@ import WithApiKey from "./WithApiKey";
   version={"weekly"}
   libraries={[]}
   onLoad={() => console.log("script loaded")}
-  loadingElement={
-    <div>Loading...</div>
-  }
+  loadingElement={<div>Loading...</div>}
 >
   <GoogleMap
     id="basic-map-example"
@@ -36,33 +35,29 @@ import WithApiKey from "./WithApiKey";
 ```
 
 <WithApiKey>
-  {
-    apiKey => (
-      <LoadScript
-        id="script-loader"
-        googleMapsApiKey={apiKey}
-        language={"en"}
-        region={"EN"}
-        version={"weekly"}
-        libraries={[]}
-        onLoad={() => console.log("script loaded")}
-        loadingElement={
-          <div>Loading...</div>
-        }
-      >
-        <GoogleMap
-          id="basic-map-example"
-          mapContainerStyle={{
-            height: "400px",
-            width: "800px"
-          }}
-          zoom={8}
-          center={{
-            lat: -34.397,
-            lng: 150.644
-          }}
-        />
-      </LoadScript>
-    )
-  }
+  {apiKey => (
+    <LoadScript
+      id="script-loader"
+      googleMapsApiKey={apiKey}
+      language={"en"}
+      region={"EN"}
+      version={"weekly"}
+      libraries={[]}
+      onLoad={() => console.log("script loaded")}
+      loadingElement={<div>Loading...</div>}
+    >
+      <GoogleMap
+        id="basic-map-example"
+        mapContainerStyle={{
+          height: "400px",
+          width: "800px"
+        }}
+        zoom={8}
+        center={{
+          lat: -34.397,
+          lng: 150.644
+        }}
+      />
+    </LoadScript>
+  )}
 </WithApiKey>
