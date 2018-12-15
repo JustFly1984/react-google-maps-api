@@ -8,3 +8,4 @@ src/
 .vscode/
 webpack.config.js
 yarn.lock
+docs/
