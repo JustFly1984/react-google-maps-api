@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/JustFly1984/react-google-maps-api/issues"
   },
-  "homepage": "https://JustFly1984.github.io/react-google-maps-api/",
+  "homepage": "https://react-google-maps-api-docs.netlify.com",
   "main": "lib/index.js",
   "module": "dist/index.js",
   "files": [
@@ -73,7 +73,8 @@
     "clean": "rm -rf ./package-lock.json ./node_modules/ && npm i",
     "lint": "npx eslint ./src --fix",
     "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "docz:build": "docz build",
+    "publish": "npm publish ."
   },
   "lint-staged": {
     "linters": {
