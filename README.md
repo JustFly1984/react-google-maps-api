@@ -16,6 +16,7 @@ Here are the main additions to react-google-maps that were the motivation behind
 - Uses the new Context API
 - Supports async React (StrictMode complient)
 - Removes lodash dependency => smaller bundle size
+- forbids loading of Roboto fonts, if you set property preventGoogleFonts on `<LoadScript preventGoogleFonts />` component
 
 
 ## Examples:
@@ -26,6 +27,9 @@ Examples can be found in two places:
 
 > Using the examples requires you to generate a google maps api key. For instructions on how to do that please see the following [guide](https://developers.google.com/maps/documentation/embed/get-api-key)
 
+## Advise:
+
+You can save on bundle size if you import only components, which you use from `react-google-maps-api/lib/...`
 
 ## Contribute:
 
