@@ -1,8 +1,8 @@
-> This library requires React v16.6 or later. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)
-
 # react-google-maps-api
 
 React Google Maps API
+
+> This library requires React v16.6 or later. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)
 
 This is complete re-write of the (sadly unmaintained) ```react-google-maps``` library. We thank [tomchentw](https://github.com/tomchentw/) for his great work that made possible.
 
@@ -10,7 +10,7 @@ react-google-maps-api provides very simple bindings to the google maps api and l
 
 Here are the main additions to react-google-maps that were the motivation behind this re-write
 
-## Main features:
+## Main features
 
 - Simplified API
 - Uses the new Context API
@@ -18,19 +18,19 @@ Here are the main additions to react-google-maps that were the motivation behind
 - Removes lodash dependency => smaller bundle size
 - forbids loading of Roboto fonts, if you set property preventGoogleFonts on `<LoadScript preventGoogleFonts />` component
 
-
-## Examples:
+## Examples
 
 Examples can be found in two places:
-1. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/examples/react-google-maps-api-gatsby/src/examples) folder
-2. Official docs (powered by [docz](https://react-google-maps-api-docs.netlify.com/)). See the [docs](https://github.com/JustFly1984/react-google-maps-api/tree/master/src/docs) folder
 
-> Using the examples requires you to generate a google maps api key. For instructions on how to do that please see the following [guide](https://developers.google.com/maps/documentation/embed/get-api-key)
+1. [Official docs](https://react-google-maps-api.netlify.com) (powered by [docz](https://github.com/pedronauck/docz)). See the [docs](https://github.com/JustFly1984/react-google-maps-api/tree/master/src/docs) folder
+2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/examples/react-google-maps-api-gatsby/src/examples) folder
 
-## Advise:
+## Advise
 
 You can save on bundle size if you import only components, which you use from `react-google-maps-api/lib/...`
 
-## Contribute:
+> Using the examples requires you to generate a google maps api key. For instructions on how to do that please see the following [guide](https://developers.google.com/maps/documentation/embed/get-api-key)
+
+## Contribute
 
 Maintainers and contributors are very welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.

@@ -28,30 +28,13 @@
         }
       ]
     },
-    "src/docs/DirectionsRenderer.mdx": {
-      "name": "Directions Renderer",
-      "id": "5f244a7672c780bf76af0ef1e4d550ff",
-      "filepath": "src/docs/DirectionsRenderer.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/DirectionsRenderer.mdx",
-      "slug": "src-docs-directions-renderer",
-      "route": "/src-docs-directions-renderer",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "directions-renderer",
-          "value": "Directions Renderer"
-        }
-      ]
-    },
     "src/docs/GoogleMap.mdx": {
       "name": "GoogleMap",
+      "route": "/",
       "id": "99da35cb3e754c8805ffb2f567c98710",
       "filepath": "src/docs/GoogleMap.mdx",
       "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/GoogleMap.mdx",
       "slug": "src-docs-google-map",
-      "route": "/src-docs-google-map",
       "order": 0,
       "menu": null,
       "headings": [
