@@ -17,15 +17,14 @@ Here are the main additions to react-google-maps that were the motivation behind
 - Supports async React (StrictMode complient)
 - Removes lodash dependency => smaller bundle size
 
-
 ## Examples:
 
 Examples can be found in two places:
-1. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/examples/react-google-maps-api-gatsby/src/examples) folder
-2. Official docs (powered by [docz](https://github.com/pedronauck/docz)). See the [docs](https://github.com/JustFly1984/react-google-maps-api/tree/master/src/docs) folder
+
+1. [Official docs](https://react-google-maps-api.netlify.com) (powered by [docz](https://github.com/pedronauck/docz)). See the [docs](https://github.com/JustFly1984/react-google-maps-api/tree/master/src/docs) folder
+2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/examples/react-google-maps-api-gatsby/src/examples) folder
 
 > Using the examples requires you to generate a google maps api key. For instructions on how to do that please see the following [guide](https://developers.google.com/maps/documentation/embed/get-api-key)
-
 
 ## Contribute:
 
