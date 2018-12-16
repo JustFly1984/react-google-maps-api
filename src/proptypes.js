@@ -1654,6 +1654,7 @@ export const GroundOverlayPropTypes = {
 
 export const GoogleMapPropTypes = {
   id: PropTypes.string.isRequired,
+  reuseSameInstance:PropTypes.bool,
   mapContainerStyle: PropTypes.object,
   mapContainerClassName: PropTypes.string,
 
