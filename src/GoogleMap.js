@@ -61,23 +61,30 @@ const updaterMap = {
     map.setZoom(zoom)
   }
 }
-
+const defatulMapId = "defaultMapId";
 export class GoogleMap extends PureComponent {
   static propTypes = GoogleMapPropTypes
   static defaultProps = {
-    onLoad: () => {}
+    onLoad: () => { }
   }
-
-  state = {
-    map: null
+  get mapId() {
+    return this.props.id || defatulMapId;
   }
-
+  constructor(props) {
+    super(props);
+    this.getInstance = this.getInstance.bind(this);
+    this.state = {
+      map: null
+    };
+  }
   registeredEvents = []
-
+  getInstance () {
+    return new google.maps.Map(this.mapRef)
+  }
   componentDidMount = () => {
     this.setState(
       () => ({
-        map: new google.maps.Map(this.mapRef)
+        map: this.getInstance()
       }),
       () => {
         this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -104,7 +111,7 @@ export class GoogleMap extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
   }
 
@@ -114,6 +121,7 @@ export class GoogleMap extends PureComponent {
 
   render = () => (
     <div
+      id={this.mapId}
       ref={this.getRef}
       style={this.props.mapContainerStyle}
       className={this.props.mapContainerClassName}
