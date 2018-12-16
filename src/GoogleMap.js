@@ -9,7 +9,7 @@ import MapContext from './map-context'
 import {
   saveInstance,
   restoreInstance
-} from './utils/instance-persistance';
+} from './utils/instance-persistance'
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
@@ -72,7 +72,7 @@ const updaterMap = {
 export class GoogleMap extends PureComponent {
   static propTypes = GoogleMapPropTypes
   static defaultProps = {
-    id: "defaultMapId",
+    id: 'defaultMapId',
     reuseSameInstance: false,
     onLoad: () => { }
   }
@@ -83,8 +83,9 @@ export class GoogleMap extends PureComponent {
 
   registeredEvents = []
   getInstance = () => {
-    const { reuseSameInstance, ...rest } = this.props;
-    return reuseSameInstance && restoreInstance(rest) || new google.maps.Map(this.mapRef);
+    const { reuseSameInstance, ...rest } = this.props
+    const map = reuseSameInstance && restoreInstance(rest)
+    return map || new google.maps.Map(this.mapRef)
   }
   componentDidMount = () => {
     this.setState(
@@ -117,9 +118,9 @@ export class GoogleMap extends PureComponent {
   }
 
   componentWillUnmount = () => {
-    const { reuseSameInstance, id } = this.props;   
-    reuseSameInstance && saveInstance(id, this.state.map);  
-    unregisterEvents(this.registeredEvents); 
+    const { reuseSameInstance, id } = this.props   
+    reuseSameInstance && saveInstance(id, this.state.map)  
+    unregisterEvents(this.registeredEvents) 
   }
 
   getRef = ref => {
@@ -127,8 +128,8 @@ export class GoogleMap extends PureComponent {
   }
 
   render = () => {
-    const { id, mapContainerStyle, mapContainerClassName, children } = this.props;
-    const { map } = this.state;
+    const { id, mapContainerStyle, mapContainerClassName, children } = this.props
+    const { map } = this.state
     return (
       <div
         id={id}
@@ -139,7 +140,7 @@ export class GoogleMap extends PureComponent {
           {map !== null ? children : null}
         </MapContext.Provider>
       </div>
-    );
+    )
   }
 
   fitBounds = (...args) => this.state.map.fitBounds(...args)
