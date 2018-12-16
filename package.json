@@ -68,9 +68,9 @@
     "test": "npx jest",
     "build": "concurrently \"NODE_ENV=production npm run build:webpack\" \"NODE_ENV=production npm run build:babel\"",
     "build:dev": "concurrently \"NODE_ENV=development npm run build:webpack\" \"NODE_ENV=development npm run build:babel\"",
-    "build:webpack": "rm -rf ./dist && webpack",
-    "build:babel": "rm -rf ./lib && babel ./src -d ./lib",
-    "clean": "rm -rf ./package-lock.json ./node_modules/ && npm i",
+    "build:webpack": "rimraf ./dist && webpack",
+    "build:babel": "rimraf ./lib && babel ./src -d ./lib",
+    "clean": "rimraf ./package-lock.json ./node_modules/ && npm i",
     "lint": "npx eslint ./src --fix",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
@@ -159,6 +159,8 @@
     "typescript": "^3.2.2",
     "webpack": "^4.27.1",
     "webpack-bundle-analyzer": "3.0.3",
-    "webpack-cli": "3.1.2"
+    "webpack-cli": "3.1.2",
+    "win-node-env":"^0.4.0",
+    "rimraf": "^2.6.2"
   }
 }
