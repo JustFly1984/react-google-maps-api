@@ -8,6 +8,9 @@ const clearChildren = (node) => {
   }
 }
 
+/**
+ * Persist google map instance.
+ */
 export class GoogleMapPersistedInstance extends GoogleMap {
 
   get mapInstanceId () {
@@ -29,7 +32,7 @@ export class GoogleMapPersistedInstance extends GoogleMap {
     return element;
   }
 
-  getInstance () {
+  getInstance= ()=> { 
     const {
       zoom,
       center
@@ -44,10 +47,10 @@ export class GoogleMapPersistedInstance extends GoogleMap {
       mapContainer.appendChild(hiddenContainer.children[0]);
       return map;
     }
-    return super.getInstance();
+    return new google.maps.Map(this.mapRef);
   }
 
-  componentWillUnmount () {
+  componentWillUnmount () { 
     const hiddenContainer = this.getHiddenMapContainer();
     clearChildren(hiddenContainer);
     const mapContainer = document.getElementById(this.mapId);
