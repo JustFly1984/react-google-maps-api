@@ -68,7 +68,7 @@ const updaterMap = {
     map.setZoom(zoom)
   }
 }
-
+const defatulMapId = "defaultMapId";
 export class GoogleMap extends PureComponent {
   static propTypes = GoogleMapPropTypes
   static defaultProps = {
@@ -76,11 +76,16 @@ export class GoogleMap extends PureComponent {
     reuseSameInstance: false,
     onLoad: () => { }
   }
-
-  state = {
-    map: null
+  get mapId() {
+    return this.props.id || defatulMapId;
   }
-
+  constructor(props) {
+    super(props);
+    this.getInstance = this.getInstance.bind(this);
+    this.state = {
+      map: null
+    };
+  }
   registeredEvents = []
   getInstance = () => {
     const { reuseSameInstance, ...rest } = this.props
