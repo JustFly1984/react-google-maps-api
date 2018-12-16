@@ -11,23 +11,6 @@
     "themeConfig": {}
   },
   "entries": {
-    "src/docs/BicyclingLayer.mdx": {
-      "name": "Bicycling Layer",
-      "id": "05287bcfadda3c3296ef90e173a6a3eb",
-      "filepath": "src/docs/BicyclingLayer.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api\\edit\\master\\src/docs/BicyclingLayer.mdx",
-      "slug": "src-docs-bicycling-layer",
-      "route": "/src-docs-bicycling-layer",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "bicycling-layer",
-          "value": "Bicycling Layer"
-        }
-      ]
-    },
     "src/docs/GoogleMap.mdx": {
       "name": "GoogleMap",
       "route": "/",
@@ -42,6 +25,23 @@
           "depth": 1,
           "slug": "googlemap",
           "value": "GoogleMap"
+        }
+      ]
+    },
+    "src/docs/BicyclingLayer.mdx": {
+      "name": "Bicycling Layer",
+      "id": "05287bcfadda3c3296ef90e173a6a3eb",
+      "filepath": "src/docs/BicyclingLayer.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api\\edit\\master\\src/docs/BicyclingLayer.mdx",
+      "slug": "src-docs-bicycling-layer",
+      "route": "/src-docs-bicycling-layer",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "bicycling-layer",
+          "value": "Bicycling Layer"
         }
       ]
     },

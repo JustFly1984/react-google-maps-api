@@ -1,8 +1,15 @@
 /* global google */
-import React, { PureComponent } from 'react'
-import { GoogleMapPropTypes } from './proptypes'
+import React, {
+  PureComponent
+} from 'react'
+import {
+  GoogleMapPropTypes
+} from './proptypes'
 import MapContext from './map-context'
-
+import {
+  saveInstance,
+  restoreInstance
+} from './utils/instance-persistance';
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
@@ -61,22 +68,23 @@ const updaterMap = {
     map.setZoom(zoom)
   }
 }
-const defaultMapId = "defaultMapId";
+
 export class GoogleMap extends PureComponent {
   static propTypes = GoogleMapPropTypes
   static defaultProps = {
+    id: "defaultMapId",
+    reuseSameInstance: false,
     onLoad: () => { }
   }
-  get mapId() {
-    return this.props.id || defaultMapId;
-  }
+
   state = {
     map: null
-  };
-   
+  }
+
   registeredEvents = []
   getInstance = () => {
-    return new google.maps.Map(this.mapRef)
+    const { reuseSameInstance, ...rest } = this.props;
+    return reuseSameInstance && restoreInstance(rest) || new google.maps.Map(this.mapRef);
   }
   componentDidMount = () => {
     this.setState(
@@ -108,32 +116,31 @@ export class GoogleMap extends PureComponent {
     })
   }
 
-  componentWillUnmount =()=> { 
-    unregisterEvents(this.registeredEvents)
+  componentWillUnmount = () => {
+    const { reuseSameInstance, id } = this.props;   
+    reuseSameInstance && saveInstance(id, this.state.map);  
+    unregisterEvents(this.registeredEvents); 
   }
 
   getRef = ref => {
     this.mapRef = ref
   }
 
-  render = () => (
-    <div
-      id={this.mapId}
-      ref={this.getRef}
-      style={this.props.mapContainerStyle}
-      className={this.props.mapContainerClassName}
-    >
-      <MapContext.Provider
-        value={this.state.map}
-      >
-        {
-          this.state.map !== null
-            ? this.props.children
-            : null
-        }
-      </MapContext.Provider>
-    </div>
-  )
+  render = () => {
+    const { id, mapContainerStyle, mapContainerClassName, children } = this.props;
+    const { map } = this.state;
+    return (
+      <div
+        id={id}
+        ref={this.getRef}
+        style={mapContainerStyle}
+        className={mapContainerClassName}>
+        <MapContext.Provider value={map}>
+          {map !== null ? children : null}
+        </MapContext.Provider>
+      </div>
+    );
+  }
 
   fitBounds = (...args) => this.state.map.fitBounds(...args)
 
