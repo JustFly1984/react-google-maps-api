@@ -15,7 +15,7 @@
       "name": "Bicycling Layer",
       "id": "05287bcfadda3c3296ef90e173a6a3eb",
       "filepath": "src/docs/BicyclingLayer.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/BicyclingLayer.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api\\edit\\master\\src/docs/BicyclingLayer.mdx",
       "slug": "src-docs-bicycling-layer",
       "route": "/src-docs-bicycling-layer",
       "order": 0,
@@ -33,7 +33,7 @@
       "route": "/",
       "id": "99da35cb3e754c8805ffb2f567c98710",
       "filepath": "src/docs/GoogleMap.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/GoogleMap.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api\\edit\\master\\src/docs/GoogleMap.mdx",
       "slug": "src-docs-google-map",
       "order": 0,
       "menu": null,
@@ -49,7 +49,7 @@
       "name": "GroundOverlay",
       "id": "231b2a262e79a5f5d8dda68f8a4a15c3",
       "filepath": "src/docs/GroundOverlay.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/GroundOverlay.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api\\edit\\master\\src/docs/GroundOverlay.mdx",
       "slug": "src-docs-ground-overlay",
       "route": "/src-docs-ground-overlay",
       "order": 0,
@@ -62,20 +62,25 @@
         }
       ]
     },
-    "src/docs/Polygon.mdx": {
-      "name": "Polygon",
-      "id": "5ea94b1eaa69eb1699c13ac0a2fe681d",
-      "filepath": "src/docs/Polygon.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Polygon.mdx",
-      "slug": "src-docs-polygon",
-      "route": "/src-docs-polygon",
+    "src/docs/GoogleMapPersistedInstance.mdx": {
+      "name": "GoogleMapPersistedInstance",
+      "id": "65d1e6be6b81576eec9b89a9582cfcab",
+      "filepath": "src/docs/GoogleMapPersistedInstance.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api\\edit\\master\\src/docs/GoogleMapPersistedInstance.mdx",
+      "slug": "src-docs-google-map-persisted-instance",
+      "route": "/src-docs-google-map-persisted-instance",
       "order": 0,
       "menu": null,
       "headings": [
         {
           "depth": 1,
-          "slug": "polygon",
-          "value": "Polygon"
+          "slug": "googlemappersistedinstance",
+          "value": "GoogleMapPersistedInstance"
+        },
+        {
+          "depth": 3,
+          "slug": "this-is-the-extnsion-of-googlemap-component-allows-re-using-map-instance-in-single-page-application-spa-and-designed-to-sove-memory-leak-issue-with-google-maps-here",
+          "value": "This is the extnsion of GoogleMap component allows re-using map instance in Single Page Application (SPA) and designed to sove memory leak issue with google maps  here"
         }
       ]
     },
@@ -83,7 +88,7 @@
       "name": "Shapes",
       "id": "e82b1f8dfd591b903667963658029352",
       "filepath": "src/docs/Shapes.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Shapes.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api\\edit\\master\\src/docs/Shapes.mdx",
       "slug": "src-docs-shapes",
       "route": "/src-docs-shapes",
       "order": 0,
