@@ -1,5 +1,4 @@
 export { default as GoogleMap } from './GoogleMap'
-export { GoogleMapPersistedInstance } from './GoogleMapPersistedInstance'
 export { default as LoadScript } from './LoadScript'
 export { default as TrafficLayer } from './components/maps/TrafficLayer'
 export { default as BicyclingLayer } from './components/maps/BicyclingLayer'
