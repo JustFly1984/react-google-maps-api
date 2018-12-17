@@ -15,7 +15,8 @@ Here are the main additions to react-google-maps that were the motivation behind
 - Simplified API
 - Uses the new Context API
 - Supports async React (StrictMode complient)
-- Removes lodash dependency => smaller bundle size
+- Removes lodash dependency =>
+  smaller bundle size `12.4kb`, tree-shakeable [https://bundlephobia.com/result?p=react-google-maps-api@1.0.0](https://bundlephobia.com/result?p=react-google-maps-api@1.0.0)
 - forbids loading of Roboto fonts, if you set property preventGoogleFonts on `<LoadScript preventGoogleFonts />` component
 
 ## Examples
