@@ -1,0 +1,110 @@
+---
+name: Polyline
+---
+
+import { GoogleMap, LoadScript, Polyline } from "../";
+import WithApiKey from "./WithApiKey";
+
+# Polyline
+
+```jsx
+
+const POLYLINE_COORD = [
+  {lat: 37.772, lng: -122.214},
+  {lat: 21.291, lng: -157.821},
+  {lat: -18.142, lng: 178.431},
+  {lat: -27.467, lng: 153.027}
+]
+
+const polylineOptions = {
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  visible: true,
+  radius: 30000,
+  paths: POLYLINE_COORD,
+  zIndex: 1
+}
+
+<LoadScript
+  id="script-loader"
+  googleMapsApiKey={API_KEY}
+  language={"en"}
+  region={"EN"}
+  version={"weekly"}
+  onLoad={() => console.log("script loaded")}
+  loadingElement={<div>Loading...</div>}>
+
+  <GoogleMap
+    id="basic-map-example"
+    mapContainerStyle={{
+      height: "400px",
+      width: "800px"
+    }}
+    zoom={2.5}
+    center={{
+      lat: 2.519, 
+      lng: -163.770
+    }}
+  >
+
+    <Polyline
+      path={POLYLINE_COORD}
+      options={polylineOptions}
+    />
+
+  </GoogleMap>
+</LoadScript>
+```
+
+<WithApiKey>
+  {
+    (apiKey) => (
+      <LoadScript
+        id="script-loader"
+        googleMapsApiKey={apiKey}
+        language={"en"}
+        region={"EN"}
+        version={"weekly"}
+        onLoad={() => console.log("script loaded")}
+        loadingElement={<div>Loading...</div>}>
+
+        <GoogleMap
+          id="basic-map-example"
+          mapContainerStyle={{
+            height: "400px",
+            width: "800px"
+          }}
+          zoom={2.5}
+          center={{
+            lat: 2.519, 
+            lng: -163.770
+          }}
+        >
+
+        <Polyline
+          path={[
+            {lat: 37.772, lng: -122.214},
+            {lat: 21.291, lng: -157.821},
+            {lat: -18.142, lng: 178.431},
+            {lat: -27.467, lng: 153.027}
+          ]}
+          options={{
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+          }}
+        />
+
+        </GoogleMap>
+      </LoadScript>
+    )
+
+}
+
+</WithApiKey>
