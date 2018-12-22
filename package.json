@@ -73,6 +73,7 @@
     "clean": "rimraf ./package-lock.json ./node_modules/ && npm i",
     "lint": "npx eslint ./src --fix",
     "docz:dev": "docz dev",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "docz:build": "docz build",
     "publish": "npm publish ."
   },
@@ -89,7 +90,7 @@
   },
   "types": "types",
   "dependencies": {
-    "@babel/runtime": "^7.2.0",
+    "@babel/runtime": "^7.2.0",    
     "google-maps-infobox": "^2.0.0",
     "invariant": "^2.2.1",
     "marker-clusterer-plus": "^2.1.4",
@@ -160,6 +161,7 @@
     "typescript": "^3.2.2",
     "webpack": "^4.27.1",
     "webpack-bundle-analyzer": "3.0.3",
-    "webpack-cli": "3.1.2"
+    "webpack-cli": "3.1.2",
+    "@storybook/react": "^4.1.3"
   }
 }
