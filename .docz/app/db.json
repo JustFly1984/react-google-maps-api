@@ -62,6 +62,23 @@
         }
       ]
     },
+    "src/docs/Polygon.mdx": {
+      "name": "Polygon",
+      "id": "5ea94b1eaa69eb1699c13ac0a2fe681d",
+      "filepath": "src/docs/Polygon.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Polygon.mdx",
+      "slug": "src-docs-polygon",
+      "route": "/src-docs-polygon",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "polygon",
+          "value": "Polygon"
+        }
+      ]
+    },
     "src/docs/Shapes.mdx": {
       "name": "Shapes",
       "id": "e82b1f8dfd591b903667963658029352",
