@@ -57,6 +57,23 @@
       "headings": [
         {
           "depth": 1,
+          "slug": "bicycling-layer",
+          "value": "Bicycling Layer"
+        }
+      ]
+    },
+    "src/docs/GroundOverlay.mdx": {
+      "name": "GroundOverlay",
+      "id": "231b2a262e79a5f5d8dda68f8a4a15c3",
+      "filepath": "src/docs/GroundOverlay.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api\\edit\\master\\src/docs/GroundOverlay.mdx",
+      "slug": "src-docs-ground-overlay",
+      "route": "/src-docs-ground-overlay",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
           "slug": "groundoverlay",
           "value": "GroundOverlay"
         }
