@@ -7,8 +7,13 @@ export const imports = {
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-google-map" */ 'src/docs/GoogleMap.mdx'),
   'src/docs/GroundOverlay.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-ground-overlay" */ 'src/docs/GroundOverlay.mdx'),
+<<<<<<< HEAD
   'src/docs/Polygon.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-polygon" */ 'src/docs/Polygon.mdx'),
+=======
+  'src/docs/Marker.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-docs-marker" */ 'src/docs/Marker.mdx'),
+>>>>>>> Add `Marker` example to docz
   'src/docs/Polyline.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-polyline" */ 'src/docs/Polyline.mdx'),
   'src/docs/Shapes.mdx': () =>
