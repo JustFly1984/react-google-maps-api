@@ -79,6 +79,23 @@
         }
       ]
     },
+    "src/docs/Marker.mdx": {
+      "name": "Marker",
+      "id": "02c8339025d94755d0b3a5f655912b57",
+      "filepath": "src/docs/Marker.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Marker.mdx",
+      "slug": "src-docs-marker",
+      "route": "/src-docs-marker",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "marker",
+          "value": "Marker"
+        }
+      ]
+    },
     "src/docs/Polyline.mdx": {
       "name": "Polyline",
       "id": "0927b6073d50d52aa35e245fcadc6db2",
