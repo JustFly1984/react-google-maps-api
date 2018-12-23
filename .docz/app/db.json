@@ -128,6 +128,23 @@
         }
       ]
     },
+    "src/docs/Rectangle.mdx": {
+      "name": "Rectangle",
+      "id": "d1163f7c801914aa4d46b3452e5b91a8",
+      "filepath": "src/docs/Rectangle.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Rectangle.mdx",
+      "slug": "src-docs-rectangle",
+      "route": "/src-docs-rectangle",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "rectangle",
+          "value": "Rectangle"
+        }
+      ]
+    },
     "src/docs/Shapes.mdx": {
       "name": "Shapes",
       "id": "e82b1f8dfd591b903667963658029352",
