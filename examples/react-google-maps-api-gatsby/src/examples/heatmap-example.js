@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
   GoogleMap,
   HeatmapLayer
-} from '../../../../src'
+} from 'react-google-maps-api'
 
 const HeatmapExamplePropTypes = {
   styles: PropTypes.shape({

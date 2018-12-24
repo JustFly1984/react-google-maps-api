@@ -5,8 +5,6 @@ export const imports = {
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-circle" */ 'src/docs/Circle.mdx'),
   'src/docs/GoogleMap.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-google-map" */ 'src/docs/GoogleMap.mdx'),
-  'src/docs/BicyclingLayer.mdx': () =>
-    import(/* webpackPrefetch: true, webpackChunkName: "src-docs-bicycling-layer" */ 'src/docs/BicyclingLayer.mdx'),
   'src/docs/GroundOverlay.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-ground-overlay" */ 'src/docs/GroundOverlay.mdx'),
   'src/docs/Main.mdx': () =>
