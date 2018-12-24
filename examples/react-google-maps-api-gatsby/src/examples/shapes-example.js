@@ -9,7 +9,7 @@ import {
   Marker,
   OverlayView,
   InfoWindow
-} from '../../../../src'
+} from 'react-google-maps-api'
 
 import pinIcon from '../assets/pin.svg'
 
