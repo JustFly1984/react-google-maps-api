@@ -96,6 +96,23 @@
         }
       ]
     },
+    "src/docs/Polyline.mdx": {
+      "name": "Polyline",
+      "id": "0927b6073d50d52aa35e245fcadc6db2",
+      "filepath": "src/docs/Polyline.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Polyline.mdx",
+      "slug": "src-docs-polyline",
+      "route": "/src-docs-polyline",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "polyline",
+          "value": "Polyline"
+        }
+      ]
+    },
     "src/docs/Shapes.mdx": {
       "name": "Shapes",
       "id": "e82b1f8dfd591b903667963658029352",

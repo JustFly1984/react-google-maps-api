@@ -9,6 +9,8 @@ export const imports = {
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-ground-overlay" */ 'src/docs/GroundOverlay.mdx'),
   'src/docs/Polygon.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-polygon" */ 'src/docs/Polygon.mdx'),
+  'src/docs/Polyline.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-docs-polyline" */ 'src/docs/Polyline.mdx'),
   'src/docs/Shapes.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-shapes" */ 'src/docs/Shapes.mdx'),
 }
