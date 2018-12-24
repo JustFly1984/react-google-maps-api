@@ -72,7 +72,7 @@
     "build:babel": "rimraf ./lib && babel ./src -d ./lib",
     "clean": "rimraf ./package-lock.json ./node_modules/ && npm i",
     "lint": "npx eslint ./src --fix",
-    "build:gatsby": "cd './examples/react-google-maps-api-gatsby/ && npm start && ../../",
+    "build:gatsby": "cd './examples/react-google-maps-api-gatsby/ && npm run build && ../../",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "publish": "npm publish ."
