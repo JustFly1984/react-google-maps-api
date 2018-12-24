@@ -154,7 +154,7 @@ class IndexPage extends Component {
       <p>Welcome to React Google Maps Light Example.</p>
 
       <p>
-        You can create new google api key here: <a href='https://console.cloud.google.com/apis/credentials/key' alt='google api key'>https://console.cloud.google.com/apis/credentials/key</a>
+        You can create new Google API key here: <a href='https://console.cloud.google.com/apis/credentials/key' alt='google api key'>https://console.cloud.google.com/apis/credentials/key</a>
       </p>
 
       <div>
