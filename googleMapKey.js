@@ -1,2 +1,2 @@
-export const googleMapKey="YOUR_KEY_GOES_HERE";
-export default googleMapKey;
+export const googleMapKey = 'AIzaSyCakXXwZ_CyPggaQBrYmbw5QhgGUcoMD_E'
+export default googleMapKey

@@ -90,7 +90,7 @@
   },
   "types": "types",
   "dependencies": {
-    "@babel/runtime": "^7.2.0",    
+    "@babel/runtime": "^7.2.0",
     "google-maps-infobox": "^2.0.0",
     "invariant": "^2.2.1",
     "marker-clusterer-plus": "^2.1.4",
@@ -113,6 +113,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/plugin-transform-react-jsx": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
+    "@storybook/react": "^4.1.3",
     "@types/acorn": "4.0.3",
     "@types/eslint": "4.16.4",
     "@types/googlemaps": "^3.29.2",
@@ -161,7 +162,6 @@
     "typescript": "^3.2.2",
     "webpack": "^4.27.1",
     "webpack-bundle-analyzer": "3.0.3",
-    "webpack-cli": "3.1.2",
-    "@storybook/react": "^4.1.3"
+    "webpack-cli": "3.1.2"
   }
 }
