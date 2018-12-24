@@ -97,6 +97,7 @@ const circleOptions = {
   language={"en"}
   region={"EN"}
   version={"weekly"}
+  libraries={[]}
   onLoad={() => console.log("script loaded")}
   loadingElement={<div>Loading...</div>}>
 
@@ -147,11 +148,12 @@ const circleOptions = {
         language={"en"}
         region={"EN"}
         version={"weekly"}
+        libraries={[]}
         onLoad={() => console.log("script loaded")}
         loadingElement={<div>Loading...</div>}>
 
         <GoogleMap
-          id="basic-map-example"
+          id="shapes-example"
           mapContainerStyle={{
             height: "400px",
             width: "800px"
