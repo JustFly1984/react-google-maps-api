@@ -25,10 +25,11 @@ Examples can be found in two places:
 
 1. [Official docs](https://react-google-maps-api.netlify.com) (powered by [docz](https://github.com/pedronauck/docz)). See the [docs](https://github.com/JustFly1984/react-google-maps-api/tree/master/src/docs) folder
 2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/examples/react-google-maps-api-gatsby/src/examples) folder
+3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.com/)
 
 ## Advise
 
-You can save on bundle size if you import only components, which you use from `react-google-maps-api/lib/...`
+You can save on bundle size if you import only components, which you use from `react-google-maps-api/lib/...`, although whole library is tree-shakable.
 
 > Using the examples requires you to generate a google maps api key. For instructions on how to do that please see the following [guide](https://developers.google.com/maps/documentation/embed/get-api-key)
 
