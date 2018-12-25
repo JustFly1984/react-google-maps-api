@@ -15,6 +15,53 @@ class LoadScript extends Component {
   }
 
   componentDidMount = () => {
+    this.injectScript()
+  }
+
+  componentDidUpdate = prevProps => {
+    if (prevProps.language !== this.props.language) {
+      this.cleanup()
+      this.injectScript()
+    }
+  }
+
+  componentWillUnmount = () => {
+    this.cleanup()
+  }
+
+  cleanup = () => {
+    const script = document.getElementById(this.props.id)
+
+    script.parentNode.removeChild(script)
+
+    Array.prototype.slice
+      .call(document.getElementsByTagName('script'))
+      .filter(script => script.src.includes('maps.googleapis'))
+      .forEach(script => {
+        script.parentNode.removeChild(script)
+      })
+
+    Array.prototype.slice
+      .call(document.getElementsByTagName('link'))
+      .filter(
+        link =>
+          link.href === 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans'
+      )
+      .forEach(link => {
+        link.parentNode.removeChild(link)
+      })
+
+    Array.prototype.slice
+      .call(document.getElementsByTagName('style'))
+      .filter(style => style.innerText.includes('.gm-'))
+      .forEach(style => {
+        style.parentNode.removeChild(style)
+      })
+
+    delete window.google.maps.version
+  }
+
+  injectScript = () => {
     const {
       id,
       googleMapsApiKey,
@@ -58,38 +105,6 @@ Otherwise it is a Network issues.
 `)
       }
     })
-  }
-
-  componentWillUnmount = () => {
-    const script = document.getElementById(this.props.id)
-
-    script.parentNode.removeChild(script)
-
-    Array.prototype.slice
-      .call(document.getElementsByTagName('script'))
-      .filter(script => script.src.includes('maps.googleapis'))
-      .forEach(script => {
-        script.parentNode.removeChild(script)
-      })
-
-    Array.prototype.slice
-      .call(document.getElementsByTagName('link'))
-      .filter(
-        link =>
-          link.href === 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans'
-      )
-      .forEach(link => {
-        link.parentNode.removeChild(link)
-      })
-
-    Array.prototype.slice
-      .call(document.getElementsByTagName('style'))
-      .filter(style => style.innerText.includes('.gm-'))
-      .forEach(style => {
-        style.parentNode.removeChild(style)
-      })
-
-    delete window.google.maps.version
   }
 
   render = () => (this.state.loaded ? this.props.children : this.props.loadingElement)
