@@ -4,47 +4,13 @@
     "description": "React.js Google Maps API integration",
     "menu": [],
     "ordering": "descending",
-    "version": "1.0.0",
+    "version": "1.0.5",
     "repository": "https://github.com/JustFly1984/react-google-maps-api",
     "native": false,
     "codeSandbox": true,
     "themeConfig": {}
   },
   "entries": {
-    "src/docs/Main.mdx": {
-      "name": "Main",
-      "id": "0850bc5e5d9cef514bcd1a3bbea99019",
-      "filepath": "src/docs/Main.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Main.mdx",
-      "slug": "src-docs-main",
-      "route": "/src-docs-main",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "install",
-          "value": "Install"
-        }
-      ]
-    },
-    "src/docs/GoogleMap.mdx": {
-      "name": "GoogleMap",
-      "route": "/",
-      "id": "99da35cb3e754c8805ffb2f567c98710",
-      "filepath": "src/docs/GoogleMap.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/GoogleMap.mdx",
-      "slug": "src-docs-google-map",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "googlemap",
-          "value": "GoogleMap"
-        }
-      ]
-    },
     "src/docs/BicyclingLayer.mdx": {
       "name": "Bicycling Layer",
       "id": "05287bcfadda3c3296ef90e173a6a3eb",
@@ -62,6 +28,23 @@
         }
       ]
     },
+    "src/docs/Changelog.mdx": {
+      "name": "Changelog",
+      "id": "6f105c5ad031bafd6087716b6453e6b4",
+      "filepath": "src/docs/Changelog.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Changelog.mdx",
+      "slug": "src-docs-changelog",
+      "route": "/src-docs-changelog",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "105",
+          "value": "1.0.5"
+        }
+      ]
+    },
     "src/docs/Circle.mdx": {
       "name": "Circle",
       "id": "54606f31b3c457f120cb68146b79b219",
@@ -76,6 +59,23 @@
           "depth": 1,
           "slug": "circle",
           "value": "Circle"
+        }
+      ]
+    },
+    "src/docs/GoogleMap.mdx": {
+      "name": "GoogleMap",
+      "route": "/",
+      "id": "99da35cb3e754c8805ffb2f567c98710",
+      "filepath": "src/docs/GoogleMap.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/GoogleMap.mdx",
+      "slug": "src-docs-google-map",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "googlemap",
+          "value": "GoogleMap"
         }
       ]
     },
@@ -110,6 +110,23 @@
           "depth": 1,
           "slug": "marker",
           "value": "Marker"
+        }
+      ]
+    },
+    "src/docs/Main.mdx": {
+      "name": "Main",
+      "id": "0850bc5e5d9cef514bcd1a3bbea99019",
+      "filepath": "src/docs/Main.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Main.mdx",
+      "slug": "src-docs-main",
+      "route": "/src-docs-main",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "install",
+          "value": "Install"
         }
       ]
     },
