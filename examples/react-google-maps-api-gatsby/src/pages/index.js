@@ -4,9 +4,7 @@ import Layout from '../components/layout'
 import indexStyles from './index.module.css'
 import uuid from 'uuidv4'
 
-import {
-  LoadScript
-} from '../../../../src'
+import { LoadScript } from 'react-google-maps-api'
 
 import ShapesExample from '../examples/shapes-example'
 import DrawingManagerExample from '../examples/drawing-manager-example'
@@ -37,6 +35,11 @@ const mapContainerStyle = {
   width: `800px`
 }
 
+const rowStyle = {
+  display: 'flex',
+  flexDirection: 'row'
+}
+
 const shapeExampleStyles = {
   container: mapContainerStyle,
   mapContainer: indexStyles.mapContainer
@@ -55,6 +58,7 @@ const loaderId = uuid()
 
 class IndexPage extends Component {
   state = {
+    language: 'en',
     checked: false,
     googleMapsApiKey: '',
     fusion: false,
@@ -147,6 +151,36 @@ class IndexPage extends Component {
     )
   }
 
+  setEnLang = ({ target: { checked } }) => {
+    if (checked) {
+      this.setState(
+        () => ({
+          language: 'en'
+        })
+      )
+    }
+  }
+
+  setRuLang = ({ target: { checked } }) => {
+    if (checked) {
+      this.setState(
+        () => ({
+          language: 'ru'
+        })
+      )
+    }
+  }
+
+  setEsLang = ({ target: { checked } }) => {
+    if (checked) {
+      this.setState(
+        () => ({
+          language: 'es'
+        })
+      )
+    }
+  }
+
   render = () => (
     <Layout>
       <h1>Hello People!</h1>
@@ -181,6 +215,41 @@ class IndexPage extends Component {
         />
         {` `}
         <label htmlFor='toggle-script'>{`Toggle <LoadScript />`}</label>
+      </div>
+
+      <div style={rowStyle}>
+        <div>
+          <input
+            type='checkbox'
+            id='en'
+            checked={this.state.language === 'en'}
+            onChange={this.setEnLang}
+          />
+          {` `}
+          <label htmlFor='en'>En language</label>
+        </div>
+
+        <div>
+          <input
+            type='checkbox'
+            id='ru'
+            checked={this.state.language === 'ru'}
+            onChange={this.setRuLang}
+          />
+          {` `}
+          <label htmlFor='ru'>Ru language</label>
+        </div>
+
+        <div>
+          <input
+            type='checkbox'
+            id='es'
+            checked={this.state.language === 'es'}
+            onChange={this.setEsLang}
+          />
+          {` `}
+          <label htmlFor='es'>Es language</label>
+        </div>
       </div>
 
       <div>
@@ -314,7 +383,7 @@ class IndexPage extends Component {
             <LoadScript
               id={loaderId}
               googleMapsApiKey={this.state.googleMapsApiKey}
-              language={'en'}
+              language={this.state.language}
               region={'EN'}
               version={'weekly'}
               onLoad={() => console.log('script loaded')}

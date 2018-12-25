@@ -4,12 +4,12 @@
   "version": "1.0.0",
   "author": "Alexey Lyakhov <justfly1984@gmail.com>",
   "dependencies": {
-    "@types/react": "^16.7.18",
+    "@types/react": "16.7.18",
     "gatsby": "2.0.76",
     "gatsby-plugin-react-helmet": "3.0.5",
     "react": "16.7.0",
     "react-dom": "16.7.0",
-    "react-google-maps-api": "1.0.3",
+    "react-google-maps-api": "^1.0.5",
     "react-helmet": "5.2.0",
     "uuidv4": "2.0.0"
   },
@@ -27,7 +27,8 @@
     "start": "npm run develop",
     "lint": "npx eslint ./src --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf ./package-lock.json ./node_modules/ && npm i"
+    "clean": "rm -rf ./package-lock.json ./node_modules/ && npm i",
+    "update": "npm-check -u"
   },
   "devDependencies": {
     "@babel/cli": "7.2.3",

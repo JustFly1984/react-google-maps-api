@@ -1,7 +1,7 @@
-import { configure } from '@storybook/react';
+import { configure } from '@storybook/react'
 
-const storyFiles = require.context('../src', true, /.stories.js$/);
+const storyFiles = require.context('../src', true, /.stories.js$/)
 
 configure(() => {
-    storyFiles.keys().forEach((filename) => storyFiles(filename));
-}, module);
+    storyFiles.keys().forEach((filename) => storyFiles(filename))
+}, module)

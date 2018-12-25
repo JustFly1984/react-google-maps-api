@@ -1,6 +1,6 @@
 {
   "name": "react-google-maps-api",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React.js Google Maps API integration",
   "license": "MIT",
   "author": {
@@ -71,6 +71,7 @@
     "build:webpack": "rimraf ./dist && webpack",
     "build:babel": "rimraf ./lib && babel ./src -d ./lib",
     "clean": "rimraf ./package-lock.json ./node_modules/ && npm i",
+    "update": "npm-check -u",
     "lint": "npx eslint ./src --fix",
     "build:gatsby": "cd ./examples/react-google-maps-api-gatsby/ && npm i && npm run build && cd ../../ ",
     "docz:dev": "docz dev",

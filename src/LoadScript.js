@@ -20,16 +20,15 @@ class LoadScript extends Component {
 
   componentDidUpdate = prevProps => {
     if (prevProps.language !== this.props.language) {
-      this.cleanup()
-      this.injectScript()
+      this.cleanup(this.injectScript)
     }
   }
 
   componentWillUnmount = () => {
-    this.cleanup()
+    this.cleanup(() => {})
   }
 
-  cleanup = () => {
+  cleanup = cb => {
     const script = document.getElementById(this.props.id)
 
     script.parentNode.removeChild(script)
@@ -58,7 +57,16 @@ class LoadScript extends Component {
         style.parentNode.removeChild(style)
       })
 
-    delete window.google.maps.version
+    this.setState(
+      () => ({
+        loaded: false
+      }),
+      () => {
+        delete window.google
+
+        cb()
+      }
+    )
   }
 
   injectScript = () => {
