@@ -76,8 +76,8 @@
     "docz:dev": "docz dev",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "docz:build": "docz build",
-    "publish": "npm publish .",
-    "publish:next": "npm publish . --tag next"
+    "publish": "npm run build && npm publish .",
+    "publish:next": "npm run build && npm publish . --tag next"
   },
   "lint-staged": {
     "linters": {
