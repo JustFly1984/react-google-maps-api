@@ -4,8 +4,10 @@ src/
 .editorconfig
 .eslintignore
 .prettierignore
+.storybook/
 .docz/
 .vscode/
 webpack.config.js
 yarn.lock
 docs/
+googleMapsKey.js
