@@ -4,7 +4,5 @@ export default {
   debug: true,
   protocol: 'https',
   hashRouter: true,
-  theme: 'docz-theme-default',
-  wrapper: undefined,
-  indexHtml: ''
+  theme: 'docz-theme-default'
 }

@@ -2,7 +2,7 @@
 name: Marker
 ---
 
-import { GoogleMap, LoadScript, Marker } from "../";
+import { GoogleMap, LoadScript, Marker } from "../../lib";
 import WithApiKey from "./WithApiKey";
 
 # Marker
@@ -26,9 +26,9 @@ import WithApiKey from "./WithApiKey";
       width: "800px"
     }}
     zoom={2.5}
-    center={{ 
-      lat: -25.363, 
-      lng: 131.044 
+    center={{
+      lat: -25.363,
+      lng: 131.044
     }}
   >
 
@@ -38,7 +38,7 @@ import WithApiKey from "./WithApiKey";
         position: { lat: -25.363, lng: 131.044 }
       }}
     />
-  
+
   </GoogleMap>
 </LoadScript>
 ```
@@ -63,7 +63,7 @@ import WithApiKey from "./WithApiKey";
           }}
           zoom={2.5}
           center={{
-            lat: -25.363, 
+            lat: -25.363,
             lng: 131.044
           }}
         >
