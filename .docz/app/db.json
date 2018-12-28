@@ -4,7 +4,7 @@
     "description": "React.js Google Maps API integration",
     "menu": [],
     "ordering": "descending",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "repository": "https://github.com/JustFly1984/react-google-maps-api",
     "native": false,
     "codeSandbox": true,
@@ -40,8 +40,18 @@
       "headings": [
         {
           "depth": 1,
+          "slug": "changelog",
+          "value": "Changelog"
+        },
+        {
+          "depth": 2,
           "slug": "105",
           "value": "1.0.5"
+        },
+        {
+          "depth": 2,
+          "slug": "106",
+          "value": "1.0.6"
         }
       ]
     },
@@ -96,13 +106,13 @@
         }
       ]
     },
-    "src/docs/Main.mdx": {
-      "name": "Main",
-      "id": "0850bc5e5d9cef514bcd1a3bbea99019",
-      "filepath": "src/docs/Main.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Main.mdx",
-      "slug": "src-docs-main",
-      "route": "/src-docs-main",
+    "src/docs/Install.mdx": {
+      "name": "Install",
+      "id": "2d0aec6b49ed51660cb7a8169fdcba91",
+      "filepath": "src/docs/Install.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Install.mdx",
+      "slug": "src-docs-install",
+      "route": "/src-docs-install",
       "order": 0,
       "menu": null,
       "headings": [

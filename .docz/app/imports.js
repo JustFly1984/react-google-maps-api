@@ -9,8 +9,8 @@ export const imports = {
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-google-map" */ 'src/docs/GoogleMap.mdx'),
   'src/docs/GroundOverlay.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-ground-overlay" */ 'src/docs/GroundOverlay.mdx'),
-  'src/docs/Main.mdx': () =>
-    import(/* webpackPrefetch: true, webpackChunkName: "src-docs-main" */ 'src/docs/Main.mdx'),
+  'src/docs/Install.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-docs-install" */ 'src/docs/Install.mdx'),
   'src/docs/Marker.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-docs-marker" */ 'src/docs/Marker.mdx'),
   'src/docs/Polygon.mdx': () =>
