@@ -7,7 +7,8 @@ class LoadScript extends Component {
   static propTypes = LoadScriptPropTypes
   static defaultProps = {
     onLoad: () => {},
-    onError: () => {}
+    onError: () => {},
+    onUnmount: () => {},
   }
 
   state = {
@@ -26,6 +27,9 @@ class LoadScript extends Component {
 
   componentWillUnmount = () => {
     this.cleanup(() => {})
+
+    this.props
+      .onUnmount()
   }
 
   cleanup = cb => {

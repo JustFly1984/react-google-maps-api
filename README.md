@@ -1,6 +1,6 @@
 # react-google-maps-api
 
-React Google Maps API
+React Google Maps API 1.0.6
 
 > This library requires React v16.6 or later. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)
 
