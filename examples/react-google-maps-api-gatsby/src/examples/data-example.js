@@ -4,12 +4,6 @@ import {
   GoogleMap
 } from 'react-google-maps-api'
 
-// import { Data } from '../../../../src/'
-
-// import { json } from './multipolygon-json'
-const json = { js: 'js' }
-console.log('json: ', json)
-
 const DataExamplePropTypes = {
   styles: PropTypes.shape({
     container: PropTypes.object.isRequired,
@@ -18,8 +12,8 @@ const DataExamplePropTypes = {
 }
 
 const center = {
-  lat: 0,
-  lng: -180
+  lat: 38.805470223177466,
+  lng: -118.76220703125
 }
 
 const DataExample = ({ styles }) => (
@@ -29,18 +23,16 @@ const DataExample = ({ styles }) => (
       mapContainerStyle={styles.container}
       mapContainerClassName={styles.mapContainer}
 
-      zoom={2}
+      zoom={5}
       center={center}
       onClick={(...args) => {
-        console.log('onClick args: ', args)
+        console.log('onClick args: ', args[0].latLng.lat(), ' : ', args[0].latLng.lng())
       }}
       onLoad={(map) => {
         console.log('map.data: ', map.data)
         map.data.loadGeoJson('/geo.json')
       }}
-    >
-      <></>
-    </GoogleMap>
+    />
   </div>
 )
 

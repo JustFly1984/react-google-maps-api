@@ -2,7 +2,6 @@ export { default as GoogleMap } from './GoogleMap'
 export { default as LoadScript } from './LoadScript'
 export { default as TrafficLayer } from './components/maps/TrafficLayer'
 export { default as BicyclingLayer } from './components/maps/BicyclingLayer'
-export { default as Data } from './components/maps/Data'
 
 export { default as DrawingManager } from './components/drawing/DrawingManager'
 export { default as Marker } from './components/drawing/Marker'
