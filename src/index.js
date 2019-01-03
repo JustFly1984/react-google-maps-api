@@ -2,6 +2,7 @@ export { default as GoogleMap } from './GoogleMap'
 export { default as LoadScript } from './LoadScript'
 export { default as TrafficLayer } from './components/maps/TrafficLayer'
 export { default as BicyclingLayer } from './components/maps/BicyclingLayer'
+export { default as Data } from './components/maps/Data'
 
 export { default as DrawingManager } from './components/drawing/DrawingManager'
 export { default as Marker } from './components/drawing/Marker'
@@ -10,7 +11,6 @@ export { default as Polyline } from './components/drawing/Polyline'
 export { default as Polygon } from './components/drawing/Polygon'
 export { default as Rectangle } from './components/drawing/Rectangle'
 export { default as Circle } from './components/drawing/Circle'
-// export { default as Data } from './components/drawing/Data'
 
 export { default as KmlLayer } from './components/kml/KmlLayer'
 

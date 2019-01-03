@@ -14,6 +14,7 @@ import GroundOverlayExample from '../examples/ground-overlay-example'
 import HeatmapLayerExample from '../examples/heatmap-example'
 import DirectionsRendererExample from '../examples/directions-renderer-example'
 import FusionTablesLayerExample from '../examples/fusion-tables-layer-example'
+import DataExample from '../examples/data-example'
 
 const mapBoxStyle = {
   marginTop: '2rem',
@@ -62,6 +63,7 @@ class IndexPage extends Component {
     checked: false,
     googleMapsApiKey: '',
     fusion: false,
+    data: false,
     directions: false,
     heatmap: false,
     traffic: false,
@@ -91,6 +93,14 @@ class IndexPage extends Component {
     this.setState(
       () => ({
         fusion: checked
+      })
+    )
+  }
+
+  onDataChange = ({ target: { checked } }) => {
+    this.setState(
+      () => ({
+        data: checked
       })
     )
   }
@@ -270,6 +280,21 @@ class IndexPage extends Component {
 
         <div>
           <input
+            id='data'
+            type='checkbox'
+            onChange={this.onDataChange}
+            value={this.state.data}
+          />
+          {` `}
+          <label
+            htmlFor='data'
+          >
+            Data Example
+          </label>
+        </div>
+
+        <div>
+          <input
             id='directions'
             type='checkbox'
             onChange={this.onDirectionsChange}
@@ -399,6 +424,20 @@ class IndexPage extends Component {
                     </h2>
 
                     <FusionTablesLayerExample
+                      styles={shapeExampleStyles}
+                    />
+                  </div>
+                )
+              }
+
+              {
+                this.state.data && (
+                  <div style={mapBoxStyle}>
+                    <h2 style={mapHeaderStyle}>
+                      Data Google Map example
+                    </h2>
+
+                    <DataExample
                       styles={shapeExampleStyles}
                     />
                   </div>

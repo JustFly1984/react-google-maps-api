@@ -82,11 +82,15 @@ export class GoogleMap extends PureComponent {
   }
 
   registeredEvents = []
+
   getInstance = () => {
     const { reuseSameInstance, ...rest } = this.props
+
     const map = reuseSameInstance && restoreInstance(rest)
+
     return map || new google.maps.Map(this.mapRef)
   }
+
   componentDidMount = () => {
     this.setState(
       () => ({
@@ -100,6 +104,7 @@ export class GoogleMap extends PureComponent {
           nextProps: this.props,
           instance: this.state.map
         })
+        
         this.props.onLoad(this.state.map)
       }
     )
@@ -118,9 +123,11 @@ export class GoogleMap extends PureComponent {
   }
 
   componentWillUnmount = () => {
-    const { reuseSameInstance, id } = this.props   
-    reuseSameInstance && saveInstance(id, this.state.map)  
-    unregisterEvents(this.registeredEvents) 
+    const { reuseSameInstance, id } = this.props
+
+    reuseSameInstance && saveInstance(id, this.state.map)
+
+    unregisterEvents(this.registeredEvents)
   }
 
   getRef = ref => {
@@ -128,14 +135,24 @@ export class GoogleMap extends PureComponent {
   }
 
   render = () => {
-    const { id, mapContainerStyle, mapContainerClassName, children } = this.props
-    const { map } = this.state
+    const {
+      id,
+      mapContainerStyle,
+      mapContainerClassName,
+      children
+    } = this.props
+
+    const { 
+      map 
+    } = this.state
+
     return (
       <div
         id={id}
         ref={this.getRef}
         style={mapContainerStyle}
-        className={mapContainerClassName}>
+        className={mapContainerClassName}
+      >
         <MapContext.Provider value={map}>
           {map !== null ? children : null}
         </MapContext.Provider>
