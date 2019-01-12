@@ -1,4 +1,4 @@
-import React,{ Component } from 'react'
+import React, { Component } from 'react'
 import { injectScript } from './utils/injectscript'
 import { LoadScriptPropTypes } from './proptypes'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
@@ -16,6 +16,8 @@ class LoadScript extends Component {
   state = {
     loaded: false
   }
+
+  check = React.createRef()
 
   componentDidMount = async () => {
     if ( window.google && !cleaningUp ) {
@@ -45,7 +47,7 @@ class LoadScript extends Component {
   componentWillUnmount = () => {
     this.cleanup()
     setTimeout( () => {
-      if (!this.check) {
+      if (!this.check.current) {
         delete window.google
         cleaningUp = false;
       }
@@ -146,7 +148,7 @@ Otherwise it is a Network issues.
     })
   }
 
-  render = () => <div ref={c => this.check = c}>{this.state.loaded ? this.props.children : this.props.loadingElement}</div>
+  render = () => <div ref={this.check}>{this.state.loaded ? this.props.children : this.props.loadingElement}</div>
 }
 
 export default LoadScript
