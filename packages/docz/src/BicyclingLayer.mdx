@@ -1,14 +1,17 @@
 ---
-name: Rectangle
+name: Bicycling Layer
 ---
 
-import { GoogleMap, LoadScript, Rectangle } from "../../lib";
+import {
+  GoogleMap,
+  LoadScript,
+  BicyclingLayer
+} from "react-google-maps-api/lib";
 import WithApiKey from "./WithApiKey";
 
-# Rectangle
+# Bicycling Layer
 
 ```jsx
-
 <LoadScript
   id="script-loader"
   googleMapsApiKey={API_KEY}
@@ -17,36 +20,33 @@ import WithApiKey from "./WithApiKey";
   version={"weekly"}
   libraries={[]}
   onLoad={() => console.log("script loaded")}
-  loadingElement={<div>Loading...</div>}>
-
+  loadingElement={
+    <div>Loading...</div>
+  }
+>
   <GoogleMap
-    id="rectangle-example"
+    id='bicycling-example'
     mapContainerStyle={{
       height: "400px",
       width: "800px"
     }}
-    zoom={2.5}
+    zoom={2}
     center={{
-      lat: -25.363,
-      lng: 131.044
+      lat: 0,
+      lng: -180
+    }}
+    onClick={(...args) => {
+      console.log('onClick args: ', args)
     }}
   >
-
-    <Rectangle
-      bounds={{
-        north: 38.685,
-        south: 33.671,
-        east: -115.234,
-        west: -118.251
-      }}
-    />
-
+    <BicyclingLayer />
   </GoogleMap>
 </LoadScript>
 ```
+
 <WithApiKey>
   {
-    (apiKey) => (
+    apiKey => (
       <LoadScript
         id="script-loader"
         googleMapsApiKey={apiKey}
@@ -55,30 +55,26 @@ import WithApiKey from "./WithApiKey";
         version={"weekly"}
         libraries={[]}
         onLoad={() => console.log("script loaded")}
-        loadingElement={<div>Loading...</div>}>
-
+        loadingElement={
+          <div>Loading...</div>
+        }
+      >
         <GoogleMap
-          id="basic-map-example"
+          id='bicycling-example'
           mapContainerStyle={{
             height: "400px",
             width: "800px"
           }}
-          zoom={2.5}
+          zoom={2}
           center={{
-            lat: -25.363,
-            lng: 131.044
+            lat: 0,
+            lng: -180
+          }}
+          onClick={(...args) => {
+            console.log('onClick args: ', args)
           }}
         >
-
-          <Rectangle
-            bounds={{
-              north: 38.685,
-              south: 33.671,
-              east: -115.234,
-              west: -118.251
-            }}
-          />
-
+          <BicyclingLayer />
         </GoogleMap>
       </LoadScript>
     )

@@ -1,17 +1,14 @@
 ---
-name: Bicycling Layer
+name: Rectangle
 ---
 
-import {
-  GoogleMap,
-  LoadScript,
-  BicyclingLayer
-} from "../../lib";
+import { GoogleMap, LoadScript, Rectangle } from "react-google-maps-api/lib";
 import WithApiKey from "./WithApiKey";
 
-# Bicycling Layer
+# Rectangle
 
 ```jsx
+
 <LoadScript
   id="script-loader"
   googleMapsApiKey={API_KEY}
@@ -20,33 +17,36 @@ import WithApiKey from "./WithApiKey";
   version={"weekly"}
   libraries={[]}
   onLoad={() => console.log("script loaded")}
-  loadingElement={
-    <div>Loading...</div>
-  }
->
+  loadingElement={<div>Loading...</div>}>
+
   <GoogleMap
-    id='bicycling-example'
+    id="rectangle-example"
     mapContainerStyle={{
       height: "400px",
       width: "800px"
     }}
-    zoom={2}
+    zoom={2.5}
     center={{
-      lat: 0,
-      lng: -180
-    }}
-    onClick={(...args) => {
-      console.log('onClick args: ', args)
+      lat: -25.363,
+      lng: 131.044
     }}
   >
-    <BicyclingLayer />
+
+    <Rectangle
+      bounds={{
+        north: 38.685,
+        south: 33.671,
+        east: -115.234,
+        west: -118.251
+      }}
+    />
+
   </GoogleMap>
 </LoadScript>
 ```
-
 <WithApiKey>
   {
-    apiKey => (
+    (apiKey) => (
       <LoadScript
         id="script-loader"
         googleMapsApiKey={apiKey}
@@ -55,26 +55,30 @@ import WithApiKey from "./WithApiKey";
         version={"weekly"}
         libraries={[]}
         onLoad={() => console.log("script loaded")}
-        loadingElement={
-          <div>Loading...</div>
-        }
-      >
+        loadingElement={<div>Loading...</div>}>
+
         <GoogleMap
-          id='bicycling-example'
+          id="basic-map-example"
           mapContainerStyle={{
             height: "400px",
             width: "800px"
           }}
-          zoom={2}
+          zoom={2.5}
           center={{
-            lat: 0,
-            lng: -180
-          }}
-          onClick={(...args) => {
-            console.log('onClick args: ', args)
+            lat: -25.363,
+            lng: 131.044
           }}
         >
-          <BicyclingLayer />
+
+          <Rectangle
+            bounds={{
+              north: 38.685,
+              south: 33.671,
+              east: -115.234,
+              west: -118.251
+            }}
+          />
+
         </GoogleMap>
       </LoadScript>
     )

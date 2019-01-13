@@ -73,13 +73,12 @@ export class StreetViewPanorama extends PureComponent {
 
   componentDidMount = () => {
     const streetViewPanorama = this.context.getStreetView()
-
     this.setState(
       () => ({
         streetViewPanorama
       }),
       () => {
-        this.state.streetViewPanorama.setVisible(true)
+        
       }
     )
   }
@@ -93,7 +92,8 @@ export class StreetViewPanorama extends PureComponent {
       prevProps,
       nextProps: this.props,
       instance: this.state.streetViewPanorama
-    })
+    });
+    this.state.streetViewPanorama.setOptions(this.props);
   }
 
   componentWillUnmount = () => {
