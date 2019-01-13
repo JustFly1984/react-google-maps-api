@@ -1,7 +1,9 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { injectScript } from './utils/injectscript'
 import { LoadScriptPropTypes } from './proptypes'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
+
+let cleaningUp = false;
 
 class LoadScript extends Component {
   static propTypes = LoadScriptPropTypes
@@ -15,24 +17,62 @@ class LoadScript extends Component {
     loaded: false
   }
 
-  componentDidMount = () => {
+  check = React.createRef()
+
+  componentDidMount = async () => {
+    if ( window.google && !cleaningUp ) {
+      console.error("google api is already presented");
+      return;
+    }
+    await this.isCleaningUp()
     this.injectScript()
   }
 
   componentDidUpdate = prevProps => {
     if (prevProps.language !== this.props.language) {
-      this.cleanup(this.injectScript)
+      this.cleanup()
+      this.setState(
+        () => ({
+          loaded: false
+        }),
+        () => {
+          delete window.google
+  
+          this.injectScript()
+        }
+      )      
     }
   }
 
   componentWillUnmount = () => {
-    this.cleanup(() => {})
-
+    this.cleanup()
+    setTimeout( () => {
+      if (!this.check.current) {
+        delete window.google
+        cleaningUp = false;
+      }
+    }, 1 );
     this.props
       .onUnmount()
-  }
+  } 
 
-  cleanup = cb => {
+  isCleaningUp = () => {
+    return new Promise( resolve => {
+      if (!cleaningUp) {
+        resolve()
+      }
+      else {
+        const timer = setInterval(() => {
+          if (!cleaningUp) {
+            clearInterval(timer)
+            resolve()
+          }
+        }, 1)
+      }
+    } );
+  }
+  cleanup = () => {
+    cleaningUp = true
     const script = document.getElementById(this.props.id)
 
     script.parentNode.removeChild(script)
@@ -60,17 +100,6 @@ class LoadScript extends Component {
       .forEach(style => {
         style.parentNode.removeChild(style)
       })
-
-    this.setState(
-      () => ({
-        loaded: false
-      }),
-      () => {
-        delete window.google
-
-        cb()
-      }
-    )
   }
 
   injectScript = () => {
@@ -119,7 +148,7 @@ Otherwise it is a Network issues.
     })
   }
 
-  render = () => (this.state.loaded ? this.props.children : this.props.loadingElement)
+  render = () => <div ref={this.check}>{this.state.loaded ? this.props.children : this.props.loadingElement}</div>
 }
 
 export default LoadScript
