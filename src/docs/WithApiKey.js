@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 const inputStyle = {
@@ -7,10 +7,14 @@ const inputStyle = {
   borderRadius: '4px'
 }
 
+const buttonStyle = {
+  height: '40px'
+}
+
 const propTypes = {
   children: PropTypes.func.isRequired
 }
-export default class WithApiKey extends React.Component {
+class WithApiKey extends Component {
   static propTypes = propTypes
   state = {
     apiKey: '',
@@ -43,12 +47,13 @@ export default class WithApiKey extends React.Component {
           value={this.state.tempApiKey}
           style={inputStyle}
         />
-        <input
+        <button
           type='button'
-          value='Load script'
-          style={{ height: '40px' }}
+          style={buttonStyle}
           onClick={this.onClick}
-        />
+        >
+          Load script
+        </button>
       </div>
 
       {
@@ -59,3 +64,5 @@ export default class WithApiKey extends React.Component {
     </>
   )
 }
+
+export default WithApiKey
