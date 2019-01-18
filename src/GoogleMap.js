@@ -157,7 +157,9 @@ export class GoogleMap extends PureComponent {
         style={mapContainerStyle}
         className={mapContainerClassName}
       >
-        <MapContext.Provider value={map}>
+        <MapContext.Provider
+          value={map}
+        >
           {map !== null ? children : null}
         </MapContext.Provider>
       </div>

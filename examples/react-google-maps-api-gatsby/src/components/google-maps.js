@@ -10,15 +10,16 @@ import {
   loadingStyle
 } from '../components/styles'
 
-import SectionFusion from '../components/section-fusion'
-import SectionData from '../components/section-data'
-import SectionDirections from '../components/section-directions'
-import SectionHeatmap from '../components/section-heatmap'
-import SectionTraffic from '../components/section-traffic'
-import SectionShapes from '../components/section-shapes'
-import SectionDrawing from '../components/section-drawing'
-import SectionBicycling from '../components/section-bicycling'
-import SectionGround from '../components/section-ground'
+import SectionFusion from './section-fusion'
+import SectionData from './section-data'
+import SectionDirections from './section-directions'
+import SectionHeatmap from './section-heatmap'
+import SectionTraffic from './section-traffic'
+import SectionShapes from './section-shapes'
+import SectionDrawing from './section-drawing'
+import SectionBicycling from './section-bicycling'
+import SectionGround from './section-ground'
+import SectionOptions from './section-options'
 
 const Loading = (
   <div style={loadingStyle} />
@@ -60,6 +61,8 @@ const GoogleMaps = ({ googleMapsApiKey, language }) => (
     <SectionBicycling />
 
     <SectionGround />
+
+    <SectionOptions />
   </LoadScript>
 )
 

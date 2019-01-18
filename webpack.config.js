@@ -1,6 +1,5 @@
 const path = require('path')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const pkg = require('./package.json')
 const webpack = require('webpack')
@@ -22,17 +21,11 @@ module.exports = {
         exclude: /(node_modules|bower_components|dist)/,
         use: {
           loader: 'babel-loader'
-          // options: {
-          //   presets: ['@babel/preset-env']
-          // }
         }
       }
     ]
   },
   optimization: {
-    // minimizer: [new UglifyJsPlugin({
-    //   test: /\.js(\?.*)?$/i
-    // })],
     minimizer: [new TerserPlugin({
       sourceMap: true
     })]

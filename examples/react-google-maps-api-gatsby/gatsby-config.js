@@ -1,5 +1,6 @@
 module.exports = {
   siteMetadata: {
+    siteUrl: 'https://react-google-maps-api.netlify.com',
     title: 'React Google Maps API Gatsby Example',
   },
   plugins: [
@@ -14,7 +15,7 @@ module.exports = {
       resolve: 'gatsby-plugin-purgecss',
       options: {
         printRejected: true,
-        ignore: ['ReactToastify.css', 'react-draft-wysiwyg.css']
+        ignore: []
       }
     },
     {

@@ -13,7 +13,8 @@ import {
   SHAPES_TOGGLE,
   DRAWING_TOGGLE,
   BICYCLING_TOGGLE,
-  GROUND_TOGGLE
+  GROUND_TOGGLE,
+  OPTIONS_TOGGLE
 } from '../action-types'
 
 const initialState = fromJS({
@@ -28,7 +29,8 @@ const initialState = fromJS({
   shapes: false,
   drawing: false,
   bicycling: false,
-  ground: false
+  ground: false,
+  options: false
 })
 
 export default handleActions({
@@ -79,5 +81,9 @@ export default handleActions({
   [GROUND_TOGGLE]: (state, { payload: { ground } }) =>
     state.merge({
       ground
+    }),
+  [OPTIONS_TOGGLE]: (state, { payload: { options } }) =>
+    state.merge({
+      options
     })
 }, initialState)
