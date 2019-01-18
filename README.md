@@ -22,6 +22,12 @@ and
 npm i -D @babel/preset-env @babel/preset-react @babel/plugin-proposal-object-rest-spread @babel/plugin-proposal-class-properties @babel/plugin-transform-spread @babel/plugin-syntax-dynamic-import @babel/plugin-transform-runtime babel-plugin-macros babel-plugin-transform-react-remove-prop-types
 ```
 
+On top of your app ,you need to import `babel-polyfill`
+
+```javascript
+import "babel-polyfill";
+```
+
 If you do not have `.babelrc` file, create it next to `package.json`
 
 Content of `.babelrc` should look like this:
