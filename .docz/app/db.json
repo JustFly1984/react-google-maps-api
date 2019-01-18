@@ -4,7 +4,7 @@
     "description": "React.js Google Maps API integration",
     "menu": [],
     "ordering": "descending",
-    "version": "1.0.6",
+    "version": "1.0.8",
     "repository": "https://github.com/JustFly1984/react-google-maps-api",
     "native": false,
     "codeSandbox": true,
@@ -52,6 +52,16 @@
           "depth": 2,
           "slug": "106",
           "value": "1.0.6"
+        },
+        {
+          "depth": 2,
+          "slug": "107",
+          "value": "1.0.7"
+        },
+        {
+          "depth": 2,
+          "slug": "108",
+          "value": "1.0.8"
         }
       ]
     },
