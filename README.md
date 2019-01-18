@@ -13,7 +13,7 @@ Here are the main additions to react-google-maps that were the motivation behind
 ## Install react-google-maps-api
 
 ```#!/bin/bash
-npm i -S react-google-maps-api babel-polyfill @babel/runtime
+npm i -S react-google-maps-api @babel/polyfill @babel/runtime
 ```
 
 and
@@ -22,10 +22,10 @@ and
 npm i -D @babel/preset-env @babel/preset-react @babel/plugin-proposal-object-rest-spread @babel/plugin-proposal-class-properties @babel/plugin-transform-spread @babel/plugin-syntax-dynamic-import @babel/plugin-transform-runtime babel-plugin-macros babel-plugin-transform-react-remove-prop-types
 ```
 
-On top of your app ,you need to import `babel-polyfill`
+On top of your app ,you need to import `@babel/polyfill`
 
 ```javascript
-import "babel-polyfill";
+import "@babel/polyfill";
 ```
 
 If you do not have `.babelrc` file, create it next to `package.json`

@@ -1,5 +1,5 @@
 /* globals window */
-import 'babel-polyfill'
+import '@babel/polyfill'
 import 'whatwg-fetch'
 
 import React from 'react'

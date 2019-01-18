@@ -5,7 +5,7 @@
   "author": "Alexey Lyakhov <justfly1984@gmail.com>",
   "dependencies": {
     "@babel/runtime": "7.2.0",
-    "babel-polyfill": "6.26.0",
+    "@babel/polyfill": "7.2.5",
     "gatsby": "2.0.91",
     "gatsby-plugin-eslint": "2.0.3",
     "gatsby-plugin-purgecss": "3.1.0",
