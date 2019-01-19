@@ -88,7 +88,11 @@ export class GoogleMap extends PureComponent {
 
     const map = reuseSameInstance && restoreInstance(rest)
 
-    return map || new google.maps.Map(this.mapRef)
+    return map || new google.maps.Map(
+      this.mapRef, {
+        ...this.props.options
+      }
+    )
   }
 
   componentDidMount = () => {
@@ -104,7 +108,7 @@ export class GoogleMap extends PureComponent {
           nextProps: this.props,
           instance: this.state.map
         })
-        
+
         this.props.onLoad(this.state.map)
       }
     )
@@ -142,8 +146,8 @@ export class GoogleMap extends PureComponent {
       children
     } = this.props
 
-    const { 
-      map 
+    const {
+      map
     } = this.state
 
     return (
@@ -153,7 +157,9 @@ export class GoogleMap extends PureComponent {
         style={mapContainerStyle}
         className={mapContainerClassName}
       >
-        <MapContext.Provider value={map}>
+        <MapContext.Provider
+          value={map}
+        >
           {map !== null ? children : null}
         </MapContext.Provider>
       </div>

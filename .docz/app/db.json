@@ -1,0 +1,222 @@
+{
+  "config": {
+    "title": "React Google Maps Api",
+    "description": "React.js Google Maps API integration",
+    "menu": [],
+    "ordering": "descending",
+    "version": "1.0.8",
+    "repository": "https://github.com/JustFly1984/react-google-maps-api",
+    "native": false,
+    "codeSandbox": true,
+    "themeConfig": {}
+  },
+  "entries": {
+    "src/docs/BicyclingLayer.mdx": {
+      "name": "Bicycling Layer",
+      "id": "05287bcfadda3c3296ef90e173a6a3eb",
+      "filepath": "src/docs/BicyclingLayer.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/BicyclingLayer.mdx",
+      "slug": "src-docs-bicycling-layer",
+      "route": "/src-docs-bicycling-layer",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "bicycling-layer",
+          "value": "Bicycling Layer"
+        }
+      ]
+    },
+    "src/docs/Changelog.mdx": {
+      "name": "Changelog",
+      "id": "6f105c5ad031bafd6087716b6453e6b4",
+      "filepath": "src/docs/Changelog.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Changelog.mdx",
+      "slug": "src-docs-changelog",
+      "route": "/src-docs-changelog",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "changelog",
+          "value": "Changelog"
+        },
+        {
+          "depth": 2,
+          "slug": "105",
+          "value": "1.0.5"
+        },
+        {
+          "depth": 2,
+          "slug": "106",
+          "value": "1.0.6"
+        },
+        {
+          "depth": 2,
+          "slug": "107",
+          "value": "1.0.7"
+        },
+        {
+          "depth": 2,
+          "slug": "108",
+          "value": "1.0.8"
+        }
+      ]
+    },
+    "src/docs/Circle.mdx": {
+      "name": "Circle",
+      "id": "54606f31b3c457f120cb68146b79b219",
+      "filepath": "src/docs/Circle.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Circle.mdx",
+      "slug": "src-docs-circle",
+      "route": "/src-docs-circle",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "circle",
+          "value": "Circle"
+        }
+      ]
+    },
+    "src/docs/GoogleMap.mdx": {
+      "name": "GoogleMap",
+      "route": "/",
+      "id": "99da35cb3e754c8805ffb2f567c98710",
+      "filepath": "src/docs/GoogleMap.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/GoogleMap.mdx",
+      "slug": "src-docs-google-map",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "googlemap",
+          "value": "GoogleMap"
+        }
+      ]
+    },
+    "src/docs/GroundOverlay.mdx": {
+      "name": "GroundOverlay",
+      "id": "231b2a262e79a5f5d8dda68f8a4a15c3",
+      "filepath": "src/docs/GroundOverlay.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/GroundOverlay.mdx",
+      "slug": "src-docs-ground-overlay",
+      "route": "/src-docs-ground-overlay",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "groundoverlay",
+          "value": "GroundOverlay"
+        }
+      ]
+    },
+    "src/docs/Install.mdx": {
+      "name": "Install",
+      "id": "2d0aec6b49ed51660cb7a8169fdcba91",
+      "filepath": "src/docs/Install.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Install.mdx",
+      "slug": "src-docs-install",
+      "route": "/src-docs-install",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "install",
+          "value": "Install"
+        }
+      ]
+    },
+    "src/docs/Marker.mdx": {
+      "name": "Marker",
+      "id": "02c8339025d94755d0b3a5f655912b57",
+      "filepath": "src/docs/Marker.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Marker.mdx",
+      "slug": "src-docs-marker",
+      "route": "/src-docs-marker",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "marker",
+          "value": "Marker"
+        }
+      ]
+    },
+    "src/docs/Polygon.mdx": {
+      "name": "Polygon",
+      "id": "5ea94b1eaa69eb1699c13ac0a2fe681d",
+      "filepath": "src/docs/Polygon.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Polygon.mdx",
+      "slug": "src-docs-polygon",
+      "route": "/src-docs-polygon",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "polygon",
+          "value": "Polygon"
+        }
+      ]
+    },
+    "src/docs/Polyline.mdx": {
+      "name": "Polyline",
+      "id": "0927b6073d50d52aa35e245fcadc6db2",
+      "filepath": "src/docs/Polyline.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Polyline.mdx",
+      "slug": "src-docs-polyline",
+      "route": "/src-docs-polyline",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "polyline",
+          "value": "Polyline"
+        }
+      ]
+    },
+    "src/docs/Rectangle.mdx": {
+      "name": "Rectangle",
+      "id": "d1163f7c801914aa4d46b3452e5b91a8",
+      "filepath": "src/docs/Rectangle.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Rectangle.mdx",
+      "slug": "src-docs-rectangle",
+      "route": "/src-docs-rectangle",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "rectangle",
+          "value": "Rectangle"
+        }
+      ]
+    },
+    "src/docs/Shapes.mdx": {
+      "name": "Shapes",
+      "id": "e82b1f8dfd591b903667963658029352",
+      "filepath": "src/docs/Shapes.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Shapes.mdx",
+      "slug": "src-docs-shapes",
+      "route": "/src-docs-shapes",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "shapes",
+          "value": "Shapes"
+        }
+      ]
+    }
+  }
+}
