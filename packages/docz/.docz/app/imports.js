@@ -15,10 +15,10 @@ export const imports = {
     import(/* webpackPrefetch: true, webpackChunkName: "src-marker" */ 'src/Marker.mdx'),
   'src/Polygon.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-polygon" */ 'src/Polygon.mdx'),
+  'src/Polyline.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-polyline" */ 'src/Polyline.mdx'),
   'src/Rectangle.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-rectangle" */ 'src/Rectangle.mdx'),
   'src/Shapes.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-shapes" */ 'src/Shapes.mdx'),
-  'src/Polyline.mdx': () =>
-    import(/* webpackPrefetch: true, webpackChunkName: "src-polyline" */ 'src/Polyline.mdx'),
 }

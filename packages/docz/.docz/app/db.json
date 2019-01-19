@@ -52,6 +52,16 @@
           "depth": 2,
           "slug": "106",
           "value": "1.0.6"
+        },
+        {
+          "depth": 2,
+          "slug": "107",
+          "value": "1.0.7"
+        },
+        {
+          "depth": 2,
+          "slug": "108",
+          "value": "1.0.8"
         }
       ]
     },
@@ -157,6 +167,23 @@
         }
       ]
     },
+    "src/Polyline.mdx": {
+      "name": "Polyline",
+      "id": "4c0a6c4b1072a26ba4cebf0ecca94d35",
+      "filepath": "src/Polyline.mdx",
+      "link": null,
+      "slug": "src-polyline",
+      "route": "/src-polyline",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "polyline",
+          "value": "Polyline"
+        }
+      ]
+    },
     "src/Rectangle.mdx": {
       "name": "Rectangle",
       "id": "fb836b89fb2f6954676e34e2d34f9b3e",
@@ -188,23 +215,6 @@
           "depth": 1,
           "slug": "shapes",
           "value": "Shapes"
-        }
-      ]
-    },
-    "src/Polyline.mdx": {
-      "name": "Polyline",
-      "id": "4c0a6c4b1072a26ba4cebf0ecca94d35",
-      "filepath": "src/Polyline.mdx",
-      "link": null,
-      "slug": "src-polyline",
-      "route": "/src-polyline",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "polyline",
-          "value": "Polyline"
         }
       ]
     }
