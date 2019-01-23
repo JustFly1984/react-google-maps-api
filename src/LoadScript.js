@@ -3,61 +3,69 @@ import { injectScript } from './utils/injectscript'
 import { LoadScriptPropTypes } from './proptypes'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
 
-let cleaningUp = false;
+let cleaningUp = false
 
 class LoadScript extends Component {
   static propTypes = LoadScriptPropTypes
+
   static defaultProps = {
     onLoad: () => {},
     onError: () => {},
     onUnmount: () => {},
   }
 
-  state = {
-    loaded: false
-  }
+  constructor (props) {
+    super(props)
 
-  check = React.createRef()
-
-  componentDidMount = async () => {
-    if ( window.google && !cleaningUp ) {
-      console.error("google api is already presented");
-      return;
+    this.state = {
+      loaded: false
     }
-    await this.isCleaningUp()
-    this.injectScript()
+
+    this.check = React.createRef()
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    if (window.google && !cleaningUp) {
+      console.error("google api is already presented")
+      return
+    }
+
+    this.isCleaningUp()
+      .then(this.injectScript)
+  }
+
+  componentDidUpdate (prevProps) {
     if (prevProps.language !== this.props.language) {
       this.cleanup()
+
       this.setState(
         () => ({
           loaded: false
         }),
         () => {
           delete window.google
-  
           this.injectScript()
         }
-      )      
+      )
     }
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     this.cleanup()
-    setTimeout( () => {
+
+    setTimeout(() => {
       if (!this.check.current) {
         delete window.google
-        cleaningUp = false;
+        cleaningUp = false
       }
-    }, 1 );
+    }, 1)
+
     this.props
       .onUnmount()
-  } 
+  }
 
-  isCleaningUp = () => {
-    return new Promise( resolve => {
+  isCleaningUp = async () => {
+    return new Promise(resolve => {
       if (!cleaningUp) {
         resolve()
       }
@@ -69,8 +77,9 @@ class LoadScript extends Component {
           }
         }, 1)
       }
-    } );
+    })
   }
+
   cleanup = () => {
     cleaningUp = true
     const script = document.getElementById(this.props.id)
@@ -121,8 +130,9 @@ class LoadScript extends Component {
       id,
       url: `https://maps.googleapis.com/maps/api/js?v=${version}&key=${googleMapsApiKey}&language=${language}&region=${region}${
         libraries ? `&libraries=${libraries.join(',')}` : ''
-      }`,
-      onSuccess: () => {
+      }`
+    })
+      .then(() => {
         this.props.onLoad()
 
         this.setState(
@@ -130,8 +140,8 @@ class LoadScript extends Component {
             loaded: true
           })
         )
-      },
-      onError: () => {
+      })
+      .catch(() => {
         throw new Error(`
 There has been an Error with loading Google Maps API script, please check that you provided all required props to <LoadScript />
 Props you have provided:
@@ -144,11 +154,20 @@ libraries: ${(this.props.libraries || []).join(',')}
 
 Otherwise it is a Network issues.
 `)
-      }
-    })
+      })
   }
 
-  render = () => <div ref={this.check}>{this.state.loaded ? this.props.children : this.props.loadingElement}</div>
+  render () {
+    return (
+      <div ref={this.check}>
+        {
+          this.state.loaded
+            ? this.props.children
+            : this.props.loadingElement
+        }
+      </div>
+    )
+  }
 }
 
 export default LoadScript
