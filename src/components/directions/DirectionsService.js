@@ -1,5 +1,5 @@
 /* global google */
-import { PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 
 import MapContext from '../../map-context'
 
@@ -10,8 +10,8 @@ export class DirectionsService extends PureComponent {
 
   static contextType = MapContext
 
-  constructor (props) {
-    super(props)
+  constructor (props, context) {
+    super(props, context)
 
     this.state = {
       directionsRenderer: new google.maps.DirectionsService()

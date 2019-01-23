@@ -1,5 +1,5 @@
 /* global google */
-import { PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import invariant from 'invariant'
 
 import {

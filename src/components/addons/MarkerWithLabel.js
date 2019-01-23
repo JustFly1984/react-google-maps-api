@@ -98,8 +98,8 @@ export class MarkerWithLabel extends PureComponent {
 
   static contextType = MarkerClusterContext
 
-  constructor (props) {
-    super(props)
+  constructor (props, context) {
+    super(props, context)
 
     const NativeMarkerWithLabel = makeMarkerWithLabel(google.maps)
 

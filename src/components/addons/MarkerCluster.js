@@ -124,7 +124,8 @@ export class MarkerCluster extends PureComponent {
   render () {
     return (
       <MarkerClusterContext.Provider
-        value={{ // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
+        // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
+        value={{
           map: this.context,
           cluster: this.state.markerClusterer
         }}

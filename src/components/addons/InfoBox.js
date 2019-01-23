@@ -52,8 +52,8 @@ export class InfoBox extends PureComponent {
 
   static contextType = MapContext
 
-  constructor (props) {
-    super(props)
+  constructor (props, context) {
+    super(props, context)
 
     const {
       InfoBox: GoogleMapsInfobox

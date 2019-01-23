@@ -1,5 +1,5 @@
 /* global google */
-import { PureComponent, Children } from 'react'
+import React, { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
 import invariant from 'invariant'
 
@@ -59,7 +59,7 @@ export class OverlayView extends PureComponent {
   }
 
   componentDidMount () {
-    overlayView.setMap(this.context)
+    this.state.overlayView.setMap(this.context)
 
     // You must call setMap() with a valid Map object to trigger the call to
     // the onAdd() method and setMap(null) in order to trigger the onRemove() method.

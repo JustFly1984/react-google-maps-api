@@ -1,5 +1,5 @@
 /* global google */
-import { PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import warning from 'warning'
 import { GroundOverlayPropTypes } from '../../proptypes'
 

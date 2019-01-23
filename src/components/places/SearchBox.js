@@ -36,6 +36,8 @@ export class SearchBox extends PureComponent {
     )
 
     this.state = {
+      controls: context.controls,
+      controlPosition: props.controlPosition,
       mountControlIndex: -1 + context.controls[props.controlPosition].push(
         props.containerElement.firstChild
       ),
@@ -63,20 +65,23 @@ export class SearchBox extends PureComponent {
     })
   }
 
-  componentDidUpdate (prevProps) {
-    unregisterEvents(this.registeredEvents)
-
-    if (this.props.controlPosition !== prevProps.controlPosition) {
-      if (typeof this.props.controlPosition === 'number') {
-        this.setState(
-          (_state, props) => ({
-            mountControlIndex: -1 + this.context.controls[props.controlPosition].push(
-              props.containerElement.firstChild
-            )
-          })
-        )
+  static getDerivedStateFromProps (props, state) {
+    if (props.controlPosition !== state.controlPosition) {
+      if (typeof props.controlPosition === 'number') {
+        return {
+          controlPosition: props.controlPosition,
+          mountControlIndex: -1 + state.controls[props.controlPosition].push(
+            props.containerElement.firstChild
+          )
+        }
       }
     }
+
+    return null
+  }
+
+  componentDidUpdate (prevProps) {
+    unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
