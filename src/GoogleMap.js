@@ -82,7 +82,7 @@ export class GoogleMap extends PureComponent {
     super(props)
 
     this.state = {
-      map: null
+      map: this.getInstance()
     }
 
     this.registeredEvents = []
@@ -103,22 +103,15 @@ export class GoogleMap extends PureComponent {
   }
 
   componentDidMount () {
-    this.setState(
-      () => ({
-        map: this.getInstance()
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.map
-        })
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.map
+    })
 
-        this.props.onLoad(this.state.map)
-      }
-    )
+    this.props.onLoad(this.state.map)
   }
 
   componentDidUpdate (prevProps) {
