@@ -10,24 +10,21 @@ export class StreetViewService extends PureComponent {
 
   static contextType = MapContext
 
-  state = {
-    streetViewService: null
+  constructor (props, context) {
+    super(props, context)
+
+    this.state = {
+      streetViewService: new google.maps.StreetViewService()
+    }
   }
 
-  componentDidMount = () => {
-    const streetViewService = new google.maps.StreetViewService()
-
-    this.setState(
-      () => ({
-        streetViewService
-      })
-    )
+  render () {
+    return <></>
   }
 
-  render = () => null
-
-  getPanorama = () =>
-    this.state.streetViewService.getPanorama()
+  getPanorama () {
+    return this.state.streetViewService.getPanorama()
+  }
 }
 
 export default StreetViewService

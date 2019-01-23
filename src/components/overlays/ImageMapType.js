@@ -25,31 +25,26 @@ export class ImageMapType extends PureComponent {
 
   static contextType = MapContext
 
-  state = {
-    imageMapType: null
-  }
+  constructor (props, context) {
+    super(props, context)
 
-  componentDidMount = () => {
-    const imageMapType = new google.maps.ImageMapType(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      imageMapType: new google.maps.ImageMapType(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
-
-    this.setState(
-      () => ({
-        imageMapType
-      }),
-      () => {
-        this.state.imageMapType.setMap(this.context)
-      }
-    )
+    }
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.imageMapType.setMap(this.context)
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -61,7 +56,7 @@ export class ImageMapType extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
     if (this.state.imageMapType) {
@@ -69,16 +64,21 @@ export class ImageMapType extends PureComponent {
     }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getOpacity = () =>
-    this.state.imageMapType.getOpacity()
+  getOpacity () {
+    return this.state.imageMapType.getOpacity()
+  }
 
-  getTile = (tileCoord, zoom, ownerDocument) =>
-    this.state.imageMapType.getTile(tileCoord, zoom, ownerDocument)
+  getTile (tileCoord, zoom, ownerDocument) {
+    return this.state.imageMapType.getTile(tileCoord, zoom, ownerDocument)
+  }
 
-  releaseTile = tileDiv =>
-    this.state.imageMapType.releaseTile(tileDiv)
+  releaseTile (tileDiv) {
+    return this.state.imageMapType.releaseTile(tileDiv)
+  }
 }
 
 export default ImageMapType

@@ -30,50 +30,41 @@ export class HeatmapLayer extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
-
-  state = {
-    heatmapLayer: null
-  }
-
-  constructor (props) {
-    super(props)
+  constructor (props, context) {
+    super(props, context)
 
     invariant(
       google.maps.visualization,
       'Did you include "visualization" in the libraries array prop in <LoadScript />?'
     )
-  }
 
-  componentDidMount = () => {
-    const heatmapLayer = new google.maps.visualization.HeatmapLayer(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      heatmapLayer: new google.maps.visualization.HeatmapLayer(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        heatmapLayer
-      }),
-      () => {
-        // this.state.heatmapLayer.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.heatmapLayer
-        })
-      }
-    )
+    this.registeredEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    // this.state.heatmapLayer.setMap(this.context)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.heatmapLayer
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -85,7 +76,7 @@ export class HeatmapLayer extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
     if (this.state.heatmapLayer) {
@@ -93,13 +84,17 @@ export class HeatmapLayer extends PureComponent {
     }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getData = () =>
-    this.state.heatmapLayer.getData()
+  getData () {
+    return this.state.heatmapLayer.getData()
+  }
 
-  getMap = () =>
-    this.state.heatmapLayer.getMap()
+  getMap () {
+    return this.state.heatmapLayer.getMap()
+  }
 }
 
 export default HeatmapLayer

@@ -22,39 +22,34 @@ export class TrafficLayer extends PureComponent {
 
   static contextType = MapContext
 
-  state = {
-    trafficLayer: null
-  }
+  constructor (props, context) {
+    super(props, context)
 
-  componentDidMount = () => {
-    const trafficLayer = new google.maps.TrafficLayer(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      trafficLayer: new google.maps.TrafficLayer(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
-
-    this.setState(
-      () => ({
-        trafficLayer
-      }),
-      () => {
-        this.state.trafficLayer.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.trafficLayer
-        })
-      }
-    )
+    }
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.trafficLayer.setMap(this.context)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.trafficLayer
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -66,15 +61,21 @@ export class TrafficLayer extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
-    this.state.trafficLayer && this.state.trafficLayer.setMap(null)
+    if (this.state.trafficLayer) {
+      this.state.trafficLayer.setMap(null)
+    }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getMap = () => this.state.trafficLayer.getMap()
+  getMap () {
+    return this.state.trafficLayer.getMap()
+  }
 }
 
 export default TrafficLayer

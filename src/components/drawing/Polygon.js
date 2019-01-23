@@ -59,42 +59,38 @@ export class Polygon extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
+  constructor (props, context) {
+    super(props, context)
 
-  state = {
-    polygon: null
-  }
-
-  componentDidMount = () => {
-    const polygon = new google.maps.Polygon(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      polygon: new google.maps.Polygon(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        polygon
-      }),
-      () => {
-        this.state.polygon.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.polygon
-        })
-      }
-    )
+    this.registeredEvents = []
   }
 
-  componentDidUpdate = (prevProps) => {
+  componentDidMount () {
+    this.state.polygon.setMap(this.context)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.polygon
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -104,30 +100,41 @@ export class Polygon extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
-    this.state.polygon && this.state.polygon.setMap(null)
+
+    if (this.state.polygon) {
+      this.state.polygon.setMap(null)
+    }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getDraggable = () =>
-    this.state.polygon.getDraggable()
+  getDraggable () {
+    return this.state.polygon.getDraggable()
+  }
 
-  getEditable = () =>
-    this.state.polygon.getEditable()
+  getEditable () {
+    return this.state.polygon.getEditable()
+  }
 
-  getMap = () =>
-    this.state.polygon.getEditable()
+  getMap () {
+    return this.state.polygon.getEditable()
+  }
 
-  getPath = () =>
-    this.state.polygon.getMap()
+  getPath () {
+    return this.state.polygon.getMap()
+  }
 
-  getPaths = () =>
-    this.state.polygon.getPaths()
+  getPaths () {
+    return this.state.polygon.getPaths()
+  }
 
-  getVisible = () =>
-    this.state.polygon.getVisible()
+  getVisible () {
+    return this.state.polygon.getVisible()
+  }
 }
 
 export default Polygon

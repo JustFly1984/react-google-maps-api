@@ -34,47 +34,38 @@ export class DrawingManager extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
-
-  state = {
-    drawingManager: null
-  }
-
-  constructor (props) {
-    super(props)
+  constructor (props, context) {
+    super(props, context)
 
     invariant(google.maps.drawing, 'Did you include "libraries=drawing" in the URL?')
-  }
 
-  componentDidMount = () => {
-    const drawingManager = new google.maps.drawing.DrawingManager(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      drawingManager: new google.maps.drawing.DrawingManager(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        drawingManager
-      }),
-      () => {
-        this.state.drawingManager.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.drawingManager
-        })
-      }
-    )
+    this.registeredEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.drawingManager.setMap(this.context)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.drawingManager
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -86,17 +77,25 @@ export class DrawingManager extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
-    this.state.drawingManager && this.state.drawingManager.setMap(null)
+    if (this.state.drawingManager) {
+      this.state.drawingManager.setMap(null)
+    }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getDrawingMode = () => this.state.drawingManager.getDrawingMode()
+  getDrawingMode () {
+    return this.state.drawingManager.getDrawingMode()
+  }
 
-  getMap = () => this.state.drawingManager.getMap()
+  getMap () {
+    return this.state.drawingManager.getMap()
+  }
 }
 
 export default DrawingManager

@@ -75,32 +75,28 @@ export class Data extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
+  constructor (props, context) {
+    super(props, context)
 
-  state = {
-    data: null
-  }
-
-  componentDidMount = () => {
-    const data = new google.maps.Data(
-      Object.assign({
-        map: this.context
-      },
-      this.props.options
+    this.state = {
+      data: new google.maps.Data(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        data
-      }),
-      () => {
-        this.state.data.setMap(this.context)
-      }
-    )
+    this.registeredEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.data.setMap(this.context)
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -112,7 +108,7 @@ export class Data extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
     if (this.props.data) {
@@ -120,25 +116,33 @@ export class Data extends PureComponent {
     }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getControlPosition = () =>
-    this.state.data.getControlPosition()
+  getControlPosition () {
+    return this.state.data.getControlPosition()
+  }
 
-  getControls = () =>
-    this.state.data.getControls()
+  getControls () {
+    return this.state.data.getControls()
+  }
 
-  getDrawingMode = () =>
-    this.state.data.getDrawingMode()
+  getDrawingMode () {
+    return this.state.data.getDrawingMode()
+  }
 
-  getFeatureById = () =>
-    this.state.data.getFeatureById()
+  getFeatureById () {
+    return this.state.data.getFeatureById()
+  }
 
-  getMap = () =>
-    this.state.data.getMap()
+  getMap () {
+    return this.state.data.getMap()
+  }
 
-  getStyle = () =>
-    this.state.data.getStyle()
+  getStyle () {
+    return this.state.data.getStyle()
+  }
 }
 
 export default Data

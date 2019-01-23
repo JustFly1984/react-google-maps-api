@@ -50,41 +50,36 @@ export class Polyline extends PureComponent {
 
   static contextType = MapContext
 
-  registerEvents = []
+  constructor (props, context) {
+    super(props, context)
 
-  state = {
-    polyline: null
-  }
-
-  componentDidMount = () => {
-    const polyline = new google.maps.Polyline(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      polyline: new google.maps.Polyline(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        polyline
-      }),
-      () => {
-        this.state.polyline.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.polyline
-        })
-      }
-    )
+    this.registerEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.polyline.setMap(this.context)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.polyline
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -96,23 +91,37 @@ export class Polyline extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
-    this.state.polyline && this.state.polyline.setMap(null)
+    if (this.state.polyline) {
+      this.state.polyline.setMap(null)
+    }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getDraggable = () => this.state.polyline.getDraggable()
+  getDraggable () {
+    return this.state.polyline.getDraggable()
+  }
 
-  getEditable = () => this.state.polyline.getEditable()
+  getEditable () {
+    return this.state.polyline.getEditable()
+  }
 
-  getPath = () => this.state.polyline.getPath()
+  getPath () {
+    return this.state.polyline.getPath()
+  }
 
-  getVisible = () => this.state.polyline.getVisible()
+  getVisible () {
+    return this.state.polyline.getVisible()
+  }
 
-  getMap = () => this.state.polyline.getMap()
+  getMap () {
+    return this.state.polyline.getMap()
+  }
 }
 
 export default Polyline

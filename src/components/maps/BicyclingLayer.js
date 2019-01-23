@@ -10,39 +10,38 @@ export class BicyclingLayer extends PureComponent {
 
   static contextType = MapContext
 
-  state = {
-    bicyclingLayer: null
-  }
+  constructor (props, context) {
+    super(props, context)
 
-  componentDidMount = () => {
-    const bicyclingLayer = new google.maps.BicyclingLayer(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      bicyclingLayer: new google.maps.BicyclingLayer(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
-
-    this.setState(
-      () => ({
-        bicyclingLayer
-      }),
-      () => {
-        bicyclingLayer.setMap(this.context)
-      }
-    )
+    }
   }
 
-  componentWillUnmount = () => {
+  componentDidMount () {
+    this.state.bicyclingLayer.setMap(this.context)
+  }
+
+  componentWillUnmount () {
     if (this.state.bicyclingLayer) {
       this.state.bicyclingLayer.setMap(null)
     }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getMap = () => this.state.bicyclingLayer.getMap()
+  getMap () {
+    return this.state.bicyclingLayer.getMap()
+  }
 }
 
 export default BicyclingLayer

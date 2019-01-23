@@ -29,41 +29,36 @@ export class KmlLayer extends PureComponent {
 
   static contextType = MapContext
 
-  registerEvents = []
+  constructor (props, context) {
+    super(props, context)
 
-  state = {
-    kmlLayer: null
-  }
-
-  componentDidMount = () => {
-    const kmlLayer = new google.maps.KmlLayer(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      kmlLayer: new google.maps.KmlLayer(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        kmlLayer
-      }),
-      () => {
-        this.state.kmlLayer.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.kmlLayer
-        })
-      }
-    )
+    this.registerEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.kmlLayer.setMap(this.context)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.kmlLayer
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -75,25 +70,41 @@ export class KmlLayer extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
-    this.state.kmlLayer && this.state.kmlLayer.setMap(null)
+    if (this.state.kmlLayer) {
+      this.state.kmlLayer.setMap(null)
+    }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getDefaultViewport = () => this.state.kmlLayer.getDefaultViewport()
+  getDefaultViewport () {
+    return this.state.kmlLayer.getDefaultViewport()
+  }
 
-  getMap = () => this.state.kmlLayer.getMap()
+  getMap () {
+    return this.state.kmlLayer.getMap()
+  }
 
-  getMetadata = () => this.state.kmlLayer.getMetadata()
+  getMetadata () {
+    return this.state.kmlLayer.getMetadata()
+  }
 
-  getStatus = () => this.state.kmlLayer.getStatus()
+  getStatus () {
+    return this.state.kmlLayer.getStatus()
+  }
 
-  getUrl = () => this.state.kmlLayer.getUrl()
+  getUrl () {
+    return this.state.kmlLayer.getUrl()
+  }
 
-  getZIndex = () => this.state.kmlLayer.getZIndex()
+  getZIndex () {
+    return this.state.kmlLayer.getZIndex()
+  }
 }
 
 export default KmlLayer

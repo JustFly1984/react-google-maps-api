@@ -28,33 +28,28 @@ export class FusionTablesLayer extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
+  constructor (props, context) {
+    super(props, context)
 
-  state = {
-    fusionTablesLayer: null
-  }
-
-  componentDidMount = () => {
-    const fusionTablesLayer = new google.maps.FusionTablesLayer(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      fusionTablesLayer: new google.maps.FusionTablesLayer(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        fusionTablesLayer
-      }),
-      () => {
-        this.state.fusionTablesLayer.setMap(this.context)
-      }
-    )
+    this.registeredEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.fusionTablesLayer.setMap(this.context)
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -66,7 +61,7 @@ export class FusionTablesLayer extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
     if (this.state.fusionTablesLayer) {
@@ -74,10 +69,13 @@ export class FusionTablesLayer extends PureComponent {
     }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getMap = () =>
-    this.state.fusionTablesLayer.getMap()
+  getMap () {
+    return this.state.fusionTablesLayer.getMap()
+  }
 }
 
 export default FusionTablesLayer

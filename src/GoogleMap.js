@@ -71,31 +71,38 @@ const updaterMap = {
 
 export class GoogleMap extends PureComponent {
   static propTypes = GoogleMapPropTypes
+
   static defaultProps = {
     id: 'defaultMapId',
     reuseSameInstance: false,
-    onLoad: () => { }
+    onLoad: () => {}
   }
 
-  state = {
-    map: null
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      map: null
+    }
+
+    this.registeredEvents = []
+
+    this.mapRef = React.createRef()
   }
 
-  registeredEvents = []
-
-  getInstance = () => {
+  getInstance () {
     const { reuseSameInstance, ...rest } = this.props
 
     const map = reuseSameInstance && restoreInstance(rest)
 
     return map || new google.maps.Map(
-      this.mapRef, {
+      this.mapRef.current, {
         ...this.props.options
       }
     )
   }
 
-  componentDidMount = () => {
+  componentDidMount () {
     this.setState(
       () => ({
         map: this.getInstance()
@@ -114,7 +121,7 @@ export class GoogleMap extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -126,73 +133,90 @@ export class GoogleMap extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
-    const { reuseSameInstance, id } = this.props
-
-    reuseSameInstance && saveInstance(id, this.state.map)
+  componentWillUnmount () {
+    if (this.props.reuseSameInstance) {
+      saveInstance(this.props.id, this.state.map)
+    }
 
     unregisterEvents(this.registeredEvents)
   }
 
-  getRef = ref => {
-    this.mapRef = ref
-  }
-
-  render = () => {
-    const {
-      id,
-      mapContainerStyle,
-      mapContainerClassName,
-      children
-    } = this.props
-
-    const {
-      map
-    } = this.state
-
+  render () {
     return (
       <div
-        id={id}
-        ref={this.getRef}
-        style={mapContainerStyle}
-        className={mapContainerClassName}
+        id={this.props.id}
+        ref={this.mapRef}
+        style={this.props.mapContainerStyle}
+        className={this.props.mapContainerClassName}
       >
         <MapContext.Provider
-          value={map}
+          value={this.state.map}
         >
-          {map !== null ? children : null}
+          {
+            this.state.map !== null
+              ? this.props.children
+              : <></>
+          }
         </MapContext.Provider>
       </div>
     )
   }
 
-  fitBounds = (...args) => this.state.map.fitBounds(...args)
+  fitBounds (...args) {
+    return this.state.map.fitBounds(...args)
+  }
 
-  panBy = (...args) => this.state.map.panBy(...args)
+  panBy (...args) {
+    return this.state.map.panBy(...args)
+  }
 
-  panTo = (...args) => this.state.map.panTo(...args)
+  panTo (...args) {
+    return this.state.map.panTo(...args)
+  }
 
-  panToBounds = (...args) => this.state.map.panToBounds(...args)
+  panToBounds (...args) {
+    return this.state.map.panToBounds(...args)
+  }
 
-  getBounds = () => this.state.map.getBounds()
+  getBounds () {
+    return this.state.map.getBounds()
+  }
 
-  getCenter = () => this.state.map.getCenter()
+  getCenter () {
+    return this.state.map.getCenter()
+  }
 
-  getClickableIcons = () => this.state.map.getClickableIcons()
+  getClickableIcons () {
+    return this.state.map.getClickableIcons()
+  }
 
-  getDiv = () => this.state.map.getDiv()
+  getDiv () {
+    return this.state.map.getDiv()
+  }
 
-  getHeading = () => this.state.map.getHeading()
+  getHeading () {
+    return this.state.map.getHeading()
+  }
 
-  getMapTypeId = () => this.state.map.getMapTypeId()
+  getMapTypeId () {
+    return this.state.map.getMapTypeId()
+  }
 
-  getProjection = () => this.state.map.getProjection()
+  getProjection () {
+    return this.state.map.getProjection()
+  }
 
-  getStreetView = () => this.state.map.getStreetView()
+  getStreetView () {
+    return this.state.map.getStreetView()
+  }
 
-  getTilt = () => this.state.map.getTilt()
+  getTilt () {
+    return this.state.map.getTilt()
+  }
 
-  getZoom = () => this.state.map.getZoom()
+  getZoom () {
+    return this.state.map.getZoom()
+  }
 }
 
 export default GoogleMap

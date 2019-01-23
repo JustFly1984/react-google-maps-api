@@ -77,33 +77,28 @@ export class MarkerCluster extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
+  constructor (props, context) {
+    super(props, context)
 
-  state = {
-    markerClusterer: null
-  }
+    this.registeredEvents = []
 
-  componentDidMount = () => {
-    const markerClusterer = new MarkerClusterPlus(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      markerClusterer: new MarkerClusterPlus(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
-
-    this.setState(
-      () => ({
-        markerClusterer
-      }),
-      () => {
-        this.state.markerClusterer.setMap(this.context)
-      }
-    )
+    }
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.markerClusterer.setMap(this.context)
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -118,7 +113,7 @@ export class MarkerCluster extends PureComponent {
       .repaint()
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
     if (this.state.markerClusterer) {
@@ -126,16 +121,20 @@ export class MarkerCluster extends PureComponent {
     }
   }
 
-  render = () => (
-    <MarkerClusterContext.Provider
-      value={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-        map: this.context,
-        cluster: this.state.markerClusterer
-      }}
-    >
-      {this.props.children}
-    </MarkerClusterContext.Provider>
-  )
+  render () {
+    return (
+      <MarkerClusterContext.Provider
+        value={{ // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
+          map: this.context,
+          cluster: this.state.markerClusterer
+        }}
+      >
+        {
+          this.props.children
+        }
+      </MarkerClusterContext.Provider>
+    )
+  }
 }
 
 export default MarkerCluster

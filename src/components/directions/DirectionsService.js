@@ -10,34 +10,31 @@ export class DirectionsService extends PureComponent {
 
   static contextType = MapContext
 
-  state = {
-    directionsRenderer: null
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      directionsRenderer: new google.maps.DirectionsService()
+    }
   }
 
-  componentDidMount = () => {
-    const directionsService = new google.maps.DirectionsService()
-
-    this.setState(
-      () => ({
-        directionsService
-      }),
-      () => {
-        this.state.directionsService.route(
-          this.props.options,
-          this.props.callback
-        )
-      }
-    )
-  }
-
-  componentDidUpdate = () => {
+  componentDidMount () {
     this.state.directionsService.route(
       this.props.options,
       this.props.callback
     )
   }
 
-  render = () => null
+  componentDidUpdate () {
+    this.state.directionsService.route(
+      this.props.options,
+      this.props.callback
+    )
+  }
+
+  render () {
+    return <></>
+  }
 }
 
 export default DirectionsService

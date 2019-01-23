@@ -42,44 +42,39 @@ export class InfoWindow extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
+  constructor (props, context) {
+    super(props, context)
 
-  state = {
-    infoWindow: null
-  }
-
-  componentDidMount = () => {
-    const infoWindow = new google.maps.InfoWindow(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      infoWindow: new google.maps.InfoWindow(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
-
-    infoWindow.setMap(this.context)
+    }
 
     this.containerElement = document.createElement('div')
 
-    this.setState(
-      () => ({
-        infoWindow
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.infoWindow
-        })
+    this.registeredEvents = []
+  }
 
-        this.state.infoWindow.setContent(this.containerElement)
+  componentDidMount () {
+    this.state.infoWindow.setMap(this.context)
 
-        this.open(this.state.infoWindow, this.props.anchor)
-      }
-    )
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.infoWindow
+    })
+
+    this.state.infoWindow.setContent(this.containerElement)
+
+    this.open(this.state.infoWindow, this.props.anchor)
   }
 
   componentDidUpdate (prevProps) {
@@ -94,18 +89,24 @@ export class InfoWindow extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
-    this.state.infoWindow && this.state.infoWindow.setMap(null)
+    if (this.state.infoWindow) {
+      this.state.infoWindow.setMap(null)
+    }
   }
 
-  render = () =>
-    this.containerElement
-      ? createPortal(Children.only(this.props.children), this.containerElement)
+  render () {
+    return this.containerElement !== null
+      ? createPortal(
+        Children.only(this.props.children),
+        this.containerElement
+      )
       : null
+  }
 
-  open = (infoWindow, anchor) => {
+  open (infoWindow, anchor) {
     if (anchor) {
       infoWindow.open(infoWindow.getMap(), anchor)
     } else if (infoWindow.getPosition()) {
@@ -118,11 +119,17 @@ export class InfoWindow extends PureComponent {
     }
   }
 
-  getContent = () => this.state.infoWindow.getContent()
+  getContent () {
+    return this.state.infoWindow.getContent()
+  }
 
-  getPosition = () => this.state.infoWindow.getPosition()
+  getPosition () {
+    return this.state.infoWindow.getPosition()
+  }
 
-  getZIndex = () => this.state.infoWindow.getZIndex()
+  getZIndex () {
+    return this.state.infoWindow.getZIndex()
+  }
 }
 
 export default InfoWindow

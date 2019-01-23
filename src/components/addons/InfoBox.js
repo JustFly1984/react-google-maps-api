@@ -52,44 +52,39 @@ export class InfoBox extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
+  constructor (props) {
+    super(props)
 
-  state = {
-    infoBox: null
-  }
-
-  componentDidMount = () => {
     const {
       InfoBox: GoogleMapsInfobox
     } = require('google-maps-infobox')
 
-    const infoBox = new GoogleMapsInfobox()
+    this.state = {
+      infoBox: new GoogleMapsInfobox()
+    }
 
-    this.setState(
-      () => ({
-        infoBox
-      }),
-      () => {
-        this.state.infoBox.setMap(this.context)
+    this.contentElement = document.createElement('div')
 
-        this.contentElement = document.createElement('div')
-
-        this.state.infoBox.setContent(this.contentElement)
-
-        open(this.state.infoBox, this.props.anchor)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.infoBox
-        })
-      }
-    )
+    this.registeredEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.infoBox.setMap(this.context)
+
+    this.state.infoBox.setContent(this.contentElement)
+
+    open(this.state.infoBox, this.props.anchor)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.infoBox
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -101,7 +96,7 @@ export class InfoBox extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
     if (this.state.infoBox) {
@@ -109,20 +104,24 @@ export class InfoBox extends PureComponent {
     }
   }
 
-  render = () =>
-    createPortal(
+  render () {
+    return createPortal(
       Children.only(this.props.children),
       this.contentElement
     )
+  }
 
-  getPosition = () =>
-    this.state.infoBox.getPosition()
+  getPosition () {
+    return this.state.infoBox.getPosition()
+  }
 
-  getVisible = () =>
-    this.state.infoBox.getVisible()
+  getVisible () {
+    return this.state.infoBox.getVisible()
+  }
 
-  getZIndex = () =>
-    this.state.infoBox.getZIndex()
+  getZIndex () {
+    return this.state.infoBox.getZIndex()
+  }
 }
 
 export default InfoBox

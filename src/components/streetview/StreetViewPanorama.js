@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import invariant from 'invariant'
 
 import {
@@ -56,12 +56,6 @@ export class StreetViewPanorama extends PureComponent {
 
   static contextType = MapContext
 
-  registerEvents = []
-
-  state = {
-    streetViewPanorama: null
-  }
-
   constructor (props, context) {
     super(props, context)
 
@@ -69,22 +63,19 @@ export class StreetViewPanorama extends PureComponent {
       this.context,
       'Did you render <StreetViewPanorama> as a child of <GoogleMapProvider>?'
     )
+
+    this.state = {
+      streetViewPanorama: context.getStreetView()
+    }
+
+    this.registerEvents = []
   }
 
-  componentDidMount = () => {
-    const streetViewPanorama = this.context.getStreetView()
-
-    this.setState(
-      () => ({
-        streetViewPanorama
-      }),
-      () => {
-        this.state.streetViewPanorama.setVisible(true)
-      }
-    )
+  componentDidMount () {
+    this.state.streetViewPanorama.setVisible(true)
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -96,7 +87,7 @@ export class StreetViewPanorama extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
     if (this.state.streetViewPanorama) {
@@ -104,43 +95,53 @@ export class StreetViewPanorama extends PureComponent {
     }
   }
 
-  render = () => (
-    <Fragment>
-      {
-        this.props.children
-      }
-    </Fragment>
-  )
+  render () {
+    return (
+      <>
+        { this.props.children }
+      </>
+    )
+  }
 
-  getLinks = () =>
-    this.state.streetViewPanorama.getLinks()
+  getLinks () {
+    return this.state.streetViewPanorama.getLinks()
+  }
 
-  getLocation = () =>
-    this.state.streetViewPanorama.getLocation()
+  getLocation () {
+    return this.state.streetViewPanorama.getLocation()
+  }
 
-  getMotionTracking = () =>
-    this.state.streetViewPanorama.getMotionTracking()
+  getMotionTracking () {
+    return this.state.streetViewPanorama.getMotionTracking()
+  }
 
-  getPano = () =>
-    this.state.streetViewPanorama.getPano()
+  getPano () {
+    return this.state.streetViewPanorama.getPano()
+  }
 
-  getPhotographerPov = () =>
-    this.state.streetViewPanorama.getPhotographerPov()
+  getPhotographerPov () {
+    return this.state.streetViewPanorama.getPhotographerPov()
+  }
 
-  getPosition = () =>
-    this.state.streetViewPanorama.getPosition()
+  getPosition () {
+    return this.state.streetViewPanorama.getPosition()
+  }
 
-  getPov = () =>
-    this.state.streetViewPanorama.getPov()
+  getPov () {
+    return this.state.streetViewPanorama.getPov()
+  }
 
-  getStatus = () =>
-    this.state.streetViewPanorama.getStatus()
+  getStatus () {
+    return this.state.streetViewPanorama.getStatus()
+  }
 
-  getVisible = () =>
-    this.state.streetViewPanorama.getVisible()
+  getVisible () {
+    return this.state.streetViewPanorama.getVisible()
+  }
 
-  getZoom = () =>
-    this.state.streetViewPanorama.getZoom()
+  getZoom () {
+    return this.state.streetViewPanorama.getZoom()
+  }
 }
 
 export default StreetViewPanorama

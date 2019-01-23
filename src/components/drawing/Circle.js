@@ -55,42 +55,38 @@ export class Circle extends PureComponent {
 
   static contextType = MapContext
 
-  registerEvents = []
+  constructor (props, context) {
+    super(props, context)
 
-  state = {
-    circle: null
-  }
-
-  componentDidMount = () => {
-    const circle = new google.maps.Circle(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      circle: new google.maps.Circle(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        circle
-      }),
-      () => {
-        this.state.circle.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.circle
-        })
-      }
-    )
+    this.registerEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.circle.setMap(this.context)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.circle
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -100,29 +96,45 @@ export class Circle extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
-    this.state.circle && this.state.circle.setMap(null)
+    if (this.state.circle) {
+      this.state.circle.setMap(null)
+    }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getBounds = () => this.state.circle.getBounds()
+  getBounds () {
+    return this.state.circle.getBounds()
+  }
 
-  getCenter = () => this.state.circle.getCenter()
+  getCenter () {
+    return this.state.circle.getCenter()
+  }
 
-  getDraggable = () => {
+  getDraggable () {
     return this.state.circle.getDraggable()
   }
 
-  getEditable = () => this.state.circle.getEditable()
+  getEditable () {
+    return this.state.circle.getEditable()
+  }
 
-  getMap = () => this.state.circle.getMap()
+  getMap () {
+    return this.state.circle.getMap()
+  }
 
-  getRadius = () => this.state.circle.getRadius()
+  getRadius () {
+    return this.state.circle.getRadius()
+  }
 
-  getVisible = () => this.state.circle.getVisible()
+  getVisible () {
+    return this.state.circle.getVisible()
+  }
 }
 
 export default Circle

@@ -50,41 +50,36 @@ export class Rectangle extends PureComponent {
 
   static contextType = MapContext
 
-  registerEvents = []
+  constructor (props, context) {
+    super(props, context)
 
-  state = {
-    rectangle: null
-  }
-
-  componentDidMount = () => {
-    const rectangle = new google.maps.Rectangle(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
+    this.state = {
+      rectangle: new google.maps.Rectangle(
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        rectangle
-      }),
-      () => {
-        this.state.rectangle.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.rectangle
-        })
-      }
-    )
+    this.registerEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.state.rectangle.setMap(this.context)
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.rectangle
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -96,28 +91,37 @@ export class Rectangle extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
-    this.state.rectangle && this.state.rectangle.setMap(null)
+    if (this.state.rectangle) {
+      this.state.rectangle.setMap(null)
+    }
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getBounds = () =>
-    this.state.rectangle.getBounds()
+  getBounds () {
+    return this.state.rectangle.getBounds()
+  }
 
-  getDraggable = () =>
-    this.state.rectangle.getDraggable()
+  getDraggable () {
+    return this.state.rectangle.getDraggable()
+  }
 
-  getEditable = () =>
-    this.state.rectangle.getEditable()
+  getEditable () {
+    return this.state.rectangle.getEditable()
+  }
 
-  getMap = () =>
-    this.state.rectangle.getMap()
+  getMap () {
+    return this.state.rectangle.getMap()
+  }
 
-  getVisible = () =>
-    this.state.rectangle.getVisible()
+  getVisible () {
+    return this.state.rectangle.getVisible()
+  }
 }
 
 export default Rectangle

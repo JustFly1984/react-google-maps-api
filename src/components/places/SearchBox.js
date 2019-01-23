@@ -27,13 +27,6 @@ export class SearchBox extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
-
-  state = {
-    searchBox: null,
-    mountControlIndex: 0
-  }
-
   constructor (props, context) {
     super(props, context)
 
@@ -41,46 +34,44 @@ export class SearchBox extends PureComponent {
       google.maps.places,
       'Did you include "libraries=places" in the URL?'
     )
-  }
 
-  componentDidMount = () => {
-    const searchBox = new google.maps.places.SearchBox(
-      this.props.containerElement.querySelector('input'),
-      Object.assign({
-        map: this.context
-      },
-      this.props.options
-      )
-    )
-
-    this.setState(
-      (prevState, prevProps) => ({
-        searchBox,
-        mountControlIndex: -1 + this.context.controls[prevProps.controlPosition].push(
-          prevProps.containerElement.firstChild
+    this.state = {
+      mountControlIndex: -1 + context.controls[props.controlPosition].push(
+        props.containerElement.firstChild
+      ),
+      searchBox: new google.maps.places.SearchBox(
+        props.containerElement.querySelector('input'),
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
         )
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.searchBox
-        })
-      }
-    )
+      )
+    }
+
+    this.registeredEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.searchBox
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     if (this.props.controlPosition !== prevProps.controlPosition) {
       if (typeof this.props.controlPosition === 'number') {
         this.setState(
-          (prevState, prevProps) => ({
-            mountControlIndex: -1 + this.context.controls[prevProps.controlPosition].push(
-              prevProps.containerElement.firstChild
+          (_state, props) => ({
+            mountControlIndex: -1 + this.context.controls[props.controlPosition].push(
+              props.containerElement.firstChild
             )
           })
         )
@@ -96,7 +87,7 @@ export class SearchBox extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
 
     if (typeof this.props.controlPosition === 'number') {
@@ -110,17 +101,20 @@ export class SearchBox extends PureComponent {
     }
   }
 
-  render = () =>
-    createPortal(
+  render () {
+    return createPortal(
       Children.only(this.props.children),
-      this.state.containerElement
+      this.props.containerElement
     )
+  }
 
-  getBounds = () =>
-    this.state.searchBox.getBounds()
+  getBounds () {
+    return this.state.searchBox.getBounds()
+  }
 
-  getPlaces = () =>
-    this.state.searchBox.getPlaces()
+  getPlaces () {
+    return this.state.searchBox.getPlaces()
+  }
 }
 
 export default SearchBox

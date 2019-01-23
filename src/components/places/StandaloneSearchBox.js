@@ -26,12 +26,6 @@ class StandaloneSearchBox extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
-
-  state = {
-    standaloneSearchBox: null
-  }
-
   constructor (props, context) {
     super(props, context)
 
@@ -39,35 +33,33 @@ class StandaloneSearchBox extends PureComponent {
       google.maps.places,
       'Did you include "libraries=places" in the URL?'
     )
-  }
 
-  componentDidMount = () => {
-    const searchBox = new google.maps.places.SearchBox(
-      this.props.containerElement.querySelector('input'),
-      Object.assign({
-        map: this.context
-      },
-      this.props.options
+    this.state = {
+      standaloneSearchBox: new google.maps.places.SearchBox(
+        props.containerElement.querySelector('input'),
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        searchBox
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.searchBox
-        })
-      }
-    )
+    this.registeredEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidMount () {
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: this.state.searchBox
+    })
+  }
+
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -79,17 +71,21 @@ class StandaloneSearchBox extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
   }
 
-  render = () => Children.only(this.props.children)
+  render () {
+    return Children.only(this.props.children)
+  }
 
-  getBounds = () =>
-    this.state.searchBox.getBounds()
+  getBounds () {
+    return this.state.searchBox.getBounds()
+  }
 
-  getPlaces = () =>
-    this.state.searchBox.getPlaces()
+  getPlaces () {
+    return this.state.searchBox.getPlaces()
+  }
 }
 
 export default StandaloneSearchBox

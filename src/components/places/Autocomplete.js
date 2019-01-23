@@ -37,30 +37,25 @@ export class Autocomplete extends PureComponent {
 
   static contextType = MapContext
 
-  registeredEvents = []
+  constructor (props, context) {
+    super(props, context)
 
-  state = {
-    autocomplete: null
-  }
-
-  componentDidMount = () => {
-    const autocomplete = new google.maps.places.Autocomplete(
-      this.props.inputField,
-      Object.assign({
-        map: this.context
-      },
-      this.props.options
+    this.state = {
+      autocomplete: new google.maps.places.Autocomplete(
+        props.inputField,
+        Object.assign(
+          {
+            map: context
+          },
+          props.options
+        )
       )
-    )
+    }
 
-    this.setState(
-      () => ({
-        autocomplete
-      })
-    )
+    this.registeredEvents = []
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate (prevProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -72,20 +67,25 @@ export class Autocomplete extends PureComponent {
     })
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount () {
     unregisterEvents(this.registeredEvents)
   }
 
-  render = () => null
+  render () {
+    return <></>
+  }
 
-  getBounds = () =>
-    this.state.autocomplete.getBounds()
+  getBounds () {
+    return this.state.autocomplete.getBounds()
+  }
 
-  getFields = () =>
-    this.state.autocomplete.getFields()
+  getFields () {
+    return this.state.autocomplete.getFields()
+  }
 
-  getPlace = () =>
-    this.state.autocomplete.getPlace()
+  getPlace () {
+    return this.state.autocomplete.getPlace()
+  }
 }
 
 export default Autocomplete
