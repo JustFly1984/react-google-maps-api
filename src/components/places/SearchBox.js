@@ -113,7 +113,7 @@ export class SearchBox extends PureComponent {
   render = () =>
     createPortal(
       Children.only(this.props.children),
-      this.state.containerElement
+      this.props.containerElement
     )
 
   getBounds = () =>
