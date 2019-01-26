@@ -11,7 +11,7 @@ class LoadScript extends Component {
   static defaultProps = {
     onLoad: () => {},
     onError: () => {},
-    onUnmount: () => {},
+    onUnmount: () => {}
   }
 
   constructor (props) {
@@ -26,7 +26,7 @@ class LoadScript extends Component {
 
   componentDidMount () {
     if (window.google && !cleaningUp) {
-      console.error("google api is already presented")
+      console.error('google api is already presented')
       return
     }
 

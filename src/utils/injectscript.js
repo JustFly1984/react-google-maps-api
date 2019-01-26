@@ -1,5 +1,5 @@
 export const injectScript = ({ url, id }) => {
-  if (typeof document !== 'undefined') {
+  if (typeof document === 'undefined') {
     return Promise.reject(
       new Error('document is undefined')
     )
