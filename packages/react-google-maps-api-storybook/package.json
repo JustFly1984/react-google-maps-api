@@ -12,6 +12,9 @@
     "email": "justfly1984@gmail.com",
     "url": "https://github.com/JustFly1984"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "start-storybook -p 9001 -c .storybook"
   },
@@ -31,5 +34,5 @@
     "babel-loader": "8.0.5",
     "prop-types": "15"
   },
-  "gitHead": "8f667bc98bd9148852c2eccebd488c6b8b1166e7"
+  "gitHead": "5be02777f8161eb8863388ec8d0f77acc215a4c6"
 }
