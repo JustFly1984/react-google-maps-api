@@ -19,9 +19,9 @@
   },
   "dependencies": {
     "@emotion/core": "10.0.6",
+    "@react-google-maps/api": "^1.0.0",
     "react": "16.7.0",
     "react-dom": "16.7.0",
-    "@react-google-maps/api": "1.0.0",
     "rimraf": "2.6.3"
   },
   "devDependencies": {

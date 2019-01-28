@@ -10,6 +10,7 @@
   "dependencies": {
     "@babel/polyfill": "7.2.5",
     "@babel/runtime": "7.3.1",
+    "@react-google-maps/api": "^1.0.0",
     "gatsby": "2.0.96",
     "gatsby-plugin-eslint": "2.0.3",
     "gatsby-plugin-purgecss": "3.1.0",
@@ -20,7 +21,6 @@
     "prop-types": "15.6.2",
     "react": "16.7.0",
     "react-dom": "16.7.0",
-    "@react-google-maps/api": "1.0.0",
     "react-helmet": "5.2.0",
     "react-redux": "6.0.0",
     "redux": "4.0.1",
