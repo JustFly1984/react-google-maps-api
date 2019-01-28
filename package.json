@@ -1,7 +1,21 @@
 {
-  "name": "root",
+  "name": "@react-google-maps/root",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JustFly1984/react-google-maps-api"
+  },
+  "author": {
+    "name": "Alexey Lyakhov",
+    "email": "justfly1984@gmail.com",
+    "url": "https://github.com/JustFly1984"
+  },
+  "scripts": {
+    "build:api": "cd packages/react-google-maps-api && npm run build && cd ../.. ",
+    "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && npm run build && cd ../..",
+    "build:docz": "cd packages/react-google-maps-api-docz && npm run build && cd ../.."
+  },
   "devDependencies": {
-    "lerna": "^3.10.5"
+    "lerna": "3.10.7"
   }
 }
