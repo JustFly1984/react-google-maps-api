@@ -5,7 +5,7 @@ import {
   LoadScript,
   GoogleMap,
   StreetViewPanorama
-} from 'react-google-maps-api'
+} from '@react-google-maps/api'
 import { googleMapKey } from '../../../googleMapKey'
 
 const mapContainerStyle = {

@@ -1,4 +1,4 @@
-# react-google-maps-api
+# @react-google-maps/api
 
 React Google Maps API 1.0.8
 
@@ -6,14 +6,14 @@ React Google Maps API 1.0.8
 
 This is complete re-write of the (sadly unmaintained) ```react-google-maps``` library. We thank [tomchentw](https://github.com/tomchentw/) for his great work that made possible.
 
-react-google-maps-api provides very simple bindings to the google maps api and lets you use it in your app as React components.
+@react-google-maps/api provides very simple bindings to the google maps api and lets you use it in your app as React components.
 
 Here are the main additions to react-google-maps that were the motivation behind this re-write
 
-## Install react-google-maps-api
+## Install @react-google-maps/api
 
 ```#!/bin/bash
-npm i -S react-google-maps-api @babel/polyfill @babel/runtime
+npm i -S @react-google-maps/api @babel/polyfill @babel/runtime
 ```
 
 and
@@ -70,7 +70,7 @@ Content of `.babelrc` should look like this:
 - Uses the new Context API
 - Supports async React (StrictMode complient)
 - Removes lodash dependency =>
-  smaller bundle size `12.4kb`, tree-shakeable [https://bundlephobia.com/result?p=react-google-maps-api@1.0.0](https://bundlephobia.com/result?p=react-google-maps-api@1.0.0)
+  smaller bundle size `12.4kb`, tree-shakeable [https://bundlephobia.com/result?p=@react-google-maps/api@1.0.0](https://bundlephobia.com/result?p=@react-google-maps/api@1.0.0)
 - forbids loading of Roboto fonts, if you set property preventGoogleFonts on `<LoadScript preventGoogleFonts />` component
 
 ## Examples
@@ -83,7 +83,7 @@ Examples can be found in two places:
 
 ## Advise
 
-You can save on bundle size if you import only components, which you use from `react-google-maps-api/lib/...`, although whole library is tree-shakable.
+You can save on bundle size if you import only components, which you use from `@react-google-maps/api/lib/...`, although whole library is tree-shakable.
 
 > Using the examples requires you to generate a google maps api key. For instructions on how to do that please see the following [guide](https://developers.google.com/maps/documentation/embed/get-api-key)
 

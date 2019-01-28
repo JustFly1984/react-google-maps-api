@@ -18,7 +18,7 @@
   "dependencies": {
     "react": "16.7.0",
     "react-dom": "16.7.0",
-    "react-google-maps-api": "1.0.8",
+    "@react-google-maps/api": "1.0.0",
     "webpack": "4.29.0"
   },
   "devDependencies": {
