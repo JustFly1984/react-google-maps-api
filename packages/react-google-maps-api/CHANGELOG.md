@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3  Moved to organization @react-google-maps
+
+## Archive
+
 ## 1.0.5
 
 Fixed a bug with `<LoadScript language />` prop update and cleanup after unmount
