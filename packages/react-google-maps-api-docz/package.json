@@ -1,0 +1,37 @@
+{
+  "name": "@react-google-maps/docz",
+  "version": "1.0.0",
+  "description": "Docz Documentation for @react-google-maps/api",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JustFly1984/react-google-maps-api"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Alexey Lyakhov",
+    "email": "justfly1984@gmail.com",
+    "url": "https://github.com/JustFly1984"
+  },
+  "scripts": {
+    "start": "docz dev",
+    "build": "docz build",
+    "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn"
+  },
+  "dependencies": {
+    "@emotion/core": "10.0.6",
+    "react": "16.7.0",
+    "react-dom": "16.7.0",
+    "@react-google-maps/api": "1.0.0",
+    "rimraf": "2.6.3"
+  },
+  "devDependencies": {
+    "@types/googlemaps": "3.30.16",
+    "@types/markerclustererplus": "2.1.33",
+    "@types/react": "16.7.20",
+    "acorn": "6.0.5",
+    "docz": "0.13.7",
+    "docz-theme-default": "0.13.7",
+    "prop-types": "15.6.2",
+    "typescript": "3.2.4"
+  }
+}

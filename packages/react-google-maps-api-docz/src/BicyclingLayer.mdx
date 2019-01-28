@@ -1,0 +1,85 @@
+---
+name: Bicycling Layer
+---
+
+import {
+  GoogleMap,
+  LoadScript,
+  BicyclingLayer
+} from "@react-google-maps/api/lib";
+
+import WithApiKey from "./WithApiKey";
+
+# Bicycling Layer
+
+```jsx
+<LoadScript
+  id="script-loader"
+  googleMapsApiKey={API_KEY}
+  language={"en"}
+  region={"EN"}
+  version={"weekly"}
+  libraries={[]}
+  onLoad={() => console.log("script loaded")}
+  loadingElement={
+    <div>Loading...</div>
+  }
+>
+  <GoogleMap
+    id='bicycling-example'
+    mapContainerStyle={{
+      height: "400px",
+      width: "800px"
+    }}
+    zoom={2}
+    center={{
+      lat: 0,
+      lng: -180
+    }}
+    onClick={(...args) => {
+      console.log('onClick args: ', args)
+    }}
+  >
+    <BicyclingLayer />
+  </GoogleMap>
+</LoadScript>
+```
+
+<WithApiKey>
+  {
+    apiKey => (
+      <LoadScript
+        id="script-loader"
+        googleMapsApiKey={apiKey}
+        language={"en"}
+        region={"EN"}
+        version={"weekly"}
+        libraries={[]}
+        onLoad={() => console.log("script loaded")}
+        loadingElement={
+          <div>Loading...</div>
+        }
+      >
+        <GoogleMap
+          id='bicycling-example'
+          mapContainerStyle={{
+            height: "400px",
+            width: "800px"
+          }}
+          zoom={2}
+          center={{
+            lat: 0,
+            lng: -180
+          }}
+          onClick={(...args) => {
+            console.log('onClick args: ', args)
+          }}
+        >
+          <BicyclingLayer />
+        </GoogleMap>
+      </LoadScript>
+    )
+
+}
+
+</WithApiKey>

@@ -1,0 +1,115 @@
+---
+name: Circle
+---
+
+import { GoogleMap, LoadScript, Circle } from "@react-google-maps/api/lib";
+import WithApiKey from "./WithApiKey";
+
+# Circle
+
+```jsx
+
+const CIRCLE_COORD = [
+  { lat: -3.745, lng: -38.523 }
+]
+
+const circleOptions = {
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  visible: true,
+  radius: 30000,
+  paths: CIRCLE_COORD,
+  zIndex: 1
+}
+
+<LoadScript
+  id="script-loader"
+  googleMapsApiKey={API_KEY}
+  language={"en"}
+  region={"EN"}
+  version={"weekly"}
+  libraries={[]}
+  onLoad={() => console.log("script loaded")}
+  loadingElement={<div>Loading...</div>}>
+
+  <GoogleMap
+    id="basic-map-example"
+    mapContainerStyle={{
+      height: "400px",
+      width: "800px"
+    }}
+    zoom={13}
+    center={{
+      lat: -33.861,
+      lng: 151.217
+    }}
+  >
+
+    <Circle
+      path={CIRCLE_COORD}
+      options={circleOptions}
+    />
+
+  </GoogleMap>
+</LoadScript>
+```
+
+<WithApiKey>
+  {
+    (apiKey) => (
+      <LoadScript
+        id="script-loader"
+        googleMapsApiKey={apiKey}
+        language={"en"}
+        region={"EN"}
+        version={"weekly"}
+        libraries={[]}
+        onLoad={() => console.log("script loaded")}
+        loadingElement={<div>Loading...</div>}>
+
+        <GoogleMap
+          id="circle-example"
+          mapContainerStyle={{
+            height: "400px",
+            width: "800px"
+          }}
+          zoom={7}
+          center={{
+            lat: -3.745,
+            lng: -38.523
+          }}
+        >
+
+        <Circle
+          center={{
+            lat: -3.745,
+            lng: -38.523
+          }}
+          options={{
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            clickable: false,
+            draggable: false,
+            editable: false,
+            visible: true,
+            radius: 30000,
+            zIndex: 1
+          }}
+        />
+
+        </GoogleMap>
+      </LoadScript>
+    )
+
+}
+
+</WithApiKey>

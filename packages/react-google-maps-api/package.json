@@ -1,0 +1,170 @@
+{
+  "name": "@react-google-maps/api",
+  "version": "1.0.0",
+  "description": "React.js Google Maps API integration",
+  "license": "MIT",
+  "author": {
+    "name": "Alexey Lyakhov",
+    "email": "justfly1984@gmail.com",
+    "url": "https://github.com/JustFly1984"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JustFly1984/react-google-maps-api"
+  },
+  "bugs": {
+    "url": "https://github.com/JustFly1984/react-google-maps-api/issues"
+  },
+  "homepage": "https://react-google-maps-api-docs.netlify.com",
+  "main": "lib/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "dist/",
+    "examples/",
+    "lib/",
+    "src/",
+    "CHANGELOG.md"
+  ],
+  "keywords": [
+    "React",
+    "Google",
+    "Map",
+    "API",
+    "react-component",
+    "addons/InfoBox",
+    "addons/MarkerClusterer",
+    "Circle",
+    "DirectionsRenderer",
+    "drawing/DrawingManager",
+    "FusionTablesLayer",
+    "GoogleMap",
+    "InfoWindow",
+    "KmlLayer",
+    "Marker",
+    "OverlayView",
+    "places/SearchBox",
+    "Polygon",
+    "Polyline",
+    "Rectangle",
+    "StreetViewPanorama",
+    "TrafficLayer",
+    "visualization/HeatmapLayer",
+    "withGoogleMap",
+    "withScriptjs"
+  ],
+  "watch": {
+    "build:dev": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "js",
+      "quiet": false
+    }
+  },
+  "scripts": {
+    "start": "npm run watch",
+    "watch": "npm-watch build:dev",
+    "dtslint": "dtslint types",
+    "test": "npx jest",
+    "build": "concurrently \"cross-env NODE_ENV=production npm run build:webpack\" \"cross-env NODE_ENV=production npm run build:babel\"",
+    "build:dev": "concurrently \"cross-env NODE_ENV=development npm run build:webpack\" \"cross-env NODE_ENV=development npm run build:babel\"",
+    "build:webpack": "rimraf ./dist && webpack",
+    "build:babel": "rimraf ./lib && babel ./src -d ./lib",
+    "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
+    "update": "yarn-check -u",
+    "lint": "npx eslint ./src --fix",
+    "publish": "npm run build && npm publish .",
+    "publish:next": "npm run build && npm publish . --tag next"
+  },
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "git add -A"
+      ]
+    },
+    "ignore": [
+      "dist/*.js",
+      "lib/*.js"
+    ]
+  },
+  "types": "types",
+  "dependencies": {
+    "@babel/runtime": "7.3.1",
+    "google-maps-infobox": "2.0.0",
+    "invariant": "2.2.4",
+    "marker-clusterer-plus": "2.1.4",
+    "markerwithlabel": "2.0.2",
+    "warning": "4.0.2"
+  },
+  "peerDependencies": {
+    "@types/googlemaps": "^3.0.0",
+    "@types/markerclustererplus": "^2.1.29",
+    "@types/react": "^16.7.8",
+    "prop-types": "^15.5.8",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.2.3",
+    "@babel/core": "7.2.2",
+    "@babel/node": "7.2.2",
+    "@babel/plugin-proposal-class-properties": "7.3.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.3.1",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/plugin-transform-react-jsx": "7.3.0",
+    "@babel/plugin-transform-runtime": "7.2.0",
+    "@babel/plugin-transform-spread": "7.2.2",
+    "@babel/preset-env": "7.3.1",
+    "@babel/preset-react": "7.0.0",
+    "@types/acorn": "4.0.4",
+    "@types/eslint": "4.16.5",
+    "@types/googlemaps": "3.30.16",
+    "@types/markerclustererplus": "2.1.33",
+    "@types/react": "16.7.20",
+    "@types/react-dom": "16.0.11",
+    "@types/webpack-bundle-analyzer": "2.13.0",
+    "acorn": "6.0.5",
+    "babel-eslint": "10.0.1",
+    "babel-loader": "8.0.5",
+    "babel-plugin-macros": "2.4.5",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.23",
+    "concurrently": "4.1.0",
+    "cross-env": "5.2.0",
+    "eslint": "5.12.1",
+    "eslint-config-standard": "12.0.0",
+    "eslint-config-standard-react": "7.0.2",
+    "eslint-import-resolver-webpack": "0.11.0",
+    "eslint-plugin-ascii": "1.0.0",
+    "eslint-plugin-babel": "5.3.0",
+    "eslint-plugin-css-modules": "2.11.0",
+    "eslint-plugin-dependencies": "2.4.0",
+    "eslint-plugin-filenames": "1.3.2",
+    "eslint-plugin-html": "5.0.0",
+    "eslint-plugin-import": "2.15.0",
+    "eslint-plugin-json": "1.3.2",
+    "eslint-plugin-jsx-a11y": "6.1.2",
+    "eslint-plugin-no-inferred-method-name": "1.0.2",
+    "eslint-plugin-node": "8.0.1",
+    "eslint-plugin-optimize-regex": "1.1.6",
+    "eslint-plugin-promise": "4.0.1",
+    "eslint-plugin-promiseparams": "1.0.8",
+    "eslint-plugin-react": "7.12.4",
+    "eslint-plugin-react-functional-set-state": "1.2.1",
+    "eslint-plugin-react-perf": "3.0.1",
+    "eslint-plugin-standard": "4.0.0",
+    "eslint-plugin-you-dont-need-lodash-underscore": "6.4.0",
+    "husky": "1.3.1",
+    "lint-staged": "8.1.0",
+    "npm-watch": "0.6.0",
+    "prop-types": "15.6.2",
+    "react": "16.7.0",
+    "react-dom": "16.7.0",
+    "rimraf": "2.6.3",
+    "standard-version": "4.4.0",
+    "terser-webpack-plugin": "1.2.1",
+    "typescript": "3.2.4",
+    "webpack": "4.29.0",
+    "webpack-bundle-analyzer": "3.0.3",
+    "webpack-cli": "3.2.1"
+  }
+}
