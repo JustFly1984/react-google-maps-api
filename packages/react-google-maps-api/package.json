@@ -166,5 +166,6 @@
     "webpack": "4.29.0",
     "webpack-bundle-analyzer": "3.0.3",
     "webpack-cli": "3.2.1"
-  }
+  },
+  "gitHead": "f8dcedcbf81ef288f0d1371fbde4e92870f52dfb"
 }

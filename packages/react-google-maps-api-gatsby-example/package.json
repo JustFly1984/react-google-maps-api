@@ -93,5 +93,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  }
+  },
+  "gitHead": "f8dcedcbf81ef288f0d1371fbde4e92870f52dfb"
 }
