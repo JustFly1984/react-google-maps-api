@@ -8,5 +8,8 @@
     "publish": {
       "verifyAccess": false
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
