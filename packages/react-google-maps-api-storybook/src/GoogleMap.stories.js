@@ -1,3 +1,4 @@
+/* eslint-disable filenames/match-exported */
 /* eslint-disable filenames/match-regex */
 import React from 'react'
 import { storiesOf } from '@storybook/react'
@@ -27,27 +28,27 @@ class SafeLoadScript extends React.Component {
     ready: typeof window.google !== 'undefined'
   }
 
-  componentWillMount() {
+  componentWillMount () {
     if (this.state.ready) {
-      return;
+      return
     }
 
-    this.google = window.google;
+    this.google = window.google
 
-    console.log(this.google);
+    console.log(this.google)
 
     this.timer = setInterval(() => {
-      console.log(this.google === window.google);
+      console.log(this.google === window.google)
 
       if (this.google !== window.google) {
-        this.setState({ready: true});
-        clearInterval(this.timer);
+        this.setState({ ready: true })
+        clearInterval(this.timer)
       }
-    }, 200);
+    }, 200)
   }
 
-  componentWillUnmount() {
-    clearInterval(this.timer);
+  componentWillUnmount () {
+    clearInterval(this.timer)
   }
 
   render = () => (
@@ -57,7 +58,7 @@ class SafeLoadScript extends React.Component {
       />
     )
   )
-};
+}
 
 storiesOf('GoogleMap:', module)
   .addDecorator(story => (
@@ -70,30 +71,31 @@ storiesOf('GoogleMap:', module)
       libraries={libraries}
       onLoad={() => console.log('script loaded')}
       loadingElement={<div>Loading...</div>}
-  >
-    {story()}
-  </LoadScript>
+    >
+      {story()}
+    </LoadScript>
   ))
   .add('Basic Map', () => (
-      <GoogleMap
-        id='basic-map-example'
-        mapContainerStyle={mapContainerStyle}
-        zoom={8}
-        center={center}
-      />
+    <GoogleMap
+      id='basic-map-example'
+      mapContainerStyle={mapContainerStyle}
+      zoom={8}
+      center={center}
+    />
   ))
   .add('StreetViewPanorama', () => (
-      <GoogleMap
-        id='street-view-example'
-        mapContainerStyle={mapContainerStyle}
-        zoom={8}
-        center={center}
-      >
-        <StreetViewPanorama
-          position={position}
-          visible
-          onVisibleChanged={() => console.log("Visible changed")}
-        />
-      </GoogleMap>
+    <GoogleMap
+      id='street-view-example'
+      mapContainerStyle={mapContainerStyle}
+      zoom={8}
+      center={center}
+    >
+      <StreetViewPanorama
+        position={position}
+        visible
+        onVisibleChanged={() => console.log('Visible changed')}
+      />
+    </GoogleMap>
   ))
 
+export default SafeLoadScript

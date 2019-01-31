@@ -38,6 +38,8 @@ class LoadScript extends Component {
     if (prevProps.language !== this.props.language) {
       this.cleanup()
 
+      // TODO: There should be better way to do it, but I don't have time now :)
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState(
         () => ({
           loaded: false
