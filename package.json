@@ -23,7 +23,16 @@
     "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && npm run build && cd ../..",
     "build:docz": "cd packages/react-google-maps-api-docz && npm run build && cd ../.."
   },
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "npx eslint --fix",
+        "git add -A"
+      ]
+    }
+  },
   "devDependencies": {
-    "lerna": "3.10.7"
+    "lerna": "3.10.7",
+    "lint-staged": "^8.1.1"
   }
 }

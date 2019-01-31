@@ -1,3 +1,5 @@
 .cache/
 public/
 node_modules/
+static/geo.json
+../react-google-maps-api/dist/index.js

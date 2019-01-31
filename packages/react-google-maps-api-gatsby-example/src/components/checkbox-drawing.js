@@ -3,21 +3,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import {
-  toggleDrawing
-} from '../actions/app'
+import { toggleDrawing } from '../actions/app'
+
+const id = 'drawing'
 
 const CheckboxDrawing = ({ onChange, value }) => (
   <div>
     <input
-      id='drawing'
+      id={id}
       type='checkbox'
       onChange={onChange}
       value={value}
     />
-    {` `}
+
+    &nbsp;
+
     <label
-      htmlFor='drawing'
+      htmlFor={id}
     >
       Drawing Layer Example
     </label>

@@ -14,7 +14,8 @@ import {
   DRAWING_TOGGLE,
   BICYCLING_TOGGLE,
   GROUND_TOGGLE,
-  OPTIONS_TOGGLE
+  OPTIONS_TOGGLE,
+  STANDALONE_SEARCHBOX_TOGGLE
 } from '../action-types'
 
 const initialState = fromJS({
@@ -30,7 +31,8 @@ const initialState = fromJS({
   drawing: false,
   bicycling: false,
   ground: false,
-  options: false
+  options: false,
+  standaloneSearchbox: false
 })
 
 export default handleActions({
@@ -85,5 +87,9 @@ export default handleActions({
   [OPTIONS_TOGGLE]: (state, { payload: { options } }) =>
     state.merge({
       options
+    }),
+  [STANDALONE_SEARCHBOX_TOGGLE]: (state, { payload: { standaloneSearchbox } }) =>
+    state.merge({
+      standaloneSearchbox
     })
 }, initialState)

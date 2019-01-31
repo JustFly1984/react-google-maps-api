@@ -182,7 +182,9 @@ class ShapesExample extends Component {
         <div>
           <label htmlFor='polyline-options-input'>
             Polyline options (will persist once valid JSON):
-          </label>{' '}
+          </label>
+
+          &nbsp;
 
           <br />
 
@@ -240,8 +242,11 @@ class ShapesExample extends Component {
           >
             <div style={infoWindowStyle}>
               <h1>OverlayView</h1>
+
               <button
-                onClick={() => { }}
+                onClick={() => {
+                  console.info('I have been clicked!')
+                }}
                 type='button'
               >
                 I have been clicked

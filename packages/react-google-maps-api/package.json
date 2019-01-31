@@ -82,6 +82,7 @@
   "lint-staged": {
     "linters": {
       "*.js": [
+        "npx eslint --fix",
         "git add -A"
       ]
     },
