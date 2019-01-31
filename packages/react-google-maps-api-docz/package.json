@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@emotion/core": "10.0.6",
-    "@react-google-maps/api": "^1.0.5",
+    "@react-google-maps/api": "1.0.5",
     "react": "16.7.0",
     "react-dom": "16.7.0",
     "rimraf": "2.6.3"
@@ -62,5 +62,5 @@
     "prop-types": "15.6.2",
     "typescript": "3.3.1"
   },
-  "gitHead": "c8320292f26e85eeca413bfa7a7944b97827fae2"
+  "gitHead": "634ea34b292f9ee5ce0ec8a6b185e2dc7ca3795d"
 }
