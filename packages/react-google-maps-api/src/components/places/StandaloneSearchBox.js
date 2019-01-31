@@ -1,24 +1,21 @@
 /* global google */
-import { PureComponent, Children } from 'react'
+import React, { PureComponent } from 'react'
 import invariant from 'invariant'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
 import { SearchBoxPropTypes } from '../../proptypes'
 
 const eventMap = {
-  onPlacesChanged: 'places_changed',
+  onPlacesChanged: 'places_changed'
 }
 
 const updaterMap = {
   bounds (instance, bounds) {
     instance.setBounds(bounds)
-  },
+  }
 }
 
 class StandaloneSearchBox extends PureComponent {
@@ -35,19 +32,19 @@ class StandaloneSearchBox extends PureComponent {
   constructor (props, context) {
     super(props, context)
 
-    invariant(
-      google.maps.places,
-      'Did you include "libraries=places" in the URL?'
-    )
+    invariant(google.maps.places, 'Did you include "libraries=places" in the URL?')
+    this.containerElement = React.createRef()
   }
 
   componentDidMount = () => {
+    debugger
     const searchBox = new google.maps.places.SearchBox(
-      this.props.containerElement.querySelector('input'),
-      Object.assign({
-        map: this.context
-      },
-      this.props.options
+      this.containerElement.current.querySelector('input'),
+      Object.assign(
+        {
+          map: this.context
+        },
+        this.props.options
       )
     )
 
@@ -83,13 +80,13 @@ class StandaloneSearchBox extends PureComponent {
     unregisterEvents(this.registeredEvents)
   }
 
-  render = () => Children.only(this.props.children)
+  render = () => {
+    return <div ref={this.containerElement}>{React.Children.only(this.props.children)}</div>
+  }
 
-  getBounds = () =>
-    this.state.searchBox.getBounds()
+  getBounds = () => this.state.searchBox.getBounds()
 
-  getPlaces = () =>
-    this.state.searchBox.getPlaces()
+  getPlaces = () => this.state.searchBox.getPlaces()
 }
 
 export default StandaloneSearchBox
