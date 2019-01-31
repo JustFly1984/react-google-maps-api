@@ -2,13 +2,9 @@
 name: GroundOverlay
 ---
 
-import {
-  GoogleMap,
-  LoadScript,
-  GroundOverlay
-} from "@react-google-maps/api/lib"
+import { GoogleMap, LoadScript, GroundOverlay } from "@react-google-maps/api";
 
-import WithApiKey from "./WithApiKey"
+import WithApiKey from "./WithApiKey";
 
 # GroundOverlay
 
@@ -21,8 +17,8 @@ import WithApiKey from "./WithApiKey"
   version={"weekly"}
   libraries={[]}
   onLoad={() => console.log("script loaded")}
-  loadingElement={<div>Loading...</div>}>
-
+  loadingElement={<div>Loading...</div>}
+>
   <GoogleMap
     id="ground-overlay-example"
     mapContainerStyle={{
@@ -31,7 +27,7 @@ import WithApiKey from "./WithApiKey"
     }}
     zoom={13}
     center={{
-      lat: 40.740,
+      lat: 40.74,
       lng: -74.18
     }}
   >
@@ -85,5 +81,7 @@ import WithApiKey from "./WithApiKey"
         </GoogleMap>
       </LoadScript>
     )
-  }
+
+}
+
 </WithApiKey>

@@ -2,13 +2,12 @@
 name: Rectangle
 ---
 
-import { GoogleMap, LoadScript, Rectangle } from "@react-google-maps/api/lib";
+import { GoogleMap, LoadScript, Rectangle } from "@react-google-maps/api";
 import WithApiKey from "./WithApiKey";
 
 # Rectangle
 
 ```jsx
-
 <LoadScript
   id="script-loader"
   googleMapsApiKey={API_KEY}
@@ -17,8 +16,8 @@ import WithApiKey from "./WithApiKey";
   version={"weekly"}
   libraries={[]}
   onLoad={() => console.log("script loaded")}
-  loadingElement={<div>Loading...</div>}>
-
+  loadingElement={<div>Loading...</div>}
+>
   <GoogleMap
     id="rectangle-example"
     mapContainerStyle={{
@@ -31,7 +30,6 @@ import WithApiKey from "./WithApiKey";
       lng: 131.044
     }}
   >
-
     <Rectangle
       bounds={{
         north: 38.685,
@@ -40,10 +38,10 @@ import WithApiKey from "./WithApiKey";
         west: -118.251
       }}
     />
-
   </GoogleMap>
 </LoadScript>
 ```
+
 <WithApiKey>
   {
     (apiKey) => (
