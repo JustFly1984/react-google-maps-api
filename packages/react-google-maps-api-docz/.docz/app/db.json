@@ -1,10 +1,10 @@
 {
   "config": {
-    "title": "React Google Maps Api Docz",
-    "description": "Documentation for react-google-maps-api",
+    "title": "Docz",
+    "description": "Docz Documentation for @react-google-maps/api",
     "menu": [],
     "ordering": "descending",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "repository": "https://github.com/JustFly1984/react-google-maps-api",
     "native": false,
     "codeSandbox": true,
@@ -28,23 +28,6 @@
         }
       ]
     },
-    "src/Circle.mdx": {
-      "name": "Circle",
-      "id": "49efda36de898c48d42c6b41bb72c145",
-      "filepath": "src/Circle.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/packages/react-google-maps-api-docz/src/Circle.mdx",
-      "slug": "src-circle",
-      "route": "/src-circle",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "circle",
-          "value": "Circle"
-        }
-      ]
-    },
     "src/Changelog.mdx": {
       "name": "Changelog",
       "id": "27a006022b0dd9ede13e8ceed31ee802",
@@ -57,8 +40,8 @@
       "headings": [
         {
           "depth": 1,
-          "slug": "changelog",
-          "value": "Changelog"
+          "slug": "changelog-from-previous-react-google-maps-api-package",
+          "value": "Changelog from previous react-google-maps-api package"
         },
         {
           "depth": 2,
@@ -79,6 +62,23 @@
           "depth": 2,
           "slug": "108",
           "value": "1.0.8"
+        }
+      ]
+    },
+    "src/Circle.mdx": {
+      "name": "Circle",
+      "id": "49efda36de898c48d42c6b41bb72c145",
+      "filepath": "src/Circle.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/packages/react-google-maps-api-docz/src/Circle.mdx",
+      "slug": "src-circle",
+      "route": "/src-circle",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "circle",
+          "value": "Circle"
         }
       ]
     },
@@ -215,6 +215,23 @@
           "depth": 1,
           "slug": "shapes",
           "value": "Shapes"
+        }
+      ]
+    },
+    "src/StandaloneSearchBox.mdx": {
+      "name": "StandaloneSearchBox",
+      "id": "2e1f81e5f789e21d23bbd3a6533aed2b",
+      "filepath": "src/StandaloneSearchBox.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/packages/react-google-maps-api-docz/src/StandaloneSearchBox.mdx",
+      "slug": "src-standalone-search-box",
+      "route": "/src-standalone-search-box",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "standalonesearchbox",
+          "value": "StandaloneSearchBox"
         }
       ]
     }

@@ -12,56 +12,16 @@ Here are the main additions to react-google-maps that were the motivation behind
 
 ## Install @react-google-maps/api
 
-```#!/bin/bash
-npm i -S @react-google-maps/api @babel/polyfill @babel/runtime
-```
-
-and
+npm: 
 
 ```#!/bin/bash
-npm i -D @babel/preset-env @babel/preset-react @babel/plugin-proposal-object-rest-spread @babel/plugin-proposal-class-properties @babel/plugin-transform-spread @babel/plugin-syntax-dynamic-import @babel/plugin-transform-runtime babel-plugin-macros babel-plugin-transform-react-remove-prop-types
+npm i -S @react-google-maps/api
 ```
 
-On top of your app ,you need to import `@babel/polyfill`
+or
 
-```javascript
-import "@babel/polyfill";
-```
-
-If you do not have `.babelrc` file, create it next to `package.json`
-
-Content of `.babelrc` should look like this:
-
-```.babelrc
-{
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react"
-  ],
-  "plugins": [
-    "@babel/plugin-transform-spread",
-    "@babel/plugin-proposal-object-rest-spread",
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-syntax-dynamic-import",
-    [
-      "@babel/plugin-transform-runtime",
-      {
-        "corejs": false,
-        "helpers": true,
-        "regenerator": true,
-        "useESModules": false
-      }
-    ],
-    "babel-plugin-macros"
-  ],
-  "env": {
-    "production": {
-      "plugins": [
-        "babel-plugin-transform-react-remove-prop-types"
-      ]
-    }
-  }
-}
+```#!/bin/bash
+yarn add @react-google-maps/api
 ```
 
 ## Main features
@@ -81,7 +41,7 @@ Examples can be found in two places:
 2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/examples/react-google-maps-api-gatsby/src/examples) folder
 3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.com/)
 
-## Advise
+## Advice
 
 You can save on bundle size if you import only components, which you use from `@react-google-maps/api/lib/...`, although whole library is tree-shakable.
 
@@ -90,4 +50,10 @@ You can save on bundle size if you import only components, which you use from `@
 ## Contribute
 
 Maintainers and contributors are very welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.
+
+# Prettier setup
+When contributing, please adhere to the formatting rules set by the ESLint config. If you work with prettier you should set your editor to have prettier use the eslint config. Here's a nice guide on how to do that in VSCode:
+https://youtu.be/YIvjKId9m2c
+
+
 

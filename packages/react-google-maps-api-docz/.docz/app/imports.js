@@ -1,10 +1,10 @@
 export const imports = {
   'src/BicyclingLayer.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-bicycling-layer" */ 'src/BicyclingLayer.mdx'),
-  'src/Circle.mdx': () =>
-    import(/* webpackPrefetch: true, webpackChunkName: "src-circle" */ 'src/Circle.mdx'),
   'src/Changelog.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-changelog" */ 'src/Changelog.mdx'),
+  'src/Circle.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-circle" */ 'src/Circle.mdx'),
   'src/GoogleMap.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-google-map" */ 'src/GoogleMap.mdx'),
   'src/GroundOverlay.mdx': () =>
@@ -21,4 +21,6 @@ export const imports = {
     import(/* webpackPrefetch: true, webpackChunkName: "src-rectangle" */ 'src/Rectangle.mdx'),
   'src/Shapes.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-shapes" */ 'src/Shapes.mdx'),
+  'src/StandaloneSearchBox.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-standalone-search-box" */ 'src/StandaloneSearchBox.mdx'),
 }
