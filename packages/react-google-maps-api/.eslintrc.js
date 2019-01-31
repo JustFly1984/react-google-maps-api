@@ -10,7 +10,7 @@ module.exports = {
     "standard",
     "standard-react",
     "plugin:jsx-a11y/recommended",
-    "plugin:css-modules/recommended"
+    'plugin:css-modules/recommended'
   ],
   plugins: [
     "you-dont-need-lodash-underscore",
@@ -28,9 +28,9 @@ module.exports = {
     "optimize-regex",
     "react-perf",
     "standard",
-    "css-modules",
+    'css-modules',
     "no-inferred-method-name",
-    "react-functional-set-state"
+    "react-functional-set-state",
   ],
   env: {
     browser: true,
@@ -40,11 +40,11 @@ module.exports = {
     __DEV__: false,
     __PROD__: false,
     __PLAYER_DEBUG__: false,
-    __BASENAME__: false
+    __BASENAME__: false,
   },
   settings: {
     ecmascript: 6,
-    "import/resolver": "webpack"
+    "import/resolver": "webpack",
   },
   rules: {
     "ascii/valid-name": 2,
@@ -62,8 +62,8 @@ module.exports = {
         arrays: "only-multiline",
         imports: "only-multiline",
         exports: "never",
-        functions: "never"
-      }
+        functions: "never",
+      },
     ],
     "dependencies/case-sensitive": 1,
     "dependencies/no-cycles": 1,
@@ -86,8 +86,8 @@ module.exports = {
     camelcase: [
       2,
       {
-        properties: "never"
-      }
+        properties: "never",
+      },
     ],
     "react-redux/prefer-separate-component-file": "off",
     "react/destructuring-assignment": "off",
@@ -101,16 +101,16 @@ module.exports = {
       2,
       {
         commonjs: true,
-        amd: true
-      }
+        amd: true,
+      },
     ],
     "import/named": 2,
     "import/namespace": 2,
     "import/export": 2,
     "import/no-duplicates": 2,
-    "import/imports-first": 2
+    "import/imports-first": 2,
   },
   parserOptions: {
-    sourceType: "module"
-  }
-};
+    sourceType: "module",
+  },
+}
