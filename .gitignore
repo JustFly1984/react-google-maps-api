@@ -42,9 +42,9 @@ node_modules
 .idea
 
 # These folders contain auto-generated files. No reason to commit them to Git
-lib/
-dist/
 .vscode/settings.json
-packages/docz/.docz/cache
+packages/react-google-maps-api-docz/.docz/cache
+packages/react-google-maps-api/lib
+packages/react-google-maps-api/dist
 
 googleMapKey.js
