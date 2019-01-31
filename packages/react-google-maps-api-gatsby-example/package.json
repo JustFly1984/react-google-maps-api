@@ -1,7 +1,7 @@
 {
   "name": "@react-google-maps/gatsby-example",
   "description": "React Google Maps Gatsby.js example",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": {
     "name": "Alexey Lyakhov",
     "email": "justfly1984@gmail.com",
@@ -13,7 +13,7 @@
   "dependencies": {
     "@babel/polyfill": "7.2.5",
     "@babel/runtime": "7.3.1",
-    "@react-google-maps/api": "1.0.4",
+    "@react-google-maps/api": "^1.0.5",
     "gatsby": "2.0.107",
     "gatsby-plugin-eslint": "2.0.4",
     "gatsby-plugin-purgecss": "3.1.0",
