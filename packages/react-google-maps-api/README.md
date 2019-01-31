@@ -13,55 +13,7 @@ Here are the main additions to react-google-maps that were the motivation behind
 ## Install @react-google-maps/api
 
 ```#!/bin/bash
-npm i -S @react-google-maps/api @babel/polyfill @babel/runtime
-```
-
-and
-
-```#!/bin/bash
-npm i -D @babel/preset-env @babel/preset-react @babel/plugin-proposal-object-rest-spread @babel/plugin-proposal-class-properties @babel/plugin-transform-spread @babel/plugin-syntax-dynamic-import @babel/plugin-transform-runtime babel-plugin-macros babel-plugin-transform-react-remove-prop-types
-```
-
-On top of your app ,you need to import `@babel/polyfill`
-
-```javascript
-import "@babel/polyfill";
-```
-
-If you do not have `.babelrc` file, create it next to `package.json`
-
-Content of `.babelrc` should look like this:
-
-```.babelrc
-{
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react"
-  ],
-  "plugins": [
-    "@babel/plugin-transform-spread",
-    "@babel/plugin-proposal-object-rest-spread",
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-syntax-dynamic-import",
-    [
-      "@babel/plugin-transform-runtime",
-      {
-        "corejs": false,
-        "helpers": true,
-        "regenerator": true,
-        "useESModules": false
-      }
-    ],
-    "babel-plugin-macros"
-  ],
-  "env": {
-    "production": {
-      "plugins": [
-        "babel-plugin-transform-react-remove-prop-types"
-      ]
-    }
-  }
-}
+npm i -S @react-google-maps/api
 ```
 
 ## Main features
@@ -91,3 +43,30 @@ You can save on bundle size if you import only components, which you use from `@
 
 Maintainers and contributors are very welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.
 
+## Migration from react-google-maps@9.4.5
+
+if you need an access to map object, instead of `ref` prop, you need to use `onLoad` callback on `<GoogleMap />` component.
+
+Before:
+
+```jsx
+// before
+<GoogleMap
+  ref={map => {
+    const bounds = new window.google.maps.LatLngBounds();
+
+    map.fitBounds(bounds);
+  }}
+/>
+```
+
+After:
+
+```jsx
+<GoogleMap
+  onLoad={map => {
+    const bounds = new window.google.maps.LatLngBounds();
+    map.fitBounds(bounds);
+  }}
+/>
+```
