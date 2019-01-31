@@ -12,16 +12,8 @@ Here are the main additions to react-google-maps that were the motivation behind
 
 ## Install @react-google-maps/api
 
-npm:
-
 ```#!/bin/bash
 npm i -S @react-google-maps/api
-```
-
-or
-
-```#!/bin/bash
-yarn add @react-google-maps/api
 ```
 
 ## Main features
@@ -55,7 +47,7 @@ Maintainers and contributors are very welcome! See [this issue](https://github.c
 
 When contributing, please adhere to the formatting rules set by the ESLint config. If you work with prettier you should set your editor to have prettier use the eslint config. Here's my workspace settings for prettier/eslint integration:
 
-```
+````
 {
   "eslint.enable": true,
   "javascript.format.enable": true,
@@ -66,4 +58,30 @@ When contributing, please adhere to the formatting rules set by the ESLint confi
   }
 }
 
+## Migration from react-google-maps@9.4.5
+
+if you need an access to map object, instead of `ref` prop, you need to use `onLoad` callback on `<GoogleMap />` component.
+
+Before:
+
+```jsx
+// before
+<GoogleMap
+  ref={map => {
+    const bounds = new window.google.maps.LatLngBounds();
+
+    map.fitBounds(bounds);
+  }}
+/>
+````
+
+After:
+
+```jsx
+<GoogleMap
+  onLoad={map => {
+    const bounds = new window.google.maps.LatLngBounds();
+    map.fitBounds(bounds);
+  }}
+/>
 ```
