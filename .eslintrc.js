@@ -1,8 +1,6 @@
 module.exports = {
   parser: "babel-eslint",
   extends: [
-    "prettier",
-    "prettier/react",
     "plugin:you-dont-need-lodash-underscore/compatible",
     "eslint:recommended",
     "plugin:import/errors",
@@ -32,8 +30,7 @@ module.exports = {
     "standard",
     "css-modules",
     "no-inferred-method-name",
-    "react-functional-set-state",
-    "prettier"
+    "react-functional-set-state"
   ],
   env: {
     browser: true,
@@ -115,11 +112,5 @@ module.exports = {
   },
   parserOptions: {
     sourceType: "module"
-  },
-  "prettier/prettier": [
-    "error",
-    {
-      singleQuote: true
-    }
-  ]
+  }
 };

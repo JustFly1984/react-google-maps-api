@@ -4,7 +4,7 @@ React Google Maps API 1.0.3
 
 > This library requires React v16.6 or later. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)
 
-This is complete re-write of the (sadly unmaintained) ```react-google-maps``` library. We thank [tomchentw](https://github.com/tomchentw/) for his great work that made possible.
+This is complete re-write of the (sadly unmaintained) `react-google-maps` library. We thank [tomchentw](https://github.com/tomchentw/) for his great work that made possible.
 
 @react-google-maps/api provides very simple bindings to the google maps api and lets you use it in your app as React components.
 
@@ -12,7 +12,7 @@ Here are the main additions to react-google-maps that were the motivation behind
 
 ## Install @react-google-maps/api
 
-npm: 
+npm:
 
 ```#!/bin/bash
 npm i -S @react-google-maps/api
@@ -52,8 +52,18 @@ You can save on bundle size if you import only components, which you use from `@
 Maintainers and contributors are very welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.
 
 # Prettier setup
-When contributing, please adhere to the formatting rules set by the ESLint config. If you work with prettier you should set your editor to have prettier use the eslint config. Here's a nice guide on how to do that in VSCode:
-https://youtu.be/YIvjKId9m2c
 
+When contributing, please adhere to the formatting rules set by the ESLint config. If you work with prettier you should set your editor to have prettier use the eslint config. Here's my workspace settings for prettier/eslint integration:
 
+```
+{
+  "eslint.enable": true,
+  "javascript.format.enable": true,
+  "prettier.eslintIntegration": true,
+  "editor.formatOnSave": true,
+  "eslint.options": {
+    "configFile": "./.eslintrc.js"
+  }
+}
 
+```
