@@ -2,11 +2,7 @@
 name: Bicycling Layer
 ---
 
-import {
-  GoogleMap,
-  LoadScript,
-  BicyclingLayer
-} from "@react-google-maps/api/lib";
+import { GoogleMap, LoadScript, BicyclingLayer } from "@react-google-maps/api";
 
 import WithApiKey from "./WithApiKey";
 
@@ -21,12 +17,10 @@ import WithApiKey from "./WithApiKey";
   version={"weekly"}
   libraries={[]}
   onLoad={() => console.log("script loaded")}
-  loadingElement={
-    <div>Loading...</div>
-  }
+  loadingElement={<div>Loading...</div>}
 >
   <GoogleMap
-    id='bicycling-example'
+    id="bicycling-example"
     mapContainerStyle={{
       height: "400px",
       width: "800px"
@@ -37,7 +31,7 @@ import WithApiKey from "./WithApiKey";
       lng: -180
     }}
     onClick={(...args) => {
-      console.log('onClick args: ', args)
+      console.log("onClick args: ", args);
     }}
   >
     <BicyclingLayer />

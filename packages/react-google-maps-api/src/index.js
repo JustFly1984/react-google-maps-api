@@ -29,7 +29,7 @@ export { default as DirectionsService } from './components/directions/Directions
 export { default as DirectionsRenderer } from './components/directions/DirectionsRenderer'
 
 // export { default as SearchBox } from './components/places/SearchBox'
-// export { default as StandaloneSearchBox } from './components/places/StandaloneSearchBox'
+export { default as StandaloneSearchBox } from './components/places/StandaloneSearchBox'
 
 // export { default as InfoBox } from './components/addons/InfoBox'
 // export { default as MarkerCluster } from './components/addons/MarkerCluster'

@@ -4,7 +4,7 @@ React Google Maps API 1.0.3
 
 > This library requires React v16.6 or later. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)
 
-This is complete re-write of the (sadly unmaintained) ```react-google-maps``` library. We thank [tomchentw](https://github.com/tomchentw/) for his great work that made possible.
+This is complete re-write of the (sadly unmaintained) `react-google-maps` library. We thank [tomchentw](https://github.com/tomchentw/) for his great work that made possible.
 
 @react-google-maps/api provides very simple bindings to the google maps api and lets you use it in your app as React components.
 
@@ -33,7 +33,7 @@ Examples can be found in two places:
 2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/examples/react-google-maps-api-gatsby/src/examples) folder
 3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.com/)
 
-## Advise
+## Advice
 
 You can save on bundle size if you import only components, which you use from `@react-google-maps/api/lib/...`, although whole library is tree-shakable.
 

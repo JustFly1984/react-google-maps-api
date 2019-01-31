@@ -1,19 +1,9 @@
 /* global google */
-import React, {
-  PureComponent
-} from 'react'
-import {
-  GoogleMapPropTypes
-} from './proptypes'
+import React, { PureComponent } from 'react'
+import { GoogleMapPropTypes } from './proptypes'
 import MapContext from './map-context'
-import {
-  saveInstance,
-  restoreInstance
-} from './utils/instance-persistance'
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from './utils/helper'
+import { saveInstance, restoreInstance } from './utils/instance-persistance'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from './utils/helper'
 
 const eventMap = {
   onDblClick: 'dblclick',
@@ -74,7 +64,7 @@ export class GoogleMap extends PureComponent {
   static defaultProps = {
     id: 'defaultMapId',
     reuseSameInstance: false,
-    onLoad: () => { }
+    onLoad: () => {}
   }
 
   state = {
@@ -88,10 +78,11 @@ export class GoogleMap extends PureComponent {
 
     const map = reuseSameInstance && restoreInstance(rest)
 
-    return map || new google.maps.Map(
-      this.mapRef, {
+    return (
+      map ||
+      new google.maps.Map(this.mapRef, {
         ...this.props.options
-      }
+      })
     )
   }
 
@@ -139,29 +130,13 @@ export class GoogleMap extends PureComponent {
   }
 
   render = () => {
-    const {
-      id,
-      mapContainerStyle,
-      mapContainerClassName,
-      children
-    } = this.props
+    const { id, mapContainerStyle, mapContainerClassName, children } = this.props
 
-    const {
-      map
-    } = this.state
+    const { map } = this.state
 
     return (
-      <div
-        id={id}
-        ref={this.getRef}
-        style={mapContainerStyle}
-        className={mapContainerClassName}
-      >
-        <MapContext.Provider
-          value={map}
-        >
-          {map !== null ? children : null}
-        </MapContext.Provider>
+      <div id={id} ref={this.getRef} style={mapContainerStyle} className={mapContainerClassName}>
+        <MapContext.Provider value={map}>{map !== null ? children : null}</MapContext.Provider>
       </div>
     )
   }
