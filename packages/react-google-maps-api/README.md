@@ -43,21 +43,6 @@ You can save on bundle size if you import only components, which you use from `@
 
 Maintainers and contributors are very welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.
 
-# Prettier setup
-
-When contributing, please adhere to the formatting rules set by the ESLint config. If you work with prettier you should set your editor to have prettier use the eslint config. Here's my workspace settings for prettier/eslint integration:
-
-````
-{
-  "eslint.enable": true,
-  "javascript.format.enable": true,
-  "prettier.eslintIntegration": true,
-  "editor.formatOnSave": true,
-  "eslint.options": {
-    "configFile": "./.eslintrc.js"
-  }
-}
-
 ## Migration from react-google-maps@9.4.5
 
 if you need an access to map object, instead of `ref` prop, you need to use `onLoad` callback on `<GoogleMap />` component.
@@ -73,7 +58,7 @@ Before:
     map.fitBounds(bounds);
   }}
 />
-````
+```
 
 After:
 
