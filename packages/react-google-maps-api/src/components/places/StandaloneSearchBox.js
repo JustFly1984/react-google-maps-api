@@ -37,7 +37,6 @@ class StandaloneSearchBox extends PureComponent {
   }
 
   componentDidMount = () => {
-    debugger
     const searchBox = new google.maps.places.SearchBox(
       this.containerElement.current.querySelector('input'),
       Object.assign(
