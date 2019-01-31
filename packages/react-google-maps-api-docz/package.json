@@ -24,6 +24,8 @@
   "dependencies": {
     "@emotion/core": "10.0.6",
     "@react-google-maps/api": "1.0.5",
+    "docz": "0.13.7",
+    "docz-theme-default": "0.13.7",
     "react": "16.7.0",
     "react-dom": "16.7.0",
     "rimraf": "2.6.3"
@@ -34,8 +36,6 @@
     "@types/react": "16.8.0",
     "acorn": "6.0.6",
     "babel-eslint": "9",
-    "docz": "0.13.7",
-    "docz-theme-default": "0.13.7",
     "eslint": "5.12.1",
     "eslint-config-standard": "12.0.0",
     "eslint-config-standard-react": "7.0.2",
@@ -60,7 +60,8 @@
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.4.0",
     "prop-types": "15.6.2",
-    "typescript": "3.3.1"
+    "typescript": "3.3.1",
+    "webpack": "^4.29.0"
   },
   "gitHead": "634ea34b292f9ee5ce0ec8a6b185e2dc7ca3795d"
 }
