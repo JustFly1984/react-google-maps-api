@@ -766,10 +766,10 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@react-google-maps/api@1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.0.4.tgz#757918d8b3712e41503f482e70edde82fe2c298a"
-  integrity sha512-kVbBeF5BB+P2EADyp2stgfPLOvgH5w8KeRf2k01ht8YgZkA5NJH06hgbcmzC1sES5LJkcOr7iQu75AkaA+CLFA==
+"@react-google-maps/api@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.0.5.tgz#39d83f52c8d4ca4be11dd012eff9b2dcae78e3f1"
+  integrity sha512-P6tgiuRNQnWrPHjNzVkZCDuuMQDmxhuZlAHa7neV4ZZur9Cuz1wlEdLQA1oSIpYOILg8nZp5W6z6tzM4npQYKA==
   dependencies:
     "@babel/runtime" "7.3.1"
     google-maps-infobox "2.0.0"

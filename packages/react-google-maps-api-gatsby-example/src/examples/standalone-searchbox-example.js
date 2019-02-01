@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
-  StandaloneSearchbox
+  StandaloneSearchBox
 } from '@react-google-maps/api'
 
 const StandaloneSearchboxExamplePropTypes = {
@@ -41,13 +41,13 @@ const StandaloneSearchboxExample = ({ styles }) => (
       center={center}
       onClick={(...args) => { console.log('onClick args: ', args) }}
     >
-      <StandaloneSearchbox>
+      <StandaloneSearchBox>
         <input
           type='text'
           placeholder='Customized your placeholder'
           style={inputStyle}
         />
-      </StandaloneSearchbox>
+      </StandaloneSearchBox>
     </GoogleMap>
   </div>
 )
