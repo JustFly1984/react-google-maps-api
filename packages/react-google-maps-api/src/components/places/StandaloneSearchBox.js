@@ -1,12 +1,15 @@
 /* global google */
-import React, { PureComponent } from 'react'
+import React, {
+  PureComponent,
+  Children
+} from 'react'
 import invariant from 'invariant'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
-import { SearchBoxPropTypes } from '../../proptypes'
+import { StandaloneSearchBoxPropTypes } from '../../proptypes'
 
 const eventMap = {
   onPlacesChanged: 'places_changed'
@@ -19,7 +22,7 @@ const updaterMap = {
 }
 
 class StandaloneSearchBox extends PureComponent {
-  static propTypes = SearchBoxPropTypes
+  static propTypes = StandaloneSearchBoxPropTypes
 
   static contextType = MapContext
 
@@ -79,9 +82,15 @@ class StandaloneSearchBox extends PureComponent {
     unregisterEvents(this.registeredEvents)
   }
 
-  render = () => {
-    return <div ref={this.containerElement}>{React.Children.only(this.props.children)}</div>
-  }
+  render = () => (
+    <div
+      ref={this.containerElement}
+    >
+      {
+        Children.only(this.props.children)
+      }
+    </div>
+  )
 
   getBounds = () => this.state.searchBox.getBounds()
 

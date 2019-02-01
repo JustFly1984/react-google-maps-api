@@ -1431,6 +1431,16 @@ export const SearchBoxPropTypes = {
   onPlacesChanged: PropTypes.func
 }
 
+export const StandaloneSearchBoxPropTypes = {
+  options: PropTypes.shape(
+    SearchBoxOptionsInterface
+  ),
+  children: PropTypes.node,
+  controlPosition: PropTypes.number,
+  bounds: PropTypes.any, // TODO
+  onPlacesChanged: PropTypes.func
+}
+
 export const DrawingManagerPropTypes = {
   options: PropTypes.shape(
     DrawingManagerOptionsInterface
