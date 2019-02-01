@@ -18,7 +18,7 @@
     "url": "https://github.com/JustFly1984/react-google-maps-api"
   },
   "scripts": {
-    "publish": "lerna publish",
+    "publish": "cd packages/react-google-maps-api && npm run build && cd ../.. && lerna publish",
     "build:api": "cd packages/react-google-maps-api && npm run build && cd ../.. ",
     "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && npm run build && cd ../..",
     "build:docz": "cd packages/react-google-maps-api-docz && npm run build && cd ../.."
