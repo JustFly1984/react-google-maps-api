@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  GoogleMap
+  GoogleMap,
+  StandaloneSearchbox
 } from '@react-google-maps/api'
-
-import StandaloneSearchbox from '../../../react-google-maps-api/src/components/places/StandaloneSearchBox'
 
 const StandaloneSearchboxExamplePropTypes = {
   styles: PropTypes.shape({
