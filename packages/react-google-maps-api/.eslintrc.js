@@ -44,7 +44,11 @@ module.exports = {
   },
   settings: {
     ecmascript: 6,
-    "import/resolver": "webpack",
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   },
   rules: {
     "ascii/valid-name": 2,

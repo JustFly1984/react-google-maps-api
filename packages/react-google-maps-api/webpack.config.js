@@ -6,7 +6,10 @@ const webpack = require('webpack')
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.js',
+  entry: './src/index.ts',
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
@@ -16,7 +19,15 @@ module.exports = {
   module: {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-      { test: /\.(ts|tsx|js)$/, loader: 'awesome-typescript-loader' },
+      { test: /\.(ts|tsx)$/, loader: 'awesome-typescript-loader' },
+      {
+        test: /\.js$/,
+        include: path.resolve(__dirname, 'src'),
+        exclude: /(node_modules|bower_components|dist)/,
+        use: {
+          loader: 'babel-loader'
+        }
+      }
     ]
   },
   optimization: {

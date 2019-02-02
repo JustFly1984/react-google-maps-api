@@ -8,7 +8,6 @@ import {
 
 import MapContext from '../../map-context'
 
-import { CirclePropTypes } from '../../proptypes'
 
 const eventMap = {
   onCenterChanged: 'center_changed',
@@ -27,37 +26,61 @@ const eventMap = {
 }
 
 const updaterMap = {
-  center (instance, center) {
+  center(instance: google.maps.Circle, center: google.maps.LatLng) {
     instance.setCenter(center)
   },
-  draggable (instance, draggable) {
+  draggable(instance: google.maps.Circle, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  editable (instance, editable) {
+  editable(instance: google.maps.Circle, editable: boolean) {
     instance.setEditable(editable)
   },
-  map (instance, map) {
+  map(instance: google.maps.Circle, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options (instance, options) {
+  options(instance: google.maps.Circle, options: google.maps.CircleOptions) {
     instance.setOptions(options)
   },
-  radius (instance, radius) {
+  radius(instance: google.maps.Circle, radius: number) {
     instance.setRadius(radius)
   },
-  visible (instance, visible) {
+  visible(instance: google.maps.Circle, visible: boolean) {
     instance.setVisible(visible)
   }
 }
 
-export class Circle extends PureComponent {
-  static propTypes = CirclePropTypes
+interface CircleState {
+  circle?: google.maps.Circle
+}
 
+interface CircleProps {
+  options: google.maps.CircleOptions;
+  center: google.maps.LatLng | google.maps.LatLngLiteral;
+  radius: number;
+  draggable: boolean;
+  editable: boolean;
+  visible: boolean;
+  onDblClick: (e: MouseEvent) => void;
+  onDragEnd: (e: MouseEvent) => void;
+  onDragStart: (e: MouseEvent) => void;
+  onMouseDown: (e: MouseEvent) => void;
+  onMouseMove: (e: MouseEvent) => void;
+  onMouseOut: (e: MouseEvent) => void;
+  onMouseOver: (e: MouseEvent) => void;
+  onMouseUp: (e: MouseEvent) => void;
+  onRightClick: (e: MouseEvent) => void;
+  onCenterChanged: () => void;
+  onClick: (e: MouseEvent) => void;
+  onDrag: (e: MouseEvent) => void;
+  onRadiusChanged: () => void;
+}
+
+export class Circle extends PureComponent<CircleProps, CircleState> {
   static contextType = MapContext
 
-  registerEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
+  state: CircleState = {
     circle: null
   }
 
@@ -89,7 +112,7 @@ export class Circle extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: CircleProps) => {
     unregisterEvents(this.registeredEvents)
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
@@ -106,7 +129,7 @@ export class Circle extends PureComponent {
     this.state.circle && this.state.circle.setMap(null)
   }
 
-  render = () => null
+  render = (): any => null
 
   getBounds = () => this.state.circle.getBounds()
 
