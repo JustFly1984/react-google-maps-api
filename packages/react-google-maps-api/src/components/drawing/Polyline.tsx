@@ -8,8 +8,6 @@ import {
 
 import MapContext from '../../map-context'
 
-import { PolylinePropTypes } from '../../proptypes'
-
 const eventMap = {
   onClick: 'click',
   onDblClick: 'dblclick',
@@ -25,34 +23,55 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable (instance, draggable) {
+  draggable (instance: google.maps.Polyline, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  editable (instance, editable) {
+  editable (instance: google.maps.Polyline, editable: boolean) {
     instance.setEditable(editable)
   },
-  map (instance, map) {
+  map (instance: google.maps.Polyline, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options (instance, options) {
+  options (instance: google.maps.Polyline, options: google.maps.PolylineOptions) {
     instance.setOptions(options)
   },
-  path (instance, path) {
+  path (instance: google.maps.Polyline, path: google.maps.MVCArray<google.maps.LatLng> | google.maps.LatLng[] | google.maps.LatLngLiteral[]) {
     instance.setPath(path)
   },
-  visible (instance, visible) {
+  visible (instance: google.maps.Polyline, visible: boolean) {
     instance.setVisible(visible)
   }
 }
 
-export class Polyline extends PureComponent {
-  static propTypes = PolylinePropTypes
+interface PolylineState {
+  polyline?: google.maps.Polyline
+}
 
+interface PolylineProps {
+  options: google.maps.PolylineOptions;
+  draggable: boolean;
+  editable: boolean;
+  visible: boolean;
+  path: google.maps.MVCArray<google.maps.LatLng> | google.maps.LatLng[] | google.maps.LatLngLiteral[];
+  onDblClick: (e: MouseEvent) => void;
+  onDragEnd: (e: MouseEvent) => void;
+  onDragStart: (e: MouseEvent) => void;
+  onMouseDown: (e: MouseEvent) => void;
+  onMouseMove: (e: MouseEvent) => void;
+  onMouseOut: (e: MouseEvent) => void;
+  onMouseOver: (e: MouseEvent) => void;
+  onMouseUp: (e: MouseEvent) => void;
+  onRightClick: (e: MouseEvent) => void;
+  onClick: (e: MouseEvent) => void;
+  onDrag: (e: MouseEvent) => void;
+}
+
+export class Polyline extends PureComponent<PolylineProps, PolylineState> {
   static contextType = MapContext
 
-  registerEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
+  state: PolylineState = {
     polyline: null
   }
 
@@ -84,7 +103,7 @@ export class Polyline extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: PolylineProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

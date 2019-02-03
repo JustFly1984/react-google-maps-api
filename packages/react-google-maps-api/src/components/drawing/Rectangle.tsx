@@ -7,8 +7,6 @@ import {
 } from '../../utils/helper'
 import MapContext from '../../map-context'
 
-import { RectanglePropTypes } from '../../proptypes'
-
 const eventMap = {
   onBoundsChanged: 'bounds_changed',
   onClick: 'click',
@@ -25,34 +23,56 @@ const eventMap = {
 }
 
 const updaterMap = {
-  bounds (instance, bounds) {
+  bounds (instance: google.maps.Rectangle, bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral) {
     instance.setBounds(bounds)
   },
-  draggable (instance, draggable) {
+  draggable (instance: google.maps.Rectangle, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  editable (instance, editable) {
+  editable (instance: google.maps.Rectangle, editable: boolean) {
     instance.setEditable(editable)
   },
-  map (instance, map) {
+  map (instance: google.maps.Rectangle, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options (instance, options) {
+  options (instance: google.maps.Rectangle, options: google.maps.RectangleOptions) {
     instance.setOptions(options)
   },
-  visible (instance, visible) {
+  visible (instance: google.maps.Rectangle, visible: boolean) {
     instance.setVisible(visible)
   },
 }
 
-export class Rectangle extends PureComponent {
-  static propTypes = RectanglePropTypes
+interface RectangleState {
+  rectangle?: google.maps.Rectangle
+}
 
+interface RectangleProps {
+  options: google.maps.RectangleOptions;
+  bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
+  draggable: boolean;
+  editable: boolean;
+  visible: boolean;
+  onDblClick: (e: MouseEvent) => void;
+  onDragEnd: (e: MouseEvent) => void;
+  onDragStart: (e: MouseEvent) => void;
+  onMouseDown: (e: MouseEvent) => void;
+  onMouseMove: (e: MouseEvent) => void;
+  onMouseOut: (e: MouseEvent) => void;
+  onMouseOver: (e: MouseEvent) => void;
+  onMouseUp: (e: MouseEvent) => void;
+  onRightClick: (e: MouseEvent) => void;
+  onClick: (e: MouseEvent) => void;
+  onDrag: (e: MouseEvent) => void;
+  onBoundsChanged: () => void;
+}
+
+export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
   static contextType = MapContext
 
-  registerEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
+  state: RectangleState = {
     rectangle: null
   }
 
@@ -84,7 +104,7 @@ export class Rectangle extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: RectangleProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

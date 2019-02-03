@@ -8,7 +8,6 @@ import {
 
 import MapContext from '../../map-context'
 
-
 const eventMap = {
   onCenterChanged: 'center_changed',
   onClick: 'click',
@@ -26,25 +25,25 @@ const eventMap = {
 }
 
 const updaterMap = {
-  center(instance: google.maps.Circle, center: google.maps.LatLng) {
+  center (instance: google.maps.Circle, center: google.maps.LatLng) {
     instance.setCenter(center)
   },
-  draggable(instance: google.maps.Circle, draggable: boolean) {
+  draggable (instance: google.maps.Circle, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  editable(instance: google.maps.Circle, editable: boolean) {
+  editable (instance: google.maps.Circle, editable: boolean) {
     instance.setEditable(editable)
   },
-  map(instance: google.maps.Circle, map: google.maps.Map) {
+  map (instance: google.maps.Circle, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options(instance: google.maps.Circle, options: google.maps.CircleOptions) {
+  options (instance: google.maps.Circle, options: google.maps.CircleOptions) {
     instance.setOptions(options)
   },
-  radius(instance: google.maps.Circle, radius: number) {
+  radius (instance: google.maps.Circle, radius: number) {
     instance.setRadius(radius)
   },
-  visible(instance: google.maps.Circle, visible: boolean) {
+  visible (instance: google.maps.Circle, visible: boolean) {
     instance.setVisible(visible)
   }
 }

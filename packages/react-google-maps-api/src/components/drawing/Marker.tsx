@@ -1,5 +1,5 @@
 /* global google */
-import React, { Fragment, PureComponent } from 'react'
+import { PureComponent } from 'react'
 
 import {
   unregisterEvents,
@@ -7,8 +7,6 @@ import {
 } from '../../utils/helper'
 
 import MapContext from '../../map-context'
-
-import { MarkerPropTypes } from '../../proptypes'
 
 const eventMap = {
   onAnimationChanged: 'animation_changed',
@@ -35,58 +33,97 @@ const eventMap = {
 }
 
 const updaterMap = {
-  animation (instance, animation) {
+  animation (instance: google.maps.Marker, animation: google.maps.Animation) {
     instance.setAnimation(animation)
   },
-  clickable (instance, clickable) {
+  clickable (instance: google.maps.Marker, clickable: boolean) {
     instance.setClickable(clickable)
   },
-  cursor (instance, cursor) {
+  cursor (instance: google.maps.Marker, cursor: string) {
     instance.setCursor(cursor)
   },
-  draggable (instance, draggable) {
+  draggable (instance: google.maps.Marker, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  icon (instance, icon) {
+  icon (instance: google.maps.Marker, icon: string | google.maps.Icon | google.maps.Symbol) {
     instance.setIcon(icon)
   },
-  label (instance, label) {
+  label (instance: google.maps.Marker, label: string | google.maps.MarkerLabel) {
     instance.setLabel(label)
   },
-  map (instance, map) {
+  map (instance: google.maps.Marker, map: google.maps.Map) {
     instance.setMap(map)
   },
-  opacity (instance, opacity) {
+  opacity (instance: google.maps.Marker, opacity: number) {
     instance.setOpacity(opacity)
   },
-  options (instance, options) {
+  options (instance: google.maps.Marker, options: google.maps.MarkerOptions) {
     instance.setOptions(options)
   },
-  position (instance, position) {
+  position (instance: google.maps.Marker, position: google.maps.LatLng | google.maps.LatLngLiteral) {
     instance.setPosition(position)
   },
-  shape (instance, shape) {
+  shape (instance: google.maps.Marker, shape: google.maps.MarkerShape) {
     instance.setShape(shape)
   },
-  title (instance, title) {
+  title (instance: google.maps.Marker, title: string) {
     instance.setTitle(title)
   },
-  visible (instance, visible) {
+  visible (instance: google.maps.Marker, visible: boolean) {
     instance.setVisible(visible)
   },
-  zIndex (instance, zIndex) {
+  zIndex (instance: google.maps.Marker, zIndex: number) {
     instance.setZIndex(zIndex)
   }
 }
 
-export class Marker extends PureComponent {
-  static propTypes = MarkerPropTypes
+interface MarkerState {
+  marker?: google.maps.Marker;
+}
 
+interface MarkerProps {
+  options?: google.maps.MapOptions;
+  animation?: google.maps.Animation;
+  clickable?: boolean;
+  cursor?: string;
+  draggable?: string;
+  icon?: string | google.maps.Icon | google.maps.Symbol;
+  label?: string | google.maps.MarkerLabel;
+  opacity?: number;
+  position: google.maps.LatLng | google.maps.LatLngLiteral;
+  shape?: google.maps.MarkerShape;
+  title?: string;
+  visible?: boolean;
+  zIndex?: number;
+  onClick: (e: MouseEvent) => void;
+  onClickableChanged: () => void;
+  onCursorChanged: () => void;
+  onAnimationChanged: () => void;
+  onDblClick: (e: MouseEvent) => void;
+  onDrag: (e: MouseEvent) => void;
+  onDragEnd: (e: MouseEvent) => void;
+  onDraggableChanged: () => void;
+  onDragStart: (e: MouseEvent) => void;
+  onFlatChanged: () => void;
+  onIconChanged: () => void;
+  onMouseDown: (e: MouseEvent) => void;
+  onMouseOut: (e: MouseEvent) => void;
+  onMouseOver: (e: MouseEvent) => void;
+  onMouseUp: (e: MouseEvent) => void;
+  onPositionChanged: () => void;
+  onRightClick: (e: MouseEvent) => void;
+  onShapeChanged: () => void;
+  onTitleChanged: () => void;
+  onVisibleChanged: () => void;
+  onZindexChanged: () => void;
+}
+
+export class Marker extends PureComponent<MarkerProps, MarkerState> {
   static contextType = MapContext
 
-  registerEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
+  state: MarkerState = {
     marker: null
   }
 
@@ -94,7 +131,8 @@ export class Marker extends PureComponent {
     const marker = new google.maps.Marker(
       Object.assign(
         {
-          map: this.context
+          map: this.context,
+          position: this.props.position
         },
         this.props.options
       )
@@ -118,7 +156,7 @@ export class Marker extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: MarkerProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -138,9 +176,7 @@ export class Marker extends PureComponent {
   }
 
   render = () => (
-    <Fragment>
-      {this.props.children}
-    </Fragment>
+    this.props.children
   )
 
   getAnimation = () => this.state.marker.getAnimation()

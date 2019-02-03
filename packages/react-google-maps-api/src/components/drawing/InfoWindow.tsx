@@ -7,9 +7,8 @@ import {
 } from '../../utils/helper'
 
 import MapContext from '../../map-context'
+// @ts-ignore
 import invariant from 'invariant'
-
-import { InfoWindowPropTypes } from '../../proptypes'
 
 const eventMap = {
   onCloseClick: 'closeclick',
@@ -20,45 +19,47 @@ const eventMap = {
 }
 
 const updaterMap = {
-  open (instance, options) {
-    instance.open(options)
-  },
-  close (instance) {
-    instance.close()
-  },
-  options (instance, options) {
+  options (instance: google.maps.InfoWindow, options: google.maps.InfoWindowOptions) {
     instance.setOptions(options)
   },
-  position (instance, position) {
+  position (instance: google.maps.InfoWindow, position: google.maps.LatLng | google.maps.LatLngLiteral) {
     instance.setPosition(position)
   },
-  zIndex (instance, zIndex) {
+  zIndex (instance: google.maps.InfoWindow, zIndex: number) {
     instance.setZIndex(zIndex)
   }
 }
 
-export class InfoWindow extends PureComponent {
-  static propTypes = InfoWindowPropTypes
+interface InfoWindowState {
+  infoWindow?: google.maps.InfoWindow
+}
 
+interface InfoWindowProps {
+  anchor?: google.maps.MVCObject;
+  options?: google.maps.InfoWindowOptions;
+  position: google.maps.LatLng | google.maps.LatLngLiteral;
+  zIndex?: number;
+  onCloseClick?: () => void;
+  onDomReady?: () => void;
+  onContentChanged?: () => void;
+  onPositionChanged?: () => void;
+  onZindexChanged?: () => void;
+}
+
+export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> {
   static contextType = MapContext
 
-  registeredEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
+  containerElement: HTMLElement;
 
-  state = {
+  state: InfoWindowState = {
     infoWindow: null
   }
 
   componentDidMount = () => {
     const infoWindow = new google.maps.InfoWindow(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
+      this.props.options
     )
-
-    infoWindow.setMap(this.context)
 
     this.containerElement = document.createElement('div')
 
@@ -96,8 +97,6 @@ export class InfoWindow extends PureComponent {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
-
-    this.state.infoWindow && this.state.infoWindow.setMap(null)
   }
 
   render = () =>
@@ -105,11 +104,11 @@ export class InfoWindow extends PureComponent {
       ? createPortal(Children.only(this.props.children), this.containerElement)
       : null
 
-  open = (infoWindow, anchor) => {
+  open = (infoWindow: google.maps.InfoWindow, anchor: google.maps.MVCObject) => {
     if (anchor) {
-      infoWindow.open(infoWindow.getMap(), anchor)
+      infoWindow.open(this.context, anchor)
     } else if (infoWindow.getPosition()) {
-      infoWindow.open(infoWindow.getMap())
+      infoWindow.open(this.context)
     } else {
       invariant(
         false,

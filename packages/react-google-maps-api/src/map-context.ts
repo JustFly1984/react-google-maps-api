@@ -1,3 +1,4 @@
+/* global google */
 import { createContext, Context } from 'react'
 
 export interface IMapContext {

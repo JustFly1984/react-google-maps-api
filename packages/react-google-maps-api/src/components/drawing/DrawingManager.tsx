@@ -1,5 +1,6 @@
 /* global google */
 import { PureComponent } from 'react'
+// @ts-ignore
 import invariant from 'invariant'
 
 import {
@@ -21,26 +22,39 @@ const eventMap = {
 }
 
 const updaterMap = {
-  drawingMode (instance, drawingMode) {
+  drawingMode (instance: google.maps.drawing.DrawingManager, drawingMode: google.maps.drawing.OverlayType | null) {
     instance.setDrawingMode(drawingMode)
   },
-  options (instance, options) {
+  options (instance: google.maps.drawing.DrawingManager, options: google.maps.drawing.DrawingManagerOptions) {
     instance.setOptions(options)
   }
 }
 
-export class DrawingManager extends PureComponent {
-  static propTypes = DrawingManagerPropTypes
+interface DrawingManagerState {
+  drawingManager?: google.maps.drawing.DrawingManager
+}
 
+interface DrawingManagerProps {
+  options?: google.maps.drawing.DrawingManagerOptions;
+  drawingMode?: google.maps.drawing.OverlayType | null;
+  onCircleComplete?: (circle: google.maps.Circle) => void;
+  onMarkerComplete?: (marker: google.maps.Marker) => void;
+  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void;
+  onPolygonComplete?: (polygon: google.maps.Polygon) => void;
+  onPolylineComplete?: (polyline: google.maps.Polyline) => void;
+  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void;
+}
+
+export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingManagerState> {
   static contextType = MapContext
 
-  registeredEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
+  state: DrawingManagerState = {
     drawingManager: null
   }
 
-  constructor (props) {
+  constructor (props: DrawingManagerProps) {
     super(props)
 
     invariant(google.maps.drawing, 'Did you include "libraries=drawing" in the URL?')
@@ -74,7 +88,7 @@ export class DrawingManager extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: DrawingManagerProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
