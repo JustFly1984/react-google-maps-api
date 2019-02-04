@@ -7,6 +7,7 @@ import {
 } from '../../utils/helper'
 
 import MapContext from '../../map-context'
+import { LatLng } from '../../types'
 
 const eventMap = {
   onAnimationChanged: 'animation_changed',
@@ -60,7 +61,7 @@ const updaterMap = {
   options (instance: google.maps.Marker, options: google.maps.MarkerOptions) {
     instance.setOptions(options)
   },
-  position (instance: google.maps.Marker, position: google.maps.LatLng | google.maps.LatLngLiteral) {
+  position (instance: google.maps.Marker, position: LatLng) {
     instance.setPosition(position)
   },
   shape (instance: google.maps.Marker, shape: google.maps.MarkerShape) {
@@ -90,7 +91,7 @@ interface MarkerProps {
   icon?: string | google.maps.Icon | google.maps.Symbol;
   label?: string | google.maps.MarkerLabel;
   opacity?: number;
-  position: google.maps.LatLng | google.maps.LatLngLiteral;
+  position: LatLng;
   shape?: google.maps.MarkerShape;
   title?: string;
   visible?: boolean;

@@ -6,6 +6,7 @@ import {
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/helper'
 import MapContext from '../../map-context'
+import { Bounds } from '../../types'
 
 const eventMap = {
   onBoundsChanged: 'bounds_changed',
@@ -23,7 +24,7 @@ const eventMap = {
 }
 
 const updaterMap = {
-  bounds (instance: google.maps.Rectangle, bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral) {
+  bounds (instance: google.maps.Rectangle, bounds: Bounds) {
     instance.setBounds(bounds)
   },
   draggable (instance: google.maps.Rectangle, draggable: boolean) {
@@ -49,7 +50,7 @@ interface RectangleState {
 
 interface RectangleProps {
   options: google.maps.RectangleOptions;
-  bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
+  bounds: Bounds;
   draggable: boolean;
   editable: boolean;
   visible: boolean;

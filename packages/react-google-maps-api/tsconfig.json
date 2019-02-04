@@ -16,9 +16,9 @@
     "jsx": "react",
     "checkJs": false,
     "skipLibCheck": true,
-    "declaration": true
+    "declaration": true,
   },
-  "include": [
-    "./src/**/*"
-  ],
+  "files": [
+    "./src/index.ts"
+  ]
 }

@@ -1,10 +1,6 @@
 /* global google */
 import { createContext, Context } from 'react'
 
-export interface IMapContext {
-  map?: google.maps.Map
-}
-
-const MapContext: Context<IMapContext> = createContext(null)
+const MapContext: Context<google.maps.Map> = createContext(null)
 
 export default MapContext

@@ -24,7 +24,6 @@
   "types": "lib/index.d.ts",
   "files": [
     "dist/",
-    "examples/",
     "lib/",
     "src/",
     "CHANGELOG.md"
@@ -54,23 +53,11 @@
     "TrafficLayer",
     "visualization/HeatmapLayer",
     "withGoogleMap",
-    "withScriptjs"
+    "ScriptLoader"
   ],
-  "watch": {
-    "build:dev": {
-      "patterns": [
-        "src"
-      ],
-      "extensions": "js",
-      "quiet": false
-    }
-  },
   "scripts": {
-    "start": "npm run watch",
-    "watch": "npm-watch build:dev",
-    "dtslint": "dtslint types",
     "test": "npx jest",
-    "build": "concurrently \"cross-env NODE_ENV=production npm run build:webpack\"",
+    "build": "tsc",
     "build:dev": "concurrently \"cross-env NODE_ENV=development npm run build:webpack\"",
     "build:webpack": "rimraf ./dist && webpack",
     "build:lib": "rimraf ./lib && tsc",

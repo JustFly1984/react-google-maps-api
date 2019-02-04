@@ -7,33 +7,34 @@ import {
 } from '../../utils/helper'
 import MapContext from '../../map-context'
 
-import { TrafficLayerPropTypes } from '../../proptypes'
-
 const eventMap = {}
 
 const updaterMap = {
-  options (instance, options) {
+  options (instance: google.maps.TrafficLayer, options: google.maps.TrafficLayerOptions) {
     instance.setOptions(options)
   }
 }
 
-export class TrafficLayer extends PureComponent {
-  static propTypes = TrafficLayerPropTypes
+interface TrafficLayerState {
+  trafficLayer?: google.maps.TrafficLayer
+}
 
+interface TrafficLayerProps {
+  options?: google.maps.TrafficLayerOptions
+}
+
+export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerState> {
   static contextType = MapContext
 
   state = {
     trafficLayer: null
   }
 
+  registeredEvents: google.maps.MapsEventListener[] = []
+
   componentDidMount = () => {
     const trafficLayer = new google.maps.TrafficLayer(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
+      this.props.options
     )
 
     this.setState(
@@ -54,7 +55,7 @@ export class TrafficLayer extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: TrafficLayerProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

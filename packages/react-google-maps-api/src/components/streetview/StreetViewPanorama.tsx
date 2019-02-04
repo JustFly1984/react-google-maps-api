@@ -1,4 +1,6 @@
-import React, { PureComponent, Fragment } from 'react'
+/* global google */
+import { PureComponent, Fragment } from 'react'
+//@ts-ignore
 import invariant from 'invariant'
 
 import {
@@ -9,6 +11,7 @@ import {
 import MapContext from '../../map-context'
 
 import { StreetViewPanoramaPropTypes } from '../../proptypes'
+import { LatLng } from '../../types'
 
 const eventMap = {
   onCloseClick: 'closeclick',
@@ -22,33 +25,50 @@ const eventMap = {
 }
 
 const updaterMap = {
-  register (instance, provider, options) {
+  register (instance: google.maps.StreetViewPanorama, provider: (input: string) => google.maps.StreetViewPanoramaData, options: any) {
+    // @ts-ignore
     instance.registerPanoProvider(provider, options)
   },
-  links (instance, links) {
+  links (instance: google.maps.StreetViewPanorama, links: google.maps.StreetViewLink[]) {
     instance.setLinks(links)
   },
-  motionTracking (instance, motionTracking) {
+  motionTracking (instance: google.maps.StreetViewPanorama, motionTracking: boolean) {
     instance.setMotionTracking(motionTracking)
   },
-  options (instance, options) {
+  options (instance: google.maps.StreetViewPanorama, options: google.maps.StreetViewPanoramaOptions) {
     instance.setOptions(options)
   },
-  pano (instance, pano) {
+  pano (instance: google.maps.StreetViewPanorama, pano: string) {
     instance.setPano(pano)
   },
-  position (instance, position) {
+  position (instance: google.maps.StreetViewPanorama, position: LatLng) {
     instance.setPosition(position)
   },
-  pov (instance, pov) {
+  pov (instance: google.maps.StreetViewPanorama, pov: google.maps.StreetViewPov) {
     instance.setPov(pov)
   },
-  visible (instance, visible) {
+  visible (instance: google.maps.StreetViewPanorama, visible: boolean) {
     instance.setVisible(visible)
   },
-  zoom (instance, zoom) {
+  zoom (instance: google.maps.StreetViewPanorama, zoom: number) {
     instance.setZoom(zoom)
   }
+}
+
+interface StreetViewPanoramaState {
+  streetViewPanorama?: google.maps.StreetViewPanorama
+}
+
+interface StreetViewPanoramaProps {
+  options?: google.maps.StreetViewPanoramaOptions;
+  onCloseclick?: (event: google.maps.event) => void;
+  onPanoChanged: () => void;
+  onPositionChanged: () => void;
+  onPovChanged: () => void;
+  onResize: () => void;
+  onStatusChanged: () => void;
+  onVisibleChanged: () => void;
+  onZoomChange: () => void;
 }
 
 export class StreetViewPanorama extends PureComponent {
@@ -78,7 +98,7 @@ export class StreetViewPanorama extends PureComponent {
         streetViewPanorama
       }),
       () => {
-        
+
       }
     )
   }

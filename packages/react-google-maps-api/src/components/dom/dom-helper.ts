@@ -1,8 +1,8 @@
 /* eslint-disable filenames/match-regex */
 /* global google */
-export const getOffsetOverride = (containerElement, props) =>
-  typeof props.getPixelPositionOffset === 'function'
-    ? props.getPixelPositionOffset(containerElement.offsetWidth, containerElement.offsetHeight)
+export const getOffsetOverride = (containerElement: HTMLElement, getPixelPositionOffset?: (offsetWidth: number, offsetHeight: number) => { x: number, y: number }) =>
+  typeof getPixelPositionOffset === 'function'
+    ? getPixelPositionOffset(containerElement.offsetWidth, containerElement.offsetHeight)
     : {}
 
 const createLatLng = (inst, Type) =>
@@ -19,7 +19,7 @@ const ensureOfType = (inst, type, factory) =>
     ? inst
     : factory(inst, type)
 
-const getLayoutStylesByBounds = (mapCanvasProjection, offset, bounds) => {
+const getLayoutStylesByBounds = (mapCanvasProjection: google.maps.MapCanvasProjection, offset: any, bounds: google.maps.LatLngBounds) => {
   const ne = mapCanvasProjection.fromLatLngToDivPixel(
     bounds.getNorthEast()
   )
@@ -43,7 +43,7 @@ const getLayoutStylesByBounds = (mapCanvasProjection, offset, bounds) => {
   }
 }
 
-const getLayoutStylesByPosition = (mapCanvasProjection, offset, position) => {
+const getLayoutStylesByPosition = (mapCanvasProjection: google.maps.MapCanvasProjection, offset: any, position: google.maps.LatLng) => {
   const point = mapCanvasProjection.fromLatLngToDivPixel(position)
 
   if (point) {
@@ -61,7 +61,7 @@ const getLayoutStylesByPosition = (mapCanvasProjection, offset, position) => {
   }
 }
 
-export const getLayoutStyles = (mapCanvasProjection, offset, { bounds, position }) =>
+export const getLayoutStyles = (mapCanvasProjection: google.maps.MapCanvasProjection, offset: any, bounds?: google.maps.LatLngBounds, position?: google.maps.LatLng) =>
   bounds !== undefined
     ? getLayoutStylesByBounds(
       mapCanvasProjection,

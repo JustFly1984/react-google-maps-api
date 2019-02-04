@@ -1,4 +1,6 @@
-const clearChildren = (node) => {
+import { LatLng } from './../types'
+/* global google */
+const clearChildren = (node: HTMLElement) => {
   if (node) {
     while (node.firstChild) {
       node.removeChild(node.firstChild)
@@ -6,11 +8,11 @@ const clearChildren = (node) => {
   }
 }
 
-const getMapInstanceId = (id) => {
+const getMapInstanceId = (id: string) => {
   return `google-map-${id}`
 }
 
-const getHiddenMapContainer = (id) => {
+const getHiddenMapContainer = (id: string) => {
   const hiddenMapContainer = `hidden-container-${id}`
 
   let element = document.getElementById(hiddenMapContainer)
@@ -34,30 +36,35 @@ export const restoreInstance = ({
   center,
   mapContainerStyle,
   options
+}: {
+  id: string;
+  zoom?: number;
+  center?: LatLng;
+  mapContainerStyle?: any;
+  options?: google.maps.MapOptions
 }) => {
-  const map = window[getMapInstanceId(id)]
+  const map: google.maps.Map = window[getMapInstanceId(id)]
 
   const hiddenContainer = getHiddenMapContainer(id)
 
   if (map && hiddenContainer.children.length === 1) {
     map.setZoom(zoom)
     map.setCenter(center)
-    map.setOptions({
-      style: mapContainerStyle,
-      ...options
-    })
+    map.setOptions(options)
 
     const mapContainer = document.getElementById(id)
 
     clearChildren(mapContainer)
 
     mapContainer.appendChild(hiddenContainer.children[0])
+    // TODO: copy style when restoring container
+    //mapContainer.style = mapContainerStyle;
 
     return map
   }
 }
 
-export const saveInstance = (id, map) => {
+export const saveInstance = (id: string, map: google.maps.Map) => {
   const hiddenContainer = getHiddenMapContainer(id)
 
   clearChildren(hiddenContainer)

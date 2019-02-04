@@ -1,35 +1,45 @@
 /* global google */
-import React, { PureComponent } from 'react'
+import * as React from 'react'
+//@ts-ignore
 import invariant from 'invariant'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
-
-import { SearchBoxPropTypes } from '../../proptypes'
+import { Bounds } from '../../types'
 
 const eventMap = {
   onPlacesChanged: 'places_changed'
 }
 
 const updaterMap = {
-  bounds (instance, bounds) {
+  bounds (instance: google.maps.places.SearchBox, bounds: Bounds) {
     instance.setBounds(bounds)
   }
 }
 
-class StandaloneSearchBox extends PureComponent {
-  static propTypes = SearchBoxPropTypes
+interface StandaloneSearchBoxState {
+  searchBox?: google.maps.places.SearchBox;
+}
 
+interface StandaloneSearchBoxProps {
+  bounds?: Bounds;
+  options?: google.maps.places.SearchBoxOptions;
+  onPlacesChanged?: () => void;
+}
+
+class StandaloneSearchBox extends React.PureComponent<StandaloneSearchBoxProps, StandaloneSearchBoxState> {
   static contextType = MapContext
 
-  registeredEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
-    standaloneSearchBox: null
+  containerElement: React.RefObject<HTMLDivElement>;
+
+  state: StandaloneSearchBoxState = {
+    searchBox: null
   }
 
-  constructor (props, context) {
+  constructor (props: StandaloneSearchBoxProps, context: React.Context<google.maps.Map>) {
     super(props, context)
 
     invariant(google.maps.places, 'Did you include "libraries=places" in the URL?')
@@ -37,15 +47,9 @@ class StandaloneSearchBox extends PureComponent {
   }
 
   componentDidMount = () => {
-    debugger
     const searchBox = new google.maps.places.SearchBox(
       this.containerElement.current.querySelector('input'),
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
+      this.props.options
     )
 
     this.setState(
@@ -64,7 +68,7 @@ class StandaloneSearchBox extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: StandaloneSearchBoxProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

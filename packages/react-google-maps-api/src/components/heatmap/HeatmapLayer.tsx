@@ -1,5 +1,6 @@
 /* global google */
 import { PureComponent } from 'react'
+//@ts-ignore
 import invariant from 'invariant'
 
 import {
@@ -8,35 +9,43 @@ import {
 } from '../../utils/helper'
 
 import MapContext from '../../map-context'
-
-import { HeatmapLayerPropTypes } from '../../proptypes'
+import { HeatmapLayerData } from '../../types'
 
 const eventMap = {}
 
 const updaterMap = {
-  data (instance, data) {
+  data (instance: google.maps.visualization.HeatmapLayer, data: HeatmapLayerData) {
     instance.setData(data)
   },
-  map (instance, map) {
+  map (instance: google.maps.visualization.HeatmapLayer, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options (instance, options) {
+  options (instance: google.maps.visualization.HeatmapLayer, options: google.maps.visualization.HeatmapLayerOptions) {
+    // TODO: add to official typings
+    //@ts-ignore
     instance.setOptions(options)
   },
 }
 
-export class HeatmapLayer extends PureComponent {
-  static propTypes = HeatmapLayerPropTypes
+interface HeatmapLayerState {
+  heatmapLayer?: google.maps.visualization.HeatmapLayer
+}
 
+interface HeatmapLayerProps {
+  data?: HeatmapLayerData;
+  options?: google.maps.visualization.HeatmapLayerOptions
+}
+
+export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerState> {
   static contextType = MapContext
 
-  registeredEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
+  state: HeatmapLayerState = {
     heatmapLayer: null
   }
 
-  constructor (props) {
+  constructor (props: HeatmapLayerProps) {
     super(props)
 
     invariant(
@@ -47,12 +56,7 @@ export class HeatmapLayer extends PureComponent {
 
   componentDidMount = () => {
     const heatmapLayer = new google.maps.visualization.HeatmapLayer(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
+      this.props.options
     )
 
     this.setState(
@@ -73,7 +77,7 @@ export class HeatmapLayer extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: HeatmapLayerProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

@@ -3,11 +3,7 @@ import { PureComponent } from 'react'
 
 import MapContext from '../../map-context'
 
-import { BicyclingLayerPropTypes } from '../../proptypes'
-
 export class BicyclingLayer extends PureComponent {
-  static propTypes = BicyclingLayerPropTypes
-
   static contextType = MapContext
 
   state = {
@@ -15,14 +11,7 @@ export class BicyclingLayer extends PureComponent {
   }
 
   componentDidMount = () => {
-    const bicyclingLayer = new google.maps.BicyclingLayer(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
-    )
+    const bicyclingLayer = new google.maps.BicyclingLayer()
 
     this.setState(
       () => ({

@@ -4,8 +4,6 @@ import { PureComponent } from 'react'
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
 
-import { KmlLayerPropTypes } from '../../proptypes'
-
 const eventMap = {
   onClick: 'click',
   onDefaultViewportChanged: 'defaultviewport_changed',
@@ -13,36 +11,42 @@ const eventMap = {
 }
 
 const updaterMap = {
-  options (instance, options) {
+  options (instance: google.maps.KmlLayer, options: google.maps.KmlLayerOptions) {
     instance.setOptions(options)
   },
-  url (instance, url) {
+  url (instance: google.maps.KmlLayer, url: string) {
     instance.setUrl(url)
   },
-  zIndex (instance, zIndex) {
+  zIndex (instance: google.maps.KmlLayer, zIndex: number) {
     instance.setZIndex(zIndex)
   }
 }
 
-export class KmlLayer extends PureComponent {
-  static propTypes = KmlLayerPropTypes
+interface KmlLayerState {
+  kmlLayer?: google.maps.KmlLayer
+}
 
+interface KmlLayerProps {
+  options?: google.maps.KmlLayerOptions;
+  url?: string;
+  zIndex?: number;
+  onClick?: (e: google.maps.MouseEvent) => void;
+  onDefaultViewportChanged?: () => void;
+  onStatusChanged?: () => void;
+}
+
+export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
   static contextType = MapContext
 
-  registerEvents = []
-
-  state = {
+  registeredEvents: google.maps.MapsEventListener[] = []
+  s
+  state: KmlLayerState = {
     kmlLayer: null
   }
 
   componentDidMount = () => {
     const kmlLayer = new google.maps.KmlLayer(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
+      this.props.options
     )
 
     this.setState(
@@ -63,7 +67,7 @@ export class KmlLayer extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: KmlLayerProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

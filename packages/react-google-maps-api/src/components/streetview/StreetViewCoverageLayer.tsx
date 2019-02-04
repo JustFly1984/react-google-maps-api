@@ -11,21 +11,25 @@ import MapContext from '../../map-context'
 const eventMap = {}
 
 const updaterMap = {
-  map (instance, map) {
+  map (instance: google.maps.StreetViewCoverageLayer, map: google.maps.Map) {
     instance.setMap(map)
   },
 }
 
-const StreetViewCoverageLayerPropTypes = {}
+interface StreetViewCoverageLayerState {
+  streetViewCoverageLayer?: google.maps.StreetViewCoverageLayer
+}
 
-export class StreetViewCoverageLayer extends PureComponent {
-  static propTypes = StreetViewCoverageLayerPropTypes
+interface StreetViewCoverageLayerProps {
 
+}
+
+export class StreetViewCoverageLayer extends PureComponent<{}, StreetViewCoverageLayerProps> {
   static contextType = MapContext
 
-  registerEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
+  state: StreetViewCoverageLayerState = {
     streetViewCoverageLayer: null
   }
 
@@ -50,7 +54,7 @@ export class StreetViewCoverageLayer extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: StreetViewCoverageLayerProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

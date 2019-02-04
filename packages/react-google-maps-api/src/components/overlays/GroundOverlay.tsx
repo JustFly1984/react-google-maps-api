@@ -1,7 +1,7 @@
 /* global google */
-import { PureComponent } from 'react'
+import { PureComponent, Context } from 'react'
+// @ts-ignore
 import warning from 'warning'
-import { GroundOverlayPropTypes } from '../../proptypes'
 
 import {
   unregisterEvents,
@@ -16,25 +16,37 @@ const eventMap = {
 }
 
 const updaterMap = {
-  opacity (map, opacity) {
-    map.setOpacity(opacity)
-  },
+  opacity (instance: google.maps.GroundOverlay, opacity: number) {
+    instance.setOpacity(opacity)
+  }
 }
 
-export class GroundOverlay extends PureComponent {
-  static propTypes = GroundOverlayPropTypes
+interface GroundOverlayState {
+  groundOverlay?: google.maps.GroundOverlay
+}
 
+interface GroundOverlayProps {
+  options?: google.maps.GroundOverlayOptions;
+  opacity?: number;
+  onDblClick?: (e: MouseEvent) => void;
+  onClick?: (e: MouseEvent) => void;
+  url?: string;
+  bounds: google.maps.LatLngBounds;
+}
+
+export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverlayState> {
   static contextType = MapContext
 
-  registeredEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
+  state: GroundOverlayState = {
     groundOverlay: null
   }
 
-  constructor (props, context) {
+  constructor (props: GroundOverlayProps, context: Context<google.maps.Map>) {
     super(props, context)
 
+    // TODO: fix warning
     warning(
       !this.props.url || !this.props.bounds,
       `For GroundOveray, url and bounds are passed in to constructor and are immutable after instantiated. This is the behavior of Google Maps JavaScript API v3 ( See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay) Hence, use the corresponding two props provided by \`react-google-maps\`. They're prefixed with _default_ (defaultUrl, defaultBounds). In some cases, you'll need the GroundOverlay component to reflect the changes of url and bounds. You can leverage the React's key property to remount the component. Typically, just \`key={url}\` would serve your need. See https://github.com/tomchentw/react-google-maps/issues/655`
@@ -45,11 +57,7 @@ export class GroundOverlay extends PureComponent {
     const groundOverlay = new google.maps.GroundOverlay(
       this.props.url,
       this.props.bounds,
-      Object.assign({
-        map: this.context
-      },
       this.props.options
-      )
     )
 
     this.setState(
@@ -59,7 +67,7 @@ export class GroundOverlay extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: GroundOverlayProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

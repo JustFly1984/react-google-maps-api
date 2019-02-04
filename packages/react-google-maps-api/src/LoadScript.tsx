@@ -1,20 +1,38 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { injectScript } from './utils/injectscript'
-import { LoadScriptPropTypes } from './proptypes'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
 
 let cleaningUp = false
 
-class LoadScript extends Component {
-  static propTypes = LoadScriptPropTypes
+interface LoadScriptState {
+  loaded: boolean
+}
 
+interface LoadScriptProps {
+  id: string;
+  googleMapsApiKey: string;
+  language?: string;
+  region?: string;
+  version?: string;
+  loadingElement?: HTMLElement;
+  onLoad?: () => void;
+  onError?: (error: Error) => void;
+  onUnmount?: () => void;
+  libraries: string[];
+  preventGoogleFontsLoading: boolean;
+}
+
+class LoadScript extends React.Component<LoadScriptProps, LoadScriptState> {
   static defaultProps = {
     onLoad: () => { },
     onError: () => { },
-    onUnmount: () => { }
+    onUnmount: () => { },
+    loadingElement: <div>Loading...</div>
   }
 
-  constructor (props) {
+  check: React.RefObject<HTMLDivElement>
+
+  constructor (props: LoadScriptProps) {
     super(props)
 
     this.state = {
@@ -25,8 +43,9 @@ class LoadScript extends Component {
   }
 
   componentDidMount () {
+    //@ts-ignore
     if (window.google && !cleaningUp) {
-      console.error('google api is already presented')
+      console.error('google api is already present')
       return
     }
 
@@ -34,15 +53,16 @@ class LoadScript extends Component {
       .then(this.injectScript)
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate (prevProps: LoadScriptProps) {
     if (prevProps.language !== this.props.language) {
       this.cleanup()
-
+      // TODO: refsctor to use gDSFP
       this.setState(
         () => ({
           loaded: false
         }),
         () => {
+          //@ts-ignore
           delete window.google
           this.injectScript()
         }
@@ -55,6 +75,7 @@ class LoadScript extends Component {
 
     setTimeout(() => {
       if (!this.check.current) {
+        //@ts-ignore
         delete window.google
         cleaningUp = false
       }
@@ -88,25 +109,25 @@ class LoadScript extends Component {
 
     Array.prototype.slice
       .call(document.getElementsByTagName('script'))
-      .filter(script => script.src.includes('maps.googleapis'))
-      .forEach(script => {
+      .filter((script: HTMLScriptElement) => script.src.includes('maps.googleapis'))
+      .forEach((script: HTMLScriptElement) => {
         script.parentNode.removeChild(script)
       })
 
     Array.prototype.slice
       .call(document.getElementsByTagName('link'))
       .filter(
-        link =>
+        (link: HTMLLinkElement) =>
           link.href === 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans'
       )
-      .forEach(link => {
+      .forEach((link: HTMLLinkElement) => {
         link.parentNode.removeChild(link)
       })
 
     Array.prototype.slice
       .call(document.getElementsByTagName('style'))
-      .filter(style => style.innerText.includes('.gm-'))
-      .forEach(style => {
+      .filter((style: HTMLStyleElement) => style.innerText.includes('.gm-'))
+      .forEach((style: HTMLStyleElement) => {
         style.parentNode.removeChild(style)
       })
   }

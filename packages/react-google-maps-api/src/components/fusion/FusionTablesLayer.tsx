@@ -8,27 +8,32 @@ import {
 
 import MapContext from '../../map-context'
 
-import { FusionTablesLayerPropTypes } from '../../proptypes'
-
 const eventMap = {
   onClick: 'click',
 }
 
 const updaterMap = {
-  map (instance, map) {
+  map (instance: google.maps.FusionTablesLayer, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options (instance, options) {
+  options (instance: google.maps.FusionTablesLayer, options: google.maps.FusionTablesLayerOptions) {
     instance.setOptions(options)
   },
 }
 
-export class FusionTablesLayer extends PureComponent {
-  static propTypes = FusionTablesLayerPropTypes
+interface FusionTablesLayerState {
+  fusionTablesLayer?: google.maps.FusionTablesLayer;
+}
 
+interface FusionTablesLayerProps {
+  options?: google.maps.FusionTablesLayerOptions;
+  onClick?: (e: MouseEvent) => void;
+}
+
+export class FusionTablesLayer extends PureComponent<FusionTablesLayerProps, FusionTablesLayerState> {
   static contextType = MapContext
 
-  registeredEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
   state = {
     fusionTablesLayer: null
@@ -36,12 +41,7 @@ export class FusionTablesLayer extends PureComponent {
 
   componentDidMount = () => {
     const fusionTablesLayer = new google.maps.FusionTablesLayer(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
+      this.props.options
     )
 
     this.setState(
@@ -54,7 +54,7 @@ export class FusionTablesLayer extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: FusionTablesLayerProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

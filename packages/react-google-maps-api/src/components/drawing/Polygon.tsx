@@ -7,8 +7,7 @@ import {
 } from '../../utils/helper'
 
 import MapContext from '../../map-context'
-
-import { PolygonPropTypes } from '../../proptypes'
+import { PolygonPath, PolygonPaths } from '../../types'
 
 const eventMap = {
   onClick: 'click',
@@ -25,54 +24,67 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable (instance, draggable) {
+  draggable (instance: google.maps.Polygon, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-
-  editable (instance, editable) {
+  editable (instance: google.maps.Polygon, editable: boolean) {
     instance.setEditable(editable)
   },
-
-  options (instance, options) {
-    instance.setOptions(options)
-  },
-
-  map (instance, map) {
+  map (instance: google.maps.Polygon, map: google.maps.Map) {
     instance.setMap(map)
   },
-
-  path (instance, path) {
+  options (instance: google.maps.Polygon, options: google.maps.PolygonOptions) {
+    instance.setOptions(options)
+  },
+  path (instance: google.maps.Polygon, path: PolygonPath) {
     instance.setPath(path)
   },
 
-  paths (instance, paths) {
+  paths (instance: google.maps.Polygon, paths: PolygonPaths) {
     instance.setPaths(paths)
   },
 
-  visible (instance, visible) {
+  visible (instance: google.maps.Polygon, visible: boolean) {
     instance.setVisible(visible)
   },
 }
 
-export class Polygon extends PureComponent {
-  static propTypes = PolygonPropTypes
+interface PolygonState {
+  polygon?: google.maps.Polygon
+}
 
+interface PolygonProps {
+  options: google.maps.PolygonOptions;
+  draggable: boolean;
+  editable: boolean;
+  visible: boolean;
+  path: PolygonPath;
+  paths: PolygonPaths;
+  onDblClick: (e: MouseEvent) => void;
+  onDragEnd: (e: MouseEvent) => void;
+  onDragStart: (e: MouseEvent) => void;
+  onMouseDown: (e: MouseEvent) => void;
+  onMouseMove: (e: MouseEvent) => void;
+  onMouseOut: (e: MouseEvent) => void;
+  onMouseOver: (e: MouseEvent) => void;
+  onMouseUp: (e: MouseEvent) => void;
+  onRightClick: (e: MouseEvent) => void;
+  onClick: (e: MouseEvent) => void;
+  onDrag: (e: MouseEvent) => void;
+}
+
+export class Polygon extends PureComponent<PolygonProps, PolygonState> {
   static contextType = MapContext
 
-  registeredEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
+  state: PolygonState = {
     polygon: null
   }
 
   componentDidMount = () => {
     const polygon = new google.maps.Polygon(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
+      this.props.options
     )
 
     this.setState(
@@ -93,7 +105,7 @@ export class Polygon extends PureComponent {
     )
   }
 
-  componentDidUpdate = (prevProps) => {
+  componentDidUpdate = (prevProps: PolygonProps) => {
     unregisterEvents(this.registeredEvents)
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,

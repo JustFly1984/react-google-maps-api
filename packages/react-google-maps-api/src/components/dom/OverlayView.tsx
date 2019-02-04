@@ -1,6 +1,7 @@
 /* global google */
 import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
+//@ts-ignore
 import invariant from 'invariant'
 
 import {
@@ -13,40 +14,42 @@ import MapContext from '../../map-context'
 import {
   getOffsetOverride,
   getLayoutStyles
-} from './helper'
-
-import { OverlayViewPropTypes } from '../../proptypes'
+} from './dom-helper'
 
 const eventMap = {}
 
 const updaterMap = {}
 
-export class OverlayView extends PureComponent {
+interface OverlayViewState {
+  overlayView?: google.maps.OverlayView
+}
+
+interface OverlayViewProps {
+  mapPaneName: string;
+  getPixelPositionOffset?: (offsetWidth: number, offsetHeight: number) => { x: number, y: number },
+  bounds?: google.maps.LatLngBounds;
+  position?: google.maps.LatLng;
+}
+
+export class OverlayView extends PureComponent<OverlayViewProps, OverlayViewState> {
   static FLOAT_PANE = `floatPane`
   static MAP_PANE = `mapPane`
   static MARKER_LAYER = `markerLayer`
   static OVERLAY_LAYER = `overlayLayer`
   static OVERLAY_MOUSE_TARGET = `overlayMouseTarget`
 
-  static propTypes = OverlayViewPropTypes
-
   static contextType = MapContext
 
-  registeredEvents = []
+  registeredEvents: google.maps.MapsEventListener[] = []
 
-  state = {
+  state: OverlayViewState = {
     overlayView: null
   }
 
+  containerElement: HTMLElement
+
   componentDidMount = () => {
-    const overlayView = new google.maps.OverlayView(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
-    )
+    const overlayView = new google.maps.OverlayView()
 
     // You must implement three methods: onAdd(), draw(), and onRemove().
     overlayView.onAdd = this.onAdd
@@ -74,7 +77,7 @@ export class OverlayView extends PureComponent {
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: OverlayViewProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -97,16 +100,18 @@ export class OverlayView extends PureComponent {
       ? createPortal(Children.only(this.props.children), this.containerElement)
       : null
 
-  preventMapHitsAndGesturesFrom = element =>
+  preventMapHitsAndGesturesFrom = (element: HTMLElement) =>
+    //@ts-ignore
     this.state.overlayView.preventMapHitsAndGesturesFrom(element)
 
-  preventMapHitsFrom = element => this.state.overlayView.preventMapHitsFrom(element)
+  //@ts-ignore
+  preventMapHitsFrom = (element: HTMLElement) => this.state.overlayView.preventMapHitsFrom(element)
 
   draw = () => {
     const { mapPaneName } = this.props
     invariant(
       !!mapPaneName,
-      `OverlayView requires either props.mapPaneName or props.defaultMapPaneName but got %s`,
+      `OverlayView requires props.mapPaneName but got %s`,
       mapPaneName
     )
     const overlayView = this.state.overlayView
@@ -147,10 +152,10 @@ export class OverlayView extends PureComponent {
     const offset = {
       x: 0,
       y: 0,
-      ...getOffsetOverride(this.containerElement, this.props)
+      ...getOffsetOverride(this.containerElement, this.props.getPixelPositionOffset)
     }
 
-    const layoutStyles = getLayoutStyles(mapCanvasProjection, offset, this.props)
+    const layoutStyles = getLayoutStyles(mapCanvasProjection, offset, this.props.bounds, this.props.position)
 
     Object.assign(this.containerElement.style, layoutStyles)
   }
