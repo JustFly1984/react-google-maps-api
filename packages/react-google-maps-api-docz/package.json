@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/docz",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Docz Documentation for @react-google-maps/api",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@emotion/core": "10.0.7",
-    "@react-google-maps/api": "^1.0.8",
+    "@react-google-maps/api": "^1.0.9",
     "docz": "0.13.7",
     "docz-theme-default": "0.13.7",
     "react": "16.7.0",
