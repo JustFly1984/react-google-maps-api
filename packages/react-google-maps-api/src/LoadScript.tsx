@@ -56,7 +56,8 @@ class LoadScript extends React.Component<LoadScriptProps, LoadScriptState> {
   componentDidUpdate (prevProps: LoadScriptProps) {
     if (prevProps.language !== this.props.language) {
       this.cleanup()
-      // TODO: refsctor to use gDSFP
+      // TODO: refactor to use gDSFP
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState(
         () => ({
           loaded: false

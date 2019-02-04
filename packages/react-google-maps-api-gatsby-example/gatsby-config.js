@@ -11,13 +11,13 @@ module.exports = {
     //     production: true,
     //   },
     // },
-    {
-      resolve: 'gatsby-plugin-purgecss',
-      options: {
-        printRejected: true,
-        ignore: []
-      }
-    },
+    // {
+    //   resolve: 'gatsby-plugin-purgecss',
+    //   options: {
+    //     printRejected: true,
+    //     ignore: []
+    //   }
+    // },
     {
       resolve: 'gatsby-plugin-eslint',
       options: {

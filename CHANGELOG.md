@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.0.8 Added StandaloneSearchBox component, update docs and examples
+
 ## 1.0.3  Moved to organization @react-google-maps
 
 ## Archive

@@ -3,21 +3,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import {
-  toggleOptions
-} from '../actions/app'
+import { toggleOptions } from '../actions/app'
+
+const id = 'options'
 
 const CheckboxOptions = ({ onChange, value }) => (
   <div>
     <input
-      id='options'
+      id={id}
       type='checkbox'
       onChange={onChange}
       value={value}
     />
-    {` `}
+
+    &nbsp;
+
     <label
-      htmlFor='options'
+      htmlFor={id}
     >
       Google Map Options Example
     </label>

@@ -3,11 +3,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleBicycling } from '../actions/app'
+import { toggleStandaloneSearchbox } from '../actions/app'
 
-const id = 'bicycling'
+const id = 'traffic'
 
-const CheckboxBicycling = ({ onChange, value }) => (
+const CheckboxStandaloneSearchbox = ({ onChange, value }) => (
   <div>
     <input
       id={id}
@@ -21,25 +21,25 @@ const CheckboxBicycling = ({ onChange, value }) => (
     <label
       htmlFor={id}
     >
-      Bicycling Layer Example
+      StandaloneSearchbox Example
     </label>
   </div>
 )
 
-CheckboxBicycling.propTypes = {
+CheckboxStandaloneSearchbox.propTypes = {
   value: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-  value: state.getIn(['app', 'bicycling'])
+  value: state.getIn(['app', 'standaloneSearchbox'])
 })
 
 const mapDispatchToProps = dispatch => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
-      toggleBicycling({
-        bicycling: checked
+      toggleStandaloneSearchbox({
+        standaloneSearchbox: checked
       })
     )
   }
@@ -48,4 +48,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CheckboxBicycling)
+)(CheckboxStandaloneSearchbox)

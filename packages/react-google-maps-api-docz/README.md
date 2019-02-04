@@ -1,1 +1,1 @@
-# React Google Maps API Docz
+# @react-google-maps/api Docz
