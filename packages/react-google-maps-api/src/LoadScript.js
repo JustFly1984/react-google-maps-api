@@ -3,6 +3,8 @@ import { injectScript } from './utils/injectscript'
 import { LoadScriptPropTypes } from './proptypes'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
 
+import { isBrowser } from './utils/isbrowser'
+
 let cleaningUp = false
 
 class LoadScript extends Component {
@@ -25,17 +27,22 @@ class LoadScript extends Component {
   }
 
   componentDidMount () {
-    if (window.google && !cleaningUp) {
-      console.error('google api is already presented')
-      return
-    }
+    if (isBrowser) {
+      if (window.google && !cleaningUp) {
+        console.error('google api is already presented')
+        return
+      }
 
-    this.isCleaningUp()
-      .then(this.injectScript)
+      this.isCleaningUp()
+        .then(this.injectScript)
+    }
   }
 
   componentDidUpdate (prevProps) {
-    if (prevProps.language !== this.props.language) {
+    if (
+      isBrowser &&
+      prevProps.language !== this.props.language
+    ) {
       this.cleanup()
 
       // TODO: There should be better way to do it, but I don't have time now :)
@@ -46,6 +53,7 @@ class LoadScript extends Component {
         }),
         () => {
           delete window.google
+
           this.injectScript()
         }
       )
@@ -53,31 +61,41 @@ class LoadScript extends Component {
   }
 
   componentWillUnmount () {
-    this.cleanup()
+    if (isBrowser) {
+      this.cleanup()
 
-    setTimeout(() => {
-      if (!this.check.current) {
-        delete window.google
-        cleaningUp = false
-      }
-    }, 1)
+      setTimeout(
+        () => {
+          if (!this.check.current) {
+            delete window.google
+            cleaningUp = false
+          }
+        },
+        1
+      )
 
-    this.props
-      .onUnmount()
+      this.props
+        .onUnmount()
+    }
   }
 
   isCleaningUp = async () => {
     return new Promise(resolve => {
       if (!cleaningUp) {
         resolve()
-      }
-      else {
-        const timer = setInterval(() => {
-          if (!cleaningUp) {
-            clearInterval(timer)
-            resolve()
-          }
-        }, 1)
+      } else {
+        if (isBrowser) {
+          const timer = window.setInterval(
+            () => {
+              if (!cleaningUp) {
+                window.clearInterval(timer)
+
+                resolve()
+              }
+            },
+            1
+          )
+        }
       }
     })
   }

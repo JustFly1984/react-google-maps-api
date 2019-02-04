@@ -33,7 +33,7 @@
     }
   },
   "devDependencies": {
-    "lerna": "3.10.7",
-    "lint-staged": "^8.1.1"
+    "lerna": "3.10.8",
+    "lint-staged": "8.1.3"
   }
 }

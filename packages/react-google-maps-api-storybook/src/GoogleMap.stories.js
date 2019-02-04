@@ -9,6 +9,8 @@ import {
 } from '@react-google-maps/api'
 import { googleMapKey } from '../../../googleMapKey'
 
+const isBrowser = typeof document !== 'undefined'
+
 const mapContainerStyle = {
   height: '700px',
   width: '100%'
@@ -25,30 +27,37 @@ const position = { lat: 49.2853171, lng: -123.1119202 }
 
 class SafeLoadScript extends React.Component {
   state = {
-    ready: typeof window.google !== 'undefined'
+    ready: isBrowser || typeof window.google !== 'undefined'
   }
 
   componentWillMount () {
-    if (this.state.ready) {
-      return
-    }
-
-    this.google = window.google
-
-    console.log(this.google)
-
-    this.timer = setInterval(() => {
-      console.log(this.google === window.google)
-
-      if (this.google !== window.google) {
-        this.setState({ ready: true })
-        clearInterval(this.timer)
+    if (isBrowser) {
+      if (this.state.ready) {
+        return
       }
-    }, 200)
+
+      this.google = window.google
+
+      this.timer = window.setInterval(() => {
+        console.log(this.google === window.google)
+
+        if (this.google !== window.google) {
+          this.setState(
+            () => ({
+              ready: true
+            })
+          )
+
+          window.clearInterval(this.timer)
+        }
+      }, 200)
+    }
   }
 
   componentWillUnmount () {
-    clearInterval(this.timer)
+    if (isBrowser) {
+      window.clearInterval(this.timer)
+    }
   }
 
   render = () => (
