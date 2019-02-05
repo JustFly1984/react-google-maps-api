@@ -84,7 +84,7 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
     )
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate (prevProps: InfoWindowProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

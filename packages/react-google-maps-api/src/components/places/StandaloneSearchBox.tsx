@@ -1,5 +1,6 @@
 /* global google */
 import * as React from 'react'
+import { Context, createRef, Children, PureComponent, RefObject } from 'react'
 //@ts-ignore
 import invariant from 'invariant'
 
@@ -28,22 +29,22 @@ interface StandaloneSearchBoxProps {
   onPlacesChanged?: () => void;
 }
 
-class StandaloneSearchBox extends React.PureComponent<StandaloneSearchBoxProps, StandaloneSearchBoxState> {
+class StandaloneSearchBox extends PureComponent<StandaloneSearchBoxProps, StandaloneSearchBoxState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  containerElement: React.RefObject<HTMLDivElement>;
+  containerElement: RefObject<HTMLDivElement>;
 
   state: StandaloneSearchBoxState = {
     searchBox: null
   }
 
-  constructor (props: StandaloneSearchBoxProps, context: React.Context<google.maps.Map>) {
+  constructor (props: StandaloneSearchBoxProps, context: Context<google.maps.Map>) {
     super(props, context)
 
     invariant(google.maps.places, 'Did you include "libraries=places" in the URL?')
-    this.containerElement = React.createRef()
+    this.containerElement = createRef()
   }
 
   componentDidMount = () => {
@@ -85,7 +86,7 @@ class StandaloneSearchBox extends React.PureComponent<StandaloneSearchBoxProps, 
   }
 
   render = () => {
-    return <div ref={this.containerElement}>{React.Children.only(this.props.children)}</div>
+    return <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
   }
 
   getBounds = () => this.state.searchBox.getBounds()

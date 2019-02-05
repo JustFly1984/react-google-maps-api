@@ -1,5 +1,7 @@
 /* global google */
 import * as React from 'react'
+import { CSSProperties, PureComponent } from 'react'
+
 import MapContext from './map-context'
 import { saveInstance, restoreInstance } from './utils/instance-persistance'
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from './utils/helper'
@@ -66,7 +68,7 @@ interface GoogleMapState {
 interface GoogleMapProps {
   id: string;
   reuseSameInstance?: boolean;
-  mapContainerStyle?: React.CSSProperties;
+  mapContainerStyle?: CSSProperties;
   mapContainerClassName?: string;
   options?: google.maps.MapOptions;
   extraMapTypes?: google.maps.MapType[];
@@ -99,7 +101,7 @@ interface GoogleMapProps {
   onLoad?: (map: google.maps.Map) => void;
 }
 
-export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapState> {
+export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
   static defaultProps: GoogleMapProps = {
     id: 'defaultMapId',
     reuseSameInstance: false,

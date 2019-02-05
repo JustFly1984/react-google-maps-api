@@ -111,7 +111,7 @@ module.exports = {
     "import/named": 2,
     "import/namespace": 2,
     "import/export": 2,
-    "import/no-duplicates": 2,
+    "import/no-duplicates": 0,
     "import/imports-first": 2,
   },
   parserOptions: {
