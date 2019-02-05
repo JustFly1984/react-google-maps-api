@@ -195,7 +195,7 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
   getCenter = () => this.state.map.getCenter()
 
   // Function exists but it missing in typings
-  //@ts-ignore
+  //@ts-ignore Function exists but it missing in typings
   getClickableIcons = () => this.state.map.getClickableIcons()
 
   getDiv = () => this.state.map.getDiv()
