@@ -98,7 +98,7 @@ interface GoogleMapProps {
   onResize?: () => void;
   onTiltChanged?: () => void;
   onZoomChanged?: () => void;
-  onLoad?: (map: google.maps.Map) => void;
+  onLoad?: (map: google.maps.Map) => void | Promise<void>;
 }
 
 export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
