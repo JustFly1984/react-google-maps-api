@@ -10,8 +10,6 @@ import {
 
 import MapContext from '../../map-context'
 
-import { DrawingManagerPropTypes } from '../../proptypes'
-
 const eventMap = {
   onCircleComplete: 'circlecomplete',
   onMarkerComplete: 'markercomplete',
