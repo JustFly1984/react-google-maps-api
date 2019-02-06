@@ -98,7 +98,7 @@ interface GoogleMapProps {
   onResize?: () => void;
   onTiltChanged?: () => void;
   onZoomChanged?: () => void;
-  onLoad?: (map: google.maps.Map) => void;
+  onLoad?: (map: google.maps.Map) => void | Promise<void>;
 }
 
 export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
@@ -195,7 +195,7 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
   getCenter = () => this.state.map.getCenter()
 
   // Function exists but it missing in typings
-  //@ts-ignore
+  //@ts-ignore Function exists but it missing in typings
   getClickableIcons = () => this.state.map.getClickableIcons()
 
   getDiv = () => this.state.map.getDiv()
