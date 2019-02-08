@@ -63,7 +63,8 @@
     "lint": "npx eslint ./src --fix",
     "publish": "npm run build && npm publish .",
     "publish:next": "npm run build && npm publish . --tag next",
-    "docs:dev": "npx styleguidist server"
+    "docs:dev": "npx styleguidist server",
+    "docs:build": "npx styleguidist build"
   },
   "dependencies": {
     "google-maps-infobox": "2.0.0",
