@@ -4,7 +4,7 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>
   <GoogleMap
-    id="basic-map-example"
+    id="rectangle-example"
     mapContainerStyle={{
       height: "400px",
       width: "800px"
