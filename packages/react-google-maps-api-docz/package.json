@@ -24,7 +24,7 @@
   "dependencies": {
     "@emotion/core": "10.0.6",
     "@react-google-maps/api": "^1.0.8",
-    "docz": "0.13.7",
+    "docz": "https://github.com/uriklar/docz.git#v0.14",
     "docz-theme-default": "0.13.7",
     "react": "16.7.0",
     "react-dom": "16.7.0",
@@ -35,6 +35,7 @@
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.8.0",
     "acorn": "6.0.6",
+    "awesome-typescript-loader": "^5.2.1",
     "babel-eslint": "9",
     "eslint": "5.12.1",
     "eslint-config-standard": "12.0.0",
