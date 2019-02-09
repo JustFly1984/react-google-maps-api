@@ -24,14 +24,14 @@ class ScriptLoaded extends Component<any, any> {
   }
 
   componentWillUnmount () {
-    this.interval && this.interval()
+    clearInterval(this.interval)
   }
 
   checkIfScriptLoaded = () => {
     ///@ts-ignore
     if (window.google) {
       this.setState({ scriptLoaded: true })
-      this.interval()
+      clearInterval(this.interval)
     }
   }
 }

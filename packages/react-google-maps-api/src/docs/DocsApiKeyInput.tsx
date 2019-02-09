@@ -3,13 +3,14 @@ import * as React from 'react'
 import { setKey, getKey } from './docs-api-key'
 import LoadScript from '../LoadScript'
 
+const libraries = ['drawing', 'places', 'visualization']
 class DocsApiKeyInput extends Component<any, any> {
   render = () => {
     return (
       <>
         <form onSubmit={this.onFormSubmit}>
-          <input type='text' onChange={this.onInputChange} value={this.state.key} placeholder='Enter Google Maps API Key' />
-          <button type='submit'>Set Key</button>
+          <input type='text' onChange={this.onInputChange} value={this.state.key} placeholder='Enter Google Maps API Key' style={{ width: '400px', height: '40px', paddingLeft: '8px' }} />
+          <button type='submit' style={{ height: '40px', marginLeft: '8px' }} >Set Key</button>
         </form>
 
         {this.state.loadScript && <LoadScript
@@ -18,6 +19,7 @@ class DocsApiKeyInput extends Component<any, any> {
           language={'en'}
           region={'EN'}
           version={'weekly'}
+          libraries={libraries}
           loadingElement={<div>Loading...</div>} />}
       </>
     )
