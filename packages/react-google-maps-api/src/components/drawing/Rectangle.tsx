@@ -1,13 +1,6 @@
 /* global google */
-import { PureComponent } from 'react'
-
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
-import MapContext from '../../map-context'
 import { Bounds } from '../../types'
-import useMapComponent from '../../utils/use-map-component';
+import useMapComponent from '../../utils/use-map-component'
 
 const eventMap = {
   onBoundsChanged: 'bounds_changed',
@@ -21,35 +14,35 @@ const eventMap = {
   onMouseOut: 'mouseout',
   onMouseOver: 'mouseover',
   onMouseUp: 'mouseup',
-  onRightClick: 'rightclick',
+  onRightClick: 'rightclick'
 }
 
 const updaterMap = {
-  bounds(instance: google.maps.Rectangle, bounds: Bounds) {
+  bounds (instance: google.maps.Rectangle, bounds: Bounds) {
     instance.setBounds(bounds)
   },
-  draggable(instance: google.maps.Rectangle, draggable: boolean) {
+  draggable (instance: google.maps.Rectangle, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  editable(instance: google.maps.Rectangle, editable: boolean) {
+  editable (instance: google.maps.Rectangle, editable: boolean) {
     instance.setEditable(editable)
   },
-  map(instance: google.maps.Rectangle, map: google.maps.Map) {
+  map (instance: google.maps.Rectangle, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options(instance: google.maps.Rectangle, options: google.maps.RectangleOptions) {
-    console.log("called options")
+  options (
+    instance: google.maps.Rectangle,
+    options: google.maps.RectangleOptions
+  ) {
+    console.log('called options')
     instance.setOptions(options)
   },
-  visible(instance: google.maps.Rectangle, visible: boolean) {
+  visible (instance: google.maps.Rectangle, visible: boolean) {
     instance.setVisible(visible)
-  },
+  }
 }
 
-interface RectangleState {
-  rectangle?: google.maps.Rectangle
-}
-
+// prettier-ignore
 interface RectangleProps {
   options?: google.maps.RectangleOptions;
   bounds?: Bounds;
@@ -71,6 +64,6 @@ interface RectangleProps {
   onBoundsChanged?: () => void;
 }
 
-export default function Rectangle(props: RectangleProps) {
+export default function Rectangle (props: RectangleProps) {
   return useMapComponent(props, updaterMap, eventMap, 'Rectangle')
 }

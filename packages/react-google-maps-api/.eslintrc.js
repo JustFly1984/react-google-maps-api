@@ -11,7 +11,6 @@ module.exports = {
     "standard-react",
     "plugin:jsx-a11y/recommended",
     'plugin:css-modules/recommended',
-    "react-hooks"
   ],
   plugins: [
     "you-dont-need-lodash-underscore",
@@ -32,6 +31,7 @@ module.exports = {
     'css-modules',
     "no-inferred-method-name",
     "react-functional-set-state",
+    "react-hooks"
   ],
   env: {
     browser: true,
