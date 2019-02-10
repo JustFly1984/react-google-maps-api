@@ -24,27 +24,47 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable (instance: google.maps.Polygon, draggable: boolean) {
+  draggable (
+    instance: google.maps.Polygon,
+    draggable: boolean
+  ) {
     instance.setDraggable(draggable)
   },
-  editable (instance: google.maps.Polygon, editable: boolean) {
+  editable (
+    instance: google.maps.Polygon,
+    editable: boolean
+  ) {
     instance.setEditable(editable)
   },
-  map (instance: google.maps.Polygon, map: google.maps.Map) {
+  map (
+    instance: google.maps.Polygon,
+    map: google.maps.Map
+  ) {
     instance.setMap(map)
   },
-  options (instance: google.maps.Polygon, options: google.maps.PolygonOptions) {
+  options (
+    instance: google.maps.Polygon,
+    options: google.maps.PolygonOptions
+  ) {
     instance.setOptions(options)
   },
-  path (instance: google.maps.Polygon, path: PolygonPath) {
+  path (
+    instance: google.maps.Polygon,
+    path: PolygonPath
+  ) {
     instance.setPath(path)
   },
 
-  paths (instance: google.maps.Polygon, paths: PolygonPaths) {
+  paths (
+    instance: google.maps.Polygon,
+    paths: PolygonPaths) {
     instance.setPaths(paths)
   },
 
-  visible (instance: google.maps.Polygon, visible: boolean) {
+  visible (
+    instance: google.maps.Polygon,
+    visible: boolean
+  ) {
     instance.setVisible(visible)
   },
 }
@@ -110,6 +130,7 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
 
   componentDidUpdate = (prevProps: PolygonProps) => {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -121,6 +142,7 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
+
     this.state.polygon && this.state.polygon.setMap(null)
   }
 

@@ -24,22 +24,40 @@ const eventMap = {
 }
 
 const updaterMap = {
-  bounds (instance: google.maps.Rectangle, bounds: Bounds) {
+  bounds (
+    instance: google.maps.Rectangle,
+    bounds: Bounds
+  ) {
     instance.setBounds(bounds)
   },
-  draggable (instance: google.maps.Rectangle, draggable: boolean) {
+  draggable (
+    instance: google.maps.Rectangle,
+    draggable: boolean
+  ) {
     instance.setDraggable(draggable)
   },
-  editable (instance: google.maps.Rectangle, editable: boolean) {
+  editable (
+    instance: google.maps.Rectangle,
+    editable: boolean
+  ) {
     instance.setEditable(editable)
   },
-  map (instance: google.maps.Rectangle, map: google.maps.Map) {
+  map (
+    instance: google.maps.Rectangle,
+    map: google.maps.Map
+  ) {
     instance.setMap(map)
   },
-  options (instance: google.maps.Rectangle, options: google.maps.RectangleOptions) {
+  options (
+    instance: google.maps.Rectangle,
+    options: google.maps.RectangleOptions
+  ) {
     instance.setOptions(options)
   },
-  visible (instance: google.maps.Rectangle, visible: boolean) {
+  visible (
+    instance: google.maps.Rectangle,
+    visible: boolean
+  ) {
     instance.setVisible(visible)
   },
 }

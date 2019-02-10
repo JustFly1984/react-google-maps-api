@@ -20,13 +20,22 @@ const eventMap = {
 }
 
 const updaterMap = {
-  options (instance: google.maps.InfoWindow, options: google.maps.InfoWindowOptions) {
+  options (
+    instance: google.maps.InfoWindow,
+    options: google.maps.InfoWindowOptions
+  ) {
     instance.setOptions(options)
   },
-  position (instance: google.maps.InfoWindow, position: LatLng) {
+  position (
+    instance: google.maps.InfoWindow,
+    position: LatLng
+  ) {
     instance.setPosition(position)
   },
-  zIndex (instance: google.maps.InfoWindow, zIndex: number) {
+  zIndex (
+    instance: google.maps.InfoWindow,
+    zIndex: number
+  ) {
     instance.setZIndex(zIndex)
   }
 }

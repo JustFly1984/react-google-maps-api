@@ -1,5 +1,5 @@
 ```jsx
-const { GoogleMap, LoadScript, BicyclingLayer } = require("../../");
+const { GoogleMap, LoadScript, TrafficLayer } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>
@@ -18,7 +18,7 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
       console.log('onClick args: ', args)
     }}
   >
-    <BicyclingLayer />
+    <TrafficLayer />
   </GoogleMap>
 </ScriptLoaded>
 ```

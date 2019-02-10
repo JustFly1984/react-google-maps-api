@@ -176,8 +176,21 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
     const { map } = this.state
 
     return (
-      <div id={id} ref={this.getRef} style={mapContainerStyle} className={mapContainerClassName}>
-        <MapContext.Provider value={map}>{map !== null ? children : null}</MapContext.Provider>
+      <div
+        id={id}
+        ref={this.getRef}
+        style={mapContainerStyle}
+        className={mapContainerClassName}
+      >
+        <MapContext.Provider
+          value={map}
+        >
+          {
+            map !== null
+              ? children
+              : null
+            }
+        </MapContext.Provider>
       </div>
     )
   }

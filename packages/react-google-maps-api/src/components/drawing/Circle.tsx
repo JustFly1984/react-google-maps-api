@@ -26,25 +26,46 @@ const eventMap = {
 }
 
 const updaterMap = {
-  center (instance: google.maps.Circle, center: google.maps.LatLng) {
+  center (
+    instance: google.maps.Circle,
+    center: google.maps.LatLng
+  ) {
     instance.setCenter(center)
   },
-  draggable (instance: google.maps.Circle, draggable: boolean) {
+  draggable (
+    instance: google.maps.Circle,
+    draggable: boolean
+  ) {
     instance.setDraggable(draggable)
   },
-  editable (instance: google.maps.Circle, editable: boolean) {
+  editable (
+    instance: google.maps.Circle,
+    editable: boolean
+  ) {
     instance.setEditable(editable)
   },
-  map (instance: google.maps.Circle, map: google.maps.Map) {
+  map (
+    instance: google.maps.Circle,
+    map: google.maps.Map
+  ) {
     instance.setMap(map)
   },
-  options (instance: google.maps.Circle, options: google.maps.CircleOptions) {
+  options (
+    instance: google.maps.Circle,
+    options: google.maps.CircleOptions
+  ) {
     instance.setOptions(options)
   },
-  radius (instance: google.maps.Circle, radius: number) {
+  radius (
+    instance: google.maps.Circle,
+    radius: number
+  ) {
     instance.setRadius(radius)
   },
-  visible (instance: google.maps.Circle, visible: boolean) {
+  visible (
+    instance: google.maps.Circle,
+    visible: boolean
+  ) {
     instance.setVisible(visible)
   }
 }
@@ -114,6 +135,7 @@ export class Circle extends PureComponent<CircleProps, CircleState> {
 
   componentDidUpdate = (prevProps: CircleProps) => {
     unregisterEvents(this.registeredEvents)
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
@@ -135,9 +157,7 @@ export class Circle extends PureComponent<CircleProps, CircleState> {
 
   getCenter = () => this.state.circle.getCenter()
 
-  getDraggable = () => {
-    return this.state.circle.getDraggable()
-  }
+  getDraggable = () => this.state.circle.getDraggable()
 
   getEditable = () => this.state.circle.getEditable()
 

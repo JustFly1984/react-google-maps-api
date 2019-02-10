@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { Context, createRef, Children, PureComponent, RefObject } from 'react'
 //@ts-ignore
-import invariant from 'invariant'
+import invariant from 'invariant' // Do we need this dependency?
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -14,7 +14,10 @@ const eventMap = {
 }
 
 const updaterMap = {
-  bounds (instance: google.maps.places.SearchBox, bounds: Bounds) {
+  bounds (
+    instance: google.maps.places.SearchBox,
+    bounds: Bounds
+  ) {
     instance.setBounds(bounds)
   }
 }
@@ -85,9 +88,11 @@ class StandaloneSearchBox extends PureComponent<StandaloneSearchBoxProps, Standa
     unregisterEvents(this.registeredEvents)
   }
 
-  render = () => {
-    return <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
-  }
+  render = () => (
+    <div ref={this.containerElement}>
+      { Children.only(this.props.children) }
+    </div>
+  )
 
   getBounds = () => this.state.searchBox.getBounds()
 

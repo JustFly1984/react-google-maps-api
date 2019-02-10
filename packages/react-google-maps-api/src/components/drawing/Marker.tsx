@@ -34,46 +34,88 @@ const eventMap = {
 }
 
 const updaterMap = {
-  animation (instance: google.maps.Marker, animation: google.maps.Animation) {
+  animation (
+    instance: google.maps.Marker,
+    animation: google.maps.Animation
+  ) {
     instance.setAnimation(animation)
   },
-  clickable (instance: google.maps.Marker, clickable: boolean) {
+  clickable (
+    instance: google.maps.Marker,
+    clickable: boolean
+  ) {
     instance.setClickable(clickable)
   },
-  cursor (instance: google.maps.Marker, cursor: string) {
+  cursor (
+    instance: google.maps.Marker,
+    cursor: string
+  ) {
     instance.setCursor(cursor)
   },
-  draggable (instance: google.maps.Marker, draggable: boolean) {
+  draggable (
+    instance: google.maps.Marker,
+    draggable: boolean
+  ) {
     instance.setDraggable(draggable)
   },
-  icon (instance: google.maps.Marker, icon: string | google.maps.Icon | google.maps.Symbol) {
+  icon (
+    instance: google.maps.Marker,
+    icon: string | google.maps.Icon | google.maps.Symbol
+  ) {
     instance.setIcon(icon)
   },
-  label (instance: google.maps.Marker, label: string | google.maps.MarkerLabel) {
+  label (
+    instance: google.maps.Marker,
+    label: string | google.maps.MarkerLabel
+  ) {
     instance.setLabel(label)
   },
-  map (instance: google.maps.Marker, map: google.maps.Map) {
+  map (
+    instance: google.maps.Marker,
+    map: google.maps.Map
+  ) {
     instance.setMap(map)
   },
-  opacity (instance: google.maps.Marker, opacity: number) {
+  opacity (
+    instance: google.maps.Marker,
+    opacity: number
+  ) {
     instance.setOpacity(opacity)
   },
-  options (instance: google.maps.Marker, options: google.maps.MarkerOptions) {
+  options (
+    instance: google.maps.Marker,
+    options: google.maps.MarkerOptions
+  ) {
     instance.setOptions(options)
   },
-  position (instance: google.maps.Marker, position: LatLng) {
+  position (
+    instance: google.maps.Marker,
+    position: LatLng
+  ) {
     instance.setPosition(position)
   },
-  shape (instance: google.maps.Marker, shape: google.maps.MarkerShape) {
+  shape (
+    instance: google.maps.Marker,
+    shape: google.maps.MarkerShape
+  ) {
     instance.setShape(shape)
   },
-  title (instance: google.maps.Marker, title: string) {
+  title (
+    instance: google.maps.Marker,
+    title: string
+  ) {
     instance.setTitle(title)
   },
-  visible (instance: google.maps.Marker, visible: boolean) {
+  visible (
+    instance: google.maps.Marker,
+    visible: boolean
+  ) {
     instance.setVisible(visible)
   },
-  zIndex (instance: google.maps.Marker, zIndex: number) {
+  zIndex (
+    instance: google.maps.Marker,
+    zIndex: number
+  ) {
     instance.setZIndex(zIndex)
   }
 }

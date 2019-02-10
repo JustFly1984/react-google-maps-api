@@ -15,7 +15,6 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
       lng: -115.234
     }}
   >
-
     <Rectangle
       bounds={{
         north: 38.685,
@@ -24,7 +23,6 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
         west: -118.251
       }}
     />
-
   </GoogleMap>
   </ScriptLoaded>
 ```

@@ -11,7 +11,10 @@ import MapContext from '../../map-context'
 const eventMap = {}
 
 const updaterMap = {
-  map (instance: google.maps.StreetViewCoverageLayer, map: google.maps.Map) {
+  map (
+    instance: google.maps.StreetViewCoverageLayer,
+    map: google.maps.Map
+  ) {
     instance.setMap(map)
   },
 }
@@ -21,7 +24,7 @@ interface StreetViewCoverageLayerState {
 }
 
 interface StreetViewCoverageLayerProps {
-
+  // TODO:
 }
 
 export class StreetViewCoverageLayer extends PureComponent<{}, StreetViewCoverageLayerProps> {

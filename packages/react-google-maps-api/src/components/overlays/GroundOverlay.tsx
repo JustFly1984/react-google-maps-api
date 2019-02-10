@@ -16,7 +16,10 @@ const eventMap = {
 }
 
 const updaterMap = {
-  opacity (instance: google.maps.GroundOverlay, opacity: number) {
+  opacity (
+    instance: google.maps.GroundOverlay,
+    opacity: number
+  ) {
     instance.setOpacity(opacity)
   }
 }

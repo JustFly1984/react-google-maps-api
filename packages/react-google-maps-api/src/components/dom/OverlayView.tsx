@@ -2,7 +2,7 @@
 import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
 //@ts-ignore
-import invariant from 'invariant'
+import invariant from 'invariant' // Do wee really need this dependency?
 
 import {
   unregisterEvents,

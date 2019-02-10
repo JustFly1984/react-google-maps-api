@@ -17,5 +17,5 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
   >
     <DrawingManager/>
   </GoogleMap>
-  </ScriptLoaded>
+</ScriptLoaded>
 ```

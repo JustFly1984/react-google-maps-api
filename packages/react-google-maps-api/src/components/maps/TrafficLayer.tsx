@@ -10,7 +10,10 @@ import MapContext from '../../map-context'
 const eventMap = {}
 
 const updaterMap = {
-  options (instance: google.maps.TrafficLayer, options: google.maps.TrafficLayerOptions) {
+  options (
+    instance: google.maps.TrafficLayer,
+    options: google.maps.TrafficLayerOptions
+  ) {
     instance.setOptions(options)
   }
 }

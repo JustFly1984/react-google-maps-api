@@ -18,8 +18,12 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
       lng: -115.234
     }}
   >
-
-    <StandaloneSearchBox ref={searchBox => this.searchBox = searchBox} onPlacesChanged={() => console.log(this.searchBox.getPlaces())}>
+    <StandaloneSearchBox
+      ref={ref => this.searchBox = ref}
+      onPlacesChanged={
+        () => console.log(this.searchBox.getPlaces())
+      }
+    >
       <input
         type="text"
         placeholder="Customized your placeholder"
@@ -40,7 +44,6 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
         }}
       />
     </StandaloneSearchBox>
-
   </GoogleMap>
-  </ScriptLoaded>
+</ScriptLoaded>
 ```

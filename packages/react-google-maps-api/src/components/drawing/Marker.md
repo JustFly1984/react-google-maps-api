@@ -15,14 +15,12 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
       lng: -180
     }}
   >
-
     <Marker
       position={{
         lat: 37.772,
         lng: -122.214
       }}
     />
-
   </GoogleMap>
 </ScriptLoaded>
 ```

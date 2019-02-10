@@ -20,10 +20,16 @@ const eventMap = {
 }
 
 const updaterMap = {
-  drawingMode (instance: google.maps.drawing.DrawingManager, drawingMode: google.maps.drawing.OverlayType | null) {
+  drawingMode (
+    instance: google.maps.drawing.DrawingManager,
+    drawingMode: google.maps.drawing.OverlayType | null
+  ) {
     instance.setDrawingMode(drawingMode)
   },
-  options (instance: google.maps.drawing.DrawingManager, options: google.maps.drawing.DrawingManagerOptions) {
+  options (
+    instance: google.maps.drawing.DrawingManager,
+    options: google.maps.drawing.DrawingManagerOptions
+  ) {
     instance.setOptions(options)
   }
 }

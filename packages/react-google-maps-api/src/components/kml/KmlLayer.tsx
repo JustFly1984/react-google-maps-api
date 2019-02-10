@@ -11,13 +11,22 @@ const eventMap = {
 }
 
 const updaterMap = {
-  options (instance: google.maps.KmlLayer, options: google.maps.KmlLayerOptions) {
+  options (
+    instance: google.maps.KmlLayer,
+    options: google.maps.KmlLayerOptions
+  ) {
     instance.setOptions(options)
   },
-  url (instance: google.maps.KmlLayer, url: string) {
+  url (
+    instance: google.maps.KmlLayer,
+    url: string
+  ) {
     instance.setUrl(url)
   },
-  zIndex (instance: google.maps.KmlLayer, zIndex: number) {
+  zIndex (
+    instance: google.maps.KmlLayer,
+    zIndex: number
+  ) {
     instance.setZIndex(zIndex)
   }
 }
@@ -39,7 +48,7 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
-  s
+
   state: KmlLayerState = {
     kmlLayer: null
   }

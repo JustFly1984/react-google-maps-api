@@ -13,19 +13,34 @@ const eventMap = {
 }
 
 const updaterMap = {
-  directions (instance: google.maps.DirectionsRenderer, directions: google.maps.DirectionsResult) {
+  directions (
+    instance: google.maps.DirectionsRenderer,
+    directions: google.maps.DirectionsResult
+  ) {
     instance.setDirections(directions)
   },
-  map (instance: google.maps.DirectionsRenderer, map: google.maps.Map) {
+  map (
+    instance: google.maps.DirectionsRenderer,
+    map: google.maps.Map
+  ) {
     instance.setMap(map)
   },
-  options (instance: google.maps.DirectionsRenderer, options: google.maps.DirectionsRendererOptions) {
+  options (
+    instance: google.maps.DirectionsRenderer,
+    options: google.maps.DirectionsRendererOptions
+  ) {
     instance.setOptions(options)
   },
-  panel (instance: google.maps.DirectionsRenderer, panel: Element) {
+  panel (
+    instance: google.maps.DirectionsRenderer,
+    panel: Element
+  ) {
     instance.setPanel(panel)
   },
-  routeIndex (instance: google.maps.DirectionsRenderer, routeIndex: number) {
+  routeIndex (
+    instance: google.maps.DirectionsRenderer,
+    routeIndex: number
+  ) {
     instance.setRouteIndex(routeIndex)
   },
 }

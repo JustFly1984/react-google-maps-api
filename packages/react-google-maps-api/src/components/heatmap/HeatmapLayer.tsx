@@ -14,13 +14,22 @@ import { HeatmapLayerData } from '../../types'
 const eventMap = {}
 
 const updaterMap = {
-  data (instance: google.maps.visualization.HeatmapLayer, data: HeatmapLayerData) {
+  data (
+    instance: google.maps.visualization.HeatmapLayer,
+    data: HeatmapLayerData
+  ) {
     instance.setData(data)
   },
-  map (instance: google.maps.visualization.HeatmapLayer, map: google.maps.Map) {
+  map (
+    instance: google.maps.visualization.HeatmapLayer,
+    map: google.maps.Map
+  ) {
     instance.setMap(map)
   },
-  options (instance: google.maps.visualization.HeatmapLayer, options: google.maps.visualization.HeatmapLayerOptions) {
+  options (
+    instance: google.maps.visualization.HeatmapLayer,
+    options: google.maps.visualization.HeatmapLayerOptions
+  ) {
     // TODO: add to official typings
     //@ts-ignore
     instance.setOptions(options)
@@ -56,7 +65,10 @@ export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerS
 
   componentDidMount = () => {
     const heatmapLayer = new google.maps.visualization.HeatmapLayer(
-      { ...this.props.options, map: this.context }
+      {
+        ...this.props.options,
+        map: this.context
+      }
     )
 
     this.setState(

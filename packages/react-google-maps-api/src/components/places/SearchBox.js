@@ -1,4 +1,5 @@
 /* global google */
+// TODO:
 import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
 import invariant from 'invariant'
@@ -17,7 +18,10 @@ const eventMap = {
 }
 
 const updaterMap = {
-  bounds (instance, bounds) {
+  bounds (
+    instance,
+    bounds
+  ) {
     instance.setBounds(bounds)
   },
 }
@@ -54,10 +58,10 @@ export class SearchBox extends PureComponent {
     )
 
     this.setState(
-      (prevState, prevProps) => ({
+      (_, props) => ({
         searchBox,
-        mountControlIndex: -1 + this.context.controls[prevProps.controlPosition].push(
-          prevProps.containerElement.firstChild
+        mountControlIndex: -1 + this.context.controls[props.controlPosition].push(
+          props.containerElement.firstChild
         )
       }),
       () => {
@@ -78,9 +82,9 @@ export class SearchBox extends PureComponent {
     if (this.props.controlPosition !== prevProps.controlPosition) {
       if (typeof this.props.controlPosition === 'number') {
         this.setState(
-          (prevState, prevProps) => ({
-            mountControlIndex: -1 + this.context.controls[prevProps.controlPosition].push(
-              prevProps.containerElement.firstChild
+          (_, props) => ({
+            mountControlIndex: -1 + this.context.controls[props.controlPosition].push(
+              props.containerElement.firstChild
             )
           })
         )

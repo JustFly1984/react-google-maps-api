@@ -29,8 +29,7 @@ const HeatmapExample = ({ styles }) => (
         console.log('onClick args: ', args)
       }}
     >
-      <HeatmapLayer
-      />
+      <HeatmapLayer />
     </GoogleMap>
   </div>
 )

@@ -27,5 +27,5 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
     </InfoWindow>
 
   </GoogleMap>
-  </ScriptLoaded>
+</ScriptLoaded>
 ```
