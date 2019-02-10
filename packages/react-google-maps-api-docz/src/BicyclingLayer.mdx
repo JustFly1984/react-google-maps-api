@@ -2,8 +2,9 @@
 name: Bicycling Layer
 ---
 
-import { GoogleMap, LoadScript, BicyclingLayer } from "@react-google-maps/api";
-
+import { GoogleMap, LoadScript, BicyclingLayer } from "../../react-google-maps-api";
+import BicyclingLayerOriginal from "../../react-google-maps-api/src/components/maps/BicyclingLayer";
+import { PropsTable } from "docz";
 import WithApiKey from "./WithApiKey";
 
 # Bicycling Layer
@@ -38,6 +39,8 @@ import WithApiKey from "./WithApiKey";
   </GoogleMap>
 </LoadScript>
 ```
+
+<PropsTable from={BicyclingLayerOriginal}/>
 
 <WithApiKey>
   {

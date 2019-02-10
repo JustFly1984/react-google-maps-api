@@ -51,5 +51,6 @@ packages/react-google-maps-api-docz/.docz/dist/
 
 packages/react-google-maps-api/lib
 packages/react-google-maps-api/dist
+packages/react-google-maps-api/styleguide
 
 googleMapKey.js

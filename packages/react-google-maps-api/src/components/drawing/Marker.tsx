@@ -96,27 +96,27 @@ interface MarkerProps {
   title?: string;
   visible?: boolean;
   zIndex?: number;
-  onClick: (e: MouseEvent) => void;
-  onClickableChanged: () => void;
-  onCursorChanged: () => void;
-  onAnimationChanged: () => void;
-  onDblClick: (e: MouseEvent) => void;
-  onDrag: (e: MouseEvent) => void;
-  onDragEnd: (e: MouseEvent) => void;
-  onDraggableChanged: () => void;
-  onDragStart: (e: MouseEvent) => void;
-  onFlatChanged: () => void;
-  onIconChanged: () => void;
-  onMouseDown: (e: MouseEvent) => void;
-  onMouseOut: (e: MouseEvent) => void;
-  onMouseOver: (e: MouseEvent) => void;
-  onMouseUp: (e: MouseEvent) => void;
-  onPositionChanged: () => void;
-  onRightClick: (e: MouseEvent) => void;
-  onShapeChanged: () => void;
-  onTitleChanged: () => void;
-  onVisibleChanged: () => void;
-  onZindexChanged: () => void;
+  onClick?: (e: MouseEvent) => void;
+  onClickableChanged?: () => void;
+  onCursorChanged?: () => void;
+  onAnimationChanged?: () => void;
+  onDblClick?: (e: MouseEvent) => void;
+  onDrag?: (e: MouseEvent) => void;
+  onDragEnd?: (e: MouseEvent) => void;
+  onDraggableChanged?: () => void;
+  onDragStart?: (e: MouseEvent) => void;
+  onFlatChanged?: () => void;
+  onIconChanged?: () => void;
+  onMouseDown?: (e: MouseEvent) => void;
+  onMouseOut?: (e: MouseEvent) => void;
+  onMouseOver?: (e: MouseEvent) => void;
+  onMouseUp?: (e: MouseEvent) => void;
+  onPositionChanged?: () => void;
+  onRightClick?: (e: MouseEvent) => void;
+  onShapeChanged?: () => void;
+  onTitleChanged?: () => void;
+  onVisibleChanged?: () => void;
+  onZindexChanged?: () => void;
 }
 
 export class Marker extends PureComponent<MarkerProps, MarkerState> {
@@ -176,9 +176,7 @@ export class Marker extends PureComponent<MarkerProps, MarkerState> {
       this.state.marker.setMap(null)
   }
 
-  render = () => (
-    this.props.children
-  )
+  render = () => this.props.children ? this.props.children : null
 
   getAnimation = () => this.state.marker.getAnimation()
 

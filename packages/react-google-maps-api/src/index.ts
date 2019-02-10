@@ -10,12 +10,11 @@ export { default as Polyline } from './components/drawing/Polyline'
 export { default as Polygon } from './components/drawing/Polygon'
 export { default as Rectangle } from './components/drawing/Rectangle'
 export { default as Circle } from './components/drawing/Circle'
+//export { default as Data } from './components/drawing/Data'
 
 export { default as KmlLayer } from './components/kml/KmlLayer'
 
 export { default as OverlayView } from './components/dom/OverlayView'
-
-export { default as FusionTablesLayer } from './components/fusion/FusionTablesLayer'
 
 // export { default as ImageMapType } from './components/overlays/ImageMapType'
 export { default as GroundOverlay } from './components/overlays/GroundOverlay'

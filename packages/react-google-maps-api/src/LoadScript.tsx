@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Component, RefObject, createRef } from 'react'
+import { Component, RefObject, createRef, ReactNode } from 'react'
 
 import { injectScript } from './utils/injectscript'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
@@ -16,12 +16,12 @@ interface LoadScriptProps {
   language?: string;
   region?: string;
   version?: string;
-  loadingElement?: HTMLElement;
+  loadingElement?: ReactNode;
   onLoad?: () => void;
   onError?: (error: Error) => void;
   onUnmount?: () => void;
-  libraries: string[];
-  preventGoogleFontsLoading: boolean;
+  libraries?: string[];
+  preventGoogleFontsLoading?: boolean;
 }
 
 class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
@@ -29,7 +29,9 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     onLoad: () => { },
     onError: () => { },
     onUnmount: () => { },
-    loadingElement: <div>Loading...</div>
+    loadingElement: <div>Loading...</div>,
+    preventGoogleFontsLoading: false,
+    libraries: []
   }
 
   check: RefObject<HTMLDivElement>
