@@ -83,9 +83,12 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
   }
 
   componentDidMount = () => {
-    const polygon = new google.maps.Polygon(
+    const polygon = new google.maps.Polygon(Object.assign(
+      {
+        map: this.context
+      },
       this.props.options
-    )
+    ))
 
     this.setState(
       () => ({

@@ -33,9 +33,12 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
   registeredEvents: google.maps.MapsEventListener[] = []
 
   componentDidMount = () => {
-    const trafficLayer = new google.maps.TrafficLayer(
+    const trafficLayer = new google.maps.TrafficLayer(Object.assign(
+      {
+        map: this.context
+      },
       this.props.options
-    )
+    ))
 
     this.setState(
       () => ({
