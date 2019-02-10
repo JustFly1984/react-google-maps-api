@@ -57,8 +57,11 @@ export const restoreInstance = ({
     clearChildren(mapContainer)
 
     mapContainer.appendChild(hiddenContainer.children[0])
-    // TODO: copy style when restoring container
-    //mapContainer.style = mapContainerStyle;
+
+    // Copy mapContainerStyle to mapContainer
+    Object.keys(mapContainerStyle).forEach(styleKey => {
+      mapContainer.style[styleKey] = mapContainerStyle[styleKey]
+    })
 
     return map
   }
