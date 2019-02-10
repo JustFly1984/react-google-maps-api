@@ -56,7 +56,7 @@ export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerS
 
   componentDidMount = () => {
     const heatmapLayer = new google.maps.visualization.HeatmapLayer(
-      this.props.options
+      { ...this.props.options, map: this.context }
     )
 
     this.setState(
