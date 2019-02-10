@@ -10,7 +10,8 @@ module.exports = {
     "standard",
     "standard-react",
     "plugin:jsx-a11y/recommended",
-    'plugin:css-modules/recommended'
+    'plugin:css-modules/recommended',
+    "react-hooks"
   ],
   plugins: [
     "you-dont-need-lodash-underscore",
@@ -85,7 +86,7 @@ module.exports = {
     "jsx-a11y/label-has-for": "off",
     "no-console": "off",
     // 'react/no-typos': 'off',
-    "max-len": "off",
+    "max-len": ["error", { "code": 80 }],
     "no-nested-ternary": "off",
     camelcase: [
       2,
@@ -113,6 +114,7 @@ module.exports = {
     "import/export": 2,
     "import/no-duplicates": 0,
     "import/imports-first": 2,
+    "react-hooks/rules-of-hooks": "error"
   },
   parserOptions: {
     sourceType: "module",

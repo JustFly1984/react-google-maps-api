@@ -7,6 +7,7 @@ import {
 } from '../../utils/helper'
 import MapContext from '../../map-context'
 import { Bounds } from '../../types'
+import useMapComponent from '../../utils/use-map-component';
 
 const eventMap = {
   onBoundsChanged: 'bounds_changed',
@@ -24,22 +25,23 @@ const eventMap = {
 }
 
 const updaterMap = {
-  bounds (instance: google.maps.Rectangle, bounds: Bounds) {
+  bounds(instance: google.maps.Rectangle, bounds: Bounds) {
     instance.setBounds(bounds)
   },
-  draggable (instance: google.maps.Rectangle, draggable: boolean) {
+  draggable(instance: google.maps.Rectangle, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  editable (instance: google.maps.Rectangle, editable: boolean) {
+  editable(instance: google.maps.Rectangle, editable: boolean) {
     instance.setEditable(editable)
   },
-  map (instance: google.maps.Rectangle, map: google.maps.Map) {
+  map(instance: google.maps.Rectangle, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options (instance: google.maps.Rectangle, options: google.maps.RectangleOptions) {
+  options(instance: google.maps.Rectangle, options: google.maps.RectangleOptions) {
+    console.log("called options")
     instance.setOptions(options)
   },
-  visible (instance: google.maps.Rectangle, visible: boolean) {
+  visible(instance: google.maps.Rectangle, visible: boolean) {
     instance.setVisible(visible)
   },
 }
@@ -69,83 +71,6 @@ interface RectangleProps {
   onBoundsChanged?: () => void;
 }
 
-export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
-  static contextType = MapContext
-
-  static defaultProps: RectangleProps = {
-    draggable: false,
-    editable: false,
-    visible: true
-  }
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  state: RectangleState = {
-    rectangle: null
-  }
-
-  componentDidMount = () => {
-    const rectangle = new google.maps.Rectangle(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
-    )
-
-    this.setState(
-      () => ({
-        rectangle
-      }),
-      () => {
-        this.state.rectangle.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.rectangle
-        })
-      }
-    )
-  }
-
-  componentDidUpdate = (prevProps: RectangleProps) => {
-    unregisterEvents(this.registeredEvents)
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.rectangle
-    })
-  }
-
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
-
-    this.state.rectangle && this.state.rectangle.setMap(null)
-  }
-
-  render = () => null
-
-  getBounds = () =>
-    this.state.rectangle.getBounds()
-
-  getDraggable = () =>
-    this.state.rectangle.getDraggable()
-
-  getEditable = () =>
-    this.state.rectangle.getEditable()
-
-  getMap = () =>
-    this.state.rectangle.getMap()
-
-  getVisible = () =>
-    this.state.rectangle.getVisible()
+export default function Rectangle(props: RectangleProps) {
+  return useMapComponent(props, updaterMap, eventMap, 'Rectangle')
 }
-
-export default Rectangle

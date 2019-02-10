@@ -1,3 +1,4 @@
+/* global google */
 import {
   useState,
   useEffect,
@@ -11,37 +12,31 @@ import {
   applyUpdatersToPropsAndRegisterEvents
 } from './helper'
 
-export default function useMapComponent (props) {
+import usePrevious from "./use-previous"
+
+export default function useMapComponent(props: any, updaterMap: any, eventMap: any, className) {
   const [instance, setInstance] = useState(null)
   const context = useContext(MapContext)
+  const prevProps = usePrevious(props)
 
   let tempInstance
-
-  console.log({ context })
-
   if (!instance) {
-    console.log(props.className, new window.google.maps[props.className]())
-
-    tempInstance = new window.google.maps[props.className]()
-
+    tempInstance = new google.maps[className]();
     setInstance(tempInstance)
-
     tempInstance.setMap(context)
   }
 
-  console.log({ tempInstance })
-
   useEffect(() => {
-    console.log(props, tempInstance)
     const registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      ...props,
-      instance: tempInstance
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: props,
+      instance: instance || tempInstance
     })
 
-    return () => {
-      unregisterEvents(registeredEvents)
-    }
+    return () => unregisterEvents(registeredEvents)
   })
 
-  return 'was here'
+  return null;
 }

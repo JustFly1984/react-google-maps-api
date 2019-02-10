@@ -1,13 +1,6 @@
 /* global google */
-import { PureComponent } from 'react'
-
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
-
-import MapContext from '../../map-context'
 import { LatLng } from '../../types'
+import useMapComponent from '../../utils/use-map-component'
 
 const eventMap = {
   onCenterChanged: 'center_changed',
@@ -26,31 +19,27 @@ const eventMap = {
 }
 
 const updaterMap = {
-  center (instance: google.maps.Circle, center: google.maps.LatLng) {
+  center(instance: google.maps.Circle, center: google.maps.LatLng) {
     instance.setCenter(center)
   },
-  draggable (instance: google.maps.Circle, draggable: boolean) {
+  draggable(instance: google.maps.Circle, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  editable (instance: google.maps.Circle, editable: boolean) {
+  editable(instance: google.maps.Circle, editable: boolean) {
     instance.setEditable(editable)
   },
-  map (instance: google.maps.Circle, map: google.maps.Map) {
+  map(instance: google.maps.Circle, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options (instance: google.maps.Circle, options: google.maps.CircleOptions) {
+  options(instance: google.maps.Circle, options: google.maps.CircleOptions) {
     instance.setOptions(options)
   },
-  radius (instance: google.maps.Circle, radius: number) {
+  radius(instance: google.maps.Circle, radius: number) {
     instance.setRadius(radius)
   },
-  visible (instance: google.maps.Circle, visible: boolean) {
+  visible(instance: google.maps.Circle, visible: boolean) {
     instance.setVisible(visible)
   }
-}
-
-interface CircleState {
-  circle?: google.maps.Circle
 }
 
 interface CircleProps {
@@ -75,77 +64,6 @@ interface CircleProps {
   onRadiusChanged: () => void;
 }
 
-export class Circle extends PureComponent<CircleProps, CircleState> {
-  static contextType = MapContext
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  state: CircleState = {
-    circle: null
-  }
-
-  componentDidMount = () => {
-    const circle = new google.maps.Circle(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
-    )
-
-    this.setState(
-      () => ({
-        circle
-      }),
-      () => {
-        this.state.circle.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.circle
-        })
-      }
-    )
-  }
-
-  componentDidUpdate = (prevProps: CircleProps) => {
-    unregisterEvents(this.registeredEvents)
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.circle
-    })
-  }
-
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
-
-    this.state.circle && this.state.circle.setMap(null)
-  }
-
-  render = (): any => null
-
-  getBounds = () => this.state.circle.getBounds()
-
-  getCenter = () => this.state.circle.getCenter()
-
-  getDraggable = () => {
-    return this.state.circle.getDraggable()
-  }
-
-  getEditable = () => this.state.circle.getEditable()
-
-  getMap = () => this.state.circle.getMap()
-
-  getRadius = () => this.state.circle.getRadius()
-
-  getVisible = () => this.state.circle.getVisible()
+export default function Circle(props: CircleProps) {
+  return useMapComponent(props, updaterMap, eventMap, 'Circle')
 }
-
-export default Circle

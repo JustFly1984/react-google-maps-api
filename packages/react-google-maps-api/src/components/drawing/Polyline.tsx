@@ -7,6 +7,7 @@ import {
 } from '../../utils/helper'
 
 import MapContext from '../../map-context'
+import useMapComponent from '../../utils/use-map-component';
 
 const eventMap = {
   onClick: 'click',
@@ -23,28 +24,24 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable (instance: google.maps.Polyline, draggable: boolean) {
+  draggable(instance: google.maps.Polyline, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  editable (instance: google.maps.Polyline, editable: boolean) {
+  editable(instance: google.maps.Polyline, editable: boolean) {
     instance.setEditable(editable)
   },
-  map (instance: google.maps.Polyline, map: google.maps.Map) {
+  map(instance: google.maps.Polyline, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options (instance: google.maps.Polyline, options: google.maps.PolylineOptions) {
+  options(instance: google.maps.Polyline, options: google.maps.PolylineOptions) {
     instance.setOptions(options)
   },
-  path (instance: google.maps.Polyline, path: google.maps.MVCArray<google.maps.LatLng> | google.maps.LatLng[] | google.maps.LatLngLiteral[]) {
+  path(instance: google.maps.Polyline, path: google.maps.MVCArray<google.maps.LatLng> | google.maps.LatLng[] | google.maps.LatLngLiteral[]) {
     instance.setPath(path)
   },
-  visible (instance: google.maps.Polyline, visible: boolean) {
+  visible(instance: google.maps.Polyline, visible: boolean) {
     instance.setVisible(visible)
   }
-}
-
-interface PolylineState {
-  polyline?: google.maps.Polyline
 }
 
 interface PolylineProps {
@@ -66,72 +63,6 @@ interface PolylineProps {
   onDrag: (e: MouseEvent) => void;
 }
 
-export class Polyline extends PureComponent<PolylineProps, PolylineState> {
-  static contextType = MapContext
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  state: PolylineState = {
-    polyline: null
-  }
-
-  componentDidMount = () => {
-    const polyline = new google.maps.Polyline(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
-    )
-
-    this.setState(
-      () => ({
-        polyline
-      }),
-      () => {
-        this.state.polyline.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.polyline
-        })
-      }
-    )
-  }
-
-  componentDidUpdate = (prevProps: PolylineProps) => {
-    unregisterEvents(this.registeredEvents)
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.polyline
-    })
-  }
-
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
-
-    this.state.polyline && this.state.polyline.setMap(null)
-  }
-
-  render = () => null
-
-  getDraggable = () => this.state.polyline.getDraggable()
-
-  getEditable = () => this.state.polyline.getEditable()
-
-  getPath = () => this.state.polyline.getPath()
-
-  getVisible = () => this.state.polyline.getVisible()
-
-  getMap = () => this.state.polyline.getMap()
+export default function Polyline(props: PolylineProps) {
+  return useMapComponent(props, updaterMap, eventMap, 'Polyline')
 }
-
-export default Polyline

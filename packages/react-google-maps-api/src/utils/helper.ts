@@ -4,27 +4,22 @@ import { reduce } from './reduce'
 import { forEach } from './foreach'
 
 const applyUpdaterToNextProps = (updaterMap: any, prevProps: any, nextProps: any, instance: any) => {
-  let map: any = {}
+  forEach(updaterMap, (updaterFn: any, key: string) => {
+    const nextValue = nextProps[key];
+    const prevValue = prevProps[key];
 
-  const iter = (fn: any, key: string) => {
-    const nextValue = nextProps[key]
-
-    if (nextValue !== prevProps[key]) {
-      map[key] = nextValue
-      fn(instance, nextValue)
+    if (nextValue !== prevValue) {
+      updaterFn(instance, nextValue)
     }
-  }
-
-  forEach(updaterMap, iter)
-
-  return map
+  })
 }
 
 export function registerEvents(props: any, instance: any, eventMap: Record<string, string>): google.maps.MapsEventListener[] {
-  const registeredList = reduce(eventMap, (acc: google.maps.MapsEventListener[], googleEventName: string, onEventName: any) => {
-    if (typeof props[onEventName] === 'function') {
+  const registeredList = reduce(eventMap, (acc: google.maps.MapsEventListener[], googleEventName: string, reactEventName: any) => {
+
+    if (typeof props[reactEventName] === 'function') {
       acc.push(
-        google.maps.event.addListener(instance, googleEventName, props[onEventName])
+        google.maps.event.addListener(instance, googleEventName, props[reactEventName])
       )
     }
 
