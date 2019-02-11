@@ -1,3 +1,4 @@
+import { Autocomplete } from './components/places/Autocomplete'
 export { default as GoogleMap } from './GoogleMap'
 export { default as LoadScript } from './LoadScript'
 export { default as TrafficLayer } from './components/maps/TrafficLayer'
@@ -29,6 +30,7 @@ export { default as DirectionsRenderer } from './components/directions/Direction
 
 // export { default as SearchBox } from './components/places/SearchBox'
 export { default as StandaloneSearchBox } from './components/places/StandaloneSearchBox'
+export { default as Autocomplete } from './components/places/Autocomplete'
 
 // export { default as InfoBox } from './components/addons/InfoBox'
 // export { default as MarkerCluster } from './components/addons/MarkerCluster'
