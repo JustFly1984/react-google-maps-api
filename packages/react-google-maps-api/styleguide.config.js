@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  ignore: ['**/*.js', '**/*.ts', '**/src/components/drawing/Data.tsx'],
+  ignore: ['**/*.js', '**/*.ts'],
   propsParser: require('react-docgen-typescript').withDefaultConfig().parse,
   getComponentPathLine (componentPath) {
     const name = path.basename(componentPath, '.tsx')
@@ -14,7 +14,7 @@ module.exports = {
         {
           test: /\.ts|\.tsx$/,
           loader: 'awesome-typescript-loader'
-        },
+        }
       ]
     },
     resolve: {
@@ -24,7 +24,7 @@ module.exports = {
   sections: [
     {
       name: 'Introduction',
-      content: 'src/docs/introduction.md',
+      content: 'src/docs/introduction.md'
     },
     {
       name: 'Getting Started',
@@ -32,7 +32,7 @@ module.exports = {
     },
     {
       name: 'Components',
-      components: ['src/LoadScript.tsx', 'src/GoogleMap.tsx', 'src/components/**/*.tsx'],
-    },
-  ],
+      components: ['src/LoadScript.tsx', 'src/GoogleMap.tsx', 'src/components/**/*.tsx']
+    }
+  ]
 }
