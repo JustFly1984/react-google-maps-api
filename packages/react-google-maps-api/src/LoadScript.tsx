@@ -110,7 +110,9 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     cleaningUp = true
     const script = document.getElementById(this.props.id)
 
-    script.parentNode.removeChild(script)
+    if (script) {
+      script.parentNode.removeChild(script)
+    }
 
     Array.prototype.slice
       .call(document.getElementsByTagName('script'))
