@@ -1,7 +1,7 @@
 {
   "name": "@react-google-maps/gatsby-example",
   "description": "React Google Maps Gatsby.js example",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "author": {
     "name": "Alexey Lyakhov",
     "email": "justfly1984@gmail.com",
@@ -13,12 +13,12 @@
   "dependencies": {
     "@babel/polyfill": "7.2.5",
     "@babel/runtime": "7.3.1",
-    "@react-google-maps/api": "^1.0.8",
-    "gatsby": "2.0.107",
+    "@react-google-maps/api": "^1.0.10",
+    "gatsby": "2.0.112",
     "gatsby-plugin-eslint": "2.0.4",
     "gatsby-plugin-purgecss": "3.1.0",
-    "gatsby-plugin-react-helmet": "3.0.5",
-    "gatsby-plugin-sitemap": "2.0.4",
+    "gatsby-plugin-react-helmet": "3.0.6",
+    "gatsby-plugin-sitemap": "2.0.5",
     "immutable": "3.8.2",
     "intl": "1.2.5",
     "prop-types": "15.6.2",
@@ -55,7 +55,7 @@
     "@babel/core": "7.2.2",
     "@babel/node": "7.2.2",
     "@babel/plugin-proposal-class-properties": "7.3.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.3.1",
+    "@babel/plugin-proposal-object-rest-spread": "7.3.2",
     "@babel/plugin-transform-react-jsx": "7.3.0",
     "@babel/plugin-transform-runtime": "7.2.0",
     "@babel/plugin-transform-spread": "7.2.2",
@@ -63,11 +63,11 @@
     "@babel/preset-react": "7.0.0",
     "@types/googlemaps": "3.30.16",
     "@types/markerclustererplus": "2.1.33",
-    "@types/react": "16.8.0",
-    "acorn": "6.0.6",
+    "@types/react": "16.8.1",
+    "acorn": "6.0.7",
     "babel-eslint": "9.0.0",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.23",
-    "eslint": "5.12.1",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.24",
+    "eslint": "5.13.0",
     "eslint-config-standard": "12.0.0",
     "eslint-config-standard-react": "7.0.2",
     "eslint-import-resolver-webpack": "0.11.0",
@@ -77,10 +77,10 @@
     "eslint-plugin-css-modules": "2.11.0",
     "eslint-plugin-dependencies": "2.4.0",
     "eslint-plugin-filenames": "1.3.2",
-    "eslint-plugin-html": "5.0.0",
+    "eslint-plugin-html": "5.0.3",
     "eslint-plugin-import": "2.16.0",
     "eslint-plugin-json": "1.3.2",
-    "eslint-plugin-jsx-a11y": "6.2.0",
+    "eslint-plugin-jsx-a11y": "6.2.1",
     "eslint-plugin-no-inferred-method-name": "1.0.2",
     "eslint-plugin-node": "8.0.1",
     "eslint-plugin-optimize-regex": "1.1.6",
@@ -91,11 +91,11 @@
     "eslint-plugin-react-perf": "3.0.1",
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.4.0",
-    "webpack": "4.29.0"
+    "webpack": "4.29.1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/gatsbyjs/gatsby-starter-default"
   },
-  "gitHead": "28ccd5da0d0d5b2055ef48c957004b18b82ad8fd"
+  "gitHead": "468bde35769386546c3cd7d9d74712ac4fad7c33"
 }

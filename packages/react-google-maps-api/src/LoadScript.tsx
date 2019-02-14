@@ -4,6 +4,8 @@ import { Component, RefObject, createRef, ReactNode } from 'react'
 import { injectScript } from './utils/injectscript'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
 
+import { isBrowser } from './utils/isbrowser'
+
 let cleaningUp = false
 
 interface LoadScriptState {
@@ -11,24 +13,24 @@ interface LoadScriptState {
 }
 
 interface LoadScriptProps {
-  id: string;
-  googleMapsApiKey: string;
-  language?: string;
-  region?: string;
-  version?: string;
-  loadingElement?: ReactNode;
-  onLoad?: () => void;
-  onError?: (error: Error) => void;
-  onUnmount?: () => void;
-  libraries?: string[];
-  preventGoogleFontsLoading?: boolean;
+  id: string
+  googleMapsApiKey: string
+  language?: string
+  region?: string
+  version?: string
+  loadingElement?: ReactNode
+  onLoad?: () => void
+  onError?: (error: Error) => void
+  onUnmount?: () => void
+  libraries?: string[]
+  preventGoogleFontsLoading?: boolean
 }
 
 class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
   static defaultProps = {
-    onLoad: () => { },
-    onError: () => { },
-    onUnmount: () => { },
+    onLoad: () => {},
+    onError: () => {},
+    onUnmount: () => {},
     loadingElement: <div>Loading...</div>,
     preventGoogleFontsLoading: false,
     libraries: []
@@ -47,18 +49,19 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
   }
 
   componentDidMount () {
-    //@ts-ignore
-    if (window.google && !cleaningUp) {
-      console.error('google api is already present')
-      return
-    }
+    if (isBrowser) {
+      // @ts-ignore
+      if (window.google && !cleaningUp) {
+        console.error('google api is already presented')
+        return
+      }
 
-    this.isCleaningUp()
-      .then(this.injectScript)
+      this.isCleaningUp().then(this.injectScript)
+    }
   }
 
-  componentDidUpdate (prevProps: LoadScriptProps) {
-    if (prevProps.language !== this.props.language) {
+  componentDidUpdate (prevProps) {
+    if (isBrowser && prevProps.language !== this.props.language) {
       this.cleanup()
       // TODO: refactor to use gDSFP
       // eslint-disable-next-line react/no-did-update-set-state
@@ -69,6 +72,7 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
         () => {
           //@ts-ignore
           delete window.google
+
           this.injectScript()
         }
       )
@@ -76,32 +80,35 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
   }
 
   componentWillUnmount () {
-    this.cleanup()
+    if (isBrowser) {
+      this.cleanup()
 
-    setTimeout(() => {
-      if (!this.check.current) {
-        //@ts-ignore
-        delete window.google
-        cleaningUp = false
-      }
-    }, 1)
+      setTimeout(() => {
+        if (!this.check.current) {
+          //@ts-ignore
+          delete window.google
+          cleaningUp = false
+        }
+      }, 1)
 
-    this.props
-      .onUnmount()
+      this.props.onUnmount()
+    }
   }
 
   isCleaningUp = async () => {
     return new Promise(resolve => {
       if (!cleaningUp) {
         resolve()
-      }
-      else {
-        const timer = setInterval(() => {
-          if (!cleaningUp) {
-            clearInterval(timer)
-            resolve()
-          }
-        }, 1)
+      } else {
+        if (isBrowser) {
+          const timer = window.setInterval(() => {
+            if (!cleaningUp) {
+              window.clearInterval(timer)
+
+              resolve()
+            }
+          }, 1)
+        }
       }
     })
   }
@@ -163,11 +170,9 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
       .then(() => {
         this.props.onLoad()
 
-        this.setState(
-          () => ({
-            loaded: true
-          })
-        )
+        this.setState(() => ({
+          loaded: true
+        }))
       })
 
       .catch(err => {
@@ -189,11 +194,7 @@ Otherwise it is a Network issues.
   render () {
     return (
       <div ref={this.check}>
-        {
-          this.state.loaded
-            ? this.props.children
-            : this.props.loadingElement
-        }
+        {this.state.loaded ? this.props.children : this.props.loadingElement}
       </div>
     )
   }
