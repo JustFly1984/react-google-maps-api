@@ -12,18 +12,19 @@ interface LoadScriptState {
   loaded: boolean
 }
 
+//prettier-ignore
 interface LoadScriptProps {
-  id: string
-  googleMapsApiKey: string
-  language?: string
-  region?: string
-  version?: string
-  loadingElement?: ReactNode
-  onLoad?: () => void
-  onError?: (error: Error) => void
-  onUnmount?: () => void
-  libraries?: string[]
-  preventGoogleFontsLoading?: boolean
+  id: string;
+  googleMapsApiKey: string;
+  language?: string;
+  region?: string;
+  version?: string;
+  loadingElement?: ReactNode;
+  onLoad?: () => void;
+  onError?: (error: Error) => void;
+  onUnmount?: () => void;
+  libraries?: string[];
+  preventGoogleFontsLoading?: boolean;
 }
 
 class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
