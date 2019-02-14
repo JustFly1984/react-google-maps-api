@@ -3,10 +3,7 @@ import { PureComponent } from 'react'
 // @ts-ignore
 import invariant from 'invariant'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
@@ -39,14 +36,14 @@ interface DrawingManagerState {
 }
 
 interface DrawingManagerProps {
-  options?: google.maps.drawing.DrawingManagerOptions;
-  drawingMode?: google.maps.drawing.OverlayType | null;
-  onCircleComplete?: (circle: google.maps.Circle) => void;
-  onMarkerComplete?: (marker: google.maps.Marker) => void;
-  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void;
-  onPolygonComplete?: (polygon: google.maps.Polygon) => void;
-  onPolylineComplete?: (polyline: google.maps.Polyline) => void;
-  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void;
+  options?: google.maps.drawing.DrawingManagerOptions
+  drawingMode?: google.maps.drawing.OverlayType | null
+  onCircleComplete?: (circle: google.maps.Circle) => void
+  onMarkerComplete?: (marker: google.maps.Marker) => void
+  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void
+  onPolygonComplete?: (polygon: google.maps.Polygon) => void
+  onPolylineComplete?: (polyline: google.maps.Polyline) => void
+  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void
 }
 
 export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingManagerState> {
@@ -65,22 +62,16 @@ export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingMa
   }
 
   componentDidMount = () => {
-    const drawingManager = new google.maps.drawing.DrawingManager(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
-    )
+    const drawingManager = new google.maps.drawing.DrawingManager({
+      ...this.props.options,
+      map: this.context
+    })
 
     this.setState(
       () => ({
         drawingManager
       }),
       () => {
-        this.state.drawingManager.setMap(this.context)
-
         this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
           updaterMap,
           eventMap,

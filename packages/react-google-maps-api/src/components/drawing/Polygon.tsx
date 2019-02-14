@@ -1,10 +1,7 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 import { PolygonPath, PolygonPaths } from '../../types'
@@ -24,49 +21,29 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable (
-    instance: google.maps.Polygon,
-    draggable: boolean
-  ) {
+  draggable (instance: google.maps.Polygon, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  editable (
-    instance: google.maps.Polygon,
-    editable: boolean
-  ) {
+  editable (instance: google.maps.Polygon, editable: boolean) {
     instance.setEditable(editable)
   },
-  map (
-    instance: google.maps.Polygon,
-    map: google.maps.Map
-  ) {
+  map (instance: google.maps.Polygon, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options (
-    instance: google.maps.Polygon,
-    options: google.maps.PolygonOptions
-  ) {
+  options (instance: google.maps.Polygon, options: google.maps.PolygonOptions) {
     instance.setOptions(options)
   },
-  path (
-    instance: google.maps.Polygon,
-    path: PolygonPath
-  ) {
+  path (instance: google.maps.Polygon, path: PolygonPath) {
     instance.setPath(path)
   },
 
-  paths (
-    instance: google.maps.Polygon,
-    paths: PolygonPaths) {
+  paths (instance: google.maps.Polygon, paths: PolygonPaths) {
     instance.setPaths(paths)
   },
 
-  visible (
-    instance: google.maps.Polygon,
-    visible: boolean
-  ) {
+  visible (instance: google.maps.Polygon, visible: boolean) {
     instance.setVisible(visible)
-  },
+  }
 }
 
 interface PolygonState {
@@ -74,23 +51,23 @@ interface PolygonState {
 }
 
 interface PolygonProps {
-  options: google.maps.PolygonOptions;
-  draggable: boolean;
-  editable: boolean;
-  visible: boolean;
-  path: PolygonPath;
-  paths: PolygonPaths;
-  onDblClick: (e: MouseEvent) => void;
-  onDragEnd: (e: MouseEvent) => void;
-  onDragStart: (e: MouseEvent) => void;
-  onMouseDown: (e: MouseEvent) => void;
-  onMouseMove: (e: MouseEvent) => void;
-  onMouseOut: (e: MouseEvent) => void;
-  onMouseOver: (e: MouseEvent) => void;
-  onMouseUp: (e: MouseEvent) => void;
-  onRightClick: (e: MouseEvent) => void;
-  onClick: (e: MouseEvent) => void;
-  onDrag: (e: MouseEvent) => void;
+  options: google.maps.PolygonOptions
+  draggable: boolean
+  editable: boolean
+  visible: boolean
+  path: PolygonPath
+  paths: PolygonPaths
+  onDblClick: (e: MouseEvent) => void
+  onDragEnd: (e: MouseEvent) => void
+  onDragStart: (e: MouseEvent) => void
+  onMouseDown: (e: MouseEvent) => void
+  onMouseMove: (e: MouseEvent) => void
+  onMouseOut: (e: MouseEvent) => void
+  onMouseOver: (e: MouseEvent) => void
+  onMouseUp: (e: MouseEvent) => void
+  onRightClick: (e: MouseEvent) => void
+  onClick: (e: MouseEvent) => void
+  onDrag: (e: MouseEvent) => void
 }
 
 export class Polygon extends PureComponent<PolygonProps, PolygonState> {
@@ -103,20 +80,16 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
   }
 
   componentDidMount = () => {
-    const polygon = new google.maps.Polygon(Object.assign(
-      {
-        map: this.context
-      },
-      this.props.options
-    ))
+    const polygon = new google.maps.Polygon({
+      ...this.props.options,
+      map: this.context
+    })
 
     this.setState(
       () => ({
         polygon
       }),
       () => {
-        this.state.polygon.setMap(this.context)
-
         this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
           updaterMap,
           eventMap,
@@ -148,23 +121,17 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
 
   render = () => null
 
-  getDraggable = () =>
-    this.state.polygon.getDraggable()
+  getDraggable = () => this.state.polygon.getDraggable()
 
-  getEditable = () =>
-    this.state.polygon.getEditable()
+  getEditable = () => this.state.polygon.getEditable()
 
-  getMap = () =>
-    this.state.polygon.getEditable()
+  getMap = () => this.state.polygon.getEditable()
 
-  getPath = () =>
-    this.state.polygon.getMap()
+  getPath = () => this.state.polygon.getMap()
 
-  getPaths = () =>
-    this.state.polygon.getPaths()
+  getPaths = () => this.state.polygon.getPaths()
 
-  getVisible = () =>
-    this.state.polygon.getVisible()
+  getVisible = () => this.state.polygon.getVisible()
 }
 
 export default Polygon

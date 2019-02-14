@@ -1,10 +1,7 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
 import { Bounds } from '../../types'
 
@@ -20,46 +17,28 @@ const eventMap = {
   onMouseOut: 'mouseout',
   onMouseOver: 'mouseover',
   onMouseUp: 'mouseup',
-  onRightClick: 'rightclick',
+  onRightClick: 'rightclick'
 }
 
 const updaterMap = {
-  bounds (
-    instance: google.maps.Rectangle,
-    bounds: Bounds
-  ) {
+  bounds (instance: google.maps.Rectangle, bounds: Bounds) {
     instance.setBounds(bounds)
   },
-  draggable (
-    instance: google.maps.Rectangle,
-    draggable: boolean
-  ) {
+  draggable (instance: google.maps.Rectangle, draggable: boolean) {
     instance.setDraggable(draggable)
   },
-  editable (
-    instance: google.maps.Rectangle,
-    editable: boolean
-  ) {
+  editable (instance: google.maps.Rectangle, editable: boolean) {
     instance.setEditable(editable)
   },
-  map (
-    instance: google.maps.Rectangle,
-    map: google.maps.Map
-  ) {
+  map (instance: google.maps.Rectangle, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options (
-    instance: google.maps.Rectangle,
-    options: google.maps.RectangleOptions
-  ) {
+  options (instance: google.maps.Rectangle, options: google.maps.RectangleOptions) {
     instance.setOptions(options)
   },
-  visible (
-    instance: google.maps.Rectangle,
-    visible: boolean
-  ) {
+  visible (instance: google.maps.Rectangle, visible: boolean) {
     instance.setVisible(visible)
-  },
+  }
 }
 
 interface RectangleState {
@@ -67,24 +46,24 @@ interface RectangleState {
 }
 
 interface RectangleProps {
-  options?: google.maps.RectangleOptions;
-  bounds?: Bounds;
-  draggable?: boolean;
-  editable?: boolean;
-  visible?: boolean;
-  clickable?: boolean;
-  onDblClick?: (e: MouseEvent) => void;
-  onDragEnd?: (e: MouseEvent) => void;
-  onDragStart?: (e: MouseEvent) => void;
-  onMouseDown?: (e: MouseEvent) => void;
-  onMouseMove?: (e: MouseEvent) => void;
-  onMouseOut?: (e: MouseEvent) => void;
-  onMouseOver?: (e: MouseEvent) => void;
-  onMouseUp?: (e: MouseEvent) => void;
-  onRightClick?: (e: MouseEvent) => void;
-  onClick?: (e: MouseEvent) => void;
-  onDrag?: (e: MouseEvent) => void;
-  onBoundsChanged?: () => void;
+  options?: google.maps.RectangleOptions
+  bounds?: Bounds
+  draggable?: boolean
+  editable?: boolean
+  visible?: boolean
+  clickable?: boolean
+  onDblClick?: (e: MouseEvent) => void
+  onDragEnd?: (e: MouseEvent) => void
+  onDragStart?: (e: MouseEvent) => void
+  onMouseDown?: (e: MouseEvent) => void
+  onMouseMove?: (e: MouseEvent) => void
+  onMouseOut?: (e: MouseEvent) => void
+  onMouseOver?: (e: MouseEvent) => void
+  onMouseUp?: (e: MouseEvent) => void
+  onRightClick?: (e: MouseEvent) => void
+  onClick?: (e: MouseEvent) => void
+  onDrag?: (e: MouseEvent) => void
+  onBoundsChanged?: () => void
 }
 
 export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
@@ -103,22 +82,16 @@ export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
   }
 
   componentDidMount = () => {
-    const rectangle = new google.maps.Rectangle(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
-    )
+    const rectangle = new google.maps.Rectangle({
+      ...this.props.options,
+      map: this.context
+    })
 
     this.setState(
       () => ({
         rectangle
       }),
       () => {
-        this.state.rectangle.setMap(this.context)
-
         this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
           updaterMap,
           eventMap,
@@ -150,20 +123,15 @@ export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
 
   render = () => null
 
-  getBounds = () =>
-    this.state.rectangle.getBounds()
+  getBounds = () => this.state.rectangle.getBounds()
 
-  getDraggable = () =>
-    this.state.rectangle.getDraggable()
+  getDraggable = () => this.state.rectangle.getDraggable()
 
-  getEditable = () =>
-    this.state.rectangle.getEditable()
+  getEditable = () => this.state.rectangle.getEditable()
 
-  getMap = () =>
-    this.state.rectangle.getMap()
+  getMap = () => this.state.rectangle.getMap()
 
-  getVisible = () =>
-    this.state.rectangle.getVisible()
+  getVisible = () => this.state.rectangle.getVisible()
 }
 
 export default Rectangle

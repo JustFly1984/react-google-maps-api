@@ -1,19 +1,13 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
 
 const eventMap = {}
 
 const updaterMap = {
-  options (
-    instance: google.maps.TrafficLayer,
-    options: google.maps.TrafficLayerOptions
-  ) {
+  options (instance: google.maps.TrafficLayer, options: google.maps.TrafficLayerOptions) {
     instance.setOptions(options)
   }
 }
@@ -36,20 +30,16 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
   registeredEvents: google.maps.MapsEventListener[] = []
 
   componentDidMount = () => {
-    const trafficLayer = new google.maps.TrafficLayer(Object.assign(
-      {
-        map: this.context
-      },
-      this.props.options
-    ))
+    const trafficLayer = new google.maps.TrafficLayer({
+      ...this.props.options,
+      map: this.context
+    })
 
     this.setState(
       () => ({
         trafficLayer
       }),
       () => {
-        this.state.trafficLayer.setMap(this.context)
-
         this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
           updaterMap,
           eventMap,

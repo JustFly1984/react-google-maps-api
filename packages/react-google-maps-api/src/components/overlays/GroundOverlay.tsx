@@ -3,23 +3,17 @@ import { PureComponent, Context } from 'react'
 // @ts-ignore
 import warning from 'warning'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
 const eventMap = {
   onDblClick: 'dblclick',
-  onClick: 'click',
+  onClick: 'click'
 }
 
 const updaterMap = {
-  opacity (
-    instance: google.maps.GroundOverlay,
-    opacity: number
-  ) {
+  opacity (instance: google.maps.GroundOverlay, opacity: number) {
     instance.setOpacity(opacity)
   }
 }
@@ -29,12 +23,12 @@ interface GroundOverlayState {
 }
 
 interface GroundOverlayProps {
-  options?: google.maps.GroundOverlayOptions;
-  opacity?: number;
-  onDblClick?: (e: MouseEvent) => void;
-  onClick?: (e: MouseEvent) => void;
-  url?: string;
-  bounds: google.maps.LatLngBounds;
+  options?: google.maps.GroundOverlayOptions
+  opacity?: number
+  onDblClick?: (e: MouseEvent) => void
+  onClick?: (e: MouseEvent) => void
+  url?: string
+  bounds: google.maps.LatLngBounds
 }
 
 export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverlayState> {
@@ -56,22 +50,12 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
   }
 
   componentDidMount = () => {
-    const groundOverlay = new google.maps.GroundOverlay(
-      this.props.url,
-      this.props.bounds,
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
-    )
+    const groundOverlay = new google.maps.GroundOverlay(this.props.url, this.props.bounds, {
+      ...this.props.options,
+      map: this.context
+    })
 
-    this.setState(
-      () => ({
-        groundOverlay
-      })
-    )
+    this.setState({ groundOverlay })
   }
 
   componentDidUpdate = (prevProps: GroundOverlayProps) => {
@@ -94,17 +78,13 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
 
   render = () => null
 
-  getBounds = () =>
-    this.state.groundOverlay.getBounds()
+  getBounds = () => this.state.groundOverlay.getBounds()
 
-  getMap = () =>
-    this.state.groundOverlay.getMap()
+  getMap = () => this.state.groundOverlay.getMap()
 
-  getOpacity = () =>
-    this.state.groundOverlay.getOpacity()
+  getOpacity = () => this.state.groundOverlay.getOpacity()
 
-  getUrl = () =>
-    this.state.groundOverlay.getUrl()
+  getUrl = () => this.state.groundOverlay.getUrl()
 }
 
 export default GroundOverlay

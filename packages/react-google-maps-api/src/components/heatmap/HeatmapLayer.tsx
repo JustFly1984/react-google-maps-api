@@ -3,10 +3,7 @@ import { PureComponent } from 'react'
 //@ts-ignore
 import invariant from 'invariant'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 import { HeatmapLayerData } from '../../types'
@@ -14,16 +11,10 @@ import { HeatmapLayerData } from '../../types'
 const eventMap = {}
 
 const updaterMap = {
-  data (
-    instance: google.maps.visualization.HeatmapLayer,
-    data: HeatmapLayerData
-  ) {
+  data (instance: google.maps.visualization.HeatmapLayer, data: HeatmapLayerData) {
     instance.setData(data)
   },
-  map (
-    instance: google.maps.visualization.HeatmapLayer,
-    map: google.maps.Map
-  ) {
+  map (instance: google.maps.visualization.HeatmapLayer, map: google.maps.Map) {
     instance.setMap(map)
   },
   options (
@@ -33,7 +24,7 @@ const updaterMap = {
     // TODO: add to official typings
     //@ts-ignore
     instance.setOptions(options)
-  },
+  }
 }
 
 interface HeatmapLayerState {
@@ -41,7 +32,7 @@ interface HeatmapLayerState {
 }
 
 interface HeatmapLayerProps {
-  data?: HeatmapLayerData;
+  data?: HeatmapLayerData
   options?: google.maps.visualization.HeatmapLayerOptions
 }
 
@@ -64,20 +55,16 @@ export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerS
   }
 
   componentDidMount = () => {
-    const heatmapLayer = new google.maps.visualization.HeatmapLayer(
-      {
-        ...this.props.options,
-        map: this.context
-      }
-    )
+    const heatmapLayer = new google.maps.visualization.HeatmapLayer({
+      ...this.props.options,
+      map: this.context
+    })
 
     this.setState(
       () => ({
         heatmapLayer
       }),
       () => {
-        // this.state.heatmapLayer.setMap(this.context)
-
         this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
           updaterMap,
           eventMap,
@@ -111,11 +98,9 @@ export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerS
 
   render = () => null
 
-  getData = () =>
-    this.state.heatmapLayer.getData()
+  getData = () => this.state.heatmapLayer.getData()
 
-  getMap = () =>
-    this.state.heatmapLayer.getMap()
+  getMap = () => this.state.heatmapLayer.getMap()
 }
 
 export default HeatmapLayer

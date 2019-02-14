@@ -1,10 +1,7 @@
 /* global google */
 import { PureComponent } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
@@ -37,16 +34,10 @@ const updaterMap = {
   ) {
     instance.addGeoJson(geojson, options)
   },
-  contains (
-    instance: google.maps.Data,
-    feature: google.maps.Data.Feature
-  ) {
+  contains (instance: google.maps.Data, feature: google.maps.Data.Feature) {
     instance.contains(feature)
   },
-  foreach (
-    instance: google.maps.Data,
-    callback: (feature: google.maps.Data.Feature) => void
-  ) {
+  foreach (instance: google.maps.Data, callback: (feature: google.maps.Data.Feature) => void) {
     instance.forEach(callback)
   },
   loadgeojson (
@@ -64,16 +55,10 @@ const updaterMap = {
   ) {
     instance.overrideStyle(feature, style)
   },
-  remove (
-    instance: google.maps.Data,
-    feature: google.maps.Data.Feature
-  ) {
+  remove (instance: google.maps.Data, feature: google.maps.Data.Feature) {
     instance.remove(feature)
   },
-  revertstyle (
-    instance: google.maps.Data,
-    feature: google.maps.Data.Feature
-  ) {
+  revertstyle (instance: google.maps.Data, feature: google.maps.Data.Feature) {
     instance.revertStyle(feature)
   },
   controlposition (
@@ -82,22 +67,13 @@ const updaterMap = {
   ) {
     instance.setControlPosition(controlPosition)
   },
-  controls (
-    instance: google.maps.Data,
-    controls: google.maps.DrawingMode[] | null
-  ) {
+  controls (instance: google.maps.Data, controls: google.maps.DrawingMode[] | null) {
     instance.setControls(controls)
   },
-  drawingmode (
-    instance: google.maps.Data,
-    mode: google.maps.DrawingMode
-  ) {
+  drawingmode (instance: google.maps.Data, mode: google.maps.DrawingMode) {
     instance.setDrawingMode(mode)
   },
-  map (
-    instance: google.maps.Data,
-    map: google.maps.Map
-  ) {
+  map (instance: google.maps.Data, map: google.maps.Map) {
     instance.setMap(map)
   },
   style (
@@ -106,32 +82,29 @@ const updaterMap = {
   ) {
     instance.setStyle(style)
   },
-  togeojson (
-    instance: google.maps.Data,
-    callback: (feature: Object) => void
-  ) {
+  togeojson (instance: google.maps.Data, callback: (feature: Object) => void) {
     instance.toGeoJson(callback)
   }
 }
 
 interface DataState {
-  data?: google.maps.Data;
+  data?: google.maps.Data
 }
 
 interface DataProps {
-  options?: google.maps.Data.DataOptions;
-  onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void;
-  onClick?: (e: MouseEvent) => void;
-  onDblClick?: (e: MouseEvent) => void;
-  onMouseDown?: (e: MouseEvent) => void;
-  onMouseOut?: (e: MouseEvent) => void;
-  onMouseOver?: (e: MouseEvent) => void;
-  onMouseUp?: (e: MouseEvent) => void;
-  onRemoveFeature?: (e: google.maps.Data.RemoveFeatureEvent) => void;
-  onRemoveProperty?: (e: google.maps.Data.RemovePropertyEvent) => void;
-  onRightClick?: (e: MouseEvent) => void;
-  onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void;
-  onSetProperty?: (e: google.maps.Data.SetPropertyEvent) => void;
+  options?: google.maps.Data.DataOptions
+  onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void
+  onClick?: (e: MouseEvent) => void
+  onDblClick?: (e: MouseEvent) => void
+  onMouseDown?: (e: MouseEvent) => void
+  onMouseOut?: (e: MouseEvent) => void
+  onMouseOver?: (e: MouseEvent) => void
+  onMouseUp?: (e: MouseEvent) => void
+  onRemoveFeature?: (e: google.maps.Data.RemoveFeatureEvent) => void
+  onRemoveProperty?: (e: google.maps.Data.RemovePropertyEvent) => void
+  onRightClick?: (e: MouseEvent) => void
+  onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void
+  onSetProperty?: (e: google.maps.Data.SetPropertyEvent) => void
 }
 
 export class Data extends PureComponent<DataProps, DataState> {
@@ -144,22 +117,12 @@ export class Data extends PureComponent<DataProps, DataState> {
   }
 
   componentDidMount = () => {
-    const data = new google.maps.Data(
-      Object.assign({
-        map: this.context
-      },
-      this.props.options
-      )
-    )
+    const data = new google.maps.Data({
+      ...this.props.options,
+      map: this.context
+    })
 
-    this.setState(
-      () => ({
-        data
-      }),
-      () => {
-        this.state.data.setMap(this.context)
-      }
-    )
+    this.setState({ data })
   }
 
   componentDidUpdate = (prevProps: DataProps) => {
@@ -184,23 +147,17 @@ export class Data extends PureComponent<DataProps, DataState> {
 
   render = () => null
 
-  getControlPosition = () =>
-    this.state.data.getControlPosition()
+  getControlPosition = () => this.state.data.getControlPosition()
 
-  getControls = () =>
-    this.state.data.getControls()
+  getControls = () => this.state.data.getControls()
 
-  getDrawingMode = () =>
-    this.state.data.getDrawingMode()
+  getDrawingMode = () => this.state.data.getDrawingMode()
 
-  getFeatureById = (id: number | string) =>
-    this.state.data.getFeatureById(id)
+  getFeatureById = (id: number | string) => this.state.data.getFeatureById(id)
 
-  getMap = () =>
-    this.state.data.getMap()
+  getMap = () => this.state.data.getMap()
 
-  getStyle = () =>
-    this.state.data.getStyle()
+  getStyle = () => this.state.data.getStyle()
 }
 
 export default Data
