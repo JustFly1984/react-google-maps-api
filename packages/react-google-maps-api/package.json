@@ -39,7 +39,6 @@
     "Circle",
     "DirectionsRenderer",
     "drawing/DrawingManager",
-    "FusionTablesLayer",
     "GoogleMap",
     "InfoWindow",
     "KmlLayer",

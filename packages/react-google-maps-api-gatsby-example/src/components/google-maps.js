@@ -6,11 +6,8 @@ import { connect } from 'react-redux'
 
 import { LoadScript } from '@react-google-maps/api'
 
-import {
-  loadingStyle
-} from './styles'
+import { loadingStyle } from './styles'
 
-import SectionFusion from './section-fusion'
 import SectionData from './section-data'
 import SectionDirections from './section-directions'
 import SectionHeatmap from './section-heatmap'
@@ -22,15 +19,9 @@ import SectionGround from './section-ground'
 import SectionOptions from './section-options'
 import SectionStandaloneSearchbox from './section-standalone-searchbox'
 
-const Loading = (
-  <div style={loadingStyle} />
-)
+const Loading = <div style={loadingStyle} />
 
-const googleMapsLibraries = [
-  'drawing',
-  'visualization',
-  'places'
-]
+const googleMapsLibraries = ['drawing', 'visualization', 'places']
 
 const loaderId = uuid()
 
@@ -46,8 +37,6 @@ const GoogleMaps = ({ googleMapsApiKey, language }) => (
     libraries={googleMapsLibraries}
     preventGoogleFontsLoading
   >
-    <SectionFusion />
-
     <SectionData />
 
     <SectionDirections />
@@ -80,6 +69,4 @@ const mapStateToProps = state => ({
   googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey'])
 })
 
-export default connect(
-  mapStateToProps
-)(GoogleMaps)
+export default connect(mapStateToProps)(GoogleMaps)
