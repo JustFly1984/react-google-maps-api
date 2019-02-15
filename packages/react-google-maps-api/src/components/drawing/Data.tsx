@@ -90,21 +90,21 @@ const updaterMap = {
 interface DataState {
   data?: google.maps.Data
 }
-
+//prettier-ignore
 interface DataProps {
-  options?: google.maps.Data.DataOptions
-  onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void
-  onClick?: (e: MouseEvent) => void
-  onDblClick?: (e: MouseEvent) => void
-  onMouseDown?: (e: MouseEvent) => void
-  onMouseOut?: (e: MouseEvent) => void
-  onMouseOver?: (e: MouseEvent) => void
-  onMouseUp?: (e: MouseEvent) => void
-  onRemoveFeature?: (e: google.maps.Data.RemoveFeatureEvent) => void
-  onRemoveProperty?: (e: google.maps.Data.RemovePropertyEvent) => void
-  onRightClick?: (e: MouseEvent) => void
-  onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void
-  onSetProperty?: (e: google.maps.Data.SetPropertyEvent) => void
+  options?: google.maps.Data.DataOptions;
+  onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void;
+  onClick?: (e: MouseEvent) => void;
+  onDblClick?: (e: MouseEvent) => void;
+  onMouseDown?: (e: MouseEvent) => void;
+  onMouseOut?: (e: MouseEvent) => void;
+  onMouseOver?: (e: MouseEvent) => void;
+  onMouseUp?: (e: MouseEvent) => void;
+  onRemoveFeature?: (e: google.maps.Data.RemoveFeatureEvent) => void;
+  onRemoveProperty?: (e: google.maps.Data.RemovePropertyEvent) => void;
+  onRightClick?: (e: MouseEvent) => void;
+  onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void;
+  onSetProperty?: (e: google.maps.Data.SetPropertyEvent) => void;
 }
 
 export class Data extends PureComponent<DataProps, DataState> {
