@@ -35,15 +35,16 @@ interface DrawingManagerState {
   drawingManager?: google.maps.drawing.DrawingManager
 }
 
+//prettier-ignore
 interface DrawingManagerProps {
-  options?: google.maps.drawing.DrawingManagerOptions
-  drawingMode?: google.maps.drawing.OverlayType | null
-  onCircleComplete?: (circle: google.maps.Circle) => void
-  onMarkerComplete?: (marker: google.maps.Marker) => void
-  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void
-  onPolygonComplete?: (polygon: google.maps.Polygon) => void
-  onPolylineComplete?: (polyline: google.maps.Polyline) => void
-  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void
+  options?: google.maps.drawing.DrawingManagerOptions;
+  drawingMode?: google.maps.drawing.OverlayType | null;
+  onCircleComplete?: (circle: google.maps.Circle) => void;
+  onMarkerComplete?: (marker: google.maps.Marker) => void;
+  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void;
+  onPolygonComplete?: (polygon: google.maps.Polygon) => void;
+  onPolylineComplete?: (polyline: google.maps.Polyline) => void;
+  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void;
 }
 
 export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingManagerState> {

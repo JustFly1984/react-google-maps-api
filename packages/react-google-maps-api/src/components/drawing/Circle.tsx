@@ -50,26 +50,27 @@ interface CircleState {
   circle?: google.maps.Circle
 }
 
+//prettier-ignore
 interface CircleProps {
-  options: google.maps.CircleOptions
-  center: LatLng
-  radius: number
-  draggable: boolean
-  editable: boolean
-  visible: boolean
-  onDblClick: (e: MouseEvent) => void
-  onDragEnd: (e: MouseEvent) => void
-  onDragStart: (e: MouseEvent) => void
-  onMouseDown: (e: MouseEvent) => void
-  onMouseMove: (e: MouseEvent) => void
-  onMouseOut: (e: MouseEvent) => void
-  onMouseOver: (e: MouseEvent) => void
-  onMouseUp: (e: MouseEvent) => void
-  onRightClick: (e: MouseEvent) => void
-  onCenterChanged: () => void
-  onClick: (e: MouseEvent) => void
-  onDrag: (e: MouseEvent) => void
-  onRadiusChanged: () => void
+  options: google.maps.CircleOptions;
+  center: LatLng;
+  radius: number;
+  draggable: boolean;
+  editable: boolean;
+  visible: boolean;
+  onDblClick: (e: MouseEvent) => void;
+  onDragEnd: (e: MouseEvent) => void;
+  onDragStart: (e: MouseEvent) => void;
+  onMouseDown: (e: MouseEvent) => void;
+  onMouseMove: (e: MouseEvent) => void;
+  onMouseOut: (e: MouseEvent) => void;
+  onMouseOver: (e: MouseEvent) => void;
+  onMouseUp: (e: MouseEvent) => void;
+  onRightClick: (e: MouseEvent) => void;
+  onCenterChanged: () => void;
+  onClick: (e: MouseEvent) => void;
+  onDrag: (e: MouseEvent) => void;
+  onRadiusChanged: () => void;
 }
 
 export class Circle extends PureComponent<CircleProps, CircleState> {

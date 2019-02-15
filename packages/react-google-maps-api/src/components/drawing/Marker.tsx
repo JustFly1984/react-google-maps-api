@@ -79,41 +79,42 @@ interface MarkerState {
   marker?: google.maps.Marker
 }
 
+//prettier-ignore
 interface MarkerProps {
-  options?: google.maps.MapOptions
-  animation?: google.maps.Animation
-  clickable?: boolean
-  cursor?: string
-  draggable?: string
-  icon?: string | google.maps.Icon | google.maps.Symbol
-  label?: string | google.maps.MarkerLabel
-  opacity?: number
-  position: LatLng
-  shape?: google.maps.MarkerShape
-  title?: string
-  visible?: boolean
-  zIndex?: number
-  onClick?: (e: MouseEvent) => void
-  onClickableChanged?: () => void
-  onCursorChanged?: () => void
-  onAnimationChanged?: () => void
-  onDblClick?: (e: MouseEvent) => void
-  onDrag?: (e: MouseEvent) => void
-  onDragEnd?: (e: MouseEvent) => void
-  onDraggableChanged?: () => void
-  onDragStart?: (e: MouseEvent) => void
-  onFlatChanged?: () => void
-  onIconChanged?: () => void
-  onMouseDown?: (e: MouseEvent) => void
-  onMouseOut?: (e: MouseEvent) => void
-  onMouseOver?: (e: MouseEvent) => void
-  onMouseUp?: (e: MouseEvent) => void
-  onPositionChanged?: () => void
-  onRightClick?: (e: MouseEvent) => void
-  onShapeChanged?: () => void
-  onTitleChanged?: () => void
-  onVisibleChanged?: () => void
-  onZindexChanged?: () => void
+  options?: google.maps.MapOptions;
+  animation?: google.maps.Animation;
+  clickable?: boolean;
+  cursor?: string;
+  draggable?: string;
+  icon?: string | google.maps.Icon | google.maps.Symbol;
+  label?: string | google.maps.MarkerLabel;
+  opacity?: number;
+  position: LatLng;
+  shape?: google.maps.MarkerShape;
+  title?: string;
+  visible?: boolean;
+  zIndex?: number;
+  onClick?: (e: MouseEvent) => void;
+  onClickableChanged?: () => void;
+  onCursorChanged?: () => void;
+  onAnimationChanged?: () => void;
+  onDblClick?: (e: MouseEvent) => void;
+  onDrag?: (e: MouseEvent) => void;
+  onDragEnd?: (e: MouseEvent) => void;
+  onDraggableChanged?: () => void;
+  onDragStart?: (e: MouseEvent) => void;
+  onFlatChanged?: () => void;
+  onIconChanged?: () => void;
+  onMouseDown?: (e: MouseEvent) => void;
+  onMouseOut?: (e: MouseEvent) => void;
+  onMouseOver?: (e: MouseEvent) => void;
+  onMouseUp?: (e: MouseEvent) => void;
+  onPositionChanged?: () => void;
+  onRightClick?: (e: MouseEvent) => void;
+  onShapeChanged?: () => void;
+  onTitleChanged?: () => void;
+  onVisibleChanged?: () => void;
+  onZindexChanged?: () => void;
 }
 
 export class Marker extends PureComponent<MarkerProps, MarkerState> {

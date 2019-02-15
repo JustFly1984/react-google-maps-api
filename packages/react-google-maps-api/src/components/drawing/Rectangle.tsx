@@ -45,25 +45,26 @@ interface RectangleState {
   rectangle?: google.maps.Rectangle
 }
 
+//prettier-ignore
 interface RectangleProps {
-  options?: google.maps.RectangleOptions
-  bounds?: Bounds
-  draggable?: boolean
-  editable?: boolean
-  visible?: boolean
-  clickable?: boolean
-  onDblClick?: (e: MouseEvent) => void
-  onDragEnd?: (e: MouseEvent) => void
-  onDragStart?: (e: MouseEvent) => void
-  onMouseDown?: (e: MouseEvent) => void
-  onMouseMove?: (e: MouseEvent) => void
-  onMouseOut?: (e: MouseEvent) => void
-  onMouseOver?: (e: MouseEvent) => void
-  onMouseUp?: (e: MouseEvent) => void
-  onRightClick?: (e: MouseEvent) => void
-  onClick?: (e: MouseEvent) => void
-  onDrag?: (e: MouseEvent) => void
-  onBoundsChanged?: () => void
+  options?: google.maps.RectangleOptions;
+  bounds?: Bounds;
+  draggable?: boolean;
+  editable?: boolean;
+  visible?: boolean;
+  clickable?: boolean;
+  onDblClick?: (e: MouseEvent) => void;
+  onDragEnd?: (e: MouseEvent) => void;
+  onDragStart?: (e: MouseEvent) => void;
+  onMouseDown?: (e: MouseEvent) => void;
+  onMouseMove?: (e: MouseEvent) => void;
+  onMouseOut?: (e: MouseEvent) => void;
+  onMouseOver?: (e: MouseEvent) => void;
+  onMouseUp?: (e: MouseEvent) => void;
+  onRightClick?: (e: MouseEvent) => void;
+  onClick?: (e: MouseEvent) => void;
+  onDrag?: (e: MouseEvent) => void;
+  onBoundsChanged?: () => void;
 }
 
 export class Rectangle extends PureComponent<RectangleProps, RectangleState> {

@@ -1,10 +1,7 @@
 /* global google */
 import { PureComponent, Children } from 'react'
 import { createPortal } from 'react-dom'
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 // @ts-ignore
@@ -20,22 +17,13 @@ const eventMap = {
 }
 
 const updaterMap = {
-  options (
-    instance: google.maps.InfoWindow,
-    options: google.maps.InfoWindowOptions
-  ) {
+  options (instance: google.maps.InfoWindow, options: google.maps.InfoWindowOptions) {
     instance.setOptions(options)
   },
-  position (
-    instance: google.maps.InfoWindow,
-    position: LatLng
-  ) {
+  position (instance: google.maps.InfoWindow, position: LatLng) {
     instance.setPosition(position)
   },
-  zIndex (
-    instance: google.maps.InfoWindow,
-    zIndex: number
-  ) {
+  zIndex (instance: google.maps.InfoWindow, zIndex: number) {
     instance.setZIndex(zIndex)
   }
 }
@@ -44,6 +32,7 @@ interface InfoWindowState {
   infoWindow?: google.maps.InfoWindow
 }
 
+//prettier-ignore
 interface InfoWindowProps {
   anchor?: google.maps.MVCObject;
   options?: google.maps.InfoWindowOptions;
@@ -60,16 +49,14 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
-  containerElement: HTMLElement;
+  containerElement: HTMLElement
 
   state: InfoWindowState = {
     infoWindow: null
   }
 
   componentDidMount = () => {
-    const infoWindow = new google.maps.InfoWindow(
-      this.props.options
-    )
+    const infoWindow = new google.maps.InfoWindow(this.props.options)
 
     this.containerElement = document.createElement('div')
 

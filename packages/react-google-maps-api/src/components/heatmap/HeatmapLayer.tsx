@@ -31,9 +31,10 @@ interface HeatmapLayerState {
   heatmapLayer?: google.maps.visualization.HeatmapLayer
 }
 
+//prettier-ignore
 interface HeatmapLayerProps {
-  data?: HeatmapLayerData
-  options?: google.maps.visualization.HeatmapLayerOptions
+  data?: HeatmapLayerData;
+  options?: google.maps.visualization.HeatmapLayerOptions;
 }
 
 export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerState> {

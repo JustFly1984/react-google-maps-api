@@ -22,13 +22,14 @@ interface GroundOverlayState {
   groundOverlay?: google.maps.GroundOverlay
 }
 
+//prettier-ignore
 interface GroundOverlayProps {
-  options?: google.maps.GroundOverlayOptions
-  opacity?: number
-  onDblClick?: (e: MouseEvent) => void
-  onClick?: (e: MouseEvent) => void
-  url?: string
-  bounds: google.maps.LatLngBounds
+  options?: google.maps.GroundOverlayOptions;
+  opacity?: number;
+  onDblClick?: (e: MouseEvent) => void;
+  onClick?: (e: MouseEvent) => void;
+  url?: string;
+  bounds: google.maps.LatLngBounds;
 }
 
 export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverlayState> {

@@ -65,6 +65,7 @@ interface GoogleMapState {
   map: google.maps.Map
 }
 
+//prettier-ignore
 interface GoogleMapProps {
   id: string;
   reuseSameInstance?: boolean;
@@ -105,7 +106,7 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
   static defaultProps: GoogleMapProps = {
     id: 'defaultMapId',
     reuseSameInstance: false,
-    onLoad: (map) => { }
+    onLoad: map => {}
   }
 
   state: GoogleMapState = {
@@ -121,10 +122,7 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
 
     const map = reuseSameInstance && restoreInstance(rest)
 
-    return (
-      map ||
-      new google.maps.Map(this.mapRef, this.props.options)
-    )
+    return map || new google.maps.Map(this.mapRef, this.props.options)
   }
 
   componentDidMount = () => {
@@ -176,32 +174,21 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
     const { map } = this.state
 
     return (
-      <div
-        id={id}
-        ref={this.getRef}
-        style={mapContainerStyle}
-        className={mapContainerClassName}
-      >
-        <MapContext.Provider
-          value={map}
-        >
-          {
-            map !== null
-              ? children
-              : null
-            }
-        </MapContext.Provider>
+      <div id={id} ref={this.getRef} style={mapContainerStyle} className={mapContainerClassName}>
+        <MapContext.Provider value={map}>{map !== null ? children : null}</MapContext.Provider>
       </div>
     )
   }
 
-  fitBounds = (bounds: Bounds, padding?: number | google.maps.Padding) => this.state.map.fitBounds(bounds, padding)
+  fitBounds = (bounds: Bounds, padding?: number | google.maps.Padding) =>
+    this.state.map.fitBounds(bounds, padding)
 
   panBy = (x: number, y: number) => this.state.map.panBy(x, y)
 
   panTo = (latLng: LatLng) => this.state.map.panTo(latLng)
 
-  panToBounds = (latLngBounds: Bounds, padding?: number | google.maps.Padding) => this.state.map.panToBounds(latLngBounds, padding)
+  panToBounds = (latLngBounds: Bounds, padding?: number | google.maps.Padding) =>
+    this.state.map.panToBounds(latLngBounds, padding)
 
   getBounds = () => this.state.map.getBounds()
 

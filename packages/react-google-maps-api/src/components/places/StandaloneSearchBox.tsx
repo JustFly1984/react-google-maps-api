@@ -14,30 +14,31 @@ const eventMap = {
 }
 
 const updaterMap = {
-  bounds (
-    instance: google.maps.places.SearchBox,
-    bounds: Bounds
-  ) {
+  bounds (instance: google.maps.places.SearchBox, bounds: Bounds) {
     instance.setBounds(bounds)
   }
 }
 
 interface StandaloneSearchBoxState {
-  searchBox?: google.maps.places.SearchBox;
+  searchBox?: google.maps.places.SearchBox
 }
 
+//prettier-ignore
 interface StandaloneSearchBoxProps {
   bounds?: Bounds;
   options?: google.maps.places.SearchBoxOptions;
   onPlacesChanged?: () => void;
 }
 
-class StandaloneSearchBox extends PureComponent<StandaloneSearchBoxProps, StandaloneSearchBoxState> {
+class StandaloneSearchBox extends PureComponent<
+  StandaloneSearchBoxProps,
+  StandaloneSearchBoxState
+  > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  containerElement: RefObject<HTMLDivElement>;
+  containerElement: RefObject<HTMLDivElement>
 
   state: StandaloneSearchBoxState = {
     searchBox: null
@@ -88,11 +89,7 @@ class StandaloneSearchBox extends PureComponent<StandaloneSearchBoxProps, Standa
     unregisterEvents(this.registeredEvents)
   }
 
-  render = () => (
-    <div ref={this.containerElement}>
-      { Children.only(this.props.children) }
-    </div>
-  )
+  render = () => <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
 
   getBounds = () => this.state.searchBox.getBounds()
 

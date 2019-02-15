@@ -50,26 +50,27 @@ interface PolylineState {
   polyline?: google.maps.Polyline
 }
 
+//prettier-ignore
 interface PolylineProps {
-  options: google.maps.PolylineOptions
-  draggable: boolean
-  editable: boolean
-  visible: boolean
+  options: google.maps.PolylineOptions;
+  draggable: boolean;
+  editable: boolean;
+  visible: boolean;
   path:
     | google.maps.MVCArray<google.maps.LatLng>
     | google.maps.LatLng[]
-    | google.maps.LatLngLiteral[]
-  onDblClick: (e: MouseEvent) => void
-  onDragEnd: (e: MouseEvent) => void
-  onDragStart: (e: MouseEvent) => void
-  onMouseDown: (e: MouseEvent) => void
-  onMouseMove: (e: MouseEvent) => void
-  onMouseOut: (e: MouseEvent) => void
-  onMouseOver: (e: MouseEvent) => void
-  onMouseUp: (e: MouseEvent) => void
-  onRightClick: (e: MouseEvent) => void
-  onClick: (e: MouseEvent) => void
-  onDrag: (e: MouseEvent) => void
+    | google.maps.LatLngLiteral[];
+  onDblClick: (e: MouseEvent) => void;
+  onDragEnd: (e: MouseEvent) => void;
+  onDragStart: (e: MouseEvent) => void;
+  onMouseDown: (e: MouseEvent) => void;
+  onMouseMove: (e: MouseEvent) => void;
+  onMouseOut: (e: MouseEvent) => void;
+  onMouseOver: (e: MouseEvent) => void;
+  onMouseUp: (e: MouseEvent) => void;
+  onRightClick: (e: MouseEvent) => void;
+  onClick: (e: MouseEvent) => void;
+  onDrag: (e: MouseEvent) => void;
 }
 
 export class Polyline extends PureComponent<PolylineProps, PolylineState> {

@@ -16,8 +16,9 @@ interface TrafficLayerState {
   trafficLayer?: google.maps.TrafficLayer
 }
 
+//prettier-ignore
 interface TrafficLayerProps {
-  options?: google.maps.TrafficLayerOptions
+  options?: google.maps.TrafficLayerOptions;
 }
 
 export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerState> {

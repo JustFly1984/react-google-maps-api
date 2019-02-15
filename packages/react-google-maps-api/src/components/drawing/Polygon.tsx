@@ -50,24 +50,25 @@ interface PolygonState {
   polygon?: google.maps.Polygon
 }
 
+//prettier-ignore
 interface PolygonProps {
-  options: google.maps.PolygonOptions
-  draggable: boolean
-  editable: boolean
-  visible: boolean
-  path: PolygonPath
-  paths: PolygonPaths
-  onDblClick: (e: MouseEvent) => void
-  onDragEnd: (e: MouseEvent) => void
-  onDragStart: (e: MouseEvent) => void
-  onMouseDown: (e: MouseEvent) => void
-  onMouseMove: (e: MouseEvent) => void
-  onMouseOut: (e: MouseEvent) => void
-  onMouseOver: (e: MouseEvent) => void
-  onMouseUp: (e: MouseEvent) => void
-  onRightClick: (e: MouseEvent) => void
-  onClick: (e: MouseEvent) => void
-  onDrag: (e: MouseEvent) => void
+  options: google.maps.PolygonOptions;
+  draggable: boolean;
+  editable: boolean;
+  visible: boolean;
+  path: PolygonPath;
+  paths: PolygonPaths;
+  onDblClick: (e: MouseEvent) => void;
+  onDragEnd: (e: MouseEvent) => void;
+  onDragStart: (e: MouseEvent) => void;
+  onMouseDown: (e: MouseEvent) => void;
+  onMouseMove: (e: MouseEvent) => void;
+  onMouseOut: (e: MouseEvent) => void;
+  onMouseOver: (e: MouseEvent) => void;
+  onMouseUp: (e: MouseEvent) => void;
+  onRightClick: (e: MouseEvent) => void;
+  onClick: (e: MouseEvent) => void;
+  onDrag: (e: MouseEvent) => void;
 }
 
 export class Polygon extends PureComponent<PolygonProps, PolygonState> {

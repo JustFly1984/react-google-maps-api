@@ -4,17 +4,11 @@ import { createPortal } from 'react-dom'
 //@ts-ignore
 import invariant from 'invariant' // Do wee really need this dependency?
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
-import {
-  getOffsetOverride,
-  getLayoutStyles
-} from './dom-helper'
+import { getOffsetOverride, getLayoutStyles } from './dom-helper'
 
 const eventMap = {}
 
@@ -24,6 +18,7 @@ interface OverlayViewState {
   overlayView?: google.maps.OverlayView
 }
 
+//prettier-ignore
 interface OverlayViewProps {
   mapPaneName: string;
   getPixelPositionOffset?: (offsetWidth: number, offsetHeight: number) => { x: number, y: number },
@@ -109,11 +104,7 @@ export class OverlayView extends PureComponent<OverlayViewProps, OverlayViewStat
 
   draw = () => {
     const { mapPaneName } = this.props
-    invariant(
-      !!mapPaneName,
-      `OverlayView requires props.mapPaneName but got %s`,
-      mapPaneName
-    )
+    invariant(!!mapPaneName, `OverlayView requires props.mapPaneName but got %s`, mapPaneName)
     const overlayView = this.state.overlayView
 
     if (!overlayView) {
@@ -155,7 +146,12 @@ export class OverlayView extends PureComponent<OverlayViewProps, OverlayViewStat
       ...getOffsetOverride(this.containerElement, this.props.getPixelPositionOffset)
     }
 
-    const layoutStyles = getLayoutStyles(mapCanvasProjection, offset, this.props.bounds, this.props.position)
+    const layoutStyles = getLayoutStyles(
+      mapCanvasProjection,
+      offset,
+      this.props.bounds,
+      this.props.position
+    )
 
     Object.assign(this.containerElement.style, layoutStyles)
   }
