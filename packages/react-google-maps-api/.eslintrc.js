@@ -44,7 +44,11 @@ module.exports = {
   },
   settings: {
     ecmascript: 6,
-    "import/resolver": "webpack",
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   },
   rules: {
     "ascii/valid-name": 2,
@@ -107,7 +111,7 @@ module.exports = {
     "import/named": 2,
     "import/namespace": 2,
     "import/export": 2,
-    "import/no-duplicates": 2,
+    "import/no-duplicates": 0,
     "import/imports-first": 2,
   },
   parserOptions: {

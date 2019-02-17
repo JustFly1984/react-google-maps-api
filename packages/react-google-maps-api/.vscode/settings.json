@@ -7,5 +7,6 @@
   "prettier.eslintIntegration": true,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "eslint.autoFixOnSave": true,
-  "prettier.printWidth": 50
+  "prettier.printWidth": 50,
+  "editor.wordWrap": "on"
 }

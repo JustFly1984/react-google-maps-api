@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib/",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "module": "es2015",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "es5",
+      "es6",
+      "es2015",
+      "es7",
+      "es2018"
+    ],
+    "jsx": "react",
+    "checkJs": false,
+    "skipLibCheck": true,
+    "declaration": true,
+  },
+  "files": [
+    "./src/index.ts"
+  ]
+}

@@ -8,7 +8,6 @@ import InputBoxApiKey from '../components/inpunbox-apikey'
 import CheckboxLoadscript from '../components/checkbox-loadscript'
 import SectionLanguage from '../components/section-language'
 
-import CheckboxFusion from '../components/checkbox-fusion'
 import CheckboxData from '../components/checkbox-data'
 import CheckboxDirections from '../components/checkbox-directions'
 import CheckboxHeatmap from '../components/checkbox-heatmap'
@@ -30,7 +29,13 @@ const IndexPage = ({ googleMapsApiKey, loadScriptChecked }) => (
       <p>Welcome to React Google Maps Light Example.</p>
 
       <p>
-          You can create new Google API key here: <a href='https://console.cloud.google.com/apis/credentials/key' alt='google api key'>https://console.cloud.google.com/apis/credentials/key</a>
+        You can create new Google API key here:{' '}
+        <a
+          href='https://console.cloud.google.com/apis/credentials/key'
+          alt='google api key'
+        >
+          https://console.cloud.google.com/apis/credentials/key
+        </a>
       </p>
     </section>
 
@@ -43,8 +48,6 @@ const IndexPage = ({ googleMapsApiKey, loadScriptChecked }) => (
     </div>
 
     <div>
-      <CheckboxFusion />
-
       <CheckboxData />
 
       <CheckboxDirections />
@@ -66,16 +69,7 @@ const IndexPage = ({ googleMapsApiKey, loadScriptChecked }) => (
       <CheckboxStandaloneSearchbox />
     </div>
 
-    {
-      (
-        loadScriptChecked &&
-        googleMapsApiKey.length >= 38
-      )
-        ? (
-          <GoogleMaps />
-        )
-        : null
-    }
+    {loadScriptChecked && googleMapsApiKey.length >= 38 ? <GoogleMaps /> : null}
   </Layout>
 )
 
@@ -89,6 +83,4 @@ const mapStateToProps = state => ({
   googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey'])
 })
 
-export default connect(
-  mapStateToProps
-)(IndexPage)
+export default connect(mapStateToProps)(IndexPage)

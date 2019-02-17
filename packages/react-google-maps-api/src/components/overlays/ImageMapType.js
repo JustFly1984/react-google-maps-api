@@ -1,17 +1,15 @@
 /* global google */
+// TODO: ???
 import { PureComponent } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
 import { ImageMapTypePropTypes } from '../../proptypes'
 
 const eventMap = {
-  onTilesLoaded: 'tilesloaded',
+  onTilesLoaded: 'tilesloaded'
 }
 
 const updaterMap = {
@@ -30,14 +28,7 @@ export class ImageMapType extends PureComponent {
   }
 
   componentDidMount = () => {
-    const imageMapType = new google.maps.ImageMapType(
-      Object.assign(
-        {
-          map: this.context
-        },
-        this.props.options
-      )
-    )
+    const imageMapType = new google.maps.ImageMapType(this.props.options)
 
     this.setState(
       () => ({
@@ -71,14 +62,12 @@ export class ImageMapType extends PureComponent {
 
   render = () => null
 
-  getOpacity = () =>
-    this.state.imageMapType.getOpacity()
+  getOpacity = () => this.state.imageMapType.getOpacity()
 
   getTile = (tileCoord, zoom, ownerDocument) =>
     this.state.imageMapType.getTile(tileCoord, zoom, ownerDocument)
 
-  releaseTile = tileDiv =>
-    this.state.imageMapType.releaseTile(tileDiv)
+  releaseTile = tileDiv => this.state.imageMapType.releaseTile(tileDiv)
 }
 
 export default ImageMapType
