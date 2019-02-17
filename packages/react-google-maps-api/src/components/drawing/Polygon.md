@@ -1,3 +1,5 @@
+# Polygon example
+
 ```jsx
 const { GoogleMap, LoadScript, Polygon } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;

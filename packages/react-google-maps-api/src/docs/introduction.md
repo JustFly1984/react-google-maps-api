@@ -1,3 +1,5 @@
+# Introduction
+
  *This library requires React v16.6 or later. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)*
 
 This is complete re-write of the (sadly unmaintained) `react-google-maps` library. We thank [tomchentw](https://github.com/tomchentw/) for his great work that made possible.
@@ -6,8 +8,7 @@ This is complete re-write of the (sadly unmaintained) `react-google-maps` librar
 
 It is written with Typescript and uses types defined in [this](https://www.npmjs.com/package/@types/googlemaps) project
 
-
-### How to use this documentation
+## How to use this documentation
 
 * Clicking on `PROPS & METHODS` will show you all available props & methods of a component.
 * Clicking on `CODE` will show you the code behind the live demo. You can edit it right here in the docs!
@@ -19,7 +20,6 @@ Once you have a key (if it is url restricted, make sure it allows this url), add
 [react-google-maps]: https://github.com/JustFly1984/react-google-maps-api
 [gmjsav3]: https://developers.google.com/maps/documentation/javascript/
 [react-styleguidist]: https://react-styleguidist.js.org/
-
 
 ```jsx
 const DocsApiKeyInput= require("./DocsApiKeyInput").default;

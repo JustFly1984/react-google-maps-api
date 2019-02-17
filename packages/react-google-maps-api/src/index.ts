@@ -16,20 +16,15 @@ export { default as KmlLayer } from './components/kml/KmlLayer'
 
 export { default as OverlayView } from './components/dom/OverlayView'
 
-// export { default as ImageMapType } from './components/overlays/ImageMapType'
 export { default as GroundOverlay } from './components/overlays/GroundOverlay'
 export { default as HeatmapLayer } from './components/heatmap/HeatmapLayer'
 
-// export { default as StreetViewPanorama } from './components/streetview/StreetViewPanorama'
-// export { default as StreetViewCoverageLayer } from './components/streetview/StreetViewCoverageLayer'
-// export { default as StreetViewService } from './components/streetview/StreetViewService'
+export { default as StreetViewPanorama } from './components/streetview/StreetViewPanorama'
+export { default as StreetViewCoverageLayer } from './components/streetview/StreetViewCoverageLayer'
+export { default as StreetViewService } from './components/streetview/StreetViewService'
 
 export { default as DirectionsService } from './components/directions/DirectionsService'
 export { default as DirectionsRenderer } from './components/directions/DirectionsRenderer'
 
 export { default as StandaloneSearchBox } from './components/places/StandaloneSearchBox'
 export { default as Autocomplete } from './components/places/Autocomplete'
-
-// export { default as InfoBox } from './components/addons/InfoBox'
-// export { default as MarkerCluster } from './components/addons/MarkerCluster'
-// export { default as MarkerWithLabel } from './components/addons/MarkerWithLabel'

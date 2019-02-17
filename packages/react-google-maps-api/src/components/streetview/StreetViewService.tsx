@@ -1,14 +1,10 @@
 /* global google */
-// TODO:
 import { PureComponent } from 'react'
 
 // TODO: next line is broken import
 import MapContext from '../../map-context'
 
-const StreetViewServicePropTypes = {}
-
 export class StreetViewService extends PureComponent {
-  static propTypes = StreetViewServicePropTypes
 
   static contextType = MapContext
 

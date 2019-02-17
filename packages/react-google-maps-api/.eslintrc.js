@@ -1,5 +1,5 @@
 module.exports = {
-  parser: "babel-eslint",
+  parser: "@typescript-eslint/parser",
   extends: [
     "plugin:you-dont-need-lodash-underscore/compatible",
     "eslint:recommended",
@@ -116,5 +116,10 @@ module.exports = {
   },
   parserOptions: {
     sourceType: "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "useJSXTextNode": true,
+    "project": "./tsconfig.json"
   },
 }

@@ -1,3 +1,5 @@
+# TrafficLayer example
+
 ```jsx
 const { GoogleMap, LoadScript, TrafficLayer } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;

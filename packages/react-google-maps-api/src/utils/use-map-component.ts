@@ -1,3 +1,4 @@
+/* global google */
 import {
   useState,
   useEffect,
@@ -20,9 +21,9 @@ export default function useMapComponent (props) {
   console.log({ context })
 
   if (!instance) {
-    console.log(props.className, new window.google.maps[props.className]())
+    console.log(props.className, new google.maps[props.className]())
 
-    tempInstance = new window.google.maps[props.className]()
+    tempInstance = new google.maps[props.className]()
 
     setInstance(tempInstance)
 

@@ -1,3 +1,5 @@
+# Marker example
+
 ```jsx
 const { GoogleMap, LoadScript, Marker } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;

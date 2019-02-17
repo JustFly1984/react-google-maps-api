@@ -1,3 +1,5 @@
+# Autocomplete example
+
 Look at the console.log to see search results
 
 ```jsx

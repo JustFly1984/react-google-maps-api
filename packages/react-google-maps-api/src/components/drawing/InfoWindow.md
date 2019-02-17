@@ -1,3 +1,5 @@
+# InfoWindow example
+
 ```jsx
 const { GoogleMap, LoadScript, InfoWindow } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;

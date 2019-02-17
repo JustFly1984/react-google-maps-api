@@ -1,3 +1,5 @@
+# BicyclingLayer example
+
 ```jsx
 const { GoogleMap, LoadScript, BicyclingLayer } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;

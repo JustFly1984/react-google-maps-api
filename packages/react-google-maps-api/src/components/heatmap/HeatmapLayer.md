@@ -1,3 +1,5 @@
+# HeatmapLayer example
+
 ```jsx
 const { GoogleMap, LoadScript, HeatmapLayer } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
