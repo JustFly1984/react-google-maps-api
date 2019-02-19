@@ -6,19 +6,14 @@ import { connect } from 'react-redux'
 import DataExample from '../examples/data-example'
 
 import {
-  mapBoxStyle,
-  mapHeaderStyle,
+  mapStyle,
   shapeExampleStyles
 } from '../components/styles'
 
 const SectionData = ({ data }) =>
   data
     ? (
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Data Google Map example
-        </h2>
-
+      <div style={mapStyle}>
         <DataExample
           styles={shapeExampleStyles}
         />

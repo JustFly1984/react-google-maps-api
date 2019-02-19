@@ -6,19 +6,14 @@ import { connect } from 'react-redux'
 import GroundOverlayExample from '../examples/ground-overlay-example'
 
 import {
-  mapBoxStyle,
-  mapHeaderStyle,
+  mapStyle,
   shapeExampleStyles
 } from '../components/styles'
 
 const SectionGround = ({ ground }) =>
   ground
     ? (
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-            Google Map with Ground Overlay
-        </h2>
-
+      <div style={mapStyle}>
         <GroundOverlayExample
           styles={shapeExampleStyles}
         />

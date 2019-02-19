@@ -6,19 +6,14 @@ import { connect } from 'react-redux'
 import DirectionsRendererExample from '../examples/directions-renderer-example'
 
 import {
-  mapBoxStyle,
-  mapHeaderStyle,
+  mapStyle,
   shapeExampleStyles
 } from '../components/styles'
 
 const SectionDirections = ({ directions }) =>
   directions
     ? (
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Directions Renderer Google Map example
-        </h2>
-
+      <div style={mapStyle}>
         <DirectionsRendererExample
           styles={shapeExampleStyles}
         />

@@ -6,19 +6,14 @@ import { connect } from 'react-redux'
 import StandaloneSearchboxExample from '../examples/standalone-searchbox-example'
 
 import {
-  mapBoxStyle,
-  mapHeaderStyle,
+  mapStyle,
   shapeExampleStyles
 } from './styles'
 
 const SectionStandaloneSearchbox = ({ standaloneSearchbox }) =>
   standaloneSearchbox
     ? (
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Standalone Searchbox Google Map example
-        </h2>
-
+      <div style={mapStyle}>
         <StandaloneSearchboxExample
           styles={shapeExampleStyles}
         />

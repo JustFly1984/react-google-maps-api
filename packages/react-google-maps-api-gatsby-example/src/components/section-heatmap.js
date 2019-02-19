@@ -6,19 +6,14 @@ import { connect } from 'react-redux'
 import HeatmapLayerExample from '../examples/heatmap-example'
 
 import {
-  mapBoxStyle,
-  mapHeaderStyle,
+  mapStyle,
   shapeExampleStyles
 } from '../components/styles'
 
 const SectionHeatmap = ({ heatmap }) =>
   heatmap
     ? (
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Heatmap Layer Google Map example
-        </h2>
-
+      <div style={mapStyle}>
         <HeatmapLayerExample
           styles={shapeExampleStyles}
         />

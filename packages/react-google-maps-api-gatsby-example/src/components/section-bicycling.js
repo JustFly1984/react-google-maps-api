@@ -6,19 +6,14 @@ import { connect } from 'react-redux'
 import BicyclingExample from '../examples/bicycling-example'
 
 import {
-  mapBoxStyle,
-  mapHeaderStyle,
+  mapStyle,
   shapeExampleStyles
 } from '../components/styles'
 
 const SectionBicycling = ({ bicycling }) =>
   bicycling
     ? (
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-        Google Map with Bicycling Layer
-        </h2>
-
+      <div style={mapStyle}>
         <BicyclingExample
           styles={shapeExampleStyles}
         />

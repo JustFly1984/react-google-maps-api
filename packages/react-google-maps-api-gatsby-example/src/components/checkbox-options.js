@@ -8,9 +8,10 @@ import { toggleOptions } from '../actions/app'
 const id = 'options'
 
 const CheckboxOptions = ({ onChange, value }) => (
-  <div>
+  <div className='custom-control custom-checkbox'>
     <input
       id={id}
+      className='custom-control-input'
       type='checkbox'
       onChange={onChange}
       value={value}
@@ -19,9 +20,10 @@ const CheckboxOptions = ({ onChange, value }) => (
     &nbsp;
 
     <label
+      className='custom-control-label'
       htmlFor={id}
     >
-      Google Map Options Example
+      Options
     </label>
   </div>
 )

@@ -6,19 +6,14 @@ import { connect } from 'react-redux'
 import TrafficExample from '../examples/traffic-example'
 
 import {
-  mapBoxStyle,
-  mapHeaderStyle,
+  mapStyle,
   shapeExampleStyles
 } from '../components/styles'
 
 const SectionTraffic = ({ traffic }) =>
   traffic
     ? (
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Traffic Layer Google Map example
-        </h2>
-
+      <div style={mapStyle}>
         <TrafficExample
           styles={shapeExampleStyles}
         />

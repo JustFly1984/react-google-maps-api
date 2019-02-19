@@ -2,74 +2,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Layout from '../components/layout'
+import Footer from '../components/footer'
 import { connect } from 'react-redux'
 
 import InputBoxApiKey from '../components/inpunbox-apikey'
-import CheckboxLoadscript from '../components/checkbox-loadscript'
 import SectionLanguage from '../components/section-language'
-
-import CheckboxData from '../components/checkbox-data'
-import CheckboxDirections from '../components/checkbox-directions'
-import CheckboxHeatmap from '../components/checkbox-heatmap'
-import CheckboxTraffic from '../components/checkbox-traffic'
-import CheckboxShapes from '../components/checkbox-shapes'
-import CheckboxDrawing from '../components/checkbox-drawing'
-import CheckboxBicycling from '../components/checkbox-bicycling'
-import CheckboxGround from '../components/checkbox-ground'
-import CheckboxOptions from '../components/checkbox-options'
-import CheckboxStandaloneSearchbox from '../components/checkbox-standalone-searchbox'
+import CheckboxLoadscript from '../components/checkbox-loadscript'
 
 import GoogleMaps from '../components/google-maps'
 
 const IndexPage = ({ googleMapsApiKey, loadScriptChecked }) => (
   <Layout>
-    <section>
-      <h1>Hello People!</h1>
+    <div className='container'>
+      <div className='row'>
+        <div className='col-lg-10 offset-lg-1'>
+          <h2 className='h4 mb-3'>Settings</h2>
+          <div className='card shadow-sm mb-5'>
+            <div className='card-body'>
+              <div>
+                <InputBoxApiKey />
 
-      <p>Welcome to React Google Maps Light Example.</p>
+                <p className='small'>You can create new Google API key here: <a href='https://console.cloud.google.com/apis/credentials/key' alt='google api key' target='_blank' rel='noopener noreferrer'>https://console.cloud.google.com/apis/credentials/key</a></p>
+              </div>
 
-      <p>
-        You can create new Google API key here:{' '}
-        <a
-          href='https://console.cloud.google.com/apis/credentials/key'
-          alt='google api key'
-        >
-          https://console.cloud.google.com/apis/credentials/key
-        </a>
-      </p>
-    </section>
+              <hr className='mb-4' />
 
-    <div>
-      <InputBoxApiKey />
+              <SectionLanguage />
 
-      <CheckboxLoadscript />
+              <hr className='mb-4' />
 
-      <SectionLanguage />
+              <CheckboxLoadscript />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {loadScriptChecked && googleMapsApiKey.length >= 38 ? <GoogleMaps /> : null}
     </div>
 
-    <div>
-      <CheckboxData />
-
-      <CheckboxDirections />
-
-      <CheckboxHeatmap />
-
-      <CheckboxTraffic />
-
-      <CheckboxShapes />
-
-      <CheckboxDrawing />
-
-      <CheckboxBicycling />
-
-      <CheckboxGround />
-
-      <CheckboxOptions />
-
-      <CheckboxStandaloneSearchbox />
-    </div>
-
-    {loadScriptChecked && googleMapsApiKey.length >= 38 ? <GoogleMaps /> : null}
+    <Footer />
   </Layout>
 )
 

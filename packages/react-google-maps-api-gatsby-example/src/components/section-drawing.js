@@ -6,19 +6,14 @@ import { connect } from 'react-redux'
 import DrawingManagerExample from '../examples/drawing-manager-example'
 
 import {
-  mapBoxStyle,
-  mapHeaderStyle,
+  mapStyle,
   shapeExampleStyles
 } from '../components/styles'
 
 const SectionDrawing = ({ drawing }) =>
   drawing
     ? (
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-        Google Map with DrawingManager
-        </h2>
-
+      <div style={mapStyle}>
         <DrawingManagerExample
           styles={shapeExampleStyles}
         />

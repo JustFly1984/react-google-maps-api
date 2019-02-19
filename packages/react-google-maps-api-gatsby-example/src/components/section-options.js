@@ -6,19 +6,14 @@ import { connect } from 'react-redux'
 import OptionsExample from '../examples/options-example'
 
 import {
-  mapBoxStyle,
-  mapHeaderStyle,
+  mapStyle,
   shapeExampleStyles
 } from './styles'
 
 const SectionOptions = ({ options }) =>
   options
     ? (
-      <div style={mapBoxStyle}>
-        <h2 style={mapHeaderStyle}>
-          Google Map with Options
-        </h2>
-
+      <div style={mapStyle}>
         <OptionsExample
           styles={shapeExampleStyles}
         />

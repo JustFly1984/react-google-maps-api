@@ -5,12 +5,13 @@ import { connect } from 'react-redux'
 
 import { toggleStandaloneSearchbox } from '../actions/app'
 
-const id = 'traffic'
+const id = 'standaloneSearchbox'
 
 const CheckboxStandaloneSearchbox = ({ onChange, value }) => (
-  <div>
+  <div className='custom-control custom-checkbox'>
     <input
       id={id}
+      className='custom-control-input'
       type='checkbox'
       onChange={onChange}
       value={value}
@@ -19,9 +20,10 @@ const CheckboxStandaloneSearchbox = ({ onChange, value }) => (
     &nbsp;
 
     <label
+      className='custom-control-label'
       htmlFor={id}
     >
-      StandaloneSearchbox Example
+      Searchbox
     </label>
   </div>
 )

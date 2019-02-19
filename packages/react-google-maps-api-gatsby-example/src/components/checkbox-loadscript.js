@@ -3,33 +3,29 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import { btnStyle } from '../components/styles'
+
 import { toggleLoadScript } from '../actions/app'
 
 const id = 'toggle-script'
 
-const CheckboxLoadscript = ({ checked, onChange }) => (
+const CheckboxLoadscript = ({ checked, onClick }) => (
   <div>
-    <input
+    <button
       id={id}
-      type='checkbox'
-      checked={checked}
-      onChange={onChange}
-    />
-
-    &nbsp;
-
-    <label
-      htmlFor={id}
+      className={checked ? 'btn btn-danger' : 'btn btn-primary'}
+      style={btnStyle}
+      onClick={onClick}
     >
-      {`Toggle <LoadScript />`}
-    </label>
+      { checked ? 'Unload Maps' : 'Load Maps'}
+    </button>
   </div>
 )
 
 CheckboxLoadscript.propTypes = {
   checked: PropTypes.bool.isRequired,
 
-  onChange: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -37,10 +33,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onChange: ({ target: { checked } }) => {
+  onClick: () => {
     dispatch(
       toggleLoadScript({
-        loadScriptChecked: checked
+        loadScriptChecked: true
       })
     )
   }
