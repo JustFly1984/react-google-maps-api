@@ -1,29 +1,35 @@
 /* global google */
-import { PureComponent, Children } from 'react'
-import { createPortal } from 'react-dom'
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import { PureComponent, Children } from "react"
+import { createPortal } from "react-dom"
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from "../../utils/helper"
 
-import MapContext from '../../map-context'
+import MapContext from "../../map-context"
 // @ts-ignore
-import invariant from 'invariant'
-import { LatLng } from '../../types'
+import invariant from "invariant"
+import { LatLng } from "../../types"
 
 const eventMap = {
-  onCloseClick: 'closeclick',
-  onContentChanged: 'content_changed',
-  onDomReady: 'domready',
-  onPositionChanged: 'position_changed',
-  onZindexChanged: 'zindex_changed'
+  onCloseClick: "closeclick",
+  onContentChanged: "content_changed",
+  onDomReady: "domready",
+  onPositionChanged: "position_changed",
+  onZindexChanged: "zindex_changed"
 }
 
 const updaterMap = {
-  options (instance: google.maps.InfoWindow, options: google.maps.InfoWindowOptions) {
+  options(
+    instance: google.maps.InfoWindow,
+    options: google.maps.InfoWindowOptions
+  ) {
     instance.setOptions(options)
   },
-  position (instance: google.maps.InfoWindow, position: LatLng) {
+  position(instance: google.maps.InfoWindow, position: LatLng) {
     instance.setPosition(position)
   },
-  zIndex (instance: google.maps.InfoWindow, zIndex: number) {
+  zIndex(instance: google.maps.InfoWindow, zIndex: number) {
     instance.setZIndex(zIndex)
   }
 }
@@ -32,20 +38,22 @@ interface InfoWindowState {
   infoWindow?: google.maps.InfoWindow
 }
 
-//prettier-ignore
 interface InfoWindowProps {
-  anchor?: google.maps.MVCObject;
-  options?: google.maps.InfoWindowOptions;
-  position: LatLng;
-  zIndex?: number;
-  onCloseClick?: () => void;
-  onDomReady?: () => void;
-  onContentChanged?: () => void;
-  onPositionChanged?: () => void;
-  onZindexChanged?: () => void;
+  anchor?: google.maps.MVCObject
+  options?: google.maps.InfoWindowOptions
+  position: LatLng
+  zIndex?: number
+  onCloseClick?: () => void
+  onDomReady?: () => void
+  onContentChanged?: () => void
+  onPositionChanged?: () => void
+  onZindexChanged?: () => void
 }
 
-export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> {
+export class InfoWindow extends PureComponent<
+  InfoWindowProps,
+  InfoWindowState
+> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -58,7 +66,7 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
   componentDidMount = () => {
     const infoWindow = new google.maps.InfoWindow(this.props.options)
 
-    this.containerElement = document.createElement('div')
+    this.containerElement = document.createElement("div")
 
     this.setState(
       () => ({
@@ -80,7 +88,7 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
     )
   }
 
-  componentDidUpdate (prevProps: InfoWindowProps) {
+  componentDidUpdate(prevProps: InfoWindowProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -101,7 +109,10 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
       ? createPortal(Children.only(this.props.children), this.containerElement)
       : null
 
-  open = (infoWindow: google.maps.InfoWindow, anchor: google.maps.MVCObject) => {
+  open = (
+    infoWindow: google.maps.InfoWindow,
+    anchor: google.maps.MVCObject
+  ) => {
     if (anchor) {
       infoWindow.open(this.context, anchor)
     } else if (infoWindow.getPosition()) {

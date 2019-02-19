@@ -1,20 +1,21 @@
-/* global google */
-import { PureComponent } from 'react'
+import { PureComponent } from "react"
 
 interface DirectionsServiceState {
   directionsService?: google.maps.DirectionsService
 }
 
-//prettier-ignore
 interface DirectionsServiceProps {
-  options?: google.maps.DirectionsRequest;
-  callback?: (result: google.maps.DirectionsResult, status: google.maps.DirectionsStatus) => void;
+  options?: google.maps.DirectionsRequest
+  callback?: (
+    result: google.maps.DirectionsResult,
+    status: google.maps.DirectionsStatus
+  ) => void
 }
 
 export class DirectionsService extends PureComponent<
   DirectionsServiceProps,
   DirectionsServiceState
-  > {
+> {
   state: DirectionsServiceState = {
     directionsService: null
   }
@@ -27,7 +28,10 @@ export class DirectionsService extends PureComponent<
         directionsService
       }),
       () => {
-        this.state.directionsService.route(this.props.options, this.props.callback)
+        this.state.directionsService.route(
+          this.props.options,
+          this.props.callback
+        )
       }
     )
   }

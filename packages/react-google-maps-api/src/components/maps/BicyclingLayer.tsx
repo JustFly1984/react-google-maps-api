@@ -1,7 +1,6 @@
-/* global google */
-import { PureComponent } from 'react'
+import { PureComponent } from "react"
 
-import MapContext from '../../map-context'
+import MapContext from "../../map-context"
 
 export class BicyclingLayer extends PureComponent {
   static contextType = MapContext

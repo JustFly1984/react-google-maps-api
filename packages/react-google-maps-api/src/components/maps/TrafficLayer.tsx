@@ -1,13 +1,18 @@
-/* global google */
-import { PureComponent } from 'react'
+import { PureComponent } from "react"
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
-import MapContext from '../../map-context'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from "../../utils/helper"
+import MapContext from "../../map-context"
 
 const eventMap = {}
 
 const updaterMap = {
-  options (instance: google.maps.TrafficLayer, options: google.maps.TrafficLayerOptions) {
+  options(
+    instance: google.maps.TrafficLayer,
+    options: google.maps.TrafficLayerOptions
+  ) {
     instance.setOptions(options)
   }
 }
@@ -16,12 +21,14 @@ interface TrafficLayerState {
   trafficLayer?: google.maps.TrafficLayer
 }
 
-//prettier-ignore
 interface TrafficLayerProps {
-  options?: google.maps.TrafficLayerOptions;
+  options?: google.maps.TrafficLayerOptions
 }
 
-export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerState> {
+export class TrafficLayer extends PureComponent<
+  TrafficLayerProps,
+  TrafficLayerState
+> {
   static contextType = MapContext
 
   state = {

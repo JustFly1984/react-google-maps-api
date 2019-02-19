@@ -1,23 +1,28 @@
-/* global google */
-import { PureComponent } from 'react'
+import { PureComponent } from "react"
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
-import MapContext from '../../map-context'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from "../../utils/helper"
+import MapContext from "../../map-context"
 
 const eventMap = {
-  onClick: 'click',
-  onDefaultViewportChanged: 'defaultviewport_changed',
-  onStatusChanged: 'status_changed'
+  onClick: "click",
+  onDefaultViewportChanged: "defaultviewport_changed",
+  onStatusChanged: "status_changed"
 }
 
 const updaterMap = {
-  options (instance: google.maps.KmlLayer, options: google.maps.KmlLayerOptions) {
+  options(
+    instance: google.maps.KmlLayer,
+    options: google.maps.KmlLayerOptions
+  ) {
     instance.setOptions(options)
   },
-  url (instance: google.maps.KmlLayer, url: string) {
+  url(instance: google.maps.KmlLayer, url: string) {
     instance.setUrl(url)
   },
-  zIndex (instance: google.maps.KmlLayer, zIndex: number) {
+  zIndex(instance: google.maps.KmlLayer, zIndex: number) {
     instance.setZIndex(zIndex)
   }
 }
@@ -26,14 +31,13 @@ interface KmlLayerState {
   kmlLayer?: google.maps.KmlLayer
 }
 
-//prettier-ignore
 interface KmlLayerProps {
-  options?: google.maps.KmlLayerOptions;
-  url?: string;
-  zIndex?: number;
-  onClick?: (e: google.maps.MouseEvent) => void;
-  onDefaultViewportChanged?: () => void;
-  onStatusChanged?: () => void;
+  options?: google.maps.KmlLayerOptions
+  url?: string
+  zIndex?: number
+  onClick?: (e: google.maps.MouseEvent) => void
+  onDefaultViewportChanged?: () => void
+  onStatusChanged?: () => void
 }
 
 export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
