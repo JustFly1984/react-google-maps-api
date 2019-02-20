@@ -8,7 +8,7 @@ import {
 } from '../actions/app'
 
 const InputBoxApiKey = ({ value, onChange }) => (
-  <div>
+  <div className='form-group mb-2'>
     <label
       htmlFor='apikey'
     >
@@ -18,7 +18,7 @@ const InputBoxApiKey = ({ value, onChange }) => (
     <input
       id='apikey'
       type='text'
-      className='form-control mb-2'
+      className='form-control'
       onChange={onChange}
       value={value}
     />

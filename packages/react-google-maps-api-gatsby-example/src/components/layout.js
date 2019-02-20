@@ -6,7 +6,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import Header from './header'
 
 import './bootstrap.css'
-import './bootstrap-custom-forms.css'
+import './styles.css'
 
 const meta = [
   { name: 'description', content: 'Sample' },
@@ -35,9 +35,7 @@ const Layout = ({ children }) => (
 
         <Header siteTitle={data.site.siteMetadata.title} />
 
-        <div>
-          {children}
-        </div>
+        {children}
       </div>
     )}
   />

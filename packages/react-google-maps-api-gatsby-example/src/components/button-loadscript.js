@@ -9,12 +9,13 @@ import { toggleLoadScript } from '../actions/app'
 
 const id = 'toggle-script'
 
-const CheckboxLoadscript = ({ checked, onClick }) => (
+const ButtonLoadscript = ({ checked, onClick }) => (
   <div>
     <button
       id={id}
-      className={checked ? 'btn btn-danger' : 'btn btn-primary'}
+      className={`btn btn-load ${checked ? 'btn-danger' : 'btn-primary'}`}
       style={btnStyle}
+      type='button'
       onClick={onClick}
     >
       { checked ? 'Unload Maps' : 'Load Maps'}
@@ -22,9 +23,8 @@ const CheckboxLoadscript = ({ checked, onClick }) => (
   </div>
 )
 
-CheckboxLoadscript.propTypes = {
+ButtonLoadscript.propTypes = {
   checked: PropTypes.bool.isRequired,
-
   onClick: PropTypes.func.isRequired
 }
 
@@ -45,4 +45,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CheckboxLoadscript)
+)(ButtonLoadscript)

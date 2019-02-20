@@ -17,8 +17,6 @@ const CheckboxHeatmap = ({ onChange, value }) => (
       value={value}
     />
 
-    &nbsp;
-
     <label
       className='custom-control-label'
       htmlFor={id}

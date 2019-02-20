@@ -7,7 +7,7 @@ import { toggleStandaloneSearchbox } from '../actions/app'
 
 const id = 'standaloneSearchbox'
 
-const CheckboxStandaloneSearchbox = ({ onChange, value }) => (
+const CheckboxSearchbox = ({ onChange, value }) => (
   <div className='custom-control custom-checkbox'>
     <input
       id={id}
@@ -16,8 +16,6 @@ const CheckboxStandaloneSearchbox = ({ onChange, value }) => (
       onChange={onChange}
       value={value}
     />
-
-    &nbsp;
 
     <label
       className='custom-control-label'
@@ -28,7 +26,7 @@ const CheckboxStandaloneSearchbox = ({ onChange, value }) => (
   </div>
 )
 
-CheckboxStandaloneSearchbox.propTypes = {
+CheckboxSearchbox.propTypes = {
   value: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired
 }
@@ -50,4 +48,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CheckboxStandaloneSearchbox)
+)(CheckboxSearchbox)

@@ -3,21 +3,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import OptionsExample from '../examples/options-example'
+import ExampleOptions from '../examples/example-options'
 
-import {
-  mapStyle,
-  shapeExampleStyles
-} from './styles'
+import { shapeExampleStyles } from './styles'
 
 const SectionOptions = ({ options }) =>
   options
     ? (
-      <div style={mapStyle}>
-        <OptionsExample
-          styles={shapeExampleStyles}
-        />
-      </div>
+      <ExampleOptions
+        styles={shapeExampleStyles}
+      />
     )
     : null
 

@@ -1,9 +1,7 @@
 import React from 'react'
 
-import { footerStyle } from '../components/styles'
-
 const Footer = () => (
-  <footer style={footerStyle}>
+  <footer className='footer'>
     <div className='container'>
       <div className='row'>
         <div className='col-lg-10 offset-lg-1'>

@@ -3,21 +3,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import GroundOverlayExample from '../examples/ground-overlay-example'
+import ExampleGround from '../examples/example-ground'
 
-import {
-  mapStyle,
-  shapeExampleStyles
-} from '../components/styles'
+import { shapeExampleStyles } from './styles'
 
 const SectionGround = ({ ground }) =>
   ground
     ? (
-      <div style={mapStyle}>
-        <GroundOverlayExample
-          styles={shapeExampleStyles}
-        />
-      </div>
+      <ExampleGround
+        styles={shapeExampleStyles}
+      />
     )
     : null
 

@@ -5,39 +5,24 @@ import Layout from '../components/layout'
 import Footer from '../components/footer'
 import { connect } from 'react-redux'
 
-import InputBoxApiKey from '../components/inpunbox-apikey'
-import SectionLanguage from '../components/section-language'
-import CheckboxLoadscript from '../components/checkbox-loadscript'
-
+import Settings from '../components/settings'
 import GoogleMaps from '../components/google-maps'
+import NoMaps from '../components/no-maps'
 
 const IndexPage = ({ googleMapsApiKey, loadScriptChecked }) => (
   <Layout>
     <div className='container'>
       <div className='row'>
         <div className='col-lg-10 offset-lg-1'>
-          <h2 className='h4 mb-3'>Settings</h2>
-          <div className='card shadow-sm mb-5'>
-            <div className='card-body'>
-              <div>
-                <InputBoxApiKey />
+          <h2 className='h5 mb-3'>Settings</h2>
 
-                <p className='small'>You can create new Google API key here: <a href='https://console.cloud.google.com/apis/credentials/key' alt='google api key' target='_blank' rel='noopener noreferrer'>https://console.cloud.google.com/apis/credentials/key</a></p>
-              </div>
+          <Settings />
 
-              <hr className='mb-4' />
+          <h2 className='h5 mb-3'>Examples</h2>
 
-              <SectionLanguage />
-
-              <hr className='mb-4' />
-
-              <CheckboxLoadscript />
-            </div>
-          </div>
+          {loadScriptChecked && googleMapsApiKey.length >= 38 ? <GoogleMaps /> : <NoMaps />}
         </div>
       </div>
-
-      {loadScriptChecked && googleMapsApiKey.length >= 38 ? <GoogleMaps /> : null}
     </div>
 
     <Footer />

@@ -3,25 +3,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import StandaloneSearchboxExample from '../examples/standalone-searchbox-example'
+import ExampleSearchbox from '../examples/example-searchbox'
 
-import {
-  mapStyle,
-  shapeExampleStyles
-} from './styles'
+import { shapeExampleStyles } from './styles'
 
-const SectionStandaloneSearchbox = ({ standaloneSearchbox }) =>
+const SectionSearchbox = ({ standaloneSearchbox }) =>
   standaloneSearchbox
     ? (
-      <div style={mapStyle}>
-        <StandaloneSearchboxExample
-          styles={shapeExampleStyles}
-        />
-      </div>
+      <ExampleSearchbox
+        styles={shapeExampleStyles}
+      />
     )
     : null
 
-SectionStandaloneSearchbox.propTypes = {
+SectionSearchbox.propTypes = {
   standaloneSearchbox: PropTypes.bool.isRequired
 }
 
@@ -31,4 +26,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps
-)(SectionStandaloneSearchbox)
+)(SectionSearchbox)

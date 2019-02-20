@@ -17,7 +17,7 @@ import CheckboxDrawing from '../components/checkbox-drawing'
 import CheckboxBicycling from '../components/checkbox-bicycling'
 import CheckboxGround from '../components/checkbox-ground'
 import CheckboxOptions from '../components/checkbox-options'
-import CheckboxStandaloneSearchbox from '../components/checkbox-standalone-searchbox'
+import CheckboxSearchbox from '../components/checkbox-searchbox'
 
 import SectionData from './section-data'
 import SectionDirections from './section-directions'
@@ -28,7 +28,7 @@ import SectionDrawing from './section-drawing'
 import SectionBicycling from './section-bicycling'
 import SectionGround from './section-ground'
 import SectionOptions from './section-options'
-import SectionStandaloneSearchbox from './section-standalone-searchbox'
+import SectionSearchbox from './section-searchbox'
 
 const Loading = <div style={loadingStyle} />
 
@@ -37,102 +37,98 @@ const googleMapsLibraries = ['drawing', 'visualization', 'places']
 const loaderId = uuid()
 
 const GoogleMaps = ({ googleMapsApiKey, language }) => (
-  <div className='row'>
-    <div className='col-lg-10 offset-lg-1'>
-      <h2 className='h4 mb-3'>Examples</h2>
+  <div>
+    <LoadScript
+      id={loaderId}
+      googleMapsApiKey={googleMapsApiKey}
+      language={language}
+      region={'EN'}
+      version={'weekly'}
+      onLoad={() => console.log('script loaded')}
+      loadingElement={Loading}
+      libraries={googleMapsLibraries}
+      preventGoogleFontsLoading
+    >
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxData />
 
-      <LoadScript
-        id={loaderId}
-        googleMapsApiKey={googleMapsApiKey}
-        language={language}
-        region={'EN'}
-        version={'weekly'}
-        onLoad={() => console.log('script loaded')}
-        loadingElement={Loading}
-        libraries={googleMapsLibraries}
-        preventGoogleFontsLoading
-      >
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxData />
-
-            <SectionData />
-          </div>
+          <SectionData />
         </div>
+      </div>
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxDirections />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxDirections />
 
-            <SectionDirections />
-          </div>
+          <SectionDirections />
         </div>
+      </div>
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxHeatmap />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxHeatmap />
 
-            <SectionHeatmap />
-          </div>
+          <SectionHeatmap />
         </div>
+      </div>
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxTraffic />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxTraffic />
 
-            <SectionTraffic />
-          </div>
+          <SectionTraffic />
         </div>
+      </div>
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxShapes />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxShapes />
 
-            <SectionShapes />
-          </div>
+          <SectionShapes />
         </div>
+      </div>
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxDrawing />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxDrawing />
 
-            <SectionDrawing />
-          </div>
+          <SectionDrawing />
         </div>
+      </div>
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxBicycling />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxBicycling />
 
-            <SectionBicycling />
-          </div>
+          <SectionBicycling />
         </div>
+      </div>
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxGround />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxGround />
 
-            <SectionGround />
-          </div>
+          <SectionGround />
         </div>
+      </div>
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxOptions />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxOptions />
 
-            <SectionOptions />
-          </div>
+          <SectionOptions />
         </div>
+      </div>
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxStandaloneSearchbox />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxSearchbox />
 
-            <SectionStandaloneSearchbox />
-          </div>
+          <SectionSearchbox />
         </div>
-      </LoadScript>
-    </div>
+      </div>
+    </LoadScript>
   </div>
 )
 

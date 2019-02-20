@@ -3,21 +3,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import TrafficExample from '../examples/traffic-example'
+import ExampleTraffic from '../examples/example-traffic'
 
-import {
-  mapStyle,
-  shapeExampleStyles
-} from '../components/styles'
+import { shapeExampleStyles } from './styles'
 
 const SectionTraffic = ({ traffic }) =>
   traffic
     ? (
-      <div style={mapStyle}>
-        <TrafficExample
-          styles={shapeExampleStyles}
-        />
-      </div>
+      <ExampleTraffic
+        styles={shapeExampleStyles}
+      />
     )
     : null
 

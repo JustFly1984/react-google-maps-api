@@ -3,21 +3,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import DrawingManagerExample from '../examples/drawing-manager-example'
+import ExampleDrawing from '../examples/example-drawing'
 
-import {
-  mapStyle,
-  shapeExampleStyles
-} from '../components/styles'
+import { shapeExampleStyles } from './styles'
 
 const SectionDrawing = ({ drawing }) =>
   drawing
     ? (
-      <div style={mapStyle}>
-        <DrawingManagerExample
-          styles={shapeExampleStyles}
-        />
-      </div>
+      <ExampleDrawing
+        styles={shapeExampleStyles}
+      />
     )
     : null
 

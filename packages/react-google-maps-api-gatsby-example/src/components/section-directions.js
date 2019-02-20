@@ -3,21 +3,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import DirectionsRendererExample from '../examples/directions-renderer-example'
+import ExampleDirections from '../examples/example-directions'
 
-import {
-  mapStyle,
-  shapeExampleStyles
-} from '../components/styles'
+import { shapeExampleStyles } from './styles'
 
 const SectionDirections = ({ directions }) =>
   directions
     ? (
-      <div style={mapStyle}>
-        <DirectionsRendererExample
-          styles={shapeExampleStyles}
-        />
-      </div>
+      <ExampleDirections
+        styles={shapeExampleStyles}
+      />
     )
     : null
 
