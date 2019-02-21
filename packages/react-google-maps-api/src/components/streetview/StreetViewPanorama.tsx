@@ -7,8 +7,6 @@ import {
 
 import MapContext from "../../map-context"
 
-import { LatLng } from "../../types"
-
 const eventMap = {
   onCloseClick: "closeclick",
   onPanoChanged: "pano_changed",
@@ -50,7 +48,10 @@ const updaterMap = {
   pano(instance: google.maps.StreetViewPanorama, pano: string) {
     instance.setPano(pano)
   },
-  position(instance: google.maps.StreetViewPanorama, position: LatLng) {
+  position(
+    instance: google.maps.StreetViewPanorama,
+    position: google.maps.LatLng | google.maps.LatLngLiteral
+  ) {
     instance.setPosition(position)
   },
   pov(

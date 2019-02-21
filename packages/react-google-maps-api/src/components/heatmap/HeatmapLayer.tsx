@@ -8,14 +8,18 @@ import {
 } from "../../utils/helper"
 
 import MapContext from "../../map-context"
-import { HeatmapLayerData } from "../../types"
 
 const eventMap = {}
 
 const updaterMap = {
   data(
     instance: google.maps.visualization.HeatmapLayer,
-    data: HeatmapLayerData
+    data:
+      | google.maps.MVCArray<
+          google.maps.LatLng | google.maps.visualization.WeightedLocation
+        >
+      | google.maps.LatLng[]
+      | google.maps.visualization.WeightedLocation[]
   ) {
     instance.setData(data)
   },
@@ -37,7 +41,12 @@ interface HeatmapLayerState {
 }
 
 interface HeatmapLayerProps {
-  data?: HeatmapLayerData
+  data?:
+    | google.maps.MVCArray<
+        google.maps.LatLng | google.maps.visualization.WeightedLocation
+      >
+    | google.maps.LatLng[]
+    | google.maps.visualization.WeightedLocation[]
   options?: google.maps.visualization.HeatmapLayerOptions
 }
 

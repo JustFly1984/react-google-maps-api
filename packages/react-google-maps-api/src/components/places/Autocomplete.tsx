@@ -7,7 +7,6 @@ import {
 } from "../../utils/helper"
 
 import MapContext from "../../map-context"
-import { Bounds } from "../../types"
 import * as invariant from "invariant"
 
 const eventMap = {
@@ -15,7 +14,10 @@ const eventMap = {
 }
 
 const updaterMap = {
-  bounds(instance: google.maps.places.Autocomplete, bounds: Bounds) {
+  bounds(
+    instance: google.maps.places.Autocomplete,
+    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
+  ) {
     instance.setBounds(bounds)
   },
   restrictions(
@@ -47,7 +49,7 @@ interface AutocompleteState {
 }
 
 interface AutocompleteProps {
-  bounds?: Bounds
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
   restrictions?: google.maps.places.ComponentRestrictions
   fields?: string[]
   options?: google.maps.places.AutocompleteOptions

@@ -9,7 +9,6 @@ import {
 import MapContext from "../../map-context"
 // @ts-ignore
 import invariant from "invariant"
-import { LatLng } from "../../types"
 
 const eventMap = {
   onCloseClick: "closeclick",
@@ -26,7 +25,10 @@ const updaterMap = {
   ) {
     instance.setOptions(options)
   },
-  position(instance: google.maps.InfoWindow, position: LatLng) {
+  position(
+    instance: google.maps.InfoWindow,
+    position: google.maps.LatLng | google.maps.LatLngLiteral
+  ) {
     instance.setPosition(position)
   },
   zIndex(instance: google.maps.InfoWindow, zIndex: number) {
@@ -41,7 +43,7 @@ interface InfoWindowState {
 interface InfoWindowProps {
   anchor?: google.maps.MVCObject
   options?: google.maps.InfoWindowOptions
-  position: LatLng
+  position: google.maps.LatLng | google.maps.LatLngLiteral
   zIndex?: number
   onCloseClick?: () => void
   onDomReady?: () => void

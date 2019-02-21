@@ -7,7 +7,6 @@ import {
 } from "../../utils/helper"
 
 import MapContext from "../../map-context"
-import { PolygonPath, PolygonPaths } from "../../types"
 
 const eventMap = {
   onClick: "click",
@@ -36,11 +35,26 @@ const updaterMap = {
   options(instance: google.maps.Polygon, options: google.maps.PolygonOptions) {
     instance.setOptions(options)
   },
-  path(instance: google.maps.Polygon, path: PolygonPath) {
+  path(
+    instance: google.maps.Polygon,
+    path:
+      | google.maps.MVCArray<google.maps.LatLng>
+      | google.maps.LatLng[]
+      | google.maps.LatLngLiteral[]
+  ) {
     instance.setPath(path)
   },
 
-  paths(instance: google.maps.Polygon, paths: PolygonPaths) {
+  paths(
+    instance: google.maps.Polygon,
+    paths:
+      | google.maps.MVCArray<google.maps.LatLng>
+      | google.maps.MVCArray<google.maps.MVCArray<google.maps.LatLng>>
+      | google.maps.LatLng[]
+      | google.maps.LatLng[][]
+      | google.maps.LatLngLiteral[]
+      | google.maps.LatLngLiteral[][]
+  ) {
     instance.setPaths(paths)
   },
 
@@ -58,8 +72,17 @@ interface PolygonProps {
   draggable: boolean
   editable: boolean
   visible: boolean
-  path: PolygonPath
-  paths: PolygonPaths
+  path:
+    | google.maps.MVCArray<google.maps.LatLng>
+    | google.maps.LatLng[]
+    | google.maps.LatLngLiteral[]
+  paths:
+    | google.maps.MVCArray<google.maps.LatLng>
+    | google.maps.MVCArray<google.maps.MVCArray<google.maps.LatLng>>
+    | google.maps.LatLng[]
+    | google.maps.LatLng[][]
+    | google.maps.LatLngLiteral[]
+    | google.maps.LatLngLiteral[][]
   onDblClick: (e: MouseEvent) => void
   onDragEnd: (e: MouseEvent) => void
   onDragStart: (e: MouseEvent) => void

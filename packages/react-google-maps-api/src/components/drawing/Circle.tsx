@@ -6,7 +6,6 @@ import {
 } from "../../utils/helper"
 
 import MapContext from "../../map-context"
-import { LatLng } from "../../types"
 
 const eventMap = {
   onCenterChanged: "center_changed",
@@ -54,7 +53,7 @@ interface CircleState {
 
 interface CircleProps {
   options: google.maps.CircleOptions
-  center: LatLng
+  center: google.maps.LatLng | google.maps.LatLngLiteral
   radius: number
   draggable: boolean
   editable: boolean

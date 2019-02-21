@@ -1,4 +1,3 @@
-/* global google */
 import { PureComponent } from "react"
 
 import {
@@ -7,7 +6,6 @@ import {
 } from "../../utils/helper"
 
 import MapContext from "../../map-context"
-import { LatLng } from "../../types"
 
 const eventMap = {
   onAnimationChanged: "animation_changed",
@@ -64,7 +62,10 @@ const updaterMap = {
   options(instance: google.maps.Marker, options: google.maps.MarkerOptions) {
     instance.setOptions(options)
   },
-  position(instance: google.maps.Marker, position: LatLng) {
+  position(
+    instance: google.maps.Marker,
+    position: google.maps.LatLng | google.maps.LatLngLiteral
+  ) {
     instance.setPosition(position)
   },
   shape(instance: google.maps.Marker, shape: google.maps.MarkerShape) {
@@ -94,7 +95,7 @@ interface MarkerProps {
   icon?: string | google.maps.Icon | google.maps.Symbol
   label?: string | google.maps.MarkerLabel
   opacity?: number
-  position: LatLng
+  position: google.maps.LatLng | google.maps.LatLngLiteral
   shape?: google.maps.MarkerShape
   title?: string
   visible?: boolean

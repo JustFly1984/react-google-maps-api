@@ -9,14 +9,16 @@ import {
 } from "../../utils/helper"
 
 import MapContext from "../../map-context"
-import { Bounds } from "../../types"
 
 const eventMap = {
   onPlacesChanged: "places_changed"
 }
 
 const updaterMap = {
-  bounds(instance: google.maps.places.SearchBox, bounds: Bounds) {
+  bounds(
+    instance: google.maps.places.SearchBox,
+    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
+  ) {
     instance.setBounds(bounds)
   }
 }
@@ -26,7 +28,7 @@ interface StandaloneSearchBoxState {
 }
 
 interface StandaloneSearchBoxProps {
-  bounds?: Bounds
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
   options?: google.maps.places.SearchBoxOptions
   onPlacesChanged?: () => void
 }
