@@ -75,7 +75,8 @@ export class Autocomplete extends PureComponent<
 
     invariant(
       google.maps.places,
-      'Did you include "libraries=places" in the URL?'
+      'Did you include "libraries=places" in the URL?',
+      "sdfs"
     )
     this.containerElement = createRef()
   }

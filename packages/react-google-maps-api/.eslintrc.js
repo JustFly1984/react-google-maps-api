@@ -2,15 +2,15 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
     'plugin:you-dont-need-lodash-underscore/compatible',
-    'eslint:recommended',
+    //'eslint:recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:react/recommended',
     'plugin:react-perf/recommended',
-    'standard',
+    //'standard',
     'standard-react',
     'plugin:jsx-a11y/recommended',
-    //'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint/eslint-plugin
+    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint/eslint-plugin
     'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
     'plugin:prettier/recommended', // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
     "prettier/react",
@@ -81,7 +81,6 @@ module.exports = {
     'no-restricted-globals': 2,
     'no-use-before-define': 2,
     'func-names': 1,
-    'no-unused-vars': 2,
     'guard-for-in': 2,
     'no-restricted-syntax': 2,
 
@@ -116,7 +115,11 @@ module.exports = {
     'import/export': 2,
     'import/no-duplicates': 0,
     'import/imports-first': 2,
-    "prettier/prettier": ["error", {trailingComma: "none", semi: false, singleQoute: true, printWidth: 80, tabWidth: 2}],
+    "prettier/prettier": ["error", {trailingComma: "none", semi: false, singleQoute: true, printWidth: 80, tabWidth: 2, parser: "typescript"}],
+    // @typescript-eslint rule overrides
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/no-explicit-any": 0,
   },
   parserOptions: {
     ecmaVersion: 2018,

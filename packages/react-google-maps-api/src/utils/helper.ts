@@ -1,5 +1,4 @@
 /* eslint-disable filenames/match-regex */
-/* global google */
 import { reduce } from "./reduce"
 import { forEach } from "./foreach"
 
@@ -54,13 +53,12 @@ export function registerEvents(
 
   return registeredList
 }
+function unregisterEvent(registered: google.maps.MapsEventListener) {
+  google.maps.event.removeListener(registered)
+}
 
 export function unregisterEvents(events: google.maps.MapsEventListener[] = []) {
   events.map(unregisterEvent)
-}
-
-function unregisterEvent(registered: google.maps.MapsEventListener) {
-  google.maps.event.removeListener(registered)
 }
 
 export function applyUpdatersToPropsAndRegisterEvents({

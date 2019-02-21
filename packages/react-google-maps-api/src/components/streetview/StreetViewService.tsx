@@ -1,6 +1,5 @@
 import { PureComponent } from "react"
 
-// TODO: next line is broken import
 import MapContext from "../../map-context"
 
 export class StreetViewService extends PureComponent {
