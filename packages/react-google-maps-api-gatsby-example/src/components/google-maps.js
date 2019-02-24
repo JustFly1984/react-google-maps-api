@@ -6,8 +6,6 @@ import { connect } from 'react-redux'
 
 import { LoadScript } from '@react-google-maps/api'
 
-import { loadingStyle } from './styles'
-
 import CheckboxData from '../components/checkbox-data'
 import CheckboxDirections from '../components/checkbox-directions'
 import CheckboxHeatmap from '../components/checkbox-heatmap'
@@ -30,7 +28,9 @@ import SectionGround from './section-ground'
 import SectionOptions from './section-options'
 import SectionSearchbox from './section-searchbox'
 
-const Loading = <div style={loadingStyle} />
+import styles from './styles.module.css'
+
+const Loading = <div className={styles.loadingStyle} />
 
 const googleMapsLibraries = ['drawing', 'visualization', 'places']
 

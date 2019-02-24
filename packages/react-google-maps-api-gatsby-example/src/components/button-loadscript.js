@@ -3,8 +3,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { btnStyle } from '../components/styles'
-
 import { toggleLoadScript } from '../actions/app'
 
 const id = 'toggle-script'
@@ -14,7 +12,6 @@ const ButtonLoadscript = ({ checked, onClick }) => (
     <button
       id={id}
       className={`btn btn-load ${checked ? 'btn-danger' : 'btn-primary'}`}
-      style={btnStyle}
       type='button'
       onClick={onClick}
     >
