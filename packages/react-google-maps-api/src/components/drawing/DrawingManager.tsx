@@ -1,29 +1,31 @@
-/* global google */
-import { PureComponent } from 'react'
+import { PureComponent } from "react"
 // @ts-ignore
-import invariant from 'invariant'
+import invariant from "invariant"
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents
+} from "../../utils/helper"
 
-import MapContext from '../../map-context'
+import MapContext from "../../map-context"
 
 const eventMap = {
-  onCircleComplete: 'circlecomplete',
-  onMarkerComplete: 'markercomplete',
-  onOverlayComplete: 'overlaycomplete',
-  ondrawingManagerComplete: 'drawingManagercomplete',
-  onPolylineComplete: 'polylinecomplete',
-  onRectangleComplete: 'rectanglecomplete'
+  onCircleComplete: "circlecomplete",
+  onMarkerComplete: "markercomplete",
+  onOverlayComplete: "overlaycomplete",
+  ondrawingManagerComplete: "drawingManagercomplete",
+  onPolylineComplete: "polylinecomplete",
+  onRectangleComplete: "rectanglecomplete"
 }
 
 const updaterMap = {
-  drawingMode (
+  drawingMode(
     instance: google.maps.drawing.DrawingManager,
     drawingMode: google.maps.drawing.OverlayType | null
   ) {
     instance.setDrawingMode(drawingMode)
   },
-  options (
+  options(
     instance: google.maps.drawing.DrawingManager,
     options: google.maps.drawing.DrawingManagerOptions
   ) {
@@ -35,19 +37,21 @@ interface DrawingManagerState {
   drawingManager?: google.maps.drawing.DrawingManager
 }
 
-//prettier-ignore
 interface DrawingManagerProps {
-  options?: google.maps.drawing.DrawingManagerOptions;
-  drawingMode?: google.maps.drawing.OverlayType | null;
-  onCircleComplete?: (circle: google.maps.Circle) => void;
-  onMarkerComplete?: (marker: google.maps.Marker) => void;
-  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void;
-  onPolygonComplete?: (polygon: google.maps.Polygon) => void;
-  onPolylineComplete?: (polyline: google.maps.Polyline) => void;
-  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void;
+  options?: google.maps.drawing.DrawingManagerOptions
+  drawingMode?: google.maps.drawing.OverlayType | null
+  onCircleComplete?: (circle: google.maps.Circle) => void
+  onMarkerComplete?: (marker: google.maps.Marker) => void
+  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void
+  onPolygonComplete?: (polygon: google.maps.Polygon) => void
+  onPolylineComplete?: (polyline: google.maps.Polyline) => void
+  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void
 }
 
-export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingManagerState> {
+export class DrawingManager extends PureComponent<
+  DrawingManagerProps,
+  DrawingManagerState
+> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -56,10 +60,13 @@ export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingMa
     drawingManager: null
   }
 
-  constructor (props: DrawingManagerProps) {
+  constructor(props: DrawingManagerProps) {
     super(props)
 
-    invariant(google.maps.drawing, 'Did you include "libraries=drawing" in the URL?')
+    invariant(
+      google.maps.drawing,
+      'Did you include "libraries=drawing" in the URL?'
+    )
   }
 
   componentDidMount = () => {

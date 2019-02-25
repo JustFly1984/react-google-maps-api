@@ -4,31 +4,36 @@ export const preventGoogleFonts = () => {
     // roboto font download
     if (
       element.href &&
-      element.href.indexOf('https://fonts.googleapis.com/css?family=Roboto') === 0
+      element.href.indexOf("https://fonts.googleapis.com/css?family=Roboto") ===
+        0
     ) {
       return true
     }
     // roboto style elements
     if (
-      element.tagName.toLowerCase() === 'style' &&
+      element.tagName.toLowerCase() === "style" &&
       element.styleSheet &&
       element.styleSheet.cssText &&
-      element.styleSheet.cssText.replace('\r\n', '').indexOf('.gm-style') === 0
+      element.styleSheet.cssText.replace("\r\n", "").indexOf(".gm-style") === 0
     ) {
-      element.styleSheet.cssText = ''
+      element.styleSheet.cssText = ""
       return true
     }
     // roboto style elements for other browsers
     if (
-      element.tagName.toLowerCase() === 'style' &&
+      element.tagName.toLowerCase() === "style" &&
       element.innerHTML &&
-      element.innerHTML.replace('\r\n', '').indexOf('.gm-style') === 0
+      element.innerHTML.replace("\r\n", "").indexOf(".gm-style") === 0
     ) {
-      element.innerHTML = ''
+      element.innerHTML = ""
       return true
     }
     // when google tries to add empty style
-    if (element.tagName.toLowerCase() === 'style' && !element.styleSheet && !element.innerHTML) {
+    if (
+      element.tagName.toLowerCase() === "style" &&
+      !element.styleSheet &&
+      !element.innerHTML
+    ) {
       return true
     }
 
@@ -37,7 +42,7 @@ export const preventGoogleFonts = () => {
 
   // we override these methods only for one particular head element
   // default methods for other elements are not affected
-  const head = document.getElementsByTagName('head')[0]
+  const head = document.getElementsByTagName("head")[0]
 
   const insertBefore = head.insertBefore
 

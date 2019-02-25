@@ -1,5 +1,3 @@
-import { LatLng } from './../types'
-/* global google */
 const clearChildren = (node: HTMLElement) => {
   if (node) {
     while (node.firstChild) {
@@ -18,11 +16,11 @@ const getHiddenMapContainer = (id: string) => {
   let element = document.getElementById(hiddenMapContainer)
 
   if (!element) {
-    element = document.createElement('div')
+    element = document.createElement("div")
 
     element.id = hiddenMapContainer
 
-    element.style.display = 'none'
+    element.style.display = "none"
 
     document.body.appendChild(element)
   }
@@ -37,10 +35,10 @@ export const restoreInstance = ({
   mapContainerStyle,
   options
 }: {
-  id: string;
-  zoom?: number;
-  center?: LatLng;
-  mapContainerStyle?: any;
+  id: string
+  zoom?: number
+  center?: google.maps.LatLng | google.maps.LatLngLiteral
+  mapContainerStyle?: any
   options?: google.maps.MapOptions
 }) => {
   const map: google.maps.Map = window[getMapInstanceId(id)]

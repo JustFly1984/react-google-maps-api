@@ -1,22 +1,18 @@
-/* global google */
-import { PureComponent } from 'react'
+import { PureComponent } from "react"
 
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from '../../utils/helper'
+} from "../../utils/helper"
 
-import MapContext from '../../map-context'
+import MapContext from "../../map-context"
 
 const eventMap = {}
 
 const updaterMap = {
-  map (
-    instance: google.maps.StreetViewCoverageLayer,
-    map: google.maps.Map
-  ) {
+  map(instance: google.maps.StreetViewCoverageLayer, map: google.maps.Map) {
     instance.setMap(map)
-  },
+  }
 }
 
 interface StreetViewCoverageLayerState {
@@ -27,7 +23,10 @@ interface StreetViewCoverageLayerProps {
   // TODO:
 }
 
-export class StreetViewCoverageLayer extends PureComponent<{}, StreetViewCoverageLayerProps> {
+export class StreetViewCoverageLayer extends PureComponent<
+  {},
+  StreetViewCoverageLayerProps
+> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -78,8 +77,7 @@ export class StreetViewCoverageLayer extends PureComponent<{}, StreetViewCoverag
 
   render = () => null
 
-  getMap = () =>
-    this.state.streetViewCoverageLayer.getMap()
+  getMap = () => this.state.streetViewCoverageLayer.getMap()
 }
 
 export default StreetViewCoverageLayer

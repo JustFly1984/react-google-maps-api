@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { Component, RefObject, createRef, ReactNode } from 'react'
+import * as React from "react"
+import { Component, RefObject, createRef, ReactNode } from "react"
 
-import { injectScript } from './utils/injectscript'
-import { preventGoogleFonts } from './utils/prevent-google-fonts'
+import { injectScript } from "./utils/injectscript"
+import { preventGoogleFonts } from "./utils/prevent-google-fonts"
 
-import { isBrowser } from './utils/isbrowser'
+import { isBrowser } from "./utils/isbrowser"
 
 let cleaningUp = false
 
@@ -39,7 +39,7 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
 
   check: RefObject<HTMLDivElement>
 
-  constructor (props: LoadScriptProps) {
+  constructor(props: LoadScriptProps) {
     super(props)
 
     this.state = {
@@ -49,11 +49,11 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     this.check = createRef()
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (isBrowser) {
       // @ts-ignore
       if (window.google && !cleaningUp) {
-        console.error('google api is already presented')
+        console.error("google api is already presented")
         return
       }
 
@@ -61,7 +61,7 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     }
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     if (isBrowser && prevProps.language !== this.props.language) {
       this.cleanup()
       // TODO: refactor to use gDSFP
@@ -80,7 +80,7 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (isBrowser) {
       this.cleanup()
 
@@ -123,25 +123,28 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     }
 
     Array.prototype.slice
-      .call(document.getElementsByTagName('script'))
-      .filter((script: HTMLScriptElement) => script.src.includes('maps.googleapis'))
+      .call(document.getElementsByTagName("script"))
+      .filter((script: HTMLScriptElement) =>
+        script.src.includes("maps.googleapis")
+      )
       .forEach((script: HTMLScriptElement) => {
         script.parentNode.removeChild(script)
       })
 
     Array.prototype.slice
-      .call(document.getElementsByTagName('link'))
+      .call(document.getElementsByTagName("link"))
       .filter(
         (link: HTMLLinkElement) =>
-          link.href === 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans'
+          link.href ===
+          "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans"
       )
       .forEach((link: HTMLLinkElement) => {
         link.parentNode.removeChild(link)
       })
 
     Array.prototype.slice
-      .call(document.getElementsByTagName('style'))
-      .filter((style: HTMLStyleElement) => style.innerText.includes('.gm-'))
+      .call(document.getElementsByTagName("style"))
+      .filter((style: HTMLStyleElement) => style.innerText.includes(".gm-"))
       .forEach((style: HTMLStyleElement) => {
         style.parentNode.removeChild(style)
       })
@@ -165,7 +168,7 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     injectScript({
       id,
       url: `https://maps.googleapis.com/maps/api/js?v=${version}&key=${googleMapsApiKey}&language=${language}&region=${region}${
-        libraries ? `&libraries=${libraries.join(',')}` : ''
+        libraries ? `&libraries=${libraries.join(",")}` : ""
       }`
     })
       .then(() => {
@@ -186,13 +189,13 @@ googleMapsApiKey: ${this.props.googleMapsApiKey}
 language: ${this.props.language}
 region: ${this.props.region}
 version: ${this.props.version}
-libraries: ${(this.props.libraries || []).join(',')}
+libraries: ${(this.props.libraries || []).join(",")}
 Otherwise it is a Network issues.
 `)
       })
   }
 
-  render () {
+  render() {
     return (
       <div ref={this.check}>
         {this.state.loaded ? this.props.children : this.props.loadingElement}
