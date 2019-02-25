@@ -4,5 +4,5 @@ export const mapContainerStyle = {
 }
 
 export const shapeExampleStyles = {
-  container: mapContainerStyle,
+  container: mapContainerStyle
 }
