@@ -103,7 +103,15 @@ export class StreetViewPanorama extends PureComponent<
       () => ({
         streetViewPanorama
       }),
-      () => {}
+      () => {
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.streetViewPanorama
+        })
+      }
     )
   }
 
