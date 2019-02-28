@@ -106,8 +106,8 @@ export class OverlayView extends PureComponent<
     //@ts-ignore
     this.state.overlayView.preventMapHitsAndGesturesFrom(element)
 
-  //@ts-ignore
   preventMapHitsFrom = (element: HTMLElement) =>
+    //@ts-ignore
     this.state.overlayView.preventMapHitsFrom(element)
 
   draw = () => {
