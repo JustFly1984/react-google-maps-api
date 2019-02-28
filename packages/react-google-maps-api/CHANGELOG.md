@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.1 Additional component support
+
+** StreetViewPanorama
+** StreetViewService
+
 ## 1.1.0
 
 ** Re-write in Typescript

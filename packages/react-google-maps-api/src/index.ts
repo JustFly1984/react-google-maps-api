@@ -23,9 +23,6 @@ export {
   default as StreetViewPanorama
 } from "./components/streetview/StreetViewPanorama"
 export {
-  default as StreetViewCoverageLayer
-} from "./components/streetview/StreetViewCoverageLayer"
-export {
   default as StreetViewService
 } from "./components/streetview/StreetViewService"
 
