@@ -2,7 +2,18 @@ import { PureComponent } from "react"
 
 import MapContext from "../../map-context"
 
-export class StreetViewService extends PureComponent {
+interface StreetViewServiceProps {
+  onLoad: (streetViewService: google.maps.StreetViewService) => void
+}
+
+interface StreetViewServiceState {
+  streetViewService?: google.maps.StreetViewService
+}
+
+export class StreetViewService extends PureComponent<
+  StreetViewServiceProps,
+  StreetViewServiceState
+> {
   static contextType = MapContext
 
   state = {
@@ -12,14 +23,27 @@ export class StreetViewService extends PureComponent {
   componentDidMount = () => {
     const streetViewService = new google.maps.StreetViewService()
 
-    this.setState(() => ({
-      streetViewService
-    }))
+    this.setState(
+      () => ({
+        streetViewService
+      }),
+      () => {
+        this.props.onLoad(this.state.streetViewService)
+      }
+    )
   }
 
   render = () => null
 
-  getPanorama = () => this.state.streetViewService.getPanorama()
+  getPanorama = (
+    request:
+      | google.maps.StreetViewLocationRequest
+      | google.maps.StreetViewPanoRequest,
+    callback: (
+      data: google.maps.StreetViewPanoramaData,
+      status: google.maps.StreetViewStatus
+    ) => void
+  ) => this.state.streetViewService.getPanorama(request, callback)
 }
 
 export default StreetViewService
