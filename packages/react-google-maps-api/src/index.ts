@@ -5,6 +5,8 @@ export { default as BicyclingLayer } from "./components/maps/BicyclingLayer"
 
 export { default as DrawingManager } from "./components/drawing/DrawingManager"
 export { default as Marker } from "./components/drawing/Marker"
+export { default as MarkerClusterer } from "./components/addons/MarkerClusterer"
+
 export { default as InfoWindow } from "./components/drawing/InfoWindow"
 export { default as Polyline } from "./components/drawing/Polyline"
 export { default as Polygon } from "./components/drawing/Polygon"
