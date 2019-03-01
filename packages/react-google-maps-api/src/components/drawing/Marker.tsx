@@ -100,6 +100,8 @@ interface MarkerProps {
   title?: string
   visible?: boolean
   zIndex?: number
+  clusterer?: MarkerClusterer
+  noClustererRedraw?: boolean
   onClick?: (e: MouseEvent) => void
   onClickableChanged?: () => void
   onCursorChanged?: () => void
@@ -133,11 +135,18 @@ export class Marker extends PureComponent<MarkerProps, MarkerState> {
   }
 
   componentDidMount = () => {
-    const marker = new google.maps.Marker({
+    const markerOptions = {
       ...this.props.options,
-      map: this.context,
+      ...(this.props.clusterer ? {} : { map: this.context }),
       position: this.props.position
-    })
+    }
+    const marker = new google.maps.Marker(markerOptions)
+
+    if (this.props.clusterer) {
+      this.props.clusterer.addMarker(marker, !!this.props.noClustererRedraw)
+    } else {
+      marker.setMap(this.context)
+    }
 
     this.setState(
       () => ({
@@ -170,7 +179,14 @@ export class Marker extends PureComponent<MarkerProps, MarkerState> {
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
 
-    this.state.marker && this.state.marker.setMap(null)
+    if (this.props.clusterer) {
+      this.props.clusterer.removeMarker(
+        this.state.marker,
+        !!this.props.noClustererRedraw
+      )
+    } else {
+      this.state.marker && this.state.marker.setMap(null)
+    }
   }
 
   render = () => (this.props.children ? this.props.children : null)
