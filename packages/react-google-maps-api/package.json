@@ -66,6 +66,7 @@
     "docs:build": "npx styleguidist build"
   },
   "dependencies": {
+    "@types/googlemaps": "3.30.16",
     "google-maps-infobox": "2.0.0",
     "invariant": "2.2.4",
     "marker-clusterer-plus": "2.1.4",
@@ -80,7 +81,6 @@
   "devDependencies": {
     "@types/acorn": "4.0.5",
     "@types/eslint": "4.16.6",
-    "@types/googlemaps": "3.30.16",
     "@types/invariant": "2.2.29",
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.8.4",
