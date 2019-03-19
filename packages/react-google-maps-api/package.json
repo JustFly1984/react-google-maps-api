@@ -73,7 +73,8 @@
     "@types/react": "16.8.7",
     "google-maps-infobox": "2.0.0",
     "invariant": "2.2.4",
-    "marker-clusterer-plus": "2.1.4"
+    "marker-clusterer-plus": "2.1.4",
+    "react-styleguidist": "9.0.4"
   },
   "peerDependencies": {
     "react": "^16.6.3",
@@ -113,7 +114,6 @@
     "react": "16.8.4",
     "react-docgen-typescript": "1.12.3",
     "react-dom": "16.8.4",
-    "react-styleguidist": "9.0.4",
     "rimraf": "2.6.3",
     "typescript": "3.3.3333",
     "webpack": "4.29.6"
