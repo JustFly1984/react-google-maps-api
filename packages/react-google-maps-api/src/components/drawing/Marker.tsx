@@ -8,7 +8,7 @@ import {
 import MapContext from "../../map-context"
 
 // @ts-ignore
-import MarkerClusterer from "markerclustererplus"
+import MarkerClusterer from "marker-clusterer-plus"
 
 const eventMap = {
   onAnimationChanged: "animation_changed",

@@ -20,7 +20,7 @@
     "@babel/polyfill": "7.2.5",
     "@babel/runtime": "7.3.4",
     "@hot-loader/react-dom": "16.8.4",
-    "@react-google-maps/api": "^1.2.0-alpha.0",
+    "@react-google-maps/api": "1.2.0-alpha.0",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
@@ -115,5 +115,5 @@
     "type": "git",
     "url": "https://github.com/gatsbyjs/gatsby-starter-default"
   },
-  "gitHead": "68d989b6d74f31c8f6782d481f8de016cf079b11"
+  "gitHead": "7349bce4e50c99b19d03b42767961c882c4e9e0c"
 }

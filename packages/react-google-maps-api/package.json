@@ -73,7 +73,7 @@
     "@types/react": "16.8.7",
     "google-maps-infobox": "2.0.0",
     "invariant": "2.2.4",
-    "markerclustererplus": "2.1.4"
+    "marker-clusterer-plus": "2.1.4"
   },
   "peerDependencies": {
     "react": "^16.6.3",
@@ -118,5 +118,5 @@
     "typescript": "3.3.3333",
     "webpack": "4.29.6"
   },
-  "gitHead": "68d989b6d74f31c8f6782d481f8de016cf079b11"
+  "gitHead": "7349bce4e50c99b19d03b42767961c882c4e9e0c"
 }

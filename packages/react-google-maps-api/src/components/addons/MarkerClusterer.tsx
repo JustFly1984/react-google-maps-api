@@ -9,8 +9,13 @@ import {
 
 import MapContext from "../../map-context"
 
-// @ts-ignore
-import MarkerClusterer from "markerclustererplus"
+import MarkerClusterer, {
+  ClusterIconStyle,
+  Cluster,
+  MarkerClustererOptions,
+  Calculator
+  // @ts-ignore
+} from "marker-clusterer-plus"
 
 const eventMap = {
   onClick: "click",
