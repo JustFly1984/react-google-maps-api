@@ -66,24 +66,13 @@
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
   },
   "dependencies": {
+    "@typescript-eslint/parser": "1.4.2",
+    "@typescript-eslint/eslint-plugin": "1.4.2",
     "@types/babel-types": "7.0.6",
     "@types/googlemaps": "3.30.19",
     "@types/invariant": "2.2.29",
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.8.7",
-    "google-maps-infobox": "2.0.0",
-    "invariant": "2.2.4",
-    "marker-clusterer-plus": "2.1.4",
-    "react-styleguidist": "9.0.4"
-  },
-  "peerDependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "1.4.2",
-    "@typescript-eslint/parser": "1.4.2",
-    "acorn": "6.1.1",
     "awesome-typescript-loader": "5.2.1",
     "eslint": "5.15.3",
     "eslint-config-prettier": "4.1.0",
@@ -109,14 +98,25 @@
     "eslint-plugin-react-perf": "3.1.0",
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.4.0",
-    "husky": "1.3.1",
+    "google-maps-infobox": "2.0.0",
+    "invariant": "2.2.4",
+    "marker-clusterer-plus": "2.1.4",
     "prettier": "1.16.4",
     "react": "16.8.4",
-    "react-docgen-typescript": "1.12.3",
     "react-dom": "16.8.4",
-    "rimraf": "2.6.3",
+    "react-docgen-typescript": "1.12.3",
+    "react-styleguidist": "9.0.4",
     "typescript": "3.3.3333",
     "webpack": "4.29.6"
+  },
+  "peerDependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  },
+  "devDependencies": {
+    "acorn": "6.1.1",
+    "husky": "1.3.1",
+    "rimraf": "2.6.3"
   },
   "gitHead": "7349bce4e50c99b19d03b42767961c882c4e9e0c"
 }
