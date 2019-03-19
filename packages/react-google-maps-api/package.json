@@ -86,7 +86,6 @@
     "@typescript-eslint/parser": "1.4.2",
     "acorn": "6.1.1",
     "awesome-typescript-loader": "5.2.1",
-    "babel-loader": "^8.0.5",
     "eslint": "5.15.3",
     "eslint-config-prettier": "4.1.0",
     "eslint-config-standard": "12.0.0",

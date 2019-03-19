@@ -23,11 +23,6 @@ const config = {
         exclude: /node-modules/,
         loader: 'ts-loader',
       },
-      {
-        test: /\.jsx?$/,
-        exclude: /node-modules/,
-        loader: 'babel-loader',
-      },
     ],
   },
   resolve: {
