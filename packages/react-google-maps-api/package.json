@@ -62,7 +62,7 @@
     "publish": "npm run build && npm publish .",
     "publish:next": "npm run build && npm publish . --tag next",
     "docs:dev": "npx styleguidist server",
-    "docs:build": "styleguidist build",
+    "docs:build": "npx styleguidist build",
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
   },
   "dependencies": {
