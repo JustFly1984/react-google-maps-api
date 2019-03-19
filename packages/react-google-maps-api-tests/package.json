@@ -1,0 +1,36 @@
+{
+  "name": "react-google-maps-api-tests",
+  "version": "1.0.0",
+  "description": "Tests for the react-google-maps-api package",
+  "author": "Uri Klar <uriklar@gmail.com>",
+  "homepage": "https://github.com/JustFly1984/react-google-maps-api#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustFly1984/react-google-maps-api.git"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development"
+  },
+  "bugs": {
+    "url": "https://github.com/JustFly1984/react-google-maps-api/issues"
+  },
+  "devDependencies": {
+    "cypress": "^3.2.0",
+    "webpack": "^4.29.6",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "@react-google-maps-api": "file:../react-google-maps-api"
+  }
+}
