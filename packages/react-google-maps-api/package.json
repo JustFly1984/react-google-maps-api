@@ -81,10 +81,12 @@
     "react-dom": "^16.6.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.4",
     "@typescript-eslint/eslint-plugin": "1.4.2",
     "@typescript-eslint/parser": "1.4.2",
     "acorn": "6.1.1",
     "awesome-typescript-loader": "5.2.1",
+    "babel-loader": "^8.0.5",
     "eslint": "5.15.3",
     "eslint-config-prettier": "4.1.0",
     "eslint-config-standard": "12.0.0",
@@ -115,6 +117,7 @@
     "react-docgen-typescript": "1.12.3",
     "react-dom": "16.8.4",
     "rimraf": "2.6.3",
+    "ts-loader": "^5.3.3",
     "typescript": "3.3.3333",
     "webpack": "4.29.6"
   },
