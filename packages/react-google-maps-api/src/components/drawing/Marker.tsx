@@ -7,6 +7,9 @@ import {
 
 import MapContext from "../../map-context"
 
+// @ts-ignore
+import MarkerClusterer from "markerclustererplus"
+
 const eventMap = {
   onAnimationChanged: "animation_changed",
   onClick: "click",
@@ -100,6 +103,8 @@ interface MarkerProps {
   title?: string;
   visible?: boolean;
   zIndex?: number;
+  clusterer?: MarkerClusterer;
+  noClustererRedraw?: boolean;
   onClick?: (e: MouseEvent) => void;
   onClickableChanged?: () => void;
   onCursorChanged?: () => void;
@@ -134,18 +139,24 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
   }
 
   componentDidMount = () => {
-    const marker = new google.maps.Marker(
-      typeof this.props.options === 'object'
+    const markerOptions = typeof this.props.options === 'object'
         ? {
           ...this.props.options,
-          map: this.context,
+          ...(this.props.clusterer ? {} : { map: this.context }),
           position: this.props.position
         }
         : {
-          map: this.context,
+          ...(this.props.clusterer ? {} : { map: this.context }),
           position: this.props.position
         }
-      )
+
+    const marker = new google.maps.Marker(markerOptions)
+
+    if (this.props.clusterer) {
+      this.props.clusterer.addMarker(marker, !!this.props.noClustererRedraw)
+    } else {
+      marker.setMap(this.context)
+    }
 
     this.setState(
       () => ({
@@ -170,24 +181,39 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
   }
 
   componentDidUpdate = (prevProps: MarkerProps) => {
-    unregisterEvents(this.registeredEvents)
+    if (this.state.marker !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.marker
-    })
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.marker
+      })
+    }
   }
 
   componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+    if (this.state.marker !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.state.marker && this.state.marker.setMap(null)
+      if (this.props.clusterer) {
+        this.props.clusterer.removeMarker(
+          this.state.marker,
+          !!this.props.noClustererRedraw
+        )
+      } else {
+        this.state.marker && this.state.marker.setMap(null)
+      }
+    }
   }
 
-  render = () => (this.props.children ? this.props.children : (<></>))
+  render = () => (
+    this.props.children
+      ? this.props.children
+      : null
+  )
 }
 
 export default Marker

@@ -48,7 +48,14 @@
   resolved "https://registry.yarnpkg.com/@types/babel-types/-/babel-types-7.0.6.tgz#a7cfaaeee96e90c4c54da0e580aaff3f4cffacac"
   integrity sha512-8zYZyy2kgwBXdz2j8Ix7LOghGiZbOiHf6vqmmBX1r76FdAzVNv7cODyJTEglUWiOdRnXh0s/o58neUwv5vaitQ==
 
-"@types/googlemaps@3.30.19":
+"@types/google-maps@*":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@types/google-maps/-/google-maps-3.2.0.tgz#804a3ae9ac9265b4e0d1508b5b9b894867974f82"
+  integrity sha1-gEo66aySZbTg0VCLW5uJSGeXT4I=
+  dependencies:
+    "@types/googlemaps" "*"
+
+"@types/googlemaps@*", "@types/googlemaps@3.30.19":
   version "3.30.19"
   resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.30.19.tgz#359c025e244490b0775826fb216bed093fd66b16"
   integrity sha512-9uzg5jC6FRyAsMrhOLnUbblyN1xbcOVnqecQZxrnCDxTKssn4lwk0K4EWsw/sw8cJX32MFRMivyAT8dX/JBatg==
@@ -62,6 +69,13 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
+
+"@types/markerclustererplus@^2.1.33":
+  version "2.1.33"
+  resolved "https://registry.yarnpkg.com/@types/markerclustererplus/-/markerclustererplus-2.1.33.tgz#0542a2fabdf46fa474a3de00df5b0b399f5694a5"
+  integrity sha512-ZDxsLUp8BmK9MVZZeQVDDzVrEXgRL0021AQcfXqfreFhdfZ9+PS0P6o4nZBvoIVYTmGSBemdCdI6mL6hf9yWvg==
+  dependencies:
+    "@types/google-maps" "*"
 
 "@types/node@*":
   version "11.11.3"
@@ -3769,6 +3783,11 @@ markdown-to-jsx@^6.9.1:
   dependencies:
     prop-types "^15.6.2"
     unquote "^1.1.0"
+
+markerclustererplus@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/markerclustererplus/-/markerclustererplus-2.1.4.tgz#901225180dd5d5fc0827753a18eee35afcf9c4f7"
+  integrity sha1-kBIlGA3V1fwIJ3U6GO7jWvz5xPc=
 
 md5.js@^1.3.4:
   version "1.3.5"

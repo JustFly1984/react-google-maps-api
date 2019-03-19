@@ -1,9 +1,10 @@
 # Changelog
 
-## 1.1.1 Additional component support
+## 1.1.1-alpha Additional component support
 
 ** StreetViewPanorama
 ** StreetViewService
+** MarkerClusterer
 
 ## 1.1.0
 

@@ -26,7 +26,8 @@
     "types": [
       "googlemaps",
       "react",
-      "invariant"
+      "invariant",
+      "markerclustererplus"
     ],
     "outDir": "./lib/",
     "declaration": true,

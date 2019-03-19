@@ -169,7 +169,7 @@ export class Data extends React.PureComponent<DataProps, DataState> {
   }
 
   render () {
-    return null
+    return (<></>)
   }
 }
 
