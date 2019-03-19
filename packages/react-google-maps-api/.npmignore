@@ -9,4 +9,5 @@ tsconfig.json
 yarn.lock
 package-lock.json
 dist/
+styleguide/
 node_modules/
