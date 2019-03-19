@@ -59,7 +59,7 @@ class WithApiKey extends Component {
       {
         this.state.apiKey !== ''
           ? this.props.children(this.state.apiKey)
-          : null
+          : (<></>)
       }
     </>
   )

@@ -20,7 +20,11 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
       console.log('onClick args: ', args)
     }}
   >
-    <BicyclingLayer />
+    <BicyclingLayer
+      onLoad={bicyclingLayer => {
+        console.log('bicyclingLayer: ', bicyclingLayer)
+      }}
+    />
   </GoogleMap>
 </ScriptLoaded>
 ```

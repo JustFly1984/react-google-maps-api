@@ -7,7 +7,7 @@ module.exports = {
     const name = path.basename(componentPath, '.tsx')
     return `import { ${name} } from '@react-google-maps/api';`
   },
-  showUsage: true,
+  usageMode: 'expand',
   webpackConfig: {
     module: {
       rules: [

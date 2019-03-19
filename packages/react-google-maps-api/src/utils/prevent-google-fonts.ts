@@ -1,21 +1,26 @@
 // Preventing the Google Maps libary from downloading an extra font
 export const preventGoogleFonts = () => {
-  const isRobotoStyle = element => {
+  const isRobotoStyle = (element: HTMLElement) => {
     // roboto font download
     if (
-      element.href &&
-      element.href.indexOf("https://fonts.googleapis.com/css?family=Roboto") ===
-        0
+      (element as HTMLLinkElement).href &&
+      (element as HTMLLinkElement).href.indexOf(
+        "https://fonts.googleapis.com/css?family=Roboto"
+      ) === 0
     ) {
       return true
     }
     // roboto style elements
     if (
       element.tagName.toLowerCase() === "style" &&
+      // @ts-ignore
       element.styleSheet &&
+      // @ts-ignore
       element.styleSheet.cssText &&
+      // @ts-ignore
       element.styleSheet.cssText.replace("\r\n", "").indexOf(".gm-style") === 0
     ) {
+      // @ts-ignore
       element.styleSheet.cssText = ""
       return true
     }
@@ -31,6 +36,7 @@ export const preventGoogleFonts = () => {
     // when google tries to add empty style
     if (
       element.tagName.toLowerCase() === "style" &&
+      // @ts-ignore
       !element.styleSheet &&
       !element.innerHTML
     ) {
@@ -48,7 +54,10 @@ export const preventGoogleFonts = () => {
 
   // TODO: adding return before reflect solves the TS issue
   //@ts-ignore
-  head.insertBefore = (newElement, referenceElement) => {
+  head.insertBefore = (
+    newElement: HTMLElement,
+    referenceElement: HTMLElement
+  ): void => {
     if (!isRobotoStyle(newElement)) {
       Reflect.apply(insertBefore, head, [newElement, referenceElement])
     }
@@ -58,7 +67,7 @@ export const preventGoogleFonts = () => {
 
   // TODO: adding return before reflect solves the TS issue
   //@ts-ignore
-  head.appendChild = textNode => {
+  head.appendChild = (textNode: HTMLElement): void => {
     if (!isRobotoStyle(textNode)) {
       Reflect.apply(appendChild, head, [textNode])
     }

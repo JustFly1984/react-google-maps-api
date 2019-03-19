@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -36,18 +36,19 @@ const updaterMap = {
 }
 
 interface DirectionsRendererState {
-  directionsRenderer?: google.maps.DirectionsRenderer
+  directionsRenderer: google.maps.DirectionsRenderer | null;
 }
 
 interface DirectionsRendererProps {
-  options?: google.maps.DirectionsRendererOptions
-  directions?: google.maps.DirectionsResult
-  panel?: Element
-  routeIndex?: number
-  onDirectionsChanged?: () => void
+  options?: google.maps.DirectionsRendererOptions;
+  directions?: google.maps.DirectionsResult;
+  panel?: Element;
+  routeIndex?: number;
+  onDirectionsChanged?: () => void;
+  onLoad?: (directionsRenderer: google.maps.DirectionsRenderer) => void;
 }
 
-export class DirectionsRenderer extends PureComponent<
+export class DirectionsRenderer extends React.PureComponent<
   DirectionsRendererProps,
   DirectionsRendererState
 > {
@@ -61,7 +62,9 @@ export class DirectionsRenderer extends PureComponent<
 
   componentDidMount = () => {
     const directionsRenderer = new google.maps.DirectionsRenderer(
-      this.props.options
+      typeof this.props.options === 'object'
+        ? this.props.options
+        : undefined
     )
 
     this.setState(
@@ -69,15 +72,21 @@ export class DirectionsRenderer extends PureComponent<
         directionsRenderer
       }),
       () => {
-        this.state.directionsRenderer.setMap(this.context)
+        if (this.state.directionsRenderer !== null) {
+          this.state.directionsRenderer.setMap(this.context)
 
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.directionsRenderer
-        })
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.directionsRenderer
+          })
+
+          if (this.props.onLoad) {
+            this.props.onLoad(this.state.directionsRenderer)
+          }
+        }
       }
     )
   }
@@ -102,15 +111,9 @@ export class DirectionsRenderer extends PureComponent<
     }
   }
 
-  render = () => null
-
-  getDirections = () => this.state.directionsRenderer.getDirections()
-
-  getMap = () => this.state.directionsRenderer.getMap()
-
-  getPanel = () => this.state.directionsRenderer.getPanel()
-
-  getRouteIndex = () => this.state.directionsRenderer.getRouteIndex()
+  render () {
+     return null
+  }
 }
 
 export default DirectionsRenderer

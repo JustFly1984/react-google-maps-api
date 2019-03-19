@@ -14,7 +14,7 @@ const SectionDrawing = ({ drawing }) =>
         styles={shapeExampleStyles}
       />
     )
-    : null
+    : (<></>)
 
 SectionDrawing.propTypes = {
   drawing: PropTypes.bool.isRequired

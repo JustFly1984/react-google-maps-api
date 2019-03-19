@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  GoogleMap
+  GoogleMap,
+  Data
 } from '@react-google-maps/api'
 
 const ExampleDataPropTypes = {
@@ -15,6 +16,19 @@ const center = {
   lng: -118.76220703125
 }
 
+const onClick = (...args) => {
+  console.log('onClick args: ', args[0].latLng.lat(), ' : ', args[0].latLng.lng())
+}
+
+const onMapLoad = (map) => {
+  console.log('map.data: ', map.data)
+  map.data.loadGeoJson('/geo.json')
+}
+
+const onDataLoad = data => {
+  console.log('data: ', data)
+}
+
 const ExampleData = ({ styles }) => (
   <div className='map'>
     <div className='map-container'>
@@ -23,14 +37,13 @@ const ExampleData = ({ styles }) => (
         mapContainerStyle={styles.container}
         zoom={5}
         center={center}
-        onClick={(...args) => {
-          console.log('onClick args: ', args[0].latLng.lat(), ' : ', args[0].latLng.lng())
-        }}
-        onLoad={(map) => {
-          console.log('map.data: ', map.data)
-          map.data.loadGeoJson('/geo.json')
-        }}
-      />
+        onClick={onClick}
+        onLoad={onMapLoad}
+      >
+        <Data
+          onLoad={onDataLoad}
+        />
+      </GoogleMap>
     </div>
   </div>
 )

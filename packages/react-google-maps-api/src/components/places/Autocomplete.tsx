@@ -1,5 +1,4 @@
 import * as React from "react"
-import { PureComponent, RefObject, Children, Context, createRef } from "react"
 
 import {
   unregisterEvents,
@@ -7,6 +6,7 @@ import {
 } from "../../utils/helper"
 
 import MapContext from "../../map-context"
+
 import * as invariant from "invariant"
 
 const eventMap = {
@@ -45,32 +45,33 @@ const updaterMap = {
 }
 
 interface AutocompleteState {
-  autocomplete?: google.maps.places.Autocomplete
+  autocomplete: google.maps.places.Autocomplete | null;
 }
 
 interface AutocompleteProps {
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
-  restrictions?: google.maps.places.ComponentRestrictions
-  fields?: string[]
-  options?: google.maps.places.AutocompleteOptions
-  types?: string[]
-  onPlaceChanged?: () => void
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
+  restrictions?: google.maps.places.ComponentRestrictions;
+  fields?: string[];
+  options?: google.maps.places.AutocompleteOptions;
+  types?: string[];
+  onPlaceChanged?: () => void;
+  onLoad?: (autocomplete: google.maps.places.Autocomplete) => void;
 }
 
-export class Autocomplete extends PureComponent<
+export class Autocomplete extends React.PureComponent<
   AutocompleteProps,
   AutocompleteState
 > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
-  containerElement: RefObject<HTMLDivElement>
+  containerElement: React.RefObject<HTMLDivElement>
 
   state: AutocompleteState = {
     autocomplete: null
   }
 
-  constructor(props: AutocompleteProps, context: Context<google.maps.Map>) {
+  constructor(props: AutocompleteProps, context: React.Context<google.maps.Map>) {
     super(props, context)
 
     invariant(
@@ -78,18 +79,31 @@ export class Autocomplete extends PureComponent<
       'Did you include "libraries=places" in the URL?',
       "sdfs"
     )
-    this.containerElement = createRef()
+
+    this.containerElement = React.createRef()
   }
 
   componentDidMount = () => {
-    const autocomplete = new google.maps.places.Autocomplete(
-      this.containerElement.current.querySelector("input"),
-      this.props.options
-    )
+    const input = this.containerElement.current!.querySelector("input")
 
-    this.setState(() => ({
-      autocomplete
-    }))
+    if (input) {
+      const autocomplete = new google.maps.places.Autocomplete(
+        input,
+        this.props.options
+      )
+
+      this.setState(
+        () => ({
+          autocomplete
+        }),
+        () => {
+          if (this.state.autocomplete !== null && this.props.onLoad) {
+            // @ts-ignore
+            this.props.onLoad(this.state.autocomplete)
+          }
+        }
+      )
+    }
   }
 
   componentDidUpdate = (prevProps: AutocompleteProps) => {
@@ -109,16 +123,10 @@ export class Autocomplete extends PureComponent<
   }
 
   render = () => (
-    <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
+    <div ref={this.containerElement}>
+      { React.Children.only(this.props.children) }
+    </div>
   )
-
-  getBounds = () => this.state.autocomplete.getBounds()
-
-  // TODO: add to @types/googlemaps
-  // @ts-ignore
-  getFields = () => this.state.autocomplete.getFields()
-
-  getPlace = () => this.state.autocomplete.getPlace()
 }
 
 export default Autocomplete

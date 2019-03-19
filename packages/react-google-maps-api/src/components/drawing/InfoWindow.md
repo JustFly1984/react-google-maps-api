@@ -18,7 +18,12 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
     }}
   >
 
-   <InfoWindow position={{lat: 33.772, lng: -117.214}}>
+    <InfoWindow
+      onLoad={infoWindow => {
+        console.log('infoWindow: ', infoWindow)
+      }}
+      position={{lat: 33.772, lng: -117.214}}
+    >
       <div style={{
         background: `white`,
         border: `1px solid #ccc`,

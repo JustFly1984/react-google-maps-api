@@ -36,6 +36,8 @@ const googleMapsLibraries = ['drawing', 'visualization', 'places']
 
 const loaderId = uuid()
 
+const onLoad = () => console.log('script loaded')
+
 const GoogleMaps = ({ googleMapsApiKey, language }) => (
   <div>
     <LoadScript
@@ -44,7 +46,7 @@ const GoogleMaps = ({ googleMapsApiKey, language }) => (
       language={language}
       region={'EN'}
       version={'weekly'}
-      onLoad={() => console.log('script loaded')}
+      onLoad={onLoad}
       loadingElement={Loading}
       libraries={googleMapsLibraries}
       preventGoogleFontsLoading

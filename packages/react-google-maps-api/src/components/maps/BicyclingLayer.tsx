@@ -1,8 +1,17 @@
-import { PureComponent } from "react"
+/* globals google */
+import * as React from "react"
 
 import MapContext from "../../map-context"
 
-export class BicyclingLayer extends PureComponent {
+interface BicyclingLayerState {
+  bicyclingLayer: google.maps.BicyclingLayer | null;
+}
+
+interface BicyclingLayerProps {
+  onLoad: (BicyclingLayer: google.maps.BicyclingLayer) => void
+}
+
+export class BicyclingLayer extends React.PureComponent<BicyclingLayerProps, BicyclingLayerState> {
   static contextType = MapContext
 
   state = {
@@ -17,20 +26,29 @@ export class BicyclingLayer extends PureComponent {
         bicyclingLayer
       }),
       () => {
-        bicyclingLayer.setMap(this.context)
+        if (this.state.bicyclingLayer !== null) {
+          // @ts-ignore
+          this.state.bicyclingLayer.setMap(this.context)
+
+          if (this.props.onLoad) {
+            // @ts-ignore
+            this.props.onLoad(this.state.bicyclingLayer)
+          }
+        }
       }
     )
   }
 
   componentWillUnmount = () => {
-    if (this.state.bicyclingLayer) {
+    if (this.state.bicyclingLayer !== null) {
+      // @ts-ignore
       this.state.bicyclingLayer.setMap(null)
     }
   }
 
-  render = () => null
-
-  getMap = () => this.state.bicyclingLayer.getMap()
+  render () {
+    return null
+  }
 }
 
 export default BicyclingLayer

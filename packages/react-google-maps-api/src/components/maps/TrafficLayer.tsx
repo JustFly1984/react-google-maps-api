@@ -18,11 +18,12 @@ const updaterMap = {
 }
 
 interface TrafficLayerState {
-  trafficLayer?: google.maps.TrafficLayer
+  trafficLayer: google.maps.TrafficLayer | null;
 }
 
 interface TrafficLayerProps {
   options?: google.maps.TrafficLayerOptions
+  onLoad?: (trafficLayer: google.maps.TrafficLayer) => void;
 }
 
 export class TrafficLayer extends PureComponent<
@@ -38,23 +39,36 @@ export class TrafficLayer extends PureComponent<
   registeredEvents: google.maps.MapsEventListener[] = []
 
   componentDidMount = () => {
-    const trafficLayer = new google.maps.TrafficLayer({
-      ...this.props.options,
-      map: this.context
-    })
+    const trafficLayer = new google.maps.TrafficLayer(
+      typeof this.props.options === 'object'
+        ? {
+          ...this.props.options,
+          map: this.context
+        }
+        : {
+          map: this.context
+        }
+      )
 
     this.setState(
       () => ({
         trafficLayer
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.trafficLayer
-        })
+        if (this.state.trafficLayer !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.trafficLayer
+          })
+
+          if (this.props.onLoad) {
+            //@ts-ignore
+            this.props.onLoad(this.state.trafficLayer)
+          }
+        }
       }
     )
   }
@@ -72,14 +86,17 @@ export class TrafficLayer extends PureComponent<
   }
 
   componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+    if ( this.state.trafficLayer !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.state.trafficLayer && this.state.trafficLayer.setMap(null)
+      // @ts-ignore
+      this.state.trafficLayer.setMap(null)
+    }
   }
 
-  render = () => null
-
-  getMap = () => this.state.trafficLayer.getMap()
+  render () {
+    return null
+  }
 }
 
 export default TrafficLayer

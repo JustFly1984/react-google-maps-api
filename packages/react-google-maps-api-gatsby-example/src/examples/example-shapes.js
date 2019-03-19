@@ -153,6 +153,10 @@ class ExampleShapes extends Component {
     }))
   }
 
+  onClick = () => {
+    console.info('I have been clicked!')
+  }
+
   render = () => {
     let polylineOptions
 
@@ -241,9 +245,7 @@ class ExampleShapes extends Component {
                 <h1>OverlayView</h1>
 
                 <button
-                  onClick={() => {
-                    console.info('I have been clicked!')
-                  }}
+                  onClick={this.onClick}
                   type='button'
                 >
                   I have been clicked

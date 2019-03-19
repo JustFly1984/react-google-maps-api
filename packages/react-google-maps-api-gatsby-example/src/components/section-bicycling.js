@@ -14,7 +14,7 @@ const SectionBicycling = ({ bicycling }) =>
         styles={shapeExampleStyles}
       />
     )
-    : null
+    : (<></>)
 
 SectionBicycling.propTypes = {
   bicycling: PropTypes.bool.isRequired

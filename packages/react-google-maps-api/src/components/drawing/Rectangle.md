@@ -18,6 +18,9 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
     }}
   >
     <Rectangle
+      onLoad={rectangle => {
+        console.log('rectangle: ', rectangle)
+      }}
       bounds={{
         north: 38.685,
         south: 33.671,

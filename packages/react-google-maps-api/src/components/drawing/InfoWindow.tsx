@@ -1,5 +1,6 @@
 /* global google */
-import { PureComponent, Children } from "react"
+import * as React from "react"
+// @ts-ignore
 import { createPortal } from "react-dom"
 import {
   unregisterEvents,
@@ -37,36 +38,41 @@ const updaterMap = {
 }
 
 interface InfoWindowState {
-  infoWindow?: google.maps.InfoWindow
+  infoWindow: google.maps.InfoWindow | null;
 }
 
 interface InfoWindowProps {
-  anchor?: google.maps.MVCObject
-  options?: google.maps.InfoWindowOptions
-  position: google.maps.LatLng | google.maps.LatLngLiteral
-  zIndex?: number
-  onCloseClick?: () => void
-  onDomReady?: () => void
-  onContentChanged?: () => void
-  onPositionChanged?: () => void
-  onZindexChanged?: () => void
+  anchor: google.maps.MVCObject | null;
+  options?: google.maps.InfoWindowOptions;
+  position: google.maps.LatLng | google.maps.LatLngLiteral;
+  zIndex?: number;
+  onCloseClick?: () => void;
+  onDomReady?: () => void;
+  onContentChanged?: () => void;
+  onPositionChanged?: () => void;
+  onZindexChanged?: () => void;
+  onLoad?: (infoWindow: google.maps.InfoWindow) => void;
 }
 
-export class InfoWindow extends PureComponent<
+export class InfoWindow extends React.PureComponent<
   InfoWindowProps,
   InfoWindowState
 > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
-  containerElement: HTMLElement
+  containerElement: HTMLElement | null = null
 
   state: InfoWindowState = {
     infoWindow: null
   }
 
   componentDidMount = () => {
-    const infoWindow = new google.maps.InfoWindow(this.props.options)
+    const infoWindow = new google.maps.InfoWindow(
+      typeof this.props.options === 'object'
+        ? this.props.options
+        : undefined
+    )
 
     this.containerElement = document.createElement("div")
 
@@ -75,17 +81,27 @@ export class InfoWindow extends PureComponent<
         infoWindow
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.infoWindow
-        })
+        if (
+          this.state.infoWindow !== null &&
+          this.containerElement !== null &&
+          this.props.anchor !== null
+        ) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.infoWindow
+          })
 
-        this.state.infoWindow.setContent(this.containerElement)
+          this.state.infoWindow.setContent(this.containerElement)
 
-        this.open(this.state.infoWindow, this.props.anchor)
+          this.open(this.state.infoWindow, this.props.anchor)
+
+          if (this.props.onLoad) {
+            this.props.onLoad(this.state.infoWindow)
+          }
+        }
       }
     )
   }
@@ -108,8 +124,8 @@ export class InfoWindow extends PureComponent<
 
   render = () =>
     this.containerElement
-      ? createPortal(Children.only(this.props.children), this.containerElement)
-      : null
+      ? createPortal(React.Children.only(this.props.children), this.containerElement)
+      : (<></>)
 
   open = (
     infoWindow: google.maps.InfoWindow,
@@ -127,11 +143,11 @@ export class InfoWindow extends PureComponent<
     }
   }
 
-  getContent = () => this.state.infoWindow.getContent()
+  getContent = () => this.state.infoWindow!.getContent()
 
-  getPosition = () => this.state.infoWindow.getPosition()
+  getPosition = () => this.state.infoWindow!.getPosition()
 
-  getZIndex = () => this.state.infoWindow.getZIndex()
+  getZIndex = () => this.state.infoWindow!.getZIndex()
 }
 
 export default InfoWindow

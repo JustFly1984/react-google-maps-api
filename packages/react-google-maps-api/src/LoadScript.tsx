@@ -61,10 +61,12 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (isBrowser && prevProps.language !== this.props.language) {
+  componentDidUpdate(prevProps: LoadScriptProps) {
+    if (
+      isBrowser &&
+      prevProps.language !== this.props.language
+    ) {
       this.cleanup()
-      // TODO: refactor to use gDSFP
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState(
         () => ({
@@ -92,7 +94,9 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
         }
       }, 1)
 
-      this.props.onUnmount()
+      if (this.props.onUnmount) {
+        this.props.onUnmount()
+      }
     }
   }
 
@@ -118,7 +122,7 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     cleaningUp = true
     const script = document.getElementById(this.props.id)
 
-    if (script) {
+    if (script && script.parentNode) {
       script.parentNode.removeChild(script)
     }
 
@@ -128,7 +132,9 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
         script.src.includes("maps.googleapis")
       )
       .forEach((script: HTMLScriptElement) => {
-        script.parentNode.removeChild(script)
+        if (script.parentNode) {
+          script.parentNode.removeChild(script)
+        }
       })
 
     Array.prototype.slice
@@ -139,14 +145,18 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
           "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans"
       )
       .forEach((link: HTMLLinkElement) => {
-        link.parentNode.removeChild(link)
+        if (link.parentNode) {
+          link.parentNode.removeChild(link)
+        }
       })
 
     Array.prototype.slice
       .call(document.getElementsByTagName("style"))
       .filter((style: HTMLStyleElement) => style.innerText.includes(".gm-"))
       .forEach((style: HTMLStyleElement) => {
-        style.parentNode.removeChild(style)
+        if (style.parentNode) {
+          style.parentNode.removeChild(style)
+        }
       })
   }
 
@@ -172,7 +182,9 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
       }`
     })
       .then(() => {
-        this.props.onLoad()
+        if (this.props.onLoad) {
+          this.props.onLoad()
+        }
 
         this.setState(() => ({
           loaded: true
@@ -180,7 +192,9 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
       })
 
       .catch(err => {
-        this.props.onError(err)
+        if (this.props.onError) {
+          this.props.onError(err)
+        }
 
         throw new Error(`
 There has been an Error with loading Google Maps API script, please check that you provided all required props to <LoadScript />

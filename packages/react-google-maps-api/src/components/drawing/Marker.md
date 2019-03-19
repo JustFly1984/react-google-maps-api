@@ -18,6 +18,9 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
     }}
   >
     <Marker
+      onLoad={marker => {
+        console.log('marker: ', marker)
+      }}
       position={{
         lat: 37.772,
         lng: -122.214

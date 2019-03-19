@@ -14,7 +14,7 @@ const SectionSearchbox = ({ standaloneSearchbox }) =>
         styles={shapeExampleStyles}
       />
     )
-    : null
+    : (<></>)
 
 SectionSearchbox.propTypes = {
   standaloneSearchbox: PropTypes.bool.isRequired

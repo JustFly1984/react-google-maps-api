@@ -14,7 +14,7 @@ const SectionOptions = ({ options }) =>
         styles={shapeExampleStyles}
       />
     )
-    : null
+    : (<></>)
 
 SectionOptions.propTypes = {
   options: PropTypes.bool.isRequired

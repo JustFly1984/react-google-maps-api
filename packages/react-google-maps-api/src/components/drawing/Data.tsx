@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -68,7 +68,7 @@ const updaterMap = {
   },
   controlposition(
     instance: google.maps.Data,
-    controlPosition // TODO: ???
+    controlPosition: any // TODO: ???
   ) {
     instance.setControlPosition(controlPosition)
   },
@@ -96,25 +96,26 @@ const updaterMap = {
 }
 
 interface DataState {
-  data?: google.maps.Data
+  data: google.maps.Data | null;
 }
 interface DataProps {
-  options?: google.maps.Data.DataOptions
-  onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void
-  onClick?: (e: MouseEvent) => void
-  onDblClick?: (e: MouseEvent) => void
-  onMouseDown?: (e: MouseEvent) => void
-  onMouseOut?: (e: MouseEvent) => void
-  onMouseOver?: (e: MouseEvent) => void
-  onMouseUp?: (e: MouseEvent) => void
-  onRemoveFeature?: (e: google.maps.Data.RemoveFeatureEvent) => void
-  onRemoveProperty?: (e: google.maps.Data.RemovePropertyEvent) => void
-  onRightClick?: (e: MouseEvent) => void
-  onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void
-  onSetProperty?: (e: google.maps.Data.SetPropertyEvent) => void
+  options?: google.maps.Data.DataOptions;
+  onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void;
+  onClick?: (e: MouseEvent) => void;
+  onDblClick?: (e: MouseEvent) => void;
+  onMouseDown?: (e: MouseEvent) => void;
+  onMouseOut?: (e: MouseEvent) => void;
+  onMouseOver?: (e: MouseEvent) => void;
+  onMouseUp?: (e: MouseEvent) => void;
+  onRemoveFeature?: (e: google.maps.Data.RemoveFeatureEvent) => void;
+  onRemoveProperty?: (e: google.maps.Data.RemovePropertyEvent) => void;
+  onRightClick?: (e: MouseEvent) => void;
+  onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void;
+  onSetProperty?: (e: google.maps.Data.SetPropertyEvent) => void;
+  onLoad?: (data: google.maps.Data) => void;
 }
 
-export class Data extends PureComponent<DataProps, DataState> {
+export class Data extends React.PureComponent<DataProps, DataState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -124,12 +125,27 @@ export class Data extends PureComponent<DataProps, DataState> {
   }
 
   componentDidMount = () => {
-    const data = new google.maps.Data({
-      ...this.props.options,
-      map: this.context
-    })
+    const data = new google.maps.Data(
+      typeof this.props.options === 'object'
+        ? {
+          ...this.props.options,
+          map: this.context
+        }
+        : {
+          map: this.context
+        }
+      )
 
-    this.setState({ data })
+    this.setState(
+      () => {
+        data
+      },
+      () => {
+        if (this.state.data !== null && this.props.onLoad) {
+          this.props.onLoad(this.state.data)
+        }
+      }
+    )
   }
 
   componentDidUpdate = (prevProps: DataProps) => {
@@ -152,19 +168,9 @@ export class Data extends PureComponent<DataProps, DataState> {
     }
   }
 
-  render = () => null
-
-  getControlPosition = () => this.state.data.getControlPosition()
-
-  getControls = () => this.state.data.getControls()
-
-  getDrawingMode = () => this.state.data.getDrawingMode()
-
-  getFeatureById = (id: number | string) => this.state.data.getFeatureById(id)
-
-  getMap = () => this.state.data.getMap()
-
-  getStyle = () => this.state.data.getStyle()
+  render () {
+    return null
+  }
 }
 
 export default Data

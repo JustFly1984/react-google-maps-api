@@ -13,15 +13,15 @@ export const getOffsetOverride = (
       )
     : {}
 
-const createLatLng = (inst, Type) => new Type(inst.lat, inst.lng)
+const createLatLng = (inst: any, Type: any): any => new Type(inst.lat, inst.lng)
 
-const createLatLngBounds = (inst, Type) =>
+const createLatLngBounds = (inst: any, Type: any): any =>
   new Type(
     new google.maps.LatLng(inst.ne.lat, inst.ne.lng),
     new google.maps.LatLng(inst.sw.lat, inst.sw.lng)
   )
 
-const ensureOfType = (inst, type, factory) =>
+const ensureOfType = (inst: any, type: any, factory: any) =>
   inst instanceof type ? inst : factory(inst, type)
 
 const getLayoutStylesByBounds = (

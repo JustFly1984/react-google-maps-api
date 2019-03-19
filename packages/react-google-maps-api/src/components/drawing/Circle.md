@@ -18,6 +18,9 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
     }}
   >
     <Circle
+      onLoad={circle => {
+        console.log('circle: ', circle)
+      }}
       center={{
         lat: -3.745,
         lng: -38.523

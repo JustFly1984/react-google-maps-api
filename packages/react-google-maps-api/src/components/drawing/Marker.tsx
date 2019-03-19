@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -83,47 +83,48 @@ const updaterMap = {
 }
 
 interface MarkerState {
-  marker?: google.maps.Marker
+  marker: google.maps.Marker | null;
 }
 
 interface MarkerProps {
-  options?: google.maps.MapOptions
-  animation?: google.maps.Animation
-  clickable?: boolean
-  cursor?: string
-  draggable?: string
-  icon?: string | google.maps.Icon | google.maps.Symbol
-  label?: string | google.maps.MarkerLabel
-  opacity?: number
-  position: google.maps.LatLng | google.maps.LatLngLiteral
-  shape?: google.maps.MarkerShape
-  title?: string
-  visible?: boolean
-  zIndex?: number
-  onClick?: (e: MouseEvent) => void
-  onClickableChanged?: () => void
-  onCursorChanged?: () => void
-  onAnimationChanged?: () => void
-  onDblClick?: (e: MouseEvent) => void
-  onDrag?: (e: MouseEvent) => void
-  onDragEnd?: (e: MouseEvent) => void
-  onDraggableChanged?: () => void
-  onDragStart?: (e: MouseEvent) => void
-  onFlatChanged?: () => void
-  onIconChanged?: () => void
-  onMouseDown?: (e: MouseEvent) => void
-  onMouseOut?: (e: MouseEvent) => void
-  onMouseOver?: (e: MouseEvent) => void
-  onMouseUp?: (e: MouseEvent) => void
-  onPositionChanged?: () => void
-  onRightClick?: (e: MouseEvent) => void
-  onShapeChanged?: () => void
-  onTitleChanged?: () => void
-  onVisibleChanged?: () => void
-  onZindexChanged?: () => void
+  options?: google.maps.MapOptions;
+  animation?: google.maps.Animation;
+  clickable?: boolean;
+  cursor?: string;
+  draggable?: string;
+  icon?: string | google.maps.Icon | google.maps.Symbol;
+  label?: string | google.maps.MarkerLabel;
+  opacity?: number;
+  position: google.maps.LatLng | google.maps.LatLngLiteral;
+  shape?: google.maps.MarkerShape;
+  title?: string;
+  visible?: boolean;
+  zIndex?: number;
+  onClick?: (e: MouseEvent) => void;
+  onClickableChanged?: () => void;
+  onCursorChanged?: () => void;
+  onAnimationChanged?: () => void;
+  onDblClick?: (e: MouseEvent) => void;
+  onDrag?: (e: MouseEvent) => void;
+  onDragEnd?: (e: MouseEvent) => void;
+  onDraggableChanged?: () => void;
+  onDragStart?: (e: MouseEvent) => void;
+  onFlatChanged?: () => void;
+  onIconChanged?: () => void;
+  onMouseDown?: (e: MouseEvent) => void;
+  onMouseOut?: (e: MouseEvent) => void;
+  onMouseOver?: (e: MouseEvent) => void;
+  onMouseUp?: (e: MouseEvent) => void;
+  onPositionChanged?: () => void;
+  onRightClick?: (e: MouseEvent) => void;
+  onShapeChanged?: () => void;
+  onTitleChanged?: () => void;
+  onVisibleChanged?: () => void;
+  onZindexChanged?: () => void;
+  onLoad?: (marker: google.maps.Marker) => void;
 }
 
-export class Marker extends PureComponent<MarkerProps, MarkerState> {
+export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -133,24 +134,37 @@ export class Marker extends PureComponent<MarkerProps, MarkerState> {
   }
 
   componentDidMount = () => {
-    const marker = new google.maps.Marker({
-      ...this.props.options,
-      map: this.context,
-      position: this.props.position
-    })
+    const marker = new google.maps.Marker(
+      typeof this.props.options === 'object'
+        ? {
+          ...this.props.options,
+          map: this.context,
+          position: this.props.position
+        }
+        : {
+          map: this.context,
+          position: this.props.position
+        }
+      )
 
     this.setState(
       () => ({
         marker
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.marker
-        })
+        if (this.state.marker !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.marker
+          })
+
+          if (this.props.onLoad) {
+            this.props.onLoad(this.state.marker)
+          }
+        }
       }
     )
   }
@@ -173,33 +187,7 @@ export class Marker extends PureComponent<MarkerProps, MarkerState> {
     this.state.marker && this.state.marker.setMap(null)
   }
 
-  render = () => (this.props.children ? this.props.children : null)
-
-  getAnimation = () => this.state.marker.getAnimation()
-
-  getClickable = () => this.state.marker.getClickable()
-
-  getCursor = () => this.state.marker.getCursor()
-
-  getDraggable = () => this.state.marker.getDraggable()
-
-  getIcon = () => this.state.marker.getIcon()
-
-  getLabel = () => this.state.marker.getLabel()
-
-  getMap = () => this.state.marker.getMap()
-
-  getOpacity = () => this.state.marker.getOpacity()
-
-  getPosition = () => this.state.marker.getPosition()
-
-  getShape = () => this.state.marker.getShape()
-
-  getTitle = () => this.state.marker.getTitle()
-
-  getVisible = () => this.state.marker.getVisible()
-
-  getZIndex = () => this.state.marker.getZIndex()
+  render = () => (this.props.children ? this.props.children : (<></>))
 }
 
 export default Marker

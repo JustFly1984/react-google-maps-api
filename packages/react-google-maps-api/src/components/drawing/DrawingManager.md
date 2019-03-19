@@ -17,7 +17,11 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
       lng: -115.234
     }}
   >
-    <DrawingManager/>
+    <DrawingManager
+      onLoad={drawingManager => {
+        console.log(drawingManager)
+      }}
+    />
   </GoogleMap>
 </ScriptLoaded>
 ```

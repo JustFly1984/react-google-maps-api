@@ -1,8 +1,13 @@
+/* globals google */
 import * as React from "react"
-import { CSSProperties, PureComponent } from "react"
 
 import MapContext from "./map-context"
-import { saveInstance, restoreInstance } from "./utils/instance-persistance"
+
+import {
+  saveInstance,
+  restoreInstance
+} from "./utils/instance-persistance"
+
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
@@ -66,13 +71,13 @@ const updaterMap = {
 }
 
 interface GoogleMapState {
-  map: google.maps.Map
+  map: google.maps.Map | null
 }
 
 interface GoogleMapProps {
   id: string
   reuseSameInstance?: boolean
-  mapContainerStyle?: CSSProperties
+  mapContainerStyle?: React.CSSProperties
   mapContainerClassName?: string
   options?: google.maps.MapOptions
   extraMapTypes?: google.maps.MapType[]
@@ -105,11 +110,17 @@ interface GoogleMapProps {
   onLoad?: (map: google.maps.Map) => void | Promise<void>
 }
 
-export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
+export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapState> {
   static defaultProps: GoogleMapProps = {
     id: "defaultMapId",
     reuseSameInstance: false,
-    onLoad: map => {}
+    onLoad: () => {}
+  }
+
+  constructor(props: GoogleMapProps) {
+    super(props)
+
+    this.mapRef = null
   }
 
   state: GoogleMapState = {
@@ -118,14 +129,16 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  mapRef: HTMLElement
+  mapRef: HTMLElement | null
 
-  getInstance = () => {
+  getInstance = (): google.maps.Map | null => {
     const { reuseSameInstance, ...rest } = this.props
 
-    const map = reuseSameInstance && restoreInstance(rest)
+    const instance = reuseSameInstance && restoreInstance(rest)
 
-    return map || new google.maps.Map(this.mapRef, this.props.options)
+    return instance
+      ? instance
+      : new google.maps.Map(this.mapRef, this.props.options)
   }
 
   componentDidMount = () => {
@@ -134,40 +147,48 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
         map: this.getInstance()
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.map
-        })
+        if (this.state.map !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.map
+          })
 
-        this.props.onLoad(this.state.map)
+          if (this.props.onLoad) {
+            this.props.onLoad(this.state.map)
+          }
+        }
       }
     )
   }
 
   componentDidUpdate = (prevProps: GoogleMapProps) => {
-    unregisterEvents(this.registeredEvents)
+    if (this.state.map !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.map
-    })
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.map
+      })
+    }
   }
 
   componentWillUnmount = () => {
-    const { reuseSameInstance, id } = this.props
+    if (this.state.map) {
+      const { reuseSameInstance, id } = this.props
 
-    reuseSameInstance && saveInstance(id, this.state.map)
+      reuseSameInstance && saveInstance(id, this.state.map)
 
-    unregisterEvents(this.registeredEvents)
+      unregisterEvents(this.registeredEvents)
+    }
   }
 
-  getRef = (ref: HTMLElement) => {
+  getRef = (ref: HTMLDivElement | null): void => {
     this.mapRef = ref
   }
 
@@ -189,48 +210,15 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
         className={mapContainerClassName}
       >
         <MapContext.Provider value={map}>
-          {map !== null ? children : null}
+          {
+            map !== null
+              ? children
+              : (<></>)
+          }
         </MapContext.Provider>
       </div>
     )
   }
-
-  fitBounds = (
-    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
-    padding?: number | google.maps.Padding
-  ) => this.state.map.fitBounds(bounds, padding)
-
-  panBy = (x: number, y: number) => this.state.map.panBy(x, y)
-
-  panTo = (latLng: google.maps.LatLng | google.maps.LatLngLiteral) =>
-    this.state.map.panTo(latLng)
-
-  panToBounds = (
-    latLngBounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
-    padding?: number | google.maps.Padding
-  ) => this.state.map.panToBounds(latLngBounds, padding)
-
-  getBounds = () => this.state.map.getBounds()
-
-  getCenter = () => this.state.map.getCenter()
-
-  // Function exists but it missing in typings
-  //@ts-ignore Function exists but it missing in typings
-  getClickableIcons = () => this.state.map.getClickableIcons()
-
-  getDiv = () => this.state.map.getDiv()
-
-  getHeading = () => this.state.map.getHeading()
-
-  getMapTypeId = () => this.state.map.getMapTypeId()
-
-  getProjection = () => this.state.map.getProjection()
-
-  getStreetView = () => this.state.map.getStreetView()
-
-  getTilt = () => this.state.map.getTilt()
-
-  getZoom = () => this.state.map.getZoom()
 }
 
 export default GoogleMap
