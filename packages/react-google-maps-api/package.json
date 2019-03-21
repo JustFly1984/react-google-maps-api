@@ -71,8 +71,7 @@
     "invariant": "2.2.4",
     "marker-clusterer-plus": "2.1.4",
     "markerwithlabel": "2.0.2",
-    "warning": "4.0.3",
-    "react-styleguidist": "8.0.6"
+    "warning": "4.0.3"
   },
   "peerDependencies": {
     "prop-types": "^15.5.8",
@@ -122,6 +121,7 @@
     "react": "16.8.3",
     "react-docgen-typescript": "1.12.3",
     "react-dom": "16.8.3",
+    "react-styleguidist": "8.0.6",
     "rimraf": "2.6.3",
     "typescript": "3.3.3333",
     "webpack": "4.29.5"
