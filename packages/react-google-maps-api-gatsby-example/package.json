@@ -29,9 +29,7 @@
     "@babel/preset-env": "7.3.4",
     "@babel/preset-react": "7.0.0",
     "@babel/runtime": "7.3.4",
-    "@hot-loader/react-dom": "16.8.4",
     "@react-google-maps/api": "1.2.0-alpha.0",
-    "@typescript-eslint/eslint-plugin": "1.4.2",
     "@types/googlemaps": "3.30.19",
     "@types/react": "16.8.8",
     "eslint": "5.15.3",
@@ -84,7 +82,6 @@
     "stylelint-config-standard": "18.2.0",
     "stylelint-css-modules": "0.0.9",
     "stylelint-high-performance-animation": "1.1.1",
-    "typescript": "3.3.3333",
     "uniqid": "5.0.3",
     "uuidv4": "3.0.1",
     "webpack": "4.29.6"

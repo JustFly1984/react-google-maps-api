@@ -1,6 +1,5 @@
 /* eslint-disable filenames/match-exported */
 import * as React from "react"
-import { PureComponent } from "react"
 
 import {
   unregisterEvents,
@@ -92,31 +91,31 @@ interface MarkerClustererState {
 }
 
 interface MarkerClustererProps {
-  children: (markerClusterer: MarkerClusterer) => React.ReactNode
-  initialOptions?: MarkerClustererOptions
-  averageCenter?: boolean
-  batchSizeIE: number
-  calculator: Calculator
-  clusterClass: string
-  enableRetinaIcons: boolean
-  gridSize: number
-  ignoreHidden: boolean
-  imageExtension: string
-  imagePath: string
-  imageSizes: number[]
-  maxZoom: number
-  minimumClusterSize: number
-  styles: ClusterIconStyle[]
-  title: string
-  zoomOnClick: boolean
-  onClick: (cluster: Cluster) => void
-  onClusteringBegin: (markerClusterer: MarkerClusterer) => void
-  onClusteringEnd: (markerClusterer: MarkerClusterer) => void
-  onMouseOver: (cluster: Cluster) => void
-  onMouseOut: (cluster: Cluster) => void
+  children: (markerClusterer: MarkerClusterer) => React.ReactNode;
+  initialOptions?: MarkerClustererOptions;
+  averageCenter?: boolean;
+  batchSizeIE: number;
+  calculator: Calculator;
+  clusterClass: string;
+  enableRetinaIcons: boolean;
+  gridSize: number;
+  ignoreHidden: boolean;
+  imageExtension: string;
+  imagePath: string;
+  imageSizes: number[];
+  maxZoom: number;
+  minimumClusterSize: number;
+  styles: ClusterIconStyle[];
+  title: string;
+  zoomOnClick: boolean;
+  onClick: (cluster: Cluster) => void;
+  onClusteringBegin: (markerClusterer: MarkerClusterer) => void;
+  onClusteringEnd: (markerClusterer: MarkerClusterer) => void;
+  onMouseOver: (cluster: Cluster) => void;
+  onMouseOut: (cluster: Cluster) => void;
 }
 
-export class MarkerClustererComponent extends PureComponent<
+export class MarkerClustererComponent extends React.PureComponent<
   MarkerClustererProps,
   MarkerClustererState
 > {

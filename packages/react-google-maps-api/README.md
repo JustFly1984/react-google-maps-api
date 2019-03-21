@@ -22,7 +22,7 @@ npm i -S @react-google-maps/api
 - Uses the new Context API
 - Supports async React (StrictMode complient)
 - Removes lodash dependency =>
-  smaller bundle size `12.4kb` gzip, tree-shakeable [https://bundlephobia.com/result?p=@react-google-maps/api@1.0.0](https://bundlephobia.com/result?p=@react-google-maps/api@1.0.0)
+  smaller bundle size `12.4kb` gzip, tree-shakeable [https://bundlephobia.com/result?p=@react-google-maps/api](https://bundlephobia.com/result?p=@react-google-maps/api)
 - forbids loading of Roboto fonts, if you set property preventGoogleFonts on `<LoadScript preventGoogleFonts />` component
 
 ## Examples
@@ -30,7 +30,7 @@ npm i -S @react-google-maps/api
 Examples can be found in two places:
 
 1. [Official docs](https://react-google-maps-api-docs.netlify.com/) (powered by [docz](https://github.com/pedronauck/docz)). See the [docs](https://github.com/JustFly1984/react-google-maps-api/tree/master/src/docs) folder
-2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/examples/react-google-maps-api-gatsby/src/examples) folder
+2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api-gatsby-example/src/examples) folder
 3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.com/)
 
 ## Advice
