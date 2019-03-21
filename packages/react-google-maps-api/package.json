@@ -62,8 +62,8 @@
     "lint": "npx eslint ./src --fix",
     "publish": "npm run build && npm publish .",
     "publish:next": "npm run build && npm publish . --tag next",
-    "docs:dev": "npx styleguidist server",
-    "docs:build": "npx styleguidist build"
+    "docs:dev": "styleguidist server",
+    "docs:build": "styleguidist build"
   },
   "dependencies": {
     "@types/googlemaps": "3.30.16",
