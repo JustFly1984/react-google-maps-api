@@ -72,7 +72,7 @@
     "marker-clusterer-plus": "2.1.4",
     "markerwithlabel": "2.0.2",
     "warning": "4.0.3",
-    "react-styleguidist": "8.0.6",
+    "react-styleguidist": "8.0.6"
   },
   "peerDependencies": {
     "prop-types": "^15.5.8",
