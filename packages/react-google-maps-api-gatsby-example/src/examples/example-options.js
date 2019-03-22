@@ -22,6 +22,10 @@ const options = {
   streetViewControl: false
 }
 
+const onClick = (...args) => {
+  console.log('onClick args: ', args)
+}
+
 const ExampleOptions = ({ styles }) => (
   <div className='map'>
     <div className='map-container'>
@@ -31,9 +35,7 @@ const ExampleOptions = ({ styles }) => (
         zoom={2}
         center={center}
         options={options}
-        onClick={(...args) => {
-          console.log('onClick args: ', args)
-        }}
+        onClick={onClick}
       />
     </div>
   </div>

@@ -32,9 +32,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onClick: () => {
     dispatch(
-      toggleLoadScript({
-        loadScriptChecked: true
-      })
+      toggleLoadScript()
     )
   }
 })

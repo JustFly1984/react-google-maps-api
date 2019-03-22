@@ -14,7 +14,7 @@ const SectionDirections = ({ directions }) =>
         styles={shapeExampleStyles}
       />
     )
-    : null
+    : (<></>)
 
 SectionDirections.propTypes = {
   directions: PropTypes.bool.isRequired

@@ -19,6 +19,9 @@ const InputBoxApiKey = ({ value, onChange }) => (
       id='apikey'
       type='text'
       className='form-control'
+      autoComplete='on'
+      autoCorrect='off'
+      autoCapitalize='off'
       onChange={onChange}
       value={value}
     />
