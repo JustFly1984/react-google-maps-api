@@ -13,6 +13,26 @@ const meta = [
   { name: 'keywords', content: 'sample, something' },
 ]
 
+const Main = ({ title, children }) => (
+  <div className='bg-light'>
+    <Helmet
+      title={title}
+      meta={meta}
+    >
+      <html lang='en' />
+    </Helmet>
+
+    <Header siteTitle={title} />
+
+    { children }
+  </div>
+)
+
+Main.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired
+}
+
 const Layout = ({ children }) => (
   <StaticQuery
     query={graphql`
@@ -24,19 +44,13 @@ const Layout = ({ children }) => (
         }
       }
     `}
+    // eslint-disable-next-line react-perf/jsx-no-new-function-as-prop
     render={data => (
-      <div className='bg-light'>
-        <Helmet
-          title={data.site.siteMetadata.title}
-          meta={meta}
-        >
-          <html lang='en' />
-        </Helmet>
-
-        <Header siteTitle={data.site.siteMetadata.title} />
-
-        {children}
-      </div>
+      <Main
+        title={data.site.siteMetadata.title}
+      >
+        { children }
+      </Main>
     )}
   />
 )

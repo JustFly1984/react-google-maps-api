@@ -23,6 +23,10 @@ const BOUNDS = {
   west: -74.22655
 }
 
+const onClick = (...args) => {
+  console.log('onClick args: ', args)
+}
+
 const ExampleGround = ({ styles }) => (
   <div className='map'>
     <div className='map-container'>
@@ -31,9 +35,7 @@ const ExampleGround = ({ styles }) => (
         mapContainerStyle={styles.container}
         zoom={13}
         center={center}
-        onClick={(...args) => {
-          console.log('onClick args: ', args)
-        }}
+        onClick={onClick}
       >
         <GroundOverlay
           url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'

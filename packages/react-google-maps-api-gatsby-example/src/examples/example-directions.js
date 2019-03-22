@@ -98,6 +98,10 @@ class ExampleDirections extends Component {
     }
   }
 
+  onMapClick = (...args) => {
+    console.log('onClick args: ', args)
+  }
+
   render = () => (
     <div className='map'>
       <div className='map-settings'>
@@ -182,9 +186,7 @@ class ExampleDirections extends Component {
           mapContainerStyle={this.props.styles.container}
           zoom={2}
           center={center}
-          onClick={(...args) => {
-            console.log('onClick args: ', args)
-          }}
+          onClick={this.onMapClick}
         >
           {
             (

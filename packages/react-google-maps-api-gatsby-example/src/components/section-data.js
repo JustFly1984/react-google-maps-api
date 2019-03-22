@@ -14,7 +14,7 @@ const SectionData = ({ data }) =>
         styles={shapeExampleStyles}
       />
     )
-    : null
+    : (<></>)
 
 SectionData.propTypes = {
   data: PropTypes.bool.isRequired
