@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/docz",
-  "version": "1.1.0",
+  "version": "1.2.0-alpha.1",
   "description": "Docz Documentation for @react-google-maps/api",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@emotion/core": "10.0.7",
-    "@react-google-maps/api": "^1.1.0",
+    "@react-google-maps/api": "^1.2.0-alpha.1",
     "docz": "0.13.7",
     "docz-theme-default": "0.13.7",
     "react": "16.7.0",
@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@types/googlemaps": "3.30.16",
-    "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.8.1",
     "acorn": "6.0.7",
     "babel-eslint": "9",
@@ -66,5 +65,5 @@
   "resolutions": {
     "ansi-styles": "3.2.0"
   },
-  "gitHead": "68d989b6d74f31c8f6782d481f8de016cf079b11"
+  "gitHead": "7349bce4e50c99b19d03b42767961c882c4e9e0c"
 }
