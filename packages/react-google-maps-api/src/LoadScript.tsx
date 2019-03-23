@@ -19,16 +19,16 @@ interface LoadScriptProps {
   language?: string;
   region?: string;
   version?: string;
-  loadingElement?: ReactNode;
-  onLoad?: () => void;
-  onError?: (error: Error) => void;
-  onUnmount?: () => void;
-  libraries?: string[];
-  preventGoogleFontsLoading?: boolean;
+  loadingElement: ReactNode;
+  onLoad: () => void;
+  onError: (error: Error) => void;
+  onUnmount: () => void;
+  libraries: string[];
+  preventGoogleFontsLoading: boolean;
 }
 
 class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
-  static defaultProps = {
+  public static defaultProps = {
     onLoad: () => {},
     onError: () => {},
     onUnmount: () => {},
@@ -61,7 +61,7 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: LoadScriptProps) {
     if (isBrowser && prevProps.language !== this.props.language) {
       this.cleanup()
       // TODO: refactor to use gDSFP
@@ -118,7 +118,7 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     cleaningUp = true
     const script = document.getElementById(this.props.id)
 
-    if (script) {
+    if (script && script.parentNode) {
       script.parentNode.removeChild(script)
     }
 
@@ -128,7 +128,9 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
         script.src.includes("maps.googleapis")
       )
       .forEach((script: HTMLScriptElement) => {
-        script.parentNode.removeChild(script)
+        if (script.parentNode) {
+          script.parentNode.removeChild(script)
+        }
       })
 
     Array.prototype.slice
@@ -139,14 +141,18 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
           "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans"
       )
       .forEach((link: HTMLLinkElement) => {
-        link.parentNode.removeChild(link)
+        if (link.parentNode) {
+          link.parentNode.removeChild(link)
+        }
       })
 
     Array.prototype.slice
       .call(document.getElementsByTagName("style"))
       .filter((style: HTMLStyleElement) => style.innerText.includes(".gm-"))
       .forEach((style: HTMLStyleElement) => {
-        style.parentNode.removeChild(style)
+        if (style.parentNode) {
+          style.parentNode.removeChild(style)
+        }
       })
   }
 
