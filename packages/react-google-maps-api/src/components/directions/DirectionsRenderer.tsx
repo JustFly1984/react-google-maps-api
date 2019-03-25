@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -36,7 +36,7 @@ const updaterMap = {
 }
 
 interface DirectionsRendererState {
-  directionsRenderer?: google.maps.DirectionsRenderer
+  directionsRenderer: google.maps.DirectionsRenderer | null
 }
 
 interface DirectionsRendererProps {
@@ -45,13 +45,17 @@ interface DirectionsRendererProps {
   panel?: Element
   routeIndex?: number
   onDirectionsChanged?: () => void
+  onLoad: (directionsRenderer: google.maps.DirectionsRenderer) => void
 }
 
-export class DirectionsRenderer extends PureComponent<
+export class DirectionsRenderer extends React.PureComponent<
   DirectionsRendererProps,
   DirectionsRendererState
 > {
   static contextType = MapContext
+  public static defaultProps = {
+    onLoad: () => {}
+  }
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
@@ -69,15 +73,19 @@ export class DirectionsRenderer extends PureComponent<
         directionsRenderer
       }),
       () => {
-        this.state.directionsRenderer.setMap(this.context)
+        if (this.state.directionsRenderer !== null) {
+          this.state.directionsRenderer.setMap(this.context)
 
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.directionsRenderer
-        })
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.directionsRenderer
+          })
+
+          this.props.onLoad(this.state.directionsRenderer)
+        }
       }
     )
   }
@@ -102,15 +110,9 @@ export class DirectionsRenderer extends PureComponent<
     }
   }
 
-  render = () => null
-
-  getDirections = () => this.state.directionsRenderer.getDirections()
-
-  getMap = () => this.state.directionsRenderer.getMap()
-
-  getPanel = () => this.state.directionsRenderer.getPanel()
-
-  getRouteIndex = () => this.state.directionsRenderer.getRouteIndex()
+  render() {
+    return null
+  }
 }
 
 export default DirectionsRenderer
