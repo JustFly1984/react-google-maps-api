@@ -50,7 +50,6 @@
     "stylelint-high-performance-animation": "1.1.1",
     "typescript": "3.3.3333",
     "uniqid": "5.0.3",
-    "uuidv4": "3.0.1",
     "webpack": "4.29.6"
   },
   "keywords": [
@@ -117,5 +116,5 @@
     "type": "git",
     "url": "https://github.com/gatsbyjs/gatsby-starter-default"
   },
-  "gitHead": "b6b6b2125e83a82a196af5c7e34b2aeadef2a5d4"
+  "gitHead": "54a59697d62ca302200e7f06b525ef42fe02f457"
 }

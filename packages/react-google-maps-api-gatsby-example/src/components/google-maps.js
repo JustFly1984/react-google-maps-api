@@ -1,8 +1,9 @@
 // eslint-disable-next-line filenames/match-exported
 import React from 'react'
 import PropTypes from 'prop-types'
-import uuid from 'uuidv4'
+import uniqid from 'uniqid'
 import { connect } from 'react-redux'
+
 import { LoadScript } from '@react-google-maps/api'
 
 import CheckboxData from '../components/checkbox-data'
@@ -28,13 +29,12 @@ import SectionOptions from './section-options'
 import SectionSearchbox from './section-searchbox'
 
 import styles from './styles.module.css'
-uuidv4
 
 const Loading = <div className={styles.loadingStyle} />
 
 const googleMapsLibraries = ['drawing', 'visualization', 'places']
 
-const loaderId = uuid()
+const loaderId = uniqid('loader-')
 
 const onLoad = () => console.log('script loaded')
 
