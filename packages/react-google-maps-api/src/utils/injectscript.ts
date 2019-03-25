@@ -6,7 +6,7 @@ interface InjectScriptArg {
 }
 
 export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
-  if (isBrowser) {
+  if (!isBrowser) {
     return Promise.reject(new Error("document is undefined"))
   }
 
