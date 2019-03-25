@@ -101,14 +101,14 @@ interface GoogleMapProps {
   onResize?: () => void
   onTiltChanged?: () => void
   onZoomChanged?: () => void
-  onLoad?: (map: google.maps.Map) => void | Promise<void>
+  onLoad: (map: google.maps.Map) => void | Promise<void>
 }
 
 export class GoogleMap extends React.PureComponent<
   GoogleMapProps,
   GoogleMapState
 > {
-  static defaultProps: GoogleMapProps = {
+  public static defaultProps: GoogleMapProps = {
     id: "defaultMapId",
     reuseSameInstance: false,
     onLoad: () => {}
@@ -153,9 +153,7 @@ export class GoogleMap extends React.PureComponent<
             instance: this.state.map
           })
 
-          if (this.props.onLoad) {
-            this.props.onLoad(this.state.map)
-          }
+          this.props.onLoad(this.state.map)
         }
       }
     )
