@@ -58,11 +58,12 @@
     "Google Maps",
     "Google",
     "Maps",
-    "Gatsby"
+    "Gatsby",
+    "Demo"
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "yarn && gatsby build",
     "develop": "gatsby develop --https",
     "start": "yarn develop",
     "lint": "npx eslint ./src --fix",
