@@ -1,7 +1,7 @@
 {
   "name": "@react-google-maps/gatsby-example",
   "description": "React Google Maps Gatsby.js example",
-  "version": "1.2.0-alpha.2",
+  "version": "1.2.0-alpha.3",
   "author": {
     "name": "Alexey Lyakhov",
     "email": "justfly1984@gmail.com",
@@ -20,7 +20,7 @@
     "@babel/polyfill": "7.2.5",
     "@babel/runtime": "7.3.4",
     "@hot-loader/react-dom": "16.8.4",
-    "@react-google-maps/api": "1.2.0-alpha.2",
+    "@react-google-maps/api": "^1.2.0-alpha.3",
     "@typescript-eslint/eslint-plugin": "1.4.2",
     "eslint-config-prettier": "4.1.0",
     "eslint-plugin-prettier": "3.0.1",
