@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -48,32 +48,33 @@ const updaterMap = {
 }
 
 interface CircleState {
-  circle?: google.maps.Circle
+  circle: google.maps.Circle | null;
 }
 
 interface CircleProps {
-  options: google.maps.CircleOptions
-  center: google.maps.LatLng | google.maps.LatLngLiteral
-  radius: number
-  draggable: boolean
-  editable: boolean
-  visible: boolean
-  onDblClick: (e: MouseEvent) => void
-  onDragEnd: (e: MouseEvent) => void
-  onDragStart: (e: MouseEvent) => void
-  onMouseDown: (e: MouseEvent) => void
-  onMouseMove: (e: MouseEvent) => void
-  onMouseOut: (e: MouseEvent) => void
-  onMouseOver: (e: MouseEvent) => void
-  onMouseUp: (e: MouseEvent) => void
-  onRightClick: (e: MouseEvent) => void
-  onCenterChanged: () => void
-  onClick: (e: MouseEvent) => void
-  onDrag: (e: MouseEvent) => void
-  onRadiusChanged: () => void
+  options: google.maps.CircleOptions;
+  center: google.maps.LatLng | google.maps.LatLngLiteral;
+  radius: number;
+  draggable: boolean;
+  editable: boolean;
+  visible: boolean;
+  onDblClick: (e: MouseEvent) => void;
+  onDragEnd: (e: MouseEvent) => void;
+  onDragStart: (e: MouseEvent) => void;
+  onMouseDown: (e: MouseEvent) => void;
+  onMouseMove: (e: MouseEvent) => void;
+  onMouseOut: (e: MouseEvent) => void;
+  onMouseOver: (e: MouseEvent) => void;
+  onMouseUp: (e: MouseEvent) => void;
+  onRightClick: (e: MouseEvent) => void;
+  onCenterChanged: () => void;
+  onClick: (e: MouseEvent) => void;
+  onDrag: (e: MouseEvent) => void;
+  onRadiusChanged: () => void;
+  onLoad: (circle: google.maps.Circle) => void;
 }
 
-export class Circle extends PureComponent<CircleProps, CircleState> {
+export class Circle extends React.PureComponent<CircleProps, CircleState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -93,13 +94,19 @@ export class Circle extends PureComponent<CircleProps, CircleState> {
         circle
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.circle
-        })
+        if (this.state.circle !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.circle
+          })
+
+          if (this.props.onLoad) {
+            this.props.onLoad(this.state.circle)
+          }
+        }
       }
     )
   }
@@ -124,19 +131,19 @@ export class Circle extends PureComponent<CircleProps, CircleState> {
 
   render = (): any => null
 
-  getBounds = () => this.state.circle.getBounds()
+  getBounds = () => this.state.circle!.getBounds()
 
-  getCenter = () => this.state.circle.getCenter()
+  getCenter = () => this.state.circle!.getCenter()
 
-  getDraggable = () => this.state.circle.getDraggable()
+  getDraggable = () => this.state.circle!.getDraggable()
 
-  getEditable = () => this.state.circle.getEditable()
+  getEditable = () => this.state.circle!.getEditable()
 
-  getMap = () => this.state.circle.getMap()
+  getMap = () => this.state.circle!.getMap()
 
-  getRadius = () => this.state.circle.getRadius()
+  getRadius = () => this.state.circle!.getRadius()
 
-  getVisible = () => this.state.circle.getVisible()
+  getVisible = () => this.state.circle!.getVisible()
 }
 
 export default Circle

@@ -8,8 +8,14 @@ import {
 } from "../../utils/helper"
 
 import MapContext from "../../map-context"
-//@ts-ignore
-import MarkerClustererPlus from "marker-clusterer-plus"
+
+import MarkerClusterer, {
+  ClusterIconStyle,
+  Cluster,
+  MarkerClustererOptions,
+  Calculator
+  // @ts-ignore
+} from "marker-clusterer-plus"
 
 const eventMap = {
   onClick: "click",
@@ -28,7 +34,7 @@ const updaterMap = {
     instance.setBatchSizeIE(batchSizeIE)
   },
 
-  calculator(instance: MarkerClusterer, calculator: Calculator) {
+  calculator(instance: MarkerClusterer, calculator: any) {
     instance.setCalculator(calculator)
   },
 
@@ -123,7 +129,7 @@ export class MarkerClustererComponent extends PureComponent<
   }
 
   componentDidMount = () => {
-    const markerClusterer = new MarkerClustererPlus(
+    const markerClusterer = new MarkerClusterer(
       this.context,
       [],
       this.props.initialOptions

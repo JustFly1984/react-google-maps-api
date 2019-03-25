@@ -39,6 +39,9 @@ const polylineOptions = {
     }}
   >
     <Polyline
+      onLoad={polyline => {
+        console.log('polyline: ', polyline)
+      }}
       path={POLYLINE_COORD}
       options={polylineOptions}
     />

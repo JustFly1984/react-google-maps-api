@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -31,7 +31,7 @@ const updaterMap = {
   },
   addgeojson(
     instance: google.maps.Data,
-    geojson: Object,
+    geojson: Record<string, any>,
     options?: google.maps.Data.GeoJsonOptions
   ) {
     instance.addGeoJson(geojson, options)
@@ -68,7 +68,7 @@ const updaterMap = {
   },
   controlposition(
     instance: google.maps.Data,
-    controlPosition // TODO: ???
+    controlPosition: any // TODO: ???
   ) {
     instance.setControlPosition(controlPosition)
   },
@@ -90,13 +90,16 @@ const updaterMap = {
   ) {
     instance.setStyle(style)
   },
-  togeojson(instance: google.maps.Data, callback: (feature: Object) => void) {
+  togeojson(
+    instance: google.maps.Data,
+    callback: (feature: Record<string, any>) => void
+  ) {
     instance.toGeoJson(callback)
   }
 }
 
 interface DataState {
-  data?: google.maps.Data
+  data: google.maps.Data | null
 }
 interface DataProps {
   options?: google.maps.Data.DataOptions
@@ -112,9 +115,13 @@ interface DataProps {
   onRightClick?: (e: MouseEvent) => void
   onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void
   onSetProperty?: (e: google.maps.Data.SetPropertyEvent) => void
+  onLoad: (data: google.maps.Data | null) => void
 }
 
-export class Data extends PureComponent<DataProps, DataState> {
+export class Data extends React.PureComponent<DataProps, DataState> {
+  public static defaultProps = {
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -125,11 +132,16 @@ export class Data extends PureComponent<DataProps, DataState> {
 
   componentDidMount = () => {
     const data = new google.maps.Data({
-      ...this.props.options,
+      ...(this.props.options || {}),
       map: this.context
     })
 
-    this.setState({ data })
+    this.setState(
+      () => {
+        data
+      },
+      () => this.props.onLoad(this.state.data)
+    )
   }
 
   componentDidUpdate = (prevProps: DataProps) => {
@@ -152,19 +164,9 @@ export class Data extends PureComponent<DataProps, DataState> {
     }
   }
 
-  render = () => null
-
-  getControlPosition = () => this.state.data.getControlPosition()
-
-  getControls = () => this.state.data.getControls()
-
-  getDrawingMode = () => this.state.data.getDrawingMode()
-
-  getFeatureById = (id: number | string) => this.state.data.getFeatureById(id)
-
-  getMap = () => this.state.data.getMap()
-
-  getStyle = () => this.state.data.getStyle()
+  render() {
+    return <></>
+  }
 }
 
 export default Data

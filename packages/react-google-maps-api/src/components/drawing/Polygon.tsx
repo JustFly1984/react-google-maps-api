@@ -1,5 +1,5 @@
 /* global google */
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -64,39 +64,44 @@ const updaterMap = {
 }
 
 interface PolygonState {
-  polygon?: google.maps.Polygon
+  polygon: google.maps.Polygon | null
 }
 
 interface PolygonProps {
-  options: google.maps.PolygonOptions
-  draggable: boolean
-  editable: boolean
-  visible: boolean
-  path:
+  options?: google.maps.PolygonOptions
+  draggable?: boolean
+  editable?: boolean
+  visible?: boolean
+  path?:
     | google.maps.MVCArray<google.maps.LatLng>
     | google.maps.LatLng[]
     | google.maps.LatLngLiteral[]
-  paths:
+  paths?:
     | google.maps.MVCArray<google.maps.LatLng>
     | google.maps.MVCArray<google.maps.MVCArray<google.maps.LatLng>>
     | google.maps.LatLng[]
     | google.maps.LatLng[][]
     | google.maps.LatLngLiteral[]
     | google.maps.LatLngLiteral[][]
-  onDblClick: (e: MouseEvent) => void
-  onDragEnd: (e: MouseEvent) => void
-  onDragStart: (e: MouseEvent) => void
-  onMouseDown: (e: MouseEvent) => void
-  onMouseMove: (e: MouseEvent) => void
-  onMouseOut: (e: MouseEvent) => void
-  onMouseOver: (e: MouseEvent) => void
-  onMouseUp: (e: MouseEvent) => void
-  onRightClick: (e: MouseEvent) => void
-  onClick: (e: MouseEvent) => void
-  onDrag: (e: MouseEvent) => void
+  onDblClick?: (e: MouseEvent) => void
+  onDragEnd?: (e: MouseEvent) => void
+  onDragStart?: (e: MouseEvent) => void
+  onMouseDown?: (e: MouseEvent) => void
+  onMouseMove?: (e: MouseEvent) => void
+  onMouseOut?: (e: MouseEvent) => void
+  onMouseOver?: (e: MouseEvent) => void
+  onMouseUp?: (e: MouseEvent) => void
+  onRightClick?: (e: MouseEvent) => void
+  onClick?: (e: MouseEvent) => void
+  onDrag?: (e: MouseEvent) => void
+  onLoad: (polygon: google.maps.Polygon) => void
 }
 
-export class Polygon extends PureComponent<PolygonProps, PolygonState> {
+export class Polygon extends React.PureComponent<PolygonProps, PolygonState> {
+  public static defaultProps = {
+    options: {},
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -116,13 +121,17 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
         polygon
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.polygon
-        })
+        if (this.state.polygon !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.polygon
+          })
+
+          this.props.onLoad(this.state.polygon)
+        }
       }
     )
   }
@@ -146,18 +155,6 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
   }
 
   render = () => null
-
-  getDraggable = () => this.state.polygon.getDraggable()
-
-  getEditable = () => this.state.polygon.getEditable()
-
-  getMap = () => this.state.polygon.getEditable()
-
-  getPath = () => this.state.polygon.getMap()
-
-  getPaths = () => this.state.polygon.getPaths()
-
-  getVisible = () => this.state.polygon.getVisible()
 }
 
 export default Polygon

@@ -1,12 +1,12 @@
 src/
 .editorconfig
+.styleguide.config.js
 .eslintignore
+tsconfig.json
 .prettierignore
 .eslintrc
-.storybook/
-.docz/
 .vscode/
-webpack.config.js
 yarn.lock
 package-lock.json
-googleMapsKey.js
+dist/
+node_modules/

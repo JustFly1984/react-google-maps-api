@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -6,6 +6,9 @@ import {
 } from "../../utils/helper"
 
 import MapContext from "../../map-context"
+
+// @ts-ignore
+import MarkerClusterer from "marker-clusterer-plus"
 
 const eventMap = {
   onAnimationChanged: "animation_changed",
@@ -83,7 +86,7 @@ const updaterMap = {
 }
 
 interface MarkerState {
-  marker?: google.maps.Marker
+  marker: google.maps.Marker | null
 }
 
 interface MarkerProps {
@@ -123,9 +126,14 @@ interface MarkerProps {
   onTitleChanged?: () => void
   onVisibleChanged?: () => void
   onZindexChanged?: () => void
+  onLoad: (marker: google.maps.Marker) => void
 }
 
-export class Marker extends PureComponent<MarkerProps, MarkerState> {
+export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
+  public static defaultProps = {
+    options: {},
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -140,6 +148,7 @@ export class Marker extends PureComponent<MarkerProps, MarkerState> {
       ...(this.props.clusterer ? {} : { map: this.context }),
       position: this.props.position
     }
+
     const marker = new google.maps.Marker(markerOptions)
 
     if (this.props.clusterer) {
@@ -153,69 +162,51 @@ export class Marker extends PureComponent<MarkerProps, MarkerState> {
         marker
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.marker
-        })
+        if (this.state.marker !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.marker
+          })
+
+          this.props.onLoad(this.state.marker)
+        }
       }
     )
   }
 
   componentDidUpdate = (prevProps: MarkerProps) => {
-    unregisterEvents(this.registeredEvents)
+    if (this.state.marker !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.marker
-    })
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.marker
+      })
+    }
   }
 
   componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+    if (this.state.marker !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    if (this.props.clusterer) {
-      this.props.clusterer.removeMarker(
-        this.state.marker,
-        !!this.props.noClustererRedraw
-      )
-    } else {
-      this.state.marker && this.state.marker.setMap(null)
+      if (this.props.clusterer) {
+        this.props.clusterer.removeMarker(
+          this.state.marker,
+          !!this.props.noClustererRedraw
+        )
+      } else {
+        this.state.marker && this.state.marker.setMap(null)
+      }
     }
   }
 
   render = () => (this.props.children ? this.props.children : null)
-
-  getAnimation = () => this.state.marker.getAnimation()
-
-  getClickable = () => this.state.marker.getClickable()
-
-  getCursor = () => this.state.marker.getCursor()
-
-  getDraggable = () => this.state.marker.getDraggable()
-
-  getIcon = () => this.state.marker.getIcon()
-
-  getLabel = () => this.state.marker.getLabel()
-
-  getMap = () => this.state.marker.getMap()
-
-  getOpacity = () => this.state.marker.getOpacity()
-
-  getPosition = () => this.state.marker.getPosition()
-
-  getShape = () => this.state.marker.getShape()
-
-  getTitle = () => this.state.marker.getTitle()
-
-  getVisible = () => this.state.marker.getVisible()
-
-  getZIndex = () => this.state.marker.getZIndex()
 }
 
 export default Marker

@@ -1,18 +1,29 @@
-import * as React from 'react'
-import { Component } from 'react'
+import * as React from "react"
 
-class ScriptLoaded extends Component<any, any> {
-  interval = null
+interface ScriptLoadedState {
+  scriptLoaded: boolean
+}
 
-  render = () => this.state.scriptLoaded
-    ? this.props.children
-    : (
+interface ScriptLoadedProps {
+  children: React.ReactChild | React.ReactChildren
+}
+
+class ScriptLoaded extends React.Component<
+  ScriptLoadedProps,
+  ScriptLoadedState
+> {
+  interval: number | undefined
+
+  render = () =>
+    this.state.scriptLoaded ? (
+      this.props.children
+    ) : (
       <span>
-        <a href='#introduction'>Enter API Key</a> to see examples
+        <a href="#introduction">Enter API Key</a> to see examples
       </span>
     )
 
-  constructor (props) {
+  constructor(props: ScriptLoadedProps) {
     super(props)
 
     this.state = {
@@ -23,15 +34,23 @@ class ScriptLoaded extends Component<any, any> {
     this.interval = setInterval(this.checkIfScriptLoaded, 200)
   }
 
-  componentWillUnmount () {
-    clearInterval(this.interval)
+  componentWillUnmount() {
+    window.clearInterval(this.interval)
   }
 
   checkIfScriptLoaded = () => {
     ///@ts-ignore
     if (window.google) {
-      this.setState({ scriptLoaded: true })
-      clearInterval(this.interval)
+      this.setState(
+        () => ({
+          scriptLoaded: true
+        }),
+        () => {
+          if (this.state.scriptLoaded) {
+            window.clearInterval(this.interval)
+          }
+        }
+      )
     }
   }
 }

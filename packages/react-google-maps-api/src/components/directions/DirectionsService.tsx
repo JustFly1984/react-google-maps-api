@@ -1,18 +1,21 @@
-import { PureComponent } from "react"
+import * as React from "react"
+
+import * as invariant from "invariant"
 
 interface DirectionsServiceState {
-  directionsService?: google.maps.DirectionsService
+  directionsService: google.maps.DirectionsService | null;
 }
 
 interface DirectionsServiceProps {
-  options?: google.maps.DirectionsRequest
-  callback?: (
+  options: google.maps.DirectionsRequest; // required for default functionality
+  callback: (  // required for default functionality
     result: google.maps.DirectionsResult,
     status: google.maps.DirectionsStatus
-  ) => void
+  ) => void;
+  onLoad: (directionsService: google.maps.DirectionsService) => void;
 }
 
-export class DirectionsService extends PureComponent<
+export class DirectionsService extends React.PureComponent<
   DirectionsServiceProps,
   DirectionsServiceState
 > {
@@ -21,6 +24,12 @@ export class DirectionsService extends PureComponent<
   }
 
   componentDidMount = () => {
+    invariant(
+      !!this.props.options,
+      "DirectionsService expected options object as parameter, but got %s",
+      this.props.options
+    )
+
     const directionsService = new google.maps.DirectionsService()
 
     this.setState(
@@ -28,19 +37,28 @@ export class DirectionsService extends PureComponent<
         directionsService
       }),
       () => {
-        this.state.directionsService.route(
-          this.props.options,
-          this.props.callback
-        )
+        if (this.state.directionsService !== null) {
+          this.state.directionsService.route(
+            this.props.options,
+            this.props.callback
+          )
+        }
       }
     )
   }
 
   componentDidUpdate = () => {
-    this.state.directionsService.route(this.props.options, this.props.callback)
+    if (this.state.directionsService !== null) {
+      this.state.directionsService.route(
+        this.props.options,
+        this.props.callback
+      )
+    }
   }
 
-  render = () => null
+  render () {
+    return null
+  }
 }
 
 export default DirectionsService

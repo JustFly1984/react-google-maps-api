@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -49,7 +49,7 @@ const updaterMap = {
 }
 
 interface RectangleState {
-  rectangle?: google.maps.Rectangle
+  rectangle: google.maps.Rectangle | null
 }
 
 interface RectangleProps {
@@ -71,15 +71,21 @@ interface RectangleProps {
   onClick?: (e: MouseEvent) => void
   onDrag?: (e: MouseEvent) => void
   onBoundsChanged?: () => void
+  onLoad: (rectangle: google.maps.Rectangle) => void
 }
 
-export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
+export class Rectangle extends React.PureComponent<
+  RectangleProps,
+  RectangleState
+> {
   static contextType = MapContext
 
-  static defaultProps: RectangleProps = {
+  public static defaultProps: RectangleProps = {
     draggable: false,
     editable: false,
-    visible: true
+    visible: true,
+    options: {},
+    onLoad: () => {}
   }
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -99,13 +105,17 @@ export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
         rectangle
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.rectangle
-        })
+        if (this.state.rectangle !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.rectangle
+          })
+
+          this.props.onLoad(this.state.rectangle)
+        }
       }
     )
   }
@@ -128,17 +138,7 @@ export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
     this.state.rectangle && this.state.rectangle.setMap(null)
   }
 
-  render = () => null
-
-  getBounds = () => this.state.rectangle.getBounds()
-
-  getDraggable = () => this.state.rectangle.getDraggable()
-
-  getEditable = () => this.state.rectangle.getEditable()
-
-  getMap = () => this.state.rectangle.getMap()
-
-  getVisible = () => this.state.rectangle.getVisible()
+  render = () => <></>
 }
 
 export default Rectangle

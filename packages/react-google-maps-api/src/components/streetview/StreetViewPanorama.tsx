@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -24,6 +24,7 @@ const updaterMap = {
     provider: (input: string) => google.maps.StreetViewPanoramaData,
     options: any
   ) {
+    // TODO: fix googlemaps typings
     // @ts-ignore
     instance.registerPanoProvider(provider, options)
   },
@@ -69,7 +70,7 @@ const updaterMap = {
 }
 
 interface StreetViewPanoramaState {
-  streetViewPanorama?: google.maps.StreetViewPanorama
+  streetViewPanorama: google.maps.StreetViewPanorama | null
 }
 
 interface StreetViewPanoramaProps {
@@ -83,12 +84,16 @@ interface StreetViewPanoramaProps {
   onStatusChanged?: () => void
   onVisibleChanged?: () => void
   onZoomChange?: () => void
+  onLoad: (streetViewPanorama: google.maps.StreetViewPanorama) => void
 }
 
-export class StreetViewPanorama extends PureComponent<
+export class StreetViewPanorama extends React.PureComponent<
   StreetViewPanoramaProps,
   StreetViewPanoramaState
 > {
+  public static defaultProps = {
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -99,23 +104,28 @@ export class StreetViewPanorama extends PureComponent<
 
   componentDidMount = () => {
     const streetViewPanorama = this.context.getStreetView()
+
     this.setState(
       () => ({
         streetViewPanorama
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.streetViewPanorama
-        })
+        if (this.state.streetViewPanorama !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.streetViewPanorama
+          })
+
+          this.props.onLoad(this.state.streetViewPanorama)
+        }
       }
     )
   }
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: StreetViewPanoramaProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -135,27 +145,9 @@ export class StreetViewPanorama extends PureComponent<
     }
   }
 
-  render = () => null
-
-  getLinks = () => this.state.streetViewPanorama.getLinks()
-
-  getLocation = () => this.state.streetViewPanorama.getLocation()
-
-  getMotionTracking = () => this.state.streetViewPanorama.getMotionTracking()
-
-  getPano = () => this.state.streetViewPanorama.getPano()
-
-  getPhotographerPov = () => this.state.streetViewPanorama.getPhotographerPov()
-
-  getPosition = () => this.state.streetViewPanorama.getPosition()
-
-  getPov = () => this.state.streetViewPanorama.getPov()
-
-  getStatus = () => this.state.streetViewPanorama.getStatus()
-
-  getVisible = () => this.state.streetViewPanorama.getVisible()
-
-  getZoom = () => this.state.streetViewPanorama.getZoom()
+  render() {
+    return null
+  }
 }
 
 export default StreetViewPanorama

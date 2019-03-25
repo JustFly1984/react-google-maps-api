@@ -18,17 +18,22 @@ const updaterMap = {
 }
 
 interface TrafficLayerState {
-  trafficLayer?: google.maps.TrafficLayer
+  trafficLayer: google.maps.TrafficLayer | null
 }
 
 interface TrafficLayerProps {
   options?: google.maps.TrafficLayerOptions
+  onLoad: (trafficLayer: google.maps.TrafficLayer) => void
 }
 
 export class TrafficLayer extends PureComponent<
   TrafficLayerProps,
   TrafficLayerState
 > {
+  public static defaultProps = {
+    options: {},
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   state = {
@@ -48,13 +53,19 @@ export class TrafficLayer extends PureComponent<
         trafficLayer
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.trafficLayer
-        })
+        if (this.state.trafficLayer !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.trafficLayer
+          })
+
+          // TODO
+          // @ts-ignore
+          this.props.onLoad(this.state.trafficLayer)
+        }
       }
     )
   }
@@ -72,14 +83,17 @@ export class TrafficLayer extends PureComponent<
   }
 
   componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+    if (this.state.trafficLayer !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.state.trafficLayer && this.state.trafficLayer.setMap(null)
+      // @ts-ignore
+      this.state.trafficLayer.setMap(null)
+    }
   }
 
-  render = () => null
-
-  getMap = () => this.state.trafficLayer.getMap()
+  render() {
+    return null
+  }
 }
 
 export default TrafficLayer

@@ -1,6 +1,7 @@
-import { PureComponent } from "react"
-// @ts-ignore
-import invariant from "invariant"
+/* globals google */
+import * as React from "react"
+
+import * as invariant from "invariant"
 
 import {
   unregisterEvents,
@@ -34,7 +35,7 @@ const updaterMap = {
 }
 
 interface DrawingManagerState {
-  drawingManager?: google.maps.drawing.DrawingManager
+  drawingManager: google.maps.drawing.DrawingManager | null
 }
 
 interface DrawingManagerProps {
@@ -46,12 +47,17 @@ interface DrawingManagerProps {
   onPolygonComplete?: (polygon: google.maps.Polygon) => void
   onPolylineComplete?: (polyline: google.maps.Polyline) => void
   onRectangleComplete?: (rectangle: google.maps.Rectangle) => void
+  onLoad: (drawingManager: google.maps.drawing.DrawingManager) => void
 }
 
-export class DrawingManager extends PureComponent<
+export class DrawingManager extends React.PureComponent<
   DrawingManagerProps,
   DrawingManagerState
 > {
+  public static defaultProps = {
+    options: {},
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -80,13 +86,17 @@ export class DrawingManager extends PureComponent<
         drawingManager
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.drawingManager
-        })
+        if (this.state.drawingManager !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.drawingManager
+          })
+
+          this.props.onLoad(this.state.drawingManager)
+        }
       }
     )
   }
@@ -109,11 +119,11 @@ export class DrawingManager extends PureComponent<
     this.state.drawingManager && this.state.drawingManager.setMap(null)
   }
 
-  render = () => null
+  render = () => <></>
 
-  getDrawingMode = () => this.state.drawingManager.getDrawingMode()
+  getDrawingMode = () => this.state.drawingManager!.getDrawingMode()
 
-  getMap = () => this.state.drawingManager.getMap()
+  getMap = () => this.state.drawingManager!.getMap()
 }
 
 export default DrawingManager

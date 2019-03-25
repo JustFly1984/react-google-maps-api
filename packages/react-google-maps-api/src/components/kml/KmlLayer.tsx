@@ -28,7 +28,7 @@ const updaterMap = {
 }
 
 interface KmlLayerState {
-  kmlLayer?: google.maps.KmlLayer
+  kmlLayer: google.maps.KmlLayer | null
 }
 
 interface KmlLayerProps {
@@ -38,9 +38,14 @@ interface KmlLayerProps {
   onClick?: (e: google.maps.MouseEvent) => void
   onDefaultViewportChanged?: () => void
   onStatusChanged?: () => void
+  onLoad: (kmlLayer: google.maps.KmlLayer) => void
 }
 
 export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
+  public static defaultProps = {
+    options: {},
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -57,15 +62,19 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
         kmlLayer
       }),
       () => {
-        this.state.kmlLayer.setMap(this.context)
+        if (this.state.kmlLayer !== null) {
+          this.state.kmlLayer.setMap(this.context)
 
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.kmlLayer
-        })
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.kmlLayer
+          })
+
+          this.props.onLoad(this.state.kmlLayer)
+        }
       }
     )
   }
@@ -88,19 +97,9 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     this.state.kmlLayer && this.state.kmlLayer.setMap(null)
   }
 
-  render = () => null
-
-  getDefaultViewport = () => this.state.kmlLayer.getDefaultViewport()
-
-  getMap = () => this.state.kmlLayer.getMap()
-
-  getMetadata = () => this.state.kmlLayer.getMetadata()
-
-  getStatus = () => this.state.kmlLayer.getStatus()
-
-  getUrl = () => this.state.kmlLayer.getUrl()
-
-  getZIndex = () => this.state.kmlLayer.getZIndex()
+  render() {
+    return null
+  }
 }
 
 export default KmlLayer

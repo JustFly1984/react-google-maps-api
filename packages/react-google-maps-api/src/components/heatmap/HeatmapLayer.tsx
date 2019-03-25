@@ -1,6 +1,5 @@
-import { PureComponent } from "react"
-//@ts-ignore
-import invariant from "invariant"
+import * as React from "react"
+import * as invariant from "invariant"
 
 import {
   unregisterEvents,
@@ -37,23 +36,28 @@ const updaterMap = {
 }
 
 interface HeatmapLayerState {
-  heatmapLayer?: google.maps.visualization.HeatmapLayer
+  heatmapLayer: google.maps.visualization.HeatmapLayer | null
 }
 
 interface HeatmapLayerProps {
-  data?:
+  data:
     | google.maps.MVCArray<
         google.maps.LatLng | google.maps.visualization.WeightedLocation
       >
     | google.maps.LatLng[]
     | google.maps.visualization.WeightedLocation[]
   options?: google.maps.visualization.HeatmapLayerOptions
+  onLoad: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void
 }
 
-export class HeatmapLayer extends PureComponent<
+export class HeatmapLayer extends React.PureComponent<
   HeatmapLayerProps,
   HeatmapLayerState
 > {
+  public static defaultProps = {
+    options: {},
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -69,10 +73,12 @@ export class HeatmapLayer extends PureComponent<
       google.maps.visualization,
       'Did you include "visualization" in the libraries array prop in <LoadScript />?'
     )
+    invariant(props.data, "data property is required in HeatmapLayer")
   }
 
   componentDidMount = () => {
     const heatmapLayer = new google.maps.visualization.HeatmapLayer({
+      data: this.props.data,
       ...this.props.options,
       map: this.context
     })
@@ -82,13 +88,17 @@ export class HeatmapLayer extends PureComponent<
         heatmapLayer
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.heatmapLayer
-        })
+        if (this.state.heatmapLayer !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.heatmapLayer
+          })
+
+          this.props.onLoad(this.state.heatmapLayer)
+        }
       }
     )
   }
@@ -114,10 +124,6 @@ export class HeatmapLayer extends PureComponent<
   }
 
   render = () => null
-
-  getData = () => this.state.heatmapLayer.getData()
-
-  getMap = () => this.state.heatmapLayer.getMap()
 }
 
 export default HeatmapLayer

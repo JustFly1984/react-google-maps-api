@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -52,7 +52,7 @@ const updaterMap = {
 }
 
 interface PolylineState {
-  polyline?: google.maps.Polyline
+  polyline: google.maps.Polyline | null
 }
 
 interface PolylineProps {
@@ -75,9 +75,17 @@ interface PolylineProps {
   onRightClick: (e: MouseEvent) => void
   onClick: (e: MouseEvent) => void
   onDrag: (e: MouseEvent) => void
+  onLoad: (polyline: google.maps.Polyline) => void
 }
 
-export class Polyline extends PureComponent<PolylineProps, PolylineState> {
+export class Polyline extends React.PureComponent<
+  PolylineProps,
+  PolylineState
+> {
+  public static defaultProps = {
+    options: {},
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -97,13 +105,17 @@ export class Polyline extends PureComponent<PolylineProps, PolylineState> {
         polyline
       }),
       () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.polyline
-        })
+        if (this.state.polyline !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.polyline
+          })
+
+          this.props.onLoad(this.state.polyline)
+        }
       }
     )
   }
@@ -126,17 +138,7 @@ export class Polyline extends PureComponent<PolylineProps, PolylineState> {
     this.state.polyline && this.state.polyline.setMap(null)
   }
 
-  render = () => null
-
-  getDraggable = () => this.state.polyline.getDraggable()
-
-  getEditable = () => this.state.polyline.getEditable()
-
-  getPath = () => this.state.polyline.getPath()
-
-  getVisible = () => this.state.polyline.getVisible()
-
-  getMap = () => this.state.polyline.getMap()
+  render = () => <></>
 }
 
 export default Polyline

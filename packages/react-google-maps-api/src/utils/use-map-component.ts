@@ -1,43 +1,43 @@
-import { useState, useEffect, useContext } from "react"
+// import { useState, useEffect, useContext } from "react"
 
-import MapContext from "../map-context"
+// import MapContext from "../map-context"
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from "./helper"
+// import {
+//   unregisterEvents,
+//   applyUpdatersToPropsAndRegisterEvents
+// } from "./helper"
 
-export default function useMapComponent(props) {
-  const [instance, setInstance] = useState(null)
-  const context = useContext(MapContext)
+// export default function useMapComponent(props) {
+//   const [instance, setInstance] = useState(null)
+//   const context = useContext(MapContext)
 
-  let tempInstance
+//   let tempInstance
 
-  console.log({ context })
+//   console.log({ context })
 
-  if (!instance) {
-    console.log(props.className, new google.maps[props.className]())
+//   if (!instance) {
+//     console.log(props.className, new google.maps[props.className]())
 
-    tempInstance = new google.maps[props.className]()
+//     tempInstance = new google.maps[props.className]()
 
-    setInstance(tempInstance)
+//     setInstance(tempInstance)
 
-    tempInstance.setMap(context)
-  }
+//     tempInstance.setMap(context)
+//   }
 
-  console.log({ tempInstance })
+//   console.log({ tempInstance })
 
-  useEffect(() => {
-    console.log(props, tempInstance)
-    const registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      ...props,
-      instance: tempInstance
-    })
+//   useEffect(() => {
+//     console.log(props, tempInstance)
+//     const registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+//       ...props,
+//       instance: tempInstance
+//     })
 
-    return () => {
-      unregisterEvents(registeredEvents)
-    }
-  })
+//     return () => {
+//       unregisterEvents(registeredEvents)
+//     }
+//   })
 
-  return "was here"
-}
+//   return "was here"
+// }

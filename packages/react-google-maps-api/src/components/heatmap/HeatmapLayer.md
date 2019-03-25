@@ -34,6 +34,9 @@ const sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
     center={sanFrancisco}
   >
     <HeatmapLayer
+      onLoad={heatmapLayer => {
+        console.log('heatmapLayer: ', heatmapLayer)
+      }}
       options={{
         data: heatmapData
       }}
