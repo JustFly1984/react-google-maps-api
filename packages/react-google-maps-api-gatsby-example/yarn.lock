@@ -1054,10 +1054,10 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@react-google-maps/api@^1.2.0-alpha.3":
-  version "1.2.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.2.0-alpha.3.tgz#fa976fa0e809d1477cc6bcf33c14566a671d079f"
-  integrity sha512-Ef9MMMABO9rLiSXvicgAMIvQkVHKdtNdwblhmf0kFQzBqm4OCcjEbiY24FA3som9yIfVMUMShwIJp32lb4w8QA==
+"@react-google-maps/api@1.2.0-alpha.4":
+  version "1.2.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.2.0-alpha.4.tgz#183a57a92c6ba9a5a636947adc64796f38c7369a"
+  integrity sha512-NXGAom2F49EEJCCsgThbGHKJXcV3rs+07giE8A5ueNTWYxy4b8RmZ2LZAtZGzWqzPgznQVCQrHQL2lpRs4zCgQ==
   dependencies:
     "@types/googlemaps" "3.30.19"
     "@types/markerclustererplus" "2.1.33"
@@ -10624,17 +10624,10 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@3.3.2, uuid@^3.0.0, uuid@^3.0.1, uuid@^3.1.0, uuid@^3.3.2:
+uuid@^3.0.0, uuid@^3.0.1, uuid@^3.1.0, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
-
-uuidv4@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/uuidv4/-/uuidv4-3.0.1.tgz#31751b0ab78f50c9e42dbf231693210b3435b673"
-  integrity sha512-PPzksdWRl2a5C9hrs3OOYrArTeyoR0ftJ3jtOy+BnVHkT2UlrrzPNt9nTdiGuxmQItHM/AcTXahwZZC57Njojg==
-  dependencies:
-    uuid "3.3.2"
 
 v8-compile-cache@^1.1.0:
   version "1.1.2"
