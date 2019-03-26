@@ -1,5 +1,11 @@
 # Changelog
 
+# 1.2.0-alpha5 Typescript refactoring
+
+** Full embrace of strongly typed functionality. Autocomplete in your typescript projects out of the box.
+** changed api to support async nature of react. onLoad and onUnmount func props for each component.
+** added addon MarkerClusterer
+
 ## 1.1.1-alpha Additional component support
 
 ** StreetViewPanorama
