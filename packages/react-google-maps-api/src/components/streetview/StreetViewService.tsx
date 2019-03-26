@@ -20,22 +20,28 @@ export class StreetViewService extends React.PureComponent<
     streetViewService: null
   }
 
-  componentDidMount = () => {
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setStreetViewServiceCallback = () => {
+    if (
+      this.state.streetViewService !== null &&
+      this.props.onLoad
+    ) {
+      this.props.onLoad(this.state.streetViewService)
+    }
+  }
+
+  componentDidMount() {
     const streetViewService = new google.maps.StreetViewService()
 
-    this.setState(
-      () => ({
+    function setStreetViewService() {
+      return {
         streetViewService
-      }),
-      () => {
-        if (
-          this.state.streetViewService !== null &&
-          this.props.onLoad
-        ) {
-          // @ts-ignore
-          this.props.onLoad(this.state.streetViewService)
-        }
       }
+    }
+
+    this.setState(
+      setStreetViewService,
+
     )
   }
 

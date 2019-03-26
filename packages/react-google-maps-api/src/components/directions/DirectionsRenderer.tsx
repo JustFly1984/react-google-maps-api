@@ -36,16 +36,17 @@ const updaterMap = {
 }
 
 interface DirectionsRendererState {
-  directionsRenderer: google.maps.DirectionsRenderer | null
+  directionsRenderer: google.maps.DirectionsRenderer | null;
 }
 
 interface DirectionsRendererProps {
-  options?: google.maps.DirectionsRendererOptions
-  directions?: google.maps.DirectionsResult
-  panel?: Element
-  routeIndex?: number
-  onDirectionsChanged?: () => void
-  onLoad: (directionsRenderer: google.maps.DirectionsRenderer) => void
+  options?: google.maps.DirectionsRendererOptions;
+  directions?: google.maps.DirectionsResult;
+  panel?: Element;
+  routeIndex?: number;
+  onDirectionsChanged?: () => void;
+  onLoad?: (directionsRenderer: google.maps.DirectionsRenderer) => void;
+  onUnmount?: (directionsRenderer: google.maps.DirectionsRenderer) => void;
 }
 
 export class DirectionsRenderer extends React.PureComponent<
@@ -53,9 +54,6 @@ export class DirectionsRenderer extends React.PureComponent<
   DirectionsRendererState
 > {
   static contextType = MapContext
-  public static defaultProps = {
-    onLoad: () => {}
-  }
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
@@ -63,55 +61,69 @@ export class DirectionsRenderer extends React.PureComponent<
     directionsRenderer: null
   }
 
-  componentDidMount = () => {
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setDirectionsRendererCallback = () => {
+    if (this.state.directionsRenderer !== null) {
+      this.state.directionsRenderer.setMap(this.context)
+
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.directionsRenderer
+      })
+
+      if (this.props.onLoad) {
+        this.props.onLoad(this.state.directionsRenderer)
+      }
+    }
+  }
+
+  componentDidMount() {
     const directionsRenderer = new google.maps.DirectionsRenderer(
       this.props.options
     )
 
-    this.setState(
-      () => ({
+    function setDirectionsRenderer() {
+      return {
         directionsRenderer
-      }),
-      () => {
-        if (this.state.directionsRenderer !== null) {
-          this.state.directionsRenderer.setMap(this.context)
-
-          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-            updaterMap,
-            eventMap,
-            prevProps: {},
-            nextProps: this.props,
-            instance: this.state.directionsRenderer
-          })
-
-          this.props.onLoad(this.state.directionsRenderer)
-        }
       }
-    )
+    }
+
+    this.setState(setDirectionsRenderer, this.setDirectionsRendererCallback)
   }
 
-  componentDidUpdate = (prevProps: DirectionsRendererProps) => {
-    unregisterEvents(this.registeredEvents)
+  componentDidUpdate(prevProps: DirectionsRendererProps) {
+    if (this.state.directionsRenderer !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.directionsRenderer
-    })
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.directionsRenderer
+      })
+    }
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+  componentWillUnmount() {
+    if (this.state.directionsRenderer !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.directionsRenderer)
+      }
 
-    if (this.state.directionsRenderer) {
-      this.state.directionsRenderer.setMap(null)
+      unregisterEvents(this.registeredEvents)
+
+      if (this.state.directionsRenderer) {
+        this.state.directionsRenderer.setMap(null)
+      }
     }
   }
 
   render() {
-    return null
+    return <></>
   }
 }
 

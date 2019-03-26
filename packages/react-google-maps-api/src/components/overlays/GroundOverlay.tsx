@@ -21,17 +21,18 @@ const updaterMap = {
 }
 
 interface GroundOverlayState {
-  groundOverlay: google.maps.GroundOverlay | null
+  groundOverlay: google.maps.GroundOverlay | null;
 }
 
 interface GroundOverlayProps {
-  options?: google.maps.GroundOverlayOptions
-  opacity?: number
-  onDblClick?: (e: MouseEvent) => void
-  onClick?: (e: MouseEvent) => void
-  url: string
-  bounds: google.maps.LatLngBounds
-  onLoad: (groundOverlay: google.maps.GroundOverlay) => void
+  options?: google.maps.GroundOverlayOptions;
+  opacity?: number;
+  onDblClick?: (e: MouseEvent) => void;
+  onClick?: (e: MouseEvent) => void;
+  url: string;
+  bounds: google.maps.LatLngBounds;
+  onLoad?: (groundOverlay: google.maps.GroundOverlay) => void;
+  onUnmount?: (groundOverlay: google.maps.GroundOverlay) => void;
 }
 
 export class GroundOverlay extends React.PureComponent<
@@ -49,19 +50,21 @@ export class GroundOverlay extends React.PureComponent<
     groundOverlay: null
   }
 
-  constructor(
-    props: GroundOverlayProps,
-    context: React.Context<google.maps.Map>
-  ) {
-    super(props, context)
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setGroundOverlayCallback = () => {
+    if (this.state.groundOverlay !== null) {
+      if (this.props.onLoad) {
+        this.props.onLoad(this.state.groundOverlay)
+      }
+    }
+  }
 
+  componentDidMount() {
     invariant(
       !this.props.url || !this.props.bounds,
       `For GroundOveray, url and bounds are passed in to constructor and are immutable after instantiated. This is the behavior of Google Maps JavaScript API v3 ( See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay) Hence, use the corresponding two props provided by \`react-google-maps-api\`, url and bounds. In some cases, you'll need the GroundOverlay component to reflect the changes of url and bounds. You can leverage the React's key property to remount the component. Typically, just \`key={url}\` would serve your need. See https://github.com/tomchentw/react-google-maps/issues/655`
     )
-  }
 
-  componentDidMount = () => {
     const groundOverlay = new google.maps.GroundOverlay(
       this.props.url,
       this.props.bounds,
@@ -71,32 +74,38 @@ export class GroundOverlay extends React.PureComponent<
       }
     )
 
-    this.setState(
-      () => {
+    function setGroundOverlay() {
+      return {
         groundOverlay
-      },
-      () => {
-        if (this.state.groundOverlay !== null) {
-          this.props.onLoad(this.state.groundOverlay)
-        }
       }
+    }
+
+    this.setState(
+      setGroundOverlay,
+      this.setGroundOverlayCallback
     )
   }
 
-  componentDidUpdate = (prevProps: GroundOverlayProps) => {
-    unregisterEvents(this.registeredEvents)
+  componentDidUpdate(prevProps: GroundOverlayProps) {
+    if (this.state.groundOverlay !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.groundOverlay
-    })
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.groundOverlay
+      })
+    }
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     if (this.state.groundOverlay) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.groundOverlay)
+      }
+
       this.state.groundOverlay.setMap(null)
     }
   }

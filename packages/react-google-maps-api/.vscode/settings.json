@@ -7,8 +7,8 @@
   "eslint.enable": true,
   "eslint.autoFixOnSave": true,
   "eslint.alwaysShowStatus": true,
-  "eslint.run": "onSave",
-  "eslint.trace.server": "messages",
+  "eslint.run": "onType",
+  "eslint.trace.server": "verbose",
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -50,5 +50,6 @@
   "typescript.tsc.autoDetect": "on",
   "typescript.validate.enable": true,
   "typescript.disableAutomaticTypeAcquisition": true,
-  "json.format.enable": true
+  "json.format.enable": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

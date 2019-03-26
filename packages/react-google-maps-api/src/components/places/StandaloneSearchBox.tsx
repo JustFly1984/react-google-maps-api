@@ -23,50 +23,54 @@ const updaterMap = {
 }
 
 interface StandaloneSearchBoxState {
-  searchBox: google.maps.places.SearchBox | null
+  searchBox: google.maps.places.SearchBox | null;
 }
 
 interface StandaloneSearchBoxProps {
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
-  options?: google.maps.places.SearchBoxOptions
-  onPlacesChanged?: () => void
-  onLoad: (searchBox: google.maps.places.SearchBox) => void
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
+  options?: google.maps.places.SearchBoxOptions;
+  onPlacesChanged?: () => void;
+  onLoad?: (searchBox: google.maps.places.SearchBox) => void;
+  onUnmount?: (searchBox: google.maps.places.SearchBox) => void;
 }
 
 class StandaloneSearchBox extends React.PureComponent<
   StandaloneSearchBoxProps,
   StandaloneSearchBoxState
 > {
-  public static defaultProps = {
-    onLoad: () => {}
-  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  containerElement: React.RefObject<HTMLDivElement>
+  containerElement: React.RefObject<HTMLDivElement> = React.createRef()
 
   state: StandaloneSearchBoxState = {
     searchBox: null
   }
 
-  constructor(
-    props: StandaloneSearchBoxProps,
-    context: React.Context<google.maps.Map>
-  ) {
-    super(props, context)
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setSearchBoxCallback = () => {
+    if (this.state.searchBox !== null) {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.searchBox
+      })
 
+      if (this.props.onLoad){
+        this.props.onLoad(this.state.searchBox)
+      }
+    }
+  }
+
+  componentDidMount() {
     invariant(
       google.maps.places,
       'Did you include "libraries=places" in the URL?'
     )
 
-    this.containerElement = React.createRef()
-  }
-
-  componentDidMount = () => {
-    // TODO
-    // @ts-ignore
     const input = this.containerElement.current.querySelector("input")
 
     if (input) {
@@ -77,47 +81,47 @@ class StandaloneSearchBox extends React.PureComponent<
       )
 
       this.setState(
-        () => ({
-          searchBox
-        }),
-        () => {
-          if (this.state.searchBox !== null) {
-            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-              updaterMap,
-              eventMap,
-              prevProps: {},
-              nextProps: this.props,
-              instance: this.state.searchBox
-            })
-
-            this.props.onLoad(this.state.searchBox)
+        function setSearchBox() {
+          return {
+            searchBox
           }
-        }
+        },
+        this.setSearchBoxCallback
       )
     }
   }
 
-  componentDidUpdate = (prevProps: StandaloneSearchBoxProps) => {
-    unregisterEvents(this.registeredEvents)
+  componentDidUpdate(prevProps: StandaloneSearchBoxProps) {
+    if (this.state.searchBox !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.searchBox
-    })
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.searchBox
+      })
+    }
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+  componentWillUnmount() {
+    if (this.state.searchBox !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.searchBox)
+      }
+
+      unregisterEvents(this.registeredEvents)
+    }
   }
 
-  render = () => (
-    <div ref={this.containerElement}>
-      {React.Children.only(this.props.children)}
-    </div>
-  )
+  render() {
+    return (
+      <div ref={this.containerElement}>
+        {React.Children.only(this.props.children)}
+      </div>
+    )
+  }
 }
 
 export default StandaloneSearchBox

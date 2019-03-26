@@ -31,7 +31,7 @@ const eventMap = {
 
 const updaterMap = {
   extraMapTypes(map: google.maps.Map, extra: google.maps.MapType[]) {
-    extra.forEach((it, i) => {
+    extra.forEach(function forEachExtra(it, i) {
       map.mapTypes.set(String(i), it)
     })
   },
@@ -65,101 +65,102 @@ const updaterMap = {
 }
 
 interface GoogleMapState {
-  map: google.maps.Map | null
+  map: google.maps.Map | null;
 }
 
 interface GoogleMapProps {
-  id: string
-  reuseSameInstance?: boolean
-  mapContainerStyle?: React.CSSProperties
-  mapContainerClassName?: string
-  options?: google.maps.MapOptions
-  extraMapTypes?: google.maps.MapType[]
-  center?: google.maps.LatLng | google.maps.LatLngLiteral
-  clickableIcons?: boolean
-  heading?: number
-  mapTypeId?: string
-  streetView?: google.maps.StreetViewPanorama
-  tilt?: number
-  zoom?: number
-  onClick?: (e: MouseEvent) => void
-  onDblClick?: (e: MouseEvent) => void
-  onDrag?: () => void
-  onDragEnd?: () => void
-  onDragStart?: () => void
-  onMapTypeIdChanged?: () => void
-  onMouseMove?: (e: MouseEvent) => void
-  onMouseOut?: (e: MouseEvent) => void
-  onMouseOver?: (e: MouseEvent) => void
-  onRightClick?: (e: MouseEvent) => void
-  onTilesLoaded?: () => void
-  onBoundsChanged?: () => void
-  onCenterChanged?: () => void
-  onHeadingChanged?: () => void
-  onIdle?: () => void
-  onProjectionChanged?: () => void
-  onResize?: () => void
-  onTiltChanged?: () => void
-  onZoomChanged?: () => void
-  onLoad: (map: google.maps.Map) => void | Promise<void>
+  id?: string;
+  reuseSameInstance?: boolean;
+  mapContainerStyle?: React.CSSProperties;
+  mapContainerClassName?: string;
+  options?: google.maps.MapOptions;
+  extraMapTypes?: google.maps.MapType[];
+  center?: google.maps.LatLng | google.maps.LatLngLiteral;
+  clickableIcons?: boolean;
+  heading?: number;
+  mapTypeId?: string;
+  streetView?: google.maps.StreetViewPanorama;
+  tilt?: number;
+  zoom?: number;
+  onClick?: (e: MouseEvent) => void;
+  onDblClick?: (e: MouseEvent) => void;
+  onDrag?: () => void;
+  onDragEnd?: () => void;
+  onDragStart?: () => void;
+  onMapTypeIdChanged?: () => void;
+  onMouseMove?: (e: MouseEvent) => void;
+  onMouseOut?: (e: MouseEvent) => void;
+  onMouseOver?: (e: MouseEvent) => void;
+  onRightClick?: (e: MouseEvent) => void;
+  onTilesLoaded?: () => void;
+  onBoundsChanged?: () => void;
+  onCenterChanged?: () => void;
+  onHeadingChanged?: () => void;
+  onIdle?: () => void;
+  onProjectionChanged?: () => void;
+  onResize?: () => void;
+  onTiltChanged?: () => void;
+  onZoomChanged?: () => void;
+  onLoad?: (map: google.maps.Map) => void | Promise<void>;
+  onUnmount?: (map: google.maps.Map) => void | Promise<void>;
 }
 
 export class GoogleMap extends React.PureComponent<
   GoogleMapProps,
   GoogleMapState
 > {
-  public static defaultProps: GoogleMapProps = {
-    id: "defaultMapId",
-    reuseSameInstance: false,
-    onLoad: () => {}
-  }
-
-  constructor(props: GoogleMapProps) {
-    super(props)
-
-    this.mapRef = null
-  }
-
   state: GoogleMapState = {
     map: null
   }
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  mapRef: HTMLElement | null
+  mapRef: HTMLElement | null = null
 
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   getInstance = (): google.maps.Map | null => {
-    const { reuseSameInstance, ...rest } = this.props
+    const { reuseSameInstance, id, ...rest } = this.props
 
-    const instance = reuseSameInstance && restoreInstance(rest)
+    const instance = reuseSameInstance && restoreInstance({ ...rest, ...{ id: id || "defaultMapId" } })
 
     return instance
       ? instance
       : new google.maps.Map(this.mapRef, this.props.options)
   }
 
-  componentDidMount = () => {
-    this.setState(
-      () => ({
-        map: this.getInstance()
-      }),
-      () => {
-        if (this.state.map !== null) {
-          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-            updaterMap,
-            eventMap,
-            prevProps: {},
-            nextProps: this.props,
-            instance: this.state.map
-          })
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setMapCallback = () => {
+    if (this.state.map !== null) {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.map
+      })
 
-          this.props.onLoad(this.state.map)
-        }
+      if (this.props.onLoad) {
+        this.props.onLoad(this.state.map)
       }
+    }
+  }
+
+  componentDidMount() {
+    const map = this.getInstance()
+
+    function setMap() {
+      return {
+        map
+      }
+    }
+
+    this.setState(
+      setMap,
+      this.setMapCallback
     )
   }
 
-  componentDidUpdate = (prevProps: GoogleMapProps) => {
+  componentDidUpdate(prevProps: GoogleMapProps) {
     if (this.state.map !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -173,39 +174,38 @@ export class GoogleMap extends React.PureComponent<
     }
   }
 
-  componentWillUnmount = () => {
-    if (this.state.map) {
-      const { reuseSameInstance, id } = this.props
+  componentWillUnmount() {
+    if (this.state.map !== null) {
+      if (this.props.reuseSameInstance) {
+        saveInstance(this.props.id || "defaultMapId", this.state.map)
+      }
 
-      reuseSameInstance && saveInstance(id, this.state.map)
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.map)
+      }
 
       unregisterEvents(this.registeredEvents)
     }
   }
 
-  getRef = (ref: HTMLDivElement | null): void => {
+  getRef(ref: HTMLDivElement | null): void {
     this.mapRef = ref
   }
 
-  render = () => {
-    const {
-      id,
-      mapContainerStyle,
-      mapContainerClassName,
-      children
-    } = this.props
-
-    const { map } = this.state
-
+  render() {
     return (
       <div
-        id={id}
+        id={this.props.id}
         ref={this.getRef}
-        style={mapContainerStyle}
-        className={mapContainerClassName}
+        style={this.props.mapContainerStyle}
+        className={this.props.mapContainerClassName}
       >
-        <MapContext.Provider value={map}>
-          {map !== null ? children : <></>}
+        <MapContext.Provider value={this.state.map}>
+          {
+            this.state.map !== null
+              ? this.props.children
+              : <></>
+          }
         </MapContext.Provider>
       </div>
     )

@@ -88,32 +88,35 @@ const updaterMap = {
 }
 
 interface MarkerClustererState {
-  markerClusterer?: MarkerClusterer
+  markerClusterer: MarkerClusterer | null;
 }
 
 interface MarkerClustererProps {
-  children: (markerClusterer: MarkerClusterer) => React.ReactNode
-  initialOptions?: MarkerClustererOptions
-  averageCenter?: boolean
-  batchSizeIE: number
-  calculator: Calculator
-  clusterClass: string
-  enableRetinaIcons: boolean
-  gridSize: number
-  ignoreHidden: boolean
-  imageExtension: string
-  imagePath: string
-  imageSizes: number[]
-  maxZoom: number
-  minimumClusterSize: number
-  styles: ClusterIconStyle[]
-  title: string
-  zoomOnClick: boolean
-  onClick: (cluster: Cluster) => void
-  onClusteringBegin: (markerClusterer: MarkerClusterer) => void
-  onClusteringEnd: (markerClusterer: MarkerClusterer) => void
-  onMouseOver: (cluster: Cluster) => void
-  onMouseOut: (cluster: Cluster) => void
+  // required
+  children: (markerClusterer: MarkerClusterer) => React.ReactNode;
+  options?: MarkerClustererOptions; // TODO: it could be undefined
+  averageCenter?: boolean;
+  batchSizeIE: number;
+  calculator: Calculator;
+  clusterClass: string;
+  enableRetinaIcons: boolean;
+  gridSize: number;
+  ignoreHidden: boolean;
+  imageExtension: string;
+  imagePath: string;
+  imageSizes: number[];
+  maxZoom: number;
+  minimumClusterSize: number;
+  styles: ClusterIconStyle[];
+  title: string;
+  zoomOnClick: boolean;
+  onClick: (cluster: Cluster) => void;
+  onClusteringBegin: (markerClusterer: MarkerClusterer) => void;
+  onClusteringEnd: (markerClusterer: MarkerClusterer) => void;
+  onMouseOver: (cluster: Cluster) => void;
+  onMouseOut: (cluster: Cluster) => void;
+  onLoad?: (markerClusterer: MarkerClusterer) => void;
+  onUnmount?: (markerClusterer: MarkerClusterer) => void;
 }
 
 export class MarkerClustererComponent extends PureComponent<
@@ -128,51 +131,72 @@ export class MarkerClustererComponent extends PureComponent<
     markerClusterer: null
   }
 
-  componentDidMount = () => {
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setMarkerClustererCallback = (): void => {
+    if (this.state.markerClusterer !== null) {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: this.state.markerClusterer
+      })
+
+      if (this.props.onLoad) {
+        this.props.onLoad(this.state.markerClusterer)
+      }
+    }
+  }
+
+  componentDidMount(): void {
     const markerClusterer = new MarkerClusterer(
       this.context,
       [],
-      this.props.initialOptions
+      this.props.options
     )
 
-    this.setState(
-      () => ({
+    function setMarkerClusterer(): MarkerClustererState {
+      return {
         markerClusterer
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.markerClusterer
-        })
       }
-    )
+    }
+
+    this.setState(setMarkerClusterer, this.setMarkerClustererCallback)
   }
 
-  componentDidUpdate = (prevProps: MarkerClustererProps) => {
-    unregisterEvents(this.registeredEvents)
+  componentDidUpdate(prevProps: MarkerClustererProps) {
+    if (this.state.markerClusterer) {
+      unregisterEvents(this.registeredEvents)
 
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.markerClusterer
-    })
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.markerClusterer
+      })
+    }
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+  componentWillUnmount() {
+    if (this.state.markerClusterer !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.markerClusterer)
+      }
 
-    this.state.markerClusterer && this.state.markerClusterer.setMap(null)
+      unregisterEvents(this.registeredEvents)
+
+      this.state.markerClusterer.setMap(null)
+    }
   }
 
-  render = () =>
-    this.state.markerClusterer
+  render() {
+    return this.state.markerClusterer !== null
       ? this.props.children(this.state.markerClusterer)
-      : null
+      : (
+        <></>
+      )
+  }
 }
 
 export default MarkerClustererComponent

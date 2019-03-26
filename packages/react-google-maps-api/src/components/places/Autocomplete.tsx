@@ -45,51 +45,51 @@ const updaterMap = {
 }
 
 interface AutocompleteState {
-  autocomplete: google.maps.places.Autocomplete | null
+  autocomplete: google.maps.places.Autocomplete | null;
 }
 
 interface AutocompleteProps {
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
-  restrictions?: google.maps.places.ComponentRestrictions
-  fields?: string[]
-  options?: google.maps.places.AutocompleteOptions
-  types?: string[]
-  onPlaceChanged?: () => void
-  onLoad: (autocomplete: google.maps.places.Autocomplete) => void
+  // required
+  children: React.ReactChild;
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
+  restrictions?: google.maps.places.ComponentRestrictions;
+  fields?: string[];
+  options?: google.maps.places.AutocompleteOptions;
+  types?: string[];
+  onPlaceChanged?: () => void;
+  onLoad?: (autocomplete: google.maps.places.Autocomplete) => void;
+  onUnmount?: (autocomplete: google.maps.places.Autocomplete) => void;
 }
 
 export class Autocomplete extends React.PureComponent<
   AutocompleteProps,
   AutocompleteState
 > {
-  public static defaultProps = {
-    onLoad: () => {}
-  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
-  containerElement: React.RefObject<HTMLDivElement>
+  containerElement: React.RefObject<HTMLDivElement> = React.createRef()
 
   state: AutocompleteState = {
     autocomplete: null
   }
 
-  constructor(
-    props: AutocompleteProps,
-    context: React.Context<google.maps.Map>
-  ) {
-    super(props, context)
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setAutocompleteCallback = () => {
+    if (this.state.autocomplete !== null) {
+      if (this.props.onLoad) {
+        this.props.onLoad(this.state.autocomplete)
+      }
+    }
+  }
 
+  componentDidMount() {
     invariant(
       google.maps.places,
       'Did you include "libraries=places" in the URL?',
       "sdfs"
     )
 
-    this.containerElement = React.createRef()
-  }
-
-  componentDidMount = () => {
     // TODO: why is this possibly null
     // @ts-ignore
     const input = this.containerElement.current.querySelector("input")
@@ -101,19 +101,17 @@ export class Autocomplete extends React.PureComponent<
       )
 
       this.setState(
-        () => ({
-          autocomplete
-        }),
-        () => {
-          if (this.state.autocomplete !== null) {
-            this.props.onLoad(this.state.autocomplete)
+        function setAutocomplete() {
+          return {
+            autocomplete
           }
-        }
+        },
+        this.setAutocompleteCallback
       )
     }
   }
 
-  componentDidUpdate = (prevProps: AutocompleteProps) => {
+  componentDidUpdate(prevProps: AutocompleteProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -125,15 +123,19 @@ export class Autocomplete extends React.PureComponent<
     })
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+  componentWillUnmount() {
+    if (this.state.autocomplete !== null) {
+      unregisterEvents(this.registeredEvents)
+    }
   }
 
-  render = () => (
-    <div ref={this.containerElement}>
-      {React.Children.only(this.props.children)}
-    </div>
-  )
+  render() {
+    return (
+      <div ref={this.containerElement}>
+        { React.Children.only(this.props.children) }
+      </div>
+    )
+  }
 }
 
 export default Autocomplete
