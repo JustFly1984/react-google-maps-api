@@ -150,7 +150,9 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
         instance: this.state.marker
       })
 
-      this.props.onLoad(this.state.marker)
+      if (this.props.onLoad) {
+        this.props.onLoad(this.state.marker)
+      }
     }
   }
 

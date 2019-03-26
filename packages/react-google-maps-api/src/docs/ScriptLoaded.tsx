@@ -8,7 +8,7 @@ interface ScriptLoadedProps {
   children: React.ReactChild | React.ReactChildren;
 }
 
-function SpanIntro(): JSX.Element {
+function SpanIntro (): JSX.Element {
   return (
     <span>
       <a href='#introduction'>Enter API Key</a> to see examples

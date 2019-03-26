@@ -107,13 +107,15 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
       setTimeout(timeoutCallback, 1)
 
-      this.props.onUnmount()
+      if (this.props.onUnmount) {
+        this.props.onUnmount()
+      }
     }
   }
 
   // eslint-disable-next-line @getify/proper-arrows/name
   isCleaningUp = async () => {
-    function promiseCallback (resolve) {
+    function promiseCallback (resolve: () => void) {
       if (!cleaningUp) {
         resolve()
       } else {
@@ -195,7 +197,9 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
     injectScript(injectScriptOptions)
       // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
       .then(() => {
-        this.props.onLoad()
+        if (this.props.onLoad) {
+          this.props.onLoad()
+        }
 
         this.setState(function setLoaded () {
           return {
@@ -205,7 +209,9 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
       })
       // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
       .catch(err => {
-        this.props.onError(err)
+        if (this.props.onError) {
+          this.props.onError(err)
+        }
 
         console.error(`
           There has been an Error with loading Google Maps API script, please check that you provided all required props to <LoadScript />

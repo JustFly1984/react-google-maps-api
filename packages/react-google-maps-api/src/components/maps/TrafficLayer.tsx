@@ -49,6 +49,7 @@ export class TrafficLayer extends PureComponent<
       })
 
       if (this.props.onLoad) {
+        // @ts-ignore
         this.props.onLoad(this.state.trafficLayer)
       }
     }
@@ -91,11 +92,13 @@ export class TrafficLayer extends PureComponent<
   componentWillUnmount() {
     if (this.state.trafficLayer !== null) {
       if (this.props.onUnmount) {
+        // @ts-ignore
         this.props.onUnmount(this.state.trafficLayer)
       }
 
       unregisterEvents(this.registeredEvents)
 
+      // @ts-ignore
       this.state.trafficLayer.setMap(null)
     }
   }

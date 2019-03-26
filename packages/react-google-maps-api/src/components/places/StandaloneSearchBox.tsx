@@ -71,23 +71,28 @@ class StandaloneSearchBox extends React.PureComponent<
       'Did you include "libraries=places" in the URL?'
     )
 
-    const input = this.containerElement.current.querySelector("input")
+    if (
+      this.containerElement !== null &&
+      this.containerElement.current !== null
+    ) {
+      const input = this.containerElement.current.querySelector("input")
 
-    if (input) {
-      const searchBox = new google.maps.places.SearchBox(
-        // @ts-ignore
-        input,
-        this.props.options
-      )
+      if (input) {
+        const searchBox = new google.maps.places.SearchBox(
+          // @ts-ignore
+          input,
+          this.props.options
+        )
 
-      this.setState(
-        function setSearchBox() {
-          return {
-            searchBox
-          }
-        },
-        this.setSearchBoxCallback
-      )
+        this.setState(
+          function setSearchBox() {
+            return {
+              searchBox
+            }
+          },
+          this.setSearchBoxCallback
+        )
+      }
     }
   }
 

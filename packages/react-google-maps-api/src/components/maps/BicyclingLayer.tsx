@@ -53,6 +53,7 @@ export class BicyclingLayer extends React.PureComponent<
   componentWillUnmount() {
     if (this.state.bicyclingLayer !== null) {
       if (this.props.onUnmount) {
+        // @ts-ignore
         this.props.onUnmount(this.state.bicyclingLayer)
       }
 
