@@ -85,13 +85,14 @@ export class DirectionsRenderer extends React.PureComponent<
       this.props.options
     )
 
-    function setDirectionsRenderer() {
-      return {
-        directionsRenderer
-      }
-    }
-
-    this.setState(setDirectionsRenderer, this.setDirectionsRendererCallback)
+    this.setState(
+      function setDirectionsRenderer() {
+        return {
+          directionsRenderer
+        }
+      },
+      this.setDirectionsRendererCallback
+    )
   }
 
   componentDidUpdate(prevProps: DirectionsRendererProps) {

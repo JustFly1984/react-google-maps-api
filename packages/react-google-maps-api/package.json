@@ -68,6 +68,7 @@
   "dependencies": {
     "@types/googlemaps": "3.30.19",
     "@types/markerclustererplus": "2.1.33",
+    "@types/react-dom": "^16.8.3",
     "google-maps-infobox": "2.0.0",
     "invariant": "2.2.4",
     "marker-clusterer-plus": "2.1.4"
@@ -101,7 +102,6 @@
     "eslint-plugin-node": "8.0.1",
     "eslint-plugin-optimize-regex": "1.1.6",
     "eslint-plugin-promise": "4.0.1",
-    "eslint-plugin-promiseparams": "1.0.8",
     "eslint-plugin-react": "7.12.4",
     "eslint-plugin-react-functional-set-state": "1.2.1",
     "eslint-plugin-react-perf": "3.1.0",

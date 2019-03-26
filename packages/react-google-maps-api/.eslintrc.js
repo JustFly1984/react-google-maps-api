@@ -27,7 +27,6 @@ module.exports = {
     'html',
     'ascii',
     'promise',
-    'promiseparams',
     'react',
     'optimize-regex',
     'react-perf',
@@ -87,7 +86,6 @@ module.exports = {
 
     'ascii/valid-name': 2,
     'optimize-regex/optimize-regex': 'warn',
-    'promiseparams/promiseparams': 2,
     'filenames/no-index': 0,
     'filenames/match-regex': [2, '^[a-z0-9-.]+$', true],
     'filenames/match-exported': [2, ['camel', 'kebab', null]],

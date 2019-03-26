@@ -58,7 +58,7 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
     window.clearInterval(this.interval)
   }
 
-  render(): JSX.Element {
+  render() {
     return this.state.scriptLoaded
       ? (
         this.props.children
