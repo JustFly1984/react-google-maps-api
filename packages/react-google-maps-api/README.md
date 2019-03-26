@@ -30,7 +30,7 @@ npm i -S @react-google-maps/api
 Examples can be found in two places:
 
 1. [Official docs](https://react-google-maps-api-docs.netlify.com/) (powered by [docz](https://github.com/pedronauck/docz)). See the [docs](https://github.com/JustFly1984/react-google-maps-api/tree/master/src/docs) folder
-2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/examples/react-google-maps-api-gatsby/src/examples) folder
+2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api-gatsby-example/src/examples) folder
 3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.com/)
 
 ## Advice
