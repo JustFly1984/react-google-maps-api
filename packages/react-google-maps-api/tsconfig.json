@@ -26,6 +26,7 @@
     "types": [
       "googlemaps",
       "react",
+      "react-dom",
       "invariant",
       "markerclustererplus"
     ],

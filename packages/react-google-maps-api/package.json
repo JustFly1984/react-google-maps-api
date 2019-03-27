@@ -67,8 +67,10 @@
   },
   "dependencies": {
     "@types/googlemaps": "3.30.19",
+    "@types/invariant": "2.2.29",
     "@types/markerclustererplus": "2.1.33",
-    "@types/react-dom": "^16.8.3",
+    "@types/react": "16.8.10",
+    "@types/react-dom": "16.8.3",
     "google-maps-infobox": "2.0.0",
     "invariant": "2.2.4",
     "marker-clusterer-plus": "2.1.4"
@@ -78,10 +80,8 @@
     "react-dom": "^16.6.3"
   },
   "devDependencies": {
-    "@getify/eslint-plugin-proper-arrows": "6.0.0",
+    "@getify/eslint-plugin-proper-arrows": "7.1.0",
     "@types/babel-types": "7.0.6",
-    "@types/invariant": "2.2.29",
-    "@types/react": "16.8.8",
     "@typescript-eslint/eslint-plugin": "1.5.0",
     "@typescript-eslint/parser": "1.5.0",
     "acorn": "6.1.1",
@@ -111,7 +111,7 @@
     "react": "16.8.5",
     "react-docgen-typescript": "1.12.3",
     "react-dom": "16.8.5",
-    "react-styleguidist": "9.0.4",
+    "react-styleguidist": "8.0.6",
     "rimraf": "2.6.3",
     "typescript": "3.3.4000",
     "webpack": "4.29.6"
