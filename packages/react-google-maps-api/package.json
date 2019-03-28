@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/api",
-  "version": "1.2.0-alpha.6",
+  "version": "1.2.0-alpha.7",
   "description": "React.js Google Maps API integration",
   "license": "MIT",
   "author": {
@@ -75,7 +75,7 @@
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
   },
   "dependencies": {
-    "@react-google-maps/marker-clusterer": "1.2.0-alpha.5",
+    "@react-google-maps/marker-clusterer": "1.2.0-alpha.6",
     "@types/googlemaps": "3.30.19",
     "@types/invariant": "^2.2.29",
     "@types/react": "16.8.10",

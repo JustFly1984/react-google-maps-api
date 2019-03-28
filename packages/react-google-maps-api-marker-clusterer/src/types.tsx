@@ -6,7 +6,7 @@ export interface ClusterIconInfo {
 }
 
 export type MarkerExtended = google.maps.Marker & {
-  isAdded: boolean;
+  isAdded?: boolean;
 }
 
 export type TCalculator = (markers: MarkerExtended[], num: number) => ClusterIconInfo;

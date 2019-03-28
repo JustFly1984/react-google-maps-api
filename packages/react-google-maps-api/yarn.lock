@@ -48,10 +48,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@react-google-maps/marker-clusterer@1.2.0-alpha.4.1":
-  version "1.2.0-alpha.4.1"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.2.0-alpha.4.1.tgz#65a34b6ece9b5d8e744f8f799a631a5c8ee4f214"
-  integrity sha512-3gSUH6SkV/IMdBDRbP44UdK54v3ee0i33WR+YaPAV49S7DWII1VMLHcpi3mJ41JLmpssDXfJnIaO/BuR6j8zhg==
+"@react-google-maps/marker-clusterer@1.2.0-alpha.6":
+  version "1.2.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.2.0-alpha.6.tgz#9d611a18a2843233e97dd6c2544460362cec3b7a"
+  integrity sha512-pEg7jXlPOnd15NU6idkVPnMK/OyJkRRTQ6At0jQN04iPsArhYsTbfD0hK7nfBLNMjR0vfteOX9rvdUfqjblsGw==
   dependencies:
     "@types/googlemaps" "3.30.19"
 
