@@ -21,7 +21,6 @@ export declare class ClusterIcon {
     fontStyle: string;
     fontFamily: string;
     backgroundPosition: string;
-    overlayView: google.maps.OverlayView;
     boundsChangedListener: google.maps.MapsEventListener | null;
     constructor(cluster: Cluster, styles: ClusterIconStyle[]);
     onAdd(): void;

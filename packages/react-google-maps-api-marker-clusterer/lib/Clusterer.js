@@ -27,7 +27,7 @@ var Clusterer = (function () {
     function Clusterer(map, optMarkers, optOptions) {
         if (optMarkers === void 0) { optMarkers = []; }
         if (optOptions === void 0) { optOptions = {}; }
-        this.overlayView = new google.maps.OverlayView();
+        this.extend(Clusterer, google.maps.OverlayView);
         this.markers = [];
         this.clusters = [];
         this.listeners = [];
@@ -67,22 +67,22 @@ var Clusterer = (function () {
         this.timerRefStatic = null;
         this.setupStyles();
         this.addMarkers(optMarkers, true);
-        this.overlayView.setMap(map);
+        this.setMap(map);
     }
     Clusterer.prototype.onAdd = function () {
         var _this = this;
-        this.activeMap = this.overlayView.getMap();
+        this.activeMap = this.getMap();
         this.ready = true;
         this.repaint();
         this.listeners = [
-            google.maps.event.addListener(this.overlayView.getMap(), "zoom_changed", function () {
+            google.maps.event.addListener(this.getMap(), "zoom_changed", function () {
                 _this.resetViewport(false);
-                if (_this.overlayView.getMap().getZoom() === (_this.overlayView.get("minZoom") || 0) ||
-                    _this.overlayView.getMap().getZoom() === _this.overlayView.get("maxZoom")) {
+                if (_this.getMap().getZoom() === (_this.get("minZoom") || 0) ||
+                    _this.getMap().getZoom() === _this.get("maxZoom")) {
                     google.maps.event.trigger(_this, "idle");
                 }
             }),
-            google.maps.event.addListener(this.overlayView.getMap(), "idle", function () {
+            google.maps.event.addListener(this.getMap(), "idle", function () {
                 _this.redraw();
             })
         ];
@@ -123,9 +123,7 @@ var Clusterer = (function () {
         for (var i = 0; i < markers.length; i++) {
             bounds.extend(markers[i].getPosition());
         }
-        this
-            .overlayView.getMap()
-            .fitBounds(bounds);
+        this.getMap().fitBounds(bounds);
     };
     Clusterer.prototype.getGridSize = function () {
         return this.gridSize;
@@ -311,7 +309,7 @@ var Clusterer = (function () {
         }, 0);
     };
     Clusterer.prototype.getExtendedBounds = function (bounds) {
-        var projection = this.overlayView.getProjection();
+        var projection = this.getProjection();
         var trPix = projection.fromLatLngToDivPixel(new google.maps.LatLng(bounds.getNorthEast().lat(), bounds.getNorthEast().lng()));
         trPix.x += this.gridSize;
         trPix.y -= this.gridSize;
@@ -387,14 +385,8 @@ var Clusterer = (function () {
                 delete this.timerRefStatic;
             }
         }
-        var mapBounds = this.overlayView.getMap().getZoom() > 3
-            ? new google.maps.LatLngBounds(this.overlayView
-                .getMap()
-                .getBounds()
-                .getSouthWest(), this.overlayView
-                .getMap()
-                .getBounds()
-                .getNorthEast())
+        var mapBounds = this.getMap().getZoom() > 3
+            ? new google.maps.LatLngBounds(this.getMap().getBounds().getSouthWest(), this.getMap().getBounds().getNorthEast())
             : new google.maps.LatLngBounds(new google.maps.LatLng(85.02070771743472, -178.48388434375), new google.maps.LatLng(-85.08136444384544, 178.00048865625));
         var bounds = this.getExtendedBounds(mapBounds);
         var iLast = Math.min(iFirst + this.batchSize, this.markers.length);

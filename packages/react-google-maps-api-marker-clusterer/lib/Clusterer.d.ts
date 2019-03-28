@@ -24,7 +24,6 @@ export declare class Clusterer {
     batchSizeIE: number;
     clusterClass: string;
     timerRefStatic: number | null;
-    overlayView: google.maps.OverlayView;
     constructor(map: google.maps.Map, optMarkers?: MarkerExtended[], optOptions?: ClustererOptions);
     onAdd(): void;
     onRemove(): void;
