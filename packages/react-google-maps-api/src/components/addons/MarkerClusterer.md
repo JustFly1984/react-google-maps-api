@@ -15,7 +15,7 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
     center={{lat: -28.024, lng: 140.887}}
   >
     <MarkerClusterer
-      imagePath="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+      options={{imagePath:"https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"}}
     >
       {
         (clusterer) => [
