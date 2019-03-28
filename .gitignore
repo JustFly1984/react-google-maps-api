@@ -48,6 +48,7 @@ packages/react-google-maps-api-docz/.docz/app/imports.js
 packages/react-google-maps-api-docz/.docz/app/db.json
 packages/react-google-maps-api-docz/.docz/dist/
 
+packages/react-google-maps-api-marker-clusterer/lib
 
 packages/react-google-maps-api/lib
 packages/react-google-maps-api/dist

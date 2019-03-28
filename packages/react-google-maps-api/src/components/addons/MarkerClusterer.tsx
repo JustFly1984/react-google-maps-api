@@ -148,22 +148,25 @@ export class ClustererComponent extends React.PureComponent<
   }
 
   componentDidMount(): void {
-    const markerClusterer = new Clusterer(
-      this.context,
-      [],
-      this.props.options
-    )
+    if (this.context) {
+      const markerClusterer = new Clusterer(
+        this.context,
+        [],
+        this.props.options
+      )
 
-    function setClusterer(): ClustererState {
-      return {
-        markerClusterer
-      }
+      this.setState(
+        function setClusterer(): ClustererState {
+          return {
+            markerClusterer
+          }
+        },
+        this.setClustererCallback
+      )
     }
-
-    this.setState(setClusterer, this.setClustererCallback)
   }
 
-  componentDidUpdate(prevProps: ClustererProps) {
+  componentDidUpdate (prevProps: ClustererProps) {
     if (this.state.markerClusterer) {
       unregisterEvents(this.registeredEvents)
 
@@ -177,7 +180,7 @@ export class ClustererComponent extends React.PureComponent<
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     if (this.state.markerClusterer !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.markerClusterer)
@@ -192,9 +195,7 @@ export class ClustererComponent extends React.PureComponent<
   render() {
     return this.state.markerClusterer !== null
       ? this.props.children(this.state.markerClusterer)
-      : (
-        <></>
-      )
+      : null
   }
 }
 

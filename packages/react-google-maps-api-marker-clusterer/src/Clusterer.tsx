@@ -1,4 +1,5 @@
-// eslint-disable-next-line filenames/match-regex
+/* eslint-disable filenames/match-regex */
+/* globals google */
 import { Cluster } from './Cluster'
 
 import {
@@ -46,7 +47,7 @@ const IMAGE_SIZES = [53, 56, 66, 78, 90]
 
 const CLUSTERER_CLASS = "cluster"
 
-export class Clusterer extends google.maps.OverlayView {
+export class Clusterer {
   markers: MarkerExtended[];
   clusters: Cluster[];
   listeners: google.maps.MapsEventListener[];
@@ -69,14 +70,14 @@ export class Clusterer extends google.maps.OverlayView {
   batchSizeIE: number;
   clusterClass: string;
   timerRefStatic: number | null;
-
+  overlayView: google.maps.OverlayView
 
   constructor(
     map: google.maps.Map,
     optMarkers: MarkerExtended[] = [],
     optOptions: ClustererOptions = {}
   ) {
-    super()
+    this.overlayView = new google.maps.OverlayView()
 
     this.markers = []
     this.clusters = []
@@ -141,11 +142,11 @@ export class Clusterer extends google.maps.OverlayView {
 
     this.addMarkers(optMarkers, true)
 
-    this.setMap(map) // Note: this causes onAdd to be called
+    this.overlayView.setMap(map) // Note: this causes onAdd to be called
   }
 
   onAdd () {
-    this.activeMap = this.getMap()
+    this.activeMap = this.overlayView.getMap()
 
     this.ready = true
 
@@ -154,7 +155,7 @@ export class Clusterer extends google.maps.OverlayView {
     // Add the map event listeners
     this.listeners = [
       google.maps.event.addListener(
-        this.getMap(),
+        this.overlayView.getMap(),
         "zoom_changed",
         // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
         () => {
@@ -164,13 +165,16 @@ export class Clusterer extends google.maps.OverlayView {
           // the map doesn't zoom out any further. In this situation, no "idle"
           // event is triggered so the cluster markers that have been removed
           // do not get redrawn. Same goes for a zoom in at maxZoom.
-          if (this.getMap().getZoom() === (this.get("minZoom") || 0) || this.getMap().getZoom() === this.get("maxZoom")) {
+          if (
+            this.overlayView.getMap().getZoom() === (this.overlayView.get("minZoom") || 0) ||
+            this.overlayView.getMap().getZoom() === this.overlayView.get("maxZoom")
+          ) {
             google.maps.event.trigger(this, "idle")
           }
         }
       ),
       google.maps.event.addListener(
-        this.getMap(),
+        this.overlayView.getMap(),
         "idle",
         // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
         () => {
@@ -234,7 +238,7 @@ export class Clusterer extends google.maps.OverlayView {
     }
 
     this
-      .getMap()
+      .overlayView.getMap()
       // @ts-ignore
       .fitBounds(bounds)
   }
@@ -492,7 +496,7 @@ export class Clusterer extends google.maps.OverlayView {
   }
 
   getExtendedBounds (bounds: google.maps.LatLngBounds): google.maps.LatLngBounds {
-    const projection = this.getProjection()
+    const projection = this.overlayView.getProjection()
     // Convert the points to pixels and the extend out by the grid size.
     const trPix = projection.fromLatLngToDivPixel(
       // Turn the bounds into latlng.
@@ -636,15 +640,15 @@ export class Clusterer extends google.maps.OverlayView {
     // Create a new bounds object so we don't affect the map.
     //
     // See Comments 9 & 11 on Issue 3651 relating to this workaround for a Google Maps bug:
-    const mapBounds = this.getMap().getZoom() > 3
+    const mapBounds = this.overlayView.getMap().getZoom() > 3
       ? new google.maps.LatLngBounds(
-        this
+        this.overlayView
           .getMap()
           // @ts-ignore
           .getBounds()
           .getSouthWest(),
 
-        this
+        this.overlayView
           .getMap()
           // @ts-ignore
           .getBounds()
@@ -702,18 +706,17 @@ export class Clusterer extends google.maps.OverlayView {
       google.maps.event.trigger(this, "clusteringend", this)
     }
   }
+
+  extend(obj1: any, obj2: any): any {
+    return (function applyExtend(object: any) {
+      // eslint-disable-next-line guard-for-in
+      for (let property in object.prototype) {
+        // @ts-ignore
+        this.prototype[property] = object.prototype[property]
+      }
+
+      // @ts-ignore
+      return this
+    }).apply(obj1, [obj2])
+  }
 }
-
-// prototype.extend = function extend(obj1: any, obj2: any): any {
-//   return (function applyExtend(object: any) {
-//     // eslint-disable-next-line guard-for-in
-//     for (let property in object.prototype) {
-//       // @ts-ignore
-//       this.prototype[property] = object.prototype[property]
-//     }
-
-//     // @ts-ignore
-//     return this
-//   }).apply(obj1, [obj2])
-// }
-

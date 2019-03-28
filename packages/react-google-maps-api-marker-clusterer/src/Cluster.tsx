@@ -1,4 +1,5 @@
 /* eslint-disable filenames/match-regex */
+/* globals google */
 import {
   Clusterer
 } from './Clusterer'
@@ -25,7 +26,7 @@ export class Cluster {
   constructor(markerClusterer: Clusterer) {
     this.markerClusterer = markerClusterer
 
-    this.map = this.markerClusterer.getMap()
+    this.map = this.markerClusterer.overlayView.getMap()
 
     this.gridSize = this.markerClusterer.getGridSize()
 
@@ -75,7 +76,7 @@ export class Cluster {
   }
 
   remove () {
-    this.clusterIcon.setMap(null)
+    this.clusterIcon.overlayView.setMap(null)
 
     this.markers = []
 
