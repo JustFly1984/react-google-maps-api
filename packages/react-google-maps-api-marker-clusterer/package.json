@@ -1,7 +1,7 @@
 {
-  "name": "@react-google-maps/api",
+  "name": "@react-google-maps/marker-clusterer",
   "version": "1.2.0-alpha.4",
-  "description": "React.js Google Maps API integration",
+  "description": "Marker Clusterer for React.js Google Maps API",
   "license": "MIT",
   "author": {
     "name": "Alexey Lyakhov",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JustFly1984/react-google-maps-api/packages/react-google-maps-api"
+    "url": "https://github.com/JustFly1984/react-google-maps-api/packages/react-google-maps-api-marker-clusterer"
   },
   "bugs": {
     "url": "https://github.com/JustFly1984/react-google-maps-api/issues"
@@ -31,37 +31,10 @@
   "keywords": [
     "React",
     "Google",
-    "Google Maps",
-    "google maps",
-    "google-maps",
-    "@google-maps",
-    "google-maps-api",
-    "@google-maps-api",
     "Map",
-    "Maps",
     "API",
-    "GoogleMap",
-    "react-component",
     "addons/MarkerClusterer",
-    "directions/DirectionsRenderer",
-    "directions/DirectionsService",
-    "drawing/DrawingManager",
-    "places/SearchBox",
-    "InfoWindow",
-    "KmlLayer",
-    "Marker",
-    "MarkerClusterer",
-    "OverlayView",
-    "Circle",
-    "Polygon",
-    "Polyline",
-    "Rectangle",
-    "StreetViewPanorama",
-    "TrafficLayer",
-    "visualization/HeatmapLayer",
-    "withGoogleMap",
-    "ScriptLoader",
-    "Typescript"
+    "Marker"
   ],
   "scripts": {
     "build": "rimraf ./lib && tsc",
@@ -69,22 +42,10 @@
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
     "publish": "npm run build && npm publish .",
-    "publish:next": "npm run build && npm publish . --tag next",
-    "docs:dev": "npx styleguidist server",
-    "docs:build": "npx styleguidist build",
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
   },
   "dependencies": {
-    "@react-google-maps/marker-clusterer": "^1.2.0-alpha.4",
-    "@types/googlemaps": "3.30.19",
-    "@types/invariant": "^2.2.29",
-    "@types/react": "16.8.10",
-    "@types/react-dom": "16.8.3",
-    "invariant": "^2.2.4"
-  },
-  "peerDependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "@types/googlemaps": "3.30.19"
   },
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "7.1.0",
@@ -114,10 +75,6 @@
     "eslint-plugin-react-perf": "3.1.0",
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.4.0",
-    "react": "16.8.5",
-    "react-docgen-typescript": "1.12.3",
-    "react-dom": "16.8.5",
-    "react-styleguidist": "8.0.6",
     "rimraf": "2.6.3",
     "typescript": "3.3.4000",
     "webpack": "4.29.6"

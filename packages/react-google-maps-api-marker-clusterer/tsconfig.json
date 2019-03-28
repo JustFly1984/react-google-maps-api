@@ -24,9 +24,7 @@
       "node_modules/@types"
     ],
     "types": [
-      "googlemaps",
-      "react",
-      "react-dom"
+      "googlemaps"
     ],
     "outDir": "./lib/",
     "declaration": true,

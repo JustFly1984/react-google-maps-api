@@ -52,7 +52,7 @@ interface InfoWindowProps {
   onPositionChanged?: () => void;
   onZindexChanged?: () => void;
   onLoad?: (infoWindow: google.maps.InfoWindow) => void;
-  onUnmount?: (markerClusterer: MarkerClusterer) => void;
+  onUnmount?: (infoWindow: google.maps.InfoWindow) => void;
 }
 
 export class InfoWindow extends React.PureComponent<
