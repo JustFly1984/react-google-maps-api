@@ -18,13 +18,20 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
     }}
   >
     <Circle
+      // optional
       onLoad={circle => {
-        console.log('circle: ', circle)
+        console.log('Circle onLoad circle: ', circle)
       }}
+      // optional
+      onUnmount={circle => {
+        console.log('Circle onUnmount circle: ', circle)
+      }}
+      // required
       center={{
         lat: -3.745,
         lng: -38.523
       }}
+      // required
       options={{
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
