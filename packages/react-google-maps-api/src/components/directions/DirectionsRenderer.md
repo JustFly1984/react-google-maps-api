@@ -193,7 +193,10 @@ class Directions extends Component {
             // required
             zoom={2}
             // required
-            center={center}
+            center={{
+              lat: 0,
+              lng: -180
+            }}
             // optional
             onClick={this.onMapClick}
             // optional
@@ -257,21 +260,6 @@ class Directions extends Component {
 }
 
 <ScriptLoaded>
-  <GoogleMap
-    id="circle-example"
-    mapContainerStyle={{
-      height: "400px",
-      width: "800px"
-    }}
-    zoom={7}
-    center={{
-      lat: -3.745,
-      lng: -38.523
-    }}
-  >
-    <DirectionsRenderer
-
-    />
-  </GoogleMap>
+  <Directions />
 </ScriptLoaded>
 ```
