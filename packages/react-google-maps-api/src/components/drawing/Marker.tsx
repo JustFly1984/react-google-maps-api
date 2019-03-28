@@ -7,8 +7,7 @@ import {
 
 import MapContext from "../../map-context"
 
-// @ts-ignore
-import MarkerClusterer from "marker-clusterer-plus"
+import { Clusterer } from "@react-google-maps/marker-clusterer"
 
 const eventMap = {
   onAnimationChanged: "animation_changed",
@@ -103,7 +102,7 @@ interface MarkerProps {
   title?: string;
   visible?: boolean;
   zIndex?: number;
-  clusterer?: MarkerClusterer;
+  clusterer?: Clusterer;
   noClustererRedraw?: boolean;
   onClick?: (e: MouseEvent) => void;
   onClickableChanged?: () => void;
@@ -220,7 +219,7 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
   }
 
   render() {
-    return this.props.children || <></>
+    return this.props.children || null
   }
 }
 
