@@ -20,7 +20,7 @@
     "lint": "npx eslint ./src --fix"
   },
   "dependencies": {
-    "@react-google-maps/api": "^1.2.0-alpha.5",
+    "@react-google-maps/api": "1.2.0-alpha.5",
     "react": "16.7.0",
     "react-dom": "16.7.0",
     "webpack": "4.29.1"
@@ -58,5 +58,5 @@
     "eslint-plugin-you-dont-need-lodash-underscore": "6.4.0",
     "prop-types": "15"
   },
-  "gitHead": "6a912d4e4ae5a883c106548b54250fc754a22f0a"
+  "gitHead": "4c487da5fec5e5d9e86f8d445248353b1f532a59"
 }
