@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Cluster_1 = require("./Cluster");
 var CALCULATOR = function CALCULATOR(markers, numStyles) {
@@ -36,67 +23,66 @@ var IMAGE_PATH = "https://raw.githubusercontent.com/googlemaps/v3-utility-librar
 var IMAGE_EXTENSION = "png";
 var IMAGE_SIZES = [53, 56, 66, 78, 90];
 var CLUSTERER_CLASS = "cluster";
-var Clusterer = (function (_super) {
-    __extends(Clusterer, _super);
+var Clusterer = (function () {
     function Clusterer(map, optMarkers, optOptions) {
         if (optMarkers === void 0) { optMarkers = []; }
         if (optOptions === void 0) { optOptions = {}; }
-        var _this = _super.call(this) || this;
-        _this.markers = [];
-        _this.clusters = [];
-        _this.listeners = [];
-        _this.activeMap = null;
-        _this.ready = false;
-        _this.gridSize = optOptions.gridSize || 60;
-        _this.minClusterSize = optOptions.minimumClusterSize || 2;
-        _this.maxZoom = optOptions.maxZoom || null;
-        _this.styles = optOptions.styles || [];
-        _this.title = optOptions.title || "";
-        _this.zoomOnClick = true;
+        this.overlayView = new google.maps.OverlayView();
+        this.markers = [];
+        this.clusters = [];
+        this.listeners = [];
+        this.activeMap = null;
+        this.ready = false;
+        this.gridSize = optOptions.gridSize || 60;
+        this.minClusterSize = optOptions.minimumClusterSize || 2;
+        this.maxZoom = optOptions.maxZoom || null;
+        this.styles = optOptions.styles || [];
+        this.title = optOptions.title || "";
+        this.zoomOnClick = true;
         if (optOptions.zoomOnClick !== undefined) {
-            _this.zoomOnClick = optOptions.zoomOnClick;
+            this.zoomOnClick = optOptions.zoomOnClick;
         }
-        _this.averageCenter = false;
+        this.averageCenter = false;
         if (optOptions.averageCenter !== undefined) {
-            _this.averageCenter = optOptions.averageCenter;
+            this.averageCenter = optOptions.averageCenter;
         }
-        _this.ignoreHidden = false;
+        this.ignoreHidden = false;
         if (optOptions.ignoreHidden !== undefined) {
-            _this.ignoreHidden = optOptions.ignoreHidden;
+            this.ignoreHidden = optOptions.ignoreHidden;
         }
-        _this.enableRetinaIcons = false;
+        this.enableRetinaIcons = false;
         if (optOptions.enableRetinaIcons !== undefined) {
-            _this.enableRetinaIcons = optOptions.enableRetinaIcons;
+            this.enableRetinaIcons = optOptions.enableRetinaIcons;
         }
-        _this.imagePath = optOptions.imagePath || IMAGE_PATH;
-        _this.imageExtension = optOptions.imageExtension || IMAGE_EXTENSION;
-        _this.imageSizes = optOptions.imageSizes || IMAGE_SIZES;
-        _this.calculator = optOptions.calculator || CALCULATOR;
-        _this.batchSize = optOptions.batchSize || BATCH_SIZE;
-        _this.batchSizeIE = optOptions.batchSizeIE || BATCH_SIZE_IE;
-        _this.clusterClass = optOptions.clusterClass || CLUSTERER_CLASS;
+        this.imagePath = optOptions.imagePath || IMAGE_PATH;
+        this.imageExtension = optOptions.imageExtension || IMAGE_EXTENSION;
+        this.imageSizes = optOptions.imageSizes || IMAGE_SIZES;
+        this.calculator = optOptions.calculator || CALCULATOR;
+        this.batchSize = optOptions.batchSize || BATCH_SIZE;
+        this.batchSizeIE = optOptions.batchSizeIE || BATCH_SIZE_IE;
+        this.clusterClass = optOptions.clusterClass || CLUSTERER_CLASS;
         if (navigator.userAgent.toLowerCase().indexOf("msie") !== -1) {
-            _this.batchSize = _this.batchSizeIE;
+            this.batchSize = this.batchSizeIE;
         }
-        _this.timerRefStatic = null;
-        _this.setupStyles();
-        _this.addMarkers(optMarkers, true);
-        _this.setMap(map);
-        return _this;
+        this.timerRefStatic = null;
+        this.setupStyles();
+        this.addMarkers(optMarkers, true);
+        this.overlayView.setMap(map);
     }
     Clusterer.prototype.onAdd = function () {
         var _this = this;
-        this.activeMap = this.getMap();
+        this.activeMap = this.overlayView.getMap();
         this.ready = true;
         this.repaint();
         this.listeners = [
-            google.maps.event.addListener(this.getMap(), "zoom_changed", function () {
+            google.maps.event.addListener(this.overlayView.getMap(), "zoom_changed", function () {
                 _this.resetViewport(false);
-                if (_this.getMap().getZoom() === (_this.get("minZoom") || 0) || _this.getMap().getZoom() === _this.get("maxZoom")) {
+                if (_this.overlayView.getMap().getZoom() === (_this.overlayView.get("minZoom") || 0) ||
+                    _this.overlayView.getMap().getZoom() === _this.overlayView.get("maxZoom")) {
                     google.maps.event.trigger(_this, "idle");
                 }
             }),
-            google.maps.event.addListener(this.getMap(), "idle", function () {
+            google.maps.event.addListener(this.overlayView.getMap(), "idle", function () {
                 _this.redraw();
             })
         ];
@@ -138,7 +124,7 @@ var Clusterer = (function (_super) {
             bounds.extend(markers[i].getPosition());
         }
         this
-            .getMap()
+            .overlayView.getMap()
             .fitBounds(bounds);
     };
     Clusterer.prototype.getGridSize = function () {
@@ -325,7 +311,7 @@ var Clusterer = (function (_super) {
         }, 0);
     };
     Clusterer.prototype.getExtendedBounds = function (bounds) {
-        var projection = this.getProjection();
+        var projection = this.overlayView.getProjection();
         var trPix = projection.fromLatLngToDivPixel(new google.maps.LatLng(bounds.getNorthEast().lat(), bounds.getNorthEast().lng()));
         trPix.x += this.gridSize;
         trPix.y -= this.gridSize;
@@ -401,11 +387,11 @@ var Clusterer = (function (_super) {
                 delete this.timerRefStatic;
             }
         }
-        var mapBounds = this.getMap().getZoom() > 3
-            ? new google.maps.LatLngBounds(this
+        var mapBounds = this.overlayView.getMap().getZoom() > 3
+            ? new google.maps.LatLngBounds(this.overlayView
                 .getMap()
                 .getBounds()
-                .getSouthWest(), this
+                .getSouthWest(), this.overlayView
                 .getMap()
                 .getBounds()
                 .getNorthEast())
@@ -432,6 +418,14 @@ var Clusterer = (function (_super) {
             google.maps.event.trigger(this, "clusteringend", this);
         }
     };
+    Clusterer.prototype.extend = function (obj1, obj2) {
+        return (function applyExtend(object) {
+            for (var property in object.prototype) {
+                this.prototype[property] = object.prototype[property];
+            }
+            return this;
+        }).apply(obj1, [obj2]);
+    };
     return Clusterer;
-}(google.maps.OverlayView));
+}());
 exports.Clusterer = Clusterer;

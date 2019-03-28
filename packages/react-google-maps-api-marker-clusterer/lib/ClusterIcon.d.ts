@@ -1,7 +1,7 @@
 /// <reference types="googlemaps" />
 import { Cluster } from './Cluster';
 import { ClusterIconStyle, ClusterIconInfo } from './types';
-export declare class ClusterIcon extends google.maps.OverlayView {
+export declare class ClusterIcon {
     cluster: Cluster;
     className: string;
     styles: ClusterIconStyle[];
@@ -21,6 +21,7 @@ export declare class ClusterIcon extends google.maps.OverlayView {
     fontStyle: string;
     fontFamily: string;
     backgroundPosition: string;
+    overlayView: google.maps.OverlayView;
     boundsChangedListener: google.maps.MapsEventListener | null;
     constructor(cluster: Cluster, styles: ClusterIconStyle[]);
     onAdd(): void;

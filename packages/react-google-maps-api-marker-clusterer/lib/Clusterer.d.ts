@@ -1,7 +1,7 @@
 /// <reference types="googlemaps" />
 import { Cluster } from './Cluster';
 import { MarkerExtended, ClustererOptions, ClusterIconStyle, TCalculator } from './types';
-export declare class Clusterer extends google.maps.OverlayView {
+export declare class Clusterer {
     markers: MarkerExtended[];
     clusters: Cluster[];
     listeners: google.maps.MapsEventListener[];
@@ -24,6 +24,7 @@ export declare class Clusterer extends google.maps.OverlayView {
     batchSizeIE: number;
     clusterClass: string;
     timerRefStatic: number | null;
+    overlayView: google.maps.OverlayView;
     constructor(map: google.maps.Map, optMarkers?: MarkerExtended[], optOptions?: ClustererOptions);
     onAdd(): void;
     onRemove(): void;
@@ -79,5 +80,6 @@ export declare class Clusterer extends google.maps.OverlayView {
     isMarkerInBounds(marker: MarkerExtended, bounds: google.maps.LatLngBounds): boolean;
     addToClosestCluster(marker: MarkerExtended): void;
     createClusters(iFirst: number): void;
+    extend(obj1: any, obj2: any): any;
 }
 //# sourceMappingURL=Clusterer.d.ts.map

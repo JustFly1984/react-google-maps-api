@@ -1,44 +1,29 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var ClusterIcon = (function (_super) {
-    __extends(ClusterIcon, _super);
+var ClusterIcon = (function () {
     function ClusterIcon(cluster, styles) {
-        var _this = _super.call(this) || this;
-        _this.cluster = cluster;
-        _this.className = _this.cluster.getClusterer().getClusterClass();
-        _this.styles = styles;
-        _this.center = undefined;
-        _this.div = null;
-        _this.sums = null;
-        _this.visible = false;
-        _this.boundsChangedListener = null;
-        _this.url = '';
-        _this.height = 0;
-        _this.width = 0;
-        _this.anchorText = [0, 0];
-        _this.anchorIcon = [0, 0];
-        _this.textColor = 'black';
-        _this.textSize = 11;
-        _this.textDecoration = 'none';
-        _this.fontWeight = 'bold';
-        _this.fontStyle = 'normal';
-        _this.fontFamily = 'Arial,sans-serif';
-        _this.backgroundPosition = '0 0';
-        _this.setMap(cluster.getMap());
-        return _this;
+        this.overlayView = new google.maps.OverlayView();
+        this.cluster = cluster;
+        this.className = this.cluster.getClusterer().getClusterClass();
+        this.styles = styles;
+        this.center = undefined;
+        this.div = null;
+        this.sums = null;
+        this.visible = false;
+        this.boundsChangedListener = null;
+        this.url = '';
+        this.height = 0;
+        this.width = 0;
+        this.anchorText = [0, 0];
+        this.anchorIcon = [0, 0];
+        this.textColor = 'black';
+        this.textSize = 11;
+        this.textDecoration = 'none';
+        this.fontWeight = 'bold';
+        this.fontStyle = 'normal';
+        this.fontFamily = 'Arial,sans-serif';
+        this.backgroundPosition = '0 0';
+        this.overlayView.setMap(cluster.getMap());
     }
     ClusterIcon.prototype.onAdd = function () {
         var _this = this;
@@ -49,8 +34,8 @@ var ClusterIcon = (function (_super) {
         if (this.visible) {
             this.show();
         }
-        this.getPanes().overlayMouseTarget.appendChild(this.div);
-        this.boundsChangedListener = google.maps.event.addListener(this.getMap(), "boundschanged", function boundsChabged() {
+        this.overlayView.getPanes().overlayMouseTarget.appendChild(this.div);
+        this.boundsChangedListener = google.maps.event.addListener(this.overlayView.getMap(), "boundschanged", function boundsChabged() {
             cDraggingMapByCluster = cMouseDownInCluster;
         });
         google.maps.event.addDomListener(this.div, "mousedown", function onMouseDown() {
@@ -66,15 +51,15 @@ var ClusterIcon = (function (_super) {
                 if (markerClusterer_1.getZoomOnClick()) {
                     var maxZoom_1 = markerClusterer_1.getMaxZoom();
                     var bounds_1 = _this.cluster.getBounds();
-                    markerClusterer_1
+                    markerClusterer_1.overlayView
                         .getMap()
                         .fitBounds(bounds_1);
                     setTimeout(function timeout() {
-                        markerClusterer_1
+                        markerClusterer_1.overlayView
                             .getMap()
                             .fitBounds(bounds_1);
-                        if (maxZoom_1 !== null && (markerClusterer_1.getMap().getZoom() > maxZoom_1)) {
-                            markerClusterer_1.getMap().setZoom(maxZoom_1 + 1);
+                        if (maxZoom_1 !== null && (markerClusterer_1.overlayView.getMap().getZoom() > maxZoom_1)) {
+                            markerClusterer_1.overlayView.getMap().setZoom(maxZoom_1 + 1);
                         }
                     }, 100);
                 }
@@ -181,7 +166,7 @@ var ClusterIcon = (function (_super) {
         return style.join("");
     };
     ClusterIcon.prototype.getPosFromLatLng = function (latlng) {
-        var pos = this.getProjection().fromLatLngToDivPixel(latlng);
+        var pos = this.overlayView.getProjection().fromLatLngToDivPixel(latlng);
         pos.x -= this.anchorIcon[1];
         pos.y -= this.anchorIcon[0];
         pos.x = pos.x;
@@ -189,5 +174,5 @@ var ClusterIcon = (function (_super) {
         return pos;
     };
     return ClusterIcon;
-}(google.maps.OverlayView));
+}());
 exports.ClusterIcon = ClusterIcon;
