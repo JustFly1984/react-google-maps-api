@@ -8,7 +8,9 @@ import {
 import MapContext from "../../map-context"
 
 // @ts-ignore
-import MarkerClusterer from "marker-clusterer-plus"
+import {
+  Clusterer as MarkerClusterer,
+} from "@react-google-maps/marker-clusterer"
 
 const eventMap = {
   onAnimationChanged: "animation_changed",
@@ -167,6 +169,7 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
 
     if (this.props.clusterer) {
       this.props.clusterer.addMarker(
+        // @ts-ignore
         marker,
         !!this.props.noClustererRedraw
       )
@@ -210,6 +213,7 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
 
       if (this.props.clusterer) {
         this.props.clusterer.removeMarker(
+          // @ts-ignore
           this.state.marker,
           !!this.props.noClustererRedraw
         )

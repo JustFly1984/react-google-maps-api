@@ -187,8 +187,8 @@ export class ClustererComponent extends React.PureComponent<
       }
 
       unregisterEvents(this.registeredEvents)
-
-      this.state.markerClusterer.overlayView.setMap(null)
+      //@ts-ignore
+      this.state.markerClusterer.setMap(null)
     }
   }
 
