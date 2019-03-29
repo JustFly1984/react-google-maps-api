@@ -70,14 +70,13 @@ export class Clusterer {
   batchSizeIE: number;
   clusterClass: string;
   timerRefStatic: number | null;
-  overlayView: google.maps.OverlayView
 
   constructor(
     map: google.maps.Map,
     optMarkers: MarkerExtended[] = [],
     optOptions: ClustererOptions = {}
   ) {
-    this.overlayView = new google.maps.OverlayView()
+    this.extend(Clusterer, google.maps.OverlayView)
 
     this.markers = []
     this.clusters = []
@@ -141,12 +140,13 @@ export class Clusterer {
     this.setupStyles()
 
     this.addMarkers(optMarkers, true)
-
-    this.overlayView.setMap(map) // Note: this causes onAdd to be called
+    // @ts-ignore
+    this.setMap(map) // Note: this causes onAdd to be called
   }
 
   onAdd () {
-    this.activeMap = this.overlayView.getMap()
+    // @ts-ignore
+    this.activeMap = this.getMap()
 
     this.ready = true
 
@@ -155,7 +155,8 @@ export class Clusterer {
     // Add the map event listeners
     this.listeners = [
       google.maps.event.addListener(
-        this.overlayView.getMap(),
+        // @ts-ignore
+        this.getMap(),
         "zoom_changed",
         // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
         () => {
@@ -166,15 +167,18 @@ export class Clusterer {
           // event is triggered so the cluster markers that have been removed
           // do not get redrawn. Same goes for a zoom in at maxZoom.
           if (
-            this.overlayView.getMap().getZoom() === (this.overlayView.get("minZoom") || 0) ||
-            this.overlayView.getMap().getZoom() === this.overlayView.get("maxZoom")
+            // @ts-ignore
+            this.getMap().getZoom() === (this.get("minZoom") || 0) ||
+            // @ts-ignore
+            this.getMap().getZoom() === this.get("maxZoom")
           ) {
             google.maps.event.trigger(this, "idle")
           }
         }
       ),
       google.maps.event.addListener(
-        this.overlayView.getMap(),
+        // @ts-ignore
+        this.getMap(),
         "idle",
         // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
         () => {
@@ -237,10 +241,8 @@ export class Clusterer {
       bounds.extend(markers[i].getPosition())
     }
 
-    this
-      .overlayView.getMap()
-      // @ts-ignore
-      .fitBounds(bounds)
+    // @ts-ignore
+    this.getMap().fitBounds(bounds)
   }
 
   getGridSize (): number {
@@ -496,7 +498,8 @@ export class Clusterer {
   }
 
   getExtendedBounds (bounds: google.maps.LatLngBounds): google.maps.LatLngBounds {
-    const projection = this.overlayView.getProjection()
+    // @ts-ignore
+    const projection = this.getProjection()
     // Convert the points to pixels and the extend out by the grid size.
     const trPix = projection.fromLatLngToDivPixel(
       // Turn the bounds into latlng.
@@ -640,19 +643,13 @@ export class Clusterer {
     // Create a new bounds object so we don't affect the map.
     //
     // See Comments 9 & 11 on Issue 3651 relating to this workaround for a Google Maps bug:
-    const mapBounds = this.overlayView.getMap().getZoom() > 3
+    // @ts-ignore
+    const mapBounds = this.getMap().getZoom() > 3
       ? new google.maps.LatLngBounds(
-        this.overlayView
-          .getMap()
-          // @ts-ignore
-          .getBounds()
-          .getSouthWest(),
-
-        this.overlayView
-          .getMap()
-          // @ts-ignore
-          .getBounds()
-          .getNorthEast()
+        // @ts-ignore
+        this.getMap().getBounds().getSouthWest(),
+        // @ts-ignore
+        this.getMap().getBounds().getNorthEast()
       )
       : new google.maps.LatLngBounds(
         new google.maps.LatLng(

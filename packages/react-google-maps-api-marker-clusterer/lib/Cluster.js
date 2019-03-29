@@ -4,7 +4,7 @@ var ClusterIcon_1 = require("./ClusterIcon");
 var Cluster = (function () {
     function Cluster(markerClusterer) {
         this.markerClusterer = markerClusterer;
-        this.map = this.markerClusterer.overlayView.getMap();
+        this.map = this.markerClusterer.getMap();
         this.gridSize = this.markerClusterer.getGridSize();
         this.minClusterSize = this.markerClusterer.getMinimumClusterSize();
         this.averageCenter = this.markerClusterer.getAverageCenter();
@@ -37,7 +37,7 @@ var Cluster = (function () {
         return bounds;
     };
     Cluster.prototype.remove = function () {
-        this.clusterIcon.overlayView.setMap(null);
+        this.clusterIcon.setMap(null);
         this.markers = [];
         delete this.markers;
     };

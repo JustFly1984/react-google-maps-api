@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var ClusterIcon = (function () {
     function ClusterIcon(cluster, styles) {
-        this.overlayView = new google.maps.OverlayView();
+        cluster.getClusterer().extend(ClusterIcon, google.maps.OverlayView);
         this.cluster = cluster;
         this.className = this.cluster.getClusterer().getClusterClass();
         this.styles = styles;
@@ -23,7 +23,7 @@ var ClusterIcon = (function () {
         this.fontStyle = 'normal';
         this.fontFamily = 'Arial,sans-serif';
         this.backgroundPosition = '0 0';
-        this.overlayView.setMap(cluster.getMap());
+        this.setMap(cluster.getMap());
     }
     ClusterIcon.prototype.onAdd = function () {
         var _this = this;
@@ -34,8 +34,8 @@ var ClusterIcon = (function () {
         if (this.visible) {
             this.show();
         }
-        this.overlayView.getPanes().overlayMouseTarget.appendChild(this.div);
-        this.boundsChangedListener = google.maps.event.addListener(this.overlayView.getMap(), "boundschanged", function boundsChabged() {
+        this.getPanes().overlayMouseTarget.appendChild(this.div);
+        this.boundsChangedListener = google.maps.event.addListener(this.getMap(), "boundschanged", function boundsChabged() {
             cDraggingMapByCluster = cMouseDownInCluster;
         });
         google.maps.event.addDomListener(this.div, "mousedown", function onMouseDown() {
@@ -51,15 +51,11 @@ var ClusterIcon = (function () {
                 if (markerClusterer_1.getZoomOnClick()) {
                     var maxZoom_1 = markerClusterer_1.getMaxZoom();
                     var bounds_1 = _this.cluster.getBounds();
-                    markerClusterer_1.overlayView
-                        .getMap()
-                        .fitBounds(bounds_1);
+                    markerClusterer_1.getMap().fitBounds(bounds_1);
                     setTimeout(function timeout() {
-                        markerClusterer_1.overlayView
-                            .getMap()
-                            .fitBounds(bounds_1);
-                        if (maxZoom_1 !== null && (markerClusterer_1.overlayView.getMap().getZoom() > maxZoom_1)) {
-                            markerClusterer_1.overlayView.getMap().setZoom(maxZoom_1 + 1);
+                        markerClusterer_1.getMap().fitBounds(bounds_1);
+                        if (maxZoom_1 !== null && (markerClusterer_1.getMap().getZoom() > maxZoom_1)) {
+                            markerClusterer_1.getMap().setZoom(maxZoom_1 + 1);
                         }
                     }, 100);
                 }
@@ -166,7 +162,7 @@ var ClusterIcon = (function () {
         return style.join("");
     };
     ClusterIcon.prototype.getPosFromLatLng = function (latlng) {
-        var pos = this.overlayView.getProjection().fromLatLngToDivPixel(latlng);
+        var pos = this.getProjection().fromLatLngToDivPixel(latlng);
         pos.x -= this.anchorIcon[1];
         pos.y -= this.anchorIcon[0];
         pos.x = pos.x;

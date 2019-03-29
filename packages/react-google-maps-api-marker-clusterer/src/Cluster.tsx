@@ -25,8 +25,8 @@ export class Cluster {
 
   constructor(markerClusterer: Clusterer) {
     this.markerClusterer = markerClusterer
-
-    this.map = this.markerClusterer.overlayView.getMap()
+    // @ts-ignore
+    this.map = this.markerClusterer.getMap()
 
     this.gridSize = this.markerClusterer.getGridSize()
 
@@ -76,7 +76,8 @@ export class Cluster {
   }
 
   remove () {
-    this.clusterIcon.overlayView.setMap(null)
+    // @ts-ignore
+    this.clusterIcon.setMap(null)
 
     this.markers = []
 

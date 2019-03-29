@@ -166,6 +166,7 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
 
     if (this.props.clusterer) {
       this.props.clusterer.addMarker(
+        // @ts-ignore
         marker,
         !!this.props.noClustererRedraw
       )
@@ -209,6 +210,7 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
 
       if (this.props.clusterer) {
         this.props.clusterer.removeMarker(
+          // @ts-ignore
           this.state.marker,
           !!this.props.noClustererRedraw
         )

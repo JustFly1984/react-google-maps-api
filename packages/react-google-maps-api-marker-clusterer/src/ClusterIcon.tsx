@@ -29,12 +29,11 @@ export class ClusterIcon {
   fontStyle: string;
   fontFamily: string;
   backgroundPosition: string;
-  overlayView: google.maps.OverlayView
 
   boundsChangedListener: google.maps.MapsEventListener | null;
 
   constructor(cluster: Cluster, styles: ClusterIconStyle[]) {
-    this.overlayView = new google.maps.OverlayView()
+    cluster.getClusterer().extend(ClusterIcon, google.maps.OverlayView)
     this.cluster = cluster
     this.className = this.cluster.getClusterer().getClusterClass()
     this.styles = styles
@@ -55,7 +54,8 @@ export class ClusterIcon {
     this.fontStyle = 'normal'
     this.fontFamily = 'Arial,sans-serif'
     this.backgroundPosition = '0 0'
-    this.overlayView.setMap(cluster.getMap()) // Note: this causes onAdd to be called
+    // @ts-ignore
+    this.setMap(cluster.getMap()) // Note: this causes onAdd to be called
   }
 
   onAdd() {
@@ -67,12 +67,14 @@ export class ClusterIcon {
     if (this.visible) {
       this.show()
     }
-
-    this.overlayView.getPanes().overlayMouseTarget.appendChild(this.div)
+  
+    // @ts-ignore
+    this.getPanes().overlayMouseTarget.appendChild(this.div)
 
     // Fix for Issue 157
     this.boundsChangedListener = google.maps.event.addListener(
-      this.overlayView.getMap(),
+      // @ts-ignore
+      this.getMap(),
       "boundschanged",
       function boundsChabged() {
         cDraggingMapByCluster = cMouseDownInCluster
@@ -108,23 +110,21 @@ export class ClusterIcon {
 
           const bounds = this.cluster.getBounds()
 
-          markerClusterer.overlayView
-            .getMap()
-            // @ts-ignore
-            .fitBounds(bounds)
+          // @ts-ignore
+          markerClusterer.getMap().fitBounds(bounds)
 
 
           // There is a fix for Issue 170 here:
           setTimeout(
             function timeout() {
-              markerClusterer.overlayView
-                .getMap()
-                // @ts-ignore
-                .fitBounds(bounds)
-
+              // @ts-ignore
+              markerClusterer.getMap().fitBounds(bounds)
+                 
               // Don't zoom beyond the max zoom level
-              if (maxZoom !== null && (markerClusterer.overlayView.getMap().getZoom() > maxZoom)) {
-                markerClusterer.overlayView.getMap().setZoom(maxZoom + 1)
+              // @ts-ignore
+              if (maxZoom !== null && (markerClusterer.getMap().getZoom() > maxZoom)) {
+                // @ts-ignore
+                markerClusterer.getMap().setZoom(maxZoom + 1)
               }
             },
             100
@@ -316,7 +316,8 @@ export class ClusterIcon {
   }
 
   getPosFromLatLng(latlng: google.maps.LatLng): google.maps.Point {
-    const pos = this.overlayView.getProjection().fromLatLngToDivPixel(latlng)
+    // @ts-ignore
+    const pos = this.getProjection().fromLatLngToDivPixel(latlng)
 
     pos.x -= this.anchorIcon[1]
 
