@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/marker-clusterer",
-  "version": "1.2.0-alpha.6",
+  "version": "1.2.0-alpha.8",
   "description": "Marker Clusterer for React.js Google Maps API",
   "license": "MIT",
   "author": {
