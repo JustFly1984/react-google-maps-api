@@ -27,8 +27,8 @@ interface GroundOverlayState {
 interface GroundOverlayProps {
   options?: google.maps.GroundOverlayOptions;
   opacity?: number;
-  onDblClick?: (e: MouseEvent) => void;
-  onClick?: (e: MouseEvent) => void;
+  onDblClick?: (e: google.maps.MouseEvent) => void;
+  onClick?: (e: google.maps.MouseEvent) => void;
   url: string;
   bounds: google.maps.LatLngBounds;
   onLoad?: (groundOverlay: google.maps.GroundOverlay) => void;

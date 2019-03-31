@@ -67,7 +67,7 @@ export class ClusterIcon {
     if (this.visible) {
       this.show()
     }
-  
+
     // @ts-ignore
     this.getPanes().overlayMouseTarget.appendChild(this.div)
 
@@ -87,7 +87,7 @@ export class ClusterIcon {
     })
 
     // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
-    google.maps.event.addDomListener(this.div, "click", (event: MouseEvent) => {
+    google.maps.event.addDomListener(this.div, "click", (event: google.maps.MouseEvent) => {
       cMouseDownInCluster = false
 
       if (!cDraggingMapByCluster) {
@@ -119,7 +119,7 @@ export class ClusterIcon {
             function timeout() {
               // @ts-ignore
               markerClusterer.getMap().fitBounds(bounds)
-                 
+
               // Don't zoom beyond the max zoom level
               // @ts-ignore
               if (maxZoom !== null && (markerClusterer.getMap().getZoom() > maxZoom)) {
