@@ -4,48 +4,39 @@
 const { GoogleMap, LoadScript, Polygon } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
-<>
-  <ScriptLoaded>
-    <GoogleMap
-      id="marker-example"
-      mapContainerStyle={{
-        height: "400px",
-        width: "800px"
+<ScriptLoaded>
+  <GoogleMap
+    id="marker-example"
+    mapContainerStyle={{
+      height: "400px",
+      width: "800px"
+    }}
+    zoom={5}
+    center={{ lat: 24.886, lng: -70.268 }}
+  >
+    <Polygon
+      onLoad={polygon => {
+        console.log("polygon: ", polygon);
       }}
-      zoom={2}
-      center={{
-        lat: 0,
-        lng: -180
+      paths={[
+        { lat: 25.774, lng: -80.19 },
+        { lat: 18.466, lng: -66.118 },
+        { lat: 32.321, lng: -64.757 },
+        { lat: 25.774, lng: -80.19 }
+      ]}
+      options={{
+        fillColor: "lightblue",
+        fillOpacity: 1,
+        strokeColor: "red",
+        strokeOpacity: 1,
+        strokeWeight: 2,
+        clickable: false,
+        draggable: false,
+        editable: false,
+        geodesic: false,
+        zIndex: 1
       }}
-    >
-      <Polygon
-        onLoad={polygon => {
-          console.log('polygon: ', polygon)
-        }}
-        path={[
-          { lat: -33.858, lng: 151.213 },
-          { lat: -33.859, lng: 151.222 },
-          { lat: -33.866, lng: 151.215 }
-        ]}
-        options={{
-          fillColor: 'lightblue',
-          fillOpacity: 1,
-          strokeColor: 'red',
-          strokeOpacity: 1,
-          strokeWeight: 2,
-          clickable: false,
-          draggable: false,
-          editable: false,
-          geodesic: false,
-          paths: [
-            { lat: -33.858, lng: 151.213 },
-            { lat: -33.859, lng: 151.222 },
-            { lat: -33.866, lng: 151.215 }
-          ],
-          zIndex: 1
-        }}
-      />
-    </GoogleMap>
-  </ScriptLoaded>
-</>
+    />
+  </GoogleMap>
+</ScriptLoaded>;
 ```
