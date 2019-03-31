@@ -1,8 +1,8 @@
 # Google Map example
 
 ```jsx
-const { GoogleMap, LoadScript } = require("../../");
-const ScriptLoaded = require("../../docs/ScriptLoaded").default;
+const { GoogleMap, LoadScript } = require("./");
+const ScriptLoaded = require("./docs/ScriptLoaded").default;
 
 <ScriptLoaded>
   <GoogleMap
@@ -17,5 +17,5 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
       lng: -38.523
     }}
   />
-</ScriptLoaded>
+</ScriptLoaded>;
 ```
