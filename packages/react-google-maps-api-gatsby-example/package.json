@@ -20,7 +20,7 @@
     "@babel/polyfill": "7.2.5",
     "@babel/runtime": "7.3.4",
     "@hot-loader/react-dom": "16.8.4",
-    "@react-google-maps/api": "1.2.0-alpha.8",
+    "@react-google-maps/api": "1.2.0-alpha.9",
     "@typescript-eslint/eslint-plugin": "1.4.2",
     "eslint-config-prettier": "4.1.0",
     "eslint-plugin-prettier": "3.0.1",

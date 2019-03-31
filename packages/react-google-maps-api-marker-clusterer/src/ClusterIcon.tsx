@@ -87,7 +87,10 @@ export class ClusterIcon {
     })
 
     // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
-    google.maps.event.addDomListener(this.div, "click", (event: google.maps.MouseEvent) => {
+    google.maps.event.addDomListener(
+      this.div,
+      "click",
+      (event: MouseEvent) => {
       cMouseDownInCluster = false
 
       if (!cDraggingMapByCluster) {
