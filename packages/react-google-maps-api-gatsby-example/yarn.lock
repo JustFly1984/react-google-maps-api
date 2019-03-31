@@ -1054,16 +1054,24 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@react-google-maps/api@1.2.0-alpha.4":
-  version "1.2.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.2.0-alpha.4.tgz#183a57a92c6ba9a5a636947adc64796f38c7369a"
-  integrity sha512-NXGAom2F49EEJCCsgThbGHKJXcV3rs+07giE8A5ueNTWYxy4b8RmZ2LZAtZGzWqzPgznQVCQrHQL2lpRs4zCgQ==
+"@react-google-maps/api@1.2.0-alpha.9":
+  version "1.2.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.2.0-alpha.9.tgz#ebe7b6d3bcde28024f286c7dc265c17af0f0e59a"
+  integrity sha512-ejc8ZZTS8U4iPgRJLlezNdzJ9yxPRsx1RSI4iwac6RMx1o4Z3lMxqOj+u4SiSobAeWO81P2sd6OuYl12h9NpnA==
+  dependencies:
+    "@react-google-maps/marker-clusterer" "1.2.0-alpha.9"
+    "@types/googlemaps" "3.30.19"
+    "@types/invariant" "2.2.29"
+    "@types/react" "16.8.10"
+    "@types/react-dom" "16.8.3"
+    invariant "2.2.4"
+
+"@react-google-maps/marker-clusterer@1.2.0-alpha.9":
+  version "1.2.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.2.0-alpha.9.tgz#f44046e7aadaab82d002c10b3a0432a1e73cf3e7"
+  integrity sha512-sVU9QaPT8dpJ1/t/we08uIwkjx/JETuBsYg10YNgKMS2PBVRuanC+7N38ZsmrTVg/yyMG72HobRUWi8uEfHkpw==
   dependencies:
     "@types/googlemaps" "3.30.19"
-    "@types/markerclustererplus" "2.1.33"
-    google-maps-infobox "2.0.0"
-    invariant "2.2.4"
-    marker-clusterer-plus "2.1.4"
 
 "@types/configstore@^2.1.1":
   version "2.1.1"
@@ -1103,14 +1111,7 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/google-maps@*":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@types/google-maps/-/google-maps-3.2.0.tgz#804a3ae9ac9265b4e0d1508b5b9b894867974f82"
-  integrity sha1-gEo66aySZbTg0VCLW5uJSGeXT4I=
-  dependencies:
-    "@types/googlemaps" "*"
-
-"@types/googlemaps@*", "@types/googlemaps@3.30.19":
+"@types/googlemaps@3.30.19":
   version "3.30.19"
   resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.30.19.tgz#359c025e244490b0775826fb216bed093fd66b16"
   integrity sha512-9uzg5jC6FRyAsMrhOLnUbblyN1xbcOVnqecQZxrnCDxTKssn4lwk0K4EWsw/sw8cJX32MFRMivyAT8dX/JBatg==
@@ -1120,12 +1121,10 @@
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
   integrity sha512-ui3WwXmjTaY73fOQ3/m3nnajU/Orhi6cEu5rzX+BrAAJxa3eITXZ5ch9suPqtM03OWhAHhPSyBGCN4UKoxO20Q==
 
-"@types/markerclustererplus@2.1.33":
-  version "2.1.33"
-  resolved "https://registry.yarnpkg.com/@types/markerclustererplus/-/markerclustererplus-2.1.33.tgz#0542a2fabdf46fa474a3de00df5b0b399f5694a5"
-  integrity sha512-ZDxsLUp8BmK9MVZZeQVDDzVrEXgRL0021AQcfXqfreFhdfZ9+PS0P6o4nZBvoIVYTmGSBemdCdI6mL6hf9yWvg==
-  dependencies:
-    "@types/google-maps" "*"
+"@types/invariant@2.2.29":
+  version "2.2.29"
+  resolved "https://registry.yarnpkg.com/@types/invariant/-/invariant-2.2.29.tgz#aa845204cd0a289f65d47e0de63a6a815e30cc66"
+  integrity sha512-lRVw09gOvgviOfeUrKc/pmTiRZ7g7oDOU6OAutyuSHpm1/o2RaBQvRhgK8QEdu+FFuw/wnWb29A/iuxv9i8OpQ==
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -1165,10 +1164,25 @@
     "@types/history" "*"
     "@types/react" "*"
 
+"@types/react-dom@16.8.3":
+  version "16.8.3"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.3.tgz#6131b7b6158bc7ed1925a3374b88b7c00481f0cb"
+  integrity sha512-HF5hD5YR3z9Mn6kXcW1VKe4AQ04ZlZj1EdLBae61hzQ3eEWWxMgNLUbIxeZp40BnSxqY1eAYLsH9QopQcxzScA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*":
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.4.tgz#134307f5266e866d5e7c25e47f31f9abd5b2ea34"
   integrity sha512-Mpz1NNMJvrjf0GcDqiK8+YeOydXfD8Mgag3UtqQ5lXYTsMnOiHcKmO48LiSWMb1rSHB9MV/jlgyNzeAVxWMZRQ==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
+
+"@types/react@16.8.10":
+  version "16.8.10"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.10.tgz#1ccb6fde17f71a62ef055382ec68bdc379d4d8d9"
+  integrity sha512-7bUQeZKP4XZH/aB4i7k1i5yuwymDu/hnLMhD9NjVZvQQH7ZUgRN3d6iu8YXzx4sN/tNr0bj8jgguk8hhObzGvA==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -5239,11 +5253,6 @@ gonzales-pe@^4.0.3, gonzales-pe@^4.2.3:
   dependencies:
     minimist "1.1.x"
 
-google-maps-infobox@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/google-maps-infobox/-/google-maps-infobox-2.0.0.tgz#1ea6de93c0cdf4138c2d586331835c83dcc59dc2"
-  integrity sha512-hTuWmWZZSOxf5D/z7l3/hTF1grgRvLG53BEKMdjiKOG+FcK/kH7vqseUeyIU9Zj2ZIqKTOaro0nknxpAuRq4Vw==
-
 got@^6.7.1:
   version "6.7.1"
   resolved "https://registry.yarnpkg.com/got/-/got-6.7.1.tgz#240cd05785a9a18e561dc1b44b41c763ef1e8db0"
@@ -6796,11 +6805,6 @@ markdown-table@^1.1.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/markdown-table/-/markdown-table-1.1.2.tgz#c78db948fa879903a41bce522e3b96f801c63786"
   integrity sha512-NcWuJFHDA8V3wkDgR/j4+gZx+YQwstPgfQDV8ndUeWWzta3dnDTBxpVzqS9lkmJAuV5YX35lmyojl6HO5JXAgw==
-
-marker-clusterer-plus@2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/marker-clusterer-plus/-/marker-clusterer-plus-2.1.4.tgz#f8eff74d599dab3b7d0e3fed5264ea0e704f5d67"
-  integrity sha1-+O/3TVmdqzt9Dj/tUmTqDnBPXWc=
 
 mathml-tag-names@^2.0.1:
   version "2.1.0"
