@@ -104,15 +104,15 @@ interface DataState {
 interface DataProps {
   options?: google.maps.Data.DataOptions;
   onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void;
-  onClick?: (e: MouseEvent) => void;
-  onDblClick?: (e: MouseEvent) => void;
-  onMouseDown?: (e: MouseEvent) => void;
-  onMouseOut?: (e: MouseEvent) => void;
-  onMouseOver?: (e: MouseEvent) => void;
-  onMouseUp?: (e: MouseEvent) => void;
+  onClick?: (e: google.maps.MouseEvent) => void;
+  onDblClick?: (e: google.maps.MouseEvent) => void;
+  onMouseDown?: (e: google.maps.MouseEvent) => void;
+  onMouseOut?: (e: google.maps.MouseEvent) => void;
+  onMouseOver?: (e: google.maps.MouseEvent) => void;
+  onMouseUp?: (e: google.maps.MouseEvent) => void;
   onRemoveFeature?: (e: google.maps.Data.RemoveFeatureEvent) => void;
   onRemoveProperty?: (e: google.maps.Data.RemovePropertyEvent) => void;
-  onRightClick?: (e: MouseEvent) => void;
+  onRightClick?: (e: google.maps.MouseEvent) => void;
   onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void;
   onSetProperty?: (e: google.maps.Data.SetPropertyEvent) => void;
   onLoad?: (data: google.maps.Data) => void;

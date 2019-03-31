@@ -25,6 +25,11 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
       resolve(id)
     }
     script.onerror = reject
+
     document.head.appendChild(script)
   })
+    // eslint-disable-next-line @getify/proper-arrows/name
+    .catch(err => {
+      console.error('injectScript error: ', err)
+    })
 }

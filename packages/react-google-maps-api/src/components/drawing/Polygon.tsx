@@ -65,17 +65,17 @@ interface PolygonProps {
   visible?: boolean;
   path?: google.maps.MVCArray<google.maps.LatLng> | google.maps.LatLng[] | google.maps.LatLngLiteral[];
   paths?: google.maps.MVCArray<google.maps.LatLng> | google.maps.MVCArray<google.maps.MVCArray<google.maps.LatLng>> | google.maps.LatLng[] | google.maps.LatLng[][] | google.maps.LatLngLiteral[] | google.maps.LatLngLiteral[][];
-  onDblClick?: (e: MouseEvent) => void;
-  onDragEnd?: (e: MouseEvent) => void;
-  onDragStart?: (e: MouseEvent) => void;
-  onMouseDown?: (e: MouseEvent) => void;
-  onMouseMove?: (e: MouseEvent) => void;
-  onMouseOut?: (e: MouseEvent) => void;
-  onMouseOver?: (e: MouseEvent) => void;
-  onMouseUp?: (e: MouseEvent) => void;
-  onRightClick?: (e: MouseEvent) => void;
-  onClick?: (e: MouseEvent) => void;
-  onDrag?: (e: MouseEvent) => void;
+  onDblClick?: (e: google.maps.MouseEvent) => void;
+  onDragEnd?: (e: google.maps.MouseEvent) => void;
+  onDragStart?: (e: google.maps.MouseEvent) => void;
+  onMouseDown?: (e: google.maps.MouseEvent) => void;
+  onMouseMove?: (e: google.maps.MouseEvent) => void;
+  onMouseOut?: (e: google.maps.MouseEvent) => void;
+  onMouseOver?: (e: google.maps.MouseEvent) => void;
+  onMouseUp?: (e: google.maps.MouseEvent) => void;
+  onRightClick?: (e: google.maps.MouseEvent) => void;
+  onClick?: (e: google.maps.MouseEvent) => void;
+  onDrag?: (e: google.maps.MouseEvent) => void;
   onLoad?: (polygon: google.maps.Polygon) => void;
   onUnmount?: (polygon: google.maps.Polygon) => void;
 }
