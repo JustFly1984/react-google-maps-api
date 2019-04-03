@@ -89,14 +89,6 @@ export class InfoWindow extends React.PureComponent<
       this.containerElement !== null &&
       this.props.anchor !== null
     ) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.infoWindow
-      })
-
       this.state.infoWindow.setContent(this.containerElement)
 
       this.open(this.state.infoWindow, this.props.anchor)

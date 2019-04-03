@@ -91,18 +91,8 @@ export class Polygon extends React.PureComponent<PolygonProps, PolygonState> {
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setPolygonCallback = () => {
-    if (this.state.polygon !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.polygon
-      })
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.polygon)
-      }
+    if (this.state.polygon !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.polygon)
     }
   }
 

@@ -66,14 +66,6 @@ export class DirectionsRenderer extends React.PureComponent<
     if (this.state.directionsRenderer !== null) {
       this.state.directionsRenderer.setMap(this.context)
 
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.directionsRenderer
-      })
-
       if (this.props.onLoad) {
         this.props.onLoad(this.state.directionsRenderer)
       }

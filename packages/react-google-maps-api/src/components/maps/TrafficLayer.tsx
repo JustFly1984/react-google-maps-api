@@ -40,14 +40,6 @@ export class TrafficLayer extends PureComponent<
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setTrafficLayerCallback = () => {
     if (this.state.trafficLayer !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.trafficLayer
-      })
-
       if (this.props.onLoad) {
         // @ts-ignore
         this.props.onLoad(this.state.trafficLayer)

@@ -50,18 +50,8 @@ class StandaloneSearchBox extends React.PureComponent<
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setSearchBoxCallback = () => {
-    if (this.state.searchBox !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.searchBox
-      })
-
-      if (this.props.onLoad){
-        this.props.onLoad(this.state.searchBox)
-      }
+    if (this.state.searchBox !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.searchBox)
     }
   }
 

@@ -76,10 +76,8 @@ export class Autocomplete extends React.PureComponent<
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setAutocompleteCallback = () => {
-    if (this.state.autocomplete !== null) {
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.autocomplete)
-      }
+    if (this.state.autocomplete !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.autocomplete)
     }
   }
 

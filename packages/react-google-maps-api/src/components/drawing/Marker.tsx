@@ -140,18 +140,8 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setMarkerCallback = () => {
-    if (this.state.marker !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.marker
-      })
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.marker)
-      }
+    if (this.state.marker !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.marker)
     }
   }
 
