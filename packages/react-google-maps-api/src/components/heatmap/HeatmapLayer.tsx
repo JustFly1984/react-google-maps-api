@@ -56,18 +56,8 @@ export class HeatmapLayer extends React.PureComponent<
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setHeatmapLayerCallback = () => {
-    if (this.state.heatmapLayer !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.heatmapLayer
-      })
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.heatmapLayer)
-      }
+    if (this.state.heatmapLayer !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.heatmapLayer)
     }
   }
 

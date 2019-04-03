@@ -74,18 +74,8 @@ export class DrawingManager extends React.PureComponent<
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setDrawingManagerCallback = () => {
-    if (this.state.drawingManager !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.drawingManager
-      })
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.drawingManager)
-      }
+    if (this.state.drawingManager !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.drawingManager)
     }
   }
 

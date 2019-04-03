@@ -89,18 +89,8 @@ export class Rectangle extends React.PureComponent<
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setRectangleCallback = () => {
-    if (this.state.rectangle !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.rectangle
-      })
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.rectangle)
-      }
+    if (this.state.rectangle !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.rectangle)
     }
   }
 

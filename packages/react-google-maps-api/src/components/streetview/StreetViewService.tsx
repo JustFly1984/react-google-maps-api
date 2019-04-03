@@ -23,10 +23,8 @@ export class StreetViewService extends React.PureComponent<
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setStreetViewServiceCallback = () => {
-    if (this.state.streetViewService !== null) {
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.streetViewService)
-      }
+    if (this.state.streetViewService !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.streetViewService)
     }
   }
 

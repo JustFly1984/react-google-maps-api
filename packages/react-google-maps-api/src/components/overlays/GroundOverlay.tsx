@@ -52,10 +52,8 @@ export class GroundOverlay extends React.PureComponent<
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setGroundOverlayCallback = () => {
-    if (this.state.groundOverlay !== null) {
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.groundOverlay)
-      }
+    if (this.state.groundOverlay !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.groundOverlay)
     }
   }
 

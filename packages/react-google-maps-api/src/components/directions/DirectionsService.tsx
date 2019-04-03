@@ -29,15 +29,8 @@ export class DirectionsService extends React.PureComponent<
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setDirectionsServiceCallback = () => {
-    if (this.state.directionsService !== null) {
-      this.state.directionsService.route(
-        this.props.options,
-        this.props.callback
-      )
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.directionsService)
-      }
+    if (this.state.directionsService !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.directionsService)
     }
   }
 

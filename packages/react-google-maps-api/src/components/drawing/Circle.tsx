@@ -90,18 +90,8 @@ export class Circle extends React.PureComponent<CircleProps, CircleState> {
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setCircleCallback = () => {
-    if (this.state.circle !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.circle
-      })
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.circle)
-      }
+    if (this.state.circle !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.circle)
     }
   }
 

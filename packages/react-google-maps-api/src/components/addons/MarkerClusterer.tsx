@@ -132,18 +132,8 @@ export class ClustererComponent extends React.PureComponent<
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setClustererCallback = (): void => {
-    if (this.state.markerClusterer !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.markerClusterer
-      })
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.markerClusterer)
-      }
+    if (this.state.markerClusterer !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.markerClusterer)
     }
   }
 

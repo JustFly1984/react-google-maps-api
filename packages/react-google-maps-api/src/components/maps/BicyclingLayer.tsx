@@ -15,9 +15,6 @@ export class BicyclingLayer extends React.PureComponent<
   BicyclingLayerProps,
   BicyclingLayerState
 > {
-  public static defaultProps = {
-    onLoad: () => {}
-  }
   static contextType = MapContext
 
   state = {
@@ -30,8 +27,11 @@ export class BicyclingLayer extends React.PureComponent<
       // TODO: how is this possibly null if we're doing a null check
       // @ts-ignore
       this.state.bicyclingLayer.setMap(this.context)
-      //@ts-ignore
-      this.props.onLoad(this.state.bicyclingLayer)
+      
+      if (this.props.onLoad) {
+        //@ts-ignore
+        this.props.onLoad(this.state.bicyclingLayer)
+      }
     }
   }
 

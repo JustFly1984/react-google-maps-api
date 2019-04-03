@@ -56,14 +56,6 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     if (this.state.kmlLayer !== null) {
       this.state.kmlLayer.setMap(this.context)
 
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.kmlLayer
-      })
-
       if (this.props.onLoad) {
         this.props.onLoad(this.state.kmlLayer)
       }

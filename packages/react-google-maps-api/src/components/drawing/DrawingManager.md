@@ -21,6 +21,7 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
       onLoad={drawingManager => {
         console.log(drawingManager)
       }}
+      onPolygonComplete={(polygon) => console.log({polygon})}
     />
   </GoogleMap>
 </ScriptLoaded>
