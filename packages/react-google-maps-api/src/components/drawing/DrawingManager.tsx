@@ -14,7 +14,7 @@ const eventMap = {
   onCircleComplete: "circlecomplete",
   onMarkerComplete: "markercomplete",
   onOverlayComplete: "overlaycomplete",
-  ondrawingManagerComplete: "drawingManagercomplete",
+  onPolygonComplete: "polygoncomplete",
   onPolylineComplete: "polylinecomplete",
   onRectangleComplete: "rectanglecomplete"
 }
