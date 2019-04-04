@@ -42,8 +42,9 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
           {lat: -42.734358, lng: 147.501315},
           {lat: -42.735258, lng: 147.438000},
           {lat: -43.999792, lng: 170.463352}
-        ].map(location => (
+        ].map((location, i) => (
           <Marker
+            key={i}
             position={location}
             clusterer={clusterer}
           />

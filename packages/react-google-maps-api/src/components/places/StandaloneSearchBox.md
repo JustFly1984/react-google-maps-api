@@ -21,7 +21,7 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
     }}
   >
     <StandaloneSearchBox
-      ref={ref => this.searchBox = ref}
+      onLoad={ref => this.searchBox = ref}
       onPlacesChanged={
         () => console.log(this.searchBox.getPlaces())
       }

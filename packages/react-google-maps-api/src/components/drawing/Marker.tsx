@@ -164,6 +164,14 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
       marker.setMap(this.context)
     }
 
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: marker
+    })
+
     function setMarker() {
       return {
         marker

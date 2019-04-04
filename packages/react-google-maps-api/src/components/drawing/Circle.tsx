@@ -101,6 +101,14 @@ export class Circle extends React.PureComponent<CircleProps, CircleState> {
       map: this.context
     })
 
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: circle
+    })
+
     function setCircle() {
       return {
         circle

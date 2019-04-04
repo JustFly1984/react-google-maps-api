@@ -37,8 +37,6 @@ export class OverlayView extends React.PureComponent<
 
   static contextType = MapContext
 
-  registeredEvents: google.maps.MapsEventListener[] = []
-
   state: OverlayViewState = {
     overlayView: null
   }

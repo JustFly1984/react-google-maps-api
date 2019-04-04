@@ -141,6 +141,14 @@ export class Data extends React.PureComponent<DataProps, DataState> {
       map: this.context
     })
 
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: data
+    })
+
     function setData() {
       return {
         data

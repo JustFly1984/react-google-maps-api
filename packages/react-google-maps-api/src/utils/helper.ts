@@ -38,9 +38,6 @@ export function registerEvents(
       onEventName: any
     ): google.maps.MapsEventListener[] {
       if (typeof props[onEventName] === "function") {
-        // if (onEventName === "onPolygonComplete") {
-        //   debugger
-        // }
         acc.push(
           google.maps.event.addListener(
             instance,

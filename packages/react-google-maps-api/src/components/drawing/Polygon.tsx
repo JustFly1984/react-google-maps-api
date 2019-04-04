@@ -102,6 +102,14 @@ export class Polygon extends React.PureComponent<PolygonProps, PolygonState> {
       map: this.context
     })
 
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: polygon
+    })
+
     function setPolygon() {
       return {
         polygon

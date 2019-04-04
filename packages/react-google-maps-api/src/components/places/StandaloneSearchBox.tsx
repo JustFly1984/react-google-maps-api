@@ -74,6 +74,14 @@ class StandaloneSearchBox extends React.PureComponent<
           this.props.options
         )
 
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: searchBox
+        })
+
         this.setState(
           function setSearchBox() {
             return {

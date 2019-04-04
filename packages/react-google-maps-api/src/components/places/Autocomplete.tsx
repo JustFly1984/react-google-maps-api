@@ -98,6 +98,14 @@ export class Autocomplete extends React.PureComponent<
         this.props.options
       )
 
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: autocomplete
+      })
+
       this.setState(
         function setAutocomplete() {
           return {

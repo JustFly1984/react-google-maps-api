@@ -109,6 +109,14 @@ export class StreetViewPanorama extends React.PureComponent<
   componentDidMount() {
     const streetViewPanorama = this.context.getStreetView()
 
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: streetViewPanorama
+    })
+
     function setStreetViewPanorama() {
       return {
         streetViewPanorama

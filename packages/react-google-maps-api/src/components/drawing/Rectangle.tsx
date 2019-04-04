@@ -100,6 +100,14 @@ export class Rectangle extends React.PureComponent<
       map: this.context
     })
 
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: rectangle
+    })
+
     function setRectangle() {
       return {
         rectangle

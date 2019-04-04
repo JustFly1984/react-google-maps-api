@@ -74,6 +74,14 @@ export class GroundOverlay extends React.PureComponent<
       }
     )
 
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: groundOverlay
+    })
+
     function setGroundOverlay() {
       return {
         groundOverlay
