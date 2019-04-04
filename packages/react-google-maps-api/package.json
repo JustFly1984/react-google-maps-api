@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/api",
-  "version": "1.2.0-alpha.12",
+  "version": "1.2.0-alpha.13",
   "description": "React.js Google Maps API integration",
   "license": "MIT",
   "author": {
@@ -68,8 +68,8 @@
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
-    "publish": "npm run build && npm publish .",
-    "publish:next": "npm run build && npm publish . --tag next",
+    "publish": "yarn build && npm publish .",
+    "publish:next": "yarn build && npm publish . --tag next",
     "docs:dev": "npx styleguidist server",
     "docs:build": "npx styleguidist build",
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
