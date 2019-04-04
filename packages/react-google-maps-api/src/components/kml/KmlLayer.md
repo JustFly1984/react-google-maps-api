@@ -6,18 +6,16 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>
   <GoogleMap
-    id="circle-example"
+    id="kml-layer-example"
     mapContainerStyle={{
       height: "400px",
       width: "800px"
     }}
-    zoom={7}
-    center={{
-      lat: -3.745,
-      lng: -38.523
-    }}
+    zoom={11}
+    center={{lat: 41.876, lng: -87.624}}
+    
   >
-    <KmlLayer />
+    <KmlLayer url="http://googlemaps.github.io/js-v2-samples/ggeoxml/cta.kml" />
   </GoogleMap>
 </ScriptLoaded>
 ```

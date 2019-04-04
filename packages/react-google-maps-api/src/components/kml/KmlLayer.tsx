@@ -20,6 +20,7 @@ const updaterMap = {
     instance.setOptions(options)
   },
   url(instance: google.maps.KmlLayer, url: string) {
+    console.log({instance, url})
     instance.setUrl(url)
   },
   zIndex(instance: google.maps.KmlLayer, zIndex: number) {
@@ -53,19 +54,16 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setKmlLayerCallback = () => {
-    if (this.state.kmlLayer !== null) {
-      this.state.kmlLayer.setMap(this.context)
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.kmlLayer)
-      }
+    if (this.state.kmlLayer !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.kmlLayer)
     }
   }
 
   componentDidMount() {
-    const kmlLayer = new google.maps.KmlLayer(
-      this.props.options
-    )
+    const kmlLayer = new google.maps.KmlLayer({
+      ...this.props.options,
+      map: this.context
+    })
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
