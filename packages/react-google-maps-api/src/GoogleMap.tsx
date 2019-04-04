@@ -131,14 +131,6 @@ export class GoogleMap extends React.PureComponent<
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setMapCallback = () => {
     if (this.state.map !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.map
-      })
-
       if (this.props.onLoad) {
         this.props.onLoad(this.state.map)
       }
@@ -147,6 +139,14 @@ export class GoogleMap extends React.PureComponent<
 
   componentDidMount() {
     const map = this.getInstance()
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: map
+    })
 
     function setMap() {
       return {

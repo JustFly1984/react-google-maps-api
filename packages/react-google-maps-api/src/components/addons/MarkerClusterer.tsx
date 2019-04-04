@@ -145,6 +145,14 @@ export class ClustererComponent extends React.PureComponent<
         this.props.options
       )
 
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: markerClusterer
+      })
+
       this.setState(
         function setClusterer(): ClustererState {
           return {

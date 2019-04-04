@@ -78,6 +78,14 @@ export class HeatmapLayer extends React.PureComponent<
       map: this.context
     })
 
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: heatmapLayer
+    })
+
     function setHeatmapLayer() {
       return {
         heatmapLayer

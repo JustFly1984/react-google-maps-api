@@ -98,6 +98,14 @@ export class Polyline extends React.PureComponent<
       map: this.context
     })
 
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: polyline
+    })
+
     function setPolyline() {
       return {
         polyline

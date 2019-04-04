@@ -54,6 +54,14 @@ export class TrafficLayer extends PureComponent<
       ...(this.props.options || {}),
       map: this.context
     })
+    
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: trafficLayer
+    })
 
     function setTrafficlayer() {
       return {
