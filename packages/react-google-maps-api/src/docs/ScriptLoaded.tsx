@@ -5,7 +5,7 @@ interface ScriptLoadedState {
 }
 
 interface ScriptLoadedProps {
-  children: React.ReactChild | React.ReactChildren;
+  children: React.ReactChild | React.ReactChildren | Function;
 }
 
 function SpanIntro (): JSX.Element {
@@ -59,13 +59,11 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
   }
 
   render() {
-    return this.state.scriptLoaded
-      ? (
-        this.props.children
-      )
-      : (
-        <SpanIntro />
-      )
+    if (!this.state.scriptLoaded) {
+      return <SpanIntro />
+    }
+
+    return (this.props.children instanceof Function) ?  this.props.children() : this.props.children
   }
 }
 
