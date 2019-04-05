@@ -1,16 +1,17 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import MapContext from "../../map-context"
 
 interface StreetViewServiceProps {
-  onLoad: (streetViewService: google.maps.StreetViewService) => void
+  onLoad?: (streetViewService: google.maps.StreetViewService | null) => void;
+  onUnmount?: (streetViewService: google.maps.StreetViewService | null) => void;
 }
 
 interface StreetViewServiceState {
-  streetViewService?: google.maps.StreetViewService
+  streetViewService: google.maps.StreetViewService | null;
 }
 
-export class StreetViewService extends PureComponent<
+export class StreetViewService extends React.PureComponent<
   StreetViewServiceProps,
   StreetViewServiceState
 > {
@@ -20,30 +21,39 @@ export class StreetViewService extends PureComponent<
     streetViewService: null
   }
 
-  componentDidMount = () => {
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setStreetViewServiceCallback = () => {
+    if (this.state.streetViewService !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.streetViewService)
+    }
+  }
+
+  componentDidMount() {
     const streetViewService = new google.maps.StreetViewService()
 
-    this.setState(
-      () => ({
+    function setStreetViewService() {
+      return {
         streetViewService
-      }),
-      () => {
-        this.props.onLoad(this.state.streetViewService)
       }
+    }
+
+    this.setState(
+      setStreetViewService,
+
     )
   }
 
-  render = () => null
+  componentWillUnmount() {
+    if (this.state.streetViewService !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.streetViewService)
+      }
+    }
+  }
 
-  getPanorama = (
-    request:
-      | google.maps.StreetViewLocationRequest
-      | google.maps.StreetViewPanoRequest,
-    callback: (
-      data: google.maps.StreetViewPanoramaData,
-      status: google.maps.StreetViewStatus
-    ) => void
-  ) => this.state.streetViewService.getPanorama(request, callback)
+  render () {
+    return null
+  }
 }
 
 export default StreetViewService

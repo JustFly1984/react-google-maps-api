@@ -1,18 +1,25 @@
-import * as React from 'react'
-import { Component } from 'react'
+import * as React from "react"
 
-class ScriptLoaded extends Component<any, any> {
-  interval = null
+interface ScriptLoadedState {
+  scriptLoaded: boolean;
+}
 
-  render = () => this.state.scriptLoaded
-    ? this.props.children
-    : (
-      <span>
-        <a href='#introduction'>Enter API Key</a> to see examples
-      </span>
-    )
+interface ScriptLoadedProps {
+  children: React.ReactChild | React.ReactChildren | Function;
+}
 
-  constructor (props) {
+function SpanIntro (): JSX.Element {
+  return (
+    <span>
+      <a href='#introduction'>Enter API Key</a> to see examples
+    </span>
+  )
+}
+
+class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState> {
+  interval: number | undefined
+
+  constructor(props: ScriptLoadedProps) {
     super(props)
 
     this.state = {
@@ -20,19 +27,43 @@ class ScriptLoaded extends Component<any, any> {
       scriptLoaded: !!window.google
     }
 
-    this.interval = setInterval(this.checkIfScriptLoaded, 200)
+    this.interval = window.setInterval(this.checkIfScriptLoaded, 200)
+  }
+
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setScriptLoadedCallback = () => {
+    if (this.state.scriptLoaded) {
+      window.clearInterval(this.interval)
+    }
+  }
+
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  checkIfScriptLoaded = () => {
+    function serScriptLoaded () {
+      return {
+        scriptLoaded: true
+      }
+    }
+
+    ///@ts-ignore
+    if (window.google) {
+      this.setState(
+        serScriptLoaded,
+        this.setScriptLoadedCallback
+      )
+    }
   }
 
   componentWillUnmount () {
-    clearInterval(this.interval)
+    window.clearInterval(this.interval)
   }
 
-  checkIfScriptLoaded = () => {
-    ///@ts-ignore
-    if (window.google) {
-      this.setState({ scriptLoaded: true })
-      clearInterval(this.interval)
+  render() {
+    if (!this.state.scriptLoaded) {
+      return <SpanIntro />
     }
+
+    return (this.props.children instanceof Function) ?  this.props.children() : this.props.children
   }
 }
 

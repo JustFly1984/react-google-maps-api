@@ -14,7 +14,7 @@ const SectionGround = ({ ground }) =>
         styles={shapeExampleStyles}
       />
     )
-    : null
+    : (<></>)
 
 SectionGround.propTypes = {
   ground: PropTypes.bool.isRequired

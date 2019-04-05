@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -39,10 +39,7 @@ const updaterMap = {
   },
   path(
     instance: google.maps.Polyline,
-    path:
-      | google.maps.MVCArray<google.maps.LatLng>
-      | google.maps.LatLng[]
-      | google.maps.LatLngLiteral[]
+    path: google.maps.MVCArray<google.maps.LatLng> | google.maps.LatLng[] | google.maps.LatLngLiteral[]
   ) {
     instance.setPath(path)
   },
@@ -52,32 +49,34 @@ const updaterMap = {
 }
 
 interface PolylineState {
-  polyline?: google.maps.Polyline
+  polyline: google.maps.Polyline | null;
 }
 
 interface PolylineProps {
-  options: google.maps.PolylineOptions
-  draggable: boolean
-  editable: boolean
-  visible: boolean
-  path:
-    | google.maps.MVCArray<google.maps.LatLng>
-    | google.maps.LatLng[]
-    | google.maps.LatLngLiteral[]
-  onDblClick: (e: MouseEvent) => void
-  onDragEnd: (e: MouseEvent) => void
-  onDragStart: (e: MouseEvent) => void
-  onMouseDown: (e: MouseEvent) => void
-  onMouseMove: (e: MouseEvent) => void
-  onMouseOut: (e: MouseEvent) => void
-  onMouseOver: (e: MouseEvent) => void
-  onMouseUp: (e: MouseEvent) => void
-  onRightClick: (e: MouseEvent) => void
-  onClick: (e: MouseEvent) => void
-  onDrag: (e: MouseEvent) => void
+  options?: google.maps.PolylineOptions;
+  draggable?: boolean;
+  editable?: boolean;
+  visible?: boolean;
+  path?: google.maps.MVCArray<google.maps.LatLng> | google.maps.LatLng[] | google.maps.LatLngLiteral[];
+  onDblClick?: (e: google.maps.MouseEvent) => void;
+  onDragEnd?: (e: google.maps.MouseEvent) => void;
+  onDragStart?: (e: google.maps.MouseEvent) => void;
+  onMouseDown?: (e: google.maps.MouseEvent) => void;
+  onMouseMove?: (e: google.maps.MouseEvent) => void;
+  onMouseOut?: (e: google.maps.MouseEvent) => void;
+  onMouseOver?: (e: google.maps.MouseEvent) => void;
+  onMouseUp?: (e: google.maps.MouseEvent) => void;
+  onRightClick?: (e: google.maps.MouseEvent) => void;
+  onClick?: (e: google.maps.MouseEvent) => void;
+  onDrag?: (e: google.maps.MouseEvent) => void;
+  onLoad?: (polyline: google.maps.Polyline) => void;
+  onUnmount?: (polyline: google.maps.Polyline) => void;
 }
 
-export class Polyline extends PureComponent<PolylineProps, PolylineState> {
+export class Polyline extends React.PureComponent<
+  PolylineProps,
+  PolylineState
+> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -86,57 +85,68 @@ export class Polyline extends PureComponent<PolylineProps, PolylineState> {
     polyline: null
   }
 
-  componentDidMount = () => {
-    const polyline = new google.maps.Polyline({
-      ...this.props.options,
-      map: this.context
-    })
-
-    this.setState(
-      () => ({
-        polyline
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.polyline
-        })
-      }
-    )
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setPolylineCallback = () => {
+    if (this.state.polyline !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.polyline)
+    }
   }
 
-  componentDidUpdate = (prevProps: PolylineProps) => {
-    unregisterEvents(this.registeredEvents)
+  componentDidMount() {
+    const polyline = new google.maps.Polyline({
+      ...(this.props.options || {}),
+      map: this.context
+    })
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
-      prevProps,
+      prevProps: {},
       nextProps: this.props,
-      instance: this.state.polyline
+      instance: polyline
     })
+
+    function setPolyline() {
+      return {
+        polyline
+      }
+    }
+
+    this.setState(
+      setPolyline,
+      this.setPolylineCallback
+    )
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+  componentDidUpdate(prevProps: PolylineProps) {
+    if (this.state.polyline !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.state.polyline && this.state.polyline.setMap(null)
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.polyline
+      })
+    }
   }
 
-  render = () => null
+  componentWillUnmount() {
+    if (this.state.polyline !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.polyline)
+      }
 
-  getDraggable = () => this.state.polyline.getDraggable()
+      unregisterEvents(this.registeredEvents)
 
-  getEditable = () => this.state.polyline.getEditable()
+      this.state.polyline.setMap(null)
+    }
+  }
 
-  getPath = () => this.state.polyline.getPath()
-
-  getVisible = () => this.state.polyline.getVisible()
-
-  getMap = () => this.state.polyline.getMap()
+  render() {
+    return <></>
+  }
 }
 
 export default Polyline

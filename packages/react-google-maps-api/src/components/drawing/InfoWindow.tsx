@@ -1,5 +1,6 @@
 /* global google */
-import { PureComponent, Children } from "react"
+import * as React from "react"
+// @ts-ignore
 import { createPortal } from "react-dom"
 import {
   unregisterEvents,
@@ -37,84 +38,38 @@ const updaterMap = {
 }
 
 interface InfoWindowState {
-  infoWindow?: google.maps.InfoWindow
+  infoWindow: google.maps.InfoWindow | null;
 }
 
 interface InfoWindowProps {
-  anchor?: google.maps.MVCObject
-  options?: google.maps.InfoWindowOptions
-  position: google.maps.LatLng | google.maps.LatLngLiteral
-  zIndex?: number
-  onCloseClick?: () => void
-  onDomReady?: () => void
-  onContentChanged?: () => void
-  onPositionChanged?: () => void
-  onZindexChanged?: () => void
+  anchor: google.maps.MVCObject | null;
+  options?: google.maps.InfoWindowOptions;
+  position: google.maps.LatLng | google.maps.LatLngLiteral;
+  zIndex?: number;
+  onCloseClick?: () => void;
+  onDomReady?: () => void;
+  onContentChanged?: () => void;
+  onPositionChanged?: () => void;
+  onZindexChanged?: () => void;
+  onLoad?: (infoWindow: google.maps.InfoWindow) => void;
+  onUnmount?: (infoWindow: google.maps.InfoWindow) => void;
 }
 
-export class InfoWindow extends PureComponent<
+export class InfoWindow extends React.PureComponent<
   InfoWindowProps,
   InfoWindowState
 > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
-  containerElement: HTMLElement
+  containerElement: HTMLElement | null = null
 
   state: InfoWindowState = {
     infoWindow: null
   }
 
-  componentDidMount = () => {
-    const infoWindow = new google.maps.InfoWindow(this.props.options)
-
-    this.containerElement = document.createElement("div")
-
-    this.setState(
-      () => ({
-        infoWindow
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.infoWindow
-        })
-
-        this.state.infoWindow.setContent(this.containerElement)
-
-        this.open(this.state.infoWindow, this.props.anchor)
-      }
-    )
-  }
-
-  componentDidUpdate(prevProps: InfoWindowProps) {
-    unregisterEvents(this.registeredEvents)
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.infoWindow
-    })
-  }
-
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
-  }
-
-  render = () =>
-    this.containerElement
-      ? createPortal(Children.only(this.props.children), this.containerElement)
-      : null
-
-  open = (
-    infoWindow: google.maps.InfoWindow,
-    anchor: google.maps.MVCObject
-  ) => {
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  open = (infoWindow: google.maps.InfoWindow, anchor: google.maps.MVCObject) => {
     if (anchor) {
       infoWindow.open(this.context, anchor)
     } else if (infoWindow.getPosition()) {
@@ -127,11 +82,81 @@ export class InfoWindow extends PureComponent<
     }
   }
 
-  getContent = () => this.state.infoWindow.getContent()
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setInfowindowCallback = () => {
+    if (
+      this.state.infoWindow !== null &&
+      this.containerElement !== null &&
+      this.props.anchor !== null
+    ) {
+      this.state.infoWindow.setContent(this.containerElement)
 
-  getPosition = () => this.state.infoWindow.getPosition()
+      this.open(this.state.infoWindow, this.props.anchor)
 
-  getZIndex = () => this.state.infoWindow.getZIndex()
+      if (this.props.onLoad) {
+        this.props.onLoad(this.state.infoWindow)
+      }
+    }
+  }
+
+  componentDidMount() {
+    const infoWindow = new google.maps.InfoWindow({
+      ...(this.props.options || {})
+    })
+
+    this.containerElement = document.createElement("div")
+
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: infoWindow
+    })
+
+    function setInfoWindow() {
+      return {
+        infoWindow
+      }
+    }
+
+    this.setState(
+      setInfoWindow,
+      this.setInfowindowCallback
+    )
+  }
+
+  componentDidUpdate(prevProps: InfoWindowProps) {
+    if (this.state.infoWindow !== null) {
+      unregisterEvents(this.registeredEvents)
+
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.infoWindow
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.state.infoWindow !== null) {
+      unregisterEvents(this.registeredEvents)
+    }
+  }
+
+  render() {
+    return this.containerElement
+      ? (
+        createPortal(
+          React.Children.only(this.props.children),
+          this.containerElement
+        )
+      ) : (
+        <></>
+      )
+  }
 }
 
 export default InfoWindow

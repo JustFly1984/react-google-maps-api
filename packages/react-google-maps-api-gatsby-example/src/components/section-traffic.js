@@ -14,7 +14,7 @@ const SectionTraffic = ({ traffic }) =>
         styles={shapeExampleStyles}
       />
     )
-    : null
+    : (<></>)
 
 SectionTraffic.propTypes = {
   traffic: PropTypes.bool.isRequired

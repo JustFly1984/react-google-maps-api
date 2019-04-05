@@ -1,7 +1,7 @@
 // eslint-disable-next-line filenames/match-exported
 import React from 'react'
 import PropTypes from 'prop-types'
-import uuid from 'uuidv4'
+import uniqid from 'uniqid'
 import { connect } from 'react-redux'
 
 import { LoadScript } from '@react-google-maps/api'
@@ -34,7 +34,11 @@ const Loading = <div className={styles.loadingStyle} />
 
 const googleMapsLibraries = ['drawing', 'visualization', 'places']
 
-const loaderId = uuid()
+const loaderId = uniqid('loader-')
+
+const onLoad = () => console.log('script loaded')
+
+const onError = (err) => console.log('onError: ', err)
 
 const GoogleMaps = ({ googleMapsApiKey, language }) => (
   <div>
@@ -44,7 +48,8 @@ const GoogleMaps = ({ googleMapsApiKey, language }) => (
       language={language}
       region={'EN'}
       version={'weekly'}
-      onLoad={() => console.log('script loaded')}
+      onLoad={onLoad}
+      onError={onError}
       loadingElement={Loading}
       libraries={googleMapsLibraries}
       preventGoogleFontsLoading

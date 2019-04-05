@@ -1,4 +1,4 @@
-import { PureComponent } from "react"
+import * as React from "react"
 
 import {
   unregisterEvents,
@@ -24,6 +24,7 @@ const updaterMap = {
     provider: (input: string) => google.maps.StreetViewPanoramaData,
     options: any
   ) {
+    // TODO: fix googlemaps typings
     // @ts-ignore
     instance.registerPanoProvider(provider, options)
   },
@@ -69,23 +70,24 @@ const updaterMap = {
 }
 
 interface StreetViewPanoramaState {
-  streetViewPanorama?: google.maps.StreetViewPanorama
+  streetViewPanorama: google.maps.StreetViewPanorama | null;
 }
 
 interface StreetViewPanoramaProps {
-  containerElement: Element
-  options?: google.maps.StreetViewPanoramaOptions
-  onCloseclick?: (event: google.maps.event) => void
-  onPanoChanged?: () => void
-  onPositionChanged?: () => void
-  onPovChanged?: () => void
-  onResize?: () => void
-  onStatusChanged?: () => void
-  onVisibleChanged?: () => void
-  onZoomChange?: () => void
+  options?: google.maps.StreetViewPanoramaOptions;
+  onCloseclick?: (event: google.maps.event) => void;
+  onPanoChanged?: () => void;
+  onPositionChanged?: () => void;
+  onPovChanged?: () => void;
+  onResize?: () => void;
+  onStatusChanged?: () => void;
+  onVisibleChanged?: () => void;
+  onZoomChange?: () => void;
+  onLoad?: (streetViewPanorama: google.maps.StreetViewPanorama) => void;
+  onUnmount?: (streetViewPanorama: google.maps.StreetViewPanorama) => void;
 }
 
-export class StreetViewPanorama extends PureComponent<
+export class StreetViewPanorama extends React.PureComponent<
   StreetViewPanoramaProps,
   StreetViewPanoramaState
 > {
@@ -97,65 +99,65 @@ export class StreetViewPanorama extends PureComponent<
     streetViewPanorama: null
   }
 
-  componentDidMount = () => {
-    const streetViewPanorama = this.context.getStreetView()
-    this.setState(
-      () => ({
-        streetViewPanorama
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.streetViewPanorama
-        })
-      }
-    )
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setStreetViewPanoramaCallback = () => {
+    if (this.state.streetViewPanorama !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.streetViewPanorama)
+    }
   }
 
-  componentDidUpdate = prevProps => {
-    unregisterEvents(this.registeredEvents)
+  componentDidMount() {
+    const streetViewPanorama = this.context.getStreetView()
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
-      prevProps,
+      prevProps: {},
       nextProps: this.props,
-      instance: this.state.streetViewPanorama
+      instance: streetViewPanorama
     })
+
+    function setStreetViewPanorama() {
+      return {
+        streetViewPanorama
+      }
+    }
+
+    this.setState(
+      setStreetViewPanorama,
+      this.setStreetViewPanoramaCallback
+    )
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+  componentDidUpdate(prevProps: StreetViewPanoramaProps) {
+    if (this.state.streetViewPanorama !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    if (this.state.streetViewPanorama) {
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.streetViewPanorama
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.state.streetViewPanorama !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.streetViewPanorama)
+      }
+
+      unregisterEvents(this.registeredEvents)
+
       this.state.streetViewPanorama.setVisible(false)
     }
   }
 
-  render = () => null
-
-  getLinks = () => this.state.streetViewPanorama.getLinks()
-
-  getLocation = () => this.state.streetViewPanorama.getLocation()
-
-  getMotionTracking = () => this.state.streetViewPanorama.getMotionTracking()
-
-  getPano = () => this.state.streetViewPanorama.getPano()
-
-  getPhotographerPov = () => this.state.streetViewPanorama.getPhotographerPov()
-
-  getPosition = () => this.state.streetViewPanorama.getPosition()
-
-  getPov = () => this.state.streetViewPanorama.getPov()
-
-  getStatus = () => this.state.streetViewPanorama.getStatus()
-
-  getVisible = () => this.state.streetViewPanorama.getVisible()
-
-  getZoom = () => this.state.streetViewPanorama.getZoom()
+  render() {
+    return null
+  }
 }
 
 export default StreetViewPanorama

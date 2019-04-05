@@ -1,3 +1,11 @@
+export interface RestoreInstanceArg {
+  id: string;
+  zoom?: number;
+  center?: google.maps.LatLng | google.maps.LatLngLiteral;
+  mapContainerStyle?: { [key: string]: any };
+  options?: google.maps.MapOptions;
+}
+
 const clearChildren = (node: HTMLElement) => {
   if (node) {
     while (node.firstChild) {
@@ -6,11 +14,11 @@ const clearChildren = (node: HTMLElement) => {
   }
 }
 
-const getMapInstanceId = (id: string) => {
+const getMapInstanceId = (id: string): string => {
   return `google-map-${id}`
 }
 
-const getHiddenMapContainer = (id: string) => {
+const getHiddenMapContainer = (id: string): HTMLElement => {
   const hiddenMapContainer = `hidden-container-${id}`
 
   let element = document.getElementById(hiddenMapContainer)
@@ -32,37 +40,48 @@ export const restoreInstance = ({
   id,
   zoom,
   center,
+  // eslint-disable-next-line @getify/proper-arrows/params
   mapContainerStyle,
   options
-}: {
-  id: string
-  zoom?: number
-  center?: google.maps.LatLng | google.maps.LatLngLiteral
-  mapContainerStyle?: any
-  options?: google.maps.MapOptions
-}) => {
+}: RestoreInstanceArg): google.maps.Map | false => {
+  // TODO: extend WindowType and refactor for better type support.
+  // @ts-ignore
   const map: google.maps.Map = window[getMapInstanceId(id)]
 
   const hiddenContainer = getHiddenMapContainer(id)
 
   if (map && hiddenContainer.children.length === 1) {
-    map.setZoom(zoom)
-    map.setCenter(center)
-    map.setOptions(options)
+    if (zoom) {
+      map.setZoom(zoom)
+    }
+
+    if (center) {
+      map.setCenter(center)
+    }
+
+    if (options) {
+      map.setOptions(options)
+    }
 
     const mapContainer = document.getElementById(id)
 
-    clearChildren(mapContainer)
+    if (mapContainer) {
+      clearChildren(mapContainer)
 
-    mapContainer.appendChild(hiddenContainer.children[0])
+      mapContainer.appendChild(hiddenContainer.children[0])
 
-    // Copy mapContainerStyle to mapContainer
-    Object.keys(mapContainerStyle).forEach(styleKey => {
-      mapContainer.style[styleKey] = mapContainerStyle[styleKey]
-    })
+      if (typeof mapContainerStyle === 'object') {
+        Object.keys(mapContainerStyle).forEach(function forEachStyle(styleKey) {
+          // TODO
+          mapContainer.style[styleKey as any] = mapContainerStyle[styleKey]
+        })
+      }
+    }
 
     return map
   }
+
+  return false
 }
 
 export const saveInstance = (id: string, map: google.maps.Map) => {
@@ -72,7 +91,10 @@ export const saveInstance = (id: string, map: google.maps.Map) => {
 
   const mapContainer = document.getElementById(id)
 
-  hiddenContainer.appendChild(mapContainer.children[0])
+  if (mapContainer && mapContainer.children && mapContainer.children[0]) {
+    hiddenContainer.appendChild(mapContainer.children[0])
+  }
 
+  // @ts-ignore
   window[getMapInstanceId(id)] = map
 }

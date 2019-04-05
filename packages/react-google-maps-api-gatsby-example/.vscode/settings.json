@@ -4,8 +4,6 @@
   },
   "eslint.packageManager": "yarn",
   "eslint.run": "onSave",
-  "prettier.eslintIntegration": true,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-  "eslint.autoFixOnSave": true,
-  "prettier.printWidth": 50
+  "eslint.autoFixOnSave": true
 }

@@ -1,6 +1,5 @@
-import { PureComponent } from "react"
-//@ts-ignore
-import invariant from "invariant"
+import * as React from "react"
+import * as invariant from "invariant"
 
 import {
   unregisterEvents,
@@ -14,12 +13,7 @@ const eventMap = {}
 const updaterMap = {
   data(
     instance: google.maps.visualization.HeatmapLayer,
-    data:
-      | google.maps.MVCArray<
-          google.maps.LatLng | google.maps.visualization.WeightedLocation
-        >
-      | google.maps.LatLng[]
-      | google.maps.visualization.WeightedLocation[]
+    data: google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation> | google.maps.LatLng[] | google.maps.visualization.WeightedLocation[]
   ) {
     instance.setData(data)
   },
@@ -37,20 +31,18 @@ const updaterMap = {
 }
 
 interface HeatmapLayerState {
-  heatmapLayer?: google.maps.visualization.HeatmapLayer
+  heatmapLayer: google.maps.visualization.HeatmapLayer | null;
 }
 
 interface HeatmapLayerProps {
-  data?:
-    | google.maps.MVCArray<
-        google.maps.LatLng | google.maps.visualization.WeightedLocation
-      >
-    | google.maps.LatLng[]
-    | google.maps.visualization.WeightedLocation[]
-  options?: google.maps.visualization.HeatmapLayerOptions
+  // required
+  data: google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation> | google.maps.LatLng[] | google.maps.visualization.WeightedLocation[];
+  options?: google.maps.visualization.HeatmapLayerOptions;
+  onLoad?: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void;
+  onUnmount?: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void;
 }
 
-export class HeatmapLayer extends PureComponent<
+export class HeatmapLayer extends React.PureComponent<
   HeatmapLayerProps,
   HeatmapLayerState
 > {
@@ -62,38 +54,51 @@ export class HeatmapLayer extends PureComponent<
     heatmapLayer: null
   }
 
-  constructor(props: HeatmapLayerProps) {
-    super(props)
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setHeatmapLayerCallback = () => {
+    if (this.state.heatmapLayer !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.heatmapLayer)
+    }
+  }
 
+  componentDidMount() {
     invariant(
       google.maps.visualization,
       'Did you include "visualization" in the libraries array prop in <LoadScript />?'
     )
-  }
 
-  componentDidMount = () => {
+    invariant(
+      this.props.data,
+      "data property is required in HeatmapLayer"
+    )
+
     const heatmapLayer = new google.maps.visualization.HeatmapLayer({
-      ...this.props.options,
+      data: this.props.data,
+      ...(this.props.options || {}),
       map: this.context
     })
 
-    this.setState(
-      () => ({
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps: {},
+      nextProps: this.props,
+      instance: heatmapLayer
+    })
+
+    function setHeatmapLayer() {
+      return {
         heatmapLayer
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.heatmapLayer
-        })
       }
+    }
+
+    this.setState(
+      setHeatmapLayer,
+      this.setHeatmapLayerCallback
     )
   }
 
-  componentDidUpdate = (prevProps: HeatmapLayerProps) => {
+  componentDidUpdate(prevProps: HeatmapLayerProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -105,19 +110,21 @@ export class HeatmapLayer extends PureComponent<
     })
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+  componentWillUnmount() {
+    if (this.state.heatmapLayer !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.heatmapLayer)
+      }
 
-    if (this.state.heatmapLayer) {
+      unregisterEvents(this.registeredEvents)
+
       this.state.heatmapLayer.setMap(null)
     }
   }
 
-  render = () => null
-
-  getData = () => this.state.heatmapLayer.getData()
-
-  getMap = () => this.state.heatmapLayer.getMap()
+  render() {
+    return null
+  }
 }
 
 export default HeatmapLayer

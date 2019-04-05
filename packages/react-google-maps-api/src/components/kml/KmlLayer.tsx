@@ -20,6 +20,7 @@ const updaterMap = {
     instance.setOptions(options)
   },
   url(instance: google.maps.KmlLayer, url: string) {
+    console.log({instance, url})
     instance.setUrl(url)
   },
   zIndex(instance: google.maps.KmlLayer, zIndex: number) {
@@ -28,16 +29,18 @@ const updaterMap = {
 }
 
 interface KmlLayerState {
-  kmlLayer?: google.maps.KmlLayer
+  kmlLayer: google.maps.KmlLayer | null;
 }
 
 interface KmlLayerProps {
-  options?: google.maps.KmlLayerOptions
-  url?: string
-  zIndex?: number
-  onClick?: (e: google.maps.MouseEvent) => void
-  onDefaultViewportChanged?: () => void
-  onStatusChanged?: () => void
+  options?: google.maps.KmlLayerOptions;
+  url?: string;
+  zIndex?: number;
+  onClick?: (e: google.maps.MouseEvent) => void;
+  onDefaultViewportChanged?: () => void;
+  onStatusChanged?: () => void;
+  onLoad: (kmlLayer: google.maps.KmlLayer) => void;
+  onUnmount: (kmlLayer: google.maps.KmlLayer) => void;
 }
 
 export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
@@ -49,58 +52,68 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     kmlLayer: null
   }
 
-  componentDidMount = () => {
-    const kmlLayer = new google.maps.KmlLayer(this.props.options)
-
-    this.setState(
-      () => ({
-        kmlLayer
-      }),
-      () => {
-        this.state.kmlLayer.setMap(this.context)
-
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.kmlLayer
-        })
-      }
-    )
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setKmlLayerCallback = () => {
+    if (this.state.kmlLayer !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.kmlLayer)
+    }
   }
 
-  componentDidUpdate = (prevProps: KmlLayerProps) => {
-    unregisterEvents(this.registeredEvents)
+  componentDidMount() {
+    const kmlLayer = new google.maps.KmlLayer({
+      ...this.props.options,
+      map: this.context
+    })
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
-      prevProps,
+      prevProps: {},
       nextProps: this.props,
-      instance: this.state.kmlLayer
+      instance: kmlLayer
     })
+
+    function setLmlLayer() {
+      return {
+        kmlLayer
+      }
+    }
+
+    this.setState(
+      setLmlLayer,
+      this.setKmlLayerCallback
+    )
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+  componentDidUpdate(prevProps: KmlLayerProps) {
+    if (this.state.kmlLayer !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.state.kmlLayer && this.state.kmlLayer.setMap(null)
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.kmlLayer
+      })
+    }
   }
 
-  render = () => null
+  componentWillUnmount() {
+    if (this.state.kmlLayer !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.kmlLayer)
+      }
 
-  getDefaultViewport = () => this.state.kmlLayer.getDefaultViewport()
+      unregisterEvents(this.registeredEvents)
 
-  getMap = () => this.state.kmlLayer.getMap()
+      this.state.kmlLayer.setMap(null)
+    }
+  }
 
-  getMetadata = () => this.state.kmlLayer.getMetadata()
-
-  getStatus = () => this.state.kmlLayer.getStatus()
-
-  getUrl = () => this.state.kmlLayer.getUrl()
-
-  getZIndex = () => this.state.kmlLayer.getZIndex()
+  render() {
+    return null
+  }
 }
 
 export default KmlLayer

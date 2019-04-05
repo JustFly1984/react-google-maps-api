@@ -1,5 +1,4 @@
 import * as React from "react"
-import { PureComponent, RefObject, Children, Context, createRef } from "react"
 
 import {
   unregisterEvents,
@@ -7,6 +6,7 @@ import {
 } from "../../utils/helper"
 
 import MapContext from "../../map-context"
+
 import * as invariant from "invariant"
 
 const eventMap = {
@@ -45,54 +45,79 @@ const updaterMap = {
 }
 
 interface AutocompleteState {
-  autocomplete?: google.maps.places.Autocomplete
+  autocomplete: google.maps.places.Autocomplete | null;
 }
 
 interface AutocompleteProps {
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
-  restrictions?: google.maps.places.ComponentRestrictions
-  fields?: string[]
-  options?: google.maps.places.AutocompleteOptions
-  types?: string[]
-  onPlaceChanged?: () => void
+  // required
+  children: React.ReactChild;
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
+  restrictions?: google.maps.places.ComponentRestrictions;
+  fields?: string[];
+  options?: google.maps.places.AutocompleteOptions;
+  types?: string[];
+  onPlaceChanged?: () => void;
+  onLoad?: (autocomplete: google.maps.places.Autocomplete) => void;
+  onUnmount?: (autocomplete: google.maps.places.Autocomplete) => void;
 }
 
-export class Autocomplete extends PureComponent<
+export class Autocomplete extends React.PureComponent<
   AutocompleteProps,
   AutocompleteState
 > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
-  containerElement: RefObject<HTMLDivElement>
+  containerElement: React.RefObject<HTMLDivElement> = React.createRef()
 
   state: AutocompleteState = {
     autocomplete: null
   }
 
-  constructor(props: AutocompleteProps, context: Context<google.maps.Map>) {
-    super(props, context)
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setAutocompleteCallback = () => {
+    if (this.state.autocomplete !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.autocomplete)
+    }
+  }
 
+  componentDidMount() {
     invariant(
       google.maps.places,
       'Did you include "libraries=places" in the URL?',
       "sdfs"
     )
-    this.containerElement = createRef()
+
+    // TODO: why is this possibly null
+    // @ts-ignore
+    const input = this.containerElement.current.querySelector("input")
+
+    if (input) {
+      const autocomplete = new google.maps.places.Autocomplete(
+        input,
+        this.props.options
+      )
+
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps: {},
+        nextProps: this.props,
+        instance: autocomplete
+      })
+
+      this.setState(
+        function setAutocomplete() {
+          return {
+            autocomplete
+          }
+        },
+        this.setAutocompleteCallback
+      )
+    }
   }
 
-  componentDidMount = () => {
-    const autocomplete = new google.maps.places.Autocomplete(
-      this.containerElement.current.querySelector("input"),
-      this.props.options
-    )
-
-    this.setState(() => ({
-      autocomplete
-    }))
-  }
-
-  componentDidUpdate = (prevProps: AutocompleteProps) => {
+  componentDidUpdate(prevProps: AutocompleteProps) {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -104,21 +129,19 @@ export class Autocomplete extends PureComponent<
     })
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+  componentWillUnmount() {
+    if (this.state.autocomplete !== null) {
+      unregisterEvents(this.registeredEvents)
+    }
   }
 
-  render = () => (
-    <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
-  )
-
-  getBounds = () => this.state.autocomplete.getBounds()
-
-  // TODO: add to @types/googlemaps
-  // @ts-ignore
-  getFields = () => this.state.autocomplete.getFields()
-
-  getPlace = () => this.state.autocomplete.getPlace()
+  render() {
+    return (
+      <div ref={this.containerElement}>
+        { React.Children.only(this.props.children) }
+      </div>
+    )
+  }
 }
 
 export default Autocomplete

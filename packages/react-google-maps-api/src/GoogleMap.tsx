@@ -1,5 +1,4 @@
 import * as React from "react"
-import { CSSProperties, PureComponent } from "react"
 
 import MapContext from "./map-context"
 import { saveInstance, restoreInstance } from "./utils/instance-persistance"
@@ -32,7 +31,7 @@ const eventMap = {
 
 const updaterMap = {
   extraMapTypes(map: google.maps.Map, extra: google.maps.MapType[]) {
-    extra.forEach((it, i) => {
+    extra.forEach(function forEachExtra(it, i) {
       map.mapTypes.set(String(i), it)
     })
   },
@@ -66,171 +65,155 @@ const updaterMap = {
 }
 
 interface GoogleMapState {
-  map: google.maps.Map
+  map: google.maps.Map | null;
 }
 
 interface GoogleMapProps {
-  id: string
-  reuseSameInstance?: boolean
-  mapContainerStyle?: CSSProperties
-  mapContainerClassName?: string
-  options?: google.maps.MapOptions
-  extraMapTypes?: google.maps.MapType[]
-  center?: google.maps.LatLng | google.maps.LatLngLiteral
-  clickableIcons?: boolean
-  heading?: number
-  mapTypeId?: string
-  streetView?: google.maps.StreetViewPanorama
-  tilt?: number
-  zoom?: number
-  onClick?: (e: MouseEvent) => void
-  onDblClick?: (e: MouseEvent) => void
-  onDrag?: () => void
-  onDragEnd?: () => void
-  onDragStart?: () => void
-  onMapTypeIdChanged?: () => void
-  onMouseMove?: (e: MouseEvent) => void
-  onMouseOut?: (e: MouseEvent) => void
-  onMouseOver?: (e: MouseEvent) => void
-  onRightClick?: (e: MouseEvent) => void
-  onTilesLoaded?: () => void
-  onBoundsChanged?: () => void
-  onCenterChanged?: () => void
-  onHeadingChanged?: () => void
-  onIdle?: () => void
-  onProjectionChanged?: () => void
-  onResize?: () => void
-  onTiltChanged?: () => void
-  onZoomChanged?: () => void
-  onLoad?: (map: google.maps.Map) => void | Promise<void>
+  id?: string;
+  reuseSameInstance?: boolean;
+  mapContainerStyle?: React.CSSProperties;
+  mapContainerClassName?: string;
+  options?: google.maps.MapOptions;
+  extraMapTypes?: google.maps.MapType[];
+  center?: google.maps.LatLng | google.maps.LatLngLiteral;
+  clickableIcons?: boolean;
+  heading?: number;
+  mapTypeId?: string;
+  streetView?: google.maps.StreetViewPanorama;
+  tilt?: number;
+  zoom?: number;
+  onClick?: (e: google.maps.MouseEvent) => void;
+  onDblClick?: (e: google.maps.MouseEvent) => void;
+  onDrag?: () => void;
+  onDragEnd?: () => void;
+  onDragStart?: () => void;
+  onMapTypeIdChanged?: () => void;
+  onMouseMove?: (e: google.maps.MouseEvent) => void;
+  onMouseOut?: (e: google.maps.MouseEvent) => void;
+  onMouseOver?: (e: google.maps.MouseEvent) => void;
+  onRightClick?: (e: google.maps.MouseEvent) => void;
+  onTilesLoaded?: () => void;
+  onBoundsChanged?: () => void;
+  onCenterChanged?: () => void;
+  onHeadingChanged?: () => void;
+  onIdle?: () => void;
+  onProjectionChanged?: () => void;
+  onResize?: () => void;
+  onTiltChanged?: () => void;
+  onZoomChanged?: () => void;
+  onLoad?: (map: google.maps.Map) => void | Promise<void>;
+  onUnmount?: (map: google.maps.Map) => void | Promise<void>;
 }
 
-export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
-  static defaultProps: GoogleMapProps = {
-    id: "defaultMapId",
-    reuseSameInstance: false,
-    onLoad: map => {}
-  }
-
+export class GoogleMap extends React.PureComponent<
+  GoogleMapProps,
+  GoogleMapState
+> {
   state: GoogleMapState = {
     map: null
   }
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  mapRef: HTMLElement
+  mapRef: HTMLElement | null = null
 
-  getInstance = () => {
-    const { reuseSameInstance, ...rest } = this.props
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  getInstance = (): google.maps.Map | null => {
+    const { reuseSameInstance, id, ...rest } = this.props
 
-    const map = reuseSameInstance && restoreInstance(rest)
+    const instance = reuseSameInstance && restoreInstance({ ...rest, ...{ id: id || "defaultMapId" } })
 
-    return map || new google.maps.Map(this.mapRef, this.props.options)
+    return instance
+      ? instance
+      : new google.maps.Map(this.mapRef, this.props.options)
   }
 
-  componentDidMount = () => {
-    this.setState(
-      () => ({
-        map: this.getInstance()
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.map
-        })
-
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setMapCallback = () => {
+    if (this.state.map !== null) {
+      if (this.props.onLoad) {
         this.props.onLoad(this.state.map)
       }
-    )
+    }
   }
 
-  componentDidUpdate = (prevProps: GoogleMapProps) => {
-    unregisterEvents(this.registeredEvents)
+  componentDidMount() {
+    const map = this.getInstance()
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
-      prevProps,
+      prevProps: {},
       nextProps: this.props,
-      instance: this.state.map
+      instance: map
     })
+
+    function setMap() {
+      return {
+        map
+      }
+    }
+
+    this.setState(
+      setMap,
+      this.setMapCallback
+    )
   }
 
-  componentWillUnmount = () => {
-    const { reuseSameInstance, id } = this.props
+  componentDidUpdate(prevProps: GoogleMapProps) {
+    if (this.state.map !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    reuseSameInstance && saveInstance(id, this.state.map)
-
-    unregisterEvents(this.registeredEvents)
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.map
+      })
+    }
   }
 
-  getRef = (ref: HTMLElement) => {
+  componentWillUnmount() {
+    if (this.state.map !== null) {
+      if (this.props.reuseSameInstance) {
+        saveInstance(this.props.id || "defaultMapId", this.state.map)
+      }
+
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.map)
+      }
+
+      unregisterEvents(this.registeredEvents)
+    }
+  }
+
+  /* eslint-disable @getify/proper-arrows/name */
+  /* eslint-disable @getify/proper-arrows/this */
+  getRef = (ref: HTMLDivElement | null): void => {
     this.mapRef = ref
   }
 
-  render = () => {
-    const {
-      id,
-      mapContainerStyle,
-      mapContainerClassName,
-      children
-    } = this.props
 
-    const { map } = this.state
 
+  render() {
     return (
       <div
-        id={id}
+        id={this.props.id}
         ref={this.getRef}
-        style={mapContainerStyle}
-        className={mapContainerClassName}
+        style={this.props.mapContainerStyle}
+        className={this.props.mapContainerClassName}
       >
-        <MapContext.Provider value={map}>
-          {map !== null ? children : null}
+        <MapContext.Provider value={this.state.map}>
+          {
+            this.state.map !== null
+              ? this.props.children
+              : <></>
+          }
         </MapContext.Provider>
       </div>
     )
   }
-
-  fitBounds = (
-    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
-    padding?: number | google.maps.Padding
-  ) => this.state.map.fitBounds(bounds, padding)
-
-  panBy = (x: number, y: number) => this.state.map.panBy(x, y)
-
-  panTo = (latLng: google.maps.LatLng | google.maps.LatLngLiteral) =>
-    this.state.map.panTo(latLng)
-
-  panToBounds = (
-    latLngBounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
-    padding?: number | google.maps.Padding
-  ) => this.state.map.panToBounds(latLngBounds, padding)
-
-  getBounds = () => this.state.map.getBounds()
-
-  getCenter = () => this.state.map.getCenter()
-
-  // Function exists but it missing in typings
-  //@ts-ignore Function exists but it missing in typings
-  getClickableIcons = () => this.state.map.getClickableIcons()
-
-  getDiv = () => this.state.map.getDiv()
-
-  getHeading = () => this.state.map.getHeading()
-
-  getMapTypeId = () => this.state.map.getMapTypeId()
-
-  getProjection = () => this.state.map.getProjection()
-
-  getStreetView = () => this.state.map.getStreetView()
-
-  getTilt = () => this.state.map.getTilt()
-
-  getZoom = () => this.state.map.getZoom()
 }
 
 export default GoogleMap

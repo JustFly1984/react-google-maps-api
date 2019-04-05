@@ -14,7 +14,7 @@ const SectionHeatmap = ({ heatmap }) =>
         styles={shapeExampleStyles}
       />
     )
-    : null
+    : (<></>)
 
 SectionHeatmap.propTypes = {
   heatmap: PropTypes.bool.isRequired

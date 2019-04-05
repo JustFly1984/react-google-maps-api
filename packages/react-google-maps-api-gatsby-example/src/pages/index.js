@@ -20,7 +20,14 @@ const IndexPage = ({ googleMapsApiKey, loadScriptChecked }) => (
 
           <h2 className='h5 mb-3'>Examples</h2>
 
-          {loadScriptChecked && googleMapsApiKey.length >= 38 ? <GoogleMaps /> : <NoMaps />}
+          {
+            (
+              loadScriptChecked &&
+              googleMapsApiKey.length >= 38
+            )
+              ? (<GoogleMaps />)
+              : (<NoMaps />)
+          }
         </div>
       </div>
     </div>
