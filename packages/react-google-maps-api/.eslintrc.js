@@ -16,7 +16,6 @@ module.exports = {
     // 'prettier/@typescript-eslint'
   ],
   plugins: [
-    '@getify/proper-arrows',
     'you-dont-need-lodash-underscore',
     'json',
     'dependencies',
@@ -63,27 +62,6 @@ module.exports = {
     }
   },
   rules: {
-    '@getify/proper-arrows/params': [
-      'error', {
-        'unused': 'trailing'
-      }
-    ],
-    '@getify/proper-arrows/name': [
-      'error', { 'trivial': false }
-    ],
-    '@getify/proper-arrows/where': [
-      'error', { 'global': true }
-    ],
-    '@getify/proper-arrows/return': [
-      'error', { 'object': true }
-    ],
-    '@getify/proper-arrows/this': [
-      'error',
-      'never', {
-        'no-global': true
-      }
-    ],
-
     'ascii/valid-name': 2,
     'optimize-regex/optimize-regex': 'warn',
     'filenames/no-index': 0,
@@ -142,7 +120,8 @@ module.exports = {
     '@typescript-eslint/indent': ["error", 2],
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/explicit-member-accessibility': 0,
-    '@typescript-eslint/no-explicit-any': 0
+    '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-non-null-assertion': 1
   },
   parserOptions: {
     'ecmaVersion': 2018,
