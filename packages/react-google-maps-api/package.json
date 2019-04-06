@@ -121,7 +121,8 @@
     "react-styleguidist": "8.0.6",
     "rimraf": "2.6.3",
     "typescript": "3.4.1",
-    "webpack": "4.29.6"
+    "webpack": "4.29.6",
+    "webpack-cli": "^3.3.0"
   },
   "gitHead": "4c487da5fec5e5d9e86f8d445248353b1f532a59"
 }
