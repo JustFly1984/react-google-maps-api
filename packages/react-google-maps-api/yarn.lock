@@ -466,11 +466,6 @@
   dependencies:
     common-tags "^1.7.2"
 
-"@wapps/jest-google-maps-mock@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@wapps/jest-google-maps-mock/-/jest-google-maps-mock-0.0.9.tgz#40e063da69ad37c03f29a4ee089f809fa2b3ee9a"
-  integrity sha512-Rvo5zWulhfQesvj/LusYqRaXwOveJa/KE5oYqtS6hzIJA+/i19wKqDUn+easzkE6smFGzPPHgHKh/E6vETp+xw==
-
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
