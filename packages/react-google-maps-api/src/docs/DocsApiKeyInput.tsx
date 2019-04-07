@@ -1,24 +1,24 @@
-import { Component, ChangeEvent, FormEvent } from "react"
-import * as React from "react"
-import { setKey, getKey } from "./docs-api-key"
-import LoadScript from "../LoadScript"
+import { Component, ChangeEvent, FormEvent } from 'react'
+import * as React from 'react'
+import { setKey, getKey } from './docs-api-key'
+import LoadScript from '../LoadScript'
 
-const libraries = ["drawing", "places", "visualization"]
+const libraries = ['drawing', 'places', 'visualization']
 
 const inputStyle = {
-  width: "400px",
-  height: "40px",
-  paddingLeft: "8px"
+  width: '400px',
+  height: '40px',
+  paddingLeft: '8px'
 }
 
 const buttonStyle = {
-  height: "40px",
-  marginLeft: "8px"
+  height: '40px',
+  marginLeft: '8px'
 }
 
 interface DocsApiKeyInputState {
-  key: string
-  loadScript: boolean
+  key: string;
+  loadScript: boolean;
 }
 
 class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
@@ -29,55 +29,69 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
 
     this.state = key
       ? { key, loadScript: true }
-      : { key: "", loadScript: false }
+      : { key: '', loadScript: false }
   }
 
-  onInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    this.setState(() => ({
-      key: value
-    }))
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  onInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>): void => {
+    function setKey () {
+      return {
+        key: value
+      }
+    }
+
+    this.setState(setKey)
   }
 
-  onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  onFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault()
 
     setKey(this.state.key)
 
-    this.setState(() => ({
-      loadScript: true
-    }))
+    function setLoadScript() {
+      return {
+        loadScript: true
+      }
+    }
+
+    this.setState(setLoadScript)
   }
 
-  render = () => {
+  render() {
     return (
       <>
         <form onSubmit={this.onFormSubmit}>
           <input
-            type="text"
+            type='text'
             onChange={this.onInputChange}
             value={this.state.key}
-            placeholder="Enter Google Maps API Key"
+            placeholder='Enter Google Maps API Key'
             style={inputStyle}
           />
 
-          <button type="submit" style={buttonStyle}>
+          <button type='submit' style={buttonStyle}>
             Set Key
           </button>
         </form>
 
-        {this.state.loadScript ? (
-          <LoadScript
-            id="script-loader"
-            googleMapsApiKey={this.state.key}
-            language={"en"}
-            region={"EN"}
-            version={"weekly"}
-            libraries={libraries}
-            loadingElement={<div>Loading...</div>}
-          />
-        ) : (
-          <></>
-        )}
+        {
+          this.state.loadScript
+            ? (
+              <LoadScript
+                id='script-loader'
+                googleMapsApiKey={this.state.key}
+                language={'en'}
+                region={'EN'}
+                version={'weekly'}
+                libraries={libraries}
+                loadingElement={<div>Loading...</div>}
+              />
+            )
+            : (
+              <></>
+            )
+        }
       </>
     )
   }

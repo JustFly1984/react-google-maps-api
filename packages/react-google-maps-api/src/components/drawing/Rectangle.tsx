@@ -49,29 +49,30 @@ const updaterMap = {
 }
 
 interface RectangleState {
-  rectangle: google.maps.Rectangle | null
+  rectangle: google.maps.Rectangle | null;
 }
 
 interface RectangleProps {
-  options?: google.maps.RectangleOptions
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
-  draggable?: boolean
-  editable?: boolean
-  visible?: boolean
-  clickable?: boolean
-  onDblClick?: (e: MouseEvent) => void
-  onDragEnd?: (e: MouseEvent) => void
-  onDragStart?: (e: MouseEvent) => void
-  onMouseDown?: (e: MouseEvent) => void
-  onMouseMove?: (e: MouseEvent) => void
-  onMouseOut?: (e: MouseEvent) => void
-  onMouseOver?: (e: MouseEvent) => void
-  onMouseUp?: (e: MouseEvent) => void
-  onRightClick?: (e: MouseEvent) => void
-  onClick?: (e: MouseEvent) => void
-  onDrag?: (e: MouseEvent) => void
-  onBoundsChanged?: () => void
-  onLoad: (rectangle: google.maps.Rectangle) => void
+  options?: google.maps.RectangleOptions;
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
+  draggable?: boolean;
+  editable?: boolean;
+  visible?: boolean;
+  clickable?: boolean;
+  onDblClick?: (e: google.maps.MouseEvent) => void;
+  onDragEnd?: (e: google.maps.MouseEvent) => void;
+  onDragStart?: (e: google.maps.MouseEvent) => void;
+  onMouseDown?: (e: google.maps.MouseEvent) => void;
+  onMouseMove?: (e: google.maps.MouseEvent) => void;
+  onMouseOut?: (e: google.maps.MouseEvent) => void;
+  onMouseOver?: (e: google.maps.MouseEvent) => void;
+  onMouseUp?: (e: google.maps.MouseEvent) => void;
+  onRightClick?: (e: google.maps.MouseEvent) => void;
+  onClick?: (e: google.maps.MouseEvent) => void;
+  onDrag?: (e: google.maps.MouseEvent) => void;
+  onBoundsChanged?: () => void;
+  onLoad?: (rectangle: google.maps.Rectangle) => void;
+  onUnmount?: (rectangle: google.maps.Rectangle) => void;
 }
 
 export class Rectangle extends React.PureComponent<
@@ -80,65 +81,75 @@ export class Rectangle extends React.PureComponent<
 > {
   static contextType = MapContext
 
-  public static defaultProps: RectangleProps = {
-    draggable: false,
-    editable: false,
-    visible: true,
-    options: {},
-    onLoad: () => {}
-  }
-
   registeredEvents: google.maps.MapsEventListener[] = []
 
   state: RectangleState = {
     rectangle: null
   }
 
-  componentDidMount = () => {
-    const rectangle = new google.maps.Rectangle({
-      ...this.props.options,
-      map: this.context
-    })
-
-    this.setState(
-      () => ({
-        rectangle
-      }),
-      () => {
-        if (this.state.rectangle !== null) {
-          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-            updaterMap,
-            eventMap,
-            prevProps: {},
-            nextProps: this.props,
-            instance: this.state.rectangle
-          })
-
-          this.props.onLoad(this.state.rectangle)
-        }
-      }
-    )
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setRectangleCallback = () => {
+    if (this.state.rectangle !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.rectangle)
+    }
   }
 
-  componentDidUpdate = (prevProps: RectangleProps) => {
-    unregisterEvents(this.registeredEvents)
+  componentDidMount() {
+    const rectangle = new google.maps.Rectangle({
+      ...(this.props.options || {}),
+      map: this.context
+    })
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
-      prevProps,
+      prevProps: {},
       nextProps: this.props,
-      instance: this.state.rectangle
+      instance: rectangle
     })
+
+    function setRectangle() {
+      return {
+        rectangle
+      }
+    }
+
+    this.setState(
+      setRectangle,
+      this.setRectangleCallback
+    )
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
 
-    this.state.rectangle && this.state.rectangle.setMap(null)
+  componentDidUpdate(prevProps: RectangleProps) {
+    if (this.state.rectangle !== null) {
+      unregisterEvents(this.registeredEvents)
+
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.rectangle
+      })
+    }
   }
 
-  render = () => <></>
+  componentWillUnmount() {
+    if (this.state.rectangle !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.rectangle)
+      }
+
+      unregisterEvents(this.registeredEvents)
+
+      this.state.rectangle.setMap(null)
+    }
+  }
+
+  render() {
+    return <></>
+  }
 }
 
 export default Rectangle

@@ -12,15 +12,18 @@ class MyMapWithAutocomplete extends Component {
     super(props)
 
     this.autocomplete = null
+
+    this.onLoad = this.onLoad.bind(this)
+    this.onPlaceChanged = this.onPlaceChanged(this)
   }
 
-  onLoad = autocomplete => {
+  onLoad (autocomplete) {
     console.log('autocomplete: ', autocomplete)
 
     this.autocomplete = autocomplete
   }
 
-  onPlaceChanged = () => {
+  onPlaceChanged () {
     if (this.autocomplete !== null) {
       console.log(this.autocomplete.getPlace())
     } else {
@@ -72,4 +75,6 @@ class MyMapWithAutocomplete extends Component {
     )
   }
 }
+
+<MyMapWithAutocomplete />
 ```

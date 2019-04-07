@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Component, RefObject, createRef, ReactNode } from "react"
 
 import { injectScript } from "./utils/injectscript"
 import { preventGoogleFonts } from "./utils/prevent-google-fonts"
@@ -9,44 +8,53 @@ import { isBrowser } from "./utils/isbrowser"
 let cleaningUp = false
 
 interface LoadScriptState {
-  loaded: boolean
+  loaded: boolean;
 }
 
-//prettier-ignore
 interface LoadScriptProps {
+  // required
   id: string;
+
+  // required
   googleMapsApiKey: string;
-  language?: string;
-  region?: string;
-  version?: string;
-  loadingElement: ReactNode;
-  onLoad: () => void;
-  onError: (error: Error) => void;
-  onUnmount: () => void;
+
+  // required
+  language: string;
+
+  // required
+  region: string;
+
+  // required
+  version: string;
+  loadingElement?: React.ReactNode;
+  onLoad?: () => void;
+  onError?: (error: Error) => void;
+  onUnmount?: () => void;
   libraries: string[];
-  preventGoogleFontsLoading: boolean;
+  preventGoogleFontsLoading?: boolean;
 }
 
-class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
+const DefaultLoadingElement = () => (
+  <div>{`Loading...`}</div>
+)
+
+class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
   public static defaultProps = {
-    onLoad: () => {},
-    onError: () => {},
-    onUnmount: () => {},
-    loadingElement: <div>Loading...</div>,
-    preventGoogleFontsLoading: false,
-    libraries: []
+    libraries: [] // Do not remove!,
   }
 
-  check: RefObject<HTMLDivElement>
+  check: React.RefObject<HTMLDivElement> = React.createRef()
 
-  constructor(props: LoadScriptProps) {
-    super(props)
+  state = {
+    loaded: false
+  }
 
-    this.state = {
-      loaded: false
-    }
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  cleanupCallback = () => {
+    //@ts-ignore
+    delete window.google
 
-    this.check = createRef()
+    this.injectScript()
   }
 
   componentDidMount() {
@@ -62,20 +70,24 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
   }
 
   componentDidUpdate(prevProps: LoadScriptProps) {
-    if (isBrowser && prevProps.language !== this.props.language) {
+    if (this.props.libraries !== prevProps.libraries) {
+      console.warn('Performance warning! Loadscript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable ounside of component, or somwhere in config files or ENV variables')
+    }
+
+    if (
+      isBrowser &&
+      prevProps.language !== this.props.language
+    ) {
       this.cleanup()
-      // TODO: refactor to use gDSFP
+      // TODO: refactor to use gDSFP maybe... wait for hooks refactoring.
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState(
-        () => ({
-          loaded: false
-        }),
-        () => {
-          //@ts-ignore
-          delete window.google
-
-          this.injectScript()
-        }
+        function setLoaded() {
+          return {
+            loaded: false
+          }
+        },
+        this.cleanupCallback
       )
     }
   }
@@ -84,36 +96,48 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
     if (isBrowser) {
       this.cleanup()
 
-      setTimeout(() => {
+      // eslint-disable-next-line @getify/proper-arrows/this
+      const timeoutCallback = () => {
         if (!this.check.current) {
           //@ts-ignore
           delete window.google
           cleaningUp = false
         }
-      }, 1)
+      }
 
-      this.props.onUnmount()
+      setTimeout(timeoutCallback, 1)
+
+      if (this.props.onUnmount) {
+        this.props.onUnmount()
+      }
     }
   }
 
+  // eslint-disable-next-line @getify/proper-arrows/name
   isCleaningUp = async () => {
-    return new Promise(resolve => {
+    function promiseCallback (resolve: () => void) {
       if (!cleaningUp) {
         resolve()
       } else {
         if (isBrowser) {
-          const timer = window.setInterval(() => {
-            if (!cleaningUp) {
-              window.clearInterval(timer)
+          const timer = window.setInterval(
+            function interval() {
+              if (!cleaningUp) {
+                window.clearInterval(timer)
 
-              resolve()
-            }
-          }, 1)
+                resolve()
+              }
+            },
+            1
+          )
         }
       }
-    })
+    }
+
+    return new Promise(promiseCallback)
   }
 
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   cleanup = () => {
     cleaningUp = true
     const script = document.getElementById(this.props.id)
@@ -124,10 +148,10 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
 
     Array.prototype.slice
       .call(document.getElementsByTagName("script"))
-      .filter((script: HTMLScriptElement) =>
-        script.src.includes("maps.googleapis")
-      )
-      .forEach((script: HTMLScriptElement) => {
+      .filter(function filter (script: HTMLScriptElement) {
+        return script.src.includes("maps.googleapis")
+      })
+      .forEach(function forEach (script: HTMLScriptElement) {
         if (script.parentNode) {
           script.parentNode.removeChild(script)
         }
@@ -135,12 +159,11 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
 
     Array.prototype.slice
       .call(document.getElementsByTagName("link"))
-      .filter(
-        (link: HTMLLinkElement) =>
-          link.href ===
-          "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans"
-      )
-      .forEach((link: HTMLLinkElement) => {
+      .filter(function filter (link: HTMLLinkElement) {
+        link.href ===
+        "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans"
+      })
+      .forEach(function forEach (link: HTMLLinkElement) {
         if (link.parentNode) {
           link.parentNode.removeChild(link)
         }
@@ -148,64 +171,72 @@ class LoadScript extends Component<LoadScriptProps, LoadScriptState> {
 
     Array.prototype.slice
       .call(document.getElementsByTagName("style"))
-      .filter((style: HTMLStyleElement) => style.innerText.includes(".gm-"))
-      .forEach((style: HTMLStyleElement) => {
+      .filter(function filter (style: HTMLStyleElement) {
+        return style.innerText.includes(".gm-")
+      })
+      .forEach(function forEach (style: HTMLStyleElement) {
         if (style.parentNode) {
           style.parentNode.removeChild(style)
         }
       })
   }
 
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   injectScript = () => {
-    const {
-      id,
-      googleMapsApiKey,
-      language,
-      region,
-      version,
-      libraries,
-      preventGoogleFontsLoading
-    } = this.props
-
-    if (preventGoogleFontsLoading) {
+    if (this.props.preventGoogleFontsLoading) {
       preventGoogleFonts()
     }
 
-    injectScript({
-      id,
-      url: `https://maps.googleapis.com/maps/api/js?v=${version}&key=${googleMapsApiKey}&language=${language}&region=${region}${
-        libraries ? `&libraries=${libraries.join(",")}` : ""
+    const injectScriptOptions = {
+      id: this.props.id,
+      url: `https://maps.googleapis.com/maps/api/js?v=${this.props.version}&key=${this.props.googleMapsApiKey}&language=${this.props.language}&region=${this.props.region}${
+        this.props.libraries ? `&libraries=${this.props.libraries.join(",")}` : ""
       }`
-    })
+    }
+
+    injectScript(injectScriptOptions)
+      // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
       .then(() => {
-        this.props.onLoad()
+        if (this.props.onLoad) {
+          this.props.onLoad()
+        }
 
-        this.setState(() => ({
-          loaded: true
-        }))
+        this.setState(function setLoaded () {
+          return {
+            loaded: true
+          }
+        })
       })
-
+      // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
       .catch(err => {
-        this.props.onError(err)
+        if (this.props.onError) {
+          this.props.onError(err)
+        }
 
-        throw new Error(`
-There has been an Error with loading Google Maps API script, please check that you provided all required props to <LoadScript />
-Props you have provided:
-googleMapsApiKey: ${this.props.googleMapsApiKey}
-language: ${this.props.language}
-region: ${this.props.region}
-version: ${this.props.version}
-libraries: ${(this.props.libraries || []).join(",")}
-Otherwise it is a Network issues.
-`)
+        console.error(`
+          There has been an Error with loading Google Maps API script, please check that you provided all required props to <LoadScript />
+          Props you have provided:
+          googleMapsApiKey: ${this.props.googleMapsApiKey}
+          language: ${this.props.language}
+          region: ${this.props.region}
+          version: ${this.props.version}
+          libraries: ${(this.props.libraries || []).join(",")}
+          Otherwise it is a Network issues.
+        `)
       })
   }
 
   render() {
     return (
-      <div ref={this.check}>
-        {this.state.loaded ? this.props.children : this.props.loadingElement}
-      </div>
+      <>
+        <div ref={this.check} />
+
+        {
+          this.state.loaded
+            ? this.props.children
+            : (this.props.loadingElement || <DefaultLoadingElement />)
+        }
+      </>
     )
   }
 }

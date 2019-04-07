@@ -51,27 +51,32 @@ interface CircleState {
   circle: google.maps.Circle | null;
 }
 
-interface CircleProps {
-  options: google.maps.CircleOptions;
+export interface CircleProps {
+  options?: google.maps.CircleOptions;
+
+  // required
   center: google.maps.LatLng | google.maps.LatLngLiteral;
+
+  // required
   radius: number;
-  draggable: boolean;
-  editable: boolean;
-  visible: boolean;
-  onDblClick: (e: MouseEvent) => void;
-  onDragEnd: (e: MouseEvent) => void;
-  onDragStart: (e: MouseEvent) => void;
-  onMouseDown: (e: MouseEvent) => void;
-  onMouseMove: (e: MouseEvent) => void;
-  onMouseOut: (e: MouseEvent) => void;
-  onMouseOver: (e: MouseEvent) => void;
-  onMouseUp: (e: MouseEvent) => void;
-  onRightClick: (e: MouseEvent) => void;
-  onCenterChanged: () => void;
-  onClick: (e: MouseEvent) => void;
-  onDrag: (e: MouseEvent) => void;
-  onRadiusChanged: () => void;
-  onLoad: (circle: google.maps.Circle) => void;
+  draggable?: boolean;
+  editable?: boolean;
+  visible?: boolean;
+  onDblClick?: (e: google.maps.MouseEvent) => void;
+  onDragEnd?: (e: google.maps.MouseEvent) => void;
+  onDragStart?: (e: google.maps.MouseEvent) => void;
+  onMouseDown?: (e: google.maps.MouseEvent) => void;
+  onMouseMove?: (e: google.maps.MouseEvent) => void;
+  onMouseOut?: (e: google.maps.MouseEvent) => void;
+  onMouseOver?: (e: google.maps.MouseEvent) => void;
+  onMouseUp?: (e: google.maps.MouseEvent) => void;
+  onRightClick?: (e: google.maps.MouseEvent) => void;
+  onCenterChanged?: () => void;
+  onClick?: (e: google.maps.MouseEvent) => void;
+  onDrag?: (e: google.maps.MouseEvent) => void;
+  onRadiusChanged?: () => void;
+  onLoad?: (circle: google.maps.Circle) => void;
+  onUnmount?: (circle: google.maps.Circle) => void;
 }
 
 export class Circle extends React.PureComponent<CircleProps, CircleState> {
@@ -83,67 +88,65 @@ export class Circle extends React.PureComponent<CircleProps, CircleState> {
     circle: null
   }
 
-  componentDidMount = () => {
-    const circle = new google.maps.Circle({
-      ...this.props.options,
-      map: this.context
-    })
-
-    this.setState(
-      () => ({
-        circle
-      }),
-      () => {
-        if (this.state.circle !== null) {
-          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-            updaterMap,
-            eventMap,
-            prevProps: {},
-            nextProps: this.props,
-            instance: this.state.circle
-          })
-
-          if (this.props.onLoad) {
-            this.props.onLoad(this.state.circle)
-          }
-        }
-      }
-    )
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setCircleCallback = () => {
+    if (this.state.circle !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.circle)
+    }
   }
 
-  componentDidUpdate = (prevProps: CircleProps) => {
-    unregisterEvents(this.registeredEvents)
+  componentDidMount() {
+    const circle = new google.maps.Circle({
+      ...(this.props.options || {}),
+      map: this.context
+    })
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
-      prevProps,
+      prevProps: {},
       nextProps: this.props,
-      instance: this.state.circle
+      instance: circle
     })
+
+    function setCircle() {
+      return {
+        circle
+      }
+    }
+
+    this.setState(setCircle, this.setCircleCallback)
   }
 
-  componentWillUnmount = () => {
-    unregisterEvents(this.registeredEvents)
+  componentDidUpdate(prevProps: CircleProps) {
+    if (this.state.circle !== null) {
+      unregisterEvents(this.registeredEvents)
 
-    this.state.circle && this.state.circle.setMap(null)
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.circle
+      })
+    }
   }
 
-  render = (): any => null
+  componentWillUnmount() {
+    if (this.state.circle !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.circle)
+      }
 
-  getBounds = () => this.state.circle!.getBounds()
+      unregisterEvents(this.registeredEvents)
 
-  getCenter = () => this.state.circle!.getCenter()
+      this.state.circle && this.state.circle.setMap(null)
+    }
+  }
 
-  getDraggable = () => this.state.circle!.getDraggable()
-
-  getEditable = () => this.state.circle!.getEditable()
-
-  getMap = () => this.state.circle!.getMap()
-
-  getRadius = () => this.state.circle!.getRadius()
-
-  getVisible = () => this.state.circle!.getVisible()
+  render() {
+    return <></>
+  }
 }
 
 export default Circle

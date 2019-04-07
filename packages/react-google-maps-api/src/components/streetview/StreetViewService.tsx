@@ -3,7 +3,8 @@ import * as React from "react"
 import MapContext from "../../map-context"
 
 interface StreetViewServiceProps {
-  onLoad: (streetViewService: google.maps.StreetViewService) => void;
+  onLoad?: (streetViewService: google.maps.StreetViewService | null) => void;
+  onUnmount?: (streetViewService: google.maps.StreetViewService | null) => void;
 }
 
 interface StreetViewServiceState {
@@ -20,23 +21,34 @@ export class StreetViewService extends React.PureComponent<
     streetViewService: null
   }
 
-  componentDidMount = () => {
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setStreetViewServiceCallback = () => {
+    if (this.state.streetViewService !== null && this.props.onLoad) {
+      this.props.onLoad(this.state.streetViewService)
+    }
+  }
+
+  componentDidMount() {
     const streetViewService = new google.maps.StreetViewService()
 
-    this.setState(
-      () => ({
+    function setStreetViewService() {
+      return {
         streetViewService
-      }),
-      () => {
-        if (
-          this.state.streetViewService !== null &&
-          this.props.onLoad
-        ) {
-          // @ts-ignore
-          this.props.onLoad(this.state.streetViewService)
-        }
       }
+    }
+
+    this.setState(
+      setStreetViewService,
+
     )
+  }
+
+  componentWillUnmount() {
+    if (this.state.streetViewService !== null) {
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.streetViewService)
+      }
+    }
   }
 
   render () {

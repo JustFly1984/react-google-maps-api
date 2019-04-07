@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -12,8 +13,8 @@ const ExampleHeatmapPropTypes = {
 }
 
 const center = {
-  lat: 40.75,
-  lng: -74
+  lat: 37.774546,
+  lng: -122.433523
 }
 
 const onClick = (...args) => {
@@ -26,11 +27,26 @@ const ExampleHeatmap = ({ styles }) => (
       <GoogleMap
         id='heatmap-example'
         mapContainerStyle={styles.container}
-        zoom={10}
+        zoom={13}
         center={center}
         onClick={onClick}
       >
-        <HeatmapLayer />
+        <HeatmapLayer data={[
+          new google.maps.LatLng(37.782, -122.447),
+          new google.maps.LatLng(37.782, -122.445),
+          new google.maps.LatLng(37.782, -122.443),
+          new google.maps.LatLng(37.782, -122.441),
+          new google.maps.LatLng(37.782, -122.439),
+          new google.maps.LatLng(37.782, -122.437),
+          new google.maps.LatLng(37.782, -122.435),
+          new google.maps.LatLng(37.785, -122.447),
+          new google.maps.LatLng(37.785, -122.445),
+          new google.maps.LatLng(37.785, -122.443),
+          new google.maps.LatLng(37.785, -122.441),
+          new google.maps.LatLng(37.785, -122.439),
+          new google.maps.LatLng(37.785, -122.437),
+          new google.maps.LatLng(37.785, -122.435)
+        ]} />
       </GoogleMap>
     </div>
   </div>

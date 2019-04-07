@@ -1,0 +1,10 @@
+src/
+.editorconfig
+.eslintignore
+tsconfig.json
+.eslintrc
+.vscode/
+yarn.lock
+package-lock.json
+dist/
+node_modules/

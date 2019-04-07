@@ -43,14 +43,13 @@ node_modules
 
 # These folders contain auto-generated files. No reason to commit them to Git
 .vscode/settings.json
-packages/react-google-maps-api-docz/.docz/cache
-packages/react-google-maps-api-docz/.docz/app/imports.js
-packages/react-google-maps-api-docz/.docz/app/db.json
-packages/react-google-maps-api-docz/.docz/dist/
 
+packages/react-google-maps-api-marker-clusterer/lib
 
 packages/react-google-maps-api/lib
 packages/react-google-maps-api/dist
 packages/react-google-maps-api/styleguide
+packages/react-google-maps-api/src/docs/googleMapKey.ts
+
 
 googleMapKey.js

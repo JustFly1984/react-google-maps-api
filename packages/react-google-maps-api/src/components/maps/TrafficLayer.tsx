@@ -18,72 +18,84 @@ const updaterMap = {
 }
 
 interface TrafficLayerState {
-  trafficLayer: google.maps.TrafficLayer | null
+  trafficLayer: google.maps.TrafficLayer | null;
 }
 
 interface TrafficLayerProps {
-  options?: google.maps.TrafficLayerOptions
-  onLoad: (trafficLayer: google.maps.TrafficLayer) => void
+  options?: google.maps.TrafficLayerOptions;
+  onLoad?: (trafficLayer: google.maps.TrafficLayer) => void;
+  onUnmount?: (trafficLayer: google.maps.TrafficLayer) => void;
 }
 
 export class TrafficLayer extends PureComponent<
   TrafficLayerProps,
   TrafficLayerState
 > {
-  public static defaultProps = {
-    options: {},
-    onLoad: () => {}
-  }
   static contextType = MapContext
 
   state = {
     trafficLayer: null
   }
 
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  componentDidMount = () => {
-    const trafficLayer = new google.maps.TrafficLayer({
-      ...this.props.options,
-      map: this.context
-    })
-
-    this.setState(
-      () => ({
-        trafficLayer
-      }),
-      () => {
-        if (this.state.trafficLayer !== null) {
-          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-            updaterMap,
-            eventMap,
-            prevProps: {},
-            nextProps: this.props,
-            instance: this.state.trafficLayer
-          })
-
-          // TODO
-          // @ts-ignore
-          this.props.onLoad(this.state.trafficLayer)
-        }
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  setTrafficLayerCallback = () => {
+    if (this.state.trafficLayer !== null) {
+      if (this.props.onLoad) {
+        // @ts-ignore
+        this.props.onLoad(this.state.trafficLayer)
       }
-    )
+    }
   }
 
-  componentDidUpdate = (prevProps: TrafficLayerProps) => {
-    unregisterEvents(this.registeredEvents)
+  registeredEvents: google.maps.MapsEventListener[] = []
 
+  componentDidMount() {
+    const trafficLayer = new google.maps.TrafficLayer({
+      ...(this.props.options || {}),
+      map: this.context
+    })
+    
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
-      prevProps,
+      prevProps: {},
       nextProps: this.props,
-      instance: this.state.trafficLayer
+      instance: trafficLayer
     })
+
+    function setTrafficlayer() {
+      return {
+        trafficLayer
+      }
+    }
+
+    this.setState(
+      setTrafficlayer,
+      this.setTrafficLayerCallback
+    )
   }
 
-  componentWillUnmount = () => {
+  componentDidUpdate(prevProps: TrafficLayerProps) {
     if (this.state.trafficLayer !== null) {
+      unregisterEvents(this.registeredEvents)
+
+      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+        updaterMap,
+        eventMap,
+        prevProps,
+        nextProps: this.props,
+        instance: this.state.trafficLayer
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.state.trafficLayer !== null) {
+      if (this.props.onUnmount) {
+        // @ts-ignore
+        this.props.onUnmount(this.state.trafficLayer)
+      }
+
       unregisterEvents(this.registeredEvents)
 
       // @ts-ignore
