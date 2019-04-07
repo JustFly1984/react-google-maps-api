@@ -1,21 +1,22 @@
 # Changelog
 
-## 1.2.0-alpha5 Typescript refactoring
+## 1.2.0 Typescript refactoring
 
-** Full embrace of strongly typed functionality. Autocomplete in your typescript projects out of the box.
-** Added onLoad and onUnmount callback props for each component. 
-** added addon MarkerClusterer
+* BREAKING: LoadScript wrapping div was changed to a sibling div (https://github.com/JustFly1984/react-google-maps-api/commit/3f52446b756ce7dc47b5886f1a07071f6a2643ec)
+* Full embrace of strongly typed functionality. Autocomplete in your typescript projects out of the box.
+* Added onLoad and onUnmount callback props for each component. 
+* added addon MarkerClusterer
 
 ## 1.1.1-alpha Additional component support
 
-** StreetViewPanorama
-** StreetViewService
-** MarkerClusterer
+* StreetViewPanorama
+* StreetViewService
+* MarkerClusterer
 
 ## 1.1.0
 
-** Re-write in Typescript
-** DEPRECATED: FuctionTablesLayer (was deprecated by google and support will be cut completely on December 3, 2019)
+* Re-write in Typescript
+* DEPRECATED: FuctionTablesLayer (was deprecated by google and support will be cut completely on December 3, 2019)
 
 ## 1.0.10 Fix cleanup in `<LoadScript />`
 
