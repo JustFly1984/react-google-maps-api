@@ -2,7 +2,7 @@
 
 ## 1.2.0 Typescript refactoring
 
-* BREAKING: LoadScript wrapping div was changed to a sibling div 3f52446b756ce7dc47b5886f1a07071f6a2643ec
+* BREAKING: LoadScript wrapping div was changed to a sibling div https://github.com/JustFly1984/react-google-maps-api/commit/3f52446b756ce7dc47b5886f1a07071f6a2643ec
 * Full embrace of strongly typed functionality. Autocomplete in your typescript projects out of the box.
 * Added onLoad and onUnmount callback props for each component. 
 * added addon MarkerClusterer
