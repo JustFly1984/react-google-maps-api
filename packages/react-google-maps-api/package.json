@@ -72,7 +72,8 @@
     "publish:next": "yarn build && npm publish . --tag next",
     "docs:dev": "npx styleguidist server",
     "docs:build": "npx styleguidist build",
-    "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
+    "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
+    "test": "jest"
   },
   "dependencies": {
     "@react-google-maps/marker-clusterer": "1.2.0-alpha.9",
@@ -89,6 +90,7 @@
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "7.1.0",
     "@types/babel-types": "7.0.6",
+    "@types/jest": "^24.0.11",
     "@typescript-eslint/eslint-plugin": "1.5.0",
     "@typescript-eslint/parser": "1.5.0",
     "acorn": "6.1.1",
@@ -115,11 +117,14 @@
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.4.0",
     "husky": "1.3.1",
+    "jest": "^24.7.1",
     "react": "16.8.6",
     "react-docgen-typescript": "1.12.3",
     "react-dom": "16.8.6",
     "react-styleguidist": "8.0.6",
+    "react-testing-library": "^6.1.2",
     "rimraf": "2.6.3",
+    "ts-jest": "^24.0.2",
     "typescript": "3.4.1",
     "webpack": "4.29.6"
   },
