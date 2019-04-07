@@ -2,7 +2,7 @@
 import { reduce } from "./reduce"
 import { forEach } from "./foreach"
 
-const applyUpdaterToNextProps = (
+export const applyUpdaterToNextProps = (
   updaterMap: any,
   prevProps: any,
   nextProps: any,
