@@ -143,6 +143,8 @@ export class InfoWindow extends React.PureComponent<
   componentWillUnmount() {
     if (this.state.infoWindow !== null) {
       unregisterEvents(this.registeredEvents)
+
+      this.state.infoWindow.close()
     }
   }
 
