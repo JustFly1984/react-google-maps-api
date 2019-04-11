@@ -39,3 +39,5 @@ export {
   default as StandaloneSearchBox
 } from "./components/places/StandaloneSearchBox"
 export { default as Autocomplete } from "./components/places/Autocomplete"
+
+export { useGoogleMap } from './map-context'
