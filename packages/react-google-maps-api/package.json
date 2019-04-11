@@ -76,7 +76,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@react-google-maps/marker-clusterer": "1.2.0",
+    "@react-google-maps/marker-clusterer": "1.2.2",
     "@types/googlemaps": "3.30.19",
     "@types/invariant": "2.2.29",
     "invariant": "2.2.4"
