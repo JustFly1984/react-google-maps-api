@@ -93,7 +93,7 @@ interface MarkerProps {
   animation?: google.maps.Animation;
   clickable?: boolean;
   cursor?: string;
-  draggable?: string;
+  draggable?: boolean;
   icon?: string | google.maps.Icon | google.maps.Symbol;
   label?: string | google.maps.MarkerLabel;
   opacity?: number;
