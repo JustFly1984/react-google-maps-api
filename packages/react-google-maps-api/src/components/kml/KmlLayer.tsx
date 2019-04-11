@@ -32,7 +32,7 @@ interface KmlLayerState {
   kmlLayer: google.maps.KmlLayer | null;
 }
 
-interface KmlLayerProps {
+export interface KmlLayerProps {
   options?: google.maps.KmlLayerOptions;
   url?: string;
   zIndex?: number;

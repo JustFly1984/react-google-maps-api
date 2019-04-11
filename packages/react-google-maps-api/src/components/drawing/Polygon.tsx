@@ -58,7 +58,7 @@ interface PolygonState {
   polygon: google.maps.Polygon | null;
 }
 
-interface PolygonProps {
+export interface PolygonProps {
   options?: google.maps.PolygonOptions;
   draggable?: boolean;
   editable?: boolean;

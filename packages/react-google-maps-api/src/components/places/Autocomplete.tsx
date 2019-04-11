@@ -48,7 +48,7 @@ interface AutocompleteState {
   autocomplete: google.maps.places.Autocomplete | null;
 }
 
-interface AutocompleteProps {
+export interface AutocompleteProps {
   // required
   children: React.ReactChild;
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;

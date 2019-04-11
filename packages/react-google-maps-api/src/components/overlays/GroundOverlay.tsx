@@ -24,7 +24,7 @@ interface GroundOverlayState {
   groundOverlay: google.maps.GroundOverlay | null;
 }
 
-interface GroundOverlayProps {
+export interface GroundOverlayProps {
   options?: google.maps.GroundOverlayOptions;
   opacity?: number;
   onDblClick?: (e: google.maps.MouseEvent) => void;

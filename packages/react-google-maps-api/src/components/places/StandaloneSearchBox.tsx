@@ -26,7 +26,7 @@ interface StandaloneSearchBoxState {
   searchBox: google.maps.places.SearchBox | null;
 }
 
-interface StandaloneSearchBoxProps {
+export interface StandaloneSearchBoxProps {
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
   options?: google.maps.places.SearchBoxOptions;
   onPlacesChanged?: () => void;

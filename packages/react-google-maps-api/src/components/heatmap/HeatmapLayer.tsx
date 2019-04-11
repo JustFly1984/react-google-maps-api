@@ -34,7 +34,7 @@ interface HeatmapLayerState {
   heatmapLayer: google.maps.visualization.HeatmapLayer | null;
 }
 
-interface HeatmapLayerProps {
+export interface HeatmapLayerProps {
   // required
   data: google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation> | google.maps.LatLng[] | google.maps.visualization.WeightedLocation[];
   options?: google.maps.visualization.HeatmapLayerOptions;

@@ -41,7 +41,7 @@ interface InfoWindowState {
   infoWindow: google.maps.InfoWindow | null;
 }
 
-interface InfoWindowProps {
+export interface InfoWindowProps {
   anchor: google.maps.MVCObject | null;
   options?: google.maps.InfoWindowOptions;
   position: google.maps.LatLng | google.maps.LatLngLiteral;

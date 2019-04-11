@@ -39,7 +39,7 @@ interface DirectionsRendererState {
   directionsRenderer: google.maps.DirectionsRenderer | null;
 }
 
-interface DirectionsRendererProps {
+export interface DirectionsRendererProps {
   options?: google.maps.DirectionsRendererOptions;
   directions?: google.maps.DirectionsResult;
   panel?: Element;

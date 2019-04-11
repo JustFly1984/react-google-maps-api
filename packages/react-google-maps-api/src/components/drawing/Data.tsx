@@ -101,7 +101,7 @@ const updaterMap = {
 interface DataState {
   data: google.maps.Data | null;
 }
-interface DataProps {
+export interface DataProps {
   options?: google.maps.Data.DataOptions;
   onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void;
   onClick?: (e: google.maps.MouseEvent) => void;
