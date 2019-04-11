@@ -14,11 +14,11 @@ interface LoadScriptState {
 export interface LoadScriptProps {
   // required
   googleMapsApiKey: string;
-  id: string;
-  version: string;
-  language: string;
-  region: string;
-  libraries: string[];
+  id?: string;
+  version?: string;
+  language?: string;
+  region?: string;
+  libraries?: string[];
   loadingElement?: React.ReactNode;
   onLoad?: () => void;
   onError?: (error: Error) => void;
@@ -33,6 +33,7 @@ const DefaultLoadingElement = () => (
 class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
   public static defaultProps = {
     id: 'script-loader',
+    version: 'weekly',
     libraries: [] // Do not remove!,
   }
 
