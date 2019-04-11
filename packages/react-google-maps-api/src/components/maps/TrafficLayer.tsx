@@ -21,7 +21,7 @@ interface TrafficLayerState {
   trafficLayer: google.maps.TrafficLayer | null;
 }
 
-interface TrafficLayerProps {
+export interface TrafficLayerProps {
   options?: google.maps.TrafficLayerOptions;
   onLoad?: (trafficLayer: google.maps.TrafficLayer) => void;
   onUnmount?: (trafficLayer: google.maps.TrafficLayer) => void;
@@ -54,7 +54,7 @@ export class TrafficLayer extends PureComponent<
       ...(this.props.options || {}),
       map: this.context
     })
-    
+
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,

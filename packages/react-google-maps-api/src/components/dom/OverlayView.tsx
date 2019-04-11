@@ -12,7 +12,7 @@ interface OverlayViewState {
   overlayView: google.maps.OverlayView | null;
 }
 
-interface OverlayViewProps {
+export interface OverlayViewProps {
   // required
   mapPaneName: string;
   getPixelPositionOffset?: (

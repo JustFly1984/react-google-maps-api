@@ -68,7 +68,7 @@ interface GoogleMapState {
   map: google.maps.Map | null;
 }
 
-interface GoogleMapProps {
+export interface GoogleMapProps {
   id?: string;
   reuseSameInstance?: boolean;
   mapContainerStyle?: React.CSSProperties;
