@@ -1,4 +1,4 @@
-# @react-google-maps/api example Gatsby.js
+# @react-google-maps/api@1.2.2 example Gatsby.js
 
 ## Install
 

@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.2.2 fix draggable type on Marker, export Types alongside with Components, useGoogleMap hook
+
 ## 1.2.1 fix InfoBox rendering issue
 
 ## 1.2.0 Typescript refactoring

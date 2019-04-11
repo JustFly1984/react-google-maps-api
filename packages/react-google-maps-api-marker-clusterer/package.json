@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/marker-clusterer",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Marker Clusterer for React.js Google Maps API",
   "license": "MIT",
   "author": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JustFly1984/react-google-maps-api/packages/react-google-maps-api-marker-clusterer"
+    "url": "https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api-marker-clusterer"
   },
   "bugs": {
     "url": "https://github.com/JustFly1984/react-google-maps-api/issues"
