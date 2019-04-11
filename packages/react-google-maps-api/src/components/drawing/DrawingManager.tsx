@@ -38,7 +38,7 @@ interface DrawingManagerState {
   drawingManager: google.maps.drawing.DrawingManager | null;
 }
 
-interface DrawingManagerProps {
+export interface DrawingManagerProps {
   options?: google.maps.drawing.DrawingManagerOptions;
   drawingMode?: google.maps.drawing.OverlayType | null;
   onCircleComplete?: (circle: google.maps.Circle) => void;

@@ -6,7 +6,7 @@ interface BicyclingLayerState {
   bicyclingLayer: google.maps.BicyclingLayer | null;
 }
 
-interface BicyclingLayerProps {
+export interface BicyclingLayerProps {
   onLoad?: (bicyclingLayer: google.maps.BicyclingLayer) => void;
   onUnmount?: (bicyclingLayer: google.maps.BicyclingLayer) => void;
 }
@@ -27,7 +27,7 @@ export class BicyclingLayer extends React.PureComponent<
       // TODO: how is this possibly null if we're doing a null check
       // @ts-ignore
       this.state.bicyclingLayer.setMap(this.context)
-      
+
       if (this.props.onLoad) {
         //@ts-ignore
         this.props.onLoad(this.state.bicyclingLayer)

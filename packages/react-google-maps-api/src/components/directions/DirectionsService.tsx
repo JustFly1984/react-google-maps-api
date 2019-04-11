@@ -6,7 +6,7 @@ interface DirectionsServiceState {
   directionsService: google.maps.DirectionsService | null;
 }
 
-interface DirectionsServiceProps {
+export interface DirectionsServiceProps {
   // required for default functionality
   options: google.maps.DirectionsRequest;
 
