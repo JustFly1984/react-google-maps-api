@@ -78,18 +78,16 @@
   "dependencies": {
     "@react-google-maps/marker-clusterer": "1.2.2",
     "@types/googlemaps": "3.30.19",
-    "@types/invariant": "2.2.29",
     "invariant": "2.2.4"
   },
   "peerDependencies": {
-    "@types/react": "^16.8.10",
-    "@types/react-dom": "^16.8.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
   },
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "7.1.0",
     "@types/babel-types": "7.0.6",
+    "@types/invariant": "2.2.29",
     "@types/jest": "^24.0.11",
     "@types/react": "^16.8.10",
     "@types/react-dom": "^16.8.3",
