@@ -14,8 +14,8 @@ interface LoadScriptState {
 export interface LoadScriptProps {
   // required
   googleMapsApiKey: string;
-  id?: string;
-  version?: string;
+  id: string;
+  version: string;
   language?: string;
   region?: string;
   libraries?: string[];
@@ -34,7 +34,6 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
   public static defaultProps = {
     id: 'script-loader',
     version: 'weekly',
-    libraries: [] // Do not remove!,
   }
 
   check: React.RefObject<HTMLDivElement> = React.createRef()
@@ -131,7 +130,6 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
     return new Promise(promiseCallback)
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   cleanup = () => {
     cleaningUp = true
     const script = document.getElementById(this.props.id)
@@ -195,7 +193,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
       params.push(`region=${this.props.region}`)
     }
 
-    if (this.props.libraries.length) {
+    if (this.props.libraries && this.props.libraries.length) {
       params.push(`&libraries=${this.props.libraries.join(",")}`)
     }
 
