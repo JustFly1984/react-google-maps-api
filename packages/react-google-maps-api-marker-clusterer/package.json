@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/marker-clusterer",
-  "version": "1.2.3-alpha.4",
+  "version": "1.2.3-alpha.6",
   "description": "Marker Clusterer for React.js Google Maps API",
   "license": "MIT",
   "author": {
@@ -49,10 +49,10 @@
     "@types/googlemaps": "3.30.19"
   },
   "devDependencies": {
-    "@getify/eslint-plugin-proper-arrows": "7.1.0",
-    "@types/babel-types": "7.0.6",
-    "@typescript-eslint/eslint-plugin": "1.6.0",
-    "@typescript-eslint/parser": "1.6.0",
+    "@getify/eslint-plugin-proper-arrows": "8.0.1",
+    "@types/babel-types": "7.0.7",
+    "@typescript-eslint/eslint-plugin": "1.7.0",
+    "@typescript-eslint/parser": "1.7.0",
     "acorn": "6.1.1",
     "awesome-typescript-loader": "5.2.1",
     "eslint": "5.16.0",
@@ -64,7 +64,7 @@
     "eslint-plugin-dependencies": "2.4.0",
     "eslint-plugin-filenames": "1.3.2",
     "eslint-plugin-html": "5.0.3",
-    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-import": "2.17.2",
     "eslint-plugin-json": "1.4.0",
     "eslint-plugin-jsx-a11y": "6.2.1",
     "eslint-plugin-no-inferred-method-name": "1.0.2",
@@ -77,8 +77,8 @@
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.4.0",
     "rimraf": "2.6.3",
-    "typescript": "3.4.2",
-    "webpack": "4.29.6"
+    "typescript": "3.4.5",
+    "webpack": "4.30.0"
   },
   "gitHead": "4c487da5fec5e5d9e86f8d445248353b1f532a59"
 }
