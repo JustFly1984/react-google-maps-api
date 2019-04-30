@@ -140,10 +140,15 @@ export class OverlayView extends React.PureComponent<
 
     this.setState(setOverlayView, this.setOverlayViewCallback)
   }
-  
+
   componentDidUpdate(prevProps: OverlayViewProps) {
-    if (prevProps.position !== this.props.position || prevProps.bounds !== this.props.bounds) {
-      setTimeout(() => this.state.overlayView!.draw(), 0);
+    if (
+      prevProps.position !== this.props.position ||
+      prevProps.bounds !== this.props.bounds
+    ) {
+      setTimeout(() => {
+        this.state.overlayView !== null && this.state.overlayView.draw()
+      }, 0)
     }
   }
 
