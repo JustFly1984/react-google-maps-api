@@ -90,58 +90,59 @@ export class ClusterIcon {
     google.maps.event.addDomListener(
       this.div,
       "click",
+      // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
       (event: MouseEvent) => {
-      cMouseDownInCluster = false
+        cMouseDownInCluster = false
 
-      if (!cDraggingMapByCluster) {
-        const markerClusterer = this.cluster.getClusterer()
+        if (!cDraggingMapByCluster) {
+          const markerClusterer = this.cluster.getClusterer()
 
-        /**
+          /**
          * This event is fired when a cluster marker is clicked.
          * @name MarkerClusterer#click
          * @param {Cluster} c The cluster that was clicked.
          * @event
          */
-        google.maps.event.trigger(markerClusterer, "click", this.cluster)
-        google.maps.event.trigger(markerClusterer, "clusterclick", this.cluster) // deprecated name
+          google.maps.event.trigger(markerClusterer, "click", this.cluster)
+          google.maps.event.trigger(markerClusterer, "clusterclick", this.cluster) // deprecated name
 
-        // The default click handler follows. Disable it by setting
-        // the zoomOnClick property to false.
-        if (markerClusterer.getZoomOnClick()) {
+          // The default click handler follows. Disable it by setting
+          // the zoomOnClick property to false.
+          if (markerClusterer.getZoomOnClick()) {
           // Zoom into the cluster.
-          const maxZoom = markerClusterer.getMaxZoom()
+            const maxZoom = markerClusterer.getMaxZoom()
 
-          const bounds = this.cluster.getBounds()
+            const bounds = this.cluster.getBounds()
 
-          // @ts-ignore
-          markerClusterer.getMap().fitBounds(bounds)
+            // @ts-ignore
+            markerClusterer.getMap().fitBounds(bounds)
 
 
-          // There is a fix for Issue 170 here:
-          setTimeout(
-            function timeout() {
+            // There is a fix for Issue 170 here:
+            setTimeout(
+              function timeout() {
               // @ts-ignore
-              markerClusterer.getMap().fitBounds(bounds)
+                markerClusterer.getMap().fitBounds(bounds)
 
-              // Don't zoom beyond the max zoom level
-              // @ts-ignore
-              if (maxZoom !== null && (markerClusterer.getMap().getZoom() > maxZoom)) {
+                // Don't zoom beyond the max zoom level
                 // @ts-ignore
-                markerClusterer.getMap().setZoom(maxZoom + 1)
-              }
-            },
-            100
-          )
-        }
+                if (maxZoom !== null && (markerClusterer.getMap().getZoom() > maxZoom)) {
+                // @ts-ignore
+                  markerClusterer.getMap().setZoom(maxZoom + 1)
+                }
+              },
+              100
+            )
+          }
 
-        // Prevent event propagation to the map:
-        event.cancelBubble = true
+          // Prevent event propagation to the map:
+          event.cancelBubble = true
 
-        if (event.stopPropagation) {
-          event.stopPropagation()
+          if (event.stopPropagation) {
+            event.stopPropagation()
+          }
         }
-      }
-    })
+      })
 
     google.maps.event.addDomListener(
       this.div,
