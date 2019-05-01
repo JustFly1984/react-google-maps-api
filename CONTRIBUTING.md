@@ -1,5 +1,7 @@
 # Contributing
 
+![logo](https://github.com/JustFly1984/react-google-maps-api/tree/master/logo.png)
+
 We are welcome to any pull request, which has a clear goal and description. Also please use eslint while developing.
 
 List of contributors:
