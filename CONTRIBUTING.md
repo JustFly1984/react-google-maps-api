@@ -7,7 +7,8 @@ We are welcome to any pull request, which has a clear goal and description. Also
 List of contributors:
 
 Alexey Lyakhov <justfly1984@gmail.com>
-Awwit
+Awwit <awwit@gmail.com>
+Ivan Konev <ivankonev@gmail.com>
 
 We use lerna (https://github.com/lerna/lerna) to split the whole @react-google-maps/api project into packages. To get started:
 
