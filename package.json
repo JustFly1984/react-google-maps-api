@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/root",
-  "version": "1.2.3-alpha.6",
+  "version": "1.2.3-alpha.8",
   "private": true,
   "description": "@react-google-maps API integration",
   "license": "MIT",

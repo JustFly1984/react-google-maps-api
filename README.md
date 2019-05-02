@@ -1,6 +1,6 @@
 # @react-google-maps organisation root
 
-![logo](https://github.com/JustFly1984/react-google-maps-api/blob/master/logo.png)
+![logo](https://raw.githubusercontent.com/JustFly1984/react-google-maps-api/master/logo.png)
 
 ## ReadMe
 
