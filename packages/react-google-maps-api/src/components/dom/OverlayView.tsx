@@ -103,7 +103,9 @@ export class OverlayView extends React.PureComponent<
       return
     }
 
-    mapPanes[this.props.mapPaneName].appendChild(this.containerElement)
+    if (this.containerElement) {
+      mapPanes[this.props.mapPaneName].appendChild(this.containerElement)
+    }
 
     this.onPositionElement()
 
