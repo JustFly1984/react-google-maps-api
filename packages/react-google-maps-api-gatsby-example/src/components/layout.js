@@ -6,7 +6,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import Header from './header'
 import Footer from './footer'
 
-import './bootstrap.css'
+import './bootstrap.min.css'
 import './styles.css'
 
 const meta = [
