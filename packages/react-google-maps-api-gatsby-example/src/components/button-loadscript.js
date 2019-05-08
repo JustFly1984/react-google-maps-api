@@ -7,13 +7,14 @@ import { toggleLoadScript } from '../actions/app'
 
 const id = 'toggle-script'
 
-const ButtonLoadscript = ({ checked, onClick }) => (
+const ButtonLoadscript = ({ checked, isApikeyValid, onClick }) => (
   <div>
     <button
       id={id}
       className={`btn btn-load ${checked ? 'btn-danger' : 'btn-primary'}`}
       type='button'
       onClick={onClick}
+      disabled={!isApikeyValid}
     >
       { checked ? 'Unload Maps' : 'Load Maps'}
     </button>
@@ -21,13 +22,17 @@ const ButtonLoadscript = ({ checked, onClick }) => (
 )
 
 ButtonLoadscript.propTypes = {
+  isApikeyValid: PropTypes.bool.isRequired,
   checked: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
-  checked: state.getIn(['app', 'loadScriptChecked'])
-})
+function mapStateToProps (state) {
+  return {
+    isApikeyValid: state.getIn(['app', 'googleMapsApiKey']).length >= 38,
+    checked: state.getIn(['app', 'loadScriptChecked'])
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   onClick: () => {
