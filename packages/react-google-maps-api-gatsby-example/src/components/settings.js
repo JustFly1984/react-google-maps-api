@@ -1,29 +1,26 @@
 import React from 'react'
 
+import Card from '../components/card'
 import InputBoxApiKey from '../components/inpunbox-apikey'
 import SectionLanguage from '../components/section-language'
 import ButtonLoadscript from '../components/button-loadscript'
 
 const Settings = () => (
-  <div className='card shadow-sm mb-5'>
-    <div className='card-body'>
-      <div>
-        <InputBoxApiKey />
+  <Card>
+    <InputBoxApiKey />
 
-        <p className='small'>
-          You can create new Google API key here: <a href='https://console.cloud.google.com/apis/credentials/key' alt='google api key' target='_blank' rel='noopener noreferrer'>https://console.cloud.google.com/apis/credentials/key</a>
-        </p>
-      </div>
+    <p className='small'>
+      You can create new Google API key here: <a href='https://console.cloud.google.com/apis/credentials/key' alt='google api key' target='_blank' rel='noopener noreferrer'>https://console.cloud.google.com/apis/credentials/key</a>
+    </p>
 
-      <hr className='m-0 mb-3' />
+    <hr className='mt-0 mb-3' />
 
-      <SectionLanguage />
+    <SectionLanguage />
 
-      <hr className='mt-0 mb-3' />
+    <hr className='mt-0 mb-3' />
 
-      <ButtonLoadscript />
-    </div>
-  </div>
+    <ButtonLoadscript />
+  </Card>
 )
 
 export default Settings

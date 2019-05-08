@@ -52,10 +52,12 @@
   overflow: hidden;
 }
 
-@media (min-width: 768px) {
-  .no-maps {
-    margin-bottom: 8rem;
-  }
+.icon {
+  position: relative;
+  top: -0.125rem;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
 }
 
 .footer {
