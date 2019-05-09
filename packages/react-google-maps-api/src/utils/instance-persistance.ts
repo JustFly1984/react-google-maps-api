@@ -91,8 +91,8 @@ export const saveInstance = (id: string, map: google.maps.Map) => {
 
   const mapContainer = document.getElementById(id)
 
-  if (mapContainer && mapContainer.children && mapContainer.children[0]) {
-    hiddenContainer.appendChild(mapContainer.children[0])
+  if (mapContainer) {
+    hiddenContainer.appendChild(mapContainer)
   }
 
   // @ts-ignore
