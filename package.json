@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/root",
-  "version": "1.2.3-alpha.10",
+  "version": "1.2.3-alpha.11",
   "private": true,
   "description": "@react-google-maps API integration",
   "license": "MIT",
@@ -12,7 +12,7 @@
   "contributors": [
     "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)",
     "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)",
-    "Ivan Konev <ivankonev@gmail.com>"
+    "Ivan Konev <ivankonev@gmail.com> (https://github.com/ivankonev)"
   ],
   "repository": {
     "type": "git",
