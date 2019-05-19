@@ -7,7 +7,7 @@ import {
   GoogleMap,
   StreetViewPanorama
 } from '@react-google-maps/api'
-import { googleMapKey } from '../../../googleMapKey'
+import   googleMapKey   from '../googleMapKey' 
 
 const isBrowser = typeof document !== 'undefined'
 
@@ -91,7 +91,7 @@ storiesOf('GoogleMap:', module)
       zoom={8}
       center={center}
     />
-  ))
+  ))  
   .add('StreetViewPanorama', () => (
     <GoogleMap
       id='street-view-example'
@@ -105,6 +105,6 @@ storiesOf('GoogleMap:', module)
         onVisibleChanged={() => console.log('Visible changed')}
       />
     </GoogleMap>
-  ))
+  ))   
 
 export default SafeLoadScript
