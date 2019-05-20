@@ -27,6 +27,7 @@
     "test:api": "cd packages/react-google-maps-api && yarn test && cd ../.. ",
     "bootstrap":"lerna bootstrap",
     "build":"lerna run build --stream",
+    "lint":"lerna run lint --scope=@react-google-maps/api --stream",
     "storybook":"lerna run start --scope=@react-google-maps/storybook --stream"
   },
   "lint-staged": {
