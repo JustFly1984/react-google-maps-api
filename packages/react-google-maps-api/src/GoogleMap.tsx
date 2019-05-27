@@ -15,6 +15,8 @@ const eventMap = {
   onMouseMove: "mousemove",
   onMouseOut: "mouseout",
   onMouseOver: "mouseover",
+  onMouseDown: "mousedown",
+  onMouseUp: "mouseup",
   onRightClick: "rightclick",
   onTilesLoaded: "tilesloaded",
   onBoundsChanged: "bounds_changed",
