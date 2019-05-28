@@ -69,7 +69,11 @@ export class Cluster {
     const markers = this.getMarkers()
 
     for (let i = 0; i < markers.length; i++) {
-      bounds.extend(markers[i].getPosition())
+      const position = markers[i].getPosition()
+
+      if (position) {
+        bounds.extend(position)
+      }
     }
 
     return bounds
@@ -90,19 +94,27 @@ export class Cluster {
     }
 
     if (!this.center) {
-      this.center = marker.getPosition()
+      const position = marker.getPosition()
 
-      this.calculateBounds()
-    } else {
-      if (this.averageCenter) {
-        const length = this.markers.length + 1
-
-        this.center = new google.maps.LatLng(
-          (this.center.lat() * (length - 1) + marker.getPosition().lat()) / length,
-          (this.center.lng() * (length - 1) + marker.getPosition().lng()) / length
-        )
+      if (position) {
+        this.center = position
 
         this.calculateBounds()
+      }
+    } else {
+      if (this.averageCenter) {
+        const position = marker.getPosition()
+
+        if (position) {
+          const length = this.markers.length + 1
+
+          this.center = new google.maps.LatLng(
+            (this.center.lat() * (length - 1) + position.lat()) / length,
+            (this.center.lng() * (length - 1) + position.lng()) / length
+          )
+
+          this.calculateBounds()
+        }
       }
     }
 
@@ -140,7 +152,11 @@ export class Cluster {
 
   isMarkerInClusterBounds ( marker: MarkerExtended): boolean {
     if (this.bounds !== null) {
-      return this.bounds.contains(marker.getPosition())
+      const position = marker.getPosition()
+
+      if (position) {
+        return this.bounds.contains(position)
+      }
     }
 
     return false

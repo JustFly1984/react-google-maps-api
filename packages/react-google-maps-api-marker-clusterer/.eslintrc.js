@@ -53,9 +53,9 @@ module.exports = {
       '@typescript-eslint/parser': ['.ts', '.tsx']
     },
     'import/resolver': {
-     // use <root>/path/to/folder/tsconfig.json
+     // use <root>/path/to/folder/tsconfig-commonjs.json
      'typescript': {
-        'directory': './tsconfig.json'
+        'directory': './tsconfig-commonjs.json'
       }
     },
     react: {
@@ -151,7 +151,7 @@ module.exports = {
       jsx: true
     },
     'useJSXTextNode': true,
-    'project': './tsconfig.json',
+    'project': './tsconfig-commonjs.json',
     'tsconfigRootDir': './'
   }
 }

@@ -238,7 +238,10 @@ export class Clusterer {
     const bounds = new google.maps.LatLngBounds()
 
     for (let i = 0; i < markers.length; i++) {
-      bounds.extend(markers[i].getPosition())
+      const position = markers[i].getPosition()
+      if (position) {
+        bounds.extend(position)
+      }
     }
 
     // @ts-ignore
@@ -576,7 +579,13 @@ export class Clusterer {
   }
 
   isMarkerInBounds (marker: MarkerExtended, bounds: google.maps.LatLngBounds): boolean {
-    return bounds.contains(marker.getPosition())
+    const position = marker.getPosition()
+
+    if (position) {
+      return bounds.contains(position)
+    }
+
+    return false
   }
 
   addToClosestCluster (marker: MarkerExtended) {
@@ -591,8 +600,10 @@ export class Clusterer {
 
       const center = cluster.getCenter()
 
-      if (center) {
-        const d = this.distanceBetweenPoints(center, marker.getPosition())
+      const position = marker.getPosition()
+
+      if (center && position) {
+        const d = this.distanceBetweenPoints(center, position)
 
         if (d < distance) {
           distance = d
@@ -633,7 +644,7 @@ export class Clusterer {
       google.maps.event.trigger(this, "clusteringbegin", this)
 
       if (this.timerRefStatic !== null) {
-        clearTimeout(this.timerRefStatic)
+        window.clearTimeout(this.timerRefStatic)
 
         delete this.timerRefStatic
       }
@@ -683,7 +694,7 @@ export class Clusterer {
     }
 
     if (iLast < this.markers.length) {
-      this.timerRefStatic = setTimeout(
+      this.timerRefStatic = window.setTimeout(
         // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
         () => {
           this.createClusters(iLast)

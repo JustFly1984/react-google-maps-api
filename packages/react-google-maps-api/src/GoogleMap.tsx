@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import MapContext from "./map-context"
-import { saveInstance, restoreInstance } from "./utils/instance-persistance"
+
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
@@ -72,7 +72,6 @@ interface GoogleMapState {
 
 export interface GoogleMapProps {
   id?: string;
-  reuseSameInstance?: boolean;
   mapContainerStyle?: React.CSSProperties;
   mapContainerClassName?: string;
   options?: google.maps.MapOptions;
@@ -107,10 +106,7 @@ export interface GoogleMapProps {
   onUnmount?: (map: google.maps.Map) => void | Promise<void>;
 }
 
-export class GoogleMap extends React.PureComponent<
-  GoogleMapProps,
-  GoogleMapState
-> {
+export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapState> {
   state: GoogleMapState = {
     map: null
   }
@@ -121,13 +117,7 @@ export class GoogleMap extends React.PureComponent<
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   getInstance = (): google.maps.Map | null => {
-    const { reuseSameInstance, id, ...rest } = this.props
-
-    const instance = reuseSameInstance && restoreInstance({ ...rest, ...{ id: id || "defaultMapId" } })
-
-    return instance
-      ? instance
-      : new google.maps.Map(this.mapRef, this.props.options)
+    return new google.maps.Map(this.mapRef, this.props.options)
   }
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
@@ -178,10 +168,6 @@ export class GoogleMap extends React.PureComponent<
 
   componentWillUnmount() {
     if (this.state.map !== null) {
-      if (this.props.reuseSameInstance) {
-        saveInstance(this.props.id || "defaultMapId", this.state.map)
-      }
-
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.map)
       }
@@ -195,8 +181,6 @@ export class GoogleMap extends React.PureComponent<
   getRef = (ref: HTMLDivElement | null): void => {
     this.mapRef = ref
   }
-
-
 
   render() {
     return (
