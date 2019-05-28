@@ -20,8 +20,8 @@
     "access": "public"
   },
   "main": "lib/index.js",
-  "browser": "lib/index.js",
-  "module": "lib/index.js",
+  "browser": "umd/index.js",
+  "module": "esm/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "dist/",

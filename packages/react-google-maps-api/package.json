@@ -70,13 +70,14 @@
     "Typescript"
   ],
   "scripts": {
-    "build": "rimraf ./lib && tsc -p ./tsconfig.json",
+    "build": "yarn build:commonjs && yarn build:esm && yarn build:umd",
+    "build:commonjs": "rimraf ./lib && tsc -p ./tsconfig.json",
     "build:esm": "rimraf ./esm && tsc -p ./tsconfig-esm.json",
     "build:umd": "rimraf ./umd && tsc -p ./tsconfig-umd.json",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
-    "pub": "yarn build && yarn build:esm && yarn build:umd && yarn publish",
+    "pub": "yarn build && yarn publish",
     "pub:next": "yarn build && npm publish . --tag next",
     "docs:dev": "npx styleguidist server --config ./styleguide.config.js --verbose",
     "docs:build": "npx styleguidist build --config ./styleguide.config.js --verbose",

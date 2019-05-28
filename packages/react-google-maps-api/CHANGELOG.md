@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.3 Added MarkerClusterer refactored to typescript.
+
+- Removed instans persistance feature due to bugs with google-maps-api.
+
+- UMD and ESM builds
+
+- Added new onMouseUp and onMouseDown props for `<GoogleMap />` component
+
 ## 1.2.2 fix draggable type on Marker, export Types alongside with Components, useGoogleMap hook
 
 ## 1.2.1 fix InfoBox rendering issue
