@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/marker-clusterer",
-  "version": "1.2.3-alpha.8",
+  "version": "1.2.3-alpha.12",
   "description": "Marker Clusterer for React.js Google Maps API",
   "license": "MIT",
   "author": {
@@ -38,12 +38,14 @@
     "Marker"
   ],
   "scripts": {
-    "build": "rimraf ./lib && tsc",
+    "build": "rimraf ./lib && tsc -p ./tsconfig-commonjs.json",
+    "build:esm": "rimraf ./lib && tsc -p ./tsconfig-esm.json",
+    "build:umd": "rimraf ./lib && tsc -p ./tsconfig-umd.json",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
-    "pub": "yarn build && yarn publish .",
-    "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
+    "pub": "yarn build && yarn build:esm && yarn build:umd && yarn publish .",
+    "tc": "tsc -p ./tsconfig-commonjs.json --noEmit --traceResolution"
   },
   "dependencies": {
     "@types/googlemaps": "3.30.19"

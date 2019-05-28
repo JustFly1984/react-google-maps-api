@@ -1,7 +1,9 @@
 src/
 .editorconfig
 .eslintignore
-tsconfig.json
+tsconfig-commonjs.json
+tsconfig-esm.json
+tsconfig-umd.json
 .eslintrc
 .vscode/
 yarn.lock

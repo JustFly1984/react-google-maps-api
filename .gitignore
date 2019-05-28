@@ -45,8 +45,12 @@ node_modules
 .vscode/settings.json
 
 packages/react-google-maps-api-marker-clusterer/lib
+packages/react-google-maps-api-marker-clusterer/umd
+packages/react-google-maps-api-marker-clusterer/esm
 
 packages/react-google-maps-api/lib
+packages/react-google-maps-api/umd
+packages/react-google-maps-api/esm
 packages/react-google-maps-api/dist
 packages/react-google-maps-api/styleguide
 packages/react-google-maps-api/src/docs/googleMapKey.ts
