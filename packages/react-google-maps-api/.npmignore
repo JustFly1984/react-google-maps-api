@@ -2,7 +2,7 @@ src/
 .editorconfig
 .styleguide.config.js
 .eslintignore
-tsconfig-commonjs.json
+tsconfig.json
 tsconfig-esm.json
 tsconfig-umd.json
 .prettierignore

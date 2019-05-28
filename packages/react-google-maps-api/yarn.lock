@@ -310,12 +310,12 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@react-google-maps/marker-clusterer@1.2.3-alpha.8":
-  version "1.2.3-alpha.8"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.2.3-alpha.8.tgz#e7f368c1d048b92d78a9afb121f9fdb360a39c69"
-  integrity sha512-NkAZuuz4pS1SAb2EvCzvndQx06O7ho/+nTmqv3mfHrqU2Jnre0hRlnHy4adXZn8ysDhW4mstfEHwEwCDNP8sjA==
+"@react-google-maps/marker-clusterer@1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.2.3.tgz#097a9010b77c2f95537d33cd35278776b913236b"
+  integrity sha512-LiJdeSnKP4GA++4DrpCykc4xIgwnWBMijbP7SOJVWhdtVOrZakq/vAXWjgcudiuYkzZYrDT5Mb2NTjAcowwVRQ==
   dependencies:
-    "@types/googlemaps" "3.30.19"
+    "@types/googlemaps" "3.36.0"
 
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.2"
@@ -373,11 +373,6 @@
     "@types/events" "*"
     "@types/minimatch" "*"
     "@types/node" "*"
-
-"@types/googlemaps@3.30.19":
-  version "3.30.19"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.30.19.tgz#359c025e244490b0775826fb216bed093fd66b16"
-  integrity sha512-9uzg5jC6FRyAsMrhOLnUbblyN1xbcOVnqecQZxrnCDxTKssn4lwk0K4EWsw/sw8cJX32MFRMivyAT8dX/JBatg==
 
 "@types/googlemaps@3.36.0":
   version "3.36.0"
@@ -3660,9 +3655,9 @@ ignore@^4.0.6:
   integrity sha512-cyFDKrqc/YdcWFniJhzI42+AzS+gNwmUzOSFcRCQYwySuBBBy/KjuxWLZ/FHEH6Moq1NizMOBWyTcv8O4OZIMg==
 
 ignore@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.1.1.tgz#2fc6b8f518aff48fef65a7f348ed85632448e4a5"
-  integrity sha512-DWjnQIFLenVrwyRCKZT+7a7/U4Cqgar4WG8V++K3hw+lrW1hc/SIwdiGmtxKCVACmHULTuGeBbHJmbwW7/sAvA==
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.1.2.tgz#e28e584d43ad7e92f96995019cc43b9e1ac49558"
+  integrity sha512-vdqWBp7MyzdmHkkRWV5nY+PfGRbYbahfuvsBCh277tq+w9zyNi7h5CYJCK0kmzti9kU+O/cB7sE8HvKv6aXAKQ==
 
 immer@1.7.2:
   version "1.7.2"

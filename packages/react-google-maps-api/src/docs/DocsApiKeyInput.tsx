@@ -89,7 +89,7 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
               />
             )
             : (
-              <></>
+              <React.Fragment></React.Fragment>
             )
         }
       </>

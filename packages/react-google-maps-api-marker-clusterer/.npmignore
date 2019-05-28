@@ -1,7 +1,7 @@
 src/
 .editorconfig
 .eslintignore
-tsconfig-commonjs.json
+tsconfig.json
 tsconfig-esm.json
 tsconfig-umd.json
 .eslintrc

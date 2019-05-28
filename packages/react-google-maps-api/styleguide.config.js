@@ -2,7 +2,7 @@ const path = require("path")
 
 module.exports = {
   ignore: ["**/*.js", "**/*.ts"],
-  propsParser: require("react-docgen-typescript").withCustomConfig('./tsconfig-commonjs.json').parse,
+  propsParser: require("react-docgen-typescript").withCustomConfig('./tsconfig.json').parse,
   getComponentPathLine(componentPath) {
     const name = path.basename(componentPath, ".tsx")
     return `import { ${name} } from '@react-google-maps/api';`

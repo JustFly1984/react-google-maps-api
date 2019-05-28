@@ -39,14 +39,14 @@
   ],
   "scripts": {
     "build": "yarn build:commonjs && yarn build:esm && yarn build:umd",
-    "build:commonjs": "rimraf ./lib && tsc -p ./tsconfig-commonjs.json",
+    "build:commonjs": "rimraf ./lib && tsc -p ./tsconfig.json",
     "build:esm": "rimraf ./esm && tsc -p ./tsconfig-esm.json",
     "build:umd": "rimraf ./umd && tsc -p ./tsconfig-umd.json",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
     "pub": "yarn build && yarn publish .",
-    "tc": "tsc -p ./tsconfig-commonjs.json --noEmit --traceResolution"
+    "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
   },
   "dependencies": {
     "@types/googlemaps": "3.36.0"
