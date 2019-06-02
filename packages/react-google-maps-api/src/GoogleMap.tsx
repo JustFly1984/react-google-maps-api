@@ -43,6 +43,12 @@ const updaterMap = {
   ) {
     map.setCenter(center)
   },
+  smoothCenter(
+    map: google.maps.Map,
+    center: google.maps.LatLng | google.maps.LatLngLiteral
+  ) {
+    map.panTo(center)
+  },
   clickableIcons(map: google.maps.Map, clickable: boolean) {
     map.setClickableIcons(clickable)
   },
@@ -104,6 +110,7 @@ export interface GoogleMapProps {
   onZoomChanged?: () => void;
   onLoad?: (map: google.maps.Map) => void | Promise<void>;
   onUnmount?: (map: google.maps.Map) => void | Promise<void>;
+  smoothCenter?: google.maps.LatLng | google.maps.LatLngLiteral;
 }
 
 export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapState> {
