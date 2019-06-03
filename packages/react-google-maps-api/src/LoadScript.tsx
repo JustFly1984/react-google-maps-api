@@ -14,6 +14,7 @@ interface LoadScriptState {
 export interface LoadScriptProps {
   // required
   googleMapsApiKey: string;
+  googleMapsClient: string;
   id: string;
   version: string;
   language?: string;
@@ -179,7 +180,15 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
       preventGoogleFonts()
     }
 
-    const params = [`key=${this.props.googleMapsApiKey}`]
+    const params = []
+
+    if (this.props.googleMapsApiKey) {
+      params.push(`key=${this.props.googleMapsApiKey}`)
+    }
+
+    if (this.props.googleMapsClient) {
+      params.push(`client=${this.props.googleMapsClient}`)
+    }
 
     if (this.props.version) {
       params.push(`v=${this.props.version}`)
@@ -222,7 +231,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
         }
 
         console.error(`
-          There has been an Error with loading Google Maps API script, please check that you provided correct google API key to <LoadScript /> (${this.props.googleMapsApiKey})
+          There has been an Error with loading Google Maps API script, please check that you provided correct google API key to <LoadScript /> (${this.props.googleMapsApiKey || this.props.googleMapsClient})
           Otherwise it is a Network issues.
         `)
       })
