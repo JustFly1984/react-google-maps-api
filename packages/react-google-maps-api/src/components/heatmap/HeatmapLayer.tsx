@@ -24,8 +24,6 @@ const updaterMap = {
     instance: google.maps.visualization.HeatmapLayer,
     options: google.maps.visualization.HeatmapLayerOptions
   ) {
-    // TODO: add to official typings
-    //@ts-ignore
     instance.setOptions(options)
   }
 }
