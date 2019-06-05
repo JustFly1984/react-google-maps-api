@@ -9,6 +9,15 @@ export {
 } from "./LoadScript"
 
 export {
+  default as LoadScriptNext,
+  LoadScriptNextProps
+} from "./LoadScriptNext"
+
+export {
+  useLoadScript
+} from './useLoadScript'
+
+export {
   default as TrafficLayer,
   TrafficLayerProps
 } from "./components/maps/TrafficLayer"
