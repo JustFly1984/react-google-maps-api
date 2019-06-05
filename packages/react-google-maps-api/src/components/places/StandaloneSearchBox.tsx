@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import * as invariant from "invariant"
+import invariant from "invariant"
 
 import {
   unregisterEvents,
@@ -37,7 +37,7 @@ export interface StandaloneSearchBoxProps {
 class StandaloneSearchBox extends React.PureComponent<
   StandaloneSearchBoxProps,
   StandaloneSearchBoxState
-> {
+  > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []

@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import * as invariant from "invariant"
+import invariant from "invariant"
 
 import {
   unregisterEvents,
@@ -38,9 +38,9 @@ export interface GroundOverlayProps {
 export class GroundOverlay extends React.PureComponent<
   GroundOverlayProps,
   GroundOverlayState
-> {
+  > {
   public static defaultProps = {
-    onLoad: () => {}
+    onLoad: () => { }
   }
   static contextType = MapContext
 

@@ -1,7 +1,7 @@
 /* globals google */
 import * as React from "react"
 
-import * as invariant from "invariant"
+import invariant from "invariant"
 
 import {
   unregisterEvents,
@@ -54,7 +54,7 @@ export interface DrawingManagerProps {
 export class DrawingManager extends React.PureComponent<
   DrawingManagerProps,
   DrawingManagerState
-> {
+  > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []

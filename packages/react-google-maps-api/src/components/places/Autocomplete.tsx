@@ -7,7 +7,7 @@ import {
 
 import MapContext from "../../map-context"
 
-import * as invariant from "invariant"
+import invariant from "invariant"
 
 const eventMap = {
   onPlaceChanged: "place_changed"
@@ -64,7 +64,7 @@ export interface AutocompleteProps {
 export class Autocomplete extends React.PureComponent<
   AutocompleteProps,
   AutocompleteState
-> {
+  > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -138,7 +138,7 @@ export class Autocomplete extends React.PureComponent<
   render() {
     return (
       <div ref={this.containerElement}>
-        { React.Children.only(this.props.children) }
+        {React.Children.only(this.props.children)}
       </div>
     )
   }

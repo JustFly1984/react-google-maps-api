@@ -58,3 +58,5 @@ packages/react-google-maps-api/src/docs/googleMapKey.ts
 lib/
 dist/
 googleMapKey.js
+
+.rts2_cache*
