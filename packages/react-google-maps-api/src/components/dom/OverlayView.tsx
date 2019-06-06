@@ -28,7 +28,7 @@ export interface OverlayViewProps {
 export class OverlayView extends React.PureComponent<
   OverlayViewProps,
   OverlayViewState
-  > {
+> {
   static FLOAT_PANE = `floatPane`
   static MAP_PANE = `mapPane`
   static MARKER_LAYER = `markerLayer`
@@ -171,8 +171,8 @@ export class OverlayView extends React.PureComponent<
         this.containerElement
       )
     ) : (
-        <></>
-      )
+      <></>
+    )
   }
 }
 

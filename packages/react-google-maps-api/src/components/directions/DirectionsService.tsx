@@ -22,7 +22,7 @@ export interface DirectionsServiceProps {
 export class DirectionsService extends React.PureComponent<
   DirectionsServiceProps,
   DirectionsServiceState
-  > {
+> {
   state: DirectionsServiceState = {
     directionsService: null
   }

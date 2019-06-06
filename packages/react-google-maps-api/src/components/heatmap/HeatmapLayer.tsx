@@ -45,7 +45,7 @@ export interface HeatmapLayerProps {
 export class HeatmapLayer extends React.PureComponent<
   HeatmapLayerProps,
   HeatmapLayerState
-  > {
+> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []

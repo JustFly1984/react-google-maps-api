@@ -38,9 +38,9 @@ export interface GroundOverlayProps {
 export class GroundOverlay extends React.PureComponent<
   GroundOverlayProps,
   GroundOverlayState
-  > {
+> {
   public static defaultProps = {
-    onLoad: () => { }
+    onLoad: () => {}
   }
   static contextType = MapContext
 

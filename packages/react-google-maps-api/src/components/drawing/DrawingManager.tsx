@@ -54,7 +54,7 @@ export interface DrawingManagerProps {
 export class DrawingManager extends React.PureComponent<
   DrawingManagerProps,
   DrawingManagerState
-  > {
+> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
