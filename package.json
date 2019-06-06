@@ -22,6 +22,8 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
+    "build:docs": "cd packages/react-google-maps-api && yarn && yarn docs:build && cd ../..",
+    "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn && yarn build && cd ../..",
     "clean": "rimraf ./yarn.lock ./package-lock.json ./node_modules/ && yarn",
     "lint": "lerna run lint --scope=@react-google-maps/api --stream",
     "storybook": "lerna run start --scope=@react-google-maps/storybook --stream"
