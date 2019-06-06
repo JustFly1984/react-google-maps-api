@@ -142,10 +142,10 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
     Array.prototype.slice
       .call(document.getElementsByTagName("script"))
-      .filter(function filter(script: HTMLScriptElement) {
+      .filter(function filter(script: HTMLScriptElement): boolean {
         return script.src.includes("maps.googleapis")
       })
-      .forEach(function forEach(script: HTMLScriptElement) {
+      .forEach(function forEach(script: HTMLScriptElement): void {
         if (script.parentNode) {
           script.parentNode.removeChild(script)
         }
@@ -153,9 +153,8 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
     Array.prototype.slice
       .call(document.getElementsByTagName("link"))
-      .filter(function filter(link: HTMLLinkElement) {
-        link.href ===
-          "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans"
+      .filter(function filter(link: HTMLLinkElement): boolean {
+        return link.href === "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans"
       })
       .forEach(function forEach(link: HTMLLinkElement) {
         if (link.parentNode) {
@@ -165,7 +164,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
     Array.prototype.slice
       .call(document.getElementsByTagName("style"))
-      .filter(function filter(style: HTMLStyleElement) {
+      .filter(function filter(style: HTMLStyleElement): boolean {
         return style.innerText && style.innerText.includes(".gm-")
       })
       .forEach(function forEach(style: HTMLStyleElement) {
