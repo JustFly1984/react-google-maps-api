@@ -21,8 +21,8 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "unpkg": "dist/reactgooglemapsmarkerclusterer.umd.production.js",
-  "module": "dist/reactgooglemapsmarkerclusterer.es.production.js",
+  "unpkg": "dist/markerclusterer.umd.production.js",
+  "module": "dist/markerclusterer.es.production.js",
   "files": [
     "src/",
     "dist/"
