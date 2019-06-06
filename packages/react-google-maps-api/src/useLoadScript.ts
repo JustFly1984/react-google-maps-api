@@ -5,10 +5,11 @@ import { preventGoogleFonts } from './utils/prevent-google-fonts'
 
 import { isBrowser } from './utils/isbrowser'
 import { defaultLoadScriptProps } from './LoadScript'
+import invariant from 'invariant';
 
 export interface UseLoadScriptOptions {
-  // required
-  googleMapsApiKey: string;
+  googleMapsApiKey?: string;
+  googleMapsClientId?: string;
   id?: string;
   version?: string;
   language?: string;
@@ -21,6 +22,7 @@ export function useLoadScript({
   id = defaultLoadScriptProps.id,
   version = defaultLoadScriptProps.version,
   googleMapsApiKey,
+  googleMapsClientId,
   language,
   region,
   libraries,
@@ -70,8 +72,8 @@ export function useLoadScript({
           setLoadError(err)
         }
         console.warn(`
-        There has been an Error with loading Google Maps API script, please check that you provided correct google API key to <LoadScript /> (${googleMapsApiKey})
-        Otherwise it is a Network issues.
+        There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${googleMapsApiKey || '-'}) or Client ID (${googleMapsClientId || '-'})
+        Otherwise it is a Network issue.
       `)
         console.error(err)
       })
@@ -89,7 +91,15 @@ export function useLoadScript({
   }, [libraries])
 
   function makeUrl() {
-    const params = [`key=${googleMapsApiKey}`]
+    const params = []
+
+    if (googleMapsApiKey) {
+      params.push(`key=${googleMapsApiKey}`)
+    } else if (googleMapsClientId) {
+      params.push(`client=${googleMapsClientId}`)
+    } else {
+      invariant(false, "You need to specify either googleMapsApiKey or googleMapsClientId for @react-google-maps/api load script to work.")
+    }
 
     if (version) {
       params.push(`v=${version}`)
