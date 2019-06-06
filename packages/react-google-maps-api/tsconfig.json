@@ -9,7 +9,8 @@
     "test",
     "./vscode",
     "./.cache",
-    "__mocks__"
+    "__mocks__",
+    "./styleguide.config.js"
   ],
   "compilerOptions": {
     "module": "commonjs",

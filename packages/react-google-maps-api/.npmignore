@@ -6,7 +6,8 @@ tsconfig.json
 tsconfig-esm.json
 tsconfig-umd.json
 .prettierignore
-.eslintrc
+.eslintrc.js
+jest.config.js
 .vscode/
 yarn.lock
 package-lock.json
