@@ -1,18 +1,12 @@
 {
   "include": [
-    "./src/**/**/*"
+    "src/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "static",
-    "public",
-    "test",
-    "./vscode",
-    "./.cache",
-    "__mocks__"
+    "node_modules"
   ],
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "target": "es5",
     "jsx": "react",
@@ -20,28 +14,8 @@
       "dom",
       "es2017"
     ],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": [
-      "googlemaps"
-    ],
-    "outDir": "./lib/",
-    "declaration": true,
-    "declarationMap": true,
-    "declarationDir": "./lib/",
+    "rootDir": "src",
     "strict": true,
-    "alwaysStrict": true,
-    "strictNullChecks": true,
-    "noEmit": false,
-    "noEmitOnError": true,
-    "diagnostics": false,
-    "extendedDiagnostics": true,
-    "disableSizeLimit": true,
-    "pretty": true,
-    "skipLibCheck": false,
-    "allowSyntheticDefaultImports": false, /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
-    "esModuleInterop": false, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     "allowJs": false,
     "checkJs": false,
     "noUnusedLocals": true,
@@ -50,12 +24,7 @@
     "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitThis": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "removeComments": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-    "./src/index.ts"
-  ]
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true
+  }
 }

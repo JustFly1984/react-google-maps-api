@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import * as invariant from "invariant"
+import invariant from "invariant"
 
 import {
   unregisterEvents,
