@@ -78,7 +78,8 @@
     "docs:dev": "npx styleguidist server --config ./styleguide.config.js --verbose",
     "docs:build": "npx styleguidist build --config ./styleguide.config.js --verbose",
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@react-google-maps/marker-clusterer": "1.2.3",

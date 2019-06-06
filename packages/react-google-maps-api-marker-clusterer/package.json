@@ -41,7 +41,8 @@
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
     "pub": "yarn build && yarn publish .",
-    "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
+    "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@types/googlemaps": "3.36.0"
