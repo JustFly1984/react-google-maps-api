@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/root",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "private": true,
   "description": "@react-google-maps API integration",
   "license": "MIT",
@@ -20,12 +20,6 @@
     "url": "https://github.com/JustFly1984/react-google-maps-api"
   },
   "scripts": {
-    "publish": "cd packages/react-google-maps-api && npm run build && cd ../.. && lerna publish",
-    "build:api": "cd packages/react-google-maps-api && npm run build && cd ../.. ",
-    "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn && yarn build && cd ../..",
-    "build:docs": "cd packages/react-google-maps-api && yarn && yarn docs:build && cd ../..",
-    "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start",
-    "test:api": "cd packages/react-google-maps-api && yarn test && cd ../.. ",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
     "clean": "rimraf ./yarn.lock ./packaje-lock.json ./node_modules/ && yarn",

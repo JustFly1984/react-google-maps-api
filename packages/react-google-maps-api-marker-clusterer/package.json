@@ -36,11 +36,11 @@
     "Marker"
   ],
   "scripts": {
-    "build": "tsdx build --name markerClusterer",
+    "build": "npx tsdx build --name markerClusterer",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
-    "pub": "yarn build && yarn publish .",
+    "pub": "yarn publish .",
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
     "prepublishOnly": "yarn build"
   },
@@ -80,5 +80,5 @@
     "typescript": "3.4.5",
     "webpack": "4.32.2"
   },
-  "gitHead": "4c487da5fec5e5d9e86f8d445248353b1f532a59"
+  "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }
