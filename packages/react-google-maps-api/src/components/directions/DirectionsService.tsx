@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import * as invariant from "invariant"
+import invariant from "invariant"
 
 interface DirectionsServiceState {
   directionsService: google.maps.DirectionsService | null;

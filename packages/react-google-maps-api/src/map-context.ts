@@ -1,5 +1,5 @@
 import { useContext, createContext } from "react"
-import * as invariant from "invariant"
+import invariant from "invariant"
 
 const MapContext = createContext<google.maps.Map | null>(null)
 

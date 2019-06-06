@@ -12,7 +12,8 @@
   "contributors": [
     "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)",
     "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)",
-    "Ivan Konev <ivankonev@gmail.com> (https://github.com/ivankonev)"
+    "Ivan Konev <ivankonev@gmail.com> (https://github.com/ivankonev)",
+    "Daniel K. <klenicak@gmail.com> (https://github.com/fredyc)"
   ],
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "test:api": "cd packages/react-google-maps-api && yarn test && cd ../.. ",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
+    "clean": "rimraf ./yarn.lock ./packaje-lock.json ./node_modules/ && yarn",
     "lint": "lerna run lint --scope=@react-google-maps/api --stream",
     "storybook": "lerna run start --scope=@react-google-maps/storybook --stream"
   },
@@ -40,11 +42,12 @@
     }
   },
   "devDependencies": {
-    "husky": "2.3.0",
+    "husky": "2.4.0",
     "jest-cli": "24.8.0",
     "lerna": "3.14.1",
-    "lint-staged": "8.1.7",
-    "ts-jest": "24.0.2"
+    "lint-staged": "8.2.0",
+    "ts-jest": "24.0.2",
+    "tsdx": "0.6.1"
   },
   "husky": {
     "hooks": {
