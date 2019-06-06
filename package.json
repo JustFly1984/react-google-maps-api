@@ -19,11 +19,17 @@
     "type": "git",
     "url": "https://github.com/JustFly1984/react-google-maps-api"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build --stream",
-    "build:docs": "cd packages/react-google-maps-api && yarn && yarn docs:build && cd ../..",
-    "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn && yarn build && cd ../..",
+    "prebuild": "yarn build:clusterer",
+    "build": "yarn build:gatsby",
+    "prebuild:docs": "yarn build:clusterer",
+    "build:docs": "cd packages/react-google-maps-api && yarn docs:build && cd ../..",
+    "build:clusterer": "cd packages/react-google-maps-api-marker-clusterer && yarn build && cd ../..",
+    "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn build && cd ../..",
     "clean": "rimraf ./yarn.lock ./package-lock.json ./node_modules/ && yarn",
     "lint": "lerna run lint --scope=@react-google-maps/api --stream",
     "storybook": "lerna run start --scope=@react-google-maps/storybook --stream"
@@ -38,6 +44,7 @@
     }
   },
   "devDependencies": {
+    "@types/react": "16.8.19",
     "husky": "2.4.0",
     "jest-cli": "24.8.0",
     "lerna": "3.14.1",
