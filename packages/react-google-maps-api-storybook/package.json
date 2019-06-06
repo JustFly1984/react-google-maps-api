@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/storybook",
-  "version": "1.2.3-alpha.12",
+  "version": "1.2.4",
   "description": "Storybook for @react-google-maps/api",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "lint": "npx eslint ./src --fix"
   },
   "dependencies": {
-    "@react-google-maps/api": "1.2.3",
+    "@react-google-maps/api": "^1.2.4",
     "react": "16.7.0",
     "react-dom": "16.7.0",
     "webpack": "4.29.1"
