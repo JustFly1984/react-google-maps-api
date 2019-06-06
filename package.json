@@ -22,7 +22,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
-    "clean": "rimraf ./yarn.lock ./packaje-lock.json ./node_modules/ && yarn",
+    "clean": "rimraf ./yarn.lock ./package-lock.json ./node_modules/ && yarn",
     "lint": "lerna run lint --scope=@react-google-maps/api --stream",
     "storybook": "lerna run start --scope=@react-google-maps/storybook --stream"
   },
