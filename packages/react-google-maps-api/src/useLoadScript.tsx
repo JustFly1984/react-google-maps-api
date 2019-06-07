@@ -6,6 +6,7 @@ import { preventGoogleFonts } from './utils/prevent-google-fonts'
 import { isBrowser } from './utils/isbrowser'
 import { defaultLoadScriptProps } from './LoadScript'
 import invariant from 'invariant';
+import { makeLoadScriptUrl } from './utils/make-load-script-url';
 
 export interface UseLoadScriptOptions {
   googleMapsApiKey?: string;
@@ -18,9 +19,11 @@ export interface UseLoadScriptOptions {
   preventGoogleFontsLoading?: boolean;
 }
 
+let previouslyLoadedUrl: string
+
 export function useLoadScript({
   id = defaultLoadScriptProps.id,
-  version = defaultLoadScriptProps.version,
+  version,
   googleMapsApiKey,
   googleMapsClientId,
   language,
@@ -45,7 +48,13 @@ export function useLoadScript({
     }
   }, [preventGoogleFontsLoading])
 
-  const url = makeUrl()
+  React.useEffect(function validateLoadedState() {
+    if (isLoaded) {
+      invariant((window as any).google, "useLoadScript was marked as loaded, but window.google is not present. Something went wrong.")
+    }
+  }, [isLoaded])
+
+  const url = makeLoadScriptUrl({ version, googleMapsApiKey, googleMapsClientId, language, region, libraries })
 
   React.useEffect(function loadScriptAndModifyLoadedState() {
     if (!isBrowser) {
@@ -55,12 +64,11 @@ export function useLoadScript({
     function setLoadedIfMounted() {
       if (isMounted.current) {
         setLoaded(true)
+        previouslyLoadedUrl = url
       }
     }
 
-    // @ts-ignore
-    if (window.google) {
-      console.error('google api is already presented')
+    if ((window as any).google && previouslyLoadedUrl === url) {
       setLoadedIfMounted()
       return
     }
@@ -89,36 +97,6 @@ export function useLoadScript({
     }
     prevLibraries.current = libraries
   }, [libraries])
-
-  function makeUrl() {
-    const params = []
-
-    if (googleMapsApiKey) {
-      params.push(`key=${googleMapsApiKey}`)
-    } else if (googleMapsClientId) {
-      params.push(`client=${googleMapsClientId}`)
-    } else {
-      invariant(false, "You need to specify either googleMapsApiKey or googleMapsClientId for @react-google-maps/api load script to work.")
-    }
-
-    if (version) {
-      params.push(`v=${version}`)
-    }
-
-    if (language) {
-      params.push(`language=${language}`)
-    }
-
-    if (region) {
-      params.push(`region=${region}`)
-    }
-
-    if (libraries && libraries.length) {
-      params.push(`libraries=${libraries.join(',')}`)
-    }
-
-    return `https://maps.googleapis.com/maps/api/js?${params.join('&')}`
-  }
 
   return { isLoaded, loadError, url }
 }

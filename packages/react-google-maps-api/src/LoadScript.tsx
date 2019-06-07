@@ -4,7 +4,7 @@ import { injectScript } from "./utils/injectscript"
 import { preventGoogleFonts } from "./utils/prevent-google-fonts"
 
 import { isBrowser } from "./utils/isbrowser"
-import invariant from "invariant";
+import { LoadScriptUrlOptions, makeLoadScriptUrl } from "./utils/make-load-script-url";
 
 let cleaningUp = false
 
@@ -12,14 +12,7 @@ interface LoadScriptState {
   loaded: boolean;
 }
 
-export interface LoadScriptProps {
-  googleMapsApiKey?: string;
-  googleMapsClientId?: string;
-  id?: string;
-  version?: string;
-  language?: string;
-  region?: string;
-  libraries?: string[];
+export interface LoadScriptProps extends LoadScriptUrlOptions {
   loadingElement?: React.ReactNode;
   onLoad?: () => void;
   onError?: (error: Error) => void;
@@ -177,41 +170,13 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   injectScript = () => {
-    const { googleMapsApiKey, googleMapsClientId, id, version, language, region, libraries, preventGoogleFontsLoading } = this.props
-
-    if (preventGoogleFontsLoading) {
+    if (this.props.preventGoogleFontsLoading) {
       preventGoogleFonts()
     }
 
-    const params = []
-
-    if (googleMapsApiKey) {
-      params.push(`key=${googleMapsApiKey}`)
-    } else if (googleMapsClientId) {
-      params.push(`client=${googleMapsClientId}`)
-    } else {
-      invariant(false, "You need to specify either googleMapsApiKey or googleMapsClientId for @react-google-maps/api load script to work.")
-    }
-
-    if (version) {
-      params.push(`v=${version}`)
-    }
-
-    if (language) {
-      params.push(`language=${language}`)
-    }
-
-    if (region) {
-      params.push(`region=${region}`)
-    }
-
-    if (libraries && libraries.length) {
-      params.push(`&libraries=${libraries.join(",")}`)
-    }
-
     const injectScriptOptions = {
-      id: id!,
-      url: `https://maps.googleapis.com/maps/api/js?${params.join('&')}`
+      id: this.props.id!,
+      url: makeLoadScriptUrl(this.props)
     }
 
     injectScript(injectScriptOptions)
@@ -234,7 +199,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
         }
 
         console.error(`
-          There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${googleMapsApiKey || '-'}) or Client ID (${googleMapsClientId || '-'}) to <LoadScript />
+          There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${this.props.googleMapsApiKey || '-'}) or Client ID (${this.props.googleMapsClientId || '-'}) to <LoadScript />
           Otherwise it is a Network issue.
         `)
       })
