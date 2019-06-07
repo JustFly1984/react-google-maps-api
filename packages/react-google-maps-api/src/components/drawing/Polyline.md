@@ -1,7 +1,7 @@
 # Polyline example
 
 ```jsx
-const { GoogleMap, LoadScript, Polyline } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>

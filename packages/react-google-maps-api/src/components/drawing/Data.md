@@ -1,7 +1,7 @@
 # Data example
 
 ```jsx
-const { GoogleMap, LoadScript, Data } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>

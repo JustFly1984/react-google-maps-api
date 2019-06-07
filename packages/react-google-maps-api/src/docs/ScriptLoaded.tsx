@@ -8,10 +8,10 @@ interface ScriptLoadedProps {
   children: React.ReactChild | React.ReactChildren | Function;
 }
 
-function SpanIntro (): JSX.Element {
+function SpanIntro(): JSX.Element {
   return (
     <span>
-      <a href='#introduction'>Enter API Key</a> to see examples
+      <a href='#section-introduction'>Enter API Key</a> to see examples
     </span>
   )
 }
@@ -39,7 +39,7 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   checkIfScriptLoaded = () => {
-    function serScriptLoaded () {
+    function serScriptLoaded() {
       return {
         scriptLoaded: true
       }
@@ -54,7 +54,7 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.clearInterval(this.interval)
   }
 
@@ -63,7 +63,7 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
       return <SpanIntro />
     }
 
-    return (this.props.children instanceof Function) ?  this.props.children() : this.props.children
+    return (this.props.children instanceof Function) ? this.props.children() : this.props.children
   }
 }
 

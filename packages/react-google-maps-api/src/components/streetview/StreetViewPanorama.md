@@ -1,7 +1,7 @@
 # StreetViewPanorama example
 
 ```jsx
-const { GoogleMap, LoadScript, StreetViewPanorama } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>

@@ -1,7 +1,7 @@
 # DrawingManager example
 
 ```jsx
-const { GoogleMap, LoadScript, DrawingManager } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>
