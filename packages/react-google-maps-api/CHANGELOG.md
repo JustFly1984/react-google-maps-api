@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.2.4 Fixed builds with TSDX
+
 ## 1.2.3 Added MarkerClusterer refactored to typescript.
 
 - Removed instans persistance feature due to bugs with google-maps-api.

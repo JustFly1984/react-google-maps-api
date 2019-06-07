@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/storybook",
-  "version": "1.2.3-alpha.12",
+  "version": "1.2.4",
   "description": "Storybook for @react-google-maps/api",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "lint": "npx eslint ./src --fix"
   },
   "dependencies": {
-    "@react-google-maps/api": "1.2.3-alpha.12",
+    "@react-google-maps/api": "^1.2.4",
     "react": "16.7.0",
     "react-dom": "16.7.0",
     "webpack": "4.29.1"
@@ -30,7 +30,6 @@
     "@emotion/core": "0",
     "@storybook/react": "4.1.11",
     "@types/googlemaps": "3.30.16",
-    "@types/react": "16.8.1",
     "babel-eslint": "9",
     "babel-loader": "8.0.5",
     "eslint": "5.13.0",
@@ -58,5 +57,5 @@
     "eslint-plugin-you-dont-need-lodash-underscore": "6.4.0",
     "prop-types": "15"
   },
-  "gitHead": "4c487da5fec5e5d9e86f8d445248353b1f532a59"
+  "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }

@@ -1,7 +1,7 @@
 {
   "name": "@react-google-maps/gatsby-example",
   "description": "React Google Maps Gatsby.js example",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "author": {
     "name": "Alexey Lyakhov",
     "email": "justfly1984@gmail.com",
@@ -19,12 +19,12 @@
     "@babel/runtime": "7.4.5",
     "@getify/eslint-plugin-proper-arrows": "8.0.1",
     "@hot-loader/react-dom": "16.8.6",
-    "@react-google-maps/api": "1.2.3",
+    "@react-google-maps/api": "1.2.4",
     "@typescript-eslint/eslint-plugin": "1.9.0",
     "eslint-config-prettier": "4.3.0",
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react-hooks": "1.6.0",
-    "gatsby": "2.7.3",
+    "gatsby": "2.8.5",
     "gatsby-plugin-eslint": "2.0.5",
     "gatsby-plugin-favicon": "^3.1.6",
     "gatsby-plugin-purgecss": "4.0.0",
@@ -49,9 +49,9 @@
     "stylelint-config-standard": "18.3.0",
     "stylelint-css-modules": "0.8.3",
     "stylelint-high-performance-animation": "1.2.1",
-    "typescript": "3.4.5",
+    "typescript": "3.5.1",
     "uniqid": "5.0.3",
-    "webpack": "4.32.2"
+    "webpack": "4.33.0"
   },
   "keywords": [
     "React",
@@ -82,8 +82,7 @@
     "@babel/plugin-transform-spread": "7.2.2",
     "@babel/preset-env": "7.4.5",
     "@babel/preset-react": "7.0.0",
-    "@types/googlemaps": "3.36.2",
-    "@types/react": "16.8.19",
+    "@types/googlemaps": "3.36.3",
     "acorn": "6.1.1",
     "babel-eslint": "10.0.1",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
@@ -116,5 +115,5 @@
     "type": "git",
     "url": "https://github.com/gatsbyjs/gatsby-starter-default"
   },
-  "gitHead": "4c487da5fec5e5d9e86f8d445248353b1f532a59"
+  "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }

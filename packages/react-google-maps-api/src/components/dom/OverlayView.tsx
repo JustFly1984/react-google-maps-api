@@ -2,7 +2,7 @@ import * as React from "react"
 // @ts-ignore
 import { createPortal } from "react-dom"
 
-import * as invariant from "invariant"
+import invariant from "invariant"
 
 import MapContext from "../../map-context"
 

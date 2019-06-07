@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/marker-clusterer",
-  "version": "1.2.3",
+  "version": "1.2.6",
   "description": "Marker Clusterer for React.js Google Maps API",
   "license": "MIT",
   "author": {
@@ -19,15 +19,13 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/index.js",
-  "browser": "umd/index.js",
-  "module": "esm/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "unpkg": "dist/markerclusterer.umd.production.js",
+  "module": "dist/markerclusterer.es.production.js",
   "files": [
-    "dist/",
-    "lib/",
     "src/",
-    "CHANGELOG.md"
+    "dist/"
   ],
   "keywords": [
     "React",
@@ -38,18 +36,17 @@
     "Marker"
   ],
   "scripts": {
-    "build": "yarn build:commonjs && yarn build:esm && yarn build:umd",
-    "build:commonjs": "rimraf ./lib && tsc -p ./tsconfig.json",
-    "build:esm": "rimraf ./esm && tsc -p ./tsconfig-esm.json",
-    "build:umd": "rimraf ./umd && tsc -p ./tsconfig-umd.json",
+    "build": "npx tsdx build --name markerClusterer",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
-    "pub": "yarn build && yarn publish .",
-    "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
+    "pub": "yarn publish .",
+    "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@types/googlemaps": "3.36.0"
+    "@types/googlemaps": "3.36.3",
+    "typescript": "3.5.1"
   },
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "8.0.1",
@@ -81,8 +78,8 @@
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.5.0",
     "rimraf": "2.6.3",
-    "typescript": "3.4.5",
-    "webpack": "4.32.2"
+    "typescript": "3.5.1",
+    "webpack": "4.33.0"
   },
-  "gitHead": "4c487da5fec5e5d9e86f8d445248353b1f532a59"
+  "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }
