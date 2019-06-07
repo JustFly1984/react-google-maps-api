@@ -5,6 +5,7 @@ import { preventGoogleFonts } from "./utils/prevent-google-fonts"
 
 import { isBrowser } from "./utils/isbrowser"
 import { LoadScriptUrlOptions, makeLoadScriptUrl } from "./utils/make-load-script-url";
+import invariant from "invariant";
 
 let cleaningUp = false
 
@@ -13,6 +14,7 @@ interface LoadScriptState {
 }
 
 export interface LoadScriptProps extends LoadScriptUrlOptions {
+  id?: string;
   loadingElement?: React.ReactNode;
   onLoad?: () => void;
   onError?: (error: Error) => void;
@@ -173,6 +175,8 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
     if (this.props.preventGoogleFontsLoading) {
       preventGoogleFonts()
     }
+
+    invariant(typeof this.props.id === 'string', 'LoadScript requires "id" prop to be a string')
 
     const injectScriptOptions = {
       id: this.props.id!,

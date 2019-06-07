@@ -3,7 +3,6 @@ import invariant from "invariant";
 export interface LoadScriptUrlOptions {
   googleMapsApiKey?: string;
   googleMapsClientId?: string;
-  id?: string;
   version?: string;
   language?: string;
   region?: string;

@@ -6,16 +6,10 @@ import { preventGoogleFonts } from './utils/prevent-google-fonts'
 import { isBrowser } from './utils/isbrowser'
 import { defaultLoadScriptProps } from './LoadScript'
 import invariant from 'invariant';
-import { makeLoadScriptUrl } from './utils/make-load-script-url';
+import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-script-url';
 
-export interface UseLoadScriptOptions {
-  googleMapsApiKey?: string;
-  googleMapsClientId?: string;
-  id?: string;
-  version?: string;
-  language?: string;
-  region?: string;
-  libraries?: string[];
+export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
+  id?: string
   preventGoogleFontsLoading?: boolean;
 }
 
@@ -23,7 +17,7 @@ let previouslyLoadedUrl: string
 
 export function useLoadScript({
   id = defaultLoadScriptProps.id,
-  version,
+  version = defaultLoadScriptProps.version,
   googleMapsApiKey,
   googleMapsClientId,
   language,
