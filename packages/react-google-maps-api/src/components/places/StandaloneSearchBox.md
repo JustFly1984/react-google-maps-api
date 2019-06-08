@@ -3,7 +3,7 @@
 Look at the console.log to see search results
 
 ```jsx
-const { GoogleMap, LoadScript, StandaloneSearchBox } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 

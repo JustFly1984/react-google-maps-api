@@ -1,7 +1,7 @@
 # Ground Overlay example
 
 ```jsx
-const { GoogleMap, LoadScript, GroundOverlay } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>

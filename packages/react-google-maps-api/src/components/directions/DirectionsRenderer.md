@@ -2,7 +2,7 @@
 
 ```jsx
 const { Component } = require('react');
-const { GoogleMap, LoadScript, DirectionsRenderer, DirectionsService } = require("../../");
+const { GoogleMap, LoadScript, DirectionsService } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 class Directions extends Component {

@@ -1,7 +1,7 @@
 # Marker example
 
 ```jsx
-const { GoogleMap, LoadScript, Marker } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>

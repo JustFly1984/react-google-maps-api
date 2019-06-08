@@ -1,7 +1,7 @@
 # Google Map example
 
 ```jsx
-const { GoogleMap, LoadScript } = require("./");
+const { LoadScript } = require("./LoadScript");
 const ScriptLoaded = require("./docs/ScriptLoaded").default;
 
 <ScriptLoaded>
@@ -18,4 +18,27 @@ const ScriptLoaded = require("./docs/ScriptLoaded").default;
     }}
   />
 </ScriptLoaded>;
+```
+
+## Map instance
+
+To access map instance (eg. to pan the map imperatively), you can utilize the `onLoad` prop of GoogleMap component.
+
+The GoogleMap component uses React Context internally to pass the map instance around. For the convenience the value is exposed with hook `useGoogleMap` (**_requires React 16.8+_**).
+
+```js static
+import React from 'react'
+import { useGoogleMap } from '@react-google-maps/api'
+
+function PanningComponent() {
+  const map = useGoogleMap()
+
+  React.useEffect(() => {
+    if (map) {
+      map.panTo(...)
+    }
+  }, [map])
+
+  return null
+}
 ```

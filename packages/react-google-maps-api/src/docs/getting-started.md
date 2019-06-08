@@ -1,5 +1,3 @@
-# Getting Started
-
 ## Install @react-google-maps/api
 
 ```bash
