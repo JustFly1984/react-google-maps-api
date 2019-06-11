@@ -30,7 +30,7 @@
     "build:clusterer": "cd packages/react-google-maps-api-marker-clusterer && yarn build && cd ../..",
     "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn build && cd ../..",
     "prebuild:docs": "yarn build:clusterer",
-    "prebuild:gatsby": "yarn build:clusterer",
+    "prebuild:gatsby": "yarn build:clusterer && yarn build:api",
     "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start && cd ../..",
     "prestart:gatsby": "yarn build:clusterer && yarn build:api",
     "clean": "rimraf ./yarn.lock ./package-lock.json ./node_modules/ && yarn",
