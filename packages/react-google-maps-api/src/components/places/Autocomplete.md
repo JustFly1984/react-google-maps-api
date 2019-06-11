@@ -2,6 +2,8 @@
 
 Look at the console.log to see search results
 
+Please do not forget to include "places" to libraries prop array on `<LoadingScript />`
+
 ```jsx
 const { Component } = require('react')
 const { GoogleMap, LoadScript } = require("../../");

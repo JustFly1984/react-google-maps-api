@@ -84,8 +84,7 @@ export class Autocomplete extends React.PureComponent<
   componentDidMount() {
     invariant(
       google.maps.places,
-      'Did you include "libraries=places" in the URL?',
-      "sdfs"
+      'You need to provide libraries={["places"]} prop to <LoadScript /> component'
     )
 
     // TODO: why is this possibly null

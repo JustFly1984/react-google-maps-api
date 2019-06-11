@@ -58,7 +58,7 @@ class StandaloneSearchBox extends React.PureComponent<
   componentDidMount() {
     invariant(
       google.maps.places,
-      'Did you include "libraries=places" in the URL?'
+      'You need to provide libraries={["places"]} prop to <LoadScript /> component'
     )
 
     if (

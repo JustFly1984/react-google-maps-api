@@ -24,8 +24,6 @@ const updaterMap = {
     provider: (input: string) => google.maps.StreetViewPanoramaData,
     options: any
   ) {
-    // TODO: fix googlemaps typings
-    // @ts-ignore
     instance.registerPanoProvider(provider, options)
   },
   links(
