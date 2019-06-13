@@ -1,7 +1,7 @@
 # OverlayView example
 
 ```jsx
-const { GoogleMap, LoadScript, OverlayView } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>

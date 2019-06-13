@@ -2,9 +2,11 @@
 
 Look at the console.log to see search results
 
+Please do not forget to include "places" to libraries prop array on `<LoadingScript />`
+
 ```jsx
 const { Component } = require('react')
-const { GoogleMap, LoadScript, Autocomplete } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 class MyMapWithAutocomplete extends Component {

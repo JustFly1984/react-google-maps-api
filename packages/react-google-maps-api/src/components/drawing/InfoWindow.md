@@ -1,7 +1,7 @@
 # InfoWindow example
 
 ```jsx
-const { GoogleMap, LoadScript, InfoWindow } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>

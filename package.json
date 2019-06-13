@@ -25,11 +25,14 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
+    "build:api": "cd packages/react-google-maps-api && yarn build && cd ../..",
     "build:docs": "cd packages/react-google-maps-api && yarn docs:build && cd ../..",
     "build:clusterer": "cd packages/react-google-maps-api-marker-clusterer && yarn build && cd ../..",
     "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn build && cd ../..",
     "prebuild:docs": "yarn build:clusterer",
-    "prebuild:gatsby": "yarn build:clusterer",
+    "prebuild:gatsby": "yarn build:clusterer && yarn build:api",
+    "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start && cd ../..",
+    "prestart:gatsby": "yarn build:clusterer && yarn build:api",
     "clean": "rimraf ./yarn.lock ./package-lock.json ./node_modules/ && yarn",
     "lint": "lerna run lint --scope=@react-google-maps/api --stream",
     "storybook": "lerna run start --scope=@react-google-maps/storybook --stream"
@@ -47,7 +50,7 @@
     "@types/react": "16.8.19",
     "husky": "2.4.0",
     "jest-cli": "24.8.0",
-    "lerna": "3.14.1",
+    "lerna": "3.15.0",
     "lint-staged": "8.2.0",
     "ts-jest": "24.0.2",
     "tsdx": "0.6.1"

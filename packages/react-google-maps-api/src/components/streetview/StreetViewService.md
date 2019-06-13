@@ -4,7 +4,7 @@ Look at the console.log to see request results
 
 
 ```jsx
-const { GoogleMap, LoadScript, StreetViewService } = require("../../");
+const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>
