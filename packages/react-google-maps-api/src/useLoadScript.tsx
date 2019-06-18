@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import { injectScript } from './utils/injectscript'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
 
 import { isBrowser } from './utils/isbrowser'
 import { defaultLoadScriptProps } from './LoadScript'
 import invariant from 'invariant';
 import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-script-url';
+import jsFetch from 'js-fetch'
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
   id?: string
@@ -50,6 +50,8 @@ export function useLoadScript({
 
   const url = makeLoadScriptUrl({ version, googleMapsApiKey, googleMapsClientId, language, region, libraries })
 
+  const loadedGoogleRef = React.useRef<typeof google>()
+
   React.useEffect(function loadScriptAndModifyLoadedState() {
     if (!isBrowser) {
       return
@@ -67,18 +69,12 @@ export function useLoadScript({
       return
     }
 
-    injectScript({ id, url })
-      .then(setLoadedIfMounted)
-      .catch(function handleInjectError(err) {
-        if (isMounted.current) {
-          setLoadError(err)
-        }
-        console.warn(`
-        There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${googleMapsApiKey || '-'}) or Client ID (${googleMapsClientId || '-'})
-        Otherwise it is a Network issue.
-      `)
-        console.error(err)
-      })
+    jsFetch(url, 'google', { async: true, id }, 5000).then((google: any) => {
+      loadedGoogleRef.current = google
+      setLoadedIfMounted()
+    }).catch((err: Error) => {
+      setLoadError(err)
+    })
   }, [id, url])
 
   const prevLibraries = React.useRef<undefined | string[]>()
@@ -92,5 +88,5 @@ export function useLoadScript({
     prevLibraries.current = libraries
   }, [libraries])
 
-  return { isLoaded, loadError, url }
+  return { isLoaded, loadError, url, google: loadedGoogleRef.current }
 }
