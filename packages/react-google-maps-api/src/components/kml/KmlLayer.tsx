@@ -20,7 +20,6 @@ const updaterMap = {
     instance.setOptions(options)
   },
   url(instance: google.maps.KmlLayer, url: string) {
-    console.log({instance, url})
     instance.setUrl(url)
   },
   zIndex(instance: google.maps.KmlLayer, zIndex: number) {
