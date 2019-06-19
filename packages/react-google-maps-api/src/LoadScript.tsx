@@ -161,7 +161,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
     Array.prototype.slice
       .call(document.getElementsByTagName("style"))
       .filter(function filter(style: HTMLStyleElement): boolean {
-        return style.innerText != undefined && style.innerText.length > 0 && style.innerText.includes(".gm-")
+        return style.innerText !== undefined && style.innerText.length > 0 && style.innerText.includes(".gm-")
       })
       .forEach(function forEach(style: HTMLStyleElement) {
         if (style.parentNode) {
