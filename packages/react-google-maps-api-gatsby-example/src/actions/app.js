@@ -14,6 +14,7 @@ import {
   BICYCLING_TOGGLE,
   GROUND_TOGGLE,
   OPTIONS_TOGGLE,
+  OVERLAY_VIEW_TOGGLE,
   STANDALONE_SEARCHBOX_TOGGLE
 } from '../action-types'
 
@@ -30,4 +31,5 @@ export const toggleDrawing = createAction(DRAWING_TOGGLE)
 export const toggleBicycling = createAction(BICYCLING_TOGGLE)
 export const toggleGround = createAction(GROUND_TOGGLE)
 export const toggleOptions = createAction(OPTIONS_TOGGLE)
+export const toggleOverlayView = createAction(OVERLAY_VIEW_TOGGLE)
 export const toggleStandaloneSearchbox = createAction(STANDALONE_SEARCHBOX_TOGGLE)
