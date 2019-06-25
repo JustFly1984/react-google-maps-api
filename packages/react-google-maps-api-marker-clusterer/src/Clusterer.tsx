@@ -39,7 +39,7 @@ const BATCH_SIZE = 2000
 
 const BATCH_SIZE_IE = 500
 
-const IMAGE_PATH = "https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/Clustererplus/images/m"
+const IMAGE_PATH = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
 
 const IMAGE_EXTENSION = "png"
 
