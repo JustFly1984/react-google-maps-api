@@ -10,7 +10,7 @@ import { GoogleMap, useLoadScript } from '@react-google-maps/api'
 
 function MyComponent() {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey="YOUR_API_KEY"
+    googleMapsApiKey: "YOUR_API_KEY"
     {...other options}
   })
 
