@@ -15,6 +15,7 @@ import {
   BICYCLING_TOGGLE,
   GROUND_TOGGLE,
   OPTIONS_TOGGLE,
+  OVERLAY_VIEW_TOGGLE,
   STANDALONE_SEARCHBOX_TOGGLE
 } from '../action-types'
 
@@ -32,6 +33,7 @@ const initialState = fromJS({
   bicycling: false,
   ground: false,
   options: false,
+  overlayView: false,
   standaloneSearchbox: false
 })
 
@@ -87,6 +89,10 @@ export default handleActions({
   [OPTIONS_TOGGLE]: (state, { payload: { options } }) =>
     state.merge({
       options
+    }),
+  [OVERLAY_VIEW_TOGGLE]: (state, { payload: { overlayView } }) =>
+    state.merge({
+      overlayView
     }),
   [STANDALONE_SEARCHBOX_TOGGLE]: (state, { payload: { standaloneSearchbox } }) =>
     state.merge({

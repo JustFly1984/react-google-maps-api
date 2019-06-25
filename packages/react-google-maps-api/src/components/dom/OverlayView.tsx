@@ -25,6 +25,20 @@ export interface OverlayViewProps {
   onUnmount?: (overlayView: google.maps.OverlayView) => void;
 }
 
+interface ContentMountHandlerProps {
+  onLoad?: () => void;
+}
+
+class ContentMountHandler extends React.Component<ContentMountHandlerProps> {
+  componentDidMount() {
+    if (this.props.onLoad) this.props.onLoad();
+  }
+
+  render() {
+    return this.props.children;
+  }
+}
+
 export class OverlayView extends React.PureComponent<
   OverlayViewProps,
   OverlayViewState
@@ -48,6 +62,8 @@ export class OverlayView extends React.PureComponent<
     if (this.state.overlayView !== null && this.props.onLoad) {
       this.props.onLoad(this.state.overlayView)
     }
+
+    this.onPositionElement();
   }
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
@@ -140,7 +156,7 @@ export class OverlayView extends React.PureComponent<
       }
     }
 
-    this.setState(setOverlayView, this.setOverlayViewCallback)
+    this.setState(setOverlayView)
   }
 
   componentDidUpdate(prevProps: OverlayViewProps) {
@@ -167,7 +183,9 @@ export class OverlayView extends React.PureComponent<
   render() {
     return this.containerElement !== null ? (
       createPortal(
-        React.Children.only(this.props.children),
+        <ContentMountHandler onLoad={this.setOverlayViewCallback}>
+          {React.Children.only(this.props.children)}
+        </ContentMountHandler>,
         this.containerElement
       )
     ) : (
