@@ -113,6 +113,11 @@ export {
 } from "./components/directions/DirectionsRenderer"
 
 export {
+  default as DistanceMatrixService,
+  DistanceMatrixServiceProps
+} from "./components/distance-matrix/DistanceMatrixService"
+
+export {
   default as StandaloneSearchBox,
   StandaloneSearchBoxProps
 } from "./components/places/StandaloneSearchBox"
