@@ -51,7 +51,7 @@
     "stylelint-high-performance-animation": "1.2.1",
     "typescript": "3.5.1",
     "uniqid": "5.0.3",
-    "webpack": "4.33.0"
+    "webpack": "^4.35.0"
   },
   "keywords": [
     "React",
