@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/root",
-  "version": "1.2.4",
+  "version": "1.4.0",
   "private": true,
   "description": "@react-google-maps API integration",
   "license": "MIT",
@@ -38,22 +38,20 @@
     "storybook": "lerna run start --scope=@react-google-maps/storybook --stream"
   },
   "lint-staged": {
-    "linters": {
-      "*.{js|ts|tsx}": [
-        "npx eslint --fix",
-        "tsc --noEmit",
-        "git add -A"
-      ]
-    }
+    "*.{js|ts|tsx}": [
+      "npx eslint --fix",
+      "tsc --noEmit --jsx react --esModuleInterop",
+      "git add -A"
+    ]
   },
   "devDependencies": {
-    "@types/react": "16.8.19",
-    "husky": "2.4.0",
+    "@types/react": "16.8.23",
+    "husky": "3.0.0",
     "jest-cli": "24.8.0",
     "lerna": "3.15.0",
-    "lint-staged": "8.2.0",
+    "lint-staged": "9.1.0",
     "ts-jest": "24.0.2",
-    "tsdx": "0.6.1"
+    "tsdx": "0.7.2"
   },
   "husky": {
     "hooks": {

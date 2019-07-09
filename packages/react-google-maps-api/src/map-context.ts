@@ -8,6 +8,7 @@ export function useGoogleMap(): google.maps.Map | null {
     !!useContext,
     "useGoogleMap is React hook and requires React version 16.8+",
   )
+
   const map = useContext(MapContext)
 
   invariant(

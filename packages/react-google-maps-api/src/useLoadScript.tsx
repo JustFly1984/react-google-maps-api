@@ -1,15 +1,16 @@
+/* eslint-disable filenames/match-regex */
 import * as React from 'react'
-
-import { injectScript } from './utils/injectscript'
-import { preventGoogleFonts } from './utils/prevent-google-fonts'
+import invariant from 'invariant'
 
 import { isBrowser } from './utils/isbrowser'
+import { injectScript } from './utils/injectscript'
+import { preventGoogleFonts } from './utils/prevent-google-fonts'
+import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-script-url'
+
 import { defaultLoadScriptProps } from './LoadScript'
-import invariant from 'invariant';
-import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-script-url';
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
-  id?: string
+  id?: string;
   preventGoogleFontsLoading?: boolean;
 }
 
@@ -44,7 +45,11 @@ export function useLoadScript({
 
   React.useEffect(function validateLoadedState() {
     if (isLoaded) {
-      invariant((window as any).google, "useLoadScript was marked as loaded, but window.google is not present. Something went wrong.")
+      invariant(
+        // @ts-ignore
+        !!window.google,
+        "useLoadScript was marked as loaded, but window.google is not present. Something went wrong."
+      )
     }
   }, [isLoaded])
 

@@ -32,7 +32,7 @@ yarn add @react-google-maps/api
 - Uses the new Context API
 - Supports async React (StrictMode complient)
 - Removes lodash dependency =>
-  smaller bundle size `12.4kb` gzip, tree-shakeable [https://bundlephobia.com/result?p=@react-google-maps/api@1.0.0](https://bundlephobia.com/result?p=@react-google-maps/api@1.0.0)
+  smaller bundle size `12.4kb` gzip, tree-shakeable [https://bundlephobia.com/result?p=@react-google-maps/api@1.4.0](https://bundlephobia.com/result?p=@react-google-maps/api@1.4.0)
 - forbids loading of Roboto fonts, if you set property preventGoogleFonts on `<LoadScript preventGoogleFonts />` component
 
 ## Examples
@@ -93,3 +93,5 @@ Since version 1.2.2 We added useGoogleMap hook, which is working only with React
 ## Websites made with @react-google-maps-api
 
 [DriveFromTo.com](https://www.drivefromto.com/en) Transfer Booking service PWA.
+
+add your website by making PR!

@@ -41,8 +41,8 @@ export interface HeatmapLayerProps {
 }
 
 export class HeatmapLayer extends React.PureComponent<
-  HeatmapLayerProps,
-  HeatmapLayerState
+HeatmapLayerProps,
+HeatmapLayerState
 > {
   static contextType = MapContext
 
@@ -61,13 +61,15 @@ export class HeatmapLayer extends React.PureComponent<
 
   componentDidMount() {
     invariant(
-      google.maps.visualization,
-      'Did you include "visualization" in the libraries array prop in <LoadScript />?'
+      !!google.maps.visualization,
+      'Did you include prop libraries={["visualization"]} to <LoadScript />? %s',
+      google.maps.visualization
     )
 
     invariant(
-      this.props.data,
-      "data property is required in HeatmapLayer"
+      !!this.props.data,
+      "data property is required in HeatmapLayer %s",
+      this.props.data
     )
 
     const heatmapLayer = new google.maps.visualization.HeatmapLayer({

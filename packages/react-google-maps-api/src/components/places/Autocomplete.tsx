@@ -58,8 +58,8 @@ export interface AutocompleteProps {
 }
 
 export class Autocomplete extends React.PureComponent<
-  AutocompleteProps,
-  AutocompleteState
+AutocompleteProps,
+AutocompleteState
 > {
   static contextType = MapContext
 
@@ -79,8 +79,9 @@ export class Autocomplete extends React.PureComponent<
 
   componentDidMount() {
     invariant(
-      google.maps.places,
-      'You need to provide libraries={["places"]} prop to <LoadScript /> component'
+      !!google.maps.places,
+      'You need to provide libraries={["places"]} prop to <LoadScript /> component %s',
+      google.maps.places
     )
 
     // TODO: why is this possibly null

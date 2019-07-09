@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import invariant from "invariant"
 
 interface DirectionsServiceState {
@@ -20,8 +19,8 @@ export interface DirectionsServiceProps {
 }
 
 export class DirectionsService extends React.PureComponent<
-  DirectionsServiceProps,
-  DirectionsServiceState
+DirectionsServiceProps,
+DirectionsServiceState
 > {
   state: DirectionsServiceState = {
     directionsService: null

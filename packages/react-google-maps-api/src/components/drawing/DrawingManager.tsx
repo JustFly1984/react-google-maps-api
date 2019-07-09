@@ -52,8 +52,8 @@ export interface DrawingManagerProps {
 }
 
 export class DrawingManager extends React.PureComponent<
-  DrawingManagerProps,
-  DrawingManagerState
+DrawingManagerProps,
+DrawingManagerState
 > {
   static contextType = MapContext
 
@@ -67,8 +67,9 @@ export class DrawingManager extends React.PureComponent<
     super(props)
 
     invariant(
-      google.maps.drawing,
-      'Did you include "libraries=drawing" in the URL?'
+      !!google.maps.drawing,
+      `Did you include prop libraries={['drawing']} in the URL? %s`,
+      google.maps.drawing
     )
   }
 

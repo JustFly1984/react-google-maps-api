@@ -35,8 +35,8 @@ export interface StandaloneSearchBoxProps {
 }
 
 class StandaloneSearchBox extends React.PureComponent<
-  StandaloneSearchBoxProps,
-  StandaloneSearchBoxState
+StandaloneSearchBoxProps,
+StandaloneSearchBoxState
 > {
   static contextType = MapContext
 
@@ -57,8 +57,9 @@ class StandaloneSearchBox extends React.PureComponent<
 
   componentDidMount() {
     invariant(
-      google.maps.places,
-      'You need to provide libraries={["places"]} prop to <LoadScript /> component'
+      !!google.maps.places,
+      'You need to provide libraries={["places"]} prop to <LoadScript /> component %s',
+      google.maps.places
     )
 
     if (

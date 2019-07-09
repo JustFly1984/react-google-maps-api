@@ -4,8 +4,9 @@ import { injectScript } from "./utils/injectscript"
 import { preventGoogleFonts } from "./utils/prevent-google-fonts"
 
 import { isBrowser } from "./utils/isbrowser"
-import { LoadScriptUrlOptions, makeLoadScriptUrl } from "./utils/make-load-script-url";
-import invariant from "invariant";
+import { LoadScriptUrlOptions, makeLoadScriptUrl } from "./utils/make-load-script-url"
+
+import invariant from "invariant"
 
 let cleaningUp = false
 
@@ -14,7 +15,7 @@ interface LoadScriptState {
 }
 
 export interface LoadScriptProps extends LoadScriptUrlOptions {
-  id?: string;
+  id: string;
   loadingElement?: React.ReactNode;
   onLoad?: () => void;
   onError?: (error: Error) => void;
@@ -53,10 +54,13 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
       // @ts-ignore
       if (window.google && !cleaningUp) {
         console.error("google api is already presented")
+
         return
       }
 
-      this.isCleaningUp().then(this.injectScript)
+      this.isCleaningUp()
+        .then(this.injectScript)
+        .catch(function err (err) { console.error("Error at injecting script after cleaning up: ", err)})
     }
   }
 
@@ -96,7 +100,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
         }
       }
 
-      setTimeout(timeoutCallback, 1)
+      window.setTimeout(timeoutCallback, 1)
 
       if (this.props.onUnmount) {
         this.props.onUnmount()
@@ -130,7 +134,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
   cleanup = () => {
     cleaningUp = true
-    const script = document.getElementById(this.props.id!)
+    const script = document.getElementById(this.props.id)
 
     if (script && script.parentNode) {
       script.parentNode.removeChild(script)
@@ -176,10 +180,14 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
       preventGoogleFonts()
     }
 
-    invariant(typeof this.props.id === 'string', 'LoadScript requires "id" prop to be a string')
+    invariant(
+      !!this.props.id,
+      'LoadScript requires "id" prop to be a string: %s',
+      this.props.id
+    )
 
     const injectScriptOptions = {
-      id: this.props.id!,
+      id: this.props.id,
       url: makeLoadScriptUrl(this.props)
     }
 

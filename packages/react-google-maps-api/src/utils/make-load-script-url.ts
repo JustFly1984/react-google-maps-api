@@ -1,4 +1,4 @@
-import invariant from "invariant";
+import invariant from "invariant"
 
 export interface LoadScriptUrlOptions {
   googleMapsApiKey?: string;
