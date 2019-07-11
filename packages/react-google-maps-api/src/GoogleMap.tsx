@@ -79,6 +79,7 @@ export interface GoogleMapProps {
   center?: google.maps.LatLng | google.maps.LatLngLiteral;
   clickableIcons?: boolean;
   heading?: number;
+  map?: google.maps.Map;
   mapTypeId?: string;
   streetView?: google.maps.StreetViewPanorama;
   tilt?: number;
@@ -117,7 +118,7 @@ export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapStat
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   getInstance = (): google.maps.Map | null => {
-    return new google.maps.Map(this.mapRef, this.props.options)
+    return this.props.map || new google.maps.Map(this.mapRef, this.props.options)
   }
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
@@ -131,6 +132,11 @@ export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapStat
 
   componentDidMount() {
     const map = this.getInstance()
+
+    if(this.props.map){
+      this.mapRef.appendChild(myFormDomElement)
+      map.setOptions(this.props.options)
+    }
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
