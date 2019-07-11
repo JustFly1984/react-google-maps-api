@@ -133,8 +133,8 @@ export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapStat
   componentDidMount() {
     const map = this.getInstance()
 
-    if(this.props.map){
-      this.mapRef.appendChild(myFormDomElement)
+    if(this.props.map && map){
+      this.mapRef.appendChild(map.getDiv())
       map.setOptions(this.props.options)
     }
 
