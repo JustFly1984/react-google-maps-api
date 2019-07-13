@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/api",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "React.js Google Maps API integration",
   "license": "MIT",
   "author": {
@@ -82,7 +82,8 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@react-google-maps/marker-clusterer": "1.4.0"
+    "@react-google-maps/marker-clusterer": "1.4.1",
+    "invariant": "2.2.4"
   },
   "peerDependencies": {
     "react": "^16.6.3",
@@ -123,7 +124,6 @@
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.5.0",
     "husky": "2.4.0",
-    "invariant": "2.2.4",
     "jest": "24.8.0",
     "jest-cli": "24.8.0",
     "react": "16.8.6",
