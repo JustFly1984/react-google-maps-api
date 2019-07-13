@@ -2503,11 +2503,6 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@react-google-maps/marker-clusterer@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.4.0.tgz#3a9888011ea20cd60e7092d9921bbc1612ecd2ff"
-  integrity sha512-VHQSVY7JZRNWNCUGi6sIvHwl7LOxNGnLy/dkMaZSGNOKJwQoKf6aSipdwCJ9McSLXTI3eovmocIkSaiRx1p+cg==
-
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -8028,9 +8023,9 @@ fault@^1.0.2:
   dependencies:
     format "^0.2.2"
 
-"favicons-webpack-plugin@git+https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf":
+"favicons-webpack-plugin@https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf":
   version "0.0.9"
-  resolved "git+https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf"
+  resolved "https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf"
   dependencies:
     core-js "^2.5.7"
     favicons "^5.1.1"
