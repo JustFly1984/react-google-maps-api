@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.4.2 Fix onOverlayComplete
+
 ## 1.4.0 Added DistanceMatrixService, fixed invariant errors, fixed getPixelPositionOffset in OverlayView, updated @react-google-maps/marker-clusterer@1.4.0
 
 ## 1.2.4 Fixed builds with TSDX
