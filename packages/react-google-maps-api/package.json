@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/api",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "React.js Google Maps API integration",
   "license": "MIT",
   "author": {
@@ -91,14 +91,14 @@
   },
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "8.0.1",
-    "@testing-library/react": "8.0.4",
+    "@testing-library/react": "8.0.5",
     "@types/babel-types": "7.0.7",
-    "@types/googlemaps": "3.36.6",
+    "@types/googlemaps": "3.37.0",
     "@types/invariant": "2.2.30",
     "@types/jest": "24.0.15",
     "@types/react-dom": "16.8.4",
-    "@typescript-eslint/eslint-plugin": "1.11.0",
-    "@typescript-eslint/parser": "1.11.0",
+    "@typescript-eslint/eslint-plugin": "1.12.0",
+    "@typescript-eslint/parser": "1.12.0",
     "acorn": "6.2.0",
     "awesome-typescript-loader": "5.2.1",
     "eslint": "5.16.0",
@@ -133,7 +133,7 @@
     "rimraf": "2.6.3",
     "ts-jest": "24.0.2",
     "typescript": "3.5.3",
-    "webpack": "^4.35.0"
+    "webpack": "4.35.3"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }
