@@ -46,5 +46,7 @@ export function makeLoadScriptUrl({
     params.push(`libraries=${libraries.join(",")}`)
   }
 
+  params.push('callback=initMap')
+
   return `https://maps.googleapis.com/maps/api/js?${params.join('&')}`
 }
