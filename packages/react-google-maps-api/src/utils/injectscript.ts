@@ -9,8 +9,6 @@ interface InjectScriptArg {
   id: string;
 }
 
-const windowWithGoogleMap: WindowWithGoogleMap = window
-
 export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
   if (!isBrowser) {
     return Promise.reject(new Error("document is undefined"))
@@ -27,6 +25,11 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
       else {
         existingScript.remove()
       }
+    }
+    const windowWithGoogleMap: WindowWithGoogleMap = window
+
+    if (document.getElementById(id)) {
+      return resolve(id)
     }
 
     const script = document.createElement("script")
