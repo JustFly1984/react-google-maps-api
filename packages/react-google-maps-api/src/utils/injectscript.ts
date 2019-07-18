@@ -11,8 +11,16 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
   }
 
   return new Promise(function injectScriptCallback(resolve, reject) {
-    if (document.getElementById(id)) {
-      return resolve(id)
+    const existingScript = document.getElementById(id) as HTMLScriptElement | undefined
+    if (existingScript) {
+      // Same script id/url: keep same script
+      if (existingScript.src === url) {
+        return resolve(id)
+      }
+      // Same script id but url changed: recreate the script
+      else {
+        existingScript.remove()
+      }
     }
 
     const script = document.createElement("script")
