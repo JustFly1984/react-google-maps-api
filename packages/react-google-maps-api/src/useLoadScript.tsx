@@ -8,6 +8,7 @@ import { preventGoogleFonts } from './utils/prevent-google-fonts'
 import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-script-url'
 
 import { defaultLoadScriptProps } from './LoadScript'
+import { useCallback } from 'react'
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
   id?: string;
@@ -15,6 +16,17 @@ export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
 }
 
 let previouslyLoadedUrl: string
+
+const useIsMounted = () => {
+  const isMountedRef = React.useRef(false)
+  React.useEffect(function trackMountedState() {
+    isMountedRef.current = true
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
+  return useCallback(() => isMountedRef.current,[]);
+}
 
 export function useLoadScript({
   id = defaultLoadScriptProps.id,
@@ -26,16 +38,9 @@ export function useLoadScript({
   libraries,
   preventGoogleFontsLoading,
 }: UseLoadScriptOptions) {
-  const isMounted = React.useRef(false)
+  const isMounted = useIsMounted();
   const [isLoaded, setLoaded] = React.useState(false)
   const [loadError, setLoadError] = React.useState<Error | undefined>(undefined)
-
-  React.useEffect(function trackMountedState() {
-    isMounted.current = true
-    return () => {
-      isMounted.current = false
-    }
-  }, [])
 
   React.useEffect(function applyPreventGoogleFonts() {
     if (isBrowser && preventGoogleFontsLoading) {
@@ -60,8 +65,15 @@ export function useLoadScript({
       return
     }
 
+    function resetStateIfMounted() {
+      if (isMounted()) {
+        setLoaded(false)
+        setLoadError(undefined)
+      }
+    }
+
     function setLoadedIfMounted() {
-      if (isMounted.current) {
+      if (isMounted()) {
         setLoaded(true)
         previouslyLoadedUrl = url
       }
@@ -72,10 +84,12 @@ export function useLoadScript({
       return
     }
 
+    resetStateIfMounted();
+
     injectScript({ id, url })
       .then(setLoadedIfMounted)
       .catch(function handleInjectError(err) {
-        if (isMounted.current) {
+        if (isMounted()) {
           setLoadError(err)
         }
         console.warn(`
