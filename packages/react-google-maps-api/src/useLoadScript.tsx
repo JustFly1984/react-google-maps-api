@@ -8,7 +8,7 @@ import { preventGoogleFonts } from './utils/prevent-google-fonts'
 import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-script-url'
 
 import { defaultLoadScriptProps } from './LoadScript'
-import { useCallback } from 'react'
+import useIsMounted from './utils/useIsMounted'
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
   id?: string;
@@ -16,17 +16,6 @@ export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
 }
 
 let previouslyLoadedUrl: string
-
-const useIsMounted = () => {
-  const isMountedRef = React.useRef(false)
-  React.useEffect(function trackMountedState() {
-    isMountedRef.current = true
-    return () => {
-      isMountedRef.current = false
-    }
-  }, [])
-  return () => isMountedRef.current
-}
 
 export function useLoadScript({
   id = defaultLoadScriptProps.id,
