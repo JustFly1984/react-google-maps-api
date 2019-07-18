@@ -25,7 +25,7 @@ const useIsMounted = () => {
       isMountedRef.current = false
     }
   }, [])
-  return useCallback(() => isMountedRef.current,[]);
+  return () => isMountedRef.current
 }
 
 export function useLoadScript({
