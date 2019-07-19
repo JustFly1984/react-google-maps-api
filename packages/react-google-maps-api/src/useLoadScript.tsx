@@ -9,13 +9,24 @@ import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-scrip
 
 import { defaultLoadScriptProps } from './LoadScript'
 import useIsMounted from './utils/useIsMounted'
+import { createUseAtMostOnce } from './utils/useAtMostOnce'
+import usePrevious from './utils/usePrevious'
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
-  id?: string;
-  preventGoogleFontsLoading?: boolean;
+  id?: string
+  preventGoogleFontsLoading?: boolean
 }
 
 let previouslyLoadedUrl: string
+
+const useLoadScriptAtMostOnce = createUseAtMostOnce("useLoadScript should only be used at most once. The google script is loaded globally, and one hook's load could override another hook's load")
+
+const useIdNeverChange = (id: string) => {
+  const previousId = usePrevious(id) || id;
+  if (id !== previousId) {
+    throw new Error('useLoadScript does not support changing dynamically the script id')
+  }
+}
 
 export function useLoadScript({
   id = defaultLoadScriptProps.id,
@@ -25,9 +36,12 @@ export function useLoadScript({
   language,
   region,
   libraries,
-  preventGoogleFontsLoading,
+  preventGoogleFontsLoading
 }: UseLoadScriptOptions) {
-  const isMounted = useIsMounted();
+  useLoadScriptAtMostOnce()
+  useIdNeverChange(id);
+
+  const isMounted = useIsMounted()
   const [isLoaded, setLoaded] = React.useState(false)
   const [loadError, setLoadError] = React.useState<Error | undefined>(undefined)
 
@@ -55,14 +69,14 @@ export function useLoadScript({
     }
 
     function resetStateIfMounted() {
-      if (isMounted()) {
+      if (isMounted.current) {
         setLoaded(false)
         setLoadError(undefined)
       }
     }
 
     function setLoadedIfMounted() {
-      if (isMounted()) {
+      if (isMounted.current) {
         setLoaded(true)
         previouslyLoadedUrl = url
       }
@@ -78,7 +92,7 @@ export function useLoadScript({
     injectScript({ id, url })
       .then(setLoadedIfMounted)
       .catch(function handleInjectError(err) {
-        if (isMounted()) {
+        if (isMounted.current) {
           setLoadError(err)
         }
         console.warn(`

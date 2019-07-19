@@ -8,7 +8,7 @@ const useIsMounted = () => {
       isMountedRef.current = false
     }
   }, [])
-  return () => isMountedRef.current
+  return isMountedRef
 }
 
 export default useIsMounted;
