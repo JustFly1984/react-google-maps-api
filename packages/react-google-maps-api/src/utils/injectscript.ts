@@ -1,5 +1,9 @@
 import { isBrowser } from "./isbrowser"
 
+interface WindowWithGoogleMap extends Window {
+  initMap?: () => void
+}
+
 interface InjectScriptArg {
   url: string;
   id: string;
@@ -22,6 +26,11 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
         existingScript.remove()
       }
     }
+    const windowWithGoogleMap: WindowWithGoogleMap = window
+
+    if (document.getElementById(id)) {
+      return resolve(id)
+    }
 
     const script = document.createElement("script")
 
@@ -29,10 +38,11 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     script.src = url
     script.id = id
     script.async = true
-    script.onload = function onload() {
+    script.onerror = reject
+
+    windowWithGoogleMap.initMap = function onload() {
       resolve(id)
     }
-    script.onerror = reject
 
     document.head.appendChild(script)
   })
