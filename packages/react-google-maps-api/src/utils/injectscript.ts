@@ -26,7 +26,9 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
         else {
           const onGoogleMapsReadyClosure = windowWithGoogleMap.initMap
           existingScript.onload = function() {
-            onGoogleMapsReadyClosure()
+            if(onGoogleMapsReadyClosure) {
+              onGoogleMapsReadyClosure()
+            }
             resolve(id)
           }
         }
