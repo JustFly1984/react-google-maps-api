@@ -1,7 +1,7 @@
 import { isBrowser } from "./isbrowser"
 
 interface WindowWithGoogleMap extends Window {
-  initMap?: () => void
+  initMap?: () => void;
 }
 
 interface InjectScriptArg {
@@ -16,17 +16,26 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
 
   return new Promise(function injectScriptCallback(resolve, reject) {
     const existingScript = document.getElementById(id) as HTMLScriptElement | undefined
+    const windowWithGoogleMap: WindowWithGoogleMap = window
     if (existingScript) {
       // Same script id/url: keep same script
       if (existingScript.src === url) {
-        return resolve(id)
+        if(existingScript.getAttribute('state') === 'ready') {
+          return resolve(id)
+        }
+        else {
+          const onGoogleMapsReadyClosure = windowWithGoogleMap.initMap
+          existingScript.onload = function() {
+            onGoogleMapsReadyClosure()
+            resolve(id)
+          }
+        }
       }
       // Same script id but url changed: recreate the script
       else {
         existingScript.remove()
       }
     }
-    const windowWithGoogleMap: WindowWithGoogleMap = window
 
     if (document.getElementById(id)) {
       return resolve(id)
@@ -39,8 +48,10 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     script.id = id
     script.async = true
     script.onerror = reject
+    script.setAttribute('state', 'loading')
 
     windowWithGoogleMap.initMap = function onload() {
+      script.setAttribute('state', 'ready')
       resolve(id)
     }
 
