@@ -31,16 +31,14 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
             }
             resolve(id)
           }
+
+          return
         }
       }
       // Same script id but url changed: recreate the script
       else {
         existingScript.remove()
       }
-    }
-
-    if (document.getElementById(id)) {
-      return resolve(id)
     }
 
     const script = document.createElement("script")
