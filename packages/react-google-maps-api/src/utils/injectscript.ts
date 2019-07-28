@@ -25,7 +25,7 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
         }
         else {
           const onGoogleMapsReadyClosure = windowWithGoogleMap.initMap
-          existingScript.onload = function() {
+          windowWithGoogleMap.initMap = function() {
             if(onGoogleMapsReadyClosure) {
               onGoogleMapsReadyClosure()
             }
@@ -51,6 +51,7 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     script.setAttribute('state', 'loading')
 
     windowWithGoogleMap.initMap = function onload() {
+
       script.setAttribute('state', 'ready')
       resolve(id)
     }
