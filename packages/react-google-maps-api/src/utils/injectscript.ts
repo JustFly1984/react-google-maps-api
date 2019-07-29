@@ -24,10 +24,10 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
           return resolve(id)
         }
         else {
-          const onGoogleMapsReadyClosure = windowWithGoogleMap.initMap
+          const originalInitMap = windowWithGoogleMap.initMap
           windowWithGoogleMap.initMap = function() {
-            if(onGoogleMapsReadyClosure) {
-              onGoogleMapsReadyClosure()
+            if(originalInitMap) {
+              originalInitMap()
             }
             resolve(id)
           }

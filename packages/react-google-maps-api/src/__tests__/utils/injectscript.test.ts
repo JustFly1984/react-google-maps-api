@@ -4,21 +4,7 @@ interface WindowWithGoogleMap extends Window {
   initMap?: () => void;
 }
 
-// interface ScriptWithOnErrorHandler extends Element {
-//     onerror?: (err: Error) => void;
-// }
-
 describe('utils/injectScript', () => {
-  // let urls: string[] = [];
-
-  // function createScriptUrl(script = '(function(){ var a = 1; })()') {
-  //     const b = new Blob([script], { type: 'text/javascript' });
-  //     const url = URL.createObjectURL(b);
-  //     urls.push(url)
-  //     return url;
-  // }
-
-  // afterAll(() => urls.forEach(url => URL.revokeObjectURL(url)));
 
   describe('injectScript', () => {
     it('adds a script to the page with id and src attributes that correspond to the id and url properties', () => {
@@ -59,28 +45,6 @@ describe('utils/injectScript', () => {
       })
         .then(value => expect(value).toBeTruthy())
     })
-
-
-    // it('returns a promise which rejects if the script does not load', () => {
-    //     const id = 'injectScript-test3'
-    //     const url = `http://localhost/script3.js`
-
-    //     setTimeout(() => {
-    //         const script: ScriptWithOnErrorHandler | null = document.querySelector(id);
-    //         console.log(script && script.onerror);
-    //         console.log('onerror');
-    //         if(script && script.onerror) {
-    //             script.onerror(new Error());
-    //         }
-    //     }, 0)
-
-    //     return injectScript({
-    //         id,
-    //         url,
-    //     })
-    //         .then(() => expect('This then should not run').toBe(''))
-    //         .catch(value => expect(value).toBeInstanceOf(Error))
-    // })
 
     describe('duplicate calls with matching id and url properties', () => {
       it('do not add another script element to the page', () => {
