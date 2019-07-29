@@ -43,7 +43,7 @@ export function makeLoadScriptUrl({
   }
 
   if (libraries && libraries.length) {
-    params.push(`libraries=${libraries.join(",")}`)
+    params.push(`libraries=${libraries.sort().join(",")}`)
   }
 
   params.push('callback=initMap')
