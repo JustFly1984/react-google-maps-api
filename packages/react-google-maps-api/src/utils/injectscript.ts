@@ -48,7 +48,6 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     script.id = id
     script.async = true
     script.onerror = reject
-    script.setAttribute('data-state', 'loading')
 
     windowWithGoogleMap.initMap = function onload() {
 
