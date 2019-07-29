@@ -20,7 +20,7 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     if (existingScript) {
       // Same script id/url: keep same script
       if (existingScript.src === url) {
-        if(existingScript.getAttribute('state') === 'ready') {
+        if(existingScript.getAttribute('data-state') === 'ready') {
           return resolve(id)
         }
         else {
@@ -48,11 +48,11 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     script.id = id
     script.async = true
     script.onerror = reject
-    script.setAttribute('state', 'loading')
+    script.setAttribute('data-state', 'loading')
 
     windowWithGoogleMap.initMap = function onload() {
 
-      script.setAttribute('state', 'ready')
+      script.setAttribute('data-state', 'ready')
       resolve(id)
     }
 
