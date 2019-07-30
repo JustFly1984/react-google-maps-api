@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.5.2 refactor script loading algorithm
+
 ## 1.5.1 fix import for distance matrix
 
 ## 1.5.0 Changes to loading script algorithm
