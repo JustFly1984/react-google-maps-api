@@ -69,7 +69,7 @@
     "Typescript"
   ],
   "scripts": {
-    "build": "npx tsdx build --name reactGoogleMapsApi",
+    "build": "npx tsdx build --name reactGoogleMapsApi --format=cjs,esm,umd",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
