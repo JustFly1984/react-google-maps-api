@@ -17,10 +17,11 @@
   },
   "scripts": {
     "start": "start-storybook -p 9001 -c .storybook",
-    "lint": "npx eslint ./src --fix"
+    "lint": "npx eslint ./src --fix",
+    "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn"
   },
   "dependencies": {
-    "@react-google-maps/api": "1.5.2",
+    "@react-google-maps/api": "1.5.3",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "webpack": "4.35.3"
