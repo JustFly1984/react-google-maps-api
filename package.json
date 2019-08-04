@@ -46,12 +46,14 @@
   },
   "devDependencies": {
     "@types/react": "16.8.23",
-    "husky": "3.0.0",
+    "husky": "3.0.2",
+    "jest": "24.8.0",
     "jest-cli": "24.8.0",
-    "lerna": "3.15.0",
-    "lint-staged": "9.1.0",
+    "lerna": "3.16.4",
+    "lint-staged": "9.2.1",
     "ts-jest": "24.0.2",
-    "tsdx": "0.7.2"
+    "tsdx": "0.7.2",
+    "typescript": "3.5.3"
   },
   "husky": {
     "hooks": {

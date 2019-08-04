@@ -43,8 +43,10 @@ export function makeLoadScriptUrl({
   }
 
   if (libraries && libraries.length) {
-    params.push(`libraries=${libraries.join(",")}`)
+    params.push(`libraries=${libraries.sort().join(",")}`)
   }
+
+  params.push('callback=initMap')
 
   return `https://maps.googleapis.com/maps/api/js?${params.join('&')}`
 }

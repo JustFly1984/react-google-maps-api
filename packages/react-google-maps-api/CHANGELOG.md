@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.3 fix umd build
+
+## 1.5.2 refactor script loading algorithm
+
+## 1.5.1 fix import for distance matrix
+
+## 1.5.0 Changes to loading script algorithm
+
 ## 1.4.2 Fix onOverlayComplete
 
 ## 1.4.0 Added DistanceMatrixService, fixed invariant errors, fixed getPixelPositionOffset in OverlayView, updated @react-google-maps/marker-clusterer@1.4.0

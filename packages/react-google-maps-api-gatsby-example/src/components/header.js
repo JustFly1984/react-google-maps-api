@@ -8,7 +8,7 @@ const Header = () => (
       <img src={logo} className='logo' alt='Logo' />
     </Link>
 
-    <h1 className='h3'>React Google Maps API</h1>
+    <h1 className='h3'>React Google Maps API version 1.5.1</h1>
     <p className='text-secondary'>Gatsby Example</p>
   </div>
 )
