@@ -10,7 +10,7 @@ import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-scrip
 import { defaultLoadScriptProps } from './LoadScript'
 import useIsMounted from './utils/useIsMounted'
 import { createUseAtMostOnce } from './utils/useAtMostOnce'
-import usePrevious from './utils/usePrevious'
+import { useIdDeprecation, warnAboutDeprecatedId } from './utils/warnAboutDeprecatedId';
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
   id?: string
@@ -19,14 +19,10 @@ export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
 
 let previouslyLoadedUrl: string
 
-const useLoadScriptAtMostOnce = createUseAtMostOnce("useLoadScript should only be used at most once. The google script is loaded globally, and one hook's load could override another hook's load")
-
-const useIdNeverChange = (id: string) => {
-  const previousId = usePrevious(id) || id;
-  if (id !== previousId) {
-    throw new Error('useLoadScript does not support changing dynamically the script id')
-  }
-}
+const useLoadScriptAtMostOnce = createUseAtMostOnce(`
+The useLoadScript should only be used at most once.
+The google script is loaded globally, and one hook's load could override another hook's load
+`)
 
 export function useLoadScript({
   id = defaultLoadScriptProps.id,
@@ -39,7 +35,7 @@ export function useLoadScript({
   preventGoogleFontsLoading
 }: UseLoadScriptOptions) {
   useLoadScriptAtMostOnce()
-  useIdNeverChange(id);
+  React.useEffect(() => warnAboutDeprecatedId(id), [id])
 
   const isMounted = useIsMounted()
   const [isLoaded, setLoaded] = React.useState(false)

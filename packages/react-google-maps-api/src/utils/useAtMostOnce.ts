@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useEffect } from 'react'
+import invariant from 'invariant';
 
 export const createUseAtMostOnce = (
   errorMessage: string = 'This hook can only be mounted once per application'
@@ -7,12 +7,9 @@ export const createUseAtMostOnce = (
   const ref: React.MutableRefObject<boolean> = { current: false }
 
   const useAtMostOnce = () => {
-    useEffect(() => {
-      if (ref.current) {
-        throw new Error(errorMessage)
-      } else {
-        ref.current = true
-      }
+    React.useEffect(() => {
+      invariant(!ref.current, errorMessage)
+      ref.current = true
       return () => {
         ref.current = false
       }

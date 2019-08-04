@@ -7,6 +7,7 @@ import { isBrowser } from "./utils/isbrowser"
 import { LoadScriptUrlOptions, makeLoadScriptUrl } from "./utils/make-load-script-url"
 
 import invariant from "invariant"
+import { idDeprecationWarning, warnAboutDeprecatedId } from "./utils/warnAboutDeprecatedId";
 
 let cleaningUp = false
 
@@ -28,7 +29,7 @@ export function DefaultLoadingElement() {
 }
 
 export const defaultLoadScriptProps = {
-  id: 'script-loader',
+  id: 'google-maps-script-loader',
   version: 'weekly'
 }
 
@@ -60,8 +61,10 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
       this.isCleaningUp()
         .then(this.injectScript)
-        .catch(function err (err) { console.error("Error at injecting script after cleaning up: ", err)})
+        .catch(function err(err) { console.error("Error at injecting script after cleaning up: ", err) })
     }
+
+    warnAboutDeprecatedId(this.props.id)
   }
 
   componentDidUpdate(prevProps: LoadScriptProps) {
