@@ -8,6 +8,7 @@ import { LoadScriptUrlOptions, makeLoadScriptUrl } from "./utils/make-load-scrip
 
 import invariant from "invariant"
 import { warnAboutDeprecatedId } from "./utils/warnAboutDeprecatedId";
+import { defaultLoadScriptProps } from "./utils/defaultLoadScriptProps";
 
 let cleaningUp = false
 
@@ -26,11 +27,6 @@ export interface LoadScriptProps extends LoadScriptUrlOptions {
 
 export function DefaultLoadingElement() {
   return <div>{`Loading...`}</div>
-}
-
-export const defaultLoadScriptProps = {
-  id: 'google-maps-script-loader',
-  version: 'weekly'
 }
 
 class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {

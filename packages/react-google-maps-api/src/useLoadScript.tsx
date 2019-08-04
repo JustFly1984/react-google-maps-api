@@ -7,10 +7,10 @@ import { injectScript } from './utils/injectscript'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
 import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-script-url'
 
-import { defaultLoadScriptProps } from './LoadScript'
 import useIsMounted from './utils/useIsMounted'
 import { createUseAtMostOnce } from './utils/useAtMostOnce'
 import { warnAboutDeprecatedId } from './utils/warnAboutDeprecatedId';
+import { defaultLoadScriptProps } from './utils/defaultLoadScriptProps';
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
   id?: string

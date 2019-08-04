@@ -1,4 +1,4 @@
-import { defaultLoadScriptProps } from "../LoadScript";
+import { defaultLoadScriptProps } from "./defaultLoadScriptProps";
 
 const idDeprecationWarning = `
 The useLoadScript support to specify ID of script element is deprecated and will be removed in next major version.
