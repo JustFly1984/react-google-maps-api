@@ -95,7 +95,7 @@ export interface CircleProps {
   onRadiusChanged?: () => void;
   /** This callback is called when the circle instance has loaded. It is called with the circle instance. */
   onLoad?: (circle: google.maps.Circle) => void;
-  /** This callback is called when the component unmounts. It is called with the circle instance */
+  /** This callback is called when the component unmounts. It is called with the circle instance. */
   onUnmount?: (circle: google.maps.Circle) => void;
 }
 
