@@ -7,7 +7,7 @@ import { isBrowser } from "./utils/isbrowser"
 import { LoadScriptUrlOptions, makeLoadScriptUrl } from "./utils/make-load-script-url"
 
 import invariant from "invariant"
-import { idDeprecationWarning, warnAboutDeprecatedId } from "./utils/warnAboutDeprecatedId";
+import { warnAboutDeprecatedId } from "./utils/warnAboutDeprecatedId";
 
 let cleaningUp = false
 

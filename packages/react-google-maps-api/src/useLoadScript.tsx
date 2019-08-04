@@ -10,7 +10,7 @@ import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-scrip
 import { defaultLoadScriptProps } from './LoadScript'
 import useIsMounted from './utils/useIsMounted'
 import { createUseAtMostOnce } from './utils/useAtMostOnce'
-import { useIdDeprecation, warnAboutDeprecatedId } from './utils/warnAboutDeprecatedId';
+import { warnAboutDeprecatedId } from './utils/warnAboutDeprecatedId';
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
   id?: string
