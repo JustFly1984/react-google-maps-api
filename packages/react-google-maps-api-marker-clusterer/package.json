@@ -21,8 +21,8 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "unpkg": "dist/markerclusterer.umd.production.js",
-  "module": "dist/markerclusterer.es.production.js",
+  "unpkg": "dist/markerclusterer.umd.production.min.js",
+  "module": "dist/markerclusterer.esm.js",
   "files": [
     "src/",
     "dist/"
@@ -36,6 +36,7 @@
     "Marker"
   ],
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "npx tsdx build --name markerClusterer --format=cjs,esm,umd",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",

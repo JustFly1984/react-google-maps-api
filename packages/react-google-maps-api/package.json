@@ -27,8 +27,8 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "unpkg": "dist/reactgooglemapsapi.umd.production.js",
-  "module": "dist/reactgooglemapsapi.es.production.js",
+  "unpkg": "dist/reactgooglemapsapi.umd.production.min.js",
+  "module": "dist/reactgooglemapsapi.esm.js",
   "files": [
     "src/",
     "dist/"
@@ -69,6 +69,7 @@
     "Typescript"
   ],
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "npx tsdx build --name reactGoogleMapsApi --format=cjs,esm,umd",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
