@@ -25,6 +25,7 @@ export function useLoadScript({
   region,
   libraries,
   preventGoogleFontsLoading,
+  channel,
 }: UseLoadScriptOptions) {
   const isMounted = React.useRef(false)
   const [isLoaded, setLoaded] = React.useState(false)
@@ -53,7 +54,7 @@ export function useLoadScript({
     }
   }, [isLoaded])
 
-  const url = makeLoadScriptUrl({ version, googleMapsApiKey, googleMapsClientId, language, region, libraries })
+  const url = makeLoadScriptUrl({ version, googleMapsApiKey, googleMapsClientId, language, region, libraries, channel })
 
   React.useEffect(function loadScriptAndModifyLoadedState() {
     if (!isBrowser) {
