@@ -11,10 +11,16 @@ export interface DirectionsServiceProps {
 
   // required for default functionality
   callback: (
+    // required
+    /** The directions response retrieved from the directions server. You can render these using a DirectionsRenderer or parse this object and render it yourself. You must display the warnings and copyrights as noted in the Google Maps Platform Terms of Service. Note that though this result is "JSON-like," it is not strictly JSON, as it indirectly includes LatLng objects */
     result: google.maps.DirectionsResult,
+    // required
+    /** The status returned by the DirectionsService on the completion of a call to route(). Specify these by value, or by using the constant's name. For example, 'OK' or google.maps.DirectionsStatus.OK */
     status: google.maps.DirectionsStatus
   ) => void;
+  /** This callback is called when the directionsService instance has loaded. It is called with the directionsService instance. */
   onLoad?: (directionsService: google.maps.DirectionsService) => void;
+  /** This callback is called when the component unmounts. It is called with the directionsService instance. */
   onUnmount?: (directionsService: google.maps.DirectionsService) => void;
 }
 
