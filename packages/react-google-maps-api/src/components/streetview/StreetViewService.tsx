@@ -3,7 +3,9 @@ import * as React from "react"
 import MapContext from "../../map-context"
 
 export interface StreetViewServiceProps {
+  /** This callback is called when the component unmounts. It is called with the streetViewService instance. */
   onLoad?: (streetViewService: google.maps.StreetViewService | null) => void;
+  /** This callback is called when the streetViewService instance has loaded. It is called with the streetViewService instance. */
   onUnmount?: (streetViewService: google.maps.StreetViewService | null) => void;
 }
 
