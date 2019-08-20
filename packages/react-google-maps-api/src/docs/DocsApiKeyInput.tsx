@@ -81,15 +81,15 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
               <LoadScript
                 id='script-loader'
                 googleMapsApiKey={this.state.key}
-                language={'en'}
-                region={'EN'}
-                version={'weekly'}
+                language='en'
+                region='EN'
+                version='weekly'
                 libraries={libraries}
                 loadingElement={<div>Loading...</div>}
               />
             )
             : (
-              <React.Fragment></React.Fragment>
+              <></>
             )
         }
       </>

@@ -91,7 +91,7 @@ export class ClusterIcon {
       this.div,
       "click",
       // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
-      (event: MouseEvent) => {
+      (event: Event) => {
         cMouseDownInCluster = false
 
         if (!cDraggingMapByCluster) {

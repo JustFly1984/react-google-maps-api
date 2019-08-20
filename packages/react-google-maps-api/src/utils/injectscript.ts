@@ -25,7 +25,7 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
         }
         else {
           const originalInitMap = windowWithGoogleMap.initMap
-          windowWithGoogleMap.initMap = function() {
+          windowWithGoogleMap.initMap = function initMap () {
             if(originalInitMap) {
               originalInitMap()
             }

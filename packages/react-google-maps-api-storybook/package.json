@@ -21,21 +21,16 @@
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn"
   },
   "dependencies": {
-    "@react-google-maps/api": "1.5.4",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "webpack": "4.39.1"
+    "@react-google-maps/api": "1.6.0"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",
-    "@emotion/core": "10.0.15",
-    "@storybook/react": "5.1.10",
-    "@types/googlemaps": "3.37.1",
+    "@emotion/core": "10.0.16",
+    "@storybook/react": "5.1.11",
     "babel-eslint": "10.0.2",
     "babel-loader": "8.0.6",
-    "eslint": "6.1.0",
-    "eslint-config-standard": "13.0.1",
-    "eslint-config-standard-react": "8.0.0",
+    "eslint-config-standard": "14.0.0",
+    "eslint-config-standard-react": "9.0.0",
     "eslint-import-resolver-webpack": "0.11.1",
     "eslint-plugin-ascii": "1.0.0",
     "eslint-plugin-babel": "5.3.0",
@@ -53,10 +48,10 @@
     "eslint-plugin-promiseparams": "1.0.8",
     "eslint-plugin-react": "7.14.3",
     "eslint-plugin-react-functional-set-state": "1.2.1",
-    "eslint-plugin-react-perf": "3.2.0",
-    "eslint-plugin-standard": "4.0.0",
+    "eslint-plugin-react-perf": "3.2.1",
+    "eslint-plugin-standard": "4.0.1",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.5.0",
-    "prop-types": "15"
+    "prop-types": "15.7.2"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }

@@ -9,7 +9,7 @@ export const applyUpdaterToNextProps = (
   // eslint-disable-next-line @getify/proper-arrows/params
   instance: any
 ): any => {
-  let map: any = {}
+  const map: any = {}
 
   const iter = (fn: any, key: string) => {
     const nextValue = nextProps[key]
