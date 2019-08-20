@@ -23,7 +23,9 @@ interface TrafficLayerState {
 
 export interface TrafficLayerProps {
   options?: google.maps.TrafficLayerOptions;
+  /** This callback is called when the component unmounts. It is called with the trafficLayer instance. */
   onLoad?: (trafficLayer: google.maps.TrafficLayer) => void;
+  /** This callback is called when the trafficLayer instance has loaded. It is called with the trafficLayer instance. */
   onUnmount?: (trafficLayer: google.maps.TrafficLayer) => void;
 }
 
