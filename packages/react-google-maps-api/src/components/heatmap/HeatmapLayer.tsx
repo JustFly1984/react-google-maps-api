@@ -34,9 +34,12 @@ interface HeatmapLayerState {
 
 export interface HeatmapLayerProps {
   // required
+  /** The data points to display. Required. */
   data: google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation> | google.maps.LatLng[] | google.maps.visualization.WeightedLocation[];
   options?: google.maps.visualization.HeatmapLayerOptions;
+  /** This callback is called when the heatmapLayer instance has loaded. It is called with the heatmapLayer instance. */
   onLoad?: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void;
+  /** This callback is called when the component unmounts. It is called with the heatmapLayer instance. */
   onUnmount?: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void;
 }
 

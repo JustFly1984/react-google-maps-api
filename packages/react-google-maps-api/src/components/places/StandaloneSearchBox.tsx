@@ -27,10 +27,14 @@ interface StandaloneSearchBoxState {
 }
 
 export interface StandaloneSearchBoxProps {
+  /** The area towards which to bias query predictions. Predictions are biased towards, but not restricted to, queries targeting these bounds. */
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
   options?: google.maps.places.SearchBoxOptions;
+  /** This event is fired when the user selects a query, getPlaces should be used to get new places. */
   onPlacesChanged?: () => void;
+  /** This callback is called when the component unmounts. It is called with the searchBox instance. */
   onLoad?: (searchBox: google.maps.places.SearchBox) => void;
+  /** This callback is called when the searchBox instance has loaded. It is called with the searchBox instance. */
   onUnmount?: (searchBox: google.maps.places.SearchBox) => void;
 }
 
