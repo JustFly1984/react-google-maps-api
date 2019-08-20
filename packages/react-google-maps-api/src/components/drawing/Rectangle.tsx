@@ -88,9 +88,9 @@ export interface RectangleProps {
   onDrag?: (e: google.maps.MouseEvent) => void;
   /** This event is fired when the rectangle's bounds are changed. */
   onBoundsChanged?: () => void;
-  /** This callback is called when the circle instance has loaded. It is called with the circle instance. */
+  /** This callback is called when the rectangle instance has loaded. It is called with the rectangle instance. */
   onLoad?: (rectangle: google.maps.Rectangle) => void;
-  /** This callback is called when the component unmounts. It is called with the circle instance. */
+  /** This callback is called when the component unmounts. It is called with the rectangle instance. */
   onUnmount?: (rectangle: google.maps.Rectangle) => void;
 }
 

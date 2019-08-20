@@ -92,9 +92,9 @@ export interface PolygonProps {
   onClick?: (e: google.maps.MouseEvent) => void;
   /** This event is repeatedly fired while the user drags the polygon. */
   onDrag?: (e: google.maps.MouseEvent) => void;
-  /** This callback is called when the circle instance has loaded. It is called with the circle instance. */
+  /** This callback is called when the polygon instance has loaded. It is called with the polygon instance. */
   onLoad?: (polygon: google.maps.Polygon) => void;
-  /** This callback is called when the component unmounts. It is called with the circle instance. */
+  /** This callback is called when the component unmounts. It is called with the polygon instance. */
   onUnmount?: (polygon: google.maps.Polygon) => void;
 }
 

@@ -127,9 +127,9 @@ export interface DataProps {
   onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void;
   /**  This event is fired when a feature's property is set. */
   onSetProperty?: (e: google.maps.Data.SetPropertyEvent) => void;
-  /**  This callback is called when the circle instance has loaded. It is called with the circle instance. */
+  /**  This callback is called when the data instance has loaded. It is called with the data instance. */
   onLoad?: (data: google.maps.Data) => void;
-  /**  This callback is called when the component unmounts. It is called with the circle instance.  */
+  /**  This callback is called when the component unmounts. It is called with the data instance.  */
   onUnmount?: (data: google.maps.Data) => void;
 }
 

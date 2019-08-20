@@ -54,9 +54,9 @@ export interface DrawingManagerProps {
   onPolylineComplete?: (polyline: google.maps.Polyline) => void;
   /** This event is fired when the user has finished drawing a rectangle. */
   onRectangleComplete?: (rectangle: google.maps.Rectangle) => void;
-  /** This callback is called when the circle instance has loaded. It is called with the circle instance. */
+  /** This callback is called when the drawingManager instance has loaded. It is called with the drawingManager instance. */
   onLoad?: (drawingManager: google.maps.drawing.DrawingManager) => void;
-  /** This callback is called when the component unmounts. It is called with the circle instance. */
+  /** This callback is called when the component unmounts. It is called with the drawingManager instance. */
   onUnmount?: (drawingManager: google.maps.drawing.DrawingManager) => void;
 }
 

@@ -136,9 +136,9 @@ export interface ClustererProps {
   onMouseOver?: (cluster: Cluster) => void;
   /** This event is fired when the mouse moves out of a cluster marker. */
   onMouseOut?: (cluster: Cluster) => void;
-  /** This callback is called when the circle instance has loaded. It is called with the circle instance. */
+  /** This callback is called when the markerClusterer instance has loaded. It is called with the markerClusterer instance. */
   onLoad?: (markerClusterer: Clusterer) => void;
-  /** This callback is called when the component unmounts. It is called with the circle instance. */
+  /** This callback is called when the component unmounts. It is called with the markerClusterer instance. */
   onUnmount?: (markerClusterer: Clusterer) => void;
 }
 
