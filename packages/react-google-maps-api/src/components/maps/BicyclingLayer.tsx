@@ -7,7 +7,9 @@ interface BicyclingLayerState {
 }
 
 export interface BicyclingLayerProps {
+  /** This callback is called when the bicyclingLayer instance has loaded. It is called with the bicyclingLayer instance. */
   onLoad?: (bicyclingLayer: google.maps.BicyclingLayer) => void;
+  /** This callback is called when the component unmounts. It is called with the bicyclingLayer instance. */
   onUnmount?: (bicyclingLayer: google.maps.BicyclingLayer) => void;
 }
 
