@@ -43,6 +43,11 @@ export {
 } from "./components/addons/MarkerClusterer"
 
 export {
+  default as InfoBox,
+  InfoBoxProps
+} from "./components/addons/InfoBox"
+
+export {
   default as InfoWindow,
   InfoWindowProps
 } from "./components/drawing/InfoWindow"
