@@ -109,10 +109,11 @@ export class InfoBoxComponent extends React.PureComponent<InfoBoxProps, InfoBoxS
 
   componentDidMount() {
     const { options } = this.props
+    const { position, ...infoBoxOptions }: InfoBoxOptions = options || {};
 
-    let position = options ? options.position : null
+    let positionLatLng: google.maps.LatLng | undefined;
     if (position && !(position instanceof google.maps.LatLng)) {
-      position = new google.maps.LatLng(position.lat, position.lng)
+      positionLatLng = new google.maps.LatLng(position.lat, position.lng)
     }
 
     // google-maps-infobox uses `google` as a global variable. Since we don't
@@ -122,10 +123,9 @@ export class InfoBoxComponent extends React.PureComponent<InfoBoxProps, InfoBoxS
     delete require.cache[require.resolve('google-maps-infobox')]
     const InfoBox: typeof GoogleMapsInfoBox = require('google-maps-infobox').default
 
-    // @ts-ignore
     const infoBox = new InfoBox({
-      ...options,
-      ...(position ? { position } : {}),
+      ...infoBoxOptions,
+      ...(positionLatLng ? { position: positionLatLng } : {}),
     })
 
     this.containerElement = document.createElement('div')
