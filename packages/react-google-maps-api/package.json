@@ -84,7 +84,7 @@
   },
   "dependencies": {
     "@react-google-maps/marker-clusterer": "1.6.0",
-    "google-maps-infobox": "^2.0.0",
+    "@react-google-maps/infobox": "1.6.0",
     "invariant": "2.2.4"
   },
   "peerDependencies": {

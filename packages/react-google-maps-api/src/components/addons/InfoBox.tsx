@@ -3,7 +3,10 @@
 import * as React from "react"
 import { createPortal } from "react-dom"
 import invariant from "invariant"
-import GoogleMapsInfoBox, { InfoBoxOptions as GoogleMapsInfoBoxOptions } from "google-maps-infobox"
+import {
+  InfoBox as GoogleMapsInfoBox,
+  InfoBoxOptions as GoogleMapsInfoBoxOptions
+} from "@react-google-maps/infobox"
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
@@ -83,7 +86,6 @@ export class InfoBoxComponent extends React.PureComponent<InfoBoxProps, InfoBoxS
     if (anchor) {
       infoBox.open(this.context, anchor)
     } else if (infoBox.getPosition()) {
-      // @ts-ignore
       infoBox.open(this.context)
     } else {
       invariant(
@@ -109,21 +111,14 @@ export class InfoBoxComponent extends React.PureComponent<InfoBoxProps, InfoBoxS
 
   componentDidMount() {
     const { options } = this.props
-    const { position, ...infoBoxOptions }: InfoBoxOptions = options || {};
+    const { position, ...infoBoxOptions }: InfoBoxOptions = options || {}
 
-    let positionLatLng: google.maps.LatLng | undefined;
+    let positionLatLng: google.maps.LatLng | undefined
     if (position && !(position instanceof google.maps.LatLng)) {
       positionLatLng = new google.maps.LatLng(position.lat, position.lng)
     }
 
-    // google-maps-infobox uses `google` as a global variable. Since we don't
-    // have `google` on the server, we can not use it in server-side rendering.
-    // As a result, we import google-maps-infobox here to prevent an error on
-    // a isomorphic server
-    delete require.cache[require.resolve('google-maps-infobox')]
-    const InfoBox: typeof GoogleMapsInfoBox = require('google-maps-infobox').default
-
-    const infoBox = new InfoBox({
+    const infoBox = new GoogleMapsInfoBox({
       ...infoBoxOptions,
       ...(positionLatLng ? { position: positionLatLng } : {}),
     })
