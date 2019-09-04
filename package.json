@@ -13,7 +13,8 @@
     "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)",
     "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)",
     "Ivan Konev <ivankonev@gmail.com> (https://github.com/ivankonev)",
-    "Daniel K. <klenicak@gmail.com> (https://github.com/fredyc)"
+    "Daniel K. <klenicak@gmail.com> (https://github.com/fredyc)",
+    "Marc Ryan <ryanmq87@gmail.com> (https://github.com/inv8der)"
   ],
   "repository": {
     "type": "git",
@@ -28,11 +29,12 @@
     "build:api": "cd packages/react-google-maps-api && yarn build && cd ../..",
     "build:docs": "cd packages/react-google-maps-api && yarn docs:build && cd ../..",
     "build:clusterer": "cd packages/react-google-maps-api-marker-clusterer && yarn build && cd ../..",
+    "build:infobox": "cd packages/react-google-maps-api-infobox && yarn build && cd ../..",
     "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn build && cd ../..",
-    "prebuild:docs": "yarn build:clusterer",
-    "prebuild:gatsby": "yarn build:clusterer && yarn build:api",
+    "prebuild:docs": "yarn build:clusterer && yarn build:infobox",
+    "prebuild:gatsby": "yarn build:clusterer && yarn build:infobox && yarn build:api",
     "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start && cd ../..",
-    "prestart:gatsby": "yarn build:clusterer && yarn build:api",
+    "prestart:gatsby": "yarn build:clusterer && yarn build:infobox && yarn build:api",
     "clean": "rimraf ./yarn.lock ./package-lock.json ./node_modules/ && yarn",
     "lint": "lerna run lint --scope=@react-google-maps/api --stream",
     "storybook": "lerna run start --scope=@react-google-maps/storybook --stream"
