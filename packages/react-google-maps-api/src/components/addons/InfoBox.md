@@ -1,7 +1,7 @@
 # InfoBox example
 
 ```jsx
-const { GoogleMap, LoadScript } = require("../../");
+const { GoogleMap, LoadScript, InfoBox } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
 <ScriptLoaded>
