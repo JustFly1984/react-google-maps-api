@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
-  TranistLayer
+  TransitLayer
 } from '@react-google-maps/api'
 
 const ExampleTransitPropTypes = {
