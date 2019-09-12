@@ -13,6 +13,7 @@ import {
   SHAPES_TOGGLE,
   DRAWING_TOGGLE,
   BICYCLING_TOGGLE,
+  TRANSIT_TOGGLE,
   GROUND_TOGGLE,
   OPTIONS_TOGGLE,
   OVERLAY_VIEW_TOGGLE,
@@ -31,6 +32,7 @@ const initialState = fromJS({
   shapes: false,
   drawing: false,
   bicycling: false,
+  transit: false,
   ground: false,
   options: false,
   overlayView: false,
@@ -81,6 +83,10 @@ export default handleActions({
   [BICYCLING_TOGGLE]: (state, { payload: { bicycling } }) =>
     state.merge({
       bicycling
+    }),
+  [TRANSIT_TOGGLE]: (state, { payload: { transit } }) =>
+    state.merge({
+      transit
     }),
   [GROUND_TOGGLE]: (state, { payload: { ground } }) =>
     state.merge({
