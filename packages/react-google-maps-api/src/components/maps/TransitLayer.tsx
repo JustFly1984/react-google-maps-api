@@ -40,7 +40,7 @@ export class TransitLayer extends React.PureComponent<
   componentDidMount() {
     const tranistLayer = new google.maps.TransitLayer()
 
-    function setTranistLayer() {
+    function setTransitLayer() {
       return {
         tranistLayer
       }
