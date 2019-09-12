@@ -107,7 +107,7 @@ const GoogleMaps = ({ googleMapsApiKey, language }) => (
       <SectionTransit />
     </Card>
 
-  <Card>
+    <Card>
       <CheckboxGround />
 
       <SectionGround />
