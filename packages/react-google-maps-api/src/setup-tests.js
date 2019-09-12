@@ -48,6 +48,10 @@ const createGoogleMapsMock = (libraries = []) => {
       createMVCObject(this)
       createMockFuncsFromArray(this, ['setMap'])
     }),
+    TranistLayer: jest.fn().mockImplementation(function() {
+      createMVCObject(this)
+      createMockFuncsFromArray(this, ['setMap'])
+    }),
     Circle: jest.fn().mockImplementation(function(opts) {
       this.opts = opts
       createMVCObject(this)
