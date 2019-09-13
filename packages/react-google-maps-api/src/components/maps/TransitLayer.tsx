@@ -8,9 +8,9 @@ interface TransitLayerState {
 
 export interface TransitLayerProps {
   /** This callback is called when the transitLayer instance has loaded. It is called with the transitLayer instance. */
-  onLoad?: (tranistLayer: google.maps.TransitLayer) => void;
+  onLoad?: (transitLayer: google.maps.TransitLayer) => void;
   /** This callback is called when the component unmounts. It is called with the transitLayer instance. */
-  onUnmount?: (tranistLayer: google.maps.TransitLayer) => void;
+  onUnmount?: (transitLayer: google.maps.TransitLayer) => void;
 }
 
 export class TransitLayer extends React.PureComponent<
