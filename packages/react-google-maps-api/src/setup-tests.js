@@ -48,7 +48,7 @@ const createGoogleMapsMock = (libraries = []) => {
       createMVCObject(this)
       createMockFuncsFromArray(this, ['setMap'])
     }),
-    TranistLayer: jest.fn().mockImplementation(function() {
+    TransitLayer: jest.fn().mockImplementation(function() {
       createMVCObject(this)
       createMockFuncsFromArray(this, ['setMap'])
     }),
@@ -305,10 +305,6 @@ const createGoogleMapsMock = (libraries = []) => {
       OPTIMISTIC: 'optimistic',
       PESSIMISTIC: 'pessimistic',
     },
-    TransitLayer: jest.fn().mockImplementation(function() {
-      createMVCObject(this)
-      createMockFuncsFromArray(this, ['setMap'])
-    }),
     TransitMode: {
       BUS: 'BUS',
       RAIL: 'RAIL',
