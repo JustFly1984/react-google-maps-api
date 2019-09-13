@@ -3,13 +3,13 @@ import * as React from "react"
 import MapContext from "../../map-context"
 
 interface TransitLayerState {
-  tranistLayer: google.maps.TransitLayer | null;
+  transitLayer: google.maps.TransitLayer | null;
 }
 
 export interface TransitLayerProps {
-  /** This callback is called when the tranistLayer instance has loaded. It is called with the tranistLayer instance. */
+  /** This callback is called when the transitLayer instance has loaded. It is called with the transitLayer instance. */
   onLoad?: (tranistLayer: google.maps.TransitLayer) => void;
-  /** This callback is called when the component unmounts. It is called with the tranistLayer instance. */
+  /** This callback is called when the component unmounts. It is called with the transitLayer instance. */
   onUnmount?: (tranistLayer: google.maps.TransitLayer) => void;
 }
 
@@ -20,29 +20,29 @@ export class TransitLayer extends React.PureComponent<
   static contextType = MapContext
 
   state = {
-    tranistLayer: null
+    transitLayer: null
   }
 
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setTransitLayerCallback = () => {
-    if (this.state.tranistLayer !== null) {
+    if (this.state.transitLayer !== null) {
       // TODO: how is this possibly null if we're doing a null check
       // @ts-ignore
-      this.state.tranistLayer.setMap(this.context)
+      this.state.transitLayer.setMap(this.context)
 
       if (this.props.onLoad) {
         //@ts-ignore
-        this.props.onLoad(this.state.tranistLayer)
+        this.props.onLoad(this.state.transitLayer)
       }
     }
   }
 
   componentDidMount() {
-    const tranistLayer = new google.maps.TransitLayer()
+    const transitLayer = new google.maps.TransitLayer()
 
     function setTransitLayer() {
       return {
-        tranistLayer
+        transitLayer
       }
     }
 
@@ -53,14 +53,14 @@ export class TransitLayer extends React.PureComponent<
   }
 
   componentWillUnmount() {
-    if (this.state.tranistLayer !== null) {
+    if (this.state.transitLayer !== null) {
       if (this.props.onUnmount) {
         // @ts-ignore
-        this.props.onUnmount(this.state.tranistLayer)
+        this.props.onUnmount(this.state.transitLayer)
       }
 
       // @ts-ignore
-      this.state.tranistLayer.setMap(null)
+      this.state.transitLayer.setMap(null)
     }
   }
 
