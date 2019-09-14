@@ -1,26 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  GoogleMap,
-  GroundOverlay
-} from '@react-google-maps/api'
+import { GoogleMap, GroundOverlay } from '@react-google-maps/api'
 
 const ExampleGroundPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired
-  }).isRequired
+    container: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const center = {
-  lat: 40.740,
-  lng: -74.18
+  lat: 40.74,
+  lng: -74.18,
 }
 
 const BOUNDS = {
   north: 40.773941,
   south: 40.712216,
   east: -74.12544,
-  west: -74.22655
+  west: -74.22655,
 }
 
 const onClick = (...args) => {

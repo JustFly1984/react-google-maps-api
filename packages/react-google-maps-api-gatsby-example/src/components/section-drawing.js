@@ -8,22 +8,14 @@ import ExampleDrawing from '../examples/example-drawing'
 import { shapeExampleStyles } from './styles'
 
 const SectionDrawing = ({ drawing }) =>
-  drawing
-    ? (
-      <ExampleDrawing
-        styles={shapeExampleStyles}
-      />
-    )
-    : (<></>)
+  drawing ? <ExampleDrawing styles={shapeExampleStyles} /> : <></>
 
 SectionDrawing.propTypes = {
-  drawing: PropTypes.bool.isRequired
+  drawing: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  drawing: state.getIn(['app', 'drawing'])
+  drawing: state.getIn(['app', 'drawing']),
 })
 
-export default connect(
-  mapStateToProps
-)(SectionDrawing)
+export default connect(mapStateToProps)(SectionDrawing)

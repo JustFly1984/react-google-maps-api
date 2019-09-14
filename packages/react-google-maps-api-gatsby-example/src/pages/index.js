@@ -24,14 +24,11 @@ const IndexPage = ({ googleMapsApiKey, loadScriptChecked }) => (
         <div className='mb-5'>
           <h2 className='h5'>Examples</h2>
 
-          {
-            (
-              loadScriptChecked &&
-              googleMapsApiKey.length >= 38
-            )
-              ? (<GoogleMaps />)
-              : (<NoMaps />)
-          }
+          {loadScriptChecked && googleMapsApiKey.length >= 38 ? (
+            <GoogleMaps />
+          ) : (
+            <NoMaps />
+          )}
         </div>
       </div>
     </div>
@@ -40,12 +37,12 @@ const IndexPage = ({ googleMapsApiKey, loadScriptChecked }) => (
 
 IndexPage.propTypes = {
   googleMapsApiKey: PropTypes.string.isRequired,
-  loadScriptChecked: PropTypes.bool.isRequired
+  loadScriptChecked: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
   loadScriptChecked: state.getIn(['app', 'loadScriptChecked']),
-  googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey'])
+  googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey']),
 })
 
 export default connect(mapStateToProps)(IndexPage)

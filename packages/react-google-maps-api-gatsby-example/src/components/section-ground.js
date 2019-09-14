@@ -8,22 +8,14 @@ import ExampleGround from '../examples/example-ground'
 import { shapeExampleStyles } from './styles'
 
 const SectionGround = ({ ground }) =>
-  ground
-    ? (
-      <ExampleGround
-        styles={shapeExampleStyles}
-      />
-    )
-    : (<></>)
+  ground ? <ExampleGround styles={shapeExampleStyles} /> : <></>
 
 SectionGround.propTypes = {
-  ground: PropTypes.bool.isRequired
+  ground: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  ground: state.getIn(['app', 'ground'])
+  ground: state.getIn(['app', 'ground']),
 })
 
-export default connect(
-  mapStateToProps
-)(SectionGround)
+export default connect(mapStateToProps)(SectionGround)

@@ -8,22 +8,14 @@ import ExampleShapes from '../examples/example-shapes'
 import { shapeExampleStyles } from './styles'
 
 const SectionShapes = ({ shapes }) =>
-  shapes
-    ? (
-      <ExampleShapes
-        styles={shapeExampleStyles}
-      />
-    )
-    : (<></>)
+  shapes ? <ExampleShapes styles={shapeExampleStyles} /> : <></>
 
 SectionShapes.propTypes = {
-  shapes: PropTypes.bool.isRequired
+  shapes: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  shapes: state.getIn(['app', 'shapes'])
+  shapes: state.getIn(['app', 'shapes']),
 })
 
-export default connect(
-  mapStateToProps
-)(SectionShapes)
+export default connect(mapStateToProps)(SectionShapes)

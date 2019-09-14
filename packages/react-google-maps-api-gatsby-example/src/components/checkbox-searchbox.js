@@ -17,10 +17,7 @@ const CheckboxSearchbox = ({ onChange, value }) => (
       value={value}
     />
 
-    <label
-      className='custom-control-label'
-      htmlFor={id}
-    >
+    <label className='custom-control-label' htmlFor={id}>
       Searchbox
     </label>
   </div>
@@ -28,21 +25,21 @@ const CheckboxSearchbox = ({ onChange, value }) => (
 
 CheckboxSearchbox.propTypes = {
   value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-  value: state.getIn(['app', 'standaloneSearchbox'])
+  value: state.getIn(['app', 'standaloneSearchbox']),
 })
 
 const mapDispatchToProps = dispatch => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
       toggleStandaloneSearchbox({
-        standaloneSearchbox: checked
+        standaloneSearchbox: checked,
       })
     )
-  }
+  },
 })
 
 export default connect(

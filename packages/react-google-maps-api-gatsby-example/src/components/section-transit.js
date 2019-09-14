@@ -8,22 +8,14 @@ import ExampleTransit from '../examples/example-transit'
 import { shapeExampleStyles } from '../components/styles'
 
 const SectionTransit = ({ transit }) =>
-  transit
-    ? (
-      <ExampleTransit
-        styles={shapeExampleStyles}
-      />
-    )
-    : (<></>)
+  transit ? <ExampleTransit styles={shapeExampleStyles} /> : <></>
 
 SectionTransit.propTypes = {
-  transit: PropTypes.bool.isRequired
+  transit: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  transit: state.getIn(['app', 'transit'])
+  transit: state.getIn(['app', 'transit']),
 })
 
-export default connect(
-  mapStateToProps
-)(SectionTransit)
+export default connect(mapStateToProps)(SectionTransit)

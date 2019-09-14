@@ -16,18 +16,13 @@ const meta = [
 
 const Main = ({ title, children }) => (
   <div className='bg-light'>
-    <Helmet
-      title={title}
-      meta={meta}
-    >
+    <Helmet title={title} meta={meta}>
       <html lang='en' />
     </Helmet>
 
     <Header siteTitle={title} />
 
-    <div className='container'>
-      { children }
-    </div>
+    <div className='container'>{children}</div>
 
     <Footer />
   </div>
@@ -35,7 +30,7 @@ const Main = ({ title, children }) => (
 
 Main.propTypes = {
   title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 }
 
 const Layout = ({ children }) => (
@@ -51,11 +46,7 @@ const Layout = ({ children }) => (
     `}
     // eslint-disable-next-line react-perf/jsx-no-new-function-as-prop
     render={data => (
-      <Main
-        title={data.site.siteMetadata.title}
-      >
-        { children }
-      </Main>
+      <Main title={data.site.siteMetadata.title}>{children}</Main>
     )}
   />
 )

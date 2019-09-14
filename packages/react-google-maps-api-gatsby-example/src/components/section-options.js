@@ -8,22 +8,14 @@ import ExampleOptions from '../examples/example-options'
 import { shapeExampleStyles } from './styles'
 
 const SectionOptions = ({ options }) =>
-  options
-    ? (
-      <ExampleOptions
-        styles={shapeExampleStyles}
-      />
-    )
-    : (<></>)
+  options ? <ExampleOptions styles={shapeExampleStyles} /> : <></>
 
 SectionOptions.propTypes = {
-  options: PropTypes.bool.isRequired
+  options: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  options: state.getIn(['app', 'options'])
+  options: state.getIn(['app', 'options']),
 })
 
-export default connect(
-  mapStateToProps
-)(SectionOptions)
+export default connect(mapStateToProps)(SectionOptions)

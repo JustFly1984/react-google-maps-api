@@ -8,22 +8,14 @@ import ExampleDirections from '../examples/example-directions'
 import { shapeExampleStyles } from './styles'
 
 const SectionDirections = ({ directions }) =>
-  directions
-    ? (
-      <ExampleDirections
-        styles={shapeExampleStyles}
-      />
-    )
-    : (<></>)
+  directions ? <ExampleDirections styles={shapeExampleStyles} /> : <></>
 
 SectionDirections.propTypes = {
-  directions: PropTypes.bool.isRequired
+  directions: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  directions: state.getIn(['app', 'directions'])
+  directions: state.getIn(['app', 'directions']),
 })
 
-export default connect(
-  mapStateToProps
-)(SectionDirections)
+export default connect(mapStateToProps)(SectionDirections)

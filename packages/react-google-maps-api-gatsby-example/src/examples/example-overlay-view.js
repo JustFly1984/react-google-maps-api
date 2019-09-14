@@ -1,42 +1,35 @@
 import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
-import {
-  GoogleMap,
-  OverlayView,
-  Marker
-} from '@react-google-maps/api'
+import { GoogleMap, OverlayView, Marker } from '@react-google-maps/api'
 
 const ExampleOverlayViewPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired
-  }).isRequired
+    container: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const mapCenter = {
   lat: 0,
-  lng: -180
+  lng: -180,
 }
 
 const contentStyles = {
   background: `white`,
   border: `1px solid #ccc`,
-  padding: 15
+  padding: 15,
 }
 
 const centerOverlayView = (width, height) => ({
   x: -(width / 2),
-  y: -(height / 2)
+  y: -(height / 2),
 })
 
 const ExampleOverlayView = ({ styles }) => {
   const [isShown, setIsShown] = useState(false)
 
-  const changeIsShown = useCallback(
-    () => {
-      setIsShown(!isShown)
-    },
-    [isShown]
-  )
+  const changeIsShown = useCallback(() => {
+    setIsShown(!isShown)
+  }, [isShown])
 
   return (
     <div className='map'>
@@ -47,11 +40,8 @@ const ExampleOverlayView = ({ styles }) => {
           zoom={2}
           center={mapCenter}
         >
-          <Marker
-            position={mapCenter}
-            onClick={changeIsShown}
-          />
-          {isShown &&
+          <Marker position={mapCenter} onClick={changeIsShown} />
+          {isShown && (
             <OverlayView
               position={mapCenter}
               mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
@@ -61,7 +51,7 @@ const ExampleOverlayView = ({ styles }) => {
                 <h1>OverlayView</h1>
               </div>
             </OverlayView>
-          }
+          )}
         </GoogleMap>
       </div>
     </div>

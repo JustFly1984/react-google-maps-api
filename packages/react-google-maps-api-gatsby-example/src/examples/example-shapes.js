@@ -8,7 +8,7 @@ import {
   Circle,
   Marker,
   OverlayView,
-  InfoWindow
+  InfoWindow,
 } from '@react-google-maps/api'
 
 import pinIcon from '../assets/pin.svg'
@@ -17,60 +17,60 @@ const FLIGHT_PLAN_COORDS = [
   { lat: 37.772, lng: -122.214 },
   { lat: 21.291, lng: -157.821 },
   { lat: -18.142, lng: 178.431 },
-  { lat: -27.467, lng: 153.027 }
+  { lat: -27.467, lng: 153.027 },
 ]
 
 const BRISBANE_COORDS = [
   { lat: -27.467, lng: 153.027 },
   { lat: -23.467, lng: 152.027 },
   { lat: -28.567, lng: 149.627 },
-  { lat: -27.467, lng: 153.027 }
+  { lat: -27.467, lng: 153.027 },
 ]
 
 const SAN_FRANCISCO_COORDS = [
   { lat: 37.772, lng: -122.214 },
   { lat: 39.772, lng: -121.214 },
   { lat: 35.772, lng: -120.214 },
-  { lat: 37.772, lng: -122.214 }
+  { lat: 37.772, lng: -122.214 },
 ]
 
 const RECTANGLE_BOUNDS = {
   north: 38.685,
   south: 33.671,
   east: -115.234,
-  west: -118.251
+  west: -118.251,
 }
 
 const POLYLINE_OPTIONS = {
   strokeColor: '#FF0000',
   strokeOpacity: 1.0,
-  strokeWeight: 2
+  strokeWeight: 2,
 }
 
 const ExampleShapesPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired
-  }).isRequired
+    container: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const mapCenter = {
   lat: 0,
-  lng: -180
+  lng: -180,
 }
 
 const MARKER_POSITION = {
   lat: 37.772,
-  lng: -122.214
+  lng: -122.214,
 }
 
 const OVERLAY_VIEW_POSITION = {
   lat: 35.772,
-  lng: -120.214
+  lng: -120.214,
 }
 
 const INFO_WINDOW_POSITION = {
   lat: 33.772,
-  lng: -117.214
+  lng: -117.214,
 }
 
 const brisbanePolygonOptions = {
@@ -84,7 +84,7 @@ const brisbanePolygonOptions = {
   editable: false,
   geodesic: false,
   paths: BRISBANE_COORDS,
-  zIndex: 1
+  zIndex: 1,
 }
 
 const sfPolygonOptions = {
@@ -98,7 +98,7 @@ const sfPolygonOptions = {
   editable: false,
   geodesic: false,
   paths: SAN_FRANCISCO_COORDS,
-  zIndex: 1
+  zIndex: 1,
 }
 
 const circleOptions = {
@@ -109,14 +109,14 @@ const circleOptions = {
   fillOpacity: 0.35,
   center: {
     lat: 34.052,
-    lng: -118.243
+    lng: -118.243,
   },
   radius: 300000,
   clickable: false,
   draggable: false,
   editable: false,
   visible: true,
-  zIndex: 1
+  zIndex: 1,
 }
 
 const textareaStyle = {
@@ -124,13 +124,13 @@ const textareaStyle = {
   maxHeight: '12rem',
   width: '100%',
   minWidth: '15rem',
-  maxWidth: '40rem'
+  maxWidth: '40rem',
 }
 
 const infoWindowStyle = {
   background: `white`,
   border: `1px solid #ccc`,
-  padding: 15
+  padding: 15,
 }
 
 class ExampleShapes extends Component {
@@ -138,18 +138,18 @@ class ExampleShapes extends Component {
 
   state = {
     polylineVisible: true,
-    polylineOptions: JSON.stringify(POLYLINE_OPTIONS)
+    polylineOptions: JSON.stringify(POLYLINE_OPTIONS),
   }
 
   onCheckboxChange = () => {
     this.setState(prevState => ({
-      polylineVisible: !prevState.polylineVisible
+      polylineVisible: !prevState.polylineVisible,
     }))
   }
 
   onTextAreaChange = ({ target: { value } }) => {
     this.setState(() => ({
-      polylineOptions: value
+      polylineOptions: value,
     }))
   }
 
@@ -179,7 +179,12 @@ class ExampleShapes extends Component {
               checked={this.state.polylineVisible}
               onChange={this.onCheckboxChange}
             />
-            <label className='custom-control-label' htmlFor='show-polyline-checkbox'>Show flight path</label>
+            <label
+              className='custom-control-label'
+              htmlFor='show-polyline-checkbox'
+            >
+              Show flight path
+            </label>
           </div>
 
           <div className='form-group mb-4'>
@@ -205,37 +210,19 @@ class ExampleShapes extends Component {
             zoom={2}
             center={mapCenter}
           >
-            {
-              this.state.polylineVisible && (
-                <Polyline
-                  path={FLIGHT_PLAN_COORDS}
-                  options={polylineOptions}
-                />
-              )
-            }
+            {this.state.polylineVisible && (
+              <Polyline path={FLIGHT_PLAN_COORDS} options={polylineOptions} />
+            )}
 
-            <Polygon
-              path={BRISBANE_COORDS}
-              options={brisbanePolygonOptions}
-            />
+            <Polygon path={BRISBANE_COORDS} options={brisbanePolygonOptions} />
 
-            <Polygon
-              path={SAN_FRANCISCO_COORDS}
-              options={sfPolygonOptions}
-            />
+            <Polygon path={SAN_FRANCISCO_COORDS} options={sfPolygonOptions} />
 
-            <Rectangle
-              bounds={RECTANGLE_BOUNDS}
-            />
+            <Rectangle bounds={RECTANGLE_BOUNDS} />
 
-            <Circle
-              options={circleOptions}
-            />
+            <Circle options={circleOptions} />
 
-            <Marker
-              position={MARKER_POSITION}
-              icon={pinIcon}
-            />
+            <Marker position={MARKER_POSITION} icon={pinIcon} />
 
             <OverlayView
               position={OVERLAY_VIEW_POSITION}
@@ -244,18 +231,13 @@ class ExampleShapes extends Component {
               <div style={infoWindowStyle}>
                 <h1>OverlayView</h1>
 
-                <button
-                  onClick={this.onClick}
-                  type='button'
-                >
+                <button onClick={this.onClick} type='button'>
                   I have been clicked
                 </button>
               </div>
             </OverlayView>
 
-            <InfoWindow
-              position={INFO_WINDOW_POSITION}
-            >
+            <InfoWindow position={INFO_WINDOW_POSITION}>
               <div style={infoWindowStyle}>
                 <h1>InfoWindow</h1>
               </div>

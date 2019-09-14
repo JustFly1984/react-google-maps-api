@@ -44,15 +44,15 @@ const loaderId = uniqid('loader-')
 
 const onLoad = () => console.log('script loaded')
 
-const onError = (err) => console.log('onError: ', err)
+const onError = err => console.log('onError: ', err)
 
 const GoogleMaps = ({ googleMapsApiKey, language }) => (
   <LoadScript
     id={loaderId}
     googleMapsApiKey={googleMapsApiKey}
     language={language}
-    region={'EN'}
-    version={'weekly'}
+    region='EN'
+    version='weekly'
     onLoad={onLoad}
     onError={onError}
     loadingElement={Loading}
@@ -135,12 +135,12 @@ const GoogleMaps = ({ googleMapsApiKey, language }) => (
 
 GoogleMaps.propTypes = {
   language: PropTypes.string.isRequired,
-  googleMapsApiKey: PropTypes.string.isRequired
+  googleMapsApiKey: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
   language: state.getIn(['app', 'language']),
-  googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey'])
+  googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey']),
 })
 
 export default connect(mapStateToProps)(GoogleMaps)

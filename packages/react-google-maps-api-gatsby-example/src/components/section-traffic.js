@@ -8,22 +8,14 @@ import ExampleTraffic from '../examples/example-traffic'
 import { shapeExampleStyles } from './styles'
 
 const SectionTraffic = ({ traffic }) =>
-  traffic
-    ? (
-      <ExampleTraffic
-        styles={shapeExampleStyles}
-      />
-    )
-    : (<></>)
+  traffic ? <ExampleTraffic styles={shapeExampleStyles} /> : <></>
 
 SectionTraffic.propTypes = {
-  traffic: PropTypes.bool.isRequired
+  traffic: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  traffic: state.getIn(['app', 'traffic'])
+  traffic: state.getIn(['app', 'traffic']),
 })
 
-export default connect(
-  mapStateToProps
-)(SectionTraffic)
+export default connect(mapStateToProps)(SectionTraffic)

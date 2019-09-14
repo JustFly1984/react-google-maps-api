@@ -1,17 +1,18 @@
 class CustomStorage {
-  constructor () {
+  constructor() {
     this.values = {}
   }
 
-  setItem (key, value) {
+  setItem(key, value) {
     this.values[key] = value.toString()
   }
 
-  getItem (key) {
+  getItem(key) {
     return this.values[key] || null
   }
 }
 
-export const storage = (typeof window !== 'undefined' && window.localStorage)
-  ? window.localStorage
-  : new CustomStorage()
+export const storage =
+  typeof window !== 'undefined' && window.localStorage
+    ? window.localStorage
+    : new CustomStorage()

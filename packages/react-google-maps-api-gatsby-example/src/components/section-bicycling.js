@@ -8,22 +8,14 @@ import ExampleBicycling from '../examples/example-bicycling'
 import { shapeExampleStyles } from '../components/styles'
 
 const SectionBicycling = ({ bicycling }) =>
-  bicycling
-    ? (
-      <ExampleBicycling
-        styles={shapeExampleStyles}
-      />
-    )
-    : (<></>)
+  bicycling ? <ExampleBicycling styles={shapeExampleStyles} /> : <></>
 
 SectionBicycling.propTypes = {
-  bicycling: PropTypes.bool.isRequired
+  bicycling: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  bicycling: state.getIn(['app', 'bicycling'])
+  bicycling: state.getIn(['app', 'bicycling']),
 })
 
-export default connect(
-  mapStateToProps
-)(SectionBicycling)
+export default connect(mapStateToProps)(SectionBicycling)

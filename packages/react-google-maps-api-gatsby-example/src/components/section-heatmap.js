@@ -8,16 +8,10 @@ import ExampleHeatmap from '../examples/example-heatmap'
 import { shapeExampleStyles } from './styles'
 
 const SectionHeatmap = ({ heatmap }) =>
-  heatmap
-    ? (
-      <ExampleHeatmap
-        styles={shapeExampleStyles}
-      />
-    )
-    : (<></>)
+  heatmap ? <ExampleHeatmap styles={shapeExampleStyles} /> : <></>
 
 SectionHeatmap.propTypes = {
-  heatmap: PropTypes.bool.isRequired
+  heatmap: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -29,9 +23,7 @@ const mapStateToProps = state => ({
   shapes: state.getIn(['app', 'shapes']),
   drawing: state.getIn(['app', 'drawing']),
   bicycling: state.getIn(['app', 'bicycling']),
-  ground: state.getIn(['app', 'ground'])
+  ground: state.getIn(['app', 'ground']),
 })
 
-export default connect(
-  mapStateToProps
-)(SectionHeatmap)
+export default connect(mapStateToProps)(SectionHeatmap)

@@ -1,26 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  GoogleMap,
-  BicyclingLayer
-} from '@react-google-maps/api'
+import { GoogleMap, BicyclingLayer } from '@react-google-maps/api'
 
 const ExampleBicyclingPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired
-  }).isRequired
+    container: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const center = {
   lat: 0,
-  lng: -180
+  lng: -180,
 }
 
 const onClick = (...args) => {
   console.log('onClick args: ', args)
 }
 
-const onBicyclingLayerLoad = (bicyclingLayer) => {
+const onBicyclingLayerLoad = bicyclingLayer => {
   // Do something with bicyclingLayer
   console.log('bicyclingLayer: ', bicyclingLayer)
 }
@@ -40,9 +37,7 @@ const ExampleBicycling = ({ styles }) => (
         onClick={onClick}
         onLoad={onMapLoad}
       >
-        <BicyclingLayer
-          onLoad={onBicyclingLayerLoad}
-        />
+        <BicyclingLayer onLoad={onBicyclingLayerLoad} />
       </GoogleMap>
     </div>
   </div>

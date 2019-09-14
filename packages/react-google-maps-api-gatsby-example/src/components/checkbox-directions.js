@@ -17,10 +17,7 @@ const CheckboxDirections = ({ onChange, value }) => (
       value={value}
     />
 
-    <label
-      className='custom-control-label'
-      htmlFor={id}
-    >
+    <label className='custom-control-label' htmlFor={id}>
       Directions
     </label>
   </div>
@@ -28,21 +25,21 @@ const CheckboxDirections = ({ onChange, value }) => (
 
 CheckboxDirections.propTypes = {
   value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-  value: state.getIn(['app', 'directions'])
+  value: state.getIn(['app', 'directions']),
 })
 
 const mapDispatchToProps = dispatch => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
       toggleDirections({
-        directions: checked
+        directions: checked,
       })
     )
-  }
+  },
 })
 
 export default connect(

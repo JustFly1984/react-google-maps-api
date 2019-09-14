@@ -18,17 +18,17 @@ module.exports = {
     //     ignore: []
     //   }
     // },
-    {
-      resolve: 'gatsby-plugin-eslint',
-      options: {
-        test: /\.js$/,
-        exclude: /(node_modules|cache|public|static|.cache)/,
-        options: {
-          emitWarning: true,
-          failOnError: true
-        }
-      }
-    },
+    // {
+    //   resolve: 'gatsby-plugin-eslint',
+    //   options: {
+    //     test: /\.js$/,
+    //     exclude: /(node_modules|cache|public|static|.cache)/,
+    //     options: {
+    //       emitWarning: true,
+    //       failOnError: true,
+    //     },
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
@@ -52,8 +52,8 @@ module.exports = {
                 }
               }
             }
-        }`
-      }
+        }`,
+      },
     },
     {
       resolve: `gatsby-plugin-favicon`,
@@ -82,10 +82,10 @@ module.exports = {
           favicons: true,
           firefox: true,
           yandex: true,
-          windows: false
-        }
-      }
+          windows: false,
+        },
+      },
     },
-    'gatsby-plugin-react-helmet'
+    'gatsby-plugin-react-helmet',
   ],
 }

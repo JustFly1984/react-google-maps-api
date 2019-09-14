@@ -1,19 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  GoogleMap,
-  TrafficLayer
-} from '@react-google-maps/api'
+import { GoogleMap, TrafficLayer } from '@react-google-maps/api'
 
 const ExampleTrafficPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired
-  }).isRequired
+    container: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const center = {
   lat: 0,
-  lng: -180
+  lng: -180,
 }
 
 const onClick = (...args) => {

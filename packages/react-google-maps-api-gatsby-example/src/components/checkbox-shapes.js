@@ -17,10 +17,7 @@ const CheckboxShapes = ({ onChange, value }) => (
       value={value}
     />
 
-    <label
-      className='custom-control-label'
-      htmlFor={id}
-    >
+    <label className='custom-control-label' htmlFor={id}>
       Shapes
     </label>
   </div>
@@ -28,21 +25,21 @@ const CheckboxShapes = ({ onChange, value }) => (
 
 CheckboxShapes.propTypes = {
   value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-  value: state.getIn(['app', 'shapes'])
+  value: state.getIn(['app', 'shapes']),
 })
 
 const mapDispatchToProps = dispatch => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
       toggleShapes({
-        shapes: checked
+        shapes: checked,
       })
     )
-  }
+  },
 })
 
 export default connect(

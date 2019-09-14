@@ -1,19 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  GoogleMap,
-  DrawingManager
-} from '@react-google-maps/api'
+import { GoogleMap, DrawingManager } from '@react-google-maps/api'
 
 const center = {
   lat: 0,
-  lng: -180
+  lng: -180,
 }
 
 const ExampleDrawingPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired
-  }).isRequired
+    container: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const ExampleDrawing = ({ styles }) => (

@@ -3,17 +3,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import {
-  setGoogleMapsKey
-} from '../actions/app'
+import { setGoogleMapsKey } from '../actions/app'
 
 const InputBoxApiKey = ({ value, onChange }) => (
   <div className='form-group mb-2'>
-    <label
-      htmlFor='apikey'
-    >
-      Google API key:
-    </label>
+    <label htmlFor='apikey'>Google API key:</label>
     {` `}
     <input
       id='apikey'
@@ -32,21 +26,21 @@ const InputBoxApiKey = ({ value, onChange }) => (
 InputBoxApiKey.propTypes = {
   value: PropTypes.string.isRequired,
 
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-  value: state.getIn(['app', 'googleMapsApiKey'])
+  value: state.getIn(['app', 'googleMapsApiKey']),
 })
 
 const mapDispatchToProps = dispatch => ({
   onChange: ({ target: { value } }) => {
     dispatch(
       setGoogleMapsKey({
-        googleMapsApiKey: value
+        googleMapsApiKey: value,
       })
     )
-  }
+  },
 })
 
 export default connect(

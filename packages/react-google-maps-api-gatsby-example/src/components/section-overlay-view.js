@@ -7,16 +7,15 @@ import ExampleOverlayView from '../examples/example-overlay-view'
 
 import { shapeExampleStyles } from './styles'
 
-const SectionOverlayView = ({ overlayView }) => (
+const SectionOverlayView = ({ overlayView }) =>
   overlayView ? <ExampleOverlayView styles={shapeExampleStyles} /> : <></>
-)
 
 SectionOverlayView.propTypes = {
-  overlayView: PropTypes.bool.isRequired
+  overlayView: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  overlayView: state.getIn(['app', 'overlayView'])
+  overlayView: state.getIn(['app', 'overlayView']),
 })
 
 export default connect(mapStateToProps)(SectionOverlayView)

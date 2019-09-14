@@ -17,10 +17,7 @@ const CheckboxHeatmap = ({ onChange, value }) => (
       value={value}
     />
 
-    <label
-      className='custom-control-label'
-      htmlFor={id}
-    >
+    <label className='custom-control-label' htmlFor={id}>
       Heatmap
     </label>
   </div>
@@ -28,21 +25,21 @@ const CheckboxHeatmap = ({ onChange, value }) => (
 
 CheckboxHeatmap.propTypes = {
   value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-  value: state.getIn(['app', 'heatmap'])
+  value: state.getIn(['app', 'heatmap']),
 })
 
 const mapDispatchToProps = dispatch => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
       toggleHeatmap({
-        heatmap: checked
+        heatmap: checked,
       })
     )
-  }
+  },
 })
 
 export default connect(

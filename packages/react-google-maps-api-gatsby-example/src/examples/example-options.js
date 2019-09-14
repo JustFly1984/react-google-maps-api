@@ -1,25 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  GoogleMap
-} from '@react-google-maps/api'
+import { GoogleMap } from '@react-google-maps/api'
 
 const ExampleOptionsPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired
-  }).isRequired
+    container: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const center = {
   lat: 0,
-  lng: -180
+  lng: -180,
 }
 
 // Reference for options:
 // https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions
 
 const options = {
-  streetViewControl: false
+  streetViewControl: false,
 }
 
 const onClick = (...args) => {

@@ -17,10 +17,7 @@ const CheckboxTraffic = ({ onChange, value }) => (
       value={value}
     />
 
-    <label
-      className='custom-control-label'
-      htmlFor={id}
-    >
+    <label className='custom-control-label' htmlFor={id}>
       Traffic
     </label>
   </div>
@@ -28,21 +25,21 @@ const CheckboxTraffic = ({ onChange, value }) => (
 
 CheckboxTraffic.propTypes = {
   value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-  value: state.getIn(['app', 'traffic'])
+  value: state.getIn(['app', 'traffic']),
 })
 
 const mapDispatchToProps = dispatch => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
       toggleTraffic({
-        traffic: checked
+        traffic: checked,
       })
     )
-  }
+  },
 })
 
 export default connect(

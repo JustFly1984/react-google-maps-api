@@ -16,7 +16,7 @@ const ButtonLoadscript = ({ checked, isApikeyValid, onClick }) => (
       onClick={onClick}
       disabled={!isApikeyValid}
     >
-      { checked ? 'Unload Maps' : 'Load Maps'}
+      {checked ? 'Unload Maps' : 'Load Maps'}
     </button>
   </div>
 )
@@ -24,22 +24,20 @@ const ButtonLoadscript = ({ checked, isApikeyValid, onClick }) => (
 ButtonLoadscript.propTypes = {
   isApikeyValid: PropTypes.bool.isRequired,
   checked: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     isApikeyValid: state.getIn(['app', 'googleMapsApiKey']).length >= 38,
-    checked: state.getIn(['app', 'loadScriptChecked'])
+    checked: state.getIn(['app', 'loadScriptChecked']),
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   onClick: () => {
-    dispatch(
-      toggleLoadScript()
-    )
-  }
+    dispatch(toggleLoadScript())
+  },
 })
 
 export default connect(

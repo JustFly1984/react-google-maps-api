@@ -12,7 +12,7 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
     'prettier/react',
     'prettier/standard',
-    'prettier/@typescript-eslint',
+    // 'prettier/@typescript-eslint'
     'plugin:prettier/recommended', // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
   ],
   plugins: [
@@ -32,6 +32,7 @@ module.exports = {
     "css-modules",
     "no-inferred-method-name",
     "react-functional-set-state",
+    "prettier"
   ],
   env: {
     browser: true,

@@ -1,26 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  GoogleMap,
-  TransitLayer
-} from '@react-google-maps/api'
+import { GoogleMap, TransitLayer } from '@react-google-maps/api'
 
 const ExampleTransitPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired
-  }).isRequired
+    container: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const center = {
   lat: 0,
-  lng: -180
+  lng: -180,
 }
 
 const onClick = (...args) => {
   console.log('onClick args: ', args)
 }
 
-const onTransitLayerLoad = (transitLayer) => {
+const onTransitLayerLoad = transitLayer => {
   // Do something with transitLayer
   console.log('transitLayer: ', transitLayer)
 }
@@ -40,9 +37,7 @@ const ExampleTransit = ({ styles }) => (
         onClick={onClick}
         onLoad={onMapLoad}
       >
-        <TransitLayer
-          onLoad={onTransitLayerLoad}
-        />
+        <TransitLayer onLoad={onTransitLayerLoad} />
       </GoogleMap>
     </div>
   </div>

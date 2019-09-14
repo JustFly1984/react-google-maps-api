@@ -1,19 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  GoogleMap,
-  StandaloneSearchBox
-} from '@react-google-maps/api'
+import { GoogleMap, StandaloneSearchBox } from '@react-google-maps/api'
 
 const ExampleSearchboxPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired
-  }).isRequired
+    container: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const center = {
   lat: 0,
-  lng: -180
+  lng: -180,
 }
 
 const onClick = (...args) => {
@@ -48,7 +45,7 @@ const ExampleSearchbox = ({ styles }) => (
               textOverflow: `ellipses`,
               position: 'absolute',
               top: '10px',
-              right: '10px'
+              right: '10px',
             }}
           />
         </StandaloneSearchBox>

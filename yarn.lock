@@ -2829,15 +2829,6 @@
     "@react-google-maps/marker-clusterer" "1.6.0"
     invariant "2.2.4"
 
-"@react-google-maps/api@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.7.0.tgz#04722e5768657c454d391d997028217a533a8932"
-  integrity sha512-wmpt3pYst+f8MGrCoB2CJ76cukgv4vDsO0bLPEhWKnDnyn7+WGxQpMCJhLSc47VRQLXI6HiIvzxNOsCvryY/xw==
-  dependencies:
-    "@react-google-maps/infobox" "1.7.0"
-    "@react-google-maps/marker-clusterer" "1.7.0"
-    invariant "2.2.4"
-
 "@react-google-maps/marker-clusterer@1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.6.0.tgz#2e04f7185ed2ff405f3d2179dfc22d8b99477a39"

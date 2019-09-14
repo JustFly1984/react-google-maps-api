@@ -1,26 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  GoogleMap,
-  Data
-} from '@react-google-maps/api'
+import { GoogleMap, Data } from '@react-google-maps/api'
 
 const ExampleDataPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired
-  }).isRequired
+    container: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const center = {
   lat: 38.805470223177466,
-  lng: -118.76220703125
+  lng: -118.76220703125,
 }
 
 const onClick = (...args) => {
-  console.log('onClick args: ', args[0].latLng.lat(), ' : ', args[0].latLng.lng())
+  console.log(
+    'onClick args: ',
+    args[0].latLng.lat(),
+    ' : ',
+    args[0].latLng.lng()
+  )
 }
 
-const onMapLoad = (map) => {
+const onMapLoad = map => {
   console.log('map.data: ', map.data)
   // map.data.loadGeoJson('/geo.json')
 }
@@ -90,7 +92,7 @@ const dataOptions = {
 
   // Type:  number
   // All features are displayed on the map in order of their zIndex, with higher values displaying in front of features with lower values. Markers are always displayed in front of line-strings and polygons.
-  zIndex: 2
+  zIndex: 2,
 }
 
 const ExampleData = ({ styles }) => (
@@ -104,10 +106,7 @@ const ExampleData = ({ styles }) => (
         onClick={onClick}
         onLoad={onMapLoad}
       >
-        <Data
-          onLoad={onDataLoad}
-          options={dataOptions}
-        />
+        <Data onLoad={onDataLoad} options={dataOptions} />
       </GoogleMap>
     </div>
   </div>

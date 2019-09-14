@@ -17,10 +17,7 @@ const CheckboxGround = ({ onChange, value }) => (
       value={value}
     />
 
-    <label
-      className='custom-control-label'
-      htmlFor={id}
-    >
+    <label className='custom-control-label' htmlFor={id}>
       Ground
     </label>
   </div>
@@ -29,21 +26,21 @@ const CheckboxGround = ({ onChange, value }) => (
 CheckboxGround.propTypes = {
   value: PropTypes.bool.isRequired,
 
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-  value: state.getIn(['app', 'ground'])
+  value: state.getIn(['app', 'ground']),
 })
 
 const mapDispatchToProps = dispatch => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
       toggleGround({
-        ground: checked
+        ground: checked,
       })
     )
-  }
+  },
 })
 
 export default connect(
