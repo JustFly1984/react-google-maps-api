@@ -28,6 +28,11 @@ export {
 } from "./components/maps/BicyclingLayer"
 
 export {
+  default as TransitLayer,
+  TransitLayerProps
+} from "./components/maps/TransitLayer"
+
+export {
   default as DrawingManager,
   DrawingManagerProps
 } from "./components/drawing/DrawingManager"
