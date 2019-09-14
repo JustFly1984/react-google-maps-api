@@ -85,7 +85,8 @@
   "dependencies": {
     "@react-google-maps/infobox": "1.7.0",
     "@react-google-maps/marker-clusterer": "1.7.0",
-    "invariant": "2.2.4"
+    "invariant": "2.2.4",
+    "react-docgen": "^2.17.0"
   },
   "peerDependencies": {
     "react": "^16.6.3",
@@ -124,7 +125,7 @@
     "jest-cli": "24.9.0",
     "react": "16.9.0",
     "react-docgen": "4.1.1",
-    "react-docgen-typescript": "1.14.1",
+    "react-docgen-typescript": "1.12.5",
     "react-dom": "16.9.0",
     "react-styleguidist": "9.1.16",
     "rimraf": "3.0.0",
