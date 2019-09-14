@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/infobox",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "InfoBox for React.js Google Maps API",
   "license": "MIT",
   "author": {
@@ -48,8 +48,6 @@
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "8.0.1",
     "@types/babel-types": "7.0.7",
-    "@typescript-eslint/eslint-plugin": "1.13.0",
-    "@typescript-eslint/parser": "1.13.0",
     "acorn": "6.2.1",
     "awesome-typescript-loader": "5.2.1",
     "eslint-config-standard": "13.0.1",
@@ -72,9 +70,7 @@
     "eslint-plugin-react-hooks": "1.7.0",
     "eslint-plugin-react-perf": "3.2.1",
     "eslint-plugin-standard": "4.0.1",
-    "eslint-plugin-you-dont-need-lodash-underscore": "6.6.0",
-    "rimraf": "2.6.3",
-    "webpack": "4.39.2"
+    "eslint-plugin-you-dont-need-lodash-underscore": "6.7.0"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }

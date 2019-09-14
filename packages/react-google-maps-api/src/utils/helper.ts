@@ -1,12 +1,11 @@
 /* eslint-disable filenames/match-regex */
-import { reduce } from "./reduce"
-import { forEach } from "./foreach"
+import { reduce } from './reduce'
+import { forEach } from './foreach'
 
 export const applyUpdaterToNextProps = (
   updaterMap: any,
   prevProps: any,
   nextProps: any,
-  // eslint-disable-next-line @getify/proper-arrows/params
   instance: any
 ): any => {
   const map: any = {}
@@ -37,14 +36,8 @@ export function registerEvents(
       googleEventName: string,
       onEventName: any
     ): google.maps.MapsEventListener[] {
-      if (typeof props[onEventName] === "function") {
-        acc.push(
-          google.maps.event.addListener(
-            instance,
-            googleEventName,
-            props[onEventName]
-          )
-        )
+      if (typeof props[onEventName] === 'function') {
+        acc.push(google.maps.event.addListener(instance, googleEventName, props[onEventName]))
       }
 
       return acc
@@ -67,13 +60,13 @@ export function applyUpdatersToPropsAndRegisterEvents({
   eventMap,
   prevProps,
   nextProps,
-  instance
+  instance,
 }: {
-  updaterMap: any;
-  eventMap: Record<string, string>;
-  prevProps: any;
-  nextProps: any;
-  instance: any;
+  updaterMap: any
+  eventMap: Record<string, string>
+  prevProps: any
+  nextProps: any
+  instance: any
 }) {
   const registeredEvents = registerEvents(nextProps, instance, eventMap)
   applyUpdaterToNextProps(updaterMap, prevProps, nextProps, instance)

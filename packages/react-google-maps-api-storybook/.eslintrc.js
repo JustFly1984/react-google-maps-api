@@ -15,7 +15,6 @@ module.exports = {
   plugins: [
     "you-dont-need-lodash-underscore",
     "json",
-    "dependencies",
     "babel",
     "import",
     "filenames",
@@ -65,10 +64,6 @@ module.exports = {
         functions: "never",
       },
     ],
-    "dependencies/case-sensitive": 1,
-    "dependencies/no-cycles": 1,
-    "dependencies/no-unresolved": 1,
-    "dependencies/require-json-ext": 1,
     "react-functional-set-state/no-this-state-props": 2,
     "no-void": 2,
     "no-restricted-globals": 2,
@@ -77,7 +72,6 @@ module.exports = {
     "no-unused-vars": 2,
     "guard-for-in": 2,
     "no-restricted-syntax": 2,
-
     "jsx-a11y/label-has-for": "off",
     "no-console": "off",
     // 'react/no-typos': 'off',

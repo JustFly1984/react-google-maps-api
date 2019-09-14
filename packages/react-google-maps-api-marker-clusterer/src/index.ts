@@ -36,22 +36,16 @@
  * limitations under the License.
  */
 
-export {
-  Clusterer
-} from './Clusterer'
+export { Clusterer } from './Clusterer'
 
-export {
-  Cluster
-} from './Cluster'
+export { Cluster } from './Cluster'
 
-export {
-  ClusterIcon
-} from './ClusterIcon'
+export { ClusterIcon } from './ClusterIcon'
 
 export {
   ClusterIconInfo,
   ClusterIconStyle,
   MarkerExtended,
   TCalculator,
-  ClustererOptions
+  ClustererOptions,
 } from './types'

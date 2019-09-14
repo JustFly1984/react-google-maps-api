@@ -1,11 +1,11 @@
-import * as React from "react"
+import * as React from 'react'
 
 interface ScriptLoadedState {
-  scriptLoaded: boolean;
+  scriptLoaded: boolean
 }
 
 interface ScriptLoadedProps {
-  children: React.ReactChild | React.ReactChildren | Function;
+  children: React.ReactChild | React.ReactChildren | Function
 }
 
 function SpanIntro(): JSX.Element {
@@ -24,33 +24,28 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
 
     this.state = {
       ///@ts-ignore
-      scriptLoaded: !!window.google
+      scriptLoaded: !!window.google,
     }
 
     this.interval = window.setInterval(this.checkIfScriptLoaded, 200)
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setScriptLoadedCallback = () => {
     if (this.state.scriptLoaded) {
       window.clearInterval(this.interval)
     }
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   checkIfScriptLoaded = () => {
     function serScriptLoaded() {
       return {
-        scriptLoaded: true
+        scriptLoaded: true,
       }
     }
 
     ///@ts-ignore
     if (window.google) {
-      this.setState(
-        serScriptLoaded,
-        this.setScriptLoadedCallback
-      )
+      this.setState(serScriptLoaded, this.setScriptLoadedCallback)
     }
   }
 
@@ -63,7 +58,7 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
       return <SpanIntro />
     }
 
-    return (this.props.children instanceof Function) ? this.props.children() : this.props.children
+    return this.props.children instanceof Function ? this.props.children() : this.props.children
   }
 }
 

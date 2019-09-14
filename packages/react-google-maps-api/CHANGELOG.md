@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.1 Added Transport Layer
+
+## 1.7.0 Added Infobox
+
+## 1.6.0 Update dependencies
+
 ## 1.5.4 fix tsdx build issues
 
 ## 1.5.3 fix umd build

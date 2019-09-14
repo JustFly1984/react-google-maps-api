@@ -8,18 +8,17 @@ module.exports = {
     'plugin:react-perf/recommended',
     'standard-react',
     'plugin:jsx-a11y/recommended',
-    'plugin:@typescript-eslint/recommended' // Uses the recommended rules from @typescript-eslint/eslint-plugin
-    // 'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint/eslint-plugin
+    'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    'prettier/react',
+    'prettier/standard',
+    'prettier/@typescript-eslint',
     // 'plugin:prettier/recommended', // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
-    // 'prettier/react',
-    // 'prettier/standard',
-    // 'prettier/@typescript-eslint'
   ],
   plugins: [
     '@getify/proper-arrows',
     'you-dont-need-lodash-underscore',
     'json',
-    'dependencies',
     'babel',
     'import',
     'filenames',
@@ -33,8 +32,8 @@ module.exports = {
     'standard',
     'no-inferred-method-name',
     'react-functional-set-state',
-    '@typescript-eslint'
-    // 'prettier'
+    '@typescript-eslint',
+    'prettier'
   ],
   env: {
     browser: true,
@@ -91,10 +90,6 @@ module.exports = {
     'filenames/match-exported': [2, ['camel', 'kebab', null]],
     'template-curly-spacing': ['error', 'never'],
     indent: ['error', 2],
-    'dependencies/case-sensitive': 1,
-    'dependencies/no-cycles': 1,
-    'dependencies/no-unresolved': 0,
-    'dependencies/require-json-ext': 1,
     'react-functional-set-state/no-this-state-props': 2,
     'no-void': 2,
     'no-restricted-globals': 2,
@@ -135,7 +130,6 @@ module.exports = {
     'import/no-duplicates': 0,
     'import/imports-first': 2,
     'semi': ['error', 'never'],
-    'quote': 'single',
     // 'prettier/prettier': ['error', {trailingComma: 'none', semi: false, singleQoute: true, printWidth: 80, tabWidth: 2, parser: 'typescript'}],
     // @typescript-eslint rule overrides
     "indent": "off",

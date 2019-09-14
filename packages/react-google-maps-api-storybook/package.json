@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/storybook",
-  "version": "1.2.4",
+  "version": "1.7.0",
   "description": "Storybook for @react-google-maps/api",
   "repository": {
     "type": "git",

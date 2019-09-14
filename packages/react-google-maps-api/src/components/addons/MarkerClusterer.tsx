@@ -91,7 +91,7 @@ interface ClustererState {
 }
 
 export interface ClustererProps {
-  
+
   // required
   children: (markerClusterer: Clusterer) => React.ReactNode;
 
@@ -154,7 +154,6 @@ export class ClustererComponent extends React.PureComponent<
     markerClusterer: null
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setClustererCallback = (): void => {
     if (this.state.markerClusterer !== null && this.props.onLoad) {
       this.props.onLoad(this.state.markerClusterer)

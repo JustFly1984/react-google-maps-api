@@ -8,17 +8,17 @@ const libraries = ['drawing', 'places', 'visualization']
 const inputStyle = {
   width: '400px',
   height: '40px',
-  paddingLeft: '8px'
+  paddingLeft: '8px',
 }
 
 const buttonStyle = {
   height: '40px',
-  marginLeft: '8px'
+  marginLeft: '8px',
 }
 
 interface DocsApiKeyInputState {
-  key: string;
-  loadScript: boolean;
+  key: string
+  loadScript: boolean
 }
 
 class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
@@ -27,23 +27,19 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
 
     const key = getKey()
 
-    this.state = key
-      ? { key, loadScript: true }
-      : { key: '', loadScript: false }
+    this.state = key ? { key, loadScript: true } : { key: '', loadScript: false }
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   onInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>): void => {
-    function setKey () {
+    function setKey() {
       return {
-        key: value
+        key: value,
       }
     }
 
     this.setState(setKey)
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   onFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
 
@@ -51,7 +47,7 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
 
     function setLoadScript() {
       return {
-        loadScript: true
+        loadScript: true,
       }
     }
 
@@ -75,23 +71,19 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
           </button>
         </form>
 
-        {
-          this.state.loadScript
-            ? (
-              <LoadScript
-                id='script-loader'
-                googleMapsApiKey={this.state.key}
-                language='en'
-                region='EN'
-                version='weekly'
-                libraries={libraries}
-                loadingElement={<div>Loading...</div>}
-              />
-            )
-            : (
-              <></>
-            )
-        }
+        {this.state.loadScript ? (
+          <LoadScript
+            id='script-loader'
+            googleMapsApiKey={this.state.key}
+            language='en'
+            region='EN'
+            version='weekly'
+            libraries={libraries}
+            loadingElement={<div>Loading...</div>}
+          />
+        ) : (
+          <></>
+        )}
       </>
     )
   }

@@ -1,30 +1,25 @@
 /* eslint-disable filenames/match-regex */
 /* globals google */
-import {
-  Clusterer
-} from './Clusterer'
+import { Clusterer } from './Clusterer'
 
-import {
-  ClusterIcon
-} from './ClusterIcon'
+import { ClusterIcon } from './ClusterIcon'
 
-import {
-  MarkerExtended
-} from './types'
+import { MarkerExtended } from './types'
 
 export class Cluster {
-  markerClusterer: Clusterer;
-  map: google.maps.Map | google.maps.StreetViewPanorama;
-  gridSize: number;
-  minClusterSize: number;
-  averageCenter: boolean;
-  markers: MarkerExtended[];
-  center: google.maps.LatLng | undefined;
-  bounds: google.maps.LatLngBounds | null;
-  clusterIcon: ClusterIcon;
+  markerClusterer: Clusterer
+  map: google.maps.Map | google.maps.StreetViewPanorama
+  gridSize: number
+  minClusterSize: number
+  averageCenter: boolean
+  markers: MarkerExtended[]
+  center: google.maps.LatLng | undefined
+  bounds: google.maps.LatLngBounds | null
+  clusterIcon: ClusterIcon
 
   constructor(markerClusterer: Clusterer) {
     this.markerClusterer = markerClusterer
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.map = this.markerClusterer.getMap()
 
@@ -43,27 +38,27 @@ export class Cluster {
     this.clusterIcon = new ClusterIcon(this, this.markerClusterer.getStyles())
   }
 
-  getSize (): number {
+  getSize(): number {
     return this.markers.length
   }
 
-  getMarkers (): MarkerExtended[] {
+  getMarkers(): MarkerExtended[] {
     return this.markers
   }
 
-  getCenter (): google.maps.LatLng | undefined {
+  getCenter(): google.maps.LatLng | undefined {
     return this.center
   }
 
-  getMap (): google.maps.Map | google.maps.StreetViewPanorama {
+  getMap(): google.maps.Map | google.maps.StreetViewPanorama {
     return this.map
   }
 
-  getClusterer (): Clusterer {
+  getClusterer(): Clusterer {
     return this.markerClusterer
   }
 
-  getBounds (): google.maps.LatLngBounds {
+  getBounds(): google.maps.LatLngBounds {
     const bounds = new google.maps.LatLngBounds(this.center, this.center)
 
     const markers = this.getMarkers()
@@ -79,7 +74,8 @@ export class Cluster {
     return bounds
   }
 
-  remove () {
+  remove() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.clusterIcon.setMap(null)
 
@@ -88,7 +84,7 @@ export class Cluster {
     delete this.markers
   }
 
-  addMarker (marker: MarkerExtended): boolean {
+  addMarker(marker: MarkerExtended): boolean {
     if (this.isMarkerAlreadyAdded(marker)) {
       return false
     }
@@ -150,7 +146,7 @@ export class Cluster {
     return true
   }
 
-  isMarkerInClusterBounds ( marker: MarkerExtended): boolean {
+  isMarkerInClusterBounds(marker: MarkerExtended): boolean {
     if (this.bounds !== null) {
       const position = marker.getPosition()
 
@@ -162,16 +158,13 @@ export class Cluster {
     return false
   }
 
-  calculateBounds () {
+  calculateBounds() {
     this.bounds = this.markerClusterer.getExtendedBounds(
-      new google.maps.LatLngBounds(
-        this.center,
-        this.center
-      )
+      new google.maps.LatLngBounds(this.center, this.center)
     )
   }
 
-  updateIcon () {
+  updateIcon() {
     const mCount = this.markers.length
 
     const maxZoom = this.markerClusterer.getMaxZoom()
@@ -194,10 +187,7 @@ export class Cluster {
     }
 
     this.clusterIcon.useStyle(
-      this.markerClusterer.getCalculator()(
-        this.markers,
-        this.markerClusterer.getStyles().length
-      )
+      this.markerClusterer.getCalculator()(this.markers, this.markerClusterer.getStyles().length)
     )
 
     this.clusterIcon.show()

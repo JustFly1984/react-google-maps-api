@@ -27,10 +27,6 @@
  * limitations under the License.
  */
 
-export {
-  InfoBox
-} from './InfoBox'
+export { InfoBox } from './InfoBox'
 
-export {
-  InfoBoxOptions,
-} from './types'
+export { InfoBoxOptions } from './types'
