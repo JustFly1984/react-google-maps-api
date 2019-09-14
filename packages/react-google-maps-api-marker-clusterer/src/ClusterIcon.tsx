@@ -222,7 +222,7 @@ export class ClusterIcon {
 
   show () {
     if (this.div && this.center) {
-      let img = ""
+      let img = "", divTitle = ""
 
       // NOTE: values must be specified in px units
       const bp = this.backgroundPosition.split(" ")
@@ -233,9 +233,15 @@ export class ClusterIcon {
 
       const pos = this.getPosFromLatLng(this.center)
 
+      if (this.sums === null || typeof this.sums.title === "undefined" || this.sums.title === "") {
+        divTitle = this.cluster.getClusterer().getTitle()
+      } else {
+        divTitle = this.sums.title
+      }
+
       this.div.style.cssText = this.createCss(pos)
 
-      img = "<img src='" + this.url + "' style='position: absolute; top: " + spriteV + "px; left: " + spriteH + "px; "
+      img = "<img alt='" + divTitle + "' src='" + this.url + "' style='position: absolute; top: " + spriteV + "px; left: " + spriteH + "px; "
 
       //@ts-ignore
       if (!this.cluster.getClusterer().enableRetinaIcons) {
@@ -261,13 +267,7 @@ export class ClusterIcon {
         // @ts-ignore
         "'>" + this.sums.text + "</div>"
 
-      // @ts-ignore
-      if (typeof this.sums.title === "undefined" || this.sums.title === "") {
-        this.div.title = this.cluster.getClusterer().getTitle()
-      } else {
-        // @ts-ignore
-        this.div.title = this.sums.title
-      }
+      this.div.title = divTitle
 
       this.div.style.display = ""
     }
