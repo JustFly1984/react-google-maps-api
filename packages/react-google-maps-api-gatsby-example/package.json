@@ -74,7 +74,6 @@
     "@babel/plugin-transform-react-jsx": "7.3.0",
     "@babel/plugin-transform-spread": "7.2.2",
     "@babel/preset-react": "7.0.0",
-    "acorn": "^7.0.0",
     "babel-eslint": "10.0.3",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
     "eslint-config-prettier": "6.3.0",

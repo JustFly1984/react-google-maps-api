@@ -47,12 +47,12 @@
     ]
   },
   "devDependencies": {
-    "eslint": "6.4.0",
+    "eslint": "5.16.0",
     "@types/react-dom": "16.9.0",
     "@types/googlemaps": "3.37.6",
     "@typescript-eslint/eslint-plugin": "2.2.0",
     "@typescript-eslint/parser": "2.2.0",
-    "acorn": "6.3.0",
+    "acorn": "6.2.1",
     "husky": "3.0.5",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",

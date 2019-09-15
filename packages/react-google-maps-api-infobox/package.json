@@ -48,7 +48,6 @@
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "8.0.1",
     "@types/babel-types": "7.0.7",
-    "acorn": "6.2.1",
     "awesome-typescript-loader": "5.2.1",
     "eslint-config-standard": "13.0.1",
     "eslint-config-standard-react": "8.0.0",
