@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.7.6 fix types for Data component
+
 ## 1.7.1 Added Transport Layer
 
 ## 1.7.0 Added Infobox
