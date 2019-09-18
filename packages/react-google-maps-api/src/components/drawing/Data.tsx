@@ -106,23 +106,23 @@ export interface DataProps {
   /**  This event is fired when a feature is added to the collection. */
   onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void;
   /**  This event is fired for a click on the geometry. */
-  onClick?: (e: google.maps.MouseEvent) => void;
+  onClick?: (e: google.maps.Data.MouseEvent) => void;
   /**  This event is fired for a double click on the geometry. */
-  onDblClick?: (e: google.maps.MouseEvent) => void;
+  onDblClick?: (e: google.maps.Data.MouseEvent) => void;
   /**  This event is fired for a mousedown on the geometry. */
-  onMouseDown?: (e: google.maps.MouseEvent) => void;
+  onMouseDown?: (e: google.maps.Data.MouseEvent) => void;
   /**  This event is fired when the mouse leaves the area of the geometry. */
-  onMouseOut?: (e: google.maps.MouseEvent) => void;
+  onMouseOut?: (e: google.maps.Data.MouseEvent) => void;
   /**  This event is fired when the mouse enters the area of the geometry. */
-  onMouseOver?: (e: google.maps.MouseEvent) => void;
+  onMouseOver?: (e: google.maps.Data.MouseEvent) => void;
   /**  This event is fired for a mouseup on the geometry. */
-  onMouseUp?: (e: google.maps.MouseEvent) => void;
+  onMouseUp?: (e: google.maps.Data.MouseEvent) => void;
   /**  This event is fired when a feature is removed from the collection. */
   onRemoveFeature?: (e: google.maps.Data.RemoveFeatureEvent) => void;
   /**  This event is fired when a feature's property is removed. */
   onRemoveProperty?: (e: google.maps.Data.RemovePropertyEvent) => void;
   /**  This event is fired for a rightclick on the geometry. */
-  onRightClick?: (e: google.maps.MouseEvent) => void;
+  onRightClick?: (e: google.maps.Data.MouseEvent) => void;
   /**  This event is fired when a feature's geometry is set. */
   onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void;
   /**  This event is fired when a feature's property is set. */
