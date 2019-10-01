@@ -22,7 +22,7 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
         console.log('data: ', data)
       }}
       options={{
-        controlPosition: "TOP_LEFT",
+        controlPosition: window.google ? window.google.maps.ControlPosition.TOP_LEFT : undefined,
         controls: ["Point"],
         drawingMode: "Point", //  "LineString" or "Polygon".
         featureFactory: geometry => {
