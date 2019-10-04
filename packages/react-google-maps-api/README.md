@@ -55,6 +55,14 @@ You can join the community at https://spectrum.chat/react-google-maps to ask que
 
 Maintainers and contributors are very welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.
 
+## How to test changes locally
+When working on a feature/fix, you're probably gonna want to test your changes. This workflow is a work in progress. Please feel free to improve it!
+
+1. In the file `packages/eact-google-maps-api/package.json` change `main` to `"src/index.ts"`
+2. In the same file, delete the `module` field
+3. You can now use the package `react-google-maps-api-gatsby-example` to test your changes. Just make sure you change the import from `@react-google-maps/api` to `../../../react-google-maps-api`
+
+
 ## Migration from react-google-maps@9.4.5
 
 if you need an access to map object, instead of `ref` prop, you need to use `onLoad` callback on `<GoogleMap />` component.
