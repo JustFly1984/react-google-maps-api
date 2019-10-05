@@ -16,7 +16,7 @@ class MyMapWithAutocomplete extends Component {
     this.autocomplete = null
 
     this.onLoad = this.onLoad.bind(this)
-    this.onPlaceChanged = this.onPlaceChanged(this)
+    this.onPlaceChanged = this.onPlaceChanged.bind(this)
   }
 
   onLoad (autocomplete) {
@@ -50,7 +50,7 @@ class MyMapWithAutocomplete extends Component {
         >
           <Autocomplete
             onLoad={this.onLoad}
-            onPlacesChanged={this.onPlaceChanged}
+            onPlaceChanged={this.onPlaceChanged}
           >
             <input
               type="text"
