@@ -1,0 +1,46 @@
+import React from 'react'
+import { GoogleMap } from '@react-google-maps/api'
+
+let mapRef;
+
+const center = {
+  lat: 40.74,
+  lng: -74.18,
+}
+
+const BOUNDS = {
+  north: 40.773941,
+  south: 40.712216,
+  east: -74.12544,
+  west: -74.22655,
+}
+
+const onClick = (...args) => {
+		if(mapRef) {
+      position = {
+        lat: 35,
+        lng: 35,
+      };
+      mapRef.panTo(position);		
+		}
+}
+
+const onLoaded = (map) => {
+  mapRef = map;
+}
+
+const ExamplePanTo = ({ styles }) => (
+  <div className='map'>
+    <div className='map-container'>
+      <GoogleMap
+        zoom={13}
+        center={center}
+        onClick={onClick}
+        onLoad={onLoaded}
+      >
+      </GoogleMap>
+    </div>
+  </div>
+)
+
+export default ExamplePanTo
