@@ -89,7 +89,7 @@ interface MarkerState {
 }
 
 export interface MarkerProps {
-  options?: google.maps.MapOptions;
+  options?: google.maps.MarkerOptions;
   /** Start an animation. Any ongoing animation will be cancelled. Currently supported animations are: BOUNCE, DROP. Passing in null will cause any animation to stop. */
   animation?: google.maps.Animation;
   /** If true, the marker receives mouse and touch events. Default value is true. */
