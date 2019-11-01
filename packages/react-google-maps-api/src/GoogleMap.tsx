@@ -149,6 +149,13 @@ export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapStat
     return new google.maps.Map(this.mapRef, this.props.options)
   }
 
+  panTo = (latLng: google.maps.LatLng | google.maps.LatLngLiteral): void => {
+    const map = this.getInstance(); 
+    if(map) {
+      map.panTo(latLng);
+    }
+  }
+
   // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setMapCallback = () => {
     if (this.state.map !== null) {
