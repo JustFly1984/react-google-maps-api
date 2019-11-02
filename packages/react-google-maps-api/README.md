@@ -26,43 +26,6 @@ or Yarn
 yarn add @react-google-maps/api
 ```
 
-## Main features
-
-- Simplified API
-- Uses the new Context API
-- Supports async React (StrictMode complient)
-- Removes lodash dependency =>
-  smaller bundle size `12.4kb` gzip, tree-shakeable [https://bundlephobia.com/result?p=@react-google-maps/api@1.4.0](https://bundlephobia.com/result?p=@react-google-maps/api@1.4.0)
-- forbids loading of Roboto fonts, if you set property preventGoogleFonts on `<LoadScript preventGoogleFonts />` component
-
-## Examples
-
-Examples can be found in two places:
-
-1. [Official docs](https://react-google-maps-api-docs.netlify.com/) (powered by [react-styleguidist](https://github.com/styleguidist/react-styleguidist).
-2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api-gatsby-example/src/examples) folder
-3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.com/)
-
-## Advice
-
-> Using the examples requires you to generate a google maps api key. For instructions on how to do that please see the following [guide](https://developers.google.com/maps/documentation/embed/get-api-key)
-
-## Community Help Resource
-
-You can join the community at https://spectrum.chat/react-google-maps to ask questions and help others with your experience.
-
-## Contribute
-
-Maintainers and contributors are very welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.
-
-## How to test changes locally
-When working on a feature/fix, you're probably gonna want to test your changes. This workflow is a work in progress. Please feel free to improve it!
-
-1. In the file `packages/react-google-maps-api/package.json` change `main` to `"src/index.ts"`
-2. In the same file, delete the `module` field
-3. You can now use the package `react-google-maps-api-gatsby-example` to test your changes. Just make sure you change the import from `@react-google-maps/api` to `../../../react-google-maps-api`
-
-
 ## Migration from react-google-maps@9.4.5
 
 if you need an access to map object, instead of `ref` prop, you need to use `onLoad` callback on `<GoogleMap />` component.
@@ -93,6 +56,43 @@ After:
   }}
 />
 ```
+
+## Main features
+
+- Simplified API
+- Uses the new Context API
+- Supports async React (StrictMode complient)
+- Removes lodash dependency =>
+  smaller bundle size `12.4kb` gzip, tree-shakeable [https://bundlephobia.com/result?p=@react-google-maps/api](https://bundlephobia.com/result?p=@react-google-maps/api)
+- forbids loading of Roboto fonts, if you set property preventGoogleFonts on `<LoadScript preventGoogleFonts />` component
+
+## Examples
+
+Examples can be found in two places:
+
+1. [Official docs](https://react-google-maps-api-docs.netlify.com/) (powered by [react-styleguidist](https://github.com/styleguidist/react-styleguidist).
+2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api-gatsby-example/src/examples) folder
+3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.com/)
+
+## Advice
+
+> Using the examples requires you to generate a google maps api key. For instructions on how to do that please see the following [guide](https://developers.google.com/maps/documentation/embed/get-api-key)
+
+## Community Help Resource
+
+You can join the community at https://spectrum.chat/react-google-maps to ask questions and help others with your experience.
+
+## Contribute
+
+Maintainers and contributors are very welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.
+
+## How to test changes locally
+
+When working on a feature/fix, you're probably gonna want to test your changes. This workflow is a work in progress. Please feel free to improve it!
+
+1. In the file `packages/react-google-maps-api/package.json` change `main` to `"src/index.ts"`
+2. In the same file, delete the `module` field
+3. You can now use the package `react-google-maps-api-gatsby-example` to test your changes. Just make sure you change the import from `@react-google-maps/api` to `../../../react-google-maps-api`
 
 Since 1.2.0 you can use onLoad and onMount props for each @react-google-maps/api component, ref does not contain API methods anymore.
 

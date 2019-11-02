@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.7.8 added panTo prop on `<GoogleMap />` component
+
 ## 1.7.7 fix bug in Autocomplete
 
 ## 1.7.6 fix types for Data component
@@ -28,7 +30,7 @@
 
 ## 1.2.3 Added MarkerClusterer refactored to typescript
 
-- Removed instans persistance feature due to bugs with google-maps-api.
+- Removed instance persistance feature due to bugs with google-maps-api.
 
 - UMD and ESM builds
 
