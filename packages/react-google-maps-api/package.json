@@ -85,8 +85,7 @@
   "dependencies": {
     "@react-google-maps/infobox": "1.7.8",
     "@react-google-maps/marker-clusterer": "1.7.8",
-    "invariant": "2.2.4",
-    "jss": "^10.0.0"
+    "invariant": "2.2.4"
   },
   "peerDependencies": {
     "react": "^16.6.3",
@@ -98,6 +97,7 @@
     "@types/babel-types": "7.0.7",
     "@types/invariant": "2.2.30",
     "@types/jest": "24.0.21",
+    "acorn": "6.3.0",
     "awesome-typescript-loader": "5.2.1",
     "eslint-config-standard": "14.1.0",
     "eslint-config-standard-react": "9.2.0",
@@ -127,7 +127,7 @@
     "react-docgen": "4.1.1",
     "react-docgen-typescript": "1.15.1",
     "react-dom": "16.11.0",
-    "react-styleguidist": "10.1.0",
+    "react-styleguidist": "9.0.4",
     "rimraf": "3.0.0",
     "ts-jest": "24.1.0"
   },
