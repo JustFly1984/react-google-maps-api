@@ -62,7 +62,7 @@
     "react-dom": "16.11.0",
     "ts-jest": "24.1.0",
     "tsdx": "0.11.0",
-    "typescript": "3.6.4",
+    "typescript": "3.6.3",
     "rimraf": "3.0.0",
     "webpack": "4.41.2"
   },
