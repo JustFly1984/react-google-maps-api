@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.7.9 fixed types for OverlayView props
+
 ## 1.7.8 added panTo prop on `<GoogleMap />` component
 
 ## 1.7.7 fix bug in Autocomplete
