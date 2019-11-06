@@ -75,9 +75,9 @@ const getLayoutStylesByPosition = (
 export const getLayoutStyles = (
   mapCanvasProjection: google.maps.MapCanvasProjection,
   offset: any,
-  bounds?: google.maps.LatLngBounds,
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
   // eslint-disable-next-line @getify/proper-arrows/params
-  position?: google.maps.LatLng
+  position?: google.maps.LatLng | google.maps.LatLngLiteral
 ) => {
   return bounds !== undefined
     ? getLayoutStylesByBounds(

@@ -19,8 +19,8 @@ export interface OverlayViewProps {
     offsetWidth: number,
     offsetHeight: number
   ) => { x: number; y: number };
-  bounds?: google.maps.LatLngBounds;
-  position?: google.maps.LatLng;
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
+  position?: google.maps.LatLng | google.maps.LatLngLiteral;
   onLoad?: (overlayView: google.maps.OverlayView) => void;
   onUnmount?: (overlayView: google.maps.OverlayView) => void;
 }
