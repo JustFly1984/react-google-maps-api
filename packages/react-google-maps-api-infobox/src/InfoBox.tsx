@@ -677,7 +677,11 @@ export class InfoBox {
       for (const property in object.prototype) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
-        this.prototype[property] = object.prototype[property]
+        if (!this.prototype.hasOwnProperty(property)) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // @ts-ignore
+          this.prototype[property] = object.prototype[property]
+        }
       }
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
