@@ -24,11 +24,18 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
           return resolve(id)
         } else {
           const originalInitMap = windowWithGoogleMap.initMap
+          const originalErrorCallback = existingScript.onerror
+
           windowWithGoogleMap.initMap = function initMap() {
             if (originalInitMap) {
               originalInitMap()
             }
             resolve(id)
+          }
+
+          existingScript.onerror = function(err) {
+            originalErrorCallback(err)
+            reject(err)
           }
 
           return
