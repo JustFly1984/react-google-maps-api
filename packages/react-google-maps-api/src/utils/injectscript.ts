@@ -34,7 +34,9 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
           }
 
           existingScript.onerror = function(err) {
-            originalErrorCallback(err)
+            if (originalErrorCallback) {
+              originalErrorCallback(err)
+            }
             reject(err)
           }
 
