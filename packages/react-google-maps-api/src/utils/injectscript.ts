@@ -65,5 +65,6 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     document.head.appendChild(script)
   }).catch(err => {
     console.error('injectScript error: ', err)
+    throw err
   })
 }
