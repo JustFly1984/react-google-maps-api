@@ -58,9 +58,9 @@ export interface AutocompleteProps {
   types?: string[];
   /** This event is fired when a PlaceResult is made available for a Place the user has selected. If the user enters the name of a Place that was not suggested by the control and presses the Enter key, or if a Place Details request fails, the PlaceResult contains the user input in the name property, with no other properties defined. */
   onPlaceChanged?: () => void;
-  /** This callback is called when the component unmounts. It is called with the autocomplete instance. */
-  onLoad?: (autocomplete: google.maps.places.Autocomplete) => void;
   /** This callback is called when the autocomplete instance has loaded. It is called with the autocomplete instance. */
+  onLoad?: (autocomplete: google.maps.places.Autocomplete) => void;
+  /** This callback is called when the component unmounts. It is called with the autocomplete instance. */
   onUnmount?: (autocomplete: google.maps.places.Autocomplete) => void;
 }
 
