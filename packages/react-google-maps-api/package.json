@@ -126,7 +126,7 @@
     "react-docgen": "4.1.1",
     "react-docgen-typescript": "1.15.1",
     "react-dom": "16.11.0",
-    "react-styleguidist": "10.2.0",
+    "react-styleguidist": "10.2.1",
     "rimraf": "3.0.0",
     "ts-jest": "24.1.0"
   },
