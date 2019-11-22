@@ -1384,31 +1384,10 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@7.7.2", "@babel/runtime@^7.7.2":
+"@babel/runtime@7.7.2", "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.2", "@babel/runtime@^7.4.3", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.0", "@babel/runtime@^7.6.2", "@babel/runtime@^7.7.2":
   version "7.7.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.7.2.tgz#111a78002a5c25fc8e3361bedc9529c696b85a6a"
   integrity sha512-JONRbXbTXc9WQE2mAZd1p0Z3DZ/6vaQIkgYMSTP3KjRCyd7rCZCcfhCyX+YjwcKxcZ82UrxbRD358bpExNgrjw==
-  dependencies:
-    regenerator-runtime "^0.13.2"
-
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.4.2", "@babel/runtime@^7.4.3", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.0":
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.6.0.tgz#4fc1d642a9fd0299754e8b5de62c631cf5568205"
-  integrity sha512-89eSBLJsxNxOERC0Op4vd+0Bqm6wRMqMbFtV3i0/fbaWw/mJ8Q3eBvgX0G4SyrOOLCtbu98HspF8o09MRT+KzQ==
-  dependencies:
-    regenerator-runtime "^0.13.2"
-
-"@babel/runtime@^7.3.1":
-  version "7.6.3"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.6.3.tgz#935122c74c73d2240cafd32ddb5fc2a6cd35cf1f"
-  integrity sha512-kq6anf9JGjW8Nt5rYfEuGRaEAaH1mkv3Bbu6rYvLOpPh/RusSJXuKPEAoZ7L7gybZkchE8+NV5g9vKF4AGAtsA==
-  dependencies:
-    regenerator-runtime "^0.13.2"
-
-"@babel/runtime@^7.6.2":
-  version "7.6.2"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.6.2.tgz#c3d6e41b304ef10dcf13777a33e7694ec4a9a6dd"
-  integrity sha512-EXxN64agfUqqIGeEjI5dL5z0Sw0ZwWo1mLTi4mQowCZ42O59b7DRpZAnTC6OqdF28wMBMFKNb/4uFGrVaigSpg==
   dependencies:
     regenerator-runtime "^0.13.2"
 
@@ -2949,6 +2928,15 @@
   integrity sha512-KoLPyXwgtA814d6zk4uqt4g8LhZyPC42RC8A4L/5iobCiEqF+Cvq7MLNpquyoyouYxhT4ZYUrtC5PKsgvk/f1w==
   dependencies:
     "@react-google-maps/marker-clusterer" "1.6.0"
+    invariant "2.2.4"
+
+"@react-google-maps/api@1.7.11":
+  version "1.7.11"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.7.11.tgz#5ef37c7782cf615eb4394405b5c5aaa5c338a5f8"
+  integrity sha512-xZfyv+FVudsWqcL9G0CVtr+TDsgveDvbHL+O1cLNgwJ9q4FwRt9xi+WKeuHRDCcO/GolyyXbEab5KiZEvbQadg==
+  dependencies:
+    "@react-google-maps/infobox" "1.7.11"
+    "@react-google-maps/marker-clusterer" "1.7.8"
     invariant "2.2.4"
 
 "@react-google-maps/marker-clusterer@1.6.0":
@@ -9535,10 +9523,10 @@ gatsby-plugin-react-helmet@3.1.14:
   dependencies:
     "@babel/runtime" "^7.7.2"
 
-gatsby-plugin-sitemap@2.2.20:
-  version "2.2.20"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-2.2.20.tgz#11e8f352d4d79597c93536356f7faac8dbeb6add"
-  integrity sha512-YjV5zaawra3loKp9CPfxDPoNPDneFc7/Fy5FBHYZUnb5ZJxz0wf8iwwOJ8JK3B5Q7YNAtDZbIOsZW9h4KKSwwA==
+gatsby-plugin-sitemap@2.2.21:
+  version "2.2.21"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-2.2.21.tgz#0449c9972bd6ecf04aa023b517b7a4660dacedea"
+  integrity sha512-AoeV45ELGoDh8N5IXrJrb5EquC+soC6bhRBQZ4/TZqjc1zY0b8VMDo8hkrDrQsyRCA8mXDWJd08Aj1qj4fmUjQ==
   dependencies:
     "@babel/runtime" "^7.7.2"
     minimatch "^3.0.4"
