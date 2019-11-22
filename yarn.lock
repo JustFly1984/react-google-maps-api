@@ -2951,6 +2951,15 @@
     "@react-google-maps/marker-clusterer" "1.6.0"
     invariant "2.2.4"
 
+"@react-google-maps/api@1.7.11":
+  version "1.7.11"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.7.11.tgz#5ef37c7782cf615eb4394405b5c5aaa5c338a5f8"
+  integrity sha512-xZfyv+FVudsWqcL9G0CVtr+TDsgveDvbHL+O1cLNgwJ9q4FwRt9xi+WKeuHRDCcO/GolyyXbEab5KiZEvbQadg==
+  dependencies:
+    "@react-google-maps/infobox" "1.7.11"
+    "@react-google-maps/marker-clusterer" "1.7.8"
+    invariant "2.2.4"
+
 "@react-google-maps/marker-clusterer@1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.6.0.tgz#2e04f7185ed2ff405f3d2179dfc22d8b99477a39"
@@ -10659,9 +10668,9 @@ https-browserify@^1.0.0:
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
 https-proxy-agent@^2.2.1:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.2.tgz#271ea8e90f836ac9f119daccd39c19ff7dfb0793"
-  integrity sha512-c8Ndjc9Bkpfx/vCJueCPy0jlP4ccCCSNDp8xwCZzPjKJUm+B+u9WX2x98Qx4n1PiMNTWo3D7KK5ifNV/yJyRzg==
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.4.tgz#4ee7a737abd92678a293d9b34a1af4d0d08c787b"
+  integrity sha512-OmvfoQ53WLjtA9HeYP9RNrWMJzzAz1JGaSFr1nijg0PVR1JaD/xbJq1mdEIIlxGpXp9eSe/O2LgU9DJmTPd0Eg==
   dependencies:
     agent-base "^4.3.0"
     debug "^3.1.0"
