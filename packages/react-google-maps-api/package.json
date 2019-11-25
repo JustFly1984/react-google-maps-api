@@ -128,7 +128,7 @@
     "react-dom": "16.11.0",
     "react-styleguidist": "10.2.1",
     "rimraf": "3.0.0",
-    "ts-jest": "24.1.0"
+    "ts-jest": "24.2.0"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }
