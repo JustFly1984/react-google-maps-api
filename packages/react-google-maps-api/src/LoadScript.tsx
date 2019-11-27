@@ -66,7 +66,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
   componentDidUpdate(prevProps: LoadScriptProps) {
     if (this.props.libraries !== prevProps.libraries) {
-      console.warn('Performance warning! Loadscript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable ounside of component, or somwhere in config files or ENV variables')
+      console.warn('Performance warning! Loadscript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somwhere in config files or ENV variables')
     }
 
     if (
