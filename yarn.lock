@@ -3457,10 +3457,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/googlemaps@3.38.0":
-  version "3.38.0"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.38.0.tgz#069c0303ec60706b2e32b14330634c1e1cd59e45"
-  integrity sha512-Rp7FnrwyYGnjoxM+/q/4DRqUzvV9JKK1SBRXx8APxU6NNMtYMsWmOMsQOV2U6z8aMFzlUbRv3EDixLcDep8t9w==
+"@types/googlemaps@3.38.1":
+  version "3.38.1"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.38.1.tgz#34f0be176f899bab5563103d7103fa7c3a72c02c"
+  integrity sha512-6rVIwaJOKXAMzg+Cz22+fJkgQd8IMK8q9DBSL3Wg9GAffGCy71MdTEf+8T9bIa4mvC0DClEsyzwrOfuf9rM0Zg==
 
 "@types/history@*":
   version "4.7.3"
