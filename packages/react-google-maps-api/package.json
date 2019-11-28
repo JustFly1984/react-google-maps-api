@@ -121,7 +121,7 @@
     "husky": "3.0.9",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
-    "jss": "9.8.7",
+    "jss": "10.0.0",
     "react": "16.12.0",
     "react-docgen": "4.1.1",
     "react-docgen-typescript": "1.15.1",
