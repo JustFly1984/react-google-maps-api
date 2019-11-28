@@ -1,7 +1,7 @@
 /* global google */
 import * as React from "react"
 // @ts-ignore
-import { createPortal } from "react-dom"
+import * as ReactDOM from "react-dom"
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
@@ -158,7 +158,7 @@ export class InfoWindow extends React.PureComponent<
   render() {
     return this.containerElement
       ? (
-        createPortal(
+        ReactDOM.createPortal(
           React.Children.only(this.props.children),
           this.containerElement
         )
