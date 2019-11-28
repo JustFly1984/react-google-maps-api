@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.7.13 fixed umd build
+
 ## 1.7.10 fixed InfoBox options bug
 
 ## 1.7.9 fixed types for OverlayView props
