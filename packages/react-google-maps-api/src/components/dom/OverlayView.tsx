@@ -1,6 +1,6 @@
 import * as React from "react"
 // @ts-ignore
-import { createPortal } from "react-dom"
+import * as ReactDOM from "react-dom"
 
 import invariant from "invariant"
 
@@ -182,7 +182,7 @@ export class OverlayView extends React.PureComponent<
 
   render() {
     return this.containerElement !== null ? (
-      createPortal(
+      ReactDOM.createPortal(
         <ContentMountHandler onLoad={this.setOverlayViewCallback}>
           {React.Children.only(this.props.children)}
         </ContentMountHandler>,

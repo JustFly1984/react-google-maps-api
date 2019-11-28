@@ -1,7 +1,7 @@
 /* global google */
 /* eslint-disable filenames/match-exported */
 import * as React from "react"
-import { createPortal } from "react-dom"
+import * as ReactDOM from "react-dom"
 import invariant from "invariant"
 import {
   InfoBox as GoogleMapsInfoBox,
@@ -171,7 +171,7 @@ export class InfoBoxComponent extends React.PureComponent<InfoBoxProps, InfoBoxS
       return null
     }
 
-    return createPortal(
+    return ReactDOM.createPortal(
       React.Children.only(this.props.children),
       this.containerElement
     )
