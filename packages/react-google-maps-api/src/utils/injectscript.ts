@@ -19,8 +19,9 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     const windowWithGoogleMap: WindowWithGoogleMap = window
     if (existingScript) {
       // Same script id/url: keep same script
-      if (existingScript.src === url) {
-        if (existingScript.getAttribute('data-state') === 'ready') {
+      const dataStateAttribute = existingScript.getAttribute('data-state')
+      if (existingScript.src === url && dataStateAttribute !== 'error') {
+        if (dataStateAttribute === 'ready') {
           return resolve(id)
         } else {
           const originalInitMap = windowWithGoogleMap.initMap
@@ -43,7 +44,9 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
           return
         }
       }
-      // Same script id but url changed: recreate the script
+      // Same script id, but either
+      // 1. requested URL is different
+      // 2. script failed to load
       else {
         existingScript.remove()
       }
@@ -55,7 +58,10 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     script.src = url
     script.id = id
     script.async = true
-    script.onerror = reject
+    script.onerror = function onerror(err) {
+      script.setAttribute('data-state', 'error')
+      reject(err)
+    }
 
     windowWithGoogleMap.initMap = function onload() {
       script.setAttribute('data-state', 'ready')
