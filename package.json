@@ -47,7 +47,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "6.7.1",
+    "eslint": "6.7.2",
     "@types/react-dom": "16.9.4",
     "@types/googlemaps": "3.38.1",
     "@typescript-eslint/eslint-plugin": "2.9.0",
