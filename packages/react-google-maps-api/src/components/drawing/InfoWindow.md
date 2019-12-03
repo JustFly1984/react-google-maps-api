@@ -4,25 +4,33 @@
 const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
+const mapContainerStyle = {
+  height: "400px",
+  width: "800px"
+}
+
+const center = {
+  lat: 38.685,
+  lng: -115.234
+}
+
+const position = { lat: 33.772, lng: -117.214 }
+
+const onLoad = infoWindow => {
+  console.log('infoWindow: ', infoWindow)
+}
+
 <ScriptLoaded>
   <GoogleMap
     id="InfoWindow-example"
-    mapContainerStyle={{
-      height: "400px",
-      width: "800px"
-    }}
+    mapContainerStyle={mapContainerStyle}
     zoom={10}
-    center={{
-      lat: 33.772,
-      lng: -117.214
-    }}
+    center={center}
   >
 
     <InfoWindow
-      onLoad={infoWindow => {
-        console.log('infoWindow: ', infoWindow)
-      }}
-      position={{lat: 33.772, lng: -117.214}}
+      onLoad={onLoad}
+      position={position}
     >
       <div style={{
         background: `white`,

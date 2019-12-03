@@ -65,14 +65,14 @@ export class TrafficLayer extends PureComponent<
       instance: trafficLayer
     })
 
-    function setTrafficlayer() {
+    function setTrafficLayer() {
       return {
         trafficLayer
       }
     }
 
     this.setState(
-      setTrafficlayer,
+      setTrafficLayer,
       this.setTrafficLayerCallback
     )
   }

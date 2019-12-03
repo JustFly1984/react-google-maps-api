@@ -8,24 +8,31 @@ Please do not forget to include "places" to libraries prop array on `<LoadingScr
 const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
+const mapContainerStyle = {
+  height: "400px",
+  width: "800px"
+}
+
+const center = {
+  lat: 38.685,
+  lng: -115.234
+}
+
+const onLoad = ref => this.searchBox = ref
+
+const onPlacesChanged = () => console.log(this.searchBox.getPlaces())
 
 <ScriptLoaded>
   <GoogleMap
     id="searchbox-example"
-    mapContainerStyle={{
-      height: "400px",
-      width: "800px"
-    }}
+    mapContainerStyle={mapContainerStyle}
     zoom={2.5}
-    center={{
-      lat: 38.685,
-      lng: -115.234
-    }}
+    center={center}
   >
     <StandaloneSearchBox
-      onLoad={ref => this.searchBox = ref}
+      onLoad={onLoad}
       onPlacesChanged={
-        () => console.log(this.searchBox.getPlaces())
+        onPlacesChanged
       }
     >
       <input

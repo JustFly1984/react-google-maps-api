@@ -2,7 +2,7 @@
 
 ![logo](https://raw.githubusercontent.com/JustFly1984/react-google-maps-api/master/logo.png)
 
-# @react-google-maps organisation root
+# @react-google-maps organization root
 
 [![npm package](https://img.shields.io/npm/v/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![npm downloads](https://img.shields.io/npm/dt/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)

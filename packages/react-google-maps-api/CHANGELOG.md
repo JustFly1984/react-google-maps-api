@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.8.0 cleanup, fix typos
+
 ## 1.7.13 fixed umd build
 
 ## 1.7.10 fixed InfoBox options bug

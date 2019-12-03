@@ -47,7 +47,7 @@ describe('Circle', () => {
   })
 
   it('should do something', () => {
-    const { rerender} = render(getCircle({
+    const { rerender } = render(getCircle({
       center: CENTER,
       radius: 1,
       onLoad: onCircleLoad

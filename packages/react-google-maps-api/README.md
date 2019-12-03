@@ -2,6 +2,11 @@
 
 ![logo](https://raw.githubusercontent.com/JustFly1984/react-google-maps-api/master/logo.png)
 
+[![npm package](https://img.shields.io/npm/v/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
+[![npm downloads](https://img.shields.io/npm/dt/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
+[![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/react-google-maps)
+
 @react-google-maps/api
 
 > This library requires React v16.6 or later. To use the latest features (including hooks) requires React v16.8+. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)
@@ -61,7 +66,7 @@ After:
 
 - Simplified API
 - Uses the new Context API
-- Supports async React (StrictMode complient)
+- Supports async React (StrictMode compliant)
 - Removes lodash dependency =>
   smaller bundle size `12.4kb` gzip, tree-shakeable [https://bundlephobia.com/result?p=@react-google-maps/api](https://bundlephobia.com/result?p=@react-google-maps/api)
 - forbids loading of Roboto fonts, if you set property preventGoogleFonts on `<LoadScript preventGoogleFonts />` component
@@ -80,7 +85,7 @@ Examples can be found in two places:
 
 ## Community Help Resource
 
-You can join the community at https://spectrum.chat/react-google-maps to ask questions and help others with your experience.
+You can join the community at [Spectrum.chat](https://spectrum.chat/react-google-maps) to ask questions and help others with your experience.
 
 ## Contribute
 

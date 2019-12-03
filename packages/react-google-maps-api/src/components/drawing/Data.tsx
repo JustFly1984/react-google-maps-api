@@ -9,7 +9,7 @@ import MapContext from "../../map-context"
 
 const eventMap = {
   onAddFeature: "addfeature",
-  onClick: "click", 
+  onClick: "click",
   onDblClick: "dblclick",
   onMouseDown: "mousedown",
   onMouseOut: "mouseout",
@@ -102,7 +102,7 @@ interface DataState {
   data: google.maps.Data | null;
 }
 export interface DataProps {
-  options?: google.maps.Data.DataOptions; 
+  options?: google.maps.Data.DataOptions;
   /**  This event is fired when a feature is added to the collection. */
   onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void;
   /**  This event is fired for a click on the geometry. */

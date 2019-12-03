@@ -1,4 +1,3 @@
-
 const createMockFuncsFromArray = (instance, names = []) => {
   names.forEach(name => {
     instance[name] = jest.fn().mockName(name)
@@ -181,7 +180,7 @@ const createGoogleMapsMock = (libraries = []) => {
       FETCH_ERROR: 'FETCH_ERROR',
       INVALID_DOCUMENT: 'INVALID_DOCUMENT',
       INVALID_REQUEST: 'INVALID_REQUEST',
-      LIMITS_EXCEEDED: 'LIMITS_EXECEEDED',
+      LIMITS_EXCEEDED: 'LIMITS_EXCEEDED',
       OK: 'OK',
       TIMED_OUT: 'TIMED_OUT',
       UNKNOWN: 'UNKNOWN',

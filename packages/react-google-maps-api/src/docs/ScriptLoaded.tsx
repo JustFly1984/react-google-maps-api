@@ -23,7 +23,6 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
     super(props)
 
     this.state = {
-      ///@ts-ignore
       scriptLoaded: !!window.google,
     }
 
@@ -43,7 +42,6 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
       }
     }
 
-    ///@ts-ignore
     if (window.google) {
       this.setState(serScriptLoaded, this.setScriptLoadedCallback)
     }

@@ -4,23 +4,29 @@
 const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
+const mapContainerStyle = {
+  height: "400px",
+  width: "800px"
+}
+
+const center = {
+  lat: 38.685,
+  lng: -115.234
+}
+
+const onLoad = data => {
+  console.log('data: ', data)
+}
+
 <ScriptLoaded>
   <GoogleMap
     id="data-example"
-    mapContainerStyle={{
-      height: "400px",
-      width: "800px"
-    }}
+    mapContainerStyle={mapContainerStyle}
     zoom={2.5}
-    center={{
-      lat: 38.685,
-      lng: -115.234
-    }}
+    center={center}
   >
     <Data
-      onLoad={data => {
-        console.log('data: ', data)
-      }}
+      onLoad={onLoad}
       options={{
         controlPosition: window.google ? window.google.maps.ControlPosition.TOP_LEFT : undefined,
         controls: ["Point"],

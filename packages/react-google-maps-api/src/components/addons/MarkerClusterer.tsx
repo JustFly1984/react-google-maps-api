@@ -112,9 +112,9 @@ export interface ClustererProps {
   ignoreHidden?: boolean;
   /** The extension name for the cluster icon image files (e.g., "png" or "jpg"). The default value is MarkerClusterer.IMAGE_EXTENSION. */
   imageExtension?: string;
-  /** The full URL of the root name of the group of image files to use for cluster icons. The complete file name is of the form imagePathn.imageExtension where n is the image file number (1, 2, etc.). The default value is MarkerClusterer.IMAGE_PATH. */
+  /** The full URL of the root name of the group of image files to use for cluster icons. The complete file name is of the form imagePath.imageExtension where n is the image file number (1, 2, etc.). The default value is MarkerClusterer.IMAGE_PATH. */
   imagePath?: string;
-  /** An array of numbers containing the widths of the group of imagePathn.imageExtension image files. (The images are assumed to be square.) The default value is MarkerClusterer.IMAGE_SIZES. */
+  /** An array of numbers containing the widths of the group of imagePath.imageExtension image files. (The images are assumed to be square.) The default value is MarkerClusterer.IMAGE_SIZES. */
   imageSizes?: number[];
   /** The maximum zoom level at which clustering is enabled or null if clustering is to be enabled at all zoom levels. The default value is null. */
   maxZoom?: number;

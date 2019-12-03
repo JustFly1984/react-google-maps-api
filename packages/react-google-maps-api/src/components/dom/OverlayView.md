@@ -4,24 +4,25 @@
 const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
+const mapContainerStyle = {
+  height: "400px",
+  width: "800px"
+}
+
+const center = {
+  lat: 35.772,
+  lng: -120.214
+}
+
 <ScriptLoaded>
   <GoogleMap
     id="overlay-view-example"
-    mapContainerStyle={{
-      height: "400px",
-      width: "800px"
-    }}
+    mapContainerStyle={mapContainerStyle}
     zoom={11}
-    center={{
-      lat: 35.772,
-      lng: -120.214
-    }}
+    center={center}
   >
     <OverlayView
-      position={{
-        lat: 35.772,
-        lng: -120.214
-      }}
+      position={center}
       mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
     >
       <div

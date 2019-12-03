@@ -4,25 +4,31 @@
 const { GoogleMap, LoadScript, InfoBox } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
+const mapContainerStyle = {
+  height: "400px",
+  width: "800px"
+}
+
+const center = {
+  lat: 33.772,
+  lng: -117.214
+}
+
+const options = { closeBoxURL: '', enableEventPropagation: true }
+
 <ScriptLoaded>
   <GoogleMap
     id="InfoBox-example"
-    mapContainerStyle={{
-      height: "400px",
-      width: "800px"
-    }}
+    mapContainerStyle={mapContainerStyle}
     zoom={10}
-    center={{
-      lat: 33.772,
-      lng: -117.214
-    }}
+    center={center}
   >
     <InfoBox
       onLoad={infoBox => {
         console.log('infoBox: ', infoBox)
       }}
-      options={{ closeBoxURL: '', enableEventPropagation: true }}
-      position={{lat: 33.772, lng: -117.214}}
+      options={options}
+      position={center}
     >
       <div style={{ backgroundColor: 'yellow', opacity: 0.75, padding: 12 }}>
         <div style={{ fontSize: 16, fontColor: `#08233B` }}>

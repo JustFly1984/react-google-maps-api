@@ -4,24 +4,25 @@
 const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
+const mapContainerStyle = {
+  height: "400px",
+  width: "800px"
+}
+
+const center = {
+  lat:  51.5320665,
+  lng: -0.177203
+}
+
 <ScriptLoaded>
   <GoogleMap
     id="circle-example"
-    mapContainerStyle={{
-      height: "400px",
-      width: "800px"
-    }}
+    mapContainerStyle={mapContainerStyle}
     zoom={7}
-    center={{
-      lat:  51.5320665,
-      lng: -0.177203
-    }}
+    center={center}
   >
     <StreetViewPanorama
-      position={{
-        lat:  51.5320665,
-        lng: -0.177203
-      }}
+      position={center}
       visible={true}
     />
   </GoogleMap>

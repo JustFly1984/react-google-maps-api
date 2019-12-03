@@ -4,33 +4,41 @@
 const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 
+const mapContainerStyle = {
+  height: "400px",
+  width: "800px"
+}
+
+const center = {
+  lat: 37.774546,
+  lng: -122.433523
+}
+
+const onLoad = heatmapLayer => {
+  console.log('HeatmapLayer onLoad heatmapLayer: ', heatmapLayer)
+}
+
+const onUnmount = heatmapLayer => {
+  console.log('HeatmapLayer onUnmount heatmapLayer: ', heatmapLayer)
+}
+
 <ScriptLoaded>
-{() => 
+  {() =>
   <GoogleMap
     // optional
     id="heatmap-layer-example"
     // required to set height and width either through mapContainerClassName, either through mapContainerStyle prop
-    mapContainerStyle={{
-      height: "400px",
-      width: "800px"
-    }}
+    mapContainerStyle={mapContainerStyle}
     // required
     zoom={13}
     // required
-    center={{
-      lat: 37.774546,
-      lng: -122.433523
-    }}
+    center={center}
   >
     <HeatmapLayer
       // optional
-      onLoad={heatmapLayer => {
-        console.log('HeatmapLayer onLoad heatmapLayer: ', heatmapLayer)
-      }}
+      onLoad={onLoad}
       // optional
-      onUnmount={heatmapLayer => {
-        console.log('HeatmapLayer onUnmount heatmapLayer: ', heatmapLayer)
-      }}
+      onUnmount={onUnmount}
       // required
       data={[
   new google.maps.LatLng(37.782, -122.447),

@@ -43,7 +43,7 @@ const isRobotoStyle = (element: HTMLElement) => {
   return false
 }
 
-// Preventing the Google Maps libary from downloading an extra font
+// Preventing the Google Maps library from downloading an extra font
 export const preventGoogleFonts = () => {
   // we override these methods only for one particular head element
   // default methods for other elements are not affected

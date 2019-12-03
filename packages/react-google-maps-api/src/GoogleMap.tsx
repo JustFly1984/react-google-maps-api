@@ -91,7 +91,7 @@ export interface GoogleMapProps {
   tilt?: number;
   /** The initial Map zoom level. Required. Valid values: Integers between zero, and up to the supported maximum zoom level. */
   zoom?: number;
-  /** This event is fired when the user clicks on the map. An ApiMouseEvent with properties for the clicked location is returned unless a place icon was clicked, in which case an IconMouseEvent with a placeid is returned. IconMouseEvent and ApiMouseEvent are identical, except that IconMouseEvent has the placeid field. The event can always be treated as an ApiMouseEvent when the placeid is not important. The click event is not fired if a marker or infowindow was clicked. */
+  /** This event is fired when the user clicks on the map. An ApiMouseEvent with properties for the clicked location is returned unless a place icon was clicked, in which case an IconMouseEvent with a placeId is returned. IconMouseEvent and ApiMouseEvent are identical, except that IconMouseEvent has the placeId field. The event can always be treated as an ApiMouseEvent when the placeId is not important. The click event is not fired if a Marker or InfoWindow was clicked. */
   onClick?: (e: google.maps.MouseEvent) => void;
   /** This event is fired when the user double-clicks on the map. Note that the click event will also fire, right before this one. */
   onDblClick?: (e: google.maps.MouseEvent) => void;
@@ -150,7 +150,7 @@ export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapStat
   }
 
   panTo = (latLng: google.maps.LatLng | google.maps.LatLngLiteral): void => {
-    const map = this.getInstance(); 
+    const map = this.getInstance();
     if(map) {
       map.panTo(latLng);
     }

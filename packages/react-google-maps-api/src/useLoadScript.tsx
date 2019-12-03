@@ -92,7 +92,7 @@ export function useLoadScript({
   React.useEffect(function checkPerformance() {
     if (prevLibraries.current && libraries !== prevLibraries.current) {
       console.warn(
-        'Performance warning! Loadscript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables'
+        'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables'
       )
     }
     prevLibraries.current = libraries

@@ -33,7 +33,7 @@ DistanceMatrixServiceState
     distanceMatrixService: null
   }
 
-  setDistanceMatrixServiceCallbak = () => {
+  setDistanceMatrixServiceCallback = () => {
     if (this.state.distanceMatrixService !== null && this.props.onLoad) {
       this.props.onLoad(this.state.distanceMatrixService)
     }
@@ -54,7 +54,7 @@ DistanceMatrixServiceState
       }
     }
 
-    this.setState(setDistanceMatrixService, this.setDistanceMatrixServiceCallbak)
+    this.setState(setDistanceMatrixService, this.setDistanceMatrixServiceCallback)
   }
 
   componentDidUpdate() {

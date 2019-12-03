@@ -1,6 +1,5 @@
 /* global google */
 import * as React from "react"
-// @ts-ignore
 import * as ReactDOM from "react-dom"
 import {
   unregisterEvents,
@@ -91,7 +90,7 @@ export class InfoWindow extends React.PureComponent<
     }
   }
 
-  setInfowindowCallback = () => {
+  setInfoWindowCallback = () => {
     if (
       this.state.infoWindow !== null &&
       this.containerElement !== null
@@ -129,7 +128,7 @@ export class InfoWindow extends React.PureComponent<
 
     this.setState(
       setInfoWindow,
-      this.setInfowindowCallback
+      this.setInfoWindowCallback
     )
   }
 
