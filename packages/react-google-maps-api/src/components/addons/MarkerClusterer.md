@@ -7,9 +7,9 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 const mapContainerStyle = {
   height: "400px",
   width: "800px"
-}
+};
 
-const center = { lat: -28.024, lng: 140.887 }
+const center = { lat: -28.024, lng: 140.887 };
 
 const locations = [
   {lat: -31.563910, lng: 147.154312},
@@ -35,11 +35,11 @@ const locations = [
   {lat: -42.734358, lng: 147.501315},
   {lat: -42.735258, lng: 147.438000},
   {lat: -43.999792, lng: 170.463352}
-]
+];
 
 const options = { 
   imagePath:"https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m" 
-}
+};
 
 <ScriptLoaded>
   <GoogleMap

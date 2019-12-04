@@ -11,16 +11,16 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 const mapContainerStyle = {
   height: "400px",
   width: "800px"
-}
+};
 
 const center = {
   lat: 38.685,
   lng: -115.234
-}
+};
 
-const onLoad = ref => this.searchBox = ref
+const onLoad = ref => this.searchBox = ref;
 
-const onPlacesChanged = () => console.log(this.searchBox.getPlaces())
+const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
 
 <ScriptLoaded>
   <GoogleMap

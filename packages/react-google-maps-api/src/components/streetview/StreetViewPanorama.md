@@ -7,12 +7,12 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 const mapContainerStyle = {
   height: "400px",
   width: "800px"
-}
+};
 
 const center = {
   lat:  51.5320665,
   lng: -0.177203
-}
+};
 
 <ScriptLoaded>
   <GoogleMap

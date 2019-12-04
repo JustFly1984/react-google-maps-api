@@ -7,12 +7,16 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 const mapContainerStyle = {
   height: "400px",
   width: "800px"
-}
+};
 
 const center = {
   lat: 35.772,
   lng: -120.214
-}
+};
+
+const onClick = () => {
+  console.info('I have been clicked!')
+};
 
 <ScriptLoaded>
   <GoogleMap
@@ -35,9 +39,7 @@ const center = {
         <h1>OverlayView</h1>
 
         <button
-          onClick={() => {
-            console.info('I have been clicked!')
-          }}
+          onClick={onClick}
           type='button'
         >
           Click me

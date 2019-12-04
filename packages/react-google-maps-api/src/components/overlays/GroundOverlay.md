@@ -7,19 +7,19 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 const mapContainerStyle = {
   height: "400px",
   width: "800px"
-}
+};
 
 const center = {
   lat: 40.740,
   lng: -74.18
-}
+};
 
 const bounds = {
   north: 40.773941,
   south: 40.712216,
   east: -74.12544,
   west: -74.22655
-}
+};
 
 <ScriptLoaded>
   <GoogleMap

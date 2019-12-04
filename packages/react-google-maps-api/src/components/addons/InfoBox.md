@@ -7,14 +7,18 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 const mapContainerStyle = {
   height: "400px",
   width: "800px"
-}
+};
 
 const center = {
   lat: 33.772,
   lng: -117.214
-}
+};
 
-const options = { closeBoxURL: '', enableEventPropagation: true }
+const options = { closeBoxURL: '', enableEventPropagation: true };
+
+const onLoad = infoBox => {
+  console.log('infoBox: ', infoBox)
+};
 
 <ScriptLoaded>
   <GoogleMap
@@ -24,9 +28,7 @@ const options = { closeBoxURL: '', enableEventPropagation: true }
     center={center}
   >
     <InfoBox
-      onLoad={infoBox => {
-        console.log('infoBox: ', infoBox)
-      }}
+      onLoad={onLoad}
       options={options}
       position={center}
     >

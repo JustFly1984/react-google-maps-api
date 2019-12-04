@@ -10,12 +10,12 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 const mapContainerStyle = {
   height: "400px",
   width: "800px"
-}
+};
 
 const center = {
   lat: 37.869085,
   lng: -122.254775
-}
+};
 
 const onLoad = (streetViewService) => {
   streetViewService.getPanorama({
@@ -25,7 +25,7 @@ const onLoad = (streetViewService) => {
     "StreetViewService results",
     { data, status }
   ))
-}
+};
 
 <ScriptLoaded>
   <GoogleMap
