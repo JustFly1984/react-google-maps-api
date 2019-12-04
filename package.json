@@ -66,6 +66,9 @@
     "rimraf": "3.0.0",
     "webpack": "4.41.2"
   },
+  "resolutions": {
+    "acorn": "6.4.0"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
