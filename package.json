@@ -51,7 +51,7 @@
     "@types/react-dom": "16.9.4",
     "@types/googlemaps": "3.38.1",
     "@typescript-eslint/eslint-plugin": "2.10.0",
-    "@typescript-eslint/parser": "2.10.0",
+    "@typescript-eslint/parser": "2.11.0",
     "acorn": "6.4.0",
     "husky": "3.1.0",
     "jest": "24.9.0",
