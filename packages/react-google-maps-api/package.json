@@ -94,7 +94,7 @@
   },
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "8.0.1",
-    "@testing-library/react": "9.3.2",
+    "@testing-library/react": "9.3.3",
     "@types/babel-types": "7.0.7",
     "@types/invariant": "2.2.30",
     "@types/jest": "24.0.23",
