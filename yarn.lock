@@ -15514,10 +15514,10 @@ react-sizeme@^2.6.7:
     shallowequal "^1.1.0"
     throttle-debounce "^2.1.0"
 
-react-styleguidist@10.2.1:
-  version "10.2.1"
-  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-10.2.1.tgz#de83739128532974858667c2a138d8a44348c6aa"
-  integrity sha512-Or3Ey8mCFGTgfwMY3sBYDnfZLnJO6JN+82xmT/QXaknbx9qYHtHWejUES7bslUXek1Ykmwllrn9x+lzTSHMDAg==
+react-styleguidist@10.3.0:
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-10.3.0.tgz#23455b8ca87fe600710adef3e99a5fb470e1a8ff"
+  integrity sha512-RhUhQ2f+LMNFCvxd9vVFvLjAMa22iMZuxnWquBspoYj7SyAyi7ZmEs6xhz86w4rAAi874PyHmYquvZDRhybVXA==
   dependencies:
     "@vxna/mini-html-webpack-template" "^1.0.0"
     acorn "~6.3.0"
