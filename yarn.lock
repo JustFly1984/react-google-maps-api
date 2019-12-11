@@ -2985,10 +2985,10 @@
     pretty-format "^24.9.0"
     wait-for-expect "^3.0.0"
 
-"@testing-library/react@9.3.2":
-  version "9.3.2"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-9.3.2.tgz#418000daa980dafd2d9420cc733d661daece9aa0"
-  integrity sha512-J6ftWtm218tOLS175MF9eWCxGp+X+cUXCpkPIin8KAXWtyZbr9CbqJ8M8QNd6spZxJDAGlw+leLG4MJWLlqVgg==
+"@testing-library/react@9.3.3":
+  version "9.3.3"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-9.3.3.tgz#87fe594adb02cba4d0e86369d025ea13ad570d7c"
+  integrity sha512-IuoiJR/NAzu9EuT3Fqs92sRHe/9egCipar92wTnXe3fMloWy0Q7JdAXaszzbv2ogH30ztb6Axp5XW63vOTd4jA==
   dependencies:
     "@babel/runtime" "^7.6.0"
     "@testing-library/dom" "^6.3.0"
@@ -8906,19 +8906,19 @@ gatsby-plugin-purgecss@4.0.1:
     loader-utils "^1.1.0"
     purgecss "^1.3.0"
 
-gatsby-plugin-react-helmet@3.1.16:
-  version "3.1.16"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-3.1.16.tgz#479738d9f9ee2a312c620c01aa0882a9740537bf"
-  integrity sha512-U8JL1o2WBYdr8x1qyA9FSFc1A6snYUuCW/WFqfYQjDcv6VFyPJhw5gQnmh5n+4yGcPhV3ktYDMSWKnXFegNu4A==
+gatsby-plugin-react-helmet@3.1.18:
+  version "3.1.18"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-3.1.18.tgz#093b5d92e50dafa837ae97ac2672d79a96feb201"
+  integrity sha512-wwKH6Z5NK0Gl2hDfMnWNGE41GjWpZGq0eKczPydTJc/1SbPykBFCBrjYgrAPB2ZrRnA8AV06cRwPddJC0mY7sw==
   dependencies:
-    "@babel/runtime" "^7.7.4"
+    "@babel/runtime" "^7.7.6"
 
-gatsby-plugin-sitemap@2.2.22:
-  version "2.2.22"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-2.2.22.tgz#8edbb64ee5dc0af58d9e53e877579b0dfc76f442"
-  integrity sha512-cq12dgVBi74QIcdG3ZznrwLYcQpBXwJRwI1nOwOQ+6m16T6YOa5g6VVWQ+hBbRM5o/4miZeuVpEpSEJ9gt3Nmg==
+gatsby-plugin-sitemap@2.2.24:
+  version "2.2.24"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-2.2.24.tgz#42d3f2c6a2202f88c80492a256d495c5be95d3b4"
+  integrity sha512-Qzf3m1EBkDPxBIzW7mRZJ4HysY7bcF0JrHezx/t0VISACNzgma4WQ9heVc6CcgL/uv7ArZ2NHTm8WJ1wo1wSQQ==
   dependencies:
-    "@babel/runtime" "^7.7.4"
+    "@babel/runtime" "^7.7.6"
     minimatch "^3.0.4"
     pify "^3.0.0"
     sitemap "^1.13.0"
@@ -15516,10 +15516,10 @@ react-sizeme@^2.6.7:
     shallowequal "^1.1.0"
     throttle-debounce "^2.1.0"
 
-react-styleguidist@10.2.1:
-  version "10.2.1"
-  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-10.2.1.tgz#de83739128532974858667c2a138d8a44348c6aa"
-  integrity sha512-Or3Ey8mCFGTgfwMY3sBYDnfZLnJO6JN+82xmT/QXaknbx9qYHtHWejUES7bslUXek1Ykmwllrn9x+lzTSHMDAg==
+react-styleguidist@10.3.0:
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-10.3.0.tgz#23455b8ca87fe600710adef3e99a5fb470e1a8ff"
+  integrity sha512-RhUhQ2f+LMNFCvxd9vVFvLjAMa22iMZuxnWquBspoYj7SyAyi7ZmEs6xhz86w4rAAi874PyHmYquvZDRhybVXA==
   dependencies:
     "@vxna/mini-html-webpack-template" "^1.0.0"
     acorn "~6.3.0"
