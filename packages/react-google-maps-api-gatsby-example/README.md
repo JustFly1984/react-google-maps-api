@@ -32,3 +32,4 @@ yarn clean
 yarn lint
 ```
 
+[![codescene status](https://codescene.io/projects/6352/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/6352/jobs/latest-successful/results)
