@@ -52,7 +52,7 @@ function unregisterEvent(registered: google.maps.MapsEventListener) {
 }
 
 export function unregisterEvents(events: google.maps.MapsEventListener[] = []) {
-  events.map(unregisterEvent)
+  events.forEach(unregisterEvent)
 }
 
 export function applyUpdatersToPropsAndRegisterEvents({

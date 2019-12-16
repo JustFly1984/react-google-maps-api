@@ -16,6 +16,8 @@ const buttonStyle = {
   marginLeft: '8px',
 }
 
+const loadingElement = <div>Loading...</div>
+
 interface DocsApiKeyInputState {
   key: string
   loadScript: boolean
@@ -79,7 +81,7 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
             region='EN'
             version='weekly'
             libraries={libraries}
-            loadingElement={<div>Loading...</div>}
+            loadingElement={loadingElement}
           />
         ) : (
           <></>

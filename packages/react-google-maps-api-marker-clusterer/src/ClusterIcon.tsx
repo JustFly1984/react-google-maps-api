@@ -74,7 +74,7 @@ export class ClusterIcon {
       // @ts-ignore
       this.getMap(),
       'boundschanged',
-      function boundsChabged() {
+      function boundsChanged() {
         cDraggingMapByCluster = cMouseDownInCluster
       }
     )
@@ -358,9 +358,9 @@ export class ClusterIcon {
 
     pos.y -= this.anchorIcon[0]
 
-    pos.x = pos.x
+    // pos.x = pos.x
 
-    pos.y = pos.y
+    // pos.y = pos.y
 
     return pos
   }

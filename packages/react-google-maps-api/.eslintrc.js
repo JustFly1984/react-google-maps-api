@@ -67,7 +67,6 @@ module.exports = {
     'filenames/match-regex': [2, '^[a-z0-9-.]+$', true],
     'filenames/match-exported': [2, ['camel', 'kebab', null]],
     'template-curly-spacing': ['error', 'never'],
-    indent: ['error', 2],
     'react-functional-set-state/no-this-state-props': 2,
     'no-void': 2,
     'no-restricted-globals': 2,
@@ -108,7 +107,7 @@ module.exports = {
     'import/no-duplicates': 0,
     'import/imports-first': 2,
     'semi': ['error', 'never'],
-    // 'prettier/prettier': ['error', {trailingComma: 'none', semi: false, singleQoute: true, printWidth: 80, tabWidth: 2, parser: 'typescript'}],
+    // 'prettier/prettier': ['error', {trailingComma: 'none', semi: false, singleQuote: true, printWidth: 80, tabWidth: 2, parser: 'typescript'}],
     // @typescript-eslint rule overrides
     "indent": "off",
     '@typescript-eslint/indent': ["error", 2],

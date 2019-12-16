@@ -89,7 +89,6 @@ module.exports = {
     'filenames/match-regex': [2, '^[a-z0-9-.]+$', true],
     'filenames/match-exported': [2, ['camel', 'kebab', null]],
     'template-curly-spacing': ['error', 'never'],
-    indent: ['error', 2],
     'react-functional-set-state/no-this-state-props': 2,
     'no-void': 2,
     'no-restricted-globals': 2,
