@@ -6,6 +6,7 @@
 [![npm downloads](https://img.shields.io/npm/dt/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/react-google-maps)
+[![DeepScan grade](https://deepscan.io/api/teams/6449/projects/8455/branches/101268/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=6449&pid=8455&bid=101268)
 
 @react-google-maps/api
 
@@ -85,7 +86,7 @@ Examples can be found in two places:
 
 ## Community Help Resource
 
-You can join the community at [Spectrum.chat](https://spectrum.chat/react-google-maps) to ask questions and help others with your experience.
+You can join the community at [Spectrum.chat](https://spectrum.chat/react-google-maps) to ask questions and help others with your experience or join our [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_invite/enQtODc5ODU1NTY5MzQ4LTBiNTYzZmY1YmVjYzJhZThkMGU0YzUwZjJkNGJmYjk4YjQyYjZhMDk2YThlZGEzNDc0M2RhNjBmMWE4ZTJiMjQ)
 
 ## Contribute
 
