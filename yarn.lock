@@ -3342,7 +3342,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin@2.12.0", "@typescript-eslint/eslint-plugin@^2.11.0", "@typescript-eslint/eslint-plugin@^2.3.1":
+"@typescript-eslint/eslint-plugin@2.12.0", "@typescript-eslint/eslint-plugin@^2.11.0", "@typescript-eslint/eslint-plugin@^2.12.0":
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.12.0.tgz#0da7cbca7b24f4c6919e9eb31c704bfb126f90ad"
   integrity sha512-1t4r9rpLuEwl3hgt90jY18wJHSyb0E3orVL3DaqwmpiSDHmHiSspVsvsFF78BJ/3NNG3qmeso836jpuBWYziAA==
@@ -3362,7 +3362,7 @@
     "@typescript-eslint/typescript-estree" "2.12.0"
     eslint-scope "^5.0.0"
 
-"@typescript-eslint/parser@2.12.0", "@typescript-eslint/parser@^2.11.0", "@typescript-eslint/parser@^2.3.1":
+"@typescript-eslint/parser@2.12.0", "@typescript-eslint/parser@^2.11.0", "@typescript-eslint/parser@^2.12.0":
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.12.0.tgz#393f1604943a4ca570bb1a45bc8834e9b9158884"
   integrity sha512-lPdkwpdzxEfjI8TyTzZqPatkrswLSVu4bqUgnB03fHSOwpC7KSerPgJRgIAf11UGNf7HKjJV6oaPZI4AghLU6g==
@@ -7778,7 +7778,7 @@ eslint-plugin-react-functional-set-state@1.2.1:
   dependencies:
     requireindex "~1.1.0"
 
-eslint-plugin-react-hooks@2.3.0:
+eslint-plugin-react-hooks@2.3.0, eslint-plugin-react-hooks@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.3.0.tgz#53e073961f1f5ccf8dd19558036c1fac8c29d99a"
   integrity sha512-gLKCa52G4ee7uXzdLiorca7JIQZPPXRAQDXV83J4bUEeUuc5pIEyZYAZ45Xnxe5IuupxEqHS+hUhSLIimK1EMw==
@@ -8027,13 +8027,14 @@ exec-sh@^0.3.2:
   resolved "https://registry.yarnpkg.com/exec-sh/-/exec-sh-0.3.4.tgz#3a018ceb526cc6f6df2bb504b2bfe8e3a4934ec5"
   integrity sha512-sEFIkc61v75sWeOe72qyrqg2Qg0OuLESziUDk/O/z2qgS15y2gWVFrI6f2Qn/qw/0/NCfCEsmNA4zOjkwEZT1A==
 
-execa@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/execa/-/execa-3.1.0.tgz#d7a4a54b1ef3784c3d528c2bb7107f5720356929"
-  integrity sha512-KcBxdjv1JlRiHMIRSDtvaGlUb6SQ4TLqxG9blJNTo6bzYYZZBHBZPKqMmK5Eftok7wl1iwDIRofxdu8tBlidQA==
+execa@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-3.2.0.tgz#18326b79c7ab7fbd6610fd900c1b9e95fa48f90a"
+  integrity sha512-kJJfVbI/lZE1PZYDI5VPxp8zXPO9rtxOkhpZ0jMKha56AI9y2gGVC6bkukStQf0ka5Rh15BA5m7cCCH4jmHqkw==
   dependencies:
     cross-spawn "^7.0.0"
     get-stream "^5.0.0"
+    human-signals "^1.1.1"
     is-stream "^2.0.0"
     merge-stream "^2.0.0"
     npm-run-path "^4.0.0"
@@ -14885,7 +14886,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@1.19.1, prettier@^1.18.2:
+prettier@1.19.1, prettier@^1.19.1:
   version "1.19.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
@@ -16466,13 +16467,6 @@ rollup-plugin-commonjs@^10.0.0:
     resolve "^1.11.0"
     rollup-pluginutils "^2.8.1"
 
-rollup-plugin-json@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-json/-/rollup-plugin-json-4.0.0.tgz#a18da0a4b30bf5ca1ee76ddb1422afbb84ae2b9e"
-  integrity sha512-hgb8N7Cgfw5SZAkb3jf0QXii6QX/FOkiIq2M7BAQIEydjHvTyxXHQiIzZaTFgx1GK0cRCHOCBHIyEkkLdWKxow==
-  dependencies:
-    rollup-pluginutils "^2.5.0"
-
 rollup-plugin-node-resolve@^5.0.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/rollup-plugin-node-resolve/-/rollup-plugin-node-resolve-5.2.0.tgz#730f93d10ed202473b1fb54a5997a7db8c6d8523"
@@ -16483,14 +16477,6 @@ rollup-plugin-node-resolve@^5.0.0:
     is-module "^1.0.0"
     resolve "^1.11.1"
     rollup-pluginutils "^2.8.1"
-
-rollup-plugin-replace@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-replace/-/rollup-plugin-replace-2.2.0.tgz#f41ae5372e11e7a217cde349c8b5d5fd115e70e3"
-  integrity sha512-/5bxtUPkDHyBJAKketb4NfaeZjL5yLZdeUihSfbF2PQMz+rSTEb8ARKoOl3UBT4m7/X+QOXJo3sLTcq+yMMYTA==
-  dependencies:
-    magic-string "^0.25.2"
-    rollup-pluginutils "^2.6.0"
 
 rollup-plugin-sourcemaps@^0.4.2:
   version "0.4.2"
@@ -16511,10 +16497,10 @@ rollup-plugin-terser@^5.1.2:
     serialize-javascript "^2.1.2"
     terser "^4.1.0"
 
-rollup-plugin-typescript2@^0.24.3:
-  version "0.24.3"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-typescript2/-/rollup-plugin-typescript2-0.24.3.tgz#276fa33a9d584d500da62d3e5400307f4a46bdf2"
-  integrity sha512-D7yovQlhnRoz7pG/RF0ni+koxgzEShwfAGuOq6OVqKzcATHOvmUt2ePeYVdc9N0adcW1PcTzklUEM0oNWE/POw==
+rollup-plugin-typescript2@^0.25.3:
+  version "0.25.3"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-typescript2/-/rollup-plugin-typescript2-0.25.3.tgz#a5fb2f0f85488789334ce540abe6c7011cbdf40f"
+  integrity sha512-ADkSaidKBovJmf5VBnZBZe+WzaZwofuvYdzGAKTN/J4hN7QJCFYAq7IrH9caxlru6T5qhX41PNFS1S4HqhsGQg==
   dependencies:
     find-cache-dir "^3.0.0"
     fs-extra "8.1.0"
@@ -16536,7 +16522,7 @@ rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.5.0, rollup-pluginutils@^2.6.0,
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^1.12.0:
+rollup@^1.27.8:
   version "1.27.13"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.27.13.tgz#d6d3500512daacbf8de54d2800de62d893085b90"
   integrity sha512-hDi7M07MpmNSDE8YVwGVFA8L7n8jTLJ4lG65nMAijAyqBe//rtu4JdxjUBE7JqXfdpqxqDTbCDys9WcqdpsQvw==
@@ -18391,23 +18377,27 @@ tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
-tsdx@0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/tsdx/-/tsdx-0.11.0.tgz#ae86a3af8f91100f11141d5bebfec32593ea2ae0"
-  integrity sha512-BZNelFql6MiSgaoJN45XHjW2NyOk9DaD6Ai94c8DJy8QsadOm3OQRJVJU8rDgYRcIeWok90A3BBB2moZgui22Q==
+tsdx@0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/tsdx/-/tsdx-0.12.0.tgz#70b2acb6b14268b97798a355c4da37543ce6684f"
+  integrity sha512-HXWcGo8yUqAfl56AuAx7FH9ReBuoWwpBR3bwdt+sXsaZRbu1IvoJxQdsgahE8OpFgnrei/4UiwVk34vzFYADRg==
   dependencies:
     "@babel/core" "^7.4.4"
     "@babel/helper-module-imports" "^7.0.0"
     "@babel/plugin-proposal-class-properties" "^7.4.4"
+    "@babel/plugin-proposal-nullish-coalescing-operator" "^7.7.4"
+    "@babel/plugin-proposal-optional-chaining" "^7.7.5"
     "@babel/plugin-syntax-dynamic-import" "^7.2.0"
     "@babel/plugin-transform-regenerator" "^7.4.5"
     "@babel/plugin-transform-runtime" "^7.6.0"
     "@babel/polyfill" "^7.4.4"
     "@babel/preset-env" "^7.4.4"
+    "@rollup/plugin-json" "^4.0.0"
+    "@rollup/plugin-replace" "^2.2.1"
     "@types/rimraf" "^2.0.2"
     "@types/shelljs" "^0.8.5"
-    "@typescript-eslint/eslint-plugin" "^2.3.1"
-    "@typescript-eslint/parser" "^2.3.1"
+    "@typescript-eslint/eslint-plugin" "^2.12.0"
+    "@typescript-eslint/parser" "^2.12.0"
     ansi-escapes "^4.2.1"
     asyncro "^3.0.0"
     babel-eslint "^10.0.3"
@@ -18430,8 +18420,8 @@ tsdx@0.11.0:
     eslint-plugin-jsx-a11y "^6.2.3"
     eslint-plugin-prettier "^3.1.0"
     eslint-plugin-react "^7.14.3"
-    eslint-plugin-react-hooks "^1.7.0"
-    execa "3.1.0"
+    eslint-plugin-react-hooks "^2.2.0"
+    execa "3.2.0"
     fs-extra "^8.0.1"
     jest "^24.8.0"
     jest-watch-typeahead "^0.4.0"
@@ -18440,24 +18430,22 @@ tsdx@0.11.0:
     mkdirp "^0.5.1"
     ora "^3.4.0"
     pascal-case "^2.0.1"
-    prettier "^1.18.2"
+    prettier "^1.19.1"
     progress-estimator "^0.2.2"
     rimraf "^3.0.0"
-    rollup "^1.12.0"
+    rollup "^1.27.8"
     rollup-plugin-babel "^4.3.2"
     rollup-plugin-commonjs "^10.0.0"
-    rollup-plugin-json "^4.0.0"
     rollup-plugin-node-resolve "^5.0.0"
-    rollup-plugin-replace "^2.2.0"
     rollup-plugin-sourcemaps "^0.4.2"
     rollup-plugin-terser "^5.1.2"
-    rollup-plugin-typescript2 "^0.24.3"
+    rollup-plugin-typescript2 "^0.25.3"
     sade "^1.4.2"
     shelljs "^0.8.3"
     tiny-glob "^0.2.6"
     ts-jest "^24.0.2"
     tslib "^1.9.3"
-    typescript "^3.6.4"
+    typescript "^3.7.3"
 
 tslib@1.10.0, tslib@^1.6.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.10.0"
@@ -18555,7 +18543,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.7.3, typescript@^3.6.4:
+typescript@3.7.3, typescript@^3.7.3:
   version "3.7.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
   integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
