@@ -5,7 +5,9 @@
   "eslint.packageManager": "yarn",
   "editor.detectIndentation": false,
   "eslint.enable": true,
-  "eslint.autoFixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "eslint.alwaysShowStatus": true,
   "eslint.run": "onType",
   "eslint.trace.server": "verbose",

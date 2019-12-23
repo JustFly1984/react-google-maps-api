@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import { Map as IMap } from 'immutable'
 import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
+import * as Sentry from '@sentry/browser'
 
 import { storage } from './src/utils/storage'
 import { isBrowser } from './src/utils/isbrowser'
@@ -39,6 +40,12 @@ export const wrapRootElement = ({ element }) => {
 }
 
 export const onClientEntry = () => {
+  if (process.env.NODE_ENV === 'production') {
+    Sentry.init({
+      dsn: 'https://6852b0ae014e409591a856dfbc595f3c@sentry.io/1864520',
+    })
+  }
+
   if (isBrowser) {
     if (!window.Intl) {
       require.ensure([], () => {
