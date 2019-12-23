@@ -47,12 +47,12 @@
     ]
   },
   "devDependencies": {
-    "eslint": "6.7.2",
+    "eslint": "6.8.0",
     "@types/react-dom": "16.9.4",
     "@types/googlemaps": "3.38.1",
     "@typescript-eslint/eslint-plugin": "2.12.0",
     "@typescript-eslint/parser": "2.12.0",
-    "acorn": "6.4.0",
+    "acorn": "7.1.0",
     "husky": "3.1.0",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
@@ -62,12 +62,9 @@
     "react-dom": "16.12.0",
     "ts-jest": "24.2.0",
     "tsdx": "0.12.0",
-    "typescript": "3.7.3",
+    "typescript": "3.7.4",
     "rimraf": "3.0.0",
     "webpack": "4.41.4"
-  },
-  "resolutions": {
-    "acorn": "6.4.0"
   },
   "husky": {
     "hooks": {

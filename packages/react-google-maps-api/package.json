@@ -10,7 +10,7 @@
     "url": "https://github.com/JustFly1984"
   },
   "engines": {
-    "node": "12.13.1"
+    "node": ">=12.13.1"
   },
   "contributors": [
     "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)",
