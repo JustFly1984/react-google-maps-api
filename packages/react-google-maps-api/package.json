@@ -100,7 +100,7 @@
     "@testing-library/react": "9.4.0",
     "@types/babel-types": "7.0.7",
     "@types/invariant": "2.2.31",
-    "@types/jest": "24.0.24",
+    "@types/jest": "24.0.25",
     "awesome-typescript-loader": "5.2.1",
     "eslint-config-standard": "14.1.0",
     "eslint-config-standard-react": "9.2.0",
