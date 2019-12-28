@@ -49,14 +49,14 @@
   "devDependencies": {
     "eslint": "6.8.0",
     "@types/react-dom": "16.9.4",
-    "@types/googlemaps": "3.38.1",
-    "@typescript-eslint/eslint-plugin": "2.12.0",
-    "@typescript-eslint/parser": "2.12.0",
+    "@types/googlemaps": "3.39.0",
+    "@typescript-eslint/eslint-plugin": "2.13.0",
+    "@typescript-eslint/parser": "2.13.0",
     "acorn": "7.1.0",
     "husky": "3.1.0",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
-    "lerna": "3.19.0",
+    "lerna": "3.20.0",
     "lint-staged": "9.5.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
@@ -64,7 +64,7 @@
     "tsdx": "0.12.0",
     "typescript": "3.7.4",
     "rimraf": "3.0.0",
-    "webpack": "4.41.4"
+    "webpack": "4.41.5"
   },
   "husky": {
     "hooks": {
