@@ -126,7 +126,7 @@
     "jest-cli": "24.9.0",
     "react": "16.12.0",
     "react-docgen": "5.0.0",
-    "react-docgen-typescript": "1.16.1",
+    "react-docgen-typescript": "1.16.2",
     "react-styleguidist": "10.3.2",
     "rimraf": "3.0.0",
     "ts-jest": "24.2.0"
