@@ -50,7 +50,7 @@
     "eslint-plugin-react-functional-set-state": "1.2.1",
     "eslint-plugin-react-perf": "3.2.1",
     "eslint-plugin-standard": "4.0.1",
-    "eslint-plugin-you-dont-need-lodash-underscore": "6.5.0",
+    "eslint-plugin-you-dont-need-lodash-underscore": "6.8.0",
     "prop-types": "15.7.2"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
