@@ -27,14 +27,14 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
           const originalInitMap = windowWithGoogleMap.initMap
           const originalErrorCallback = existingScript.onerror
 
-          windowWithGoogleMap.initMap = function initMap() {
+          windowWithGoogleMap.initMap = function initMap(): void {
             if (originalInitMap) {
               originalInitMap()
             }
             resolve(id)
           }
 
-          existingScript.onerror = function(err) {
+          existingScript.onerror = function(err): void {
             if (originalErrorCallback) {
               originalErrorCallback(err)
             }
@@ -58,12 +58,12 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     script.src = url
     script.id = id
     script.async = true
-    script.onerror = function onerror(err) {
+    script.onerror = function onerror(err): void {
       script.setAttribute('data-state', 'error')
       reject(err)
     }
 
-    windowWithGoogleMap.initMap = function onload() {
+    windowWithGoogleMap.initMap = function onload(): void {
       script.setAttribute('data-state', 'ready')
       resolve(id)
     }

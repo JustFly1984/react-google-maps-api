@@ -348,7 +348,6 @@ const createGoogleMapsMock = (libraries = []) => {
   return maps
 }
 
-
 window.google = {
-  maps: createGoogleMapsMock()
+  maps: createGoogleMapsMock(),
 }

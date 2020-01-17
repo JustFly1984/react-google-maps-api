@@ -29,29 +29,27 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
     this.interval = window.setInterval(this.checkIfScriptLoaded, 200)
   }
 
-  setScriptLoadedCallback = () => {
+  setScriptLoadedCallback = (): void => {
     if (this.state.scriptLoaded) {
       window.clearInterval(this.interval)
     }
   }
 
-  checkIfScriptLoaded = () => {
-    function serScriptLoaded() {
-      return {
-        scriptLoaded: true,
-      }
-    }
-
+  checkIfScriptLoaded = (): void => {
     if (window.google) {
-      this.setState(serScriptLoaded, this.setScriptLoadedCallback)
+      this.setState(function serScriptLoaded() {
+        return {
+          scriptLoaded: true,
+        }
+      }, this.setScriptLoadedCallback)
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.clearInterval(this.interval)
   }
 
-  render() {
+  render(): JSX.Element {
     if (!this.state.scriptLoaded) {
       return <SpanIntro />
     }

@@ -5,6 +5,9 @@
   "exclude": [
     "node_modules"
   ],
+  "types": [
+    "googlemaps"
+  ],
   "compilerOptions": {
     "module": "esnext",
     "moduleResolution": "node",

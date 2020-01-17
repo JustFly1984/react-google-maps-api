@@ -54,7 +54,7 @@ module.exports = {
     },
     'import/resolver': {
      // use <root>/path/to/folder/tsconfig.json
-     'typescript': {
+    'typescript': {
         'directory': './tsconfig.json'
       }
     },

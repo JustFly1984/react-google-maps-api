@@ -16,6 +16,12 @@ const center = {
 
 const position = { lat: 33.772, lng: -117.214 }
 
+const divStyle = {
+  background: `white`,
+  border: `1px solid #ccc`,
+  padding: 15
+}
+
 const onLoad = infoWindow => {
   console.log('infoWindow: ', infoWindow)
 }
@@ -32,11 +38,7 @@ const onLoad = infoWindow => {
       onLoad={onLoad}
       position={position}
     >
-      <div style={{
-        background: `white`,
-        border: `1px solid #ccc`,
-        padding: 15
-      }}>
+      <div style={divStyle}>
         <h1>InfoWindow</h1>
       </div>
     </InfoWindow>

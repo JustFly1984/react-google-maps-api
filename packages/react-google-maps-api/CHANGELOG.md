@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.8.2 update dependencies
+
 ## 1.8.1 cleanup
 
 ## 1.8.0 cleanup, fix typos

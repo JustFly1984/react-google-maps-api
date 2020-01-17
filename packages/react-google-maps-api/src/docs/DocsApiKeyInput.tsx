@@ -1,6 +1,6 @@
-import { Component, ChangeEvent, FormEvent } from 'react'
 import * as React from 'react'
 import { setKey, getKey } from './docs-api-key'
+
 import LoadScript from '../LoadScript'
 
 const libraries = ['drawing', 'places', 'visualization']
@@ -16,14 +16,14 @@ const buttonStyle = {
   marginLeft: '8px',
 }
 
-const loadingElement = <div>Loading...</div>
+const loadingElement: JSX.Element = <div>Loading...</div>
 
 interface DocsApiKeyInputState {
   key: string
   loadScript: boolean
 }
 
-class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
+class DocsApiKeyInput extends React.Component<{}, DocsApiKeyInputState> {
   constructor(props: {}) {
     super(props)
 
@@ -32,31 +32,27 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
     this.state = key ? { key, loadScript: true } : { key: '', loadScript: false }
   }
 
-  onInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>): void => {
-    function setKey() {
+  onInputChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>): void => {
+    this.setState(function setKey() {
       return {
         key: value,
       }
-    }
-
-    this.setState(setKey)
+    })
   }
 
-  onFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
+  onFormSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
 
     setKey(this.state.key)
 
-    function setLoadScript() {
+    this.setState(function setLoadScript() {
       return {
         loadScript: true,
       }
-    }
-
-    this.setState(setLoadScript)
+    })
   }
 
-  render() {
+  render(): React.ReactNode {
     return (
       <>
         <form onSubmit={this.onFormSubmit}>

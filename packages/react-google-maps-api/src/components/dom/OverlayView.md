@@ -18,6 +18,12 @@ const onClick = () => {
   console.info('I have been clicked!')
 };
 
+const divStyle = {
+  background: `white`,
+  border: `1px solid #ccc`,
+  padding: 15
+}
+
 <ScriptLoaded>
   <GoogleMap
     id="overlay-view-example"
@@ -29,13 +35,7 @@ const onClick = () => {
       position={center}
       mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
     >
-      <div
-        style={{
-          background: `white`,
-          border: `1px solid #ccc`,
-          padding: 15
-        }}
-      >
+      <div style={divStyle}>
         <h1>OverlayView</h1>
 
         <button

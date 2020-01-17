@@ -1,52 +1,46 @@
-import { PureComponent } from "react"
+import { PureComponent } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from "../../utils/helper"
-import MapContext from "../../map-context"
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import MapContext from '../../map-context'
 
 const eventMap = {
-  onClick: "click",
-  onDefaultViewportChanged: "defaultviewport_changed",
-  onStatusChanged: "status_changed"
+  onClick: 'click',
+  onDefaultViewportChanged: 'defaultviewport_changed',
+  onStatusChanged: 'status_changed',
 }
 
 const updaterMap = {
-  options(
-    instance: google.maps.KmlLayer,
-    options: google.maps.KmlLayerOptions
-  ) {
+  options(instance: google.maps.KmlLayer, options: google.maps.KmlLayerOptions): void {
     instance.setOptions(options)
   },
-  url(instance: google.maps.KmlLayer, url: string) {
+  url(instance: google.maps.KmlLayer, url: string): void {
     instance.setUrl(url)
   },
-  zIndex(instance: google.maps.KmlLayer, zIndex: number) {
+  zIndex(instance: google.maps.KmlLayer, zIndex: number): void {
     instance.setZIndex(zIndex)
-  }
+  },
 }
 
 interface KmlLayerState {
-  kmlLayer: google.maps.KmlLayer | null;
+  kmlLayer: google.maps.KmlLayer | null
 }
 
 export interface KmlLayerProps {
-  options?: google.maps.KmlLayerOptions;
+  options?: google.maps.KmlLayerOptions
   /** The URL of the KML document to display. */
-  url?: string;
+  url?: string
   /** The z-index of the layer. */
-  zIndex?: number;
+  zIndex?: number
   /** This event is fired when a feature in the layer is clicked. */
-  onClick?: (e: google.maps.MouseEvent) => void;
+  onClick?: (e: google.maps.MouseEvent) => void
   /** This event is fired when the KML layers default viewport has changed. */
-  onDefaultViewportChanged?: () => void;
+  onDefaultViewportChanged?: () => void
   /** This event is fired when the KML layer has finished loading. At this point it is safe to read the status property to determine if the layer loaded successfully. */
-  onStatusChanged?: () => void;
+  onStatusChanged?: () => void
   /** This callback is called when the kmlLayer instance has loaded. It is called with the kmlLayer instance. */
-  onLoad: (kmlLayer: google.maps.KmlLayer) => void;
+  onLoad: (kmlLayer: google.maps.KmlLayer) => void
   /** This callback is called when the component unmounts. It is called with the kmlLayer instance. */
-  onUnmount: (kmlLayer: google.maps.KmlLayer) => void;
+  onUnmount: (kmlLayer: google.maps.KmlLayer) => void
 }
 
 export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
@@ -55,20 +49,19 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
   registeredEvents: google.maps.MapsEventListener[] = []
 
   state: KmlLayerState = {
-    kmlLayer: null
+    kmlLayer: null,
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
-  setKmlLayerCallback = () => {
+  setKmlLayerCallback = (): void => {
     if (this.state.kmlLayer !== null && this.props.onLoad) {
       this.props.onLoad(this.state.kmlLayer)
     }
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const kmlLayer = new google.maps.KmlLayer({
       ...this.props.options,
-      map: this.context
+      map: this.context,
     })
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -76,22 +69,17 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
       eventMap,
       prevProps: {},
       nextProps: this.props,
-      instance: kmlLayer
+      instance: kmlLayer,
     })
 
-    function setLmlLayer() {
+    this.setState(function setLmlLayer() {
       return {
-        kmlLayer
+        kmlLayer,
       }
-    }
-
-    this.setState(
-      setLmlLayer,
-      this.setKmlLayerCallback
-    )
+    }, this.setKmlLayerCallback)
   }
 
-  componentDidUpdate(prevProps: KmlLayerProps) {
+  componentDidUpdate(prevProps: KmlLayerProps): void {
     if (this.state.kmlLayer !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -100,12 +88,12 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
         eventMap,
         prevProps,
         nextProps: this.props,
-        instance: this.state.kmlLayer
+        instance: this.state.kmlLayer,
       })
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     if (this.state.kmlLayer !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.kmlLayer)
@@ -117,7 +105,7 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     }
   }
 
-  render() {
+  render(): React.ReactNode {
     return null
   }
 }

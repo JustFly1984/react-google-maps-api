@@ -1,9 +1,0 @@
-{
-  "eslint.options": {
-    "configFile": "./.eslintrc.js"
-  },
-  "eslint.packageManager": "yarn",
-  "eslint.run": "onSave",
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-  "eslint.autoFixOnSave": true
-}

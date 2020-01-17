@@ -1,48 +1,39 @@
-import { PureComponent } from "react"
+import { PureComponent } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from "../../utils/helper"
-import MapContext from "../../map-context"
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import MapContext from '../../map-context'
 
 const eventMap = {}
 
 const updaterMap = {
-  options(
-    instance: google.maps.TrafficLayer,
-    options: google.maps.TrafficLayerOptions
-  ) {
+  options(instance: google.maps.TrafficLayer, options: google.maps.TrafficLayerOptions): void {
     instance.setOptions(options)
-  }
+  },
 }
 
 interface TrafficLayerState {
-  trafficLayer: google.maps.TrafficLayer | null;
+  trafficLayer: google.maps.TrafficLayer | null
 }
 
 export interface TrafficLayerProps {
-  options?: google.maps.TrafficLayerOptions;
+  options?: google.maps.TrafficLayerOptions
   /** This callback is called when the component unmounts. It is called with the trafficLayer instance. */
-  onLoad?: (trafficLayer: google.maps.TrafficLayer) => void;
+  onLoad?: (trafficLayer: google.maps.TrafficLayer) => void
   /** This callback is called when the trafficLayer instance has loaded. It is called with the trafficLayer instance. */
-  onUnmount?: (trafficLayer: google.maps.TrafficLayer) => void;
+  onUnmount?: (trafficLayer: google.maps.TrafficLayer) => void
 }
 
-export class TrafficLayer extends PureComponent<
-  TrafficLayerProps,
-  TrafficLayerState
-> {
+export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerState> {
   static contextType = MapContext
 
   state = {
-    trafficLayer: null
+    trafficLayer: null,
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setTrafficLayerCallback = () => {
     if (this.state.trafficLayer !== null) {
       if (this.props.onLoad) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onLoad(this.state.trafficLayer)
       }
@@ -51,10 +42,10 @@ export class TrafficLayer extends PureComponent<
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  componentDidMount() {
+  componentDidMount(): void {
     const trafficLayer = new google.maps.TrafficLayer({
       ...(this.props.options || {}),
-      map: this.context
+      map: this.context,
     })
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -62,22 +53,17 @@ export class TrafficLayer extends PureComponent<
       eventMap,
       prevProps: {},
       nextProps: this.props,
-      instance: trafficLayer
+      instance: trafficLayer,
     })
 
-    function setTrafficLayer() {
+    this.setState(function setTrafficLayer() {
       return {
-        trafficLayer
+        trafficLayer,
       }
-    }
-
-    this.setState(
-      setTrafficLayer,
-      this.setTrafficLayerCallback
-    )
+    }, this.setTrafficLayerCallback)
   }
 
-  componentDidUpdate(prevProps: TrafficLayerProps) {
+  componentDidUpdate(prevProps: TrafficLayerProps): void {
     if (this.state.trafficLayer !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -86,20 +72,22 @@ export class TrafficLayer extends PureComponent<
         eventMap,
         prevProps,
         nextProps: this.props,
-        instance: this.state.trafficLayer
+        instance: this.state.trafficLayer,
       })
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     if (this.state.trafficLayer !== null) {
       if (this.props.onUnmount) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onUnmount(this.state.trafficLayer)
       }
 
       unregisterEvents(this.registeredEvents)
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.state.trafficLayer.setMap(null)
     }

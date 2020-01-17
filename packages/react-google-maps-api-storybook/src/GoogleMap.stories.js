@@ -3,6 +3,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { LoadScript, GoogleMap, StreetViewPanorama } from '@react-google-maps/api'
+// eslint-disable-next-line import/no-unresolved
 import googleMapKey from '../googleMapKey'
 
 const isBrowser = typeof document !== 'undefined'
@@ -21,12 +22,21 @@ const libraries = []
 
 const position = { lat: 49.2853171, lng: -123.1119202 }
 
+const onLoad = () => {
+  console.log('script loaded')
+}
+
+const onVisibleChanged = () => {
+  console.log('Visible changed')
+}
+
 class SafeLoadScript extends React.Component {
     state = {
       ready: isBrowser || typeof window.google !== 'undefined'
     }
 
-    componentWillMount () {
+    // eslint-disable-next-line camelcase
+    UNSAFE_componentWillMount () {
       if (isBrowser) {
         if (this.state.ready) {
           return
@@ -62,11 +72,11 @@ storiesOf('GoogleMap:', module)
     <LoadScript
       id='script-loader'
       googleMapsApiKey={googleMapKey}
-      language={'en'}
+      language='en'
       region='EN'
       version='weekly'
       libraries={libraries}
-      onLoad={() => console.log('script loaded')}
+      onLoad={onLoad}
       loadingElement={<div>Loading...</div>}
     >
       {story()}
@@ -90,7 +100,7 @@ storiesOf('GoogleMap:', module)
       <StreetViewPanorama
         position={position}
         visible
-        onVisibleChanged={() => console.log('Visible changed')}
+        onVisibleChanged={onVisibleChanged}
       />
     </GoogleMap>
   ))

@@ -21,12 +21,3 @@ or [https://react-google-maps-api-docs.netlify.com](https://react-google-maps-ap
 ## For Maintainers
 
 Join our [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_invite/enQtODc5ODU1NTY5MzQ4LTBiNTYzZmY1YmVjYzJhZThkMGU0YzUwZjJkNGJmYjk4YjQyYjZhMDk2YThlZGEzNDc0M2RhNjBmMWE4ZTJiMjQ)
-
-Repo is based on lerna
-
-Before starting to work on project, instead of `yarn` or `npm i` in each package directory, you need to run `yarn && lerna bootstrap` in the root directory
-
-Note: Lerna do not builds before publishing. To properly publish, run `yarn run publish` in root directory
-
-* `yarn bootstrap` to init monorepo.
-* `yarn storybook` to run storybook.

@@ -1,16 +1,16 @@
-import * as React from "react"
+import * as React from 'react'
 
-import MapContext from "../../map-context"
+import MapContext from '../../map-context'
 
 export interface StreetViewServiceProps {
   /** This callback is called when the component unmounts. It is called with the streetViewService instance. */
-  onLoad?: (streetViewService: google.maps.StreetViewService | null) => void;
+  onLoad?: (streetViewService: google.maps.StreetViewService | null) => void
   /** This callback is called when the streetViewService instance has loaded. It is called with the streetViewService instance. */
-  onUnmount?: (streetViewService: google.maps.StreetViewService | null) => void;
+  onUnmount?: (streetViewService: google.maps.StreetViewService | null) => void
 }
 
 interface StreetViewServiceState {
-  streetViewService: google.maps.StreetViewService | null;
+  streetViewService: google.maps.StreetViewService | null
 }
 
 export class StreetViewService extends React.PureComponent<
@@ -20,32 +20,26 @@ export class StreetViewService extends React.PureComponent<
   static contextType = MapContext
 
   state = {
-    streetViewService: null
+    streetViewService: null,
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
-  setStreetViewServiceCallback = () => {
+  setStreetViewServiceCallback = (): void => {
     if (this.state.streetViewService !== null && this.props.onLoad) {
       this.props.onLoad(this.state.streetViewService)
     }
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const streetViewService = new google.maps.StreetViewService()
 
-    function setStreetViewService() {
+    this.setState(function setStreetViewService() {
       return {
-        streetViewService
+        streetViewService,
       }
-    }
-
-    this.setState(
-      setStreetViewService,
-
-    )
+    })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     if (this.state.streetViewService !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.streetViewService)
@@ -53,7 +47,7 @@ export class StreetViewService extends React.PureComponent<
     }
   }
 
-  render () {
+  render(): React.ReactNode {
     return null
   }
 }

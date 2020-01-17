@@ -18,7 +18,7 @@ export function makeLoadScriptUrl({
   region,
   libraries,
   channel,
-}: LoadScriptUrlOptions) {
+}: LoadScriptUrlOptions): string {
   const params = []
 
   invariant(

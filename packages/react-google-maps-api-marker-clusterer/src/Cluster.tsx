@@ -1,5 +1,5 @@
+/* global google */
 /* eslint-disable filenames/match-regex */
-/* globals google */
 import { Clusterer } from './Clusterer'
 
 import { ClusterIcon } from './ClusterIcon'

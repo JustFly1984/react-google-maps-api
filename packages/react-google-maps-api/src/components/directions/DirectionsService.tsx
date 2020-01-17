@@ -1,13 +1,13 @@
-import * as React from "react"
-import invariant from "invariant"
+import * as React from 'react'
+import invariant from 'invariant'
 
 interface DirectionsServiceState {
-  directionsService: google.maps.DirectionsService | null;
+  directionsService: google.maps.DirectionsService | null
 }
 
 export interface DirectionsServiceProps {
   // required for default functionality
-  options: google.maps.DirectionsRequest;
+  options: google.maps.DirectionsRequest
 
   // required for default functionality
   callback: (
@@ -17,56 +17,50 @@ export interface DirectionsServiceProps {
     // required
     /** The status returned by the DirectionsService on the completion of a call to route(). Specify these by value, or by using the constant's name. For example, 'OK' or google.maps.DirectionsStatus.OK */
     status: google.maps.DirectionsStatus
-  ) => void;
+  ) => void
   /** This callback is called when the directionsService instance has loaded. It is called with the directionsService instance. */
-  onLoad?: (directionsService: google.maps.DirectionsService) => void;
+  onLoad?: (directionsService: google.maps.DirectionsService) => void
   /** This callback is called when the component unmounts. It is called with the directionsService instance. */
-  onUnmount?: (directionsService: google.maps.DirectionsService) => void;
+  onUnmount?: (directionsService: google.maps.DirectionsService) => void
 }
 
 export class DirectionsService extends React.PureComponent<
-DirectionsServiceProps,
-DirectionsServiceState
+  DirectionsServiceProps,
+  DirectionsServiceState
 > {
   state: DirectionsServiceState = {
-    directionsService: null
+    directionsService: null,
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
-  setDirectionsServiceCallback = () => {
+  setDirectionsServiceCallback = (): void => {
     if (this.state.directionsService !== null && this.props.onLoad) {
       this.props.onLoad(this.state.directionsService)
     }
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     invariant(
       !!this.props.options,
-      "DirectionsService expected options object as parameter, but got %s",
+      'DirectionsService expected options object as parameter, but got %s',
       this.props.options
     )
 
     const directionsService = new google.maps.DirectionsService()
 
-    function setDirectionsService() {
+    this.setState(function setDirectionsService() {
       return {
-        directionsService
+        directionsService,
       }
-    }
-
-    this.setState(setDirectionsService, this.setDirectionsServiceCallback)
+    }, this.setDirectionsServiceCallback)
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     if (this.state.directionsService !== null) {
-      this.state.directionsService.route(
-        this.props.options,
-        this.props.callback
-      )
+      this.state.directionsService.route(this.props.options, this.props.callback)
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     if (this.state.directionsService !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.directionsService)
@@ -74,7 +68,7 @@ DirectionsServiceState
     }
   }
 
-  render() {
+  render(): JSX.Element {
     return <></>
   }
 }
