@@ -19,10 +19,10 @@ const onClick = () => {
 };
 
 const divStyle = {
-  background: `white`,
-  border: `1px solid #ccc`,
+  background: 'white',
+  border: '1px solid #ccc',
   padding: 15
-}
+};
 
 <ScriptLoaded>
   <GoogleMap
