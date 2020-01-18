@@ -123,9 +123,9 @@ export interface GoogleMapProps {
   onTiltChanged?: () => void
   /** This event is fired when the map zoom property changes. */
   onZoomChanged?: () => void
-  /** This callback is called when the component unmounts. It is called with the map instance. */
-  onLoad?: (map: google.maps.Map) => void | Promise<void>
   /** This callback is called when the map instance has loaded. It is called with the map instance. */
+  onLoad?: (map: google.maps.Map) => void | Promise<void>
+  /** This callback is called when the component unmounts. It is called with the map instance. */
   onUnmount?: (map: google.maps.Map) => void | Promise<void>
 }
 
