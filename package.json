@@ -21,11 +21,11 @@
     "url": "https://github.com/JustFly1984/react-google-maps-api"
   },
   "scripts": {
-    "build:api": "cd packages/react-google-maps-api && yarn build && cd ../..",
-    "build:docs": "cd packages/react-google-maps-api && yarn docs:build && cd ../..",
-    "build:clusterer": "cd packages/react-google-maps-api-marker-clusterer && yarn build && cd ../..",
-    "build:infobox": "cd packages/react-google-maps-api-infobox && yarn build && cd ../..",
-    "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn build && cd ../..",
+    "build:api": "cd packages/react-google-maps-api && yarn && yarn build && cd ../..",
+    "build:docs": "cd packages/react-google-maps-api && yarn && yarn docs:build && cd ../..",
+    "build:clusterer": "cd packages/react-google-maps-api-marker-clusterer && yarn && yarn build && cd ../..",
+    "build:infobox": "cd packages/react-google-maps-api-infobox && yarn && yarn build && cd ../..",
+    "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn && yarn build && cd ../..",
     "prebuild:docs": "yarn build:clusterer && yarn build:infobox",
     "prebuild:gatsby": "yarn build:clusterer && yarn build:infobox && yarn build:api",
     "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start && cd ../..",
