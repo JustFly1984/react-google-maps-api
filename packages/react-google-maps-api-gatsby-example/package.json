@@ -78,7 +78,7 @@
   },
   "devDependencies": {
     "@types/googlemaps": "3.39.2",
-    "@types/react-dom": "16.9.4",
+    "@types/react-dom": "16.9.5",
     "babel-eslint": "10.0.3",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
     "eslint": "6.8.0",
