@@ -965,24 +965,24 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@react-google-maps/api@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.8.1.tgz#5239a9b9087f3fb55418947de7d57f6a6982dd3c"
-  integrity sha512-yWvyXg86+p18ki3NFFwxugBfO9wZ/HFv9ebFsoePu1/bgWcmUx0TF8okp73c8y2VzAThP8OoqFpTQ4RnZLdPDw==
+"@react-google-maps/api@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.8.2.tgz#cde0d4beb03c0ea58cd2e768a69437752c048ede"
+  integrity sha512-2TJIYEsmZsfZMSX+fz9SsRNsxRN5NsBTU9E9G2BxoPWa8aO8goHODkcFGUCdBBiuYc5ZIPaWDUVW5curSpGTjQ==
   dependencies:
-    "@react-google-maps/infobox" "1.8.1"
-    "@react-google-maps/marker-clusterer" "1.8.1"
+    "@react-google-maps/infobox" "1.8.2"
+    "@react-google-maps/marker-clusterer" "1.8.2"
     invariant "2.2.4"
 
-"@react-google-maps/infobox@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-1.8.1.tgz#c20e75c5e879e9e03665e1b4c330d1fbfd93108f"
-  integrity sha512-t9aeShxCuXsovMxjZFZNHss2kd2eWniltFAJbTvIRk43EKywDlHWHfeoIe/rWtGpKObvIwukkMgoCwVP43b4SQ==
+"@react-google-maps/infobox@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-1.8.2.tgz#da2cab6331fbdcb5580e64262befa88c55f4c7a4"
+  integrity sha512-lU+0g0BUq2xhJEJb16uEdCmEgEMd5Oib5yTyeSrBUUC6wCj2Rl0y41TcgxtZhD2C155n5v8Ns6NHQyVctRehcQ==
 
-"@react-google-maps/marker-clusterer@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.8.1.tgz#cbeb7b93564e1675c00ad8913dde2ec3ef5a8df9"
-  integrity sha512-TbzwKroDRxlR6kPTrswY33qbEnGHaYjplIOjdVnQyqdSeCoGc9LUD4p9DhjU6iOH6AX/H7jH7nfdGA3YEryXXg==
+"@react-google-maps/marker-clusterer@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.8.2.tgz#ff556e1d9f34d5270b008d010e9f2e037409c623"
+  integrity sha512-EPFu88okkIvX4zbJI91gBfE3WUHJpO+pp+3lRmv5vn9DPzSHYui7JNuKXuqSOUe7NUsTOqSvkiOeGZO7t0KHwA==
 
 "@storybook/addons@5.3.5":
   version "5.3.5"
