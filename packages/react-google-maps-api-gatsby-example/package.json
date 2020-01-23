@@ -109,7 +109,7 @@
     "eslint-plugin-standard": "4.0.1",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.8.0",
     "jest": "24.9.0",
-    "jest-cli": "24.9.0",
+    "jest-cli": "25.1.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "rimraf": "3.0.0",
