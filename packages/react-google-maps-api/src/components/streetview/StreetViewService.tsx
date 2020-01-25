@@ -36,7 +36,7 @@ export class StreetViewService extends React.PureComponent<
       return {
         streetViewService,
       }
-    })
+    }, this.setStreetViewServiceCallback)
   }
 
   componentWillUnmount(): void {
