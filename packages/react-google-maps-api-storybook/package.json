@@ -24,7 +24,7 @@
     "@react-google-maps/api": "1.8.2"
   },
   "devDependencies": {
-    "@babel/core": "7.8.3",
+    "@babel/core": "7.8.4",
     "@emotion/core": "10.0.27",
     "@storybook/react": "5.3.12",
     "babel-eslint": "10.0.3",
