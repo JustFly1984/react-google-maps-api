@@ -9,9 +9,6 @@
     "email": "justfly1984@gmail.com",
     "url": "https://github.com/JustFly1984"
   },
-  "engines": {
-    "node": ">=12.13.1"
-  },
   "contributors": [
     "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)",
     "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)",
