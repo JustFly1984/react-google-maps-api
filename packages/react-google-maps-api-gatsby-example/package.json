@@ -30,7 +30,7 @@
     "@getify/eslint-plugin-proper-arrows": "8.0.1",
     "@hot-loader/react-dom": "16.11.0",
     "@react-google-maps/api": "1.8.2",
-    "@sentry/browser": "^5.10.2",
+    "@sentry/browser": "^5.12.1",
     "gatsby": "2.19.2",
     "gatsby-plugin-favicon": "3.1.6",
     "gatsby-plugin-purgecss": "4.0.1",
