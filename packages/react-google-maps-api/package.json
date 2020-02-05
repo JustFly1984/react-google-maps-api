@@ -68,7 +68,6 @@
     "StreetViewPanorama",
     "TrafficLayer",
     "visualization/HeatmapLayer",
-    "withGoogleMap",
     "ScriptLoader",
     "Typescript"
   ],
