@@ -26,7 +26,7 @@
     "@babel/polyfill": "7.8.3",
     "@babel/preset-env": "7.8.3",
     "@babel/preset-react": "7.8.3",
-    "@babel/runtime": "7.8.3",
+    "@babel/runtime": "7.8.4",
     "@getify/eslint-plugin-proper-arrows": "8.0.1",
     "@hot-loader/react-dom": "16.11.0",
     "@react-google-maps/api": "1.8.2",
