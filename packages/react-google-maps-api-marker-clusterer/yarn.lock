@@ -3351,10 +3351,10 @@ eslint-plugin-standard@4.0.1:
   resolved "https://registry.yarnpkg.com/eslint-plugin-standard/-/eslint-plugin-standard-4.0.1.tgz#ff0519f7ffaff114f76d1bd7c3996eef0f6e20b4"
   integrity sha512-v/KBnfyaOMPmZc/dmc6ozOdWqekGp7bBGq4jLAecEfPGmfKiWS4sA8sC0LqiV9w5qmXAtXVn4M3p1jSyhY85SQ==
 
-eslint-plugin-you-dont-need-lodash-underscore@6.8.0:
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-you-dont-need-lodash-underscore/-/eslint-plugin-you-dont-need-lodash-underscore-6.8.0.tgz#1ea0320299c08d8c611c321a6fd21ea87eaf9e70"
-  integrity sha512-JZ+v76MqNzP/ohRhtRnuCSIPEaY4dj58YAiJwSvEm3fVEwfjVVeNRHBea0oIcwAUcUGU08fEq75KeOKuE4AvCA==
+eslint-plugin-you-dont-need-lodash-underscore@6.9.0:
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-you-dont-need-lodash-underscore/-/eslint-plugin-you-dont-need-lodash-underscore-6.9.0.tgz#c8d6dae07ab0ad41a973eba921531344d435bb76"
+  integrity sha512-KTzN+TQ2qUNtMVqhVq1qlm/h/SBtR6HzCN5/LD8eVFyf3o4cVG2UC94iAt5mEmKMneudJdaMtBIQFaBVW15pBg==
   dependencies:
     kebab-case "^1.0.0"
 
