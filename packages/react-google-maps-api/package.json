@@ -101,7 +101,7 @@
     "@types/babel-types": "7.0.7",
     "@types/googlemaps": "3.39.2",
     "@types/invariant": "2.2.31",
-    "@types/jest": "24.9.0",
+    "@types/jest": "25.1.1",
     "@types/react-dom": "16.9.5",
     "@typescript-eslint/eslint-plugin": "2.19.0",
     "@typescript-eslint/parser": "2.19.0",
