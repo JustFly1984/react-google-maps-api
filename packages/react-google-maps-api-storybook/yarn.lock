@@ -965,10 +965,10 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@react-google-maps/api@1.8.2":
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.8.2.tgz#cde0d4beb03c0ea58cd2e768a69437752c048ede"
-  integrity sha512-2TJIYEsmZsfZMSX+fz9SsRNsxRN5NsBTU9E9G2BxoPWa8aO8goHODkcFGUCdBBiuYc5ZIPaWDUVW5curSpGTjQ==
+"@react-google-maps/api@1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.8.3.tgz#99942c465235648111a3ad9c60197207aae014fd"
+  integrity sha512-D3/qFxhgxS5rNeeB0sb785vgfU7P5X70B+/vnKWU4lTVTsekEm5qdJNBznWBGzvCzC4e7F3FMa6Y4K+HIPpTYQ==
   dependencies:
     "@react-google-maps/infobox" "1.8.2"
     "@react-google-maps/marker-clusterer" "1.8.2"
