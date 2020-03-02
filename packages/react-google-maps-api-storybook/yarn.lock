@@ -3839,10 +3839,10 @@ eslint-plugin-react@7.18.3:
     resolve "^1.14.2"
     string.prototype.matchall "^4.0.2"
 
-eslint-plugin-security-node@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-security-node/-/eslint-plugin-security-node-1.0.11.tgz#87bdfa68fdd51df2a6e43183d8b81b0e9aa5f7d5"
-  integrity sha512-ve5H3mpTkHoMQQqnXElsAl0i+a3VCrbzgnaSHgS/yIBODUJzrp/Jw6DQBpp7MZ1Bea4c7Vx4tG5gA4J7O/SnEw==
+eslint-plugin-security-node@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-security-node/-/eslint-plugin-security-node-1.0.12.tgz#b2573cdee01e9b66470a61b7a2377f197ecf1539"
+  integrity sha512-jd0iWPrbqIbu/P+0YKDz2Aqyqc8Y6jLFO66N2b/vjRQw8PSR/Jc3ef2ioPN+O7FAD1cqjImWnHrkoNW10hLzaA==
 
 eslint-plugin-standard@4.0.1:
   version "4.0.1"
