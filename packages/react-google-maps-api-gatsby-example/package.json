@@ -34,7 +34,7 @@
     "gatsby": "2.19.28",
     "gatsby-plugin-favicon": "3.1.6",
     "gatsby-plugin-purgecss": "4.0.1",
-    "gatsby-plugin-react-helmet": "3.1.22",
+    "gatsby-plugin-react-helmet": "3.1.24",
     "gatsby-plugin-sitemap": "2.2.27",
     "gatsby-plugin-typescript": "2.2.0",
     "immutable": "3.8.2",
