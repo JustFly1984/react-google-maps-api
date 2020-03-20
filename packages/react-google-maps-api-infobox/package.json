@@ -83,7 +83,7 @@
     "rimraf": "3.0.2",
     "ts-jest": "25.2.0",
     "tsdx": "0.12.3",
-    "typescript": "3.7.5",
+    "typescript": "3.8.3",
     "webpack": "4.41.6"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
