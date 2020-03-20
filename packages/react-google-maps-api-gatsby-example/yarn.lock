@@ -1532,10 +1532,10 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@react-google-maps/api@1.8.4":
-  version "1.8.4"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.8.4.tgz#8f859b1dd3141cf44e36b9fb4d1f0bbbd97cb829"
-  integrity sha512-YCAM5WaRXspLzBeAeIQyPx+hvcHal0TSQj2N4k/agwp/iIma4rr39cKSz5tWhuzlClxhcaFcSjNKmd5uVdcZvg==
+"@react-google-maps/api@1.8.5":
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.8.5.tgz#42214279fc1faf4e8f394c0ca05d5ea9831662e4"
+  integrity sha512-6F1q/FxmKDKvM2+HEhfTQC3l1GT6ScnJP+Ch/gfpYdCUvmgF1WJXbiIwqWss/bbXOu4757KbETshDrAXmifakg==
   dependencies:
     "@react-google-maps/infobox" "1.8.4"
     "@react-google-maps/marker-clusterer" "1.8.4"
