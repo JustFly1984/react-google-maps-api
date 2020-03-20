@@ -28,7 +28,7 @@
     "@babel/preset-react": "7.8.3",
     "@babel/runtime": "7.8.7",
     "@getify/eslint-plugin-proper-arrows": "8.0.1",
-    "@hot-loader/react-dom": "16.12.0",
+    "@hot-loader/react-dom": "16.13.0",
     "@react-google-maps/api": "1.8.4",
     "@sentry/browser": "5.13.2",
     "gatsby": "2.19.49",
