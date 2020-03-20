@@ -130,7 +130,7 @@
     "react-docgen": "5.3.0",
     "react-docgen-typescript": "1.16.2",
     "react-dom": "16.13.0",
-    "react-styleguidist": "10.6.2",
+    "react-styleguidist": "11.0.3",
     "rimraf": "3.0.2",
     "ts-jest": "25.2.1",
     "tsdx": "0.12.3",
