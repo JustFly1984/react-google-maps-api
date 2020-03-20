@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/root",
-  "version": "1.8.1",
+  "version": "1.8.6",
   "private": true,
   "description": "@react-google-maps API integration",
   "license": "MIT",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "husky": "4.2.3",
-    "lint-staged": "10.0.7"
+    "lint-staged": "10.0.8"
   },
   "husky": {
     "hooks": {
