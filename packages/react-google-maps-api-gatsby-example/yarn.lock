@@ -6111,10 +6111,10 @@ gatsby-plugin-react-helmet@3.1.24:
   dependencies:
     "@babel/runtime" "^7.8.7"
 
-gatsby-plugin-sitemap@2.2.30:
-  version "2.2.30"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-2.2.30.tgz#b3c81e9d35b71b10abb5caef88faab6795ca34d5"
-  integrity sha512-HffwAX5osEvzaLfvf3apcxI/rl+kak4XtHueBlEasyoXV9ZL29jSyPSdMbT624p2OgSp12pfaAt3sfD0mpHeSQ==
+gatsby-plugin-sitemap@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-2.3.1.tgz#97c746cd1f80007010e45577c8dc9630f167cdce"
+  integrity sha512-v7MeRsqt2NDr+HuTfJ3coEFtFNNdBabZ6s8NBdEE9yOBYMRm0Fi28MYgXe0UtAXX3I8I/eVmv8zJP6HH0rU1jA==
   dependencies:
     "@babel/runtime" "^7.8.7"
     minimatch "^3.0.4"
