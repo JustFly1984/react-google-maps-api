@@ -119,7 +119,7 @@
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-functional-set-state": "1.2.1",
-    "eslint-plugin-react-hooks": "2.5.1",
+    "eslint-plugin-react-hooks": "3.0.0",
     "eslint-plugin-react-perf": "3.2.3",
     "eslint-plugin-security-node": "1.0.12",
     "eslint-plugin-standard": "4.0.1",
