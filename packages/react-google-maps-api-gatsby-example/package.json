@@ -39,7 +39,7 @@
     "gatsby-plugin-typescript": "2.2.5",
     "immutable": "3.8.2",
     "intl": "1.2.5",
-    "prettier": "1.19.1",
+    "prettier": "2.0.4",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
