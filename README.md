@@ -16,7 +16,7 @@
 
 For API README please navigate to [https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api](https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api)
 
-or [https://react-google-maps-api-docs.netlify.com](https://react-google-maps-api-docs.netlify.com)
+or [https://react-google-maps-api-docs.netlify.app](https://react-google-maps-api-docs.netlify.app)
 
 ## For Maintainers
 

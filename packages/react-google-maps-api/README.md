@@ -76,9 +76,9 @@ After:
 
 Examples can be found in two places:
 
-1. [Official docs](https://react-google-maps-api-docs.netlify.com/) (powered by [react-styleguidist](https://github.com/styleguidist/react-styleguidist).
+1. [Official docs](https://react-google-maps-api-docs.netlify.app/) (powered by [react-styleguidist](https://github.com/styleguidist/react-styleguidist).
 2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api-gatsby-example/src/examples) folder
-3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.com/)
+3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.app/)
 
 ## Advice
 
