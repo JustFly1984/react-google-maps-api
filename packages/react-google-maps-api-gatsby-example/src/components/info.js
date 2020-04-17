@@ -6,7 +6,7 @@ const Info = () => (
     <img src={info} className='icon' alt='Info' />
     Please read the{' '}
     <a
-      href='https://react-google-maps-api-docs.netlify.com/'
+      href='https://react-google-maps-api-docs.netlify.app/'
       target='_blank'
       rel='noopener noreferrer'
     >

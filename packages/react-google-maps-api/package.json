@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/JustFly1984/react-google-maps-api/issues"
   },
-  "homepage": "https://react-google-maps-api-docs.netlify.com",
+  "homepage": "https://react-google-maps-api-docs.netlify.app",
   "publishConfig": {
     "access": "public"
   },
