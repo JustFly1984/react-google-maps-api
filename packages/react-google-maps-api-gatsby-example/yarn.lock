@@ -6104,10 +6104,10 @@ gatsby-plugin-purgecss@4.0.1:
     loader-utils "^1.1.0"
     purgecss "^1.3.0"
 
-gatsby-plugin-react-helmet@3.1.24:
-  version "3.1.24"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-3.1.24.tgz#c732cd6a6eb7b7bfc2fa06ca1423254fa6412118"
-  integrity sha512-kLR/RMDBVriJptsJufoL1UBVHgq2fZIMXen7nru2ugGn0m8xwpArFoOz6meYlpiDB3Z41eYR/+Nr8GizQnYcxg==
+gatsby-plugin-react-helmet@3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-3.2.3.tgz#d3b130429e66a70120dbb3dfe90748a0047a219e"
+  integrity sha512-MS4IyGyw++ebpFw4nCYdNre/I/265M6tqZ9KdvljaPY7God3QLVkn0ZcDg+H7EB8mSnhsxUsv6F5nfWRbLMdmQ==
   dependencies:
     "@babel/runtime" "^7.8.7"
 
