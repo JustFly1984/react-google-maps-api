@@ -133,7 +133,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
     Array.prototype.slice
       .call(document.getElementsByTagName('script'))
       .filter(function filter(script: HTMLScriptElement): boolean {
-        return script.src.includes('maps.googleapis')
+        return typeof script.src === 'string' && script.src.includes('maps.googleapis')
       })
       .forEach(function forEach(script: HTMLScriptElement): void {
         if (script.parentNode) {
