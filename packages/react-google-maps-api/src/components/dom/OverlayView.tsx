@@ -11,6 +11,7 @@ import ContentMountHandler from './CountMountHandler'
 
 interface OverlayViewState {
   overlayView: google.maps.OverlayView | null
+  containerStyle: React.CSSProperties
 }
 
 export interface OverlayViewProps {
@@ -34,9 +35,12 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
 
   state: OverlayViewState = {
     overlayView: null,
+    containerStyle: {},
   }
 
-  containerElement: HTMLElement | null = null
+  mapPaneEl: Element | null = null
+
+  containerRef: React.RefObject<HTMLDivElement>
 
   setOverlayViewCallback = (): void => {
     if (this.state.overlayView !== null && this.props.onLoad) {
@@ -47,19 +51,33 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
   }
 
   onAdd = (): void => {
-    this.containerElement = document.createElement('div')
+    invariant(
+      !!this.props.mapPaneName,
+      `OverlayView requires props.mapPaneName but got %s`,
+      this.props.mapPaneName
+    )
 
-    this.containerElement.style.position = 'absolute'
+    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapPanes
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const mapPanes: any = this.state.overlayView?.getPanes()
+
+    if (!mapPanes) {
+      return
+    }
+
+    this.mapPaneEl = mapPanes[this.props.mapPaneName]
   }
 
   onPositionElement = (): void => {
-    if (this.state.overlayView !== null && this.containerElement !== null) {
+    if (this.state.overlayView !== null) {
       const mapCanvasProjection = this.state.overlayView.getProjection()
 
       const offset = {
         x: 0,
         y: 0,
-        ...getOffsetOverride(this.containerElement, this.props.getPixelPositionOffset),
+        ...(this.containerRef.current
+          ? getOffsetOverride(this.containerRef.current, this.props.getPixelPositionOffset)
+          : {}),
       }
 
       const layoutStyles = getLayoutStyles(
@@ -69,46 +87,24 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
         this.props.position
       )
 
-      Object.assign(this.containerElement.style, layoutStyles)
+      this.setState({
+        containerStyle: layoutStyles,
+      })
     }
   }
 
   draw = (): void => {
-    invariant(
-      !!this.props.mapPaneName,
-      `OverlayView requires props.mapPaneName but got %s`,
-      this.props.mapPaneName
-    )
-
-    const overlayView = this.state.overlayView
-
-    if (overlayView === null) {
-      return
-    }
-
-    // https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapPanes
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mapPanes: any = overlayView.getPanes()
-
-    if (!mapPanes) {
-      return
-    }
-
-    if (this.containerElement) {
-      mapPanes[this.props.mapPaneName].appendChild(this.containerElement)
-    }
-
     this.onPositionElement()
-
-    this.forceUpdate()
   }
 
   onRemove = (): void => {
-    if (this.containerElement !== null && this.containerElement.parentNode) {
-      this.containerElement.parentNode.removeChild(this.containerElement)
+    this.mapPaneEl = null
+  }
 
-      delete this.containerElement
-    }
+  constructor(props: OverlayViewProps) {
+    super(props)
+
+    this.containerRef = React.createRef()
   }
 
   componentDidMount(): void {
@@ -150,12 +146,14 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
   }
 
   render(): React.ReactPortal | React.ReactNode {
-    return this.containerElement !== null ? (
+    return this.mapPaneEl ? (
       ReactDOM.createPortal(
-        <ContentMountHandler onLoad={this.setOverlayViewCallback}>
-          {React.Children.only(this.props.children)}
-        </ContentMountHandler>,
-        this.containerElement
+        <div ref={this.containerRef} style={{ ...this.state.containerStyle, position: 'absolute' }}>
+          <ContentMountHandler onLoad={this.setOverlayViewCallback}>
+            {React.Children.only(this.props.children)}
+          </ContentMountHandler>
+        </div>,
+        this.mapPaneEl,
       )
     ) : (
       <></>
