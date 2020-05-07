@@ -77,9 +77,9 @@ export interface StreetViewPanoramaProps {
   onVisibleChanged?: () => void
   /** This event is fired when the panorama's zoom level changes. */
   onZoomChange?: () => void
-  /** This callback is called when the component unmounts. It is called with the streetViewPanorama instance. */
-  onLoad?: (streetViewPanorama: google.maps.StreetViewPanorama) => void
   /** This callback is called when the streetViewPanorama instance has loaded. It is called with the streetViewPanorama instance. */
+  onLoad?: (streetViewPanorama: google.maps.StreetViewPanorama) => void
+  /** This callback is called when the component unmounts. It is called with the streetViewPanorama instance. */
   onUnmount?: (streetViewPanorama: google.maps.StreetViewPanorama) => void
 }
 

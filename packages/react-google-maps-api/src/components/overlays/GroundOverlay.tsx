@@ -34,9 +34,9 @@ export interface GroundOverlayProps {
   url: string
   /** The bounds that the image will be scaled to fit */
   bounds: google.maps.LatLngBounds
-  /** This callback is called when the component unmounts. It is called with the groundOverlay instance. */
-  onLoad?: (groundOverlay: google.maps.GroundOverlay) => void
   /** This callback is called when the groundOverlay instance has loaded. It is called with the groundOverlay instance. */
+  onLoad?: (groundOverlay: google.maps.GroundOverlay) => void
+  /** This callback is called when the component unmounts. It is called with the groundOverlay instance. */
   onUnmount?: (groundOverlay: google.maps.GroundOverlay) => void
 }
 
