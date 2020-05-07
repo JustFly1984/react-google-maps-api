@@ -29,9 +29,9 @@ export interface StandaloneSearchBoxProps {
   options?: google.maps.places.SearchBoxOptions
   /** This event is fired when the user selects a query, getPlaces should be used to get new places. */
   onPlacesChanged?: () => void
-  /** This callback is called when the component unmounts. It is called with the searchBox instance. */
-  onLoad?: (searchBox: google.maps.places.SearchBox) => void
   /** This callback is called when the searchBox instance has loaded. It is called with the searchBox instance. */
+  onLoad?: (searchBox: google.maps.places.SearchBox) => void
+  /** This callback is called when the component unmounts. It is called with the searchBox instance. */
   onUnmount?: (searchBox: google.maps.places.SearchBox) => void
 }
 
