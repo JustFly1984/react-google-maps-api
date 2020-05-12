@@ -248,6 +248,10 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
   }
 
   render(): React.ReactNode {
+    let children: JSX.Element|null = null
+    if(this.props.children) {
+      children = this.props.children.map((e) => {return React.cloneElement(e, {anchor: this.state.marker})})
+    }
     return this.props.children || null
   }
 }
