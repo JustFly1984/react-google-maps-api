@@ -57,7 +57,8 @@
     "stylelint-css-modules": "0.9.0",
     "stylelint-high-performance-animation": "1.5.1",
     "typescript": "^3.9.3",
-    "uniqid": "5.2.0"
+    "uniqid": "5.2.0",
+    "snyk": "^1.323.2"
   },
   "keywords": [
     "React",
@@ -75,7 +76,9 @@
     "lint": "npx eslint ./src --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf yarn.lock ./package-lock.json ./node_modules/ && yarn",
-    "update": "npm-check -u"
+    "update": "npm-check -u",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
     "@types/googlemaps": "3.39.6",
@@ -120,5 +123,6 @@
     "url": "https://github.com/justfly1984/react-google-maps-api",
     "directory": "packages/react-google-maps-api-gatsby-example"
   },
-  "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
+  "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83",
+  "snyk": true
 }
