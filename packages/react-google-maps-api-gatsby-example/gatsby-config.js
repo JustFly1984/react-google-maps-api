@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: 'https://react-google-maps-api.netlify.com',
+    siteUrl: 'https://react-google-maps-api.netlify.app',
     title: 'React Google Maps API Gatsby Example',
   },
   plugins: [

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.2 fix typescript 3.9.3 errors in @react-google-maps/infobox Cluster and @react-google-maps/api HeatmapLayer components, fix docs
+
+## 1,9.1 export MapContext
+
 ## 1.9.0 remove appendChild in OverlayView
 
 ## 1.8.2 update dependencies

@@ -71,8 +71,8 @@ export class HeatmapLayer extends React.PureComponent<HeatmapLayerProps, Heatmap
     invariant(!!this.props.data, 'data property is required in HeatmapLayer %s', this.props.data)
 
     const heatmapLayer = new google.maps.visualization.HeatmapLayer({
-      data: this.props.data,
       ...(this.props.options || {}),
+      data: this.props.data,
       map: this.context,
     })
 
