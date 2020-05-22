@@ -17,9 +17,9 @@ The simplest way to get a functional map is:
 
 > ⚠️ Make sure you cache the props passed to `GoogleMap` to avoid re-renders that may harm the performance.
 
-```jsx
+```md
 import React, { Component } from 'react';
-const { GoogleMap, LoadScript } = require('../');
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '400px',
@@ -53,7 +53,7 @@ class MyComponents extends Component {
 
 Or you can also adopt a functional component style:
 
-```jsx
+```md
 import React from 'react'
 
 function MyComponent(props) {
