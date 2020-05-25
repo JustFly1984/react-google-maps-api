@@ -3,6 +3,7 @@ import * as React from 'react'
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
+import { HasMarkerAnchor } from '../../types'
 
 import { Clusterer } from '@react-google-maps/marker-clusterer'
 import { ReactNode } from 'react'
@@ -249,10 +250,6 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
   }
 
   render(): React.ReactNode {
-    interface HasMarkerAnchor {
-      anchor?: google.maps.Marker | null
-    }
-
     let children: ReactNode | null = null
     if(this.props.children) {
       children = React.Children.map(this.props.children, child => {
