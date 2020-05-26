@@ -709,7 +709,11 @@ export class Clusterer {
        * @param {Clusterer} mc The Clusterer whose markers are being clustered.
        * @event
        */
-      google.maps.event.trigger(this, 'clusteringend', this)
+      google.maps.event.trigger(this, 'clusteringend', this) 
+
+      for (let i = 0; i < this.clusters.length; i++) {
+        this.clusters[i].updateIcon()
+      }
     }
   }
 
