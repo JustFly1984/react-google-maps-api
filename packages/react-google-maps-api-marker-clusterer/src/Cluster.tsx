@@ -141,8 +141,6 @@ export class Cluster {
       marker.setMap(null)
     }
 
-    this.updateIcon()
-
     return true
   }
 
