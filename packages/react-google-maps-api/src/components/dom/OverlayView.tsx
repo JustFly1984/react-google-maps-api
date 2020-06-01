@@ -14,6 +14,27 @@ interface OverlayViewState {
   containerStyle: React.CSSProperties
 }
 
+function convertLiteralToLatLng(latLng?: google.maps.LatLng | google.maps.LatLngLiteral | null) {
+  if (latLng instanceof google.maps.LatLng) {
+    return latLng
+  }
+
+  return latLng ? new google.maps.LatLng(latLng.lat, latLng.lng) : latLng
+}
+
+function convertLiteralToLatLngBounds(latLngBounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | null) {
+  if (latLngBounds instanceof google.maps.LatLngBounds) {
+    return latLngBounds
+  }
+
+  return latLngBounds
+    ? new google.maps.LatLngBounds(
+        new google.maps.LatLng(latLngBounds.south, latLngBounds.east),
+        new google.maps.LatLng(latLngBounds.north, latLngBounds.west)
+      )
+      : latLngBounds
+}
+
 export interface OverlayViewProps {
   // required
   mapPaneName: string
@@ -128,7 +149,12 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
   }
 
   componentDidUpdate(prevProps: OverlayViewProps): void {
-    if (prevProps.position !== this.props.position || prevProps.bounds !== this.props.bounds) {
+    const prevPosition = convertLiteralToLatLng(prevProps.position)
+    const position = convertLiteralToLatLng(this.props.position)
+    const prevBounds = convertLiteralToLatLngBounds(prevProps.bounds)
+    const bounds = convertLiteralToLatLngBounds(this.props.bounds)
+
+    if (prevPosition !== position || prevBounds !== bounds) {
       setTimeout(() => {
         this.state.overlayView !== null && this.state.overlayView.draw()
       }, 0)
