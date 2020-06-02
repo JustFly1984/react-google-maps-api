@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@babel/cli": "7.10.1",
-    "@babel/core": "7.10.1",
+    "@babel/core": "7.10.2",
     "@babel/node": "7.10.1",
     "@babel/plugin-proposal-class-properties": "7.10.1",
     "@babel/plugin-proposal-object-rest-spread": "7.10.1",
@@ -24,11 +24,11 @@
     "@babel/plugin-transform-runtime": "7.10.1",
     "@babel/plugin-transform-spread": "7.10.1",
     "@babel/polyfill": "7.10.1",
-    "@babel/preset-env": "7.10.1",
+    "@babel/preset-env": "7.10.2",
     "@babel/preset-react": "7.10.1",
-    "@babel/runtime": "7.10.1",
+    "@babel/runtime": "7.10.2",
     "@getify/eslint-plugin-proper-arrows": "9.1.1",
-    "@react-google-maps/api": "1.9.3",
+    "@react-google-maps/api": "1.9.4",
     "@sentry/browser": "5.15.5",
     "gatsby": "2.21.40",
     "gatsby-plugin-favicon": "3.1.6",
@@ -112,7 +112,7 @@
     "jest": "26.0.1",
     "jest-cli": "26.0.1",
     "rimraf": "3.0.2",
-    "ts-jest": "26.0.0",
+    "ts-jest": "26.1.0",
     "webpack": "4.43.0"
   },
   "repository": {

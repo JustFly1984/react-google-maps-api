@@ -22,10 +22,10 @@
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn"
   },
   "dependencies": {
-    "@react-google-maps/api": "1.9.3"
+    "@react-google-maps/api": "1.9.4"
   },
   "devDependencies": {
-    "@babel/core": "7.10.1",
+    "@babel/core": "7.10.2",
     "@emotion/core": "10.0.28",
     "@storybook/react": "5.3.19",
     "babel-eslint": "10.1.0",

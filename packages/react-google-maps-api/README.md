@@ -32,6 +32,54 @@ or Yarn
 yarn add @react-google-maps/api
 ```
 
+```jsx
+import React from 'react'
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
+
+const containerStyle = {
+  width: '400px',
+  height: '400px'
+};
+
+const center = {
+  lat: -3.745,
+  lng: -38.523
+};
+
+function MyComponent() {
+  const [map, setMap] = React.useState(null)
+
+  const onLoad = React.useCallback(function callback(map) {
+    const bounds = new window.google.maps.LatLngBounds();
+    map.fitBounds(bounds);
+    setMap(map)
+  }, [])
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null)
+  }, [])
+
+  return (
+    <LoadScript
+      googleMapsApiKey="YOUR_API_KEY"
+    >
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+      >
+        { /* Child components, such as markers, info windows, etc. */ }
+        <></>
+      </GoogleMap>
+    </LoadScript>
+  )
+}
+
+export default React.memo(MyComponent)
+```
+
 ## Migration from react-google-maps@9.4.5
 
 if you need an access to map object, instead of `ref` prop, you need to use `onLoad` callback on `<GoogleMap />` component.
@@ -39,7 +87,7 @@ if you need an access to map object, instead of `ref` prop, you need to use `onL
 Before:
 
 ```jsx
-// before
+// before - don't do that!
 <GoogleMap
   ref={map => {
     const bounds = new window.google.maps.LatLngBounds();
@@ -62,6 +110,8 @@ After:
   }}
 />
 ```
+
+If you want to use `window.google` object, you need to extract GoogleMap in separate module, so it is lazy executed then `google-maps-api` script is loaded and executed by `<LoadScript />`. If you try to use `window.google` before it is loaded it will be undefined and you'll get a TypeError.
 
 ## Main features
 
