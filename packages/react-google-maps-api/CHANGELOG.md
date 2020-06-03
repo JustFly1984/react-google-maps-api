@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.9.4 Compare between LatLng and LatLngLiteral with proper way in OverlayView
+## 1.9.5 Compare between LatLng and LatLngLiteral with proper way in OverlayView
 
 ## 1.9.3 fix Marker re-rendering in Cluster, fix MarkerClusterer performance
 

@@ -1223,10 +1223,10 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@react-google-maps/api@1.9.4":
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.9.4.tgz#bca97ba51fea15ce19f17f01a19c2d9316cdd891"
-  integrity sha512-TLRJvXLvOpoHxMbsU/CQn81ZCrz1IsFG5YnPdDteW0b/10G0H/b2QQXclAOFsAqp/XGDZ6MagQGniG7oIM7cHQ==
+"@react-google-maps/api@1.9.5":
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.9.5.tgz#5b99d7397cdbb6c48c16623d63592df9a6cfffde"
+  integrity sha512-DB8Zv+ADwhHdulwec7k9yoMqpgK2VnaGD//rlZSUsDj1gafECFgxOEMcmjPSCDfFCSvX6qr5VVZJqBvrlpkm3Q==
   dependencies:
     "@react-google-maps/infobox" "1.9.3"
     "@react-google-maps/marker-clusterer" "1.9.3"

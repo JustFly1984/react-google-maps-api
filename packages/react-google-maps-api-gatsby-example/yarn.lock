@@ -50,7 +50,7 @@
     invariant "^2.2.4"
     semver "^5.5.0"
 
-"@babel/core@7.10.2":
+"@babel/core@7.10.2", "@babel/core@^7.10.2":
   version "7.10.2"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.10.2.tgz#bd6786046668a925ac2bd2fd95b579b92a23b36a"
   integrity sha512-KQmV9yguEjQsXqyOUGKjS4+3K8/DlOCE2pZcq4augdQmtTy5iv5EHtmMSJ7V4c1BIPjuwtZYqYLCq9Ga+hGBRQ==
@@ -882,6 +882,13 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
 
+"@babel/plugin-syntax-typescript@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-typescript/-/plugin-syntax-typescript-7.10.1.tgz#5e82bc27bb4202b93b949b029e699db536733810"
+  integrity sha512-X/d8glkrAtra7CaQGMiGs/OGa6XgUzqPcBXCIGFCpCqnfGlT0Wfbzo/B89xHhnInTaItPK8LALblVXcUOEh95Q==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.10.1"
+
 "@babel/plugin-syntax-typescript@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-typescript/-/plugin-syntax-typescript-7.8.3.tgz#c1f659dda97711a569cef75275f7e15dcaa6cabc"
@@ -1466,6 +1473,15 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
 
+"@babel/plugin-transform-typescript@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-typescript/-/plugin-transform-typescript-7.10.1.tgz#2c54daea231f602468686d9faa76f182a94507a6"
+  integrity sha512-v+QWKlmCnsaimLeqq9vyCsVRMViZG1k2SZTlcZvB+TqyH570Zsij8nvVUZzOASCRiQFUxkLrn9Wg/kH0zgy5OQ==
+  dependencies:
+    "@babel/helper-create-class-features-plugin" "^7.10.1"
+    "@babel/helper-plugin-utils" "^7.10.1"
+    "@babel/plugin-syntax-typescript" "^7.10.1"
+
 "@babel/plugin-transform-typescript@^7.9.0":
   version "7.9.6"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-typescript/-/plugin-transform-typescript-7.9.6.tgz#2248971416a506fc78278fc0c0ea3179224af1e9"
@@ -1686,6 +1702,14 @@
     "@babel/plugin-transform-react-jsx-self" "^7.9.0"
     "@babel/plugin-transform-react-jsx-source" "^7.9.0"
 
+"@babel/preset-typescript@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.10.1.tgz#a8d8d9035f55b7d99a2461a0bdc506582914d07e"
+  integrity sha512-m6GV3y1ShiqxnyQj10600ZVOFrSSAa8HQ3qIUk2r+gcGtHTIRw0dJnFLt1WNXpKjtVw7yw1DAPU/6ma2ZvgJuA==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.10.1"
+    "@babel/plugin-transform-typescript" "^7.10.1"
+
 "@babel/preset-typescript@^7.9.0":
   version "7.9.0"
   resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.9.0.tgz#87705a72b1f0d59df21c179f7c3d2ef4b16ce192"
@@ -1713,7 +1737,7 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@7.10.2":
+"@babel/runtime@7.10.2", "@babel/runtime@^7.10.2":
   version "7.10.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.2.tgz#d103f21f2602497d38348a32e008637d506db839"
   integrity sha512-6sF3uQw2ivImfVIl62RZ7MXhO2tap69WeWK57vAaimT6AZbE4FbqjdEJIN1UqoD6wI6B+1n9UiagafH1sxjOtg==
@@ -2470,10 +2494,10 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@react-google-maps/api@1.9.4":
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.9.4.tgz#bca97ba51fea15ce19f17f01a19c2d9316cdd891"
-  integrity sha512-TLRJvXLvOpoHxMbsU/CQn81ZCrz1IsFG5YnPdDteW0b/10G0H/b2QQXclAOFsAqp/XGDZ6MagQGniG7oIM7cHQ==
+"@react-google-maps/api@1.9.5":
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.9.5.tgz#5b99d7397cdbb6c48c16623d63592df9a6cfffde"
+  integrity sha512-DB8Zv+ADwhHdulwec7k9yoMqpgK2VnaGD//rlZSUsDj1gafECFgxOEMcmjPSCDfFCSvX6qr5VVZJqBvrlpkm3Q==
   dependencies:
     "@react-google-maps/infobox" "1.9.3"
     "@react-google-maps/marker-clusterer" "1.9.3"
@@ -2491,56 +2515,56 @@
   resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.9.3.tgz#6acb6a12cffeef04f11549aaf0a43e6135578116"
   integrity sha512-fJoNmtHewep2wM4PnCtpPn3wImUPHBhCyz0YqOx1AxRg8zOwCOauPSMon3xKtGP7m5AmrAZpiYY51vBkubH/aA==
 
-"@sentry/browser@5.15.5":
-  version "5.15.5"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-5.15.5.tgz#d9a51f1388581067b50d30ed9b1aed2cbb333a36"
-  integrity sha512-rqDvjk/EvogfdbZ4TiEpxM/lwpPKmq23z9YKEO4q81+1SwJNua53H60dOk9HpRU8nOJ1g84TMKT2Ov8H7sqDWA==
+"@sentry/browser@5.16.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-5.16.0.tgz#5e0786652fddb299f01be66835472960a56724be"
+  integrity sha512-c8vM/kRt+ytXSTQBNXlPi36il9UQ5f3+tXMjOSkfSbqSWbuDYF1Y/mvFIiproOWHSj4MvocPil2a2QTWeCF9Nw==
   dependencies:
-    "@sentry/core" "5.15.5"
-    "@sentry/types" "5.15.5"
-    "@sentry/utils" "5.15.5"
+    "@sentry/core" "5.16.0"
+    "@sentry/types" "5.16.0"
+    "@sentry/utils" "5.16.0"
     tslib "^1.9.3"
 
-"@sentry/core@5.15.5":
-  version "5.15.5"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-5.15.5.tgz#40ea79bff5272d3fbbeeb4a98cdc59e1adbd2c92"
-  integrity sha512-enxBLv5eibBMqcWyr+vApqeix8uqkfn0iGsD3piKvoMXCgKsrfMwlb/qo9Ox0lKr71qIlZVt+9/A2vZohdgnlg==
+"@sentry/core@5.16.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-5.16.0.tgz#c6cf535a80473160254b76c1e9ccff59524820e4"
+  integrity sha512-xHmlZ7eQK9uVQZWsT+q0pTMDAOvrKDoR4X0c/RKIrOttkKD5vb35yt3/v8NMfLO0Or3vRvmq55OUjxEvDouPuw==
   dependencies:
-    "@sentry/hub" "5.15.5"
-    "@sentry/minimal" "5.15.5"
-    "@sentry/types" "5.15.5"
-    "@sentry/utils" "5.15.5"
+    "@sentry/hub" "5.16.0"
+    "@sentry/minimal" "5.16.0"
+    "@sentry/types" "5.16.0"
+    "@sentry/utils" "5.16.0"
     tslib "^1.9.3"
 
-"@sentry/hub@5.15.5":
-  version "5.15.5"
-  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-5.15.5.tgz#f5abbcdbe656a70e2ff02c02a5a4cffa0f125935"
-  integrity sha512-zX9o49PcNIVMA4BZHe//GkbQ4Jx+nVofqU/Il32/IbwKhcpPlhGX3c1sOVQo4uag3cqd/JuQsk+DML9TKkN0Lw==
+"@sentry/hub@5.16.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-5.16.0.tgz#99bea03969ac66291ad2dff8a6e2ccb19d7ed109"
+  integrity sha512-+eMJdLZB9SMFki81VMG5hQHxC7/QkIWPbaht770a30pKEz4Emj5tIJV5zlVP0ugp6B3ScKfKWHYlUrDDWFRgLA==
   dependencies:
-    "@sentry/types" "5.15.5"
-    "@sentry/utils" "5.15.5"
+    "@sentry/types" "5.16.0"
+    "@sentry/utils" "5.16.0"
     tslib "^1.9.3"
 
-"@sentry/minimal@5.15.5":
-  version "5.15.5"
-  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-5.15.5.tgz#a0e4e071f01d9c4d808094ae7203f6c4cca9348a"
-  integrity sha512-zQkkJ1l9AjmU/Us5IrOTzu7bic4sTPKCatptXvLSTfyKW7N6K9MPIIFeSpZf9o1yM2sRYdK7GV08wS2eCT3JYw==
+"@sentry/minimal@5.16.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-5.16.0.tgz#a98d0f7b6d833405d1ecb5a9b01752d7aba4f2ab"
+  integrity sha512-PWOqjy1uybMMKtTTt8ShR8Jha4FbK5sAIkzmZIN+pJHdHifhy4uKhxGP06aK2mLgMPr70igQRC0GBiEro+R3/A==
   dependencies:
-    "@sentry/hub" "5.15.5"
-    "@sentry/types" "5.15.5"
+    "@sentry/hub" "5.16.0"
+    "@sentry/types" "5.16.0"
     tslib "^1.9.3"
 
-"@sentry/types@5.15.5":
-  version "5.15.5"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-5.15.5.tgz#16c97e464cf09bbd1d2e8ce90d130e781709076e"
-  integrity sha512-F9A5W7ucgQLJUG4LXw1ZIy4iLevrYZzbeZ7GJ09aMlmXH9PqGThm1t5LSZlVpZvUfQ2rYA8NU6BdKJSt7B5LPw==
+"@sentry/types@5.16.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-5.16.0.tgz#6f5fc48e4f2f5d94bbd7331cac42a4734f4cc02b"
+  integrity sha512-VQB/zPfPz5yEXNLAv0lov+p3gt+YPBuExz7n33OuXAgvDedxzYfC1066Y6YM/ryBwwl6TDTV3M6JTDEYu3pulA==
 
-"@sentry/utils@5.15.5":
-  version "5.15.5"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-5.15.5.tgz#dec1d4c79037c4da08b386f5d34409234dcbfb15"
-  integrity sha512-Nl9gl/MGnzSkuKeo3QaefoD/OJrFLB8HmwQ7HUbTXb6E7yyEzNKAQMHXGkwNAjbdYyYbd42iABP6Y5F/h39NtA==
+"@sentry/utils@5.16.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-5.16.0.tgz#4e3722dac03957b989734cc2a64649eb488c4a9f"
+  integrity sha512-9y8StFaLQaGaqAleSJ9pswp2MSEwJ6W3trULIziZvz2XrmqdT7n23vVZXJ3peSflxfkENtYeI+5FIp+zQXfKJQ==
   dependencies:
-    "@sentry/types" "5.15.5"
+    "@sentry/types" "5.16.0"
     tslib "^1.9.3"
 
 "@sindresorhus/is@^0.14.0":
@@ -3619,6 +3643,11 @@ babel-plugin-remove-graphql-queries@^2.9.1, babel-plugin-remove-graphql-queries@
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/babel-plugin-remove-graphql-queries/-/babel-plugin-remove-graphql-queries-2.9.2.tgz#20633ca9a0b245ba104a6e02d99ee09cb08c26cf"
   integrity sha512-W6UpWAT18G27XfXvBmBoSsb5CfeMRf3K/dCkK5w0i9D9VC4CIj3162s2P2SGawqEraO1njKgjvkRfut8uTLUdw==
+
+babel-plugin-remove-graphql-queries@^2.9.3:
+  version "2.9.3"
+  resolved "https://registry.yarnpkg.com/babel-plugin-remove-graphql-queries/-/babel-plugin-remove-graphql-queries-2.9.3.tgz#afed7ed58596e84e29914a4ecc88471e0ea76766"
+  integrity sha512-EfMoizTX4/aUVN/cbWCU+uythWT5Xjh29npZnyTwBL2b16JH7WM9vbVMJQoCi+26HfRpKJS6SJfDcUT12wc3Mg==
 
 babel-plugin-transform-react-remove-prop-types@0.4.24, babel-plugin-transform-react-remove-prop-types@^0.4.24:
   version "0.4.24"
@@ -7228,24 +7257,37 @@ gatsby-plugin-purgecss@5.0.0:
     loader-utils "^2.0.0"
     purgecss "^2.1.0"
 
-gatsby-plugin-react-helmet@3.3.2:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-3.3.2.tgz#5619a1808d9607eb89c19d3f04854f497c6fb890"
-  integrity sha512-uRZlX4ejy0Txlw+9qbIVkULsuc6iniSwDgD+Ed6BOryKmF42qaqmdbcc78ZwPVN2SZJCDhcZKXoJf6QftTwwDg==
+gatsby-plugin-react-helmet@3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-3.3.3.tgz#85f2c2b1ee404dfc35e1f7596edba7438900fc56"
+  integrity sha512-GaNBEZlOUY0kYGMjlh3Cpretn5yBkgQZi+Z2ZpJL7VdxlrgTl7B5lccGZDxteMu5QAgrM/WVkeEOvkKUE6ZxrQ==
   dependencies:
-    "@babel/runtime" "^7.9.6"
+    "@babel/runtime" "^7.10.2"
 
-gatsby-plugin-sitemap@2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-2.4.3.tgz#c07bed981133186b9ed0e7255ff3983615e12acd"
-  integrity sha512-XwtXRkUo1tFnr5PzwLlQqAD/Dbnrv0G9HjuUL24UhhCy0e5vqByohcewARUtySK0vSY1dr3msTO+UEKKuGWrFQ==
+gatsby-plugin-sitemap@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-2.4.4.tgz#f14fa3dec66dfeee26ddebeb73ad0f2732adec9e"
+  integrity sha512-KRWtUguJkjZx61gIdDswFCsKF8pnMVkKIe9z92+76z7wHkC0sgRqAqDEl5yWpacHy+CMFqw3KCzo+FuqmVp4xg==
   dependencies:
-    "@babel/runtime" "^7.9.6"
+    "@babel/runtime" "^7.10.2"
     minimatch "^3.0.4"
     pify "^3.0.0"
     sitemap "^1.13.0"
 
-gatsby-plugin-typescript@2.4.3, gatsby-plugin-typescript@^2.4.2:
+gatsby-plugin-typescript@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-typescript/-/gatsby-plugin-typescript-2.4.4.tgz#481ba616b608d55ccf3aa869bdfbd2731d68fc1d"
+  integrity sha512-BWTqUEQ70DrqXQIEE5hl+0NK19ggDLksGZdt4OYJF3cFUmYn6sNhYu9cvKLcj4DLSxFVe1fJl7vK9n0HLdCwRA==
+  dependencies:
+    "@babel/core" "^7.10.2"
+    "@babel/plugin-proposal-nullish-coalescing-operator" "^7.10.1"
+    "@babel/plugin-proposal-numeric-separator" "^7.10.1"
+    "@babel/plugin-proposal-optional-chaining" "^7.10.1"
+    "@babel/preset-typescript" "^7.10.1"
+    "@babel/runtime" "^7.10.2"
+    babel-plugin-remove-graphql-queries "^2.9.3"
+
+gatsby-plugin-typescript@^2.4.2:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-typescript/-/gatsby-plugin-typescript-2.4.3.tgz#07393d842d8cb6fd3d0fcdafee36ab3ff55ab32b"
   integrity sha512-smD3IlOigNR5gNQwRAp6TH4czsZ8mpO+WMxoE3M0G49JR/aj2kgh85pzB0yRWpq0/oUUf9guatQJxGhvUWUJYg==
