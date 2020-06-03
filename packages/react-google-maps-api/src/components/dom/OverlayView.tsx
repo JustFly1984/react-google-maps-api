@@ -14,25 +14,31 @@ interface OverlayViewState {
   containerStyle: React.CSSProperties
 }
 
-function convertLiteralToLatLng(latLng?: google.maps.LatLng | google.maps.LatLngLiteral | null) {
-  if (latLng instanceof google.maps.LatLng) {
-    return latLng
+function convertToLatLngString(latLngLike?: google.maps.LatLng | google.maps.LatLngLiteral | null) {
+  if (!latLngLike) {
+    return ''
   }
 
-  return latLng ? new google.maps.LatLng(latLng.lat, latLng.lng) : latLng
+  const latLng = latLngLike instanceof google.maps.LatLng
+    ? latLngLike
+    : new google.maps.LatLng(latLngLike.lat, latLngLike.lng)
+
+  return latLng + ''
 }
 
-function convertLiteralToLatLngBounds(latLngBounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | null) {
-  if (latLngBounds instanceof google.maps.LatLngBounds) {
-    return latLngBounds
+function convertToLatLngBoundsString(latLngBoundsLike?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | null) {
+  if (!latLngBoundsLike) {
+    return ''
   }
 
-  return latLngBounds
-    ? new google.maps.LatLngBounds(
-        new google.maps.LatLng(latLngBounds.south, latLngBounds.east),
-        new google.maps.LatLng(latLngBounds.north, latLngBounds.west)
+  const latLngBounds = latLngBoundsLike instanceof google.maps.LatLngBounds
+    ? latLngBoundsLike
+    : new google.maps.LatLngBounds(
+        new google.maps.LatLng(latLngBoundsLike.south, latLngBoundsLike.east),
+        new google.maps.LatLng(latLngBoundsLike.north, latLngBoundsLike.west)
       )
-      : latLngBounds
+
+  return latLngBounds + ''
 }
 
 export interface OverlayViewProps {
@@ -149,12 +155,12 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
   }
 
   componentDidUpdate(prevProps: OverlayViewProps): void {
-    const prevPosition = convertLiteralToLatLng(prevProps.position)
-    const position = convertLiteralToLatLng(this.props.position)
-    const prevBounds = convertLiteralToLatLngBounds(prevProps.bounds)
-    const bounds = convertLiteralToLatLngBounds(this.props.bounds)
+    const prevPositionString = convertToLatLngString(prevProps.position)
+    const positionString = convertToLatLngString(this.props.position)
+    const prevBoundsString = convertToLatLngBoundsString(prevProps.bounds)
+    const boundsString = convertToLatLngBoundsString(this.props.bounds)
 
-    if (prevPosition !== position || prevBounds !== bounds) {
+    if (prevPositionString !== positionString || prevBoundsString !== boundsString) {
       setTimeout(() => {
         this.state.overlayView !== null && this.state.overlayView.draw()
       }, 0)
