@@ -1,23 +1,17 @@
 import React, {CSSProperties} from 'react'
 import ReactDOM from 'react-dom'
 import Marker, {MarkerProps, updaterMap} from "./Marker"
-// @ts-ignore // seems like there are no types available
 import markerWithLabelFactory from 'markerwithlabel'
 
-interface LabelAnchor {
-  x: number,
-  y: number
-}
-
 export interface MarkerWithLabelProps extends MarkerProps {
-  labelAnchor?: LabelAnchor
+  labelAnchor?: google.maps.Point
   labelClass?: string
   labelStyle?: CSSProperties
   labelVisible?: boolean
 }
 
 const markerWithLabelUpdaterMap = {
-  labelAnchor(instance: google.maps.Marker, labelAnchor: LabelAnchor) {
+  labelAnchor(instance: google.maps.Marker, labelAnchor: google.maps.Point) {
     instance.set(`labelAnchor`, labelAnchor)
   },
   labelClass(instance: google.maps.Marker, labelClass: string) {
