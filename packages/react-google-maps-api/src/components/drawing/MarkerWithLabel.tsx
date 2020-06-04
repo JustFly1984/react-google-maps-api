@@ -1,7 +1,7 @@
 import React, {CSSProperties} from 'react'
 import ReactDOM from 'react-dom'
 import Marker, {MarkerProps, updaterMap} from "./Marker"
-// @ts-ignore // seems like there are not types
+// @ts-ignore // seems like there are no types available
 import markerWithLabelFactory from 'markerwithlabel'
 
 interface LabelAnchor {
