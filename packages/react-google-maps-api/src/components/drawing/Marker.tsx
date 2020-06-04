@@ -8,7 +8,7 @@ import { HasMarkerAnchor } from '../../types'
 import { Clusterer } from '@react-google-maps/marker-clusterer'
 import { ReactNode } from 'react'
 
-const eventMap = {
+export const eventMap = {
   onAnimationChanged: 'animation_changed',
   onClick: 'click',
   onClickableChanged: 'clickable_changed',
@@ -32,7 +32,7 @@ const eventMap = {
   onZindexChanged: 'zindex_changed',
 }
 
-const updaterMap = {
+export const updaterMap = {
   animation(instance: google.maps.Marker, animation: google.maps.Animation): void {
     instance.setAnimation(animation)
   },
@@ -80,7 +80,7 @@ const updaterMap = {
   },
 }
 
-interface MarkerState {
+export interface MarkerState {
   marker: google.maps.Marker | null
 }
 
@@ -164,7 +164,7 @@ export interface MarkerProps {
   onUnmount?: (marker: google.maps.Marker) => void
 }
 
-export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
+export class Marker<P extends MarkerProps> extends React.PureComponent<P, MarkerState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -179,6 +179,12 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
     }
   }
 
+  createUpdaterMap = () => updaterMap
+
+  createMarker = (markerOptions: google.maps.MarkerOptions) => {
+    return new google.maps.Marker(markerOptions)
+  }
+
   componentDidMount(): void {
     const markerOptions = {
       ...(this.props.options || {}),
@@ -186,7 +192,7 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
       position: this.props.position,
     }
 
-    const marker = new google.maps.Marker(markerOptions)
+    const marker = this.createMarker(markerOptions)
 
     if (this.props.clusterer) {
       this.props.clusterer.addMarker(
@@ -200,7 +206,7 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
     }
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
+      updaterMap: this.createUpdaterMap(),
       eventMap,
       prevProps: {},
       nextProps: this.props,
@@ -214,12 +220,12 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
     }, this.setMarkerCallback)
   }
 
-  componentDidUpdate(prevProps: MarkerProps): void {
+  componentDidUpdate(prevProps: P): void {
     if (this.state.marker !== null) {
       unregisterEvents(this.registeredEvents)
 
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
+        updaterMap: this.createUpdaterMap(),
         eventMap,
         prevProps,
         nextProps: this.props,

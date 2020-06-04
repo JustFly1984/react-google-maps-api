@@ -17,6 +17,11 @@ export { default as DrawingManager, DrawingManagerProps } from './components/dra
 export { default as Marker, MarkerProps } from './components/drawing/Marker'
 
 export {
+  default as MarkerWithLabel,
+  MarkerWithLabelProps
+} from './components/drawing/MarkerWithLabel'
+
+export {
   default as MarkerClusterer,
   ClustererProps as MarkerClustererProps,
 } from './components/addons/MarkerClusterer'
