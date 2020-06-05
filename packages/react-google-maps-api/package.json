@@ -137,7 +137,7 @@
     "rimraf": "3.0.2",
     "ts-jest": "26.1.0",
     "tsdx": "0.13.2",
-    "typescript": "3.9.3",
+    "typescript": "3.9.5",
     "webpack": "4.43.0"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
