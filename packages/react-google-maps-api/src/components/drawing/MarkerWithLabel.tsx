@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, {
   FC,
   CSSProperties,
@@ -33,7 +34,13 @@ const markerWithLabelUpdaterMap = {
   ...updaterMap,
 }
 
-const MarkerWithLabel: FC<MarkerWithLabelProps> = props => {
+const MarkerWithLabel: FC<MarkerWithLabelProps> = ({
+  labelAnchor,
+  labelClass,
+  labelStyle,
+  labelVisible,
+  ...rest
+}) => {
   const [
     containerElement,
     setContainerElement,
@@ -46,11 +53,17 @@ const MarkerWithLabel: FC<MarkerWithLabelProps> = props => {
   const createMarker = useCallback(
     (markerOptions: google.maps.MarkerOptions) => {
       const MarkerWithLabel = markerWithLabelFactory(google.maps)
-      const marker = new MarkerWithLabel(markerOptions)
+      const marker = new MarkerWithLabel({
+        ...markerOptions,
+        labelAnchor,
+        labelClass,
+        labelStyle,
+        labelVisible,
+      })
       marker.set('labelContent', containerElement)
       return marker
     },
-    [containerElement]
+    [containerElement, labelAnchor, labelClass, labelStyle, labelVisible]
   )
 
   return (
@@ -60,7 +73,7 @@ const MarkerWithLabel: FC<MarkerWithLabelProps> = props => {
           <Marker
             markerFactory={createMarker}
             defaultUpdaterMap={markerWithLabelUpdaterMap}
-            {...props}
+            {...rest}
           />,
           containerElement
         )}
