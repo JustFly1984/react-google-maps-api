@@ -1,6 +1,13 @@
-import React, {CSSProperties} from 'react'
+import React, {
+  FC,
+  CSSProperties,
+  useEffect,
+  memo,
+  useCallback,
+  useState,
+} from 'react'
 import ReactDOM from 'react-dom'
-import Marker, {MarkerProps, updaterMap} from "./Marker"
+import Marker, { MarkerProps, updaterMap } from './Marker'
 import markerWithLabelFactory from 'markerwithlabel'
 
 export interface MarkerWithLabelProps extends MarkerProps {
@@ -23,43 +30,42 @@ const markerWithLabelUpdaterMap = {
   labelVisible(instance: google.maps.Marker, labelVisible: boolean) {
     instance.set(`labelVisible`, labelVisible)
   },
-  ...updaterMap
+  ...updaterMap,
 }
 
+const MarkerWithLabel: FC<MarkerWithLabelProps> = props => {
+  const [
+    containerElement,
+    setContainerElement,
+  ] = useState<HTMLDivElement | null>(null)
 
-class MarkerWithLabel extends Marker<MarkerWithLabelProps> {
+  useEffect(() => {
+    setContainerElement(document.createElement('div'))
+  }, [setContainerElement])
 
-  containerElement: HTMLDivElement | null = null
+  const createMarker = useCallback(
+    (markerOptions: google.maps.MarkerOptions) => {
+      const MarkerWithLabel = markerWithLabelFactory(google.maps)
+      const marker = new MarkerWithLabel(markerOptions)
+      marker.set('labelContent', containerElement)
+      return marker
+    },
+    [containerElement]
+  )
 
-  createMarker = (markerOptions: google.maps.MarkerOptions) => {
-    const MarkerWithLabel = markerWithLabelFactory(google.maps)
-    this.containerElement = document.createElement('div')
-    const marker = new MarkerWithLabel(markerOptions)
-    marker.set('labelContent', this.containerElement)
-    return marker
-  }
-
-  createUpdaterMap = () => markerWithLabelUpdaterMap
-
-  componentWillUnmount() {
-    super.componentWillUnmount();
-    this.containerElement = null
-  }
-
-  render() {
-    const element = super.render()
-    return (
-      <>
-        {element}
-        {this.containerElement &&
+  return (
+    <>
+      {containerElement &&
         ReactDOM.createPortal(
-          this.props.children,
-          this.containerElement
+          <Marker
+            markerFactory={createMarker}
+            defaultUpdaterMap={markerWithLabelUpdaterMap}
+            {...props}
+          />,
+          containerElement
         )}
-      </>
-    )
-  }
+    </>
+  )
 }
 
-
-export default MarkerWithLabel
+export default memo(MarkerWithLabel)
