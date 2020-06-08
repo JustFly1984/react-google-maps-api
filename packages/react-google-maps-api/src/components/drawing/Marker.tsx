@@ -138,7 +138,7 @@ export interface MarkerProps {
   noClustererRedraw?: boolean
   /** This event is fired when the marker icon was clicked. */
   onClick?: (e: google.maps.MouseEvent) => void
-  /** This event is fired when the marker's clickable property changes. */
+  /** This event is fired when the marker's clickable  property changes. */
   onClickableChanged?: () => void
   /** This event is fired when the marker's cursor property changes. */
   onCursorChanged?: () => void
