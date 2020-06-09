@@ -29,7 +29,7 @@
     "@babel/runtime": "7.10.2",
     "@getify/eslint-plugin-proper-arrows": "9.1.1",
     "@react-google-maps/api": "1.9.5",
-    "@sentry/browser": "5.16.1",
+    "@sentry/browser": "5.17.0",
     "gatsby": "2.22.19",
     "gatsby-plugin-favicon": "3.1.6",
     "gatsby-plugin-purgecss": "5.0.0",
