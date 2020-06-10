@@ -35,7 +35,7 @@
     "gatsby-plugin-purgecss": "5.0.0",
     "gatsby-plugin-react-helmet": "3.3.3",
     "gatsby-plugin-sitemap": "2.4.4",
-    "gatsby-plugin-typescript": "2.4.4",
+    "gatsby-plugin-typescript": "2.4.6",
     "immutable": "3.8.2",
     "intl": "1.2.5",
     "prettier": "2.0.5",
