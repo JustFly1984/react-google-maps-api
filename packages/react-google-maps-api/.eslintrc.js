@@ -23,7 +23,7 @@ module.exports = {
     'react-functional-set-state',
   ],
   extends: [
-    'eslint:recommended',
+    // 'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'standard',
