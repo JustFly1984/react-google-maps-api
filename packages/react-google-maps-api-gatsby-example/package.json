@@ -56,7 +56,7 @@
     "stylelint-config-standard": "20.0.0",
     "stylelint-css-modules": "0.9.0",
     "stylelint-high-performance-animation": "1.5.1",
-    "typescript": "^3.9.3",
+    "typescript": "^3.9.5",
     "uniqid": "5.2.0"
   },
   "keywords": [
