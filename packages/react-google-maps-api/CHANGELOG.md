@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.9.7 nonce prop for injectScript
+
 ## 1.9.6 updated @types/googlemaps@3.39.7
 
 ## 1.9.5 Compare between LatLng and LatLngLiteral with proper way in OverlayView
