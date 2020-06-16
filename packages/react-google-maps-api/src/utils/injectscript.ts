@@ -7,9 +7,10 @@ interface WindowWithGoogleMap extends Window {
 interface InjectScriptArg {
   url: string
   id: string
+  nonce?: string
 }
 
-export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
+export const injectScript = ({ url, id, nonce }: InjectScriptArg): Promise<any> => {
   if (!isBrowser) {
     return Promise.reject(new Error('document is undefined'))
   }
@@ -58,6 +59,7 @@ export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
     script.src = url
     script.id = id
     script.async = true
+    script.nonce = nonce
     script.onerror = function onerror(err): void {
       script.setAttribute('data-state', 'error')
       reject(err)

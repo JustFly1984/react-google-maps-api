@@ -11,6 +11,7 @@ import { defaultLoadScriptProps } from './LoadScript'
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
   id?: string
+  nonce?: string
   preventGoogleFontsLoading?: boolean
 }
 
@@ -19,6 +20,7 @@ let previouslyLoadedUrl: string
 export function useLoadScript({
   id = defaultLoadScriptProps.id,
   version = defaultLoadScriptProps.version,
+  nonce,
   googleMapsApiKey,
   googleMapsClientId,
   language,
@@ -91,7 +93,7 @@ export function useLoadScript({
         return
       }
 
-      injectScript({ id, url })
+      injectScript({ id, url, nonce })
         .then(setLoadedIfMounted)
         .catch(function handleInjectError(err) {
           if (isMounted.current) {
@@ -105,7 +107,7 @@ export function useLoadScript({
           console.error(err)
         })
     },
-    [id, url]
+    [id, url, nonce]
   )
 
   const prevLibraries = React.useRef<undefined | string[]>()
