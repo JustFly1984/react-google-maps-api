@@ -15,6 +15,7 @@ interface LoadScriptState {
 
 export interface LoadScriptProps extends LoadScriptUrlOptions {
   id: string
+  nonce?: string
   loadingElement?: React.ReactNode
   onLoad?: () => void
   onError?: (error: Error) => void
@@ -179,6 +180,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
     const injectScriptOptions = {
       id: this.props.id,
+      nonce: this.props.nonce,
       url: makeLoadScriptUrl(this.props),
     }
 
