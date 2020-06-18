@@ -187,7 +187,7 @@ export class InfoBox {
     let img = ''
 
     if (this.closeBoxURL !== '') {
-      img = '<img'
+      img = '<img alt=""'
       img += " src='" + this.closeBoxURL + "'"
       img += ' align=right' // Do this because Opera chokes on style='float: right;'
       img += " style='"
