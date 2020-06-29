@@ -46,15 +46,19 @@ function createKey(location) {
   return location.lat + location.lng
 }
 
-;<ScriptLoaded>
-  <GoogleMap id='marker-example' mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
-    <MarkerClusterer options={options}>
-      {(clusterer) =>
-        locations.map((location) => (
-          <Marker key={createKey(location)} position={location} clusterer={clusterer} />
-        ))
-      }
-    </MarkerClusterer>
-  </GoogleMap>
-</ScriptLoaded>
+const MapWithMarkerClusterer = () => {
+  return (
+    <ScriptLoaded>
+      <GoogleMap id='marker-example' mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
+        <MarkerClusterer options={options}>
+          {(clusterer) =>
+            locations.map((location) => (
+              <Marker key={createKey(location)} position={location} clusterer={clusterer} />
+            ))
+          }
+        </MarkerClusterer>
+      </GoogleMap>
+    </ScriptLoaded>
+  )
+}
 ```
