@@ -96,7 +96,7 @@
   },
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "9.1.1",
-    "@testing-library/react": "10.2.1",
+    "@testing-library/react": "10.4.7",
     "@types/babel-types": "7.0.7",
     "@types/googlemaps": "3.39.7",
     "@types/invariant": "2.2.33",
