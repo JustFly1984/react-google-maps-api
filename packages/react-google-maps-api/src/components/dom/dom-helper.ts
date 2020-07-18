@@ -28,9 +28,9 @@ const getLayoutStylesByBounds = (
   offset: { x: number; y: number },
   bounds: google.maps.LatLngBounds
 ): { left: string; top: string; width?: string; height?: string } => {
-  const ne = mapCanvasProjection.fromLatLngToDivPixel(bounds.getNorthEast())
+  const ne = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(bounds.getNorthEast())
 
-  const sw = mapCanvasProjection.fromLatLngToDivPixel(bounds.getSouthWest())
+  const sw = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(bounds.getSouthWest())
 
   if (ne && sw) {
     return {
@@ -52,7 +52,7 @@ const getLayoutStylesByPosition = (
   offset: { x: number; y: number },
   position: google.maps.LatLng
 ): { left: string; top: string } => {
-  const point = mapCanvasProjection.fromLatLngToDivPixel(position)
+  const point = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(position)
 
   if (point) {
     const { x, y } = point
