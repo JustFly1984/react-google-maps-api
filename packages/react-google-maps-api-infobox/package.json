@@ -77,7 +77,7 @@
     "eslint-plugin-react-perf": "3.2.3",
     "eslint-plugin-standard": "4.0.1",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.10.0",
-    "jest": "26.0.1",
+    "jest": "26.1.0",
     "jest-cli": "26.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
