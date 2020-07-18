@@ -14,7 +14,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/cli": "7.10.1",
+    "@babel/cli": "7.10.5",
     "@babel/core": "7.10.2",
     "@babel/node": "7.10.1",
     "@babel/plugin-proposal-class-properties": "7.10.1",
