@@ -22,7 +22,7 @@
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn"
   },
   "dependencies": {
-    "@react-google-maps/api": "1.9.7"
+    "@react-google-maps/api": "1.9.8"
   },
   "devDependencies": {
     "@babel/core": "7.10.5",
@@ -30,7 +30,7 @@
     "@storybook/react": "5.3.19",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.1.0",
-    "eslint": "7.4.0",
+    "eslint": "7.5.0",
     "eslint-config-standard": "14.1.1",
     "eslint-config-standard-react": "9.2.0",
     "eslint-import-resolver-webpack": "0.12.2",

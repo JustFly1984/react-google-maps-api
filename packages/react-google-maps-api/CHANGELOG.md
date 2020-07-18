@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.9.8 merger PR to fix issues #1090 , improve accessibility, updated @types/googlemaps to latest, updated lodash security patch
+
 ## 1.9.7 nonce prop for injectScript
 
 ## 1.9.6 updated @types/googlemaps@3.39.7
