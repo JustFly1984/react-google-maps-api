@@ -657,25 +657,25 @@ export class Clusterer {
     //
     // See Comments 9 & 11 on Issue 3651 relating to this workaround for a Google Maps bug:
     const mapBounds =
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       this.getMap().getZoom() > 3
         ? new google.maps.LatLngBounds(
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-          // @ts-ignore
-          this.getMap()
-            .getBounds()
-            .getSouthWest(),
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-          // @ts-ignore
-          this.getMap()
-            .getBounds()
-            .getNorthEast()
-        )
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.getMap()
+              .getBounds()
+              .getSouthWest(),
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.getMap()
+              .getBounds()
+              .getNorthEast()
+          )
         : new google.maps.LatLngBounds(
-          new google.maps.LatLng(85.02070771743472, -178.48388434375),
-          new google.maps.LatLng(-85.08136444384544, 178.00048865625)
-        )
+            new google.maps.LatLng(85.02070771743472, -178.48388434375),
+            new google.maps.LatLng(-85.08136444384544, 178.00048865625)
+          )
 
     const bounds = this.getExtendedBounds(mapBounds)
 
@@ -709,7 +709,7 @@ export class Clusterer {
        * @param {Clusterer} mc The Clusterer whose markers are being clustered.
        * @event
        */
-      google.maps.event.trigger(this, 'clusteringend', this) 
+      google.maps.event.trigger(this, 'clusteringend', this)
 
       for (let i = 0; i < this.clusters.length; i++) {
         this.clusters[i].updateIcon()
