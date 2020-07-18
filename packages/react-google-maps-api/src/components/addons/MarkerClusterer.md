@@ -1,15 +1,15 @@
 # MarkerClusterer example
 
 ```jsx
-const { GoogleMap, LoadScript, MarkerClusterer, Marker } = require('../../');
-const ScriptLoaded = require('../../docs/ScriptLoaded').default;
+const { GoogleMap, LoadScript, MarkerClusterer, Marker } = require('../../')
+const ScriptLoaded = require('../../docs/ScriptLoaded').default
 
 const mapContainerStyle = {
   height: '400px',
-  width: '800px'
-};
+  width: '800px',
+}
 
-const center = { lat: -28.024, lng: 140.887 };
+const center = { lat: -28.024, lng: 140.887 }
 
 const locations = [
   { lat: -31.56391, lng: 147.154312 },
@@ -34,26 +34,31 @@ const locations = [
   { lat: -42.734358, lng: 147.439506 },
   { lat: -42.734358, lng: 147.501315 },
   { lat: -42.735258, lng: 147.438 },
-  { lat: -43.999792, lng: 170.463352 }
-];
+  { lat: -43.999792, lng: 170.463352 },
+]
 
 const options = {
-  imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
-};
+  imagePath:
+    'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m', // so you must have m1.png, m2.png, m3.png, m4.png, m5.png and m6.png in that folder
+}
 
 function createKey(location) {
   return location.lat + location.lng
-};
+}
 
-<ScriptLoaded>
-  <GoogleMap id='marker-example' mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
-    <MarkerClusterer options={options}>
-      {clusterer =>
-        locations.map(location => (
-          <Marker key={createKey(location)} position={location} clusterer={clusterer} />
-        ))
-      }
-    </MarkerClusterer>
-  </GoogleMap>
-</ScriptLoaded>
+const MapWithMarkerClusterer = () => {
+  return (
+    <ScriptLoaded>
+      <GoogleMap id='marker-example' mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
+        <MarkerClusterer options={options}>
+          {(clusterer) =>
+            locations.map((location) => (
+              <Marker key={createKey(location)} position={location} clusterer={clusterer} />
+            ))
+          }
+        </MarkerClusterer>
+      </GoogleMap>
+    </ScriptLoaded>
+  )
+}
 ```
