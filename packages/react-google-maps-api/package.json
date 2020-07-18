@@ -98,7 +98,7 @@
     "@getify/eslint-plugin-proper-arrows": "9.1.1",
     "@testing-library/react": "10.4.7",
     "@types/babel-types": "7.0.7",
-    "@types/googlemaps": "3.39.7",
+    "@types/googlemaps": "3.39.9",
     "@types/invariant": "2.2.33",
     "@types/jest": "26.0.0",
     "@types/react-dom": "16.9.8",

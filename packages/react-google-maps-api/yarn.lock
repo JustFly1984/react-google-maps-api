@@ -1417,10 +1417,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/googlemaps@3.39.7":
-  version "3.39.7"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.39.7.tgz#70c1af22839976cfd462858c882b54f3006f0b08"
-  integrity sha512-U8ZjnjfGiZXzun8jIDOZ/5Gt5Ky07B9pBhFbgzten1S364bnuueFsCt5e5V7Wn55o26NkLWgc6becL+j401bRw==
+"@types/googlemaps@3.39.9":
+  version "3.39.9"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.39.9.tgz#641f5285527d2e2a36b042ac2b0d75b7563cec64"
+  integrity sha512-T6QSosejFkUxXLF4FpDAIjVCS9ptieCj8illG4k6abbB/oVaxwrD4+gx/grkv68cFLmEfH+xO510obIyNjL9Tw==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.3"
