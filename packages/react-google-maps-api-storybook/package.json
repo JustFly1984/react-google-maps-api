@@ -22,7 +22,7 @@
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn"
   },
   "dependencies": {
-    "@react-google-maps/api": "1.9.8"
+    "@react-google-maps/api": "1.9.9"
   },
   "devDependencies": {
     "@babel/core": "7.10.5",
@@ -41,7 +41,7 @@
     "eslint-plugin-filenames": "1.3.2",
     "eslint-plugin-html": "6.0.2",
     "eslint-plugin-import": "2.22.0",
-    "eslint-plugin-json": "2.1.1",
+    "eslint-plugin-json": "2.1.2",
     "eslint-plugin-jsx-a11y": "6.3.1",
     "eslint-plugin-no-inferred-method-name": "2.0.0",
     "eslint-plugin-node": "11.1.0",
@@ -50,7 +50,7 @@
     "eslint-plugin-promiseparams": "1.0.8",
     "eslint-plugin-react": "7.20.3",
     "eslint-plugin-react-functional-set-state": "1.2.1",
-    "eslint-plugin-react-perf": "3.2.3",
+    "eslint-plugin-react-perf": "3.2.4",
     "eslint-plugin-security-node": "1.0.12",
     "eslint-plugin-standard": "4.0.1",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.10.0",
