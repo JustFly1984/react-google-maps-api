@@ -48,7 +48,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-helmet": "6.1.0",
-    "react-redux": "7.2.0",
+    "react-redux": "7.2.1",
     "react-refresh": "0.8.3",
     "redux": "4.0.5",
     "redux-actions": "2.6.5",
