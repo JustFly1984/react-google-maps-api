@@ -1,7 +1,7 @@
 {
   "name": "@react-google-maps/api",
   "sideEffects": false,
-  "version": "1.9.10",
+  "version": "1.9.11",
   "description": "React.js Google Maps API integration",
   "license": "MIT",
   "author": {
@@ -84,8 +84,8 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@react-google-maps/infobox": "1.9.10",
-    "@react-google-maps/marker-clusterer": "1.9.10",
+    "@react-google-maps/infobox": "1.9.11",
+    "@react-google-maps/marker-clusterer": "1.9.11",
     "acorn": "7.4.0",
     "acorn-jsx": "^5.2.0",
     "invariant": "2.2.4"
@@ -96,7 +96,7 @@
   },
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "10.0.0",
-    "@testing-library/react": "10.4.7",
+    "@testing-library/react": "10.4.8",
     "@types/babel-types": "7.0.8",
     "@types/googlemaps": "3.39.11",
     "@types/invariant": "2.2.33",
