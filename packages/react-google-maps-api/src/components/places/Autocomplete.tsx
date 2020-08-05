@@ -59,6 +59,7 @@ export interface AutocompleteProps {
   onLoad?: (autocomplete: google.maps.places.Autocomplete) => void
   /** This callback is called when the component unmounts. It is called with the autocomplete instance. */
   onUnmount?: (autocomplete: google.maps.places.Autocomplete) => void
+  className?: string
 }
 
 export class Autocomplete extends React.PureComponent<AutocompleteProps, AutocompleteState> {
@@ -127,7 +128,7 @@ export class Autocomplete extends React.PureComponent<AutocompleteProps, Autocom
   }
 
   render(): React.ReactNode {
-    return <div ref={this.containerElement}>{React.Children.only(this.props.children)}</div>
+    return <div ref={this.containerElement} className={this.props.className || ''}>{React.Children.only(this.props.children)}</div>
   }
 }
 
