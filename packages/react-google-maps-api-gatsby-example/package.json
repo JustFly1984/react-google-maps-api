@@ -83,7 +83,7 @@
     "update": "npm-check -u"
   },
   "devDependencies": {
-    "@types/googlemaps": "3.39.10",
+    "@types/googlemaps": "3.39.11",
     "@types/react-dom": "16.9.8",
     "babel-eslint": "10.1.0",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
