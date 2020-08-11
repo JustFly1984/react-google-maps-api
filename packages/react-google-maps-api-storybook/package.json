@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.10.5",
-    "@emotion/core": "10.0.28",
+    "@emotion/core": "10.0.34",
     "@storybook/react": "5.3.19",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.1.0",
