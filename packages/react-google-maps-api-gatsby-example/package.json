@@ -114,7 +114,7 @@
     "eslint-plugin-security-node": "1.0.12",
     "eslint-plugin-standard": "4.0.1",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.10.0",
-    "jest": "26.1.0",
+    "jest": "26.4.1",
     "jest-cli": "26.1.0",
     "rimraf": "3.0.2",
     "ts-jest": "26.1.3",
