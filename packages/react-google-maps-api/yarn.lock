@@ -1209,15 +1209,15 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@react-google-maps/infobox@1.9.10":
-  version "1.9.10"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-1.9.10.tgz#a08ae992c745d8baee270211c16c50e48beff4d8"
-  integrity sha512-yXnU4QdyO35ujAabeGnsNPNjzXztR24iqMnZ5lx4qOxUSbl0JUWtxsmi+UkXdS5mS6rs/4TyUkbeEP0MCbgU9w==
+"@react-google-maps/infobox@1.9.11":
+  version "1.9.11"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-1.9.11.tgz#ebb2e6de68de95fdb204315d143deb2aaa0c16f2"
+  integrity sha512-22ewm+OpOh69ikypG29idsdRz2OWeFsN+8zvYBzSETxKP782rmUGqhSIvXXmHa8TOcktm7EaEqOWWvZwaxymag==
 
-"@react-google-maps/marker-clusterer@1.9.10":
-  version "1.9.10"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.9.10.tgz#bb8dde26031e8e6477faa729c13f3adf51d1329f"
-  integrity sha512-vb8ve7Rs3iStK3TGizXH0e/pqJHKHwJe7YMJh0DMCe5b0Ou3upq76Gg2Zp03eL6cXgnJ2VazKLRfb0Rtcuroig==
+"@react-google-maps/marker-clusterer@1.9.11":
+  version "1.9.11"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.9.11.tgz#15721764e6d309ac7b70c29889886602f7d5ffae"
+  integrity sha512-yIABKlkORju131efXUZs/tL7FCK9IXtvy2M9SQRZy/mwgoOIYeoJlPPaBjn81DQqZLRj6AdAocydk+MnjWqFiQ==
 
 "@rollup/plugin-commonjs@^11.0.0":
   version "11.0.1"
@@ -1284,24 +1284,24 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@testing-library/dom@^7.17.1":
-  version "7.21.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.21.0.tgz#9eedde0b8d6a2cf5716773e9f3170ad032ea45f7"
-  integrity sha512-S8TTMCd7qCkLs6bhdh2+fk7/pIrD16UKvnwa6gJICalZzV1xoAxDY9Isp6qmelizYH4P1Tz+O5Y4nMmjx3x0uQ==
+"@testing-library/dom@^7.22.3":
+  version "7.22.3"
+  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.22.3.tgz#12c0b1b97115e7731da6a86b4574eae401cb9ac5"
+  integrity sha512-IK6/eL1Xza/0goDKrwnBvlM06L+5eL9b1o+hUhX7HslfUvMETh0TYgXEr2LVpsVkHiOhRmUbUyml95KV/VlRNw==
   dependencies:
     "@babel/runtime" "^7.10.3"
     "@types/aria-query" "^4.2.0"
     aria-query "^4.2.2"
-    dom-accessibility-api "^0.4.6"
+    dom-accessibility-api "^0.5.1"
     pretty-format "^25.5.0"
 
-"@testing-library/react@10.4.7":
-  version "10.4.7"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.7.tgz#fc14847fb70a5e93576b8f7f0d1490ead02a9061"
-  integrity sha512-hUYbum3X2f1ZKusKfPaooKNYqE/GtPiQ+D2HJaJ4pkxeNJQFVUEvAvEh9+3QuLdBeTWkDMNY5NSijc5+pGdM4Q==
+"@testing-library/react@10.4.9":
+  version "10.4.9"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.9.tgz#9faa29c6a1a217bf8bbb96a28bd29d7a847ca150"
+  integrity sha512-pHZKkqUy0tmiD81afs8xfiuseXfU/N7rAX3iKjeZYje86t9VaB0LrxYVa+OOsvkrveX5jCK3IjajVn2MbePvqA==
   dependencies:
     "@babel/runtime" "^7.10.3"
-    "@testing-library/dom" "^7.17.1"
+    "@testing-library/dom" "^7.22.3"
 
 "@types/anymatch@*":
   version "1.3.1"
@@ -3771,10 +3771,10 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-dom-accessibility-api@^0.4.6:
-  version "0.4.6"
-  resolved "https://registry.yarnpkg.com/dom-accessibility-api/-/dom-accessibility-api-0.4.6.tgz#f3f2af68aee01b1c862f37918d41841bb1aaf92a"
-  integrity sha512-qxFVFR/ymtfamEQT/AsYLe048sitxFCoCHiM+vuOdR3fE94i3so2SCFJxyz/RxV69PZ+9FgToYWOd7eqJqcbYw==
+dom-accessibility-api@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/dom-accessibility-api/-/dom-accessibility-api-0.5.1.tgz#152f5e88583d900977119223e3e76c2d93d23830"
+  integrity sha512-8DhtmKTYWXNpPiL/QOszbnkAbCGuPz9ieVwDrmWM1rNx4KRI3zqmvKANAD1PJdvvov3+eq1BPLXQkYTpqTrWng==
 
 dom-serializer@^0.2.1:
   version "0.2.2"
