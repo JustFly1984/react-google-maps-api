@@ -7,10 +7,8 @@ import MapContext from '../../map-context'
 
 import { getOffsetOverride, getLayoutStyles } from './dom-helper'
 
-import ContentMountHandler from './CountMountHandler'
-
 interface OverlayViewState {
-  overlayView: google.maps.OverlayView | null
+  paneEl: Element | null
   containerStyle: React.CSSProperties
 }
 
@@ -41,9 +39,10 @@ function convertToLatLngBoundsString(latLngBoundsLike?: google.maps.LatLngBounds
   return latLngBounds + ''
 }
 
+export type PaneNames = keyof google.maps.MapPanes
 export interface OverlayViewProps {
   // required
-  mapPaneName: string
+  mapPaneName: PaneNames
   getPixelPositionOffset?: (offsetWidth: number, offsetHeight: number) => { x: number; y: number }
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
   position?: google.maps.LatLng | google.maps.LatLngLiteral
@@ -52,72 +51,69 @@ export interface OverlayViewProps {
 }
 
 export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayViewState> {
-  static FLOAT_PANE = `floatPane`
-  static MAP_PANE = `mapPane`
-  static MARKER_LAYER = `markerLayer`
-  static OVERLAY_LAYER = `overlayLayer`
-  static OVERLAY_MOUSE_TARGET = `overlayMouseTarget`
+  static FLOAT_PANE: PaneNames = `floatPane`
+  static MAP_PANE: PaneNames = `mapPane`
+  static MARKER_LAYER: PaneNames = `markerLayer`
+  static OVERLAY_LAYER: PaneNames = `overlayLayer`
+  static OVERLAY_MOUSE_TARGET: PaneNames = `overlayMouseTarget`
 
   static contextType = MapContext
 
   state: OverlayViewState = {
-    overlayView: null,
+    paneEl: null,
     containerStyle: {},
   }
 
-  mapPaneEl: Element | null = null
-
+  overlayView: google.maps.OverlayView
   containerRef: React.RefObject<HTMLDivElement>
 
-  setOverlayViewCallback = (): void => {
-    if (this.state.overlayView !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.overlayView)
-    }
-
-    this.onPositionElement()
-  }
-
-  onAdd = (): void => {
-    invariant(
-      !!this.props.mapPaneName,
-      `OverlayView requires props.mapPaneName but got %s`,
-      this.props.mapPaneName
-    )
+  updatePane = (): void => {
+    const mapPaneName = this.props.mapPaneName
 
     // https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapPanes
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mapPanes: any = this.state.overlayView?.getPanes()
+    const mapPanes = this.overlayView.getPanes()
+    invariant(
+      !!mapPaneName,
+      `OverlayView requires props.mapPaneName but got %s`,
+      mapPaneName
+    )
 
-    if (!mapPanes) {
-      return
+    if (mapPanes) {
+      this.setState({
+        paneEl: mapPanes[mapPaneName]
+      })
+    } else {
+      this.setState({
+        paneEl: null
+      })
     }
-
-    this.mapPaneEl = mapPanes[this.props.mapPaneName]
+  }
+  onAdd = (): void => {
+    this.updatePane()
+    this.props.onLoad?.(this.overlayView)
   }
 
   onPositionElement = (): void => {
-    if (this.state.overlayView !== null) {
-      const mapCanvasProjection = this.state.overlayView.getProjection()
+    const mapCanvasProjection = this.overlayView.getProjection()
 
-      const offset = {
-        x: 0,
-        y: 0,
-        ...(this.containerRef.current
-          ? getOffsetOverride(this.containerRef.current, this.props.getPixelPositionOffset)
-          : {}),
-      }
-
-      const layoutStyles = getLayoutStyles(
-        mapCanvasProjection,
-        offset,
-        this.props.bounds,
-        this.props.position
-      )
-
-      this.setState({
-        containerStyle: layoutStyles,
-      })
+    const offset = {
+      x: 0,
+      y: 0,
+      ...(this.containerRef.current
+        ? getOffsetOverride(this.containerRef.current, this.props.getPixelPositionOffset)
+        : {}),
     }
+
+    const layoutStyles = getLayoutStyles(
+      mapCanvasProjection,
+      offset,
+      this.props.bounds,
+      this.props.position
+    )
+
+    this.setState({
+      containerStyle: layoutStyles,
+    })
   }
 
   draw = (): void => {
@@ -126,32 +122,25 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
 
   onRemove = (): void => {
     this.mapPaneEl = null
+    this.props.onUnmount?.(this.overlayView)
   }
 
   constructor(props: OverlayViewProps) {
     super(props)
 
     this.containerRef = React.createRef()
-  }
-
-  componentDidMount(): void {
-    const overlayView = new google.maps.OverlayView()
-
     // You must implement three methods: onAdd(), draw(), and onRemove().
+    const overlayView = new google.maps.OverlayView()
     overlayView.onAdd = this.onAdd
     overlayView.draw = this.draw
     overlayView.onRemove = this.onRemove
+    this.overlayView = overlayView
+  }
 
-    overlayView.setMap(this.context)
-
+  componentDidMount(): void {
     // You must call setMap() with a valid Map object to trigger the call to
     // the onAdd() method and setMap(null) in order to trigger the onRemove() method.
-
-    this.setState(function setOverlayView() {
-      return {
-        overlayView,
-      }
-    })
+    this.overlayView.setMap(this.context)
   }
 
   componentDidUpdate(prevProps: OverlayViewProps): void {
@@ -161,35 +150,32 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
     const boundsString = convertToLatLngBoundsString(this.props.bounds)
 
     if (prevPositionString !== positionString || prevBoundsString !== boundsString) {
-      setTimeout(() => {
-        this.state.overlayView !== null && this.state.overlayView.draw()
-      }, 0)
+      this.overlayView.draw()
+    }
+    if (prevProps.mapPaneName !== this.props.mapPaneName) {
+      this.updatePane()
     }
   }
 
   componentWillUnmount(): void {
-    if (this.state.overlayView !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.overlayView)
-      }
-
-      this.state.overlayView.setMap(null)
-    }
+    this.overlayView.setMap(null)
   }
 
   render(): React.ReactPortal | React.ReactNode {
-    return this.mapPaneEl ? (
-      ReactDOM.createPortal(
-        <div ref={this.containerRef} style={{ ...this.state.containerStyle, position: 'absolute' }}>
-          <ContentMountHandler onLoad={this.setOverlayViewCallback}>
-            {React.Children.only(this.props.children)}
-          </ContentMountHandler>
+    const paneEl = this.state.paneEl
+    if (paneEl) {
+      return ReactDOM.createPortal(
+        <div
+          ref={this.containerRef}
+          style={{ ...this.state.containerStyle, position: 'absolute' }}
+        >
+          {React.Children.only(this.props.children)}
         </div>,
-        this.mapPaneEl,
+        paneEl
       )
-    ) : (
-      <></>
-    )
+    } else {
+      return null
+    }
   }
 }
 
