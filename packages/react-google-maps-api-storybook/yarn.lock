@@ -1054,26 +1054,26 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@react-google-maps/api@1.9.9":
-  version "1.9.9"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.9.9.tgz#6cf2e7429770ca9b9454224e9b48c66d315256a8"
-  integrity sha512-yy/mh0uqF5JCGGzoGYaBoFBbtdr1XKgRlQvalOQ1pITguhRwRIELOHesIJQvAOrdqgCmE3noCa838pFIPZ1Sag==
+"@react-google-maps/api@1.9.12":
+  version "1.9.12"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.9.12.tgz#382e0dacdc67a6046fb6fb91b54ec1449b7ba17b"
+  integrity sha512-YpYZOMduxiQIt8+njdffoqD4fYdOugudoafnAD1N+mEUrVnFlslUPMQ+gOJwuYdlkTAR5NZUbCt80LJWEN+ZnA==
   dependencies:
-    "@react-google-maps/infobox" "1.9.9"
-    "@react-google-maps/marker-clusterer" "1.9.9"
-    acorn "7.3.1"
+    "@react-google-maps/infobox" "1.9.11"
+    "@react-google-maps/marker-clusterer" "1.9.11"
+    acorn "7.4.0"
     acorn-jsx "^5.2.0"
     invariant "2.2.4"
 
-"@react-google-maps/infobox@1.9.9":
-  version "1.9.9"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-1.9.9.tgz#cef278590524604e453cd6792a4f48f22e94c3a5"
-  integrity sha512-pneWal21CHa7eSjBLy5aG11boFXHPKvwV88K2TuwzQV1ncDOIWoZO/S9fZQc6Pzd4F0V8tf9la1c9P9audDiMQ==
+"@react-google-maps/infobox@1.9.11":
+  version "1.9.11"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-1.9.11.tgz#ebb2e6de68de95fdb204315d143deb2aaa0c16f2"
+  integrity sha512-22ewm+OpOh69ikypG29idsdRz2OWeFsN+8zvYBzSETxKP782rmUGqhSIvXXmHa8TOcktm7EaEqOWWvZwaxymag==
 
-"@react-google-maps/marker-clusterer@1.9.9":
-  version "1.9.9"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.9.9.tgz#5b967d26c12a2726700720570d1afff47598d922"
-  integrity sha512-MA+Z+S77csV+httWjZhmE1pOJitmB9Jk1BnNO7ub+81jae5ipY3lf7kXpVBLeNmWy/AXs61bchuXRyzsKyLdqQ==
+"@react-google-maps/marker-clusterer@1.9.11":
+  version "1.9.11"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.9.11.tgz#15721764e6d309ac7b70c29889886602f7d5ffae"
+  integrity sha512-yIABKlkORju131efXUZs/tL7FCK9IXtvy2M9SQRZy/mwgoOIYeoJlPPaBjn81DQqZLRj6AdAocydk+MnjWqFiQ==
 
 "@storybook/addons@5.3.19":
   version "5.3.19"
@@ -1886,10 +1886,10 @@ acorn-jsx@^5.2.0:
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.2.0.tgz#4c66069173d6fdd68ed85239fc256226182b2ebe"
   integrity sha512-HiUX/+K2YpkpJ+SzBffkM/AQ2YE03S0U1kjTLVpoJdhZMOWy8qvXVN9JdLqv2QsaQ6MPYQIuNmwD8zOiYUofLQ==
 
-acorn@7.3.1, acorn@^7.3.1:
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.3.1.tgz#85010754db53c3fbaf3b9ea3e083aa5c5d147ffd"
-  integrity sha512-tLc0wSnatxAQHVHUapaHdz72pi9KUyHjq5KyHjGg9Y8Ifdc79pTh2XvI6I1/chZbnM7QtNKzh66ooDogPZSleA==
+acorn@7.4.0, acorn@^7.3.1:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.4.0.tgz#e1ad486e6c54501634c6c397c5c121daa383607c"
+  integrity sha512-+G7P8jJmCHr+S+cLfQxygbWhXy+8YTVGzAkpEbcLo2mLoL7tij/VG41QSHACSf5QgYRhMZYHuNc6drJaO0Da+w==
 
 acorn@^6.2.1, acorn@^6.4.1:
   version "6.4.1"
