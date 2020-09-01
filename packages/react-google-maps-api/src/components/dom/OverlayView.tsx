@@ -61,7 +61,10 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
 
   state: OverlayViewState = {
     paneEl: null,
-    containerStyle: {},
+    containerStyle: {
+      // set initial position
+      position: 'absolute'
+    },
   }
 
   overlayView: google.maps.OverlayView
@@ -112,7 +115,10 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
     )
 
     this.setState({
-      containerStyle: layoutStyles,
+      containerStyle: {
+        ...layoutStyles,
+        position: 'absolute'
+      },
     })
   }
 
@@ -167,7 +173,7 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
       return ReactDOM.createPortal(
         <div
           ref={this.containerRef}
-          style={{ ...this.state.containerStyle, position: 'absolute' }}
+          style={this.state.containerStyle}
         >
           {React.Children.only(this.props.children)}
         </div>,
