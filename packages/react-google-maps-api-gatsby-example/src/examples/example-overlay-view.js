@@ -43,6 +43,18 @@ const ExampleOverlayView = ({ styles }) => {
       lng: mapCenter.lng + Math.random() * -10 + 20,
     })
   }, [])
+  const loadCallback = React.useCallback(e => {
+    console.log('OverlayView onLoad: ', e)
+  }, [])
+  const unmountCallback = React.useCallback(e => {
+    console.log('OverlayView onUnmount', e)
+  }, [])
+  const setToMarkerLayerPane = React.useCallback(() => {
+    setOverlayPane(OverlayView.MARKER_LAYER)
+  }, [])
+  const setToMouseTargetPane = React.useCallback(() => {
+    setOverlayPane(OverlayView.OVERLAY_MOUSE_TARGET)
+  }, [])
 
   return (
     <div className='map'>
@@ -58,12 +70,8 @@ const ExampleOverlayView = ({ styles }) => {
             <OverlayView
               position={overlayPosition}
               mapPaneName={overlayPane}
-              onLoad={(e) => {
-                console.log('onLoad: ', e)
-              }}
-              onUnmount={(e) => {
-                console.log('onUnmount: ', e)
-              }}
+              onLoad={loadCallback}
+              onUnmount={unmountCallback}
               getPixelPositionOffset={centerOverlayView}
             >
               <div style={contentStyles} onClick={clickHandler}>
@@ -81,7 +89,7 @@ const ExampleOverlayView = ({ styles }) => {
           type='radio'
           name='overlayPane'
           checked={overlayPane === OverlayView.MARKER_LAYER}
-          onChange={setOverlayPane.bind(undefined, OverlayView.MARKER_LAYER)}
+          onChange={setToMarkerLayerPane}
         />
         <label className='custom-control-label' htmlFor='MARKER_LAYER'>
           Mount to markerLayer(can't receive DOM event)
@@ -94,10 +102,7 @@ const ExampleOverlayView = ({ styles }) => {
           type='radio'
           name='overlayPane'
           checked={overlayPane === OverlayView.OVERLAY_MOUSE_TARGET}
-          onChange={setOverlayPane.bind(
-            undefined,
-            OverlayView.OVERLAY_MOUSE_TARGET
-          )}
+          onChange={setToMouseTargetPane}
         />
         <label className='custom-control-label' htmlFor='OVERLAY_MOUSE_TARGET'>
           Mount to overlay overlayMouseTarget
