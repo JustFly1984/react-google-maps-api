@@ -30,6 +30,31 @@ const ExampleOverlayView = ({ styles }) => {
   const changeIsShown = useCallback(() => {
     setIsShown(!isShown)
   }, [isShown])
+  const [overlayPane, setOverlayPane] = React.useState(
+    OverlayView.OVERLAY_MOUSE_TARGET
+  )
+  const clickHandler = React.useCallback(() => {
+    alert('You clicked overlay view')
+  }, [])
+  const [overlayPosition, setOverlayPosition] = React.useState(mapCenter)
+  const randomOverlayPosition = React.useCallback(() => {
+    setOverlayPosition({
+      lat: mapCenter.lat + Math.random() * -10 + 20,
+      lng: mapCenter.lng + Math.random() * -10 + 20,
+    })
+  }, [])
+  const loadCallback = React.useCallback(e => {
+    console.log('OverlayView onLoad: ', e)
+  }, [])
+  const unmountCallback = React.useCallback(e => {
+    console.log('OverlayView onUnmount', e)
+  }, [])
+  const setToMarkerLayerPane = React.useCallback(() => {
+    setOverlayPane(OverlayView.MARKER_LAYER)
+  }, [])
+  const setToMouseTargetPane = React.useCallback(() => {
+    setOverlayPane(OverlayView.OVERLAY_MOUSE_TARGET)
+  }, [])
 
   return (
     <div className='map'>
@@ -43,17 +68,54 @@ const ExampleOverlayView = ({ styles }) => {
           <Marker position={mapCenter} onClick={changeIsShown} />
           {isShown && (
             <OverlayView
-              position={mapCenter}
-              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+              position={overlayPosition}
+              mapPaneName={overlayPane}
+              onLoad={loadCallback}
+              onUnmount={unmountCallback}
               getPixelPositionOffset={centerOverlayView}
             >
-              <div style={contentStyles}>
+              <div style={contentStyles} onClick={clickHandler}>
                 <h1>OverlayView</h1>
               </div>
             </OverlayView>
           )}
         </GoogleMap>
       </div>
+
+      <div className='form-group custom-control custom-radio'>
+        <input
+          id='MARKER_LAYER'
+          className='custom-control-input'
+          type='radio'
+          name='overlayPane'
+          checked={overlayPane === OverlayView.MARKER_LAYER}
+          onChange={setToMarkerLayerPane}
+        />
+        <label className='custom-control-label' htmlFor='MARKER_LAYER'>
+          Mount to markerLayer(can't receive DOM event)
+        </label>
+      </div>
+      <div className='form-group custom-control custom-radio'>
+        <input
+          id='OVERLAY_MOUSE_TARGET'
+          className='custom-control-input'
+          type='radio'
+          name='overlayPane'
+          checked={overlayPane === OverlayView.OVERLAY_MOUSE_TARGET}
+          onChange={setToMouseTargetPane}
+        />
+        <label className='custom-control-label' htmlFor='OVERLAY_MOUSE_TARGET'>
+          Mount to overlay overlayMouseTarget
+        </label>
+      </div>
+
+      <button
+        className='btn btn-primary'
+        type='button'
+        onClick={randomOverlayPosition}
+      >
+        Change overlay position
+      </button>
     </div>
   )
 }
