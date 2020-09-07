@@ -36,7 +36,7 @@
     "@sentry/browser": "5.20.0",
     "@types/node": "13.13.14",
     "cross-env": "^7.0.2",
-    "gatsby": "2.23.22",
+    "gatsby": "2.24.54",
     "gatsby-plugin-favicon": "3.1.6",
     "gatsby-plugin-purgecss": "5.0.0",
     "gatsby-plugin-react-helmet": "3.3.10",
