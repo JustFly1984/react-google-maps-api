@@ -1209,15 +1209,15 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@react-google-maps/infobox@1.9.10":
-  version "1.9.10"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-1.9.10.tgz#a08ae992c745d8baee270211c16c50e48beff4d8"
-  integrity sha512-yXnU4QdyO35ujAabeGnsNPNjzXztR24iqMnZ5lx4qOxUSbl0JUWtxsmi+UkXdS5mS6rs/4TyUkbeEP0MCbgU9w==
+"@react-google-maps/infobox@1.9.11":
+  version "1.9.11"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-1.9.11.tgz#ebb2e6de68de95fdb204315d143deb2aaa0c16f2"
+  integrity sha512-22ewm+OpOh69ikypG29idsdRz2OWeFsN+8zvYBzSETxKP782rmUGqhSIvXXmHa8TOcktm7EaEqOWWvZwaxymag==
 
-"@react-google-maps/marker-clusterer@1.9.10":
-  version "1.9.10"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.9.10.tgz#bb8dde26031e8e6477faa729c13f3adf51d1329f"
-  integrity sha512-vb8ve7Rs3iStK3TGizXH0e/pqJHKHwJe7YMJh0DMCe5b0Ou3upq76Gg2Zp03eL6cXgnJ2VazKLRfb0Rtcuroig==
+"@react-google-maps/marker-clusterer@1.9.11":
+  version "1.9.11"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.9.11.tgz#15721764e6d309ac7b70c29889886602f7d5ffae"
+  integrity sha512-yIABKlkORju131efXUZs/tL7FCK9IXtvy2M9SQRZy/mwgoOIYeoJlPPaBjn81DQqZLRj6AdAocydk+MnjWqFiQ==
 
 "@rollup/plugin-commonjs@^11.0.0":
   version "11.0.1"
@@ -1295,10 +1295,10 @@
     dom-accessibility-api "^0.4.6"
     pretty-format "^25.5.0"
 
-"@testing-library/react@10.4.7":
-  version "10.4.7"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.7.tgz#fc14847fb70a5e93576b8f7f0d1490ead02a9061"
-  integrity sha512-hUYbum3X2f1ZKusKfPaooKNYqE/GtPiQ+D2HJaJ4pkxeNJQFVUEvAvEh9+3QuLdBeTWkDMNY5NSijc5+pGdM4Q==
+"@testing-library/react@10.4.8":
+  version "10.4.8"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.8.tgz#5eb730291b8fd81cdb2d8877770d060b044ae4a4"
+  integrity sha512-clgpFR6QHiRRcdhFfAKDhH8UXpNASyfkkANhtCsCVBnai+O+mK1rGtMES+Apc7ql5Wyxu7j8dcLiC4pV5VblHA==
   dependencies:
     "@babel/runtime" "^7.10.3"
     "@testing-library/dom" "^7.17.1"
@@ -4182,10 +4182,10 @@ eslint-plugin-flowtype@^3.13.0:
   dependencies:
     lodash "^4.17.15"
 
-eslint-plugin-html@6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-6.0.2.tgz#fcbd293e218d03dd72c147fc999d185c6f5989fe"
-  integrity sha512-Ik/z32UteKLo8GEfwNqVKcJ/WOz/be4h8N5mbMmxxnZ+9aL9XczOXQFz/bGu+nAGVoRg8CflldxJhONFpqlrxw==
+eslint-plugin-html@6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-6.1.0.tgz#0e0d4845d4b3eb6e199652385e272f7b722673db"
+  integrity sha512-xcqithhnjUxoEDRL0hYci4RSS8EZ1NGr3/H8x3BxJvxgbu4R3YaEUea9i93j95NuAgoAbOUfNmybta8fqi4UbA==
   dependencies:
     htmlparser2 "^4.1.0"
 
