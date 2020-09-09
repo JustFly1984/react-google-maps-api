@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.10.0 updated typescript@4.0.2, merged fixes for OverlayView
+
 ## 1.9.9 updated @types/googlemaps@3.39.10
 
 ## 1.9.8 merger PR to fix issues #1090 , improve accessibility, updated @types/googlemaps to latest, updated lodash security patch
