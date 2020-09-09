@@ -5,7 +5,7 @@ import invariant from 'invariant'
 
 import MapContext from '../../map-context'
 
-import { getOffsetOverride, getLayoutStyles } from './dom-helper'
+import { getOffsetOverride, getLayoutStyles, arePositionsEqual } from './dom-helper'
 
 interface OverlayViewState {
   paneEl: Element | null
@@ -114,12 +114,15 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
       this.props.position
     )
 
-    this.setState({
-      containerStyle: {
-        ...layoutStyles,
-        position: 'absolute'
-      },
-    })
+    const { left, top, width, height } = this.state.containerStyle;
+    if(!arePositionsEqual(layoutStyles, { left, top, width, height })) {
+      this.setState({
+        containerStyle: {
+          ...layoutStyles,
+          position: 'absolute'
+        },
+      })
+    }
   }
 
   draw = (): void => {

@@ -1,3 +1,5 @@
+import { PositionDrawProps } from "../../types"
+
 /* eslint-disable filenames/match-regex */
 export function getOffsetOverride(
   containerElement: HTMLElement,
@@ -74,7 +76,7 @@ export const getLayoutStyles = (
   offset: { x: number; y: number },
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
   position?: google.maps.LatLng | google.maps.LatLngLiteral
-): { left: string; top: string; width?: string; height?: string } => {
+): PositionDrawProps => {
   return bounds !== undefined
     ? getLayoutStylesByBounds(
         mapCanvasProjection,
@@ -86,4 +88,14 @@ export const getLayoutStyles = (
         offset,
         ensureOfType(position, google.maps.LatLng, createLatLng)
       )
+}
+
+export const arePositionsEqual = (
+  currentPosition: PositionDrawProps,
+  previousPosition: PositionDrawProps
+): boolean => {
+  return currentPosition.left === previousPosition.left
+    && currentPosition.top === previousPosition.top
+    && currentPosition.width === previousPosition.height
+    && currentPosition.height === previousPosition.height;
 }
