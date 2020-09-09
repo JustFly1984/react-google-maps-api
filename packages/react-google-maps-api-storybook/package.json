@@ -48,7 +48,7 @@
     "eslint-plugin-optimize-regex": "1.2.0",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-promiseparams": "1.0.8",
-    "eslint-plugin-react": "7.20.3",
+    "eslint-plugin-react": "7.20.6",
     "eslint-plugin-react-functional-set-state": "1.2.1",
     "eslint-plugin-react-perf": "3.2.4",
     "eslint-plugin-security-node": "1.0.12",
