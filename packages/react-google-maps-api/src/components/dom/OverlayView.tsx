@@ -127,7 +127,10 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
   }
 
   onRemove = (): void => {
-    this.mapPaneEl = null
+    this.setState(() => ({
+      paneEl: null
+    }))
+    // this.mapPaneEl = null
     this.props.onUnmount?.(this.overlayView)
   }
 
