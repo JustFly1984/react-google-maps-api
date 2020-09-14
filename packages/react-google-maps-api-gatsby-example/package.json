@@ -34,7 +34,7 @@
     "@getify/eslint-plugin-proper-arrows": "10.0.0",
     "@react-google-maps/api": "1.9.9",
     "@sentry/browser": "5.20.0",
-    "@types/node": "13.13.14",
+    "@types/node": "14.10.1",
     "cross-env": "^7.0.2",
     "gatsby": "2.23.22",
     "gatsby-plugin-favicon": "3.1.6",
