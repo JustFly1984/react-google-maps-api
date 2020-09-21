@@ -119,7 +119,7 @@
     "jest-cli": "26.1.0",
     "rimraf": "3.0.2",
     "ts-jest": "26.1.3",
-    "webpack": "4.43.0"
+    "webpack": "4.44.2"
   },
   "repository": {
     "type": "git",
