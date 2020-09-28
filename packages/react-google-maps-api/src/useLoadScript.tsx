@@ -28,6 +28,7 @@ export function useLoadScript({
   libraries,
   preventGoogleFontsLoading,
   channel,
+  mapIds,
 }: UseLoadScriptOptions): {
   isLoaded: boolean
   loadError: Error | undefined
@@ -73,6 +74,7 @@ export function useLoadScript({
     region,
     libraries,
     channel,
+    mapIds
   })
 
   React.useEffect(
