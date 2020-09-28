@@ -8,6 +8,7 @@ export interface LoadScriptUrlOptions {
   region?: string
   libraries?: string[]
   channel?: string
+  mapIds?: string[]
 }
 
 export function makeLoadScriptUrl({
@@ -18,6 +19,7 @@ export function makeLoadScriptUrl({
   region,
   libraries,
   channel,
+  mapIds
 }: LoadScriptUrlOptions): string {
   const params = []
 
@@ -50,6 +52,10 @@ export function makeLoadScriptUrl({
 
   if (channel) {
     params.push(`channel=${channel}`)
+  }
+
+  if (mapIds && mapIds.length) {
+    params.push(`map_ids=${mapIds.join(',')}`)
   }
 
   params.push('callback=initMap')
