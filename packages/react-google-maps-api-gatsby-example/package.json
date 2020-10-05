@@ -33,7 +33,7 @@
     "@babel/runtime": "7.10.5",
     "@getify/eslint-plugin-proper-arrows": "10.0.0",
     "@react-google-maps/api": "1.9.9",
-    "@sentry/browser": "5.20.0",
+    "@sentry/browser": "5.25.0",
     "@types/node": "13.13.14",
     "cross-env": "^7.0.2",
     "gatsby": "2.23.22",
