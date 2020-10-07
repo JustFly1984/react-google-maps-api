@@ -2045,10 +2045,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/googlemaps@3.39.10":
-  version "3.39.10"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.39.10.tgz#8abc79deda32dc8514c20160bfe196fbbb0cf27c"
-  integrity sha512-mEY619Pi/KbWrXkcQg0PPBlOf1BELRgQ0wroBIjp3wxdIMwlW6Em0KdRWdrgcLHLtxIJtJKUN7X9pRIthytzdA==
+"@types/googlemaps@3.39.14":
+  version "3.39.14"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.39.14.tgz#971a7b474e7dcf6af1019fdccb91a69f74c5b262"
+  integrity sha512-MB8zwqarykWxCayoWcQAeKWpFTgKlCz7Z+PpFeEimAe4keQ1o1Q3Y/5r5Td52gd164QmTUHGxGlKkmUEVrdbHA==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.3"
