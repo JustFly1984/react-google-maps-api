@@ -98,7 +98,7 @@
     "@types/invariant": "2.2.34",
     "@types/jest": "26.0.13",
     "@types/react-dom": "16.9.8",
-    "@typescript-eslint/eslint-plugin": "4.1.0",
+    "@typescript-eslint/eslint-plugin": "4.4.0",
     "@typescript-eslint/parser": "4.1.0",
     "acorn": "8.0.1",
     "acorn-jsx": "5.3.1",
