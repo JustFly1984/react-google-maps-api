@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.11.0 updated  @types/googlemaps@3.40.0
+
 ## 1.10.0 updated typescript@4.0.2, merged fixes for OverlayView
 
 ## 1.9.9 updated @types/googlemaps@3.39.10
