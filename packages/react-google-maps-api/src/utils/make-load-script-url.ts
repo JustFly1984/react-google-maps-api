@@ -1,13 +1,16 @@
 import invariant from 'invariant'
 
+export type Libraries = ("drawing" | "geometry" | "localContext" | "places" | "visualization")[]
+
 export interface LoadScriptUrlOptions {
-  googleMapsApiKey?: string
+  googleMapsApiKey: string | ""
   googleMapsClientId?: string
   version?: string
   language?: string
   region?: string
-  libraries?: string[]
+  libraries?: Libraries
   channel?: string
+  mapIds?: string[]
 }
 
 export function makeLoadScriptUrl({
@@ -18,6 +21,7 @@ export function makeLoadScriptUrl({
   region,
   libraries,
   channel,
+  mapIds
 }: LoadScriptUrlOptions): string {
   const params = []
 
@@ -50,6 +54,10 @@ export function makeLoadScriptUrl({
 
   if (channel) {
     params.push(`channel=${channel}`)
+  }
+
+  if (mapIds && mapIds.length) {
+    params.push(`map_ids=${mapIds.join(',')}`)
   }
 
   params.push('callback=initMap')

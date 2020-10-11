@@ -41,8 +41,8 @@
     ]
   },
   "devDependencies": {
-    "husky": "4.2.5",
-    "lint-staged": "10.2.11"
+    "husky": "4.3.0",
+    "lint-staged": "10.3.0"
   },
   "husky": {
     "hooks": {
