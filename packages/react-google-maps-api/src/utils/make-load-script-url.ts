@@ -1,12 +1,14 @@
 import invariant from 'invariant'
 
+export type Libraries = ("drawing" | "geometry" | "localContext" | "places" | "visualization")[]
+
 export interface LoadScriptUrlOptions {
-  googleMapsApiKey?: string
+  googleMapsApiKey: string | ""
   googleMapsClientId?: string
   version?: string
   language?: string
   region?: string
-  libraries?: string[]
+  libraries?: Libraries
   channel?: string
   mapIds?: string[]
 }

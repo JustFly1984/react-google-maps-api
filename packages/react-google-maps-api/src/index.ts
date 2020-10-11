@@ -6,6 +6,8 @@ export { default as LoadScriptNext, LoadScriptNextProps } from './LoadScriptNext
 
 export { useLoadScript } from './useLoadScript'
 
+export { useJsApiLoader } from './useJsApiLoader'
+
 export { default as TrafficLayer, TrafficLayerProps } from './components/maps/TrafficLayer'
 
 export { default as BicyclingLayer, BicyclingLayerProps } from './components/maps/BicyclingLayer'

@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.12.0 added useJsApiLoader hook, based on @googlemaps/js-api-loader. New official way of loading googlemaps script
+
 ## 1.11.0 updated  @types/googlemaps@3.40.0
 
 ## 1.10.0 updated typescript@4.0.2, merged fixes for OverlayView
