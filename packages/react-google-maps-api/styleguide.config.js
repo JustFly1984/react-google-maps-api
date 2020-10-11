@@ -33,6 +33,7 @@ module.exports = {
     {
       name: "Components",
       components: [
+        "src/useJsApiLoader.tsx",
         "src/LoadScript.tsx",
         "src/LoadScriptNext.tsx",
         "src/useLoadScript.tsx",
