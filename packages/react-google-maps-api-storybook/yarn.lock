@@ -1371,6 +1371,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@googlemaps/js-api-loader@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.5.0.tgz#7311bf452403218f6439c5e0e52ec8a34785bb36"
+  integrity sha512-jRUvbVuJInEPe1+/lzG861Qe9Ud76leTTL717sz6HyOnEp9WlECbC+KKrsNIYbn32mB28UkLC0al3Mr7eNyefQ==
+
 "@icons/material@^0.2.4":
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
@@ -1406,11 +1411,12 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@react-google-maps/api@1.11.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.11.0.tgz#26fb84874fe1dac3b2e9e553b5e1661e3971a82a"
-  integrity sha512-XOlfvHqU7rwKB/Ql/3QllDsZ4Vj0+Mq0+A8Oonh1LZZdv+jLXK3MAGAxWVPhTxTgoo8IFhzOfMmI/zEyTBp2Bw==
+"@react-google-maps/api@1.12.0":
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.12.0.tgz#4c4e64c8b44026bf74ce754063502e62387e87d6"
+  integrity sha512-4jsw0a2jX0tYqlVXMlqAS0L1HwcayNM7e7SyWLkUvIW10fSTvboG7ZUbUWJidqZnObggOCNitHk9Oi1GG6hSgQ==
   dependencies:
+    "@googlemaps/js-api-loader" "^1.5.0"
     "@react-google-maps/infobox" "1.11.0"
     "@react-google-maps/marker-clusterer" "1.11.0"
     invariant "2.2.4"
