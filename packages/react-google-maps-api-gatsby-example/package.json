@@ -21,7 +21,7 @@
     "@babel/preset-react": "7.10.4",
     "@babel/runtime": "7.11.2",
     "@getify/eslint-plugin-proper-arrows": "10.0.0",
-    "@react-google-maps/api": "1.11.0",
+    "@react-google-maps/api": "1.12.0",
     "@sentry/browser": "5.25.0",
     "@types/node": "13.13.14",
     "cross-env": "^7.0.2",
