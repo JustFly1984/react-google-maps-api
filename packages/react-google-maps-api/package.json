@@ -1,7 +1,7 @@
 {
   "name": "@react-google-maps/api",
   "sideEffects": false,
-  "version": "1.12.1",
+  "version": "1.13.0",
   "description": "React.js Google Maps API integration",
   "license": "MIT",
   "author": {
