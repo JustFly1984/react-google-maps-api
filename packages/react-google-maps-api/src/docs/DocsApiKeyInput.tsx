@@ -3,7 +3,9 @@ import { setKey, getKey } from './docs-api-key'
 
 import LoadScript from '../LoadScript'
 
-const libraries = ['drawing', 'places', 'visualization']
+import type { Libraries } from '../utils/make-load-script-url'
+
+const libraries: Libraries = ['drawing', 'places', 'visualization']
 
 const inputStyle = {
   width: '400px',
