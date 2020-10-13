@@ -42,6 +42,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
   }
 
   cleanupCallback = (): void => {
+    // @ts-ignore
     delete window.google.maps
 
     this.injectScript()
@@ -88,6 +89,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
       const timeoutCallback = (): void => {
         if (!this.check.current) {
+          // @ts-ignore
           delete window.google
           cleaningUp = false
         }
