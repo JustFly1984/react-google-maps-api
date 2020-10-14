@@ -2040,10 +2040,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@react-google-maps/api@1.12.1":
-  version "1.12.1"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.12.1.tgz#5dcb96f3c7103fab7d6c83bc921fdd90f603838a"
-  integrity sha512-KQXWTdu5/O6gHJuLEPBHZ/Akq4kwEiKDKobSlfMOvmrqCpH+KyUdfE9zfMl1mhqHyQ7mUgjAy19pApE2di77yQ==
+"@react-google-maps/api@1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.13.0.tgz#9fb25e9f8f0e54d9ed2bb5e5e0cf49bb717db7ab"
+  integrity sha512-mKwXziG5MbOvvcWG53FyZVZ8zjAuPNYkcS/+nYX9STMFNrI96AFq5l/zUn2QifRJnPzE8iO4V1vyMM+Ie9LpGg==
   dependencies:
     "@googlemaps/js-api-loader" "1.6.0"
     "@react-google-maps/infobox" "1.12.1"
@@ -6627,9 +6627,10 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
-"favicons-webpack-plugin@git+https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf":
+"favicons-webpack-plugin@https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf":
   version "0.0.9"
-  resolved "git+https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf"
+  uid "0872de414061baaad0a2853c77ae75bc38b8bbbf"
+  resolved "https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf"
   dependencies:
     core-js "^2.5.7"
     favicons "^5.1.1"
