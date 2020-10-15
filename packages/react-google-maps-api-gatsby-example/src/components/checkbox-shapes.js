@@ -28,11 +28,11 @@ CheckboxShapes.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   value: state.getIn(['app', 'shapes']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
       toggleShapes({
@@ -42,7 +42,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CheckboxShapes)
+export default connect(mapStateToProps, mapDispatchToProps)(CheckboxShapes)

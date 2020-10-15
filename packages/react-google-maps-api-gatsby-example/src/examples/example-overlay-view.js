@@ -15,7 +15,7 @@ const mapCenter = {
 
 const contentStyles = {
   background: `white`,
-  border: `1px solid #ccc`,
+  border: `1px solid #CCC`,
   padding: 15,
 }
 
@@ -43,10 +43,10 @@ const ExampleOverlayView = ({ styles }) => {
       lng: mapCenter.lng + Math.random() * -10 + 20,
     })
   }, [])
-  const loadCallback = React.useCallback(e => {
+  const loadCallback = React.useCallback((e) => {
     console.log('OverlayView onLoad: ', e)
   }, [])
-  const unmountCallback = React.useCallback(e => {
+  const unmountCallback = React.useCallback((e) => {
     console.log('OverlayView onUnmount', e)
   }, [])
   const setToMarkerLayerPane = React.useCallback(() => {
@@ -74,9 +74,13 @@ const ExampleOverlayView = ({ styles }) => {
               onUnmount={unmountCallback}
               getPixelPositionOffset={centerOverlayView}
             >
-              <div style={contentStyles} onClick={clickHandler}>
+              <button
+                type='button'
+                style={contentStyles}
+                onClick={clickHandler}
+              >
                 <h1>OverlayView</h1>
-              </div>
+              </button>
             </OverlayView>
           )}
         </GoogleMap>
@@ -92,7 +96,7 @@ const ExampleOverlayView = ({ styles }) => {
           onChange={setToMarkerLayerPane}
         />
         <label className='custom-control-label' htmlFor='MARKER_LAYER'>
-          Mount to markerLayer(can't receive DOM event)
+          Mount to markerLayer(can&apos;t receive DOM event)
         </label>
       </div>
       <div className='form-group custom-control custom-radio'>
@@ -122,4 +126,4 @@ const ExampleOverlayView = ({ styles }) => {
 
 ExampleOverlayView.propTypes = ExampleOverlayViewPropTypes
 
-export default ExampleOverlayView
+export default React.memo(ExampleOverlayView)

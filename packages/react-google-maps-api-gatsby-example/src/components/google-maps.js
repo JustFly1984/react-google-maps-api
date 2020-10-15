@@ -19,7 +19,7 @@ import CheckboxBicycling from '../components/checkbox-bicycling'
 import CheckboxTransit from '../components/checkbox-transit'
 import CheckboxGround from '../components/checkbox-ground'
 import CheckboxOptions from '../components/checkbox-options'
-import CheckboxSearchbox from '../components/checkbox-searchbox'
+import CheckboxSearchBox from './checkbox-search-box'
 
 import SectionData from './section-data'
 import SectionDirections from './section-directions'
@@ -32,7 +32,7 @@ import SectionTransit from './section-transit'
 import SectionGround from './section-ground'
 import SectionOptions from './section-options'
 import SectionOverlayView from './section-overlay-view'
-import SectionSearchbox from './section-searchbox'
+import SectionSearchBox from './section-search-box'
 
 import styles from './styles.module.css'
 
@@ -44,7 +44,7 @@ const loaderId = uniqid('loader-')
 
 const onLoad = () => console.log('script loaded')
 
-const onError = err => console.log('onError: ', err)
+const onError = (err) => console.log('onError: ', err)
 
 const GoogleMaps = ({ googleMapsApiKey, language }) => (
   <LoadScript
@@ -126,9 +126,9 @@ const GoogleMaps = ({ googleMapsApiKey, language }) => (
     </Card>
 
     <Card>
-      <CheckboxSearchbox />
+      <CheckboxSearchBox />
 
-      <SectionSearchbox />
+      <SectionSearchBox />
     </Card>
   </LoadScript>
 )
@@ -138,7 +138,7 @@ GoogleMaps.propTypes = {
   googleMapsApiKey: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   language: state.getIn(['app', 'language']),
   googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey']),
 })

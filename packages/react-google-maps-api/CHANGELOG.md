@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.13.0 update webpack@5.0.0
+
 ## 1.12.0 added useJsApiLoader hook, based on @googlemaps/js-api-loader. New official way of loading googlemaps script
 
 ## 1.11.0 updated  @types/googlemaps@3.40.0

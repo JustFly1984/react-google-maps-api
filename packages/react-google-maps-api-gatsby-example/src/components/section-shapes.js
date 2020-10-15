@@ -14,7 +14,7 @@ SectionShapes.propTypes = {
   shapes: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   shapes: state.getIn(['app', 'shapes']),
 })
 

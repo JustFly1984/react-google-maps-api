@@ -14,7 +14,7 @@ SectionGround.propTypes = {
   ground: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   ground: state.getIn(['app', 'ground']),
 })
 

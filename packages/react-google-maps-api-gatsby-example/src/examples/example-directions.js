@@ -27,7 +27,7 @@ class ExampleDirections extends Component {
     destination: '',
   }
 
-  directionsCallback = response => {
+  directionsCallback = (response) => {
     console.log(response)
 
     if (response !== null) {
@@ -69,11 +69,11 @@ class ExampleDirections extends Component {
       }))
   }
 
-  getOrigin = ref => {
+  getOrigin = (ref) => {
     this.origin = ref
   }
 
-  getDestination = ref => {
+  getDestination = (ref) => {
     this.destination = ref
   }
 
@@ -224,4 +224,4 @@ class ExampleDirections extends Component {
   )
 }
 
-export default ExampleDirections
+export default React.memo(ExampleDirections)

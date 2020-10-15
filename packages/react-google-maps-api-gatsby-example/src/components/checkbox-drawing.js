@@ -28,11 +28,11 @@ CheckboxDrawing.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   value: state.getIn(['app', 'drawing']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
       toggleDrawing({
@@ -42,7 +42,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CheckboxDrawing)
+export default connect(mapStateToProps, mapDispatchToProps)(CheckboxDrawing)

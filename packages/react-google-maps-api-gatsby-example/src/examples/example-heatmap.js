@@ -54,4 +54,4 @@ const ExampleHeatmap = ({ styles }) => (
 
 ExampleHeatmap.propTypes = ExampleHeatmapPropTypes
 
-export default ExampleHeatmap
+export default React.memo(ExampleHeatmap)

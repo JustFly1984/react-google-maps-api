@@ -7,10 +7,10 @@ import { setGoogleMapsKey } from '../actions/app'
 
 const InputBoxApiKey = ({ value, onChange }) => (
   <div className='form-group mb-2'>
-    <label htmlFor='apikey'>Google API key:</label>
+    <label htmlFor='api-key'>Google API key:</label>
     {` `}
     <input
-      id='apikey'
+      id='api-key'
       type='text'
       className='form-control'
       autoComplete='on'
@@ -29,11 +29,11 @@ InputBoxApiKey.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   value: state.getIn(['app', 'googleMapsApiKey']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onChange: ({ target: { value } }) => {
     dispatch(
       setGoogleMapsKey({
@@ -43,7 +43,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(InputBoxApiKey)
+export default connect(mapStateToProps, mapDispatchToProps)(InputBoxApiKey)

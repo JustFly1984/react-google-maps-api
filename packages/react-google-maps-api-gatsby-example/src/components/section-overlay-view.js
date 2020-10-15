@@ -14,7 +14,7 @@ SectionOverlayView.propTypes = {
   overlayView: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   overlayView: state.getIn(['app', 'overlayView']),
 })
 

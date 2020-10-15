@@ -11,4 +11,4 @@ Card.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Card
+export default React.memo(Card)

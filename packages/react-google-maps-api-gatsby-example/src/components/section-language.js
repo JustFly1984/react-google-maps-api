@@ -87,11 +87,11 @@ SectionLanguage.propTypes = {
   changeLanguage: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   language: state.getIn(['app', 'language']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   changeLanguage: ({ language }) => {
     dispatch(
       changeLanguage({
@@ -101,7 +101,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SectionLanguage)
+export default connect(mapStateToProps, mapDispatchToProps)(SectionLanguage)

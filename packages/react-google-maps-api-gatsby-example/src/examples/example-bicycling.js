@@ -17,12 +17,12 @@ const onClick = (...args) => {
   console.log('onClick args: ', args)
 }
 
-const onBicyclingLayerLoad = bicyclingLayer => {
+const onBicyclingLayerLoad = (bicyclingLayer) => {
   // Do something with bicyclingLayer
   console.log('bicyclingLayer: ', bicyclingLayer)
 }
 
-const onMapLoad = map => {
+const onMapLoad = (map) => {
   console.log('map: ', map)
 }
 
@@ -45,4 +45,4 @@ const ExampleBicycling = ({ styles }) => (
 
 ExampleBicycling.propTypes = ExampleBicyclingPropTypes
 
-export default ExampleBicycling
+export default React.memo(ExampleBicycling)

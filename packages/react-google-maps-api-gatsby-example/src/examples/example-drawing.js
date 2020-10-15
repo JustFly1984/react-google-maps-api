@@ -30,4 +30,4 @@ const ExampleDrawing = ({ styles }) => (
 
 ExampleDrawing.propTypes = ExampleDrawingPropTypes
 
-export default ExampleDrawing
+export default React.memo(ExampleDrawing)

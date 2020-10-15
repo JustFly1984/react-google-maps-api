@@ -22,7 +22,7 @@
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn"
   },
   "dependencies": {
-    "@react-google-maps/api": "1.12.1"
+    "@react-google-maps/api": "1.13.0"
   },
   "devDependencies": {
     "@babel/core": "7.11.6",
@@ -58,7 +58,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "rimraf": "3.0.2",
-    "webpack": "4.44.2"
+    "webpack": "5.0.0"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }

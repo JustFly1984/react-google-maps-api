@@ -28,11 +28,11 @@ CheckboxOverlayView.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   value: state.getIn(['app', 'overlayView']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
       toggleOverlayView({
@@ -42,7 +42,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CheckboxOverlayView)
+export default connect(mapStateToProps, mapDispatchToProps)(CheckboxOverlayView)

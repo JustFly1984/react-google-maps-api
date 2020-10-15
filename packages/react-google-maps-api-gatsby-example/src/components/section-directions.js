@@ -14,7 +14,7 @@ SectionDirections.propTypes = {
   directions: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   directions: state.getIn(['app', 'directions']),
 })
 

@@ -17,7 +17,7 @@ import {
   GROUND_TOGGLE,
   OPTIONS_TOGGLE,
   OVERLAY_VIEW_TOGGLE,
-  STANDALONE_SEARCHBOX_TOGGLE,
+  STANDALONE_SEARCH_BOX_TOGGLE,
 } from '../action-types'
 
 const initialState = fromJS({
@@ -36,7 +36,7 @@ const initialState = fromJS({
   ground: false,
   options: false,
   overlayView: false,
-  standaloneSearchbox: false,
+  standaloneSearchBox: false,
 })
 
 export default handleActions(
@@ -45,7 +45,7 @@ export default handleActions(
       state.merge({
         language,
       }),
-    [LOAD_SCRIPT_TOGGLE]: state =>
+    [LOAD_SCRIPT_TOGGLE]: (state) =>
       state.merge({
         loadScriptChecked: !state.get('loadScriptChecked'),
       }),
@@ -101,12 +101,12 @@ export default handleActions(
       state.merge({
         overlayView,
       }),
-    [STANDALONE_SEARCHBOX_TOGGLE]: (
+    [STANDALONE_SEARCH_BOX_TOGGLE]: (
       state,
-      { payload: { standaloneSearchbox } }
+      { payload: { standaloneSearchBox } }
     ) =>
       state.merge({
-        standaloneSearchbox,
+        standaloneSearchBox,
       }),
   },
   initialState
