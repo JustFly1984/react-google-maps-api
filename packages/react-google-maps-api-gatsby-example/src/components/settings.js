@@ -1,9 +1,9 @@
 import React from 'react'
 
 import Card from '../components/card'
-import InputBoxApiKey from '../components/inpunbox-apikey'
+import InputBoxApiKey from './input-box-api-key'
 import SectionLanguage from '../components/section-language'
-import ButtonLoadscript from '../components/button-loadscript'
+import ButtonLoadScript from './button-load-script'
 
 const Settings = () => (
   <Card>
@@ -27,7 +27,7 @@ const Settings = () => (
 
     <hr className='mt-0 mb-3' />
 
-    <ButtonLoadscript />
+    <ButtonLoadScript />
   </Card>
 )
 

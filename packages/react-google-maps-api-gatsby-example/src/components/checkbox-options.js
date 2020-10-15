@@ -28,11 +28,11 @@ CheckboxOptions.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   value: state.getIn(['app', 'options']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
       toggleOptions({
@@ -42,7 +42,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CheckboxOptions)
+export default connect(mapStateToProps, mapDispatchToProps)(CheckboxOptions)

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Helmet} from 'react-helmet'
+import { Helmet } from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 
 import Header from './header'
@@ -45,7 +45,7 @@ const Layout = ({ children }) => (
       }
     `}
     // eslint-disable-next-line react-perf/jsx-no-new-function-as-prop
-    render={data => (
+    render={(data) => (
       <Main title={data.site.siteMetadata.title}>{children}</Main>
     )}
   />
@@ -55,4 +55,4 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Layout
+export default React.memo(Layout)

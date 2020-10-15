@@ -14,7 +14,7 @@ SectionTransit.propTypes = {
   transit: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   transit: state.getIn(['app', 'transit']),
 })
 

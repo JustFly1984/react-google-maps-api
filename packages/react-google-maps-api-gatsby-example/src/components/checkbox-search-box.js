@@ -3,11 +3,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleStandaloneSearchbox } from '../actions/app'
+import { toggleStandaloneSearchBox } from '../actions/app'
 
-const id = 'standaloneSearchbox'
+const id = 'standaloneSearchBox'
 
-const CheckboxSearchbox = ({ onChange, value }) => (
+const CheckboxSearchBox = ({ onChange, value }) => (
   <div className='custom-control custom-checkbox'>
     <input
       id={id}
@@ -23,26 +23,23 @@ const CheckboxSearchbox = ({ onChange, value }) => (
   </div>
 )
 
-CheckboxSearchbox.propTypes = {
+CheckboxSearchBox.propTypes = {
   value: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
-  value: state.getIn(['app', 'standaloneSearchbox']),
+const mapStateToProps = (state) => ({
+  value: state.getIn(['app', 'standaloneSearchBox']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onChange: ({ target: { checked } }) => {
     dispatch(
-      toggleStandaloneSearchbox({
-        standaloneSearchbox: checked,
+      toggleStandaloneSearchBox({
+        standaloneSearchBox: checked,
       })
     )
   },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CheckboxSearchbox)
+export default connect(mapStateToProps, mapDispatchToProps)(CheckboxSearchBox)

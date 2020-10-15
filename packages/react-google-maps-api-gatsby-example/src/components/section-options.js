@@ -14,7 +14,7 @@ SectionOptions.propTypes = {
   options: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   options: state.getIn(['app', 'options']),
 })
 

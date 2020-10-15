@@ -10,4 +10,4 @@ const NoMaps = () => (
   </Card>
 )
 
-export default NoMaps
+export default React.memo(NoMaps)

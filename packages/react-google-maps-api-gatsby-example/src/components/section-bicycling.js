@@ -14,7 +14,7 @@ SectionBicycling.propTypes = {
   bicycling: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   bicycling: state.getIn(['app', 'bicycling']),
 })
 

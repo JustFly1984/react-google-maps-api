@@ -41,4 +41,4 @@ const ExampleOptions = ({ styles }) => (
 
 ExampleOptions.propTypes = ExampleOptionsPropTypes
 
-export default ExampleOptions
+export default React.memo(ExampleOptions)

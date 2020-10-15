@@ -3,11 +3,7 @@ const PropTypes = require('prop-types')
 const { Provider } = require('react-redux')
 const { Map: IMap } = require('immutable')
 
-const {
-  createStore,
-  compose,
-  applyMiddleware
-} = require('redux')
+const { createStore, compose, applyMiddleware } = require('redux')
 
 const thunk = require('redux-thunk').default
 const reducers = require('./src/reducers').default
@@ -17,9 +13,7 @@ exports.wrapRootElement = ({ element }) => {
     const store = createStore(
       reducers,
       initialState,
-      compose(
-        applyMiddleware(thunk)
-      )
+      compose(applyMiddleware(thunk))
     )
 
     return store
@@ -27,16 +21,10 @@ exports.wrapRootElement = ({ element }) => {
 
   const store = configureStore()
 
-  const ConnectedRootElement = (
-    <Provider
-      store={store}
-    >
-      {element}
-    </Provider>
-  )
+  const ConnectedRootElement = <Provider store={store}>{element}</Provider>
 
   ConnectedRootElement.propTypes = {
-    element: PropTypes.node.isRequired
+    element: PropTypes.node.isRequired,
   }
 
   return ConnectedRootElement

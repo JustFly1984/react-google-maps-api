@@ -17,12 +17,12 @@ const onClick = (...args) => {
   console.log('onClick args: ', args)
 }
 
-const onTransitLayerLoad = transitLayer => {
+const onTransitLayerLoad = (transitLayer) => {
   // Do something with transitLayer
   console.log('transitLayer: ', transitLayer)
 }
 
-const onMapLoad = map => {
+const onMapLoad = (map) => {
   console.log('map: ', map)
 }
 
@@ -45,4 +45,4 @@ const ExampleTransit = ({ styles }) => (
 
 ExampleTransit.propTypes = ExampleTransitPropTypes
 
-export default ExampleTransit
+export default React.memo(ExampleTransit)

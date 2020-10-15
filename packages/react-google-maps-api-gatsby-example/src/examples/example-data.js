@@ -22,12 +22,12 @@ const onClick = (...args) => {
   )
 }
 
-const onMapLoad = map => {
+const onMapLoad = (map) => {
   console.log('map.data: ', map.data)
   // map.data.loadGeoJson('/geo.json')
 }
 
-const onDataLoad = data => {
+const onDataLoad = (data) => {
   console.log('data: ', data)
 }
 
@@ -35,7 +35,7 @@ const dataOptions = {
   controlPosition: 'TOP_LEFT',
   controls: ['Point'],
   drawingMode: 'Point', //  "LineString" or "Polygon".
-  featureFactory: geometry => {
+  featureFactory: (geometry) => {
     console.log('geometry: ', geometry)
   },
   // Type:  boolean
@@ -114,4 +114,4 @@ const ExampleData = ({ styles }) => (
 
 ExampleData.propTypes = ExampleDataPropTypes
 
-export default ExampleData
+export default React.memo(ExampleData)

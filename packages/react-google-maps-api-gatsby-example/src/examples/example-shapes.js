@@ -129,7 +129,7 @@ const textareaStyle = {
 
 const infoWindowStyle = {
   background: `white`,
-  border: `1px solid #ccc`,
+  border: `1px solid ##CCC`,
   padding: 15,
 }
 
@@ -142,7 +142,7 @@ class ExampleShapes extends Component {
   }
 
   onCheckboxChange = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       polylineVisible: !prevState.polylineVisible,
     }))
   }
@@ -249,4 +249,4 @@ class ExampleShapes extends Component {
   }
 }
 
-export default ExampleShapes
+export default React.memo(ExampleShapes)

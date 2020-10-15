@@ -40,7 +40,7 @@ IndexPage.propTypes = {
   loadScriptChecked: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loadScriptChecked: state.getIn(['app', 'loadScriptChecked']),
   googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey']),
 })

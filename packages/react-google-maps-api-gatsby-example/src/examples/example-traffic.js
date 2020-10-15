@@ -35,4 +35,4 @@ const ExampleTraffic = ({ styles }) => (
 
 ExampleTraffic.propTypes = ExampleTrafficPropTypes
 
-export default ExampleTraffic
+export default React.memo(ExampleTraffic)

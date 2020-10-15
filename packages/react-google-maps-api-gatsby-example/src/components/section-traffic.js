@@ -14,7 +14,7 @@ SectionTraffic.propTypes = {
   traffic: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   traffic: state.getIn(['app', 'traffic']),
 })
 

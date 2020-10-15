@@ -14,7 +14,7 @@ SectionHeatmap.propTypes = {
   heatmap: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   language: state.getIn(['app', 'language']),
   loadScriptChecked: state.getIn(['app', 'loadScriptChecked']),
   googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey']),

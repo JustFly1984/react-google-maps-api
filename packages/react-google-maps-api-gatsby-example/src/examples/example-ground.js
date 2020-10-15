@@ -45,4 +45,4 @@ const ExampleGround = ({ styles }) => (
 
 ExampleGround.propTypes = ExampleGroundPropTypes
 
-export default ExampleGround
+export default React.memo(ExampleGround)

@@ -14,7 +14,7 @@ SectionDrawing.propTypes = {
   drawing: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   drawing: state.getIn(['app', 'drawing']),
 })
 
