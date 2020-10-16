@@ -16,7 +16,7 @@
   "dependencies": {
     "@babel/core": "7.12.0",
     "@babel/node": "7.10.5",
-    "@babel/polyfill": "7.11.5",
+    "@babel/polyfill": "7.12.1",
     "@babel/preset-env": "7.12.0",
     "@babel/preset-react": "7.10.4",
     "@babel/runtime": "7.12.0",
