@@ -81,6 +81,7 @@ export class Cluster {
 
     this.markers = []
 
+    // @ts-ignore
     delete this.markers
   }
 
