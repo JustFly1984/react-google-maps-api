@@ -85,7 +85,7 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "1.6.0",
-    "@react-google-maps/infobox": "1.12.1",
+    "@react-google-maps/infobox": "1.14.0",
     "@react-google-maps/marker-clusterer": "1.12.1",
     "invariant": "2.2.4"
   },
