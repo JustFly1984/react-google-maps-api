@@ -1519,10 +1519,10 @@
   resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-1.12.1.tgz#6c0354b6cfc52c8689f99ee5ce1fb5668fa78697"
   integrity sha512-tD/xijqRtKK/LNRzuerzuyvybnRaD8SLgCA064len4/enTo1abhQN215ZYqwbTOn7RgYt9qMgNnwoX//u3xoWw==
 
-"@react-google-maps/marker-clusterer@1.12.1":
-  version "1.12.1"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.12.1.tgz#fcf8df395a102b56258601c9b85d671dcd03d7cf"
-  integrity sha512-JBSO5VJuouP/boBnSdRDCWq0UKO7jr3HvZVhis3ew+VGJ/BoCPu3lpU0HDsjjulfng+xwqLfVOIzP3QnvBPdCA==
+"@react-google-maps/marker-clusterer@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.0.0.tgz#c9c03da7f850b60c252ac7c0776157375e5d46b6"
+  integrity sha512-r/DyWn8M+jm7BavjbOaje7ETHsbyZZE7GKPGyzr/gPYjRlRNoMkSzpDO1jwEFaJ9Lk5rGa49S9pcOaAdnibUjg==
 
 "@rollup/plugin-babel@^5.1.0":
   version "5.2.1"
