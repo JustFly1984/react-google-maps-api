@@ -315,6 +315,9 @@ export class ClusterIcon {
     this.url = style.url
     this.height = style.height
     this.width = style.width
+
+    this.className = `${this.className} ${style.className}`
+
     this.anchorText = style.anchorText || [0, 0]
     this.anchorIcon = style.anchorIcon || [this.height / 2, this.width / 2]
 
