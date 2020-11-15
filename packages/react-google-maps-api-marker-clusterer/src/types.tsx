@@ -34,6 +34,7 @@ export interface ClusterIconStyle {
   url: string
   height: number
   width: number
+  className: string
   anchorText?: number[]
   anchorIcon?: number[]
   textColor?: string
