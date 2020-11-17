@@ -52,7 +52,7 @@
     "@types/babel-types": "7.0.9",
     "@types/googlemaps": "3.40.0",
     "@types/react-dom": "16.9.8",
-    "@typescript-eslint/eslint-plugin": "4.4.1",
+    "@typescript-eslint/eslint-plugin": "4.8.0",
     "@typescript-eslint/parser": "4.4.1",
     "awesome-typescript-loader": "5.2.1",
     "eslint": "7.11.0",
