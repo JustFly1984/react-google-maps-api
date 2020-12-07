@@ -29,7 +29,7 @@ export function DefaultLoadingElement(): JSX.Element {
 
 export const defaultLoadScriptProps = {
   id: 'script-loader',
-  version: 'weekly',
+  version: 'quarterly',
 }
 
 class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
