@@ -79,7 +79,7 @@
     "eslint-plugin-you-dont-need-lodash-underscore": "6.10.0",
     "jest": "26.5.3",
     "jest-cli": "26.5.3",
-    "react": "16.13.1",
+    "react": "16.14.0",
     "react-dom": "16.13.1",
     "rimraf": "3.0.2",
     "ts-jest": "26.4.1",
