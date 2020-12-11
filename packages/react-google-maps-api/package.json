@@ -90,8 +90,8 @@
     "invariant": "2.2.4"
   },
   "peerDependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "react": "^16.6.3 || ^17.0.0",
+    "react-dom": "^16.6.3 || ^17.0.0"
   },
   "devDependencies": {
     "@testing-library/react": "11.0.4",
