@@ -1,21 +1,18 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 import ExampleBicycling from '../examples/example-bicycling'
 
 import { shapeExampleStyles } from '../components/styles'
 
-const SectionBicycling = ({ bicycling }) =>
-  bicycling ? <ExampleBicycling styles={shapeExampleStyles} /> : <></>
-
-SectionBicycling.propTypes = {
-  bicycling: PropTypes.bool.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'bicycling'])
 }
 
-const mapStateToProps = (state) => ({
-  bicycling: state.getIn(['app', 'bicycling']),
-})
+function SectionBicycling() {
+  const bicycling = useSelector(selector)
+  return bicycling ? <ExampleBicycling styles={shapeExampleStyles} /> : <></>
+}
 
-export default connect(mapStateToProps)(SectionBicycling)
+export default React.memo(SectionBicycling)

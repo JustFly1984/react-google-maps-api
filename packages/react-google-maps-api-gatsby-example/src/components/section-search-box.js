@@ -1,21 +1,23 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 import ExampleSearchBox from '../examples/example-search-box'
 
 import { shapeExampleStyles } from './styles'
 
-const SectionSearchBox = ({ standaloneSearchBox }) =>
-  standaloneSearchBox ? <ExampleSearchBox styles={shapeExampleStyles} /> : <></>
-
-SectionSearchBox.propTypes = {
-  standaloneSearchBox: PropTypes.bool.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'standaloneSearchBox'])
 }
 
-const mapStateToProps = (state) => ({
-  standaloneSearchBox: state.getIn(['app', 'standaloneSearchBox']),
-})
+function SectionSearchBox() {
+  const standaloneSearchBox = useSelector(selector)
 
-export default connect(mapStateToProps)(SectionSearchBox)
+  return standaloneSearchBox ? (
+    <ExampleSearchBox styles={shapeExampleStyles} />
+  ) : (
+    <></>
+  )
+}
+
+export default React.memo(SectionSearchBox)

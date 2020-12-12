@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
@@ -14,42 +14,48 @@ const meta = [
   { name: 'keywords', content: 'sample, something' },
 ]
 
-const Main = ({ title, children }) => (
-  <div className='bg-light'>
-    <Helmet title={title} meta={meta}>
-      <html lang='en' />
-    </Helmet>
+function Main({ title, children }) {
+  return (
+    <div className='bg-light'>
+      <Helmet title={title} meta={meta}>
+        <html lang='en' />
+      </Helmet>
 
-    <Header siteTitle={title} />
+      <Header siteTitle={title} />
 
-    <div className='container'>{children}</div>
+      <div className='container'>{children}</div>
 
-    <Footer />
-  </div>
-)
+      <Footer />
+    </div>
+  )
+}
+
+const MainMemo = React.memo(Main)
 
 Main.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 }
 
-const Layout = ({ children }) => (
-  <StaticQuery
-    query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
+function Layout({ children }) {
+  return (
+    <StaticQuery
+      query={graphql`
+        query SiteTitleQuery {
+          site {
+            siteMetadata {
+              title
+            }
           }
         }
-      }
-    `}
-    // eslint-disable-next-line react-perf/jsx-no-new-function-as-prop
-    render={(data) => (
-      <Main title={data.site.siteMetadata.title}>{children}</Main>
-    )}
-  />
-)
+      `}
+      // eslint-disable-next-line react-perf/jsx-no-new-function-as-prop
+      render={(data) => (
+        <MainMemo title={data.site.siteMetadata.title}>{children}</MainMemo>
+      )}
+    />
+  )
+}
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,

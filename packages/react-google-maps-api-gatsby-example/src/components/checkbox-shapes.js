@@ -1,45 +1,43 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleShapes } from '../actions/app'
 
 const id = 'shapes'
 
-const CheckboxShapes = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
-    <input
-      id={id}
-      className='custom-control-input'
-      type='checkbox'
-      onChange={onChange}
-      value={value}
-    />
-
-    <label className='custom-control-label' htmlFor={id}>
-      Shapes
-    </label>
-  </div>
-)
-
-CheckboxShapes.propTypes = {
-  value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'shapes'])
 }
 
-const mapStateToProps = (state) => ({
-  value: state.getIn(['app', 'shapes']),
-})
+function CheckboxShapes() {
+  const dispatch = useDispatch()
+  const onChange = React.useCallback(
+    ({ target: { checked } }) => {
+      dispatch(
+        toggleShapes({
+          shapes: checked,
+        })
+      )
+    },
+    [dispatch]
+  )
+  const value = useSelector(selector)
+  return (
+    <div className='custom-control custom-checkbox'>
+      <input
+        id={id}
+        className='custom-control-input'
+        type='checkbox'
+        onChange={onChange}
+        value={value}
+      />
 
-const mapDispatchToProps = (dispatch) => ({
-  onChange: ({ target: { checked } }) => {
-    dispatch(
-      toggleShapes({
-        shapes: checked,
-      })
-    )
-  },
-})
+      <label className='custom-control-label' htmlFor={id}>
+        Shapes
+      </label>
+    </div>
+  )
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckboxShapes)
+export default React.memo(CheckboxShapes)

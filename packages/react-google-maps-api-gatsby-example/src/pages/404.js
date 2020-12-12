@@ -1,5 +1,5 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
+import * as React from 'react'
 import { Link } from 'gatsby'
 import Layout from '../components/layout'
 import Card from '../components/card'

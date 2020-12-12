@@ -1,46 +1,68 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import langEn from '../img/us.svg'
 import langEs from '../img/es.svg'
 import langRu from '../img/ru.svg'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { changeLanguage } from '../actions/app'
 
-class SectionLanguage extends Component {
-  setEnLang = ({ target: { checked } }) => {
-    if (checked) {
-      this.props.changeLanguage({
-        language: 'en',
-      })
-    }
-  }
+function selector(state) {
+  return state.getIn(['app', 'language'])
+}
 
-  setRuLang = ({ target: { checked } }) => {
-    if (checked) {
-      this.props.changeLanguage({
-        language: 'ru',
-      })
-    }
-  }
+function SectionLanguage() {
+  const dispatch = useDispatch()
 
-  setEsLang = ({ target: { checked } }) => {
-    if (checked) {
-      this.props.changeLanguage({
-        language: 'es',
-      })
-    }
-  }
+  const setEnLang = React.useCallback(
+    ({ target: { checked } }) => {
+      if (checked) {
+        dispatch(
+          changeLanguage({
+            language: 'en',
+          })
+        )
+      }
+    },
+    [dispatch]
+  )
 
-  render = () => (
+  const setRuLang = React.useCallback(
+    ({ target: { checked } }) => {
+      if (checked) {
+        dispatch(
+          changeLanguage({
+            language: 'ru',
+          })
+        )
+      }
+    },
+    [dispatch]
+  )
+
+  const setEsLang = React.useCallback(
+    ({ target: { checked } }) => {
+      if (checked) {
+        dispatch(
+          changeLanguage({
+            language: 'es',
+          })
+        )
+      }
+    },
+    [dispatch]
+  )
+
+  const language = useSelector(selector)
+
+  return (
     <div className='d-flex flex-wrap'>
       <div className='form-group custom-control custom-radio mr-4'>
         <input
           type='radio'
           id='en'
           className='custom-control-input'
-          checked={this.props.language === 'en'}
-          onChange={this.setEnLang}
+          checked={language === 'en'}
+          onChange={setEnLang}
         />
         {` `}
         <label className='custom-control-label' htmlFor='en'>
@@ -54,8 +76,8 @@ class SectionLanguage extends Component {
           type='radio'
           id='es'
           className='custom-control-input'
-          checked={this.props.language === 'es'}
-          onChange={this.setEsLang}
+          checked={language === 'es'}
+          onChange={setEsLang}
         />
         {` `}
         <label className='custom-control-label' htmlFor='es'>
@@ -69,8 +91,8 @@ class SectionLanguage extends Component {
           type='radio'
           id='ru'
           className='custom-control-input'
-          checked={this.props.language === 'ru'}
-          onChange={this.setRuLang}
+          checked={language === 'ru'}
+          onChange={setRuLang}
         />
         {` `}
         <label className='custom-control-label' htmlFor='ru'>
@@ -82,23 +104,4 @@ class SectionLanguage extends Component {
   )
 }
 
-SectionLanguage.propTypes = {
-  language: PropTypes.string.isRequired,
-  changeLanguage: PropTypes.func.isRequired,
-}
-
-const mapStateToProps = (state) => ({
-  language: state.getIn(['app', 'language']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  changeLanguage: ({ language }) => {
-    dispatch(
-      changeLanguage({
-        language,
-      })
-    )
-  },
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SectionLanguage)
+export default React.memo(SectionLanguage)

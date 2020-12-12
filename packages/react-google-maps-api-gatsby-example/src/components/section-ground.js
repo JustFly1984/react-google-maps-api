@@ -1,21 +1,18 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 import ExampleGround from '../examples/example-ground'
 
 import { shapeExampleStyles } from './styles'
 
-const SectionGround = ({ ground }) =>
-  ground ? <ExampleGround styles={shapeExampleStyles} /> : <></>
-
-SectionGround.propTypes = {
-  ground: PropTypes.bool.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'ground'])
 }
 
-const mapStateToProps = (state) => ({
-  ground: state.getIn(['app', 'ground']),
-})
+function SectionGround() {
+  const ground = useSelector(selector)
+  return ground ? <ExampleGround styles={shapeExampleStyles} /> : <></>
+}
 
-export default connect(mapStateToProps)(SectionGround)
+export default React.memo(SectionGround)

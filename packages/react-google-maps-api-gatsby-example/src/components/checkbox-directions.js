@@ -1,45 +1,46 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleDirections } from '../actions/app'
 
 const id = 'directions'
 
-const CheckboxDirections = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
-    <input
-      id={id}
-      className='custom-control-input'
-      type='checkbox'
-      onChange={onChange}
-      value={value}
-    />
-
-    <label className='custom-control-label' htmlFor={id}>
-      Directions
-    </label>
-  </div>
-)
-
-CheckboxDirections.propTypes = {
-  value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'directions'])
 }
 
-const mapStateToProps = (state) => ({
-  value: state.getIn(['app', 'directions']),
-})
+function CheckboxDirections() {
+  const dispatch = useDispatch()
 
-const mapDispatchToProps = (dispatch) => ({
-  onChange: ({ target: { checked } }) => {
-    dispatch(
-      toggleDirections({
-        directions: checked,
-      })
-    )
-  },
-})
+  const onChange = React.useCallback(
+    ({ target: { checked } }) => {
+      dispatch(
+        toggleDirections({
+          directions: checked,
+        })
+      )
+    },
+    [dispatch]
+  )
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckboxDirections)
+  const value = useSelector(selector)
+
+  return (
+    <div className='custom-control custom-checkbox'>
+      <input
+        id={id}
+        className='custom-control-input'
+        type='checkbox'
+        onChange={onChange}
+        value={value}
+      />
+
+      <label className='custom-control-label' htmlFor={id}>
+        Directions
+      </label>
+    </div>
+  )
+}
+
+export default React.memo(CheckboxDirections)

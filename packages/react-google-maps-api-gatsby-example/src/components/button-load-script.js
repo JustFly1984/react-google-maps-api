@@ -1,43 +1,40 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleLoadScript } from '../actions/app'
 
 const id = 'toggle-script'
 
-const ButtonLoadScript = ({ checked, isApiKeyValid, onClick }) => (
-  <div>
-    <button
-      id={id}
-      className={`btn btn-load ${checked ? 'btn-danger' : 'btn-primary'}`}
-      type='button'
-      onClick={onClick}
-      disabled={!isApiKeyValid}
-    >
-      {checked ? 'Unload Maps' : 'Load Maps'}
-    </button>
-  </div>
-)
-
-ButtonLoadScript.propTypes = {
-  isApiKeyValid: PropTypes.bool.isRequired,
-  checked: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
-}
-
-function mapStateToProps(state) {
+function selector(state) {
   return {
     isApiKeyValid: state.getIn(['app', 'googleMapsApiKey']).length >= 38,
     checked: state.getIn(['app', 'loadScriptChecked']),
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onClick: () => {
-    dispatch(toggleLoadScript())
-  },
-})
+function ButtonLoadScript() {
+  const dispatch = useDispatch()
 
-export default connect(mapStateToProps, mapDispatchToProps)(ButtonLoadScript)
+  const onClick = React.useCallback(() => {
+    dispatch(toggleLoadScript())
+  }, [dispatch])
+
+  const { checked, isApiKeyValid } = useSelector(selector)
+
+  return (
+    <div>
+      <button
+        id={id}
+        className={`btn btn-load ${checked ? 'btn-danger' : 'btn-primary'}`}
+        type='button'
+        onClick={onClick}
+        disabled={!isApiKeyValid}
+      >
+        {checked ? 'Unload Maps' : 'Load Maps'}
+      </button>
+    </div>
+  )
+}
+
+export default React.memo(ButtonLoadScript)

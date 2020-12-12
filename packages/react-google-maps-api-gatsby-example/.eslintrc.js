@@ -28,7 +28,6 @@ module.exports = {
     'react',
     'optimize-regex',
     'react-perf',
-    'standard',
     'css-modules',
     'no-inferred-method-name',
     'react-functional-set-state',

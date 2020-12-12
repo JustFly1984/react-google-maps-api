@@ -1,21 +1,18 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 import ExampleTransit from '../examples/example-transit'
 
 import { shapeExampleStyles } from '../components/styles'
 
-const SectionTransit = ({ transit }) =>
-  transit ? <ExampleTransit styles={shapeExampleStyles} /> : <></>
-
-SectionTransit.propTypes = {
-  transit: PropTypes.bool.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'transit'])
 }
 
-const mapStateToProps = (state) => ({
-  transit: state.getIn(['app', 'transit']),
-})
+function SectionTransit() {
+  const transit = useSelector(selector)
+  transit ? <ExampleTransit styles={shapeExampleStyles} /> : <></>
+}
 
-export default connect(mapStateToProps)(SectionTransit)
+export default React.memo(SectionTransit)

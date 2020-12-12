@@ -1,45 +1,42 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleTraffic } from '../actions/app'
 
 const id = 'traffic'
-
-const CheckboxTraffic = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
-    <input
-      id={id}
-      className='custom-control-input'
-      type='checkbox'
-      onChange={onChange}
-      value={value}
-    />
-
-    <label className='custom-control-label' htmlFor={id}>
-      Traffic
-    </label>
-  </div>
-)
-
-CheckboxTraffic.propTypes = {
-  value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'traffic'])
 }
 
-const mapStateToProps = (state) => ({
-  value: state.getIn(['app', 'traffic']),
-})
+function CheckboxTraffic() {
+  const dispatch = useDispatch()
+  const onChange = React.useCallback(
+    ({ target: { checked } }) => {
+      dispatch(
+        toggleTraffic({
+          traffic: checked,
+        })
+      )
+    },
+    [dispatch]
+  )
+  const value = useSelector(selector)
+  return (
+    <div className='custom-control custom-checkbox'>
+      <input
+        id={id}
+        className='custom-control-input'
+        type='checkbox'
+        onChange={onChange}
+        value={value}
+      />
 
-const mapDispatchToProps = (dispatch) => ({
-  onChange: ({ target: { checked } }) => {
-    dispatch(
-      toggleTraffic({
-        traffic: checked,
-      })
-    )
-  },
-})
+      <label className='custom-control-label' htmlFor={id}>
+        Traffic
+      </label>
+    </div>
+  )
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckboxTraffic)
+export default React.memo(CheckboxTraffic)

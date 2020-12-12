@@ -1,8 +1,7 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import uniqid from 'uniqid'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { LoadScript } from '@react-google-maps/api'
 
@@ -46,101 +45,102 @@ const onLoad = () => console.log('script loaded')
 
 const onError = (err) => console.log('onError: ', err)
 
-const GoogleMaps = ({ googleMapsApiKey, language }) => (
-  <LoadScript
-    id={loaderId}
-    googleMapsApiKey={googleMapsApiKey}
-    language={language}
-    region='EN'
-    version='weekly'
-    onLoad={onLoad}
-    onError={onError}
-    loadingElement={Loading}
-    libraries={googleMapsLibraries}
-    preventGoogleFontsLoading
-  >
-    <Card>
-      <CheckboxData />
-
-      <SectionData />
-    </Card>
-
-    <Card>
-      <CheckboxDirections />
-
-      <SectionDirections />
-    </Card>
-
-    <Card>
-      <CheckboxHeatmap />
-
-      <SectionHeatmap />
-    </Card>
-
-    <Card>
-      <CheckboxTraffic />
-
-      <SectionTraffic />
-    </Card>
-
-    <Card>
-      <CheckboxShapes />
-
-      <SectionShapes />
-    </Card>
-
-    <Card>
-      <CheckboxDrawing />
-
-      <SectionDrawing />
-    </Card>
-
-    <Card>
-      <CheckboxBicycling />
-
-      <SectionBicycling />
-    </Card>
-
-    <Card>
-      <CheckboxTransit />
-
-      <SectionTransit />
-    </Card>
-
-    <Card>
-      <CheckboxGround />
-
-      <SectionGround />
-    </Card>
-
-    <Card>
-      <CheckboxOptions />
-
-      <SectionOptions />
-    </Card>
-
-    <Card>
-      <CheckboxOverlayView />
-
-      <SectionOverlayView />
-    </Card>
-
-    <Card>
-      <CheckboxSearchBox />
-
-      <SectionSearchBox />
-    </Card>
-  </LoadScript>
-)
-
-GoogleMaps.propTypes = {
-  language: PropTypes.string.isRequired,
-  googleMapsApiKey: PropTypes.string.isRequired,
+function selector(state) {
+  return {
+    language: state.getIn(['app', 'language']),
+    googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey']),
+  }
 }
 
-const mapStateToProps = (state) => ({
-  language: state.getIn(['app', 'language']),
-  googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey']),
-})
+function GoogleMaps() {
+  const { googleMapsApiKey, language } = useSelector(selector)
 
-export default connect(mapStateToProps)(GoogleMaps)
+  return (
+    <LoadScript
+      id={loaderId}
+      googleMapsApiKey={googleMapsApiKey}
+      language={language}
+      region='EN'
+      version='weekly'
+      onLoad={onLoad}
+      onError={onError}
+      loadingElement={Loading}
+      libraries={googleMapsLibraries}
+      preventGoogleFontsLoading
+    >
+      <Card>
+        <CheckboxData />
+
+        <SectionData />
+      </Card>
+
+      <Card>
+        <CheckboxDirections />
+
+        <SectionDirections />
+      </Card>
+
+      <Card>
+        <CheckboxHeatmap />
+
+        <SectionHeatmap />
+      </Card>
+
+      <Card>
+        <CheckboxTraffic />
+
+        <SectionTraffic />
+      </Card>
+
+      <Card>
+        <CheckboxShapes />
+
+        <SectionShapes />
+      </Card>
+
+      <Card>
+        <CheckboxDrawing />
+
+        <SectionDrawing />
+      </Card>
+
+      <Card>
+        <CheckboxBicycling />
+
+        <SectionBicycling />
+      </Card>
+
+      <Card>
+        <CheckboxTransit />
+
+        <SectionTransit />
+      </Card>
+
+      <Card>
+        <CheckboxGround />
+
+        <SectionGround />
+      </Card>
+
+      <Card>
+        <CheckboxOptions />
+
+        <SectionOptions />
+      </Card>
+
+      <Card>
+        <CheckboxOverlayView />
+
+        <SectionOverlayView />
+      </Card>
+
+      <Card>
+        <CheckboxSearchBox />
+
+        <SectionSearchBox />
+      </Card>
+    </LoadScript>
+  )
+}
+
+export default React.memo(GoogleMaps)

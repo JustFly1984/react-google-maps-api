@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, BicyclingLayer } from '@react-google-maps/api'
 
@@ -26,22 +26,24 @@ const onMapLoad = (map) => {
   console.log('map: ', map)
 }
 
-const ExampleBicycling = ({ styles }) => (
-  <div className='map'>
-    <div className='map-container'>
-      <GoogleMap
-        id='bicycling-example'
-        mapContainerStyle={styles.container}
-        zoom={2}
-        center={center}
-        onClick={onClick}
-        onLoad={onMapLoad}
-      >
-        <BicyclingLayer onLoad={onBicyclingLayerLoad} />
-      </GoogleMap>
+function ExampleBicycling({ styles }) {
+  return (
+    <div className='map'>
+      <div className='map-container'>
+        <GoogleMap
+          id='bicycling-example'
+          mapContainerStyle={styles.container}
+          zoom={2}
+          center={center}
+          onClick={onClick}
+          onLoad={onMapLoad}
+        >
+          <BicyclingLayer onLoad={onBicyclingLayerLoad} />
+        </GoogleMap>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 ExampleBicycling.propTypes = ExampleBicyclingPropTypes
 
