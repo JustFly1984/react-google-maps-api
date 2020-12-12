@@ -1,29 +1,18 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 import ExampleHeatmap from '../examples/example-heatmap'
 
 import { shapeExampleStyles } from './styles'
 
-const SectionHeatmap = ({ heatmap }) =>
-  heatmap ? <ExampleHeatmap styles={shapeExampleStyles} /> : <></>
-
-SectionHeatmap.propTypes = {
-  heatmap: PropTypes.bool.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'heatmap'])
 }
 
-const mapStateToProps = (state) => ({
-  language: state.getIn(['app', 'language']),
-  loadScriptChecked: state.getIn(['app', 'loadScriptChecked']),
-  googleMapsApiKey: state.getIn(['app', 'googleMapsApiKey']),
-  heatmap: state.getIn(['app', 'heatmap']),
-  traffic: state.getIn(['app', 'traffic']),
-  shapes: state.getIn(['app', 'shapes']),
-  drawing: state.getIn(['app', 'drawing']),
-  bicycling: state.getIn(['app', 'bicycling']),
-  ground: state.getIn(['app', 'ground']),
-})
+const SectionHeatmap = () => {
+  const heatmap = useSelector(selector)
+  heatmap ? <ExampleHeatmap styles={shapeExampleStyles} /> : <></>
+}
 
-export default connect(mapStateToProps)(SectionHeatmap)
+export default React.memo(SectionHeatmap)

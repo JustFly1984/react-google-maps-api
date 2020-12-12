@@ -2,7 +2,7 @@
 import '@babel/polyfill'
 import 'whatwg-fetch'
 
-import React from 'react'
+import * as React from 'react'
 import uniqid from 'uniqid'
 import { Provider } from 'react-redux'
 import { Map as IMap } from 'immutable'

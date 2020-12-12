@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
@@ -133,7 +133,7 @@ const infoWindowStyle = {
   padding: 15,
 }
 
-class ExampleShapes extends Component {
+class ExampleShapes extends React.Component {
   static propTypes = ExampleShapesPropTypes
 
   state = {

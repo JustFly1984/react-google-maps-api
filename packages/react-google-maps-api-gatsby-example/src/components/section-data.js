@@ -1,21 +1,18 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 import ExampleData from '../examples/example-data'
 
 import { shapeExampleStyles } from './styles'
 
-const SectionData = ({ data }) =>
-  data ? <ExampleData styles={shapeExampleStyles} /> : <></>
-
-SectionData.propTypes = {
-  data: PropTypes.bool.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'data'])
 }
 
-const mapStateToProps = (state) => ({
-  data: state.getIn(['app', 'data']),
-})
+function SectionData() {
+  const data = useSelector(selector)
+  return data ? <ExampleData styles={shapeExampleStyles} /> : <></>
+}
 
-export default connect(mapStateToProps)(SectionData)
+export default React.memo(SectionData)

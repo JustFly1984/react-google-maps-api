@@ -1,21 +1,22 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 import ExampleOverlayView from '../examples/example-overlay-view'
 
 import { shapeExampleStyles } from './styles'
 
-const SectionOverlayView = ({ overlayView }) =>
-  overlayView ? <ExampleOverlayView styles={shapeExampleStyles} /> : <></>
-
-SectionOverlayView.propTypes = {
-  overlayView: PropTypes.bool.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'overlayView'])
 }
 
-const mapStateToProps = (state) => ({
-  overlayView: state.getIn(['app', 'overlayView']),
-})
+function SectionOverlayView() {
+  const overlayView = useSelector(selector)
+  return overlayView ? (
+    <ExampleOverlayView styles={shapeExampleStyles} />
+  ) : (
+    <></>
+  )
+}
 
-export default connect(mapStateToProps)(SectionOverlayView)
+export default React.memo(SectionOverlayView)

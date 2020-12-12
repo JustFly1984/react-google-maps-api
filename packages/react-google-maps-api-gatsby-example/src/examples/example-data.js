@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, Data } from '@react-google-maps/api'
 
@@ -95,22 +95,24 @@ const dataOptions = {
   zIndex: 2,
 }
 
-const ExampleData = ({ styles }) => (
-  <div className='map'>
-    <div className='map-container'>
-      <GoogleMap
-        id='data-example'
-        mapContainerStyle={styles.container}
-        zoom={5}
-        center={center}
-        onClick={onClick}
-        onLoad={onMapLoad}
-      >
-        <Data onLoad={onDataLoad} options={dataOptions} />
-      </GoogleMap>
+function ExampleData({ styles }) {
+  return (
+    <div className='map'>
+      <div className='map-container'>
+        <GoogleMap
+          id='data-example'
+          mapContainerStyle={styles.container}
+          zoom={5}
+          center={center}
+          onClick={onClick}
+          onLoad={onMapLoad}
+        >
+          <Data onLoad={onDataLoad} options={dataOptions} />
+        </GoogleMap>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 ExampleData.propTypes = ExampleDataPropTypes
 

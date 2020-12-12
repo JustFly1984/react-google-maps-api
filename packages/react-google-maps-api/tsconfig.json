@@ -1,12 +1,13 @@
 {
   "include": ["src/**/*"],
   "exclude": ["node_modules"],
+  "types": ["googlemaps", "jest", "invariant", "react-dom", "eslint", "estree", "webpack"],
   "compilerOptions": {
     "module": "esnext",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es2015",
     "jsx": "react",
-    "lib": ["dom", "es2017"],
+    "lib": ["dom"],
     "rootDir": "src",
     "strict": true,
     "allowJs": false,

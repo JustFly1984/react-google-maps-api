@@ -1,21 +1,18 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 import ExampleDrawing from '../examples/example-drawing'
 
 import { shapeExampleStyles } from './styles'
 
-const SectionDrawing = ({ drawing }) =>
-  drawing ? <ExampleDrawing styles={shapeExampleStyles} /> : <></>
-
-SectionDrawing.propTypes = {
-  drawing: PropTypes.bool.isRequired,
+function selector(state) {
+  return state.getIn(['app', 'drawing'])
 }
 
-const mapStateToProps = (state) => ({
-  drawing: state.getIn(['app', 'drawing']),
-})
+function SectionDrawing() {
+  const drawing = useSelector(selector)
+  return drawing ? <ExampleDrawing styles={shapeExampleStyles} /> : <></>
+}
 
-export default connect(mapStateToProps)(SectionDrawing)
+export default React.memo(SectionDrawing)

@@ -65,6 +65,7 @@ interface GoogleMapState {
 }
 
 export interface GoogleMapProps {
+  children: React.ReactNode
   id?: string
   mapContainerStyle?: React.CSSProperties
   mapContainerClassName?: string
@@ -128,6 +129,50 @@ export interface GoogleMapProps {
   /** This callback is called when the component unmounts. It is called with the map instance. */
   onUnmount?: (map: google.maps.Map) => void | Promise<void>
 }
+
+// function GoogleMapFunctional({ children, options, id, mapContainerStyle, center, clickableIcons, extraMapTypes, heading, mapContainerClassName, mapTypeId, onBoundsChanged, onCenterChanged, onClick, onDblClick, onDrag, onDragEnd, onDragStart, onHeadingChanged, onIdle, onProjectionChanged, onResize, onTiltChanged, onLoad }: GoogleMapProps): JSX.Element {
+//   const [map, setMap] = React.useState<google.maps.Map | null>(null)
+//   const ref = React.useRef<HTMLDivElement | null>(null)
+
+//   const getInstance = React.useCallback(() => {
+//     if (ref.current === null) {
+//       return null
+//     }
+
+//     return new google.maps.Map(ref.current, options)
+//   }, [options])
+
+//   React.useEffect(() => {
+
+//   }, [])
+
+//   const panTo = React.useCallback((latLng: google.maps.LatLng | google.maps.LatLngLiteral): void => {
+//     const map = getInstance()
+//     if (map) {
+//       map.panTo(latLng)
+//     }
+//   }, [])
+
+//   React.useEffect(() => {
+//     const map = getInstance()
+
+
+
+//   }, [])
+
+//   return (
+//     <div
+//         id={id}
+//         ref={ref}
+//         style={mapContainerStyle}
+//         className={mapContainerClassName}
+//       >
+//         <MapContext.Provider value={map}>
+//           {map !== null ? children : <></>}
+//         </MapContext.Provider>
+//       </div>
+//   )
+// }
 
 export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapState> {
   state: GoogleMapState = {

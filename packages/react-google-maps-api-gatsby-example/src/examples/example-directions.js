@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
@@ -17,7 +17,7 @@ const center = {
   lng: -180,
 }
 
-class ExampleDirections extends Component {
+class ExampleDirections extends React.Component {
   static propTypes = ExampleDirectionsPropTypes
 
   state = {

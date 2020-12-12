@@ -1,45 +1,48 @@
 // eslint-disable-next-line filenames/match-exported
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleData } from '../actions/app'
 
 const id = 'data'
 
-const CheckboxData = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
-    <input
-      id={id}
-      className='custom-control-input'
-      type='checkbox'
-      onChange={onChange}
-      value={value}
-    />
-
-    <label className='custom-control-label' htmlFor={id}>
-      Data
-    </label>
-  </div>
-)
-
-CheckboxData.propTypes = {
-  value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
+function selector(state) {
+  return {
+    value: state.getIn(['app', 'data']),
+  }
 }
 
-const mapStateToProps = (state) => ({
-  value: state.getIn(['app', 'data']),
-})
+function CheckboxData() {
+  const dispatch = useDispatch()
 
-const mapDispatchToProps = (dispatch) => ({
-  onChange: ({ target: { checked } }) => {
-    dispatch(
-      toggleData({
-        data: checked,
-      })
-    )
-  },
-})
+  const onChange = React.useCallback(
+    ({ target: { checked } }) => {
+      dispatch(
+        toggleData({
+          data: checked,
+        })
+      )
+    },
+    [dispatch]
+  )
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckboxData)
+  const value = useSelector(selector)
+
+  return (
+    <div className='custom-control custom-checkbox'>
+      <input
+        id={id}
+        className='custom-control-input'
+        type='checkbox'
+        onChange={onChange}
+        value={value}
+      />
+
+      <label className='custom-control-label' htmlFor={id}>
+        Data
+      </label>
+    </div>
+  )
+}
+
+export default React.memo(CheckboxData)
