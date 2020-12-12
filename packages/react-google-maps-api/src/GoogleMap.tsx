@@ -65,7 +65,7 @@ interface GoogleMapState {
 }
 
 export interface GoogleMapProps {
-  children: React.ReactNode
+  children?: React.ReactNode
   id?: string
   mapContainerStyle?: React.CSSProperties
   mapContainerClassName?: string
