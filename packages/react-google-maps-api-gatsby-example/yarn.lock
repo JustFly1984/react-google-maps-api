@@ -1832,10 +1832,10 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@react-google-maps/api@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.0.1.tgz#4949d9fe35939037487098a608592a4d59f9301b"
-  integrity sha512-EFgjPYhO6D98/d8r+bHYEJaYKmx/phUIqKG7ThwHpKiMpgSmfsvzCCLBd9C8qjnS1r7gknrNE8LFlGg4Ur76kg==
+"@react-google-maps/api@2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.0.2.tgz#021c49ab86c22c172289d1cc9a4c3db7ad8824c9"
+  integrity sha512-6TkU+Vj3ikCmBmzq95BNlNBJSw4lIgodQEfSR3+GJaVdaehZHSEQLIr7NwdVKU8VPrIbRWSr3nDGCjI8KpSMow==
   dependencies:
     "@googlemaps/js-api-loader" "1.11.1"
     "@react-google-maps/infobox" "2.0.1"
