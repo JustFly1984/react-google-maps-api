@@ -19,8 +19,9 @@ module.exports = {
     'react',
     'jsx-a11y',
     'react-perf',
-    'prettier',
     'react-functional-set-state',
+    'compat',
+    'prettier',
   ],
   extends: [
     // 'eslint:recommended',
@@ -39,10 +40,15 @@ module.exports = {
     'prettier/standard',
   ],
   rules: {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     'no-unused-vars': 'off',
     'no-useless-return': 'off',
     'node/no-missing-import': 'off',
-    'node/no-unsupported-features/es-syntax': 'off',
+    'node/no-unsupported-features/es-syntax': ["error", {
+      "version": ">=14.13.1",
+      "ignores": []
+  }],
     '@typescript-eslint/no-var-requires': 'off',
     "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_", argsIgnorePattern: "^_" }],
     "@typescript-eslint/no-use-before-define": ["error", { functions: false, classes: false }],
