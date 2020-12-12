@@ -4719,10 +4719,10 @@ eslint-plugin-security-node@1.0.12:
   resolved "https://registry.yarnpkg.com/eslint-plugin-security-node/-/eslint-plugin-security-node-1.0.12.tgz#b2573cdee01e9b66470a61b7a2377f197ecf1539"
   integrity sha512-jd0iWPrbqIbu/P+0YKDz2Aqyqc8Y6jLFO66N2b/vjRQw8PSR/Jc3ef2ioPN+O7FAD1cqjImWnHrkoNW10hLzaA==
 
-eslint-plugin-standard@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-standard/-/eslint-plugin-standard-4.0.1.tgz#ff0519f7ffaff114f76d1bd7c3996eef0f6e20b4"
-  integrity sha512-v/KBnfyaOMPmZc/dmc6ozOdWqekGp7bBGq4jLAecEfPGmfKiWS4sA8sC0LqiV9w5qmXAtXVn4M3p1jSyhY85SQ==
+eslint-plugin-standard@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-standard/-/eslint-plugin-standard-5.0.0.tgz#c43f6925d669f177db46f095ea30be95476b1ee4"
+  integrity sha512-eSIXPc9wBM4BrniMzJRBm2uoVuXz2EPa+NXPk2+itrVt+r5SbKFERx/IgrK/HmfjddyKVz2f+j+7gBRvu19xLg==
 
 eslint-plugin-you-dont-need-lodash-underscore@6.10.0:
   version "6.10.0"
