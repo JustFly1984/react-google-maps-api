@@ -3083,10 +3083,10 @@ babel-plugin-macros@^2.8.0:
     cosmiconfig "^6.0.0"
     resolve "^1.12.0"
 
-babel-plugin-remove-graphql-queries@^2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-remove-graphql-queries/-/babel-plugin-remove-graphql-queries-2.12.0.tgz#8ecf08ce9a90b81ec54aeb69c8bb1fbacdbc92c0"
-  integrity sha512-oF1XC0+FfeBBE8FbcLD0Rf4EZUIrUEI2comT+DaX27U34tKByuCPQSkLKgcirCd/h5kfJd9LLIr1Sjv3dU4NGw==
+babel-plugin-remove-graphql-queries@^2.12.0, babel-plugin-remove-graphql-queries@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-remove-graphql-queries/-/babel-plugin-remove-graphql-queries-2.13.0.tgz#7e62cb758b247c635565732c4778fc8581cb48b6"
+  integrity sha512-6sL3JVKDa3OjXtmBYrr467BnQeUjNI7p2dy+aBwbB8WqChHLJOFh5+lxfzC0z/7hBehqmWpBV7xHfZdIP1lAzQ==
 
 babel-plugin-transform-react-remove-prop-types@0.4.24, babel-plugin-transform-react-remove-prop-types@^0.4.24:
   version "0.4.24"
@@ -6866,10 +6866,10 @@ gatsby-plugin-sitemap@2.8.0:
     pify "^3.0.0"
     sitemap "^1.13.0"
 
-gatsby-plugin-typescript@2.8.0, gatsby-plugin-typescript@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-typescript/-/gatsby-plugin-typescript-2.8.0.tgz#898d10bf7dcbd3b9dd7ad62dd2058082774581f8"
-  integrity sha512-Xe39rI83fPHu0rjyexQglEuasKYelM0Sklau9pj7gAFOzYYtuALChqNYADcM/D9Ot18T0bFlhuN/nxREpLE+eQ==
+gatsby-plugin-typescript@2.9.0, gatsby-plugin-typescript@^2.8.0:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-typescript/-/gatsby-plugin-typescript-2.9.0.tgz#6ad24dfdd1bc28e507a7762aba4ec6da36da6cd4"
+  integrity sha512-PoyvCt1E2y0TnGH3KIadPeiPB3691iXPYW5S8o0nKam3PcVo1UXcyTK5CRFUgVpsLsfzFcI+2HJ+TDrANDTWNw==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/plugin-proposal-nullish-coalescing-operator" "^7.12.1"
@@ -6877,7 +6877,7 @@ gatsby-plugin-typescript@2.8.0, gatsby-plugin-typescript@^2.8.0:
     "@babel/plugin-proposal-optional-chaining" "^7.12.1"
     "@babel/preset-typescript" "^7.12.1"
     "@babel/runtime" "^7.12.5"
-    babel-plugin-remove-graphql-queries "^2.12.0"
+    babel-plugin-remove-graphql-queries "^2.13.0"
 
 gatsby-plugin-utils@^0.5.0:
   version "0.5.0"
