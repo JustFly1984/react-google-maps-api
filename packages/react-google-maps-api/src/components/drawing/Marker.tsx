@@ -80,10 +80,6 @@ const updaterMap = {
   },
 }
 
-interface MarkerState {
-  marker: google.maps.Marker | null
-}
-
 export interface MarkerProps {
   options?: google.maps.MarkerOptions
   /** Start an animation. Any ongoing animation will be cancelled. Currently supported animations are: BOUNCE, DROP. Passing in null will cause any animation to stop. */
@@ -117,7 +113,7 @@ export interface MarkerProps {
   /** Clusters are redrawn when a Marker is added unless noClustererRedraw? is set to true. */
   noClustererRedraw?: boolean
   /** This event is fired when the marker icon was clicked. */
-  onClick?: (e: google.maps.MouseEvent) => void
+  onClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the marker's clickable property changes. */
   onClickableChanged?: () => void
   /** This event is fired when the marker's cursor property changes. */
@@ -125,31 +121,31 @@ export interface MarkerProps {
   /** This event is fired when the marker's animation property changes. */
   onAnimationChanged?: () => void
   /** This event is fired when the marker icon was double clicked. */
-  onDblClick?: (e: google.maps.MouseEvent) => void
+  onDblClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is repeatedly fired while the user drags the marker. */
-  onDrag?: (e: google.maps.MouseEvent) => void
+  onDrag?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the user stops dragging the marker. */
-  onDragEnd?: (e: google.maps.MouseEvent) => void
+  onDragEnd?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the marker's draggable property changes. */
   onDraggableChanged?: () => void
   /** This event is fired when the user starts dragging the marker. */
-  onDragStart?: (e: google.maps.MouseEvent) => void
+  onDragStart?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the marker's flat property changes. */
   onFlatChanged?: () => void
   /** This event is fired when the marker icon property changes. */
   onIconChanged?: () => void
   /** This event is fired for a mousedown on the marker. */
-  onMouseDown?: (e: google.maps.MouseEvent) => void
+  onMouseDown?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the mouse leaves the area of the marker icon. */
-  onMouseOut?: (e: google.maps.MouseEvent) => void
+  onMouseOut?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the mouse enters the area of the marker icon. */
-  onMouseOver?: (e: google.maps.MouseEvent) => void
+  onMouseOver?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired for a mouseup on the marker. */
-  onMouseUp?: (e: google.maps.MouseEvent) => void
+  onMouseUp?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the marker position property changes. */
   onPositionChanged?: () => void
   /** This event is fired for a rightclick on the marker. */
-  onRightClick?: (e: google.maps.MouseEvent) => void
+  onRightClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the marker's shape property changes. */
   onShapeChanged?: () => void
   /** This event is fired when the marker title property changes. */
@@ -164,20 +160,11 @@ export interface MarkerProps {
   onUnmount?: (marker: google.maps.Marker) => void
 }
 
-export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
+export class Marker extends React.PureComponent<MarkerProps> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
-
-  state: MarkerState = {
-    marker: null,
-  }
-
-  setMarkerCallback = (): void => {
-    if (this.state.marker !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.marker)
-    }
-  }
+  marker: google.maps.Marker | undefined
 
   componentDidMount(): void {
     const markerOptions = {
@@ -186,17 +173,14 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
       position: this.props.position,
     }
 
-    const marker = new google.maps.Marker(markerOptions)
+    // Unfortunately we can't just do this in the contstructor, because the
+    // `MapContext` might not be filled in yet.
+    this.marker = new google.maps.Marker(markerOptions)
 
     if (this.props.clusterer) {
-      this.props.clusterer.addMarker(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        marker,
-        !!this.props.noClustererRedraw
-      )
+      this.props.clusterer.addMarker(this.marker, !!this.props.noClustererRedraw)
     } else {
-      marker.setMap(this.context)
+      this.marker.setMap(this.context)
     }
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -204,18 +188,16 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
       eventMap,
       prevProps: {},
       nextProps: this.props,
-      instance: marker,
+      instance: this.marker,
     })
 
-    this.setState(function setMarker() {
-      return {
-        marker,
-      }
-    }, this.setMarkerCallback)
+    if (this.props.onLoad) {
+      this.props.onLoad(this.marker)
+    }
   }
 
   componentDidUpdate(prevProps: MarkerProps): void {
-    if (this.state.marker !== null) {
+    if (this.marker) {
       unregisterEvents(this.registeredEvents)
 
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -223,42 +205,37 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
         eventMap,
         prevProps,
         nextProps: this.props,
-        instance: this.state.marker,
+        instance: this.marker,
       })
     }
   }
 
   componentWillUnmount(): void {
-    if (this.state.marker !== null) {
+    if (this.marker) {
       if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.marker)
+        this.props.onUnmount(this.marker)
       }
 
       unregisterEvents(this.registeredEvents)
 
       if (this.props.clusterer) {
-        this.props.clusterer.removeMarker(
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-          // @ts-ignore
-          this.state.marker,
-          !!this.props.noClustererRedraw
-        )
+        this.props.clusterer.removeMarker(this.marker, !!this.props.noClustererRedraw)
       } else {
-        this.state.marker && this.state.marker.setMap(null)
+        this.marker && this.marker.setMap(null)
       }
     }
   }
 
   render(): React.ReactNode {
     let children: ReactNode | null = null
-    if(this.props.children) {
+    if (this.props.children) {
       children = React.Children.map(this.props.children, child => {
-        if(!React.isValidElement<HasMarkerAnchor>(child)) {
-          return child;
+        if (!React.isValidElement<HasMarkerAnchor>(child)) {
+          return child
         }
 
-        let elementChild: React.ReactElement<HasMarkerAnchor> = child;
-        return React.cloneElement(elementChild, {anchor: this.state.marker});
+        let elementChild: React.ReactElement<HasMarkerAnchor> = child
+        return React.cloneElement(elementChild, { anchor: this.marker })
       })
     }
     return children || null

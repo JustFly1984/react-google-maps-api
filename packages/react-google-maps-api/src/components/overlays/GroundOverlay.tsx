@@ -27,9 +27,9 @@ export interface GroundOverlayProps {
   /** The opacity of the overlay, expressed as a number between 0 and 1. Optional. Defaults to 1. */
   opacity?: number
   /** This event is fired when the DOM dblclick event is fired on the GroundOverlay. */
-  onDblClick?: (e: google.maps.MouseEvent) => void
+  onDblClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the DOM click event is fired on the GroundOverlay. */
-  onClick?: (e: google.maps.MouseEvent) => void
+  onClick?: (e: google.maps.MapMouseEvent) => void
   /** The url of the projected image */
   url: string
   /** The bounds that the image will be scaled to fit */
