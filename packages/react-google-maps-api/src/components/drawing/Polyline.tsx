@@ -63,27 +63,27 @@ export interface PolylineProps {
     | google.maps.LatLng[]
     | google.maps.LatLngLiteral[]
   /** This event is fired when the DOM dblclick event is fired on the Polyline. */
-  onDblClick?: (e: google.maps.MouseEvent) => void
+  onDblClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the user stops dragging the polyline. */
-  onDragEnd?: (e: google.maps.MouseEvent) => void
+  onDragEnd?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the user starts dragging the polyline. */
-  onDragStart?: (e: google.maps.MouseEvent) => void
+  onDragStart?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the DOM mousedown event is fired on the Polyline. */
-  onMouseDown?: (e: google.maps.MouseEvent) => void
+  onMouseDown?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the DOM mousemove event is fired on the Polyline. */
-  onMouseMove?: (e: google.maps.MouseEvent) => void
+  onMouseMove?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired on Polyline mouseout. */
-  onMouseOut?: (e: google.maps.MouseEvent) => void
+  onMouseOut?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired on Polyline mouseover. */
-  onMouseOver?: (e: google.maps.MouseEvent) => void
+  onMouseOver?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the DOM mouseup event is fired on the Polyline. */
-  onMouseUp?: (e: google.maps.MouseEvent) => void
+  onMouseUp?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the Polyline is right-clicked on. */
-  onRightClick?: (e: google.maps.MouseEvent) => void
+  onRightClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the DOM click event is fired on the Polyline. */
-  onClick?: (e: google.maps.MouseEvent) => void
+  onClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is repeatedly fired while the user drags the polyline. */
-  onDrag?: (e: google.maps.MouseEvent) => void
+  onDrag?: (e: google.maps.MapMouseEvent) => void
   /** This callback is called when the polyline instance has loaded. It is called with the polyline instance. */
   onLoad?: (polyline: google.maps.Polyline) => void
   /** This callback is called when the component unmounts. It is called with the polyline instance. */

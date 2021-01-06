@@ -32,7 +32,7 @@ export interface KmlLayerProps {
   /** The z-index of the layer. */
   zIndex?: number
   /** This event is fired when a feature in the layer is clicked. */
-  onClick?: (e: google.maps.MouseEvent) => void
+  onClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the KML layers default viewport has changed. */
   onDefaultViewportChanged?: () => void
   /** This event is fired when the KML layer has finished loading. At this point it is safe to read the status property to determine if the layer loaded successfully. */

@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.1.0 Updated dependencies, types @types/googlemaps@3.43.0, merged fix for correct marker removal
+
 ## 2.0.1 React 17 support, Typescript 4.1.2
 
 ## 1.14.0 update webpack to 5.2.0, React 17 support, @types/googlemaps@3.40.1, typescript@4.1.0-beta

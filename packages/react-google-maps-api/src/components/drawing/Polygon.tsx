@@ -86,27 +86,27 @@ export interface PolygonProps {
     | google.maps.LatLngLiteral[]
     | google.maps.LatLngLiteral[][]
   /** This event is fired when the DOM dblclick event is fired on the Polygon. */
-  onDblClick?: (e: google.maps.MouseEvent) => void
+  onDblClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the user stops dragging the polygon. */
-  onDragEnd?: (e: google.maps.MouseEvent) => void
+  onDragEnd?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the user starts dragging the polygon. */
-  onDragStart?: (e: google.maps.MouseEvent) => void
+  onDragStart?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the DOM mousedown event is fired on the Polygon. */
-  onMouseDown?: (e: google.maps.MouseEvent) => void
+  onMouseDown?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the DOM mousemove event is fired on the Polygon. */
-  onMouseMove?: (e: google.maps.MouseEvent) => void
+  onMouseMove?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired on Polygon mouseout. */
-  onMouseOut?: (e: google.maps.MouseEvent) => void
+  onMouseOut?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired on Polygon mouseover. */
-  onMouseOver?: (e: google.maps.MouseEvent) => void
+  onMouseOver?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the DOM mouseup event is fired on the Polygon. */
-  onMouseUp?: (e: google.maps.MouseEvent) => void
+  onMouseUp?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the Polygon is right-clicked on. */
-  onRightClick?: (e: google.maps.MouseEvent) => void
+  onRightClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the DOM click event is fired on the Polygon. */
-  onClick?: (e: google.maps.MouseEvent) => void
+  onClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is repeatedly fired while the user drags the polygon. */
-  onDrag?: (e: google.maps.MouseEvent) => void
+  onDrag?: (e: google.maps.MapMouseEvent) => void
   /** This callback is called when the polygon instance has loaded. It is called with the polygon instance. */
   onLoad?: (polygon: google.maps.Polygon) => void
   /** This callback is called when the component unmounts. It is called with the polygon instance. */

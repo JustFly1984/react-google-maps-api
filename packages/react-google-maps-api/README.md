@@ -34,7 +34,7 @@ yarn add @react-google-maps/api
 
 ```jsx
 import React from 'react'
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '400px',
@@ -47,6 +47,11 @@ const center = {
 };
 
 function MyComponent() {
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: "YOUR_API_KEY"
+  })
+
   const [map, setMap] = React.useState(null)
 
   const onLoad = React.useCallback(function callback(map) {
@@ -59,10 +64,7 @@ function MyComponent() {
     setMap(null)
   }, [])
 
-  return (
-    <LoadScript
-      googleMapsApiKey="YOUR_API_KEY"
-    >
+  return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -73,8 +75,7 @@ function MyComponent() {
         { /* Child components, such as markers, info windows, etc. */ }
         <></>
       </GoogleMap>
-    </LoadScript>
-  )
+  ) : <></>
 }
 
 export default React.memo(MyComponent)
@@ -87,7 +88,7 @@ if you need an access to map object, instead of `ref` prop, you need to use `onL
 Before:
 
 ```jsx
-// before - don't do that!
+// before - don't do this!
 <GoogleMap
   ref={map => {
     const bounds = new window.google.maps.LatLngBounds();

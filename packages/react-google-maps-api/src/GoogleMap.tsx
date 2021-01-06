@@ -87,9 +87,9 @@ export interface GoogleMapProps {
   /** The initial Map zoom level. Required. Valid values: Integers between zero, and up to the supported maximum zoom level. */
   zoom?: number
   /** This event is fired when the user clicks on the map. An ApiMouseEvent with properties for the clicked location is returned unless a place icon was clicked, in which case an IconMouseEvent with a placeId is returned. IconMouseEvent and ApiMouseEvent are identical, except that IconMouseEvent has the placeId field. The event can always be treated as an ApiMouseEvent when the placeId is not important. The click event is not fired if a Marker or InfoWindow was clicked. */
-  onClick?: (e: google.maps.MouseEvent) => void
+  onClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the user double-clicks on the map. Note that the click event will also fire, right before this one. */
-  onDblClick?: (e: google.maps.MouseEvent) => void
+  onDblClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is repeatedly fired while the user drags the map. */
   onDrag?: () => void
   /** This event is fired when the user stops dragging the map. */
@@ -99,13 +99,13 @@ export interface GoogleMapProps {
   /** This event is fired when the mapTypeId property changes. */
   onMapTypeIdChanged?: () => void
   /** This event is fired whenever the user's mouse moves over the map container. */
-  onMouseMove?: (e: google.maps.MouseEvent) => void
+  onMouseMove?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the user's mouse exits the map container. */
-  onMouseOut?: (e: google.maps.MouseEvent) => void
+  onMouseOut?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the user's mouse enters the map container. */
-  onMouseOver?: (e: google.maps.MouseEvent) => void
+  onMouseOver?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the DOM contextmenu event is fired on the map container. */
-  onRightClick?: (e: google.maps.MouseEvent) => void
+  onRightClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the visible tiles have finished loading. */
   onTilesLoaded?: () => void
   /** This event is fired when the viewport bounds have changed. */

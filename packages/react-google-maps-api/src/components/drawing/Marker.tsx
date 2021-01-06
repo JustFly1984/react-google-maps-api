@@ -113,7 +113,7 @@ export interface MarkerProps {
   /** Clusters are redrawn when a Marker is added unless noClustererRedraw? is set to true. */
   noClustererRedraw?: boolean
   /** This event is fired when the marker icon was clicked. */
-  onClick?: (e: google.maps.MouseEvent) => void
+  onClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the marker's clickable property changes. */
   onClickableChanged?: () => void
   /** This event is fired when the marker's cursor property changes. */
@@ -121,31 +121,31 @@ export interface MarkerProps {
   /** This event is fired when the marker's animation property changes. */
   onAnimationChanged?: () => void
   /** This event is fired when the marker icon was double clicked. */
-  onDblClick?: (e: google.maps.MouseEvent) => void
+  onDblClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is repeatedly fired while the user drags the marker. */
-  onDrag?: (e: google.maps.MouseEvent) => void
+  onDrag?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the user stops dragging the marker. */
-  onDragEnd?: (e: google.maps.MouseEvent) => void
+  onDragEnd?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the marker's draggable property changes. */
   onDraggableChanged?: () => void
   /** This event is fired when the user starts dragging the marker. */
-  onDragStart?: (e: google.maps.MouseEvent) => void
+  onDragStart?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the marker's flat property changes. */
   onFlatChanged?: () => void
   /** This event is fired when the marker icon property changes. */
   onIconChanged?: () => void
   /** This event is fired for a mousedown on the marker. */
-  onMouseDown?: (e: google.maps.MouseEvent) => void
+  onMouseDown?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the mouse leaves the area of the marker icon. */
-  onMouseOut?: (e: google.maps.MouseEvent) => void
+  onMouseOut?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the mouse enters the area of the marker icon. */
-  onMouseOver?: (e: google.maps.MouseEvent) => void
+  onMouseOver?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired for a mouseup on the marker. */
-  onMouseUp?: (e: google.maps.MouseEvent) => void
+  onMouseUp?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the marker position property changes. */
   onPositionChanged?: () => void
   /** This event is fired for a rightclick on the marker. */
-  onRightClick?: (e: google.maps.MouseEvent) => void
+  onRightClick?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the marker's shape property changes. */
   onShapeChanged?: () => void
   /** This event is fired when the marker title property changes. */

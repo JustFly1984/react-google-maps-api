@@ -62,7 +62,7 @@ interface StreetViewPanoramaState {
 export interface StreetViewPanoramaProps {
   options?: google.maps.StreetViewPanoramaOptions
   /** This event is fired when the close button is clicked. */
-  onCloseclick?: (event: google.maps.MouseEvent) => void
+  onCloseclick?: (event: google.maps.MapMouseEvent) => void
   /** This event is fired when the panorama's pano id changes. The pano may change as the user navigates through the panorama or the position is manually set. Note that not all position changes trigger a pano_changed. */
   onPanoChanged?: () => void
   /** This event is fired when the panorama's position changes. The position changes as the user navigates through the panorama or the position is set manually. */
