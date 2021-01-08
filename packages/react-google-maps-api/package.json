@@ -102,7 +102,7 @@
     "react-dom": "^16.6.3 || ^17.0.0"
   },
   "devDependencies": {
-    "@testing-library/react": "11.2.2",
+    "@testing-library/react": "11.2.3",
     "@types/googlemaps": "3.43.0",
     "@types/invariant": "2.2.34",
     "@types/jest": "26.0.19",
