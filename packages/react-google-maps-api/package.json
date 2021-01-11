@@ -105,7 +105,7 @@
     "@testing-library/react": "11.2.2",
     "@types/googlemaps": "3.43.0",
     "@types/invariant": "2.2.34",
-    "@types/jest": "26.0.19",
+    "@types/jest": "26.0.20",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
     "@types/webpack": "4.41.25",
