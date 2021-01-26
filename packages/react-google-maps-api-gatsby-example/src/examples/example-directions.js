@@ -17,80 +17,68 @@ const center = {
   lng: -180,
 }
 
-class ExampleDirections extends React.Component {
-  static propTypes = ExampleDirectionsPropTypes
+function ExampleDirections({ styles }) {
+  const [response, setResponse] = React.useState(null)
+  const [travelMode, setTravelMode] = React.useState('DRIVING')
+  const [origin, setOrigin] = React.useState('')
+  const [destination, setDestination] = React.useState('')
+  const originRef = React.useRef()
+  const destinationRef = React.useRef()
 
-  state = {
-    response: null,
-    travelMode: 'DRIVING',
-    origin: '',
-    destination: '',
-  }
+  const directionsCallback = React.useCallback((res) => {
+    console.log(res)
 
-  directionsCallback = (response) => {
-    console.log(response)
-
-    if (response !== null) {
-      if (response.status === 'OK') {
-        this.setState(() => ({
-          response,
-        }))
+    if (res !== null) {
+      if (res.status === 'OK') {
+        setResponse(res)
       } else {
-        console.log('response: ', response)
+        console.log('response: ', res)
       }
     }
-  }
+  }, [])
 
-  checkDriving = ({ target: { checked } }) => {
-    checked &&
-      this.setState(() => ({
-        travelMode: 'DRIVING',
-      }))
-  }
+  const checkDriving = React.useCallback(({ target: { checked } }) => {
+    checked && setTravelMode('DRIVING')
+  }, [])
 
-  checkBicycling = ({ target: { checked } }) => {
-    checked &&
-      this.setState(() => ({
-        travelMode: 'BICYCLING',
-      }))
-  }
+  const checkBicycling = React.useCallback(({ target: { checked } }) => {
+    checked && setTravelMode('BICYCLING')
+  }, [])
 
-  checkTransit = ({ target: { checked } }) => {
-    checked &&
-      this.setState(() => ({
-        travelMode: 'TRANSIT',
-      }))
-  }
+  const checkTransit = React.useCallback(({ target: { checked } }) => {
+    checked && setTravelMode('TRANSIT')
+  }, [])
 
-  checkWalking = ({ target: { checked } }) => {
-    checked &&
-      this.setState(() => ({
-        travelMode: 'WALKING',
-      }))
-  }
+  const checkWalking = React.useCallback(({ target: { checked } }) => {
+    checked && setTravelMode('WALKING')
+  }, [])
 
-  getOrigin = (ref) => {
-    this.origin = ref
-  }
-
-  getDestination = (ref) => {
-    this.destination = ref
-  }
-
-  onClick = () => {
-    if (this.origin.value !== '' && this.destination.value !== '') {
-      this.setState(() => ({
-        origin: this.origin.value,
-        destination: this.destination.value,
-      }))
+  const onClick = React.useCallback(() => {
+    if (originRef.current.value !== '' && destinationRef.current.value !== '') {
+      setOrigin(originRef.current.value)
+      setDestination(destinationRef.current.value)
     }
-  }
+  }, [])
 
-  onMapClick = (...args) => {
+  const onMapClick = React.useCallback((...args) => {
     console.log('onClick args: ', args)
-  }
+  }, [])
 
-  render = () => (
+  const directionsServiceOptions = React.useMemo(() => {
+    return {
+      destination: destination,
+      origin: origin,
+      travelMode: travelMode,
+    }
+  }, [])
+
+  const directionsRendererOptions = React.useMemo(() => {
+    return {
+      directions: response,
+    }
+  }, [])
+
+  return (
     <div className='map'>
       <div className='map-settings'>
         <hr className='mt-0 mb-3' />
@@ -104,7 +92,7 @@ class ExampleDirections extends React.Component {
                 id='ORIGIN'
                 className='form-control'
                 type='text'
-                ref={this.getOrigin}
+                ref={originRef}
               />
             </div>
           </div>
@@ -117,7 +105,7 @@ class ExampleDirections extends React.Component {
                 id='DESTINATION'
                 className='form-control'
                 type='text'
-                ref={this.getDestination}
+                ref={destinationRef}
               />
             </div>
           </div>
@@ -130,8 +118,8 @@ class ExampleDirections extends React.Component {
               className='custom-control-input'
               name='travelMode'
               type='radio'
-              checked={this.state.travelMode === 'DRIVING'}
-              onChange={this.checkDriving}
+              checked={travelMode === 'DRIVING'}
+              onChange={checkDriving}
             />
             <label className='custom-control-label' htmlFor='DRIVING'>
               Driving
@@ -144,8 +132,8 @@ class ExampleDirections extends React.Component {
               className='custom-control-input'
               name='travelMode'
               type='radio'
-              checked={this.state.travelMode === 'BICYCLING'}
-              onChange={this.checkBicycling}
+              checked={travelMode === 'BICYCLING'}
+              onChange={checkBicycling}
             />
             <label className='custom-control-label' htmlFor='BICYCLING'>
               Bicycling
@@ -158,8 +146,8 @@ class ExampleDirections extends React.Component {
               className='custom-control-input'
               name='travelMode'
               type='radio'
-              checked={this.state.travelMode === 'TRANSIT'}
-              onChange={this.checkTransit}
+              checked={travelMode === 'TRANSIT'}
+              onChange={checkTransit}
             />
             <label className='custom-control-label' htmlFor='TRANSIT'>
               Transit
@@ -172,8 +160,8 @@ class ExampleDirections extends React.Component {
               className='custom-control-input'
               name='travelMode'
               type='radio'
-              checked={this.state.travelMode === 'WALKING'}
-              onChange={this.checkWalking}
+              checked={travelMode === 'WALKING'}
+              onChange={checkWalking}
             />
             <label className='custom-control-label' htmlFor='WALKING'>
               Walking
@@ -181,11 +169,7 @@ class ExampleDirections extends React.Component {
           </div>
         </div>
 
-        <button
-          className='btn btn-primary'
-          type='button'
-          onClick={this.onClick}
-        >
+        <button className='btn btn-primary' type='button' onClick={onClick}>
           Build Route
         </button>
       </div>
@@ -193,35 +177,27 @@ class ExampleDirections extends React.Component {
       <div className='map-container'>
         <GoogleMap
           id='direction-example'
-          mapContainerStyle={this.props.styles.container}
+          mapContainerStyle={styles.container}
           zoom={2}
           center={center}
-          onClick={this.onMapClick}
+          onClick={onMapClick}
         >
-          {this.state.destination !== '' && this.state.origin !== '' && (
+          {destination !== '' && origin !== '' && (
             <DirectionsService
-              // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
-              options={{
-                destination: this.state.destination,
-                origin: this.state.origin,
-                travelMode: this.state.travelMode,
-              }}
-              callback={this.directionsCallback}
+              options={directionsServiceOptions}
+              callback={directionsCallback}
             />
           )}
 
-          {this.state.response !== null && (
-            <DirectionsRenderer
-              // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
-              options={{
-                directions: this.state.response,
-              }}
-            />
+          {response !== null && (
+            <DirectionsRenderer options={directionsRendererOptions} />
           )}
         </GoogleMap>
       </div>
     </div>
   )
 }
+
+ExampleDirections.propTypes = ExampleDirectionsPropTypes
 
 export default React.memo(ExampleDirections)

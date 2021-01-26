@@ -38,6 +38,15 @@ Main.propTypes = {
 }
 
 function Layout({ children }) {
+  const render = React.useCallback(
+    (data) => {
+      return (
+        <MainMemo title={data.site.siteMetadata.title}>{children}</MainMemo>
+      )
+    },
+    [children]
+  )
+
   return (
     <StaticQuery
       query={graphql`
@@ -49,10 +58,7 @@ function Layout({ children }) {
           }
         }
       `}
-      // eslint-disable-next-line react-perf/jsx-no-new-function-as-prop
-      render={(data) => (
-        <MainMemo title={data.site.siteMetadata.title}>{children}</MainMemo>
-      )}
+      render={render}
     />
   )
 }

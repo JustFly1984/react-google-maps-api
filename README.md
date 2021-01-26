@@ -8,7 +8,6 @@
 [![npm downloads](https://img.shields.io/npm/dt/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/react-google-maps)
-[![DeepScan grade](https://deepscan.io/api/teams/6449/projects/8455/branches/101268/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=6449&pid=8455&bid=101268)
 
 </div>
 

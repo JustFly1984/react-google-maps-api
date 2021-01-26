@@ -13,20 +13,22 @@ const ExampleDrawingPropTypes = {
   }).isRequired,
 }
 
-const ExampleDrawing = ({ styles }) => (
-  <div className='map'>
-    <div className='map-container'>
-      <GoogleMap
-        id='drawing-example'
-        mapContainerStyle={styles.container}
-        zoom={2}
-        center={center}
-      >
-        <DrawingManager />
-      </GoogleMap>
+function ExampleDrawing({ styles }) {
+  return (
+    <div className='map'>
+      <div className='map-container'>
+        <GoogleMap
+          id='drawing-example'
+          mapContainerStyle={styles.container}
+          zoom={2}
+          center={center}
+        >
+          <DrawingManager />
+        </GoogleMap>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 ExampleDrawing.propTypes = ExampleDrawingPropTypes
 

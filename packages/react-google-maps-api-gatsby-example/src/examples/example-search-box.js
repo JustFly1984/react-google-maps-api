@@ -33,27 +33,29 @@ const onClick = (...args) => {
   console.log('onClick args: ', args)
 }
 
-const ExampleSearchBox = ({ styles }) => (
-  <div className='map'>
-    <div className='map-container'>
-      <GoogleMap
-        id='search-box-example'
-        mapContainerStyle={styles.container}
-        zoom={2}
-        center={center}
-        onClick={onClick}
-      >
-        <StandaloneSearchBox>
-          <input
-            type='text'
-            placeholder='Customized your placeholder'
-            style={inputStyle}
-          />
-        </StandaloneSearchBox>
-      </GoogleMap>
+function ExampleSearchBox({ styles }) {
+  return (
+    <div className='map'>
+      <div className='map-container'>
+        <GoogleMap
+          id='search-box-example'
+          mapContainerStyle={styles.container}
+          zoom={2}
+          center={center}
+          onClick={onClick}
+        >
+          <StandaloneSearchBox>
+            <input
+              type='text'
+              placeholder='Customized your placeholder'
+              style={inputStyle}
+            />
+          </StandaloneSearchBox>
+        </GoogleMap>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 ExampleSearchBox.propTypes = ExampleSearchBoxPropTypes
 

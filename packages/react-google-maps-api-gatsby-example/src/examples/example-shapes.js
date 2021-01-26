@@ -133,120 +133,114 @@ const infoWindowStyle = {
   padding: 15,
 }
 
-class ExampleShapes extends React.Component {
-  static propTypes = ExampleShapesPropTypes
+function ExampleShapes({ styles }) {
+  const [polylineVisible, setPolylineVisible] = React.useState(true)
+  const [polylineOptions, setPolylineOptions] = React.useState(
+    JSON.stringify(POLYLINE_OPTIONS)
+  )
 
-  state = {
-    polylineVisible: true,
-    polylineOptions: JSON.stringify(POLYLINE_OPTIONS),
-  }
+  const onCheckboxChange = React.useCallback(() => {
+    setPolylineVisible((bool) => !bool)
+  }, [])
 
-  onCheckboxChange = () => {
-    this.setState((prevState) => ({
-      polylineVisible: !prevState.polylineVisible,
-    }))
-  }
+  const onTextAreaChange = React.useCallback(({ target: { value } }) => {
+    setPolylineOptions(value)
+  }, [])
 
-  onTextAreaChange = ({ target: { value } }) => {
-    this.setState(() => ({
-      polylineOptions: value,
-    }))
-  }
-
-  onClick = () => {
+  const onClick = React.useCallback(() => {
     console.info('I have been clicked!')
-  }
+  }, [])
 
-  render = () => {
-    let polylineOptions
-
+  const po = React.useMemo(() => {
     try {
-      polylineOptions = JSON.parse(this.state.polylineOptions)
+      return JSON.parse(polylineOptions)
     } catch (e) {
-      polylineOptions = POLYLINE_OPTIONS
+      return POLYLINE_OPTIONS
     }
+  }, [polylineOptions])
 
-    return (
-      <div className='map'>
-        <div className='map-settings'>
-          <hr className='mt-0 mb-3' />
+  return (
+    <div className='map'>
+      <div className='map-settings'>
+        <hr className='mt-0 mb-3' />
 
-          <div className='custom-control custom-checkbox mb-3'>
-            <input
-              id='show-polyline-checkbox'
-              className='custom-control-input'
-              type='checkbox'
-              checked={this.state.polylineVisible}
-              onChange={this.onCheckboxChange}
-            />
-            <label
-              className='custom-control-label'
-              htmlFor='show-polyline-checkbox'
-            >
-              Show flight path
-            </label>
-          </div>
-
-          <div className='form-group mb-4'>
-            <label htmlFor='polyline-options-input'>
-              Polyline options (valid JSON):
-            </label>
-
-            <textarea
-              id='polyline-options-input'
-              className='form-control'
-              type='text'
-              value={this.state.polylineOptions}
-              style={textareaStyle}
-              onChange={this.onTextAreaChange}
-            />
-          </div>
+        <div className='custom-control custom-checkbox mb-3'>
+          <input
+            id='show-polyline-checkbox'
+            className='custom-control-input'
+            type='checkbox'
+            checked={polylineVisible}
+            onChange={onCheckboxChange}
+          />
+          <label
+            className='custom-control-label'
+            htmlFor='show-polyline-checkbox'
+          >
+            Show flight path
+          </label>
         </div>
 
-        <div className='map-container'>
-          <GoogleMap
-            id='shapes-example'
-            mapContainerStyle={this.props.styles.container}
-            zoom={2}
-            center={mapCenter}
-          >
-            {this.state.polylineVisible && (
-              <Polyline path={FLIGHT_PLAN_COORDS} options={polylineOptions} />
-            )}
+        <div className='form-group mb-4'>
+          <label htmlFor='polyline-options-input'>
+            Polyline options (valid JSON):
+          </label>
 
-            <Polygon path={BRISBANE_COORDS} options={brisbanePolygonOptions} />
-
-            <Polygon path={SAN_FRANCISCO_COORDS} options={sfPolygonOptions} />
-
-            <Rectangle bounds={RECTANGLE_BOUNDS} />
-
-            <Circle options={circleOptions} />
-
-            <Marker position={MARKER_POSITION} icon={pinIcon} />
-
-            <OverlayView
-              position={OVERLAY_VIEW_POSITION}
-              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-            >
-              <div style={infoWindowStyle}>
-                <h1>OverlayView</h1>
-
-                <button onClick={this.onClick} type='button'>
-                  I have been clicked
-                </button>
-              </div>
-            </OverlayView>
-
-            <InfoWindow position={INFO_WINDOW_POSITION}>
-              <div style={infoWindowStyle}>
-                <h1>InfoWindow</h1>
-              </div>
-            </InfoWindow>
-          </GoogleMap>
+          <textarea
+            id='polyline-options-input'
+            className='form-control'
+            type='text'
+            value={polylineOptions}
+            style={textareaStyle}
+            onChange={onTextAreaChange}
+          />
         </div>
       </div>
-    )
-  }
+
+      <div className='map-container'>
+        <GoogleMap
+          id='shapes-example'
+          mapContainerStyle={styles.container}
+          zoom={2}
+          center={mapCenter}
+        >
+          {polylineVisible && (
+            <Polyline path={FLIGHT_PLAN_COORDS} options={po} />
+          )}
+
+          <Polygon path={BRISBANE_COORDS} options={brisbanePolygonOptions} />
+
+          <Polygon path={SAN_FRANCISCO_COORDS} options={sfPolygonOptions} />
+
+          <Rectangle bounds={RECTANGLE_BOUNDS} />
+
+          <Circle options={circleOptions} />
+
+          <Marker position={MARKER_POSITION} icon={pinIcon} />
+
+          <OverlayView
+            position={OVERLAY_VIEW_POSITION}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+          >
+            <div style={infoWindowStyle}>
+              <h1>OverlayView</h1>
+
+              <button onClick={onClick} type='button'>
+                I have been clicked
+              </button>
+            </div>
+          </OverlayView>
+
+          <InfoWindow position={INFO_WINDOW_POSITION}>
+            <div style={infoWindowStyle}>
+              <h1>InfoWindow</h1>
+            </div>
+          </InfoWindow>
+        </GoogleMap>
+      </div>
+    </div>
+  )
 }
+
+ExampleShapes.propTypes = ExampleShapesPropTypes
 
 export default React.memo(ExampleShapes)
