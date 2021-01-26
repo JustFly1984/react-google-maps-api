@@ -1302,10 +1302,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.5.3.tgz#4982b0b66b7a4cf949b86f5d25a8cf757d3cfd9d"
   integrity sha512-RFwCobxsvZ6j7twS7dHIZQZituMIDJJNHS/qY6iuthVebxS3zhRY+jaC2roEKiAYaVuTcGmX6Luc6YBcf6zJVg==
 
-"@react-google-maps/infobox@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.1.0.tgz#17d7b2d4bd381333a064ac1cec9cd4d438050216"
-  integrity sha512-rs1UqDWkkLMgoQsFfo72h3vpAQfMnsN0A1H0ZyiQNWyZ2fvqHhRPP40EhmChVsGlyC9L8zoOvplc41eCnylysA==
+"@react-google-maps/infobox@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.1.1.tgz#1d2f20f00725f087edc031c3291fcc4c08edae7c"
+  integrity sha512-x/+Td4Wsw+ziEcLjgQketCphuueLZ4vQLFkLrUBVzsHj4as4at79GsdVwoAdKIkBc5BDYJZw3ZGSr/SnWSObeg==
 
 "@react-google-maps/marker-clusterer@2.1.0":
   version "2.1.0"
