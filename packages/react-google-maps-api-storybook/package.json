@@ -22,7 +22,7 @@
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn"
   },
   "dependencies": {
-    "@react-google-maps/api": "2.1.0"
+    "@react-google-maps/api": "2.1.1"
   },
   "devDependencies": {
     "@babel/core": "7.12.10",
