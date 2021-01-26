@@ -26,22 +26,24 @@ const onMapLoad = (map) => {
   console.log('map: ', map)
 }
 
-const ExampleTransit = ({ styles }) => (
-  <div className='map'>
-    <div className='map-container'>
-      <GoogleMap
-        id='transit-example'
-        mapContainerStyle={styles.container}
-        zoom={2}
-        center={center}
-        onClick={onClick}
-        onLoad={onMapLoad}
-      >
-        <TransitLayer onLoad={onTransitLayerLoad} />
-      </GoogleMap>
+function ExampleTransit({ styles }) {
+  return (
+    <div className='map'>
+      <div className='map-container'>
+        <GoogleMap
+          id='transit-example'
+          mapContainerStyle={styles.container}
+          zoom={2}
+          center={center}
+          onClick={onClick}
+          onLoad={onMapLoad}
+        >
+          <TransitLayer onLoad={onTransitLayerLoad} />
+        </GoogleMap>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 ExampleTransit.propTypes = ExampleTransitPropTypes
 

@@ -24,7 +24,7 @@ const centerOverlayView = (width, height) => ({
   y: -(height / 2),
 })
 
-const ExampleOverlayView = ({ styles }) => {
+function ExampleOverlayView({ styles }) {
   const [isShown, setIsShown] = React.useState(false)
 
   const changeIsShown = React.useCallback(() => {

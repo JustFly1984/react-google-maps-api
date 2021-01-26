@@ -24,20 +24,22 @@ const onClick = (...args) => {
   console.log('onClick args: ', args)
 }
 
-const ExampleOptions = ({ styles }) => (
-  <div className='map'>
-    <div className='map-container'>
-      <GoogleMap
-        id='options-example'
-        mapContainerStyle={styles.container}
-        zoom={2}
-        center={center}
-        options={options}
-        onClick={onClick}
-      />
+function ExampleOptions({ styles }) {
+  return (
+    <div className='map'>
+      <div className='map-container'>
+        <GoogleMap
+          id='options-example'
+          mapContainerStyle={styles.container}
+          zoom={2}
+          center={center}
+          options={options}
+          onClick={onClick}
+        />
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 ExampleOptions.propTypes = ExampleOptionsPropTypes
 

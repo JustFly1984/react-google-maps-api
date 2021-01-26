@@ -24,24 +24,26 @@ const onClick = (...args) => {
   console.log('onClick args: ', args)
 }
 
-const ExampleGround = ({ styles }) => (
-  <div className='map'>
-    <div className='map-container'>
-      <GoogleMap
-        id='ground-example'
-        mapContainerStyle={styles.container}
-        zoom={13}
-        center={center}
-        onClick={onClick}
-      >
-        <GroundOverlay
-          url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
-          bounds={BOUNDS}
-        />
-      </GoogleMap>
+function ExampleGround({ styles }) {
+  return (
+    <div className='map'>
+      <div className='map-container'>
+        <GoogleMap
+          id='ground-example'
+          mapContainerStyle={styles.container}
+          zoom={13}
+          center={center}
+          onClick={onClick}
+        >
+          <GroundOverlay
+            url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
+            bounds={BOUNDS}
+          />
+        </GoogleMap>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 ExampleGround.propTypes = ExampleGroundPropTypes
 

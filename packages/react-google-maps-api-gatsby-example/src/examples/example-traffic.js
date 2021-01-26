@@ -17,21 +17,23 @@ const onClick = (...args) => {
   console.log('onClick args: ', args)
 }
 
-const ExampleTraffic = ({ styles }) => (
-  <div className='map'>
-    <div className='map-container'>
-      <GoogleMap
-        id='traffic-example'
-        mapContainerStyle={styles.container}
-        zoom={2}
-        center={center}
-        onClick={onClick}
-      >
-        <TrafficLayer />
-      </GoogleMap>
+function ExampleTraffic({ styles }) {
+  return (
+    <div className='map'>
+      <div className='map-container'>
+        <GoogleMap
+          id='traffic-example'
+          mapContainerStyle={styles.container}
+          zoom={2}
+          center={center}
+          onClick={onClick}
+        >
+          <TrafficLayer />
+        </GoogleMap>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 ExampleTraffic.propTypes = ExampleTrafficPropTypes
 

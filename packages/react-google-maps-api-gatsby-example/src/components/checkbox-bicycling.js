@@ -1,4 +1,3 @@
-// eslint-disable-next-line filenames/match-exported
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
