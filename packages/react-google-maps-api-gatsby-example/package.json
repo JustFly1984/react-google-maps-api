@@ -18,7 +18,7 @@
     "@babel/node": "7.12.10",
     "@babel/polyfill": "7.12.1",
     "@babel/preset-env": "7.12.11",
-    "@babel/preset-react": "7.12.10",
+    "@babel/preset-react": "7.12.13",
     "@babel/runtime": "7.12.5",
     "@getify/eslint-plugin-proper-arrows": "10.0.0",
     "@react-google-maps/api": "2.1.1",
