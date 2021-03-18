@@ -106,7 +106,7 @@
     "jest": "26.6.3",
     "jest-cli": "26.6.3",
     "rimraf": "3.0.2",
-    "ts-jest": "26.4.4",
+    "ts-jest": "26.5.4",
     "webpack": "4.44.2"
   },
   "repository": {
