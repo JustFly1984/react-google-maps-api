@@ -141,7 +141,7 @@
     "jest-cli": "26.6.3",
     "react": "17.0.1",
     "react-docgen": "5.3.1",
-    "react-docgen-typescript": "1.20.5",
+    "react-docgen-typescript": "1.22.0",
     "react-dom": "17.0.1",
     "react-styleguidist": "11.1.5",
     "rimraf": "3.0.2",
