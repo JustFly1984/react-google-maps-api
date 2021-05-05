@@ -85,7 +85,7 @@
   },
   "resolutions": {
     "@types/webpack": "4.41.25",
-    "@types/react": "17.0.0",
+    "@types/react": "17.0.5",
     "@types/react-dom": "17.0.0",
     "**/typescript": "4.1.3",
     "**/@typescript-eslint/eslint-plugin": "4.9.1",
@@ -106,7 +106,7 @@
     "@types/googlemaps": "3.43.2",
     "@types/invariant": "2.2.34",
     "@types/jest": "26.0.20",
-    "@types/react": "17.0.0",
+    "@types/react": "17.0.5",
     "@types/react-dom": "17.0.0",
     "@types/webpack": "4.41.26",
     "@typescript-eslint/eslint-plugin": "4.14.1",
