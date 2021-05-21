@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.2.0 Updated types @types/googlemaps@3.43.3, fix for marker-clusterer CALCULATOR by Krzysztof Karol
+
 ## 2.1.1 Updated types @types/googlemaps@3.43.2
 
 ## 2.1.0 Updated dependencies, types @types/googlemaps@3.43.0, merged fix for correct marker removal
