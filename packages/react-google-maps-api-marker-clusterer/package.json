@@ -45,6 +45,7 @@
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
     "pub": "yarn publish .",
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
+    "test": "jest",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {},

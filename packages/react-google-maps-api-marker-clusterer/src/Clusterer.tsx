@@ -10,32 +10,24 @@ import {
   ClusterIconInfo,
 } from './types'
 
+/**
+ * Supports up to 9007199254740991 (Number.MAX_SAFE_INTEGER) markers
+ * which is not a problem as max array length is 4294967296 (2**32)
+ */
 const CALCULATOR = function CALCULATOR(
   markers: MarkerExtended[],
   numStyles: number
 ): ClusterIconInfo {
-  let index = 0
+  const count = markers.length
 
-  const title = ''
+  const numberOfDigits = count.toString().length
 
-  const count = markers.length.toString()
-
-  let dv: string | number = count
-
-  while (dv !== 0) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    dv = parseInt(dv, 10) / 10
-
-    index++
-  }
-
-  index = Math.min(index, numStyles)
+  const index = Math.min(numberOfDigits, numStyles)
 
   return {
-    text: count,
+    text: count.toString(),
     index: index,
-    title: title,
+    title: '',
   }
 }
 
