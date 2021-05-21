@@ -9,7 +9,19 @@ describe('Clusterer', () => {
     const clusterer = new Clusterer(mapMock)
     const { calculator } = clusterer
 
-    it('should return index 1 for 1-digit number of markers', () => {
+    it('should return index 1 for no markers', () => {
+      const markers: google.maps.Marker[] = []
+      const numStyles = 10
+      const actual = calculator(markers, numStyles)
+
+      expect(actual).toEqual({
+        text: '0',
+        index: 1,
+        title: '',
+      })
+    })
+
+    it('should return index 1 for single marker', () => {
       const markers = [markerMock]
       const numStyles = 10
       const actual = calculator(markers, numStyles)
@@ -21,9 +33,21 @@ describe('Clusterer', () => {
       })
     })
 
+    it('should return index 1 for 1-digit number of markers', () => {
+      const markers = Array.from({ length: 9 }, () => markerMock)
+      const numStyles = 10
+      const actual = calculator(markers, numStyles)
+
+      expect(actual).toEqual({
+        text: '9',
+        index: 1,
+        title: '',
+      })
+    })
+
     it('should return index 2 for 2-digit number of markers', () => {
       const markers = Array.from({ length: 99 }, () => markerMock)
-      const numStyles = 10
+      const numStyles = 50
       const actual = calculator(markers, numStyles)
 
       expect(actual).toEqual({

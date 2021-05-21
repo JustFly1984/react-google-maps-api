@@ -11,7 +11,8 @@ import {
 } from './types'
 
 /**
- * Supports 1 - 9007199254740991 (Number.MAX_SAFE_INTEGER) markers
+ * Supports up to 9007199254740991 (Number.MAX_SAFE_INTEGER) markers
+ * which is not a problem as max array length is 4294967296 (2**32)
  */
 const CALCULATOR = function CALCULATOR(
   markers: MarkerExtended[],
