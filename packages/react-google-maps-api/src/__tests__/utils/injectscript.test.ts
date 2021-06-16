@@ -1,107 +1,70 @@
+import { Loader } from '@googlemaps/js-api-loader'
 import { injectScript } from '../../utils/injectscript'
-
-interface WindowWithGoogleMap extends Window {
-  initMap?: () => void;
-}
 
 describe('utils/injectScript', () => {
 
   describe('injectScript', () => {
+    beforeEach(() => {
+      // reset singleton Loader
+      Loader['instance'] = null;
+      // clear document between tests
+      document.getElementsByTagName('html')[0].innerHTML = '';
+    });
+
     it('adds a script to the page with id and src attributes that correspond to the id and url properties', () => {
       const url = `http://localhost/script1.js`
       const value = injectScript({
         id: 'injectScript-test1',
         url,
+        apiKey: ''
       })
 
+      Loader['instance'].callback();
 
-      setTimeout(() => {
-        const win: WindowWithGoogleMap = window
-        if(win.initMap) {
-          win.initMap()
-        }
-      }, 0)
-
-      const element = document.querySelector('#injectScript-test1')
+      const element = document.querySelector('#injectScript-test1') as HTMLScriptElement
       expect(element).toBeTruthy()
-      expect(element).toHaveProperty('src', url)
+      expect(element.src).toMatch(url)
       return value
     })
 
-    it('returns a promise which resolves when the script loads', () => {
+    it('returns a promise which resolves when the script loads', async () => {
       const id = 'injectScript-test2'
       const url = `http://localhost/script2.js`
 
-      setTimeout(() => {
-        const win: WindowWithGoogleMap = window
-        if(win.initMap) {
-          win.initMap()
-        }
-      }, 0)
-
-      return injectScript({
+      const promise = injectScript({
         id,
         url,
-      })
-        .then(value => expect(value).toBeTruthy())
+        apiKey: ''
+      });
+
+      Loader['instance'].callback();
+
+      await expect(promise).resolves.toBe(id);
     })
 
     describe('duplicate calls with matching id and url properties', () => {
-      it('do not add another script element to the page', () => {
+      it('do not add another script element to the page', async () => {
         const id = 'injectScript-test4'
         const url = 'http://localhost/script4.js'
 
-        injectScript({
-          id,
-          url,
-        })
+        const promise = Promise.all([
+          injectScript({
+            id,
+            url,
+            apiKey: ''
+          }),
+          injectScript({
+            id,
+            url,
+            apiKey: ''
+          })
+        ]);
 
-        const value = injectScript({
-          id,
-          url,
-        })
+        Loader['instance'].callback();
 
-
-        setTimeout(() => {
-          const win: WindowWithGoogleMap = window
-          if(win.initMap) {
-            win.initMap()
-          }
-        }, 0)
-
-        expect(document.querySelectorAll(`script[src="${url}"]`)).toHaveProperty('length', 1)
-        return value
+        expect(document.querySelectorAll(`script`)).toHaveProperty('length', 1)
+        await promise;
       })
-
-      it('do not resolve in successive calls unless the script has actually loaded from the first call', () => {
-        const id = 'injectScript-test5'
-        const url = 'http://localhost/script5.js'
-        let initMapCalled = false
-
-        const value1 = injectScript({
-          id,
-          url,
-        })
-
-        const value2 = injectScript({
-          id,
-          url
-        })
-
-        setTimeout(() => {
-          const win: WindowWithGoogleMap = window
-          if(win.initMap) {
-            initMapCalled = true
-            win.initMap()
-          }
-        }, 50)
-
-        return value2.then(() => {
-          expect(initMapCalled).toBe(true)
-          return value1
-        })
-      })
-
     })
   })
 })

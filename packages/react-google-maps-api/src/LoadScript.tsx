@@ -1,11 +1,10 @@
 import * as React from 'react'
-import invariant from 'invariant'
 
+import { LoadScriptUrlOptions } from './utils/make-load-script-url'
 import { injectScript } from './utils/injectscript'
-import { preventGoogleFonts } from './utils/prevent-google-fonts'
-
+import invariant from 'invariant'
 import { isBrowser } from './utils/isbrowser'
-import { LoadScriptUrlOptions, makeLoadScriptUrl } from './utils/make-load-script-url'
+import { preventGoogleFonts } from './utils/prevent-google-fonts'
 
 let cleaningUp = false
 
@@ -183,7 +182,14 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
     const injectScriptOptions = {
       id: this.props.id,
       nonce: this.props.nonce,
-      url: makeLoadScriptUrl(this.props),
+      apiKey: this.props.apiKey || this.props.googleMapsApiKey,
+      clientId: this.props.client || this.props.googleMapsClientId,
+      version: this.props.version,
+      language: this.props.language,
+      region: this.props.region,
+      libraries: this.props.libraries,
+      channel: this.props.channel,
+      mapIds: this.props.mapIds,
     }
 
     injectScript(injectScriptOptions)
@@ -200,15 +206,15 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
         return
       })
-      .catch(err => {
+      .catch((err) => {
         if (this.props.onError) {
           this.props.onError(err)
         }
 
         console.error(`
-          There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${this
-            .props.googleMapsApiKey || '-'}) or Client ID (${this.props.googleMapsClientId ||
-            '-'}) to <LoadScript />
+          There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${
+            this.props.googleMapsApiKey || '-'
+          }) or Client ID (${this.props.googleMapsClientId || '-'}) to <LoadScript />
           Otherwise it is a Network issue.
         `)
       })
