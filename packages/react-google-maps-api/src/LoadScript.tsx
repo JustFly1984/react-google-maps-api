@@ -182,6 +182,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
     const injectScriptOptions = {
       id: this.props.id,
       nonce: this.props.nonce,
+      url: this.props.url,
       apiKey: this.props.apiKey || this.props.googleMapsApiKey,
       clientId: this.props.client || this.props.googleMapsClientId,
       version: this.props.version,
