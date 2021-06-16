@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { LoadScriptUrlOptions } from './utils/make-load-script-url'
+import { LoaderOptions } from '@googlemaps/js-api-loader'
 import { injectScript } from './utils/injectscript'
 import invariant from 'invariant'
 import { isBrowser } from './utils/isbrowser'
@@ -12,10 +12,11 @@ interface LoadScriptState {
   loaded: boolean
 }
 
-export interface LoadScriptProps extends LoadScriptUrlOptions {
-  id: string
-  nonce?: string
+export interface LoadScriptProps extends LoaderOptions {
+  id: string,
   loadingElement?: React.ReactNode
+  googleMapsApiKey?: string,
+  googleMapsClientId?: string,
   onLoad?: () => void
   onError?: (error: Error) => void
   onUnmount?: () => void
@@ -183,7 +184,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
       id: this.props.id,
       nonce: this.props.nonce,
       url: this.props.url,
-      apiKey: this.props.apiKey || this.props.googleMapsApiKey,
+      apiKey: this.props.apiKey || this.props.googleMapsApiKey || '',
       clientId: this.props.client || this.props.googleMapsClientId,
       version: this.props.version,
       language: this.props.language,
