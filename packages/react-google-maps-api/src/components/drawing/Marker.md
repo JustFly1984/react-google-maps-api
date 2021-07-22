@@ -41,6 +41,10 @@ const onLoad = marker => {
 ## Custom Marker icon Example
 
 ```jsx
+const { GoogleMap, LoadScript } = require("../../");
+const ScriptLoaded = require("../../docs/ScriptLoaded").default;
+
+
 const mapContainerStyle = {
   height: "400px",
   width: "800px"
@@ -88,6 +92,58 @@ const centers = [{
         strokeWeight: 2,
       }}
       position={centers[2]}
+    />
+  </GoogleMap>
+</ScriptLoaded>
+```
+
+## Custom React Svg Marker Example
+
+```jsx
+import * as React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+const { GoogleMap, LoadScript } = require("../../");
+const ScriptLoaded = require("../../docs/ScriptLoaded").default;
+
+
+const mapContainerStyle = {
+  height: "400px",
+  width: "800px"
+}
+
+const centers = [{
+  lat: 37.772,
+  lng: -122.214
+}];
+
+/* Using a React component is not obligatory, you can use a simple function that returns a svg string 
+   if you don't want to use renderToStaticMarkup and "react-dom/server" */
+const SvgCircleMarker = () => {
+  /* Your component logic here */
+  return (
+    <svg viewBox="0 0 102 102">
+      <circle cx="51" cy="51" r="50" fill="powderblue" stroke="#333">
+    </svg>
+  );
+}
+
+const markerSvgString = encodeURIComponent(
+  renderToStaticMarkup(<SvgCircleMarker />)
+);
+
+const markerDataUri = `data:image/svg+xml,${markerSvgString}`;
+/* If you want to optimize your svgs, don't hesitate to use https://github.com/tigt/mini-svg-data-uri */
+
+<ScriptLoaded>
+  <GoogleMap
+    id="react-marker-example"
+    mapContainerStyle={mapContainerStyle}
+    zoom={2}
+    center={centers[0]}
+  >
+    <Marker
+      icon={markerDataUri}
+      position={centers[0]}
     />
   </GoogleMap>
 </ScriptLoaded>
