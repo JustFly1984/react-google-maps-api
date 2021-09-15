@@ -13,7 +13,8 @@
     "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)",
     "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)",
     "Ivan Konev <ivankonev@gmail.com> (https://github.com/ivankonev)",
-    "Daniel K. <klenicak@gmail.com> (https://github.com/fredyc)"
+    "Daniel K. <klenicak@gmail.com> (https://github.com/fredyc)",
+    "Kevin Brown <kevin.brown@exogee.com> (https://github.com/thekevinbrown)"
   ],
   "repository": {
     "type": "git",
@@ -27,10 +28,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
+  "main": "dist/cjs.js",
   "types": "dist/index.d.ts",
-  "unpkg": "dist/reactgooglemapsapi.umd.production.min.js",
-  "module": "dist/reactgooglemapsapi.esm.js",
+  "unpkg": "dist/umd.min.js",
+  "module": "dist/esm.js",
   "files": [
     "src/",
     "dist/"
@@ -71,7 +72,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "npx tsdx build --name reactGoogleMapsApi --format=cjs,esm,umd",
+    "build": "rollup --config",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx} --fix",
@@ -102,6 +103,8 @@
     "react-dom": "^16.6.3 || ^17.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "20.0.0",
+    "@rollup/plugin-node-resolve": "13.0.4",
     "@testing-library/react": "11.2.7",
     "@types/googlemaps": "3.43.3",
     "@types/invariant": "2.2.34",
@@ -145,8 +148,10 @@
     "react-dom": "17.0.2",
     "react-styleguidist": "11.1.6",
     "rimraf": "3.0.2",
+    "rollup": "2.56.3",
+    "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-ts": "1.4.1",
     "ts-jest": "26.5.6",
-    "tsdx": "0.14.1",
     "typescript": "4.2.4",
     "webpack": "5.37.1"
   },
