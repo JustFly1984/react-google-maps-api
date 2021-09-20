@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { memo } from 'react'
 import uniqid from 'uniqid'
 import { useSelector } from 'react-redux'
 
@@ -32,7 +32,7 @@ import SectionOptions from './section-options'
 import SectionOverlayView from './section-overlay-view'
 import SectionSearchBox from './section-search-box'
 
-import styles from './styles.module.css'
+import * as styles from './styles.module.css'
 
 const Loading = <div className={styles.loadingStyle} />
 
@@ -142,4 +142,4 @@ function GoogleMaps() {
   )
 }
 
-export default React.memo(GoogleMaps)
+export default memo(GoogleMaps)
