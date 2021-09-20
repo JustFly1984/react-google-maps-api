@@ -8,6 +8,7 @@
     "jsx": "react",
     "lib": ["dom", "es2017"],
     "declaration": true,
+    "declarationDir": "dist",
     "rootDir": "src",
     "strict": true,
     "allowJs": false,
