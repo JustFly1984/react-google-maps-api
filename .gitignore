@@ -60,3 +60,4 @@ dist/
 googleMapKey.js
 
 .rts2_cache*
+.dccache
