@@ -9,6 +9,9 @@
     "email": "justfly1984@gmail.com",
     "url": "https://github.com/JustFly1984"
   },
+  "contributors": [
+    "Kevin Brown <kevin.brown@exogee.com> (https://github.com/thekevinbrown)"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/JustFly1984/react-google-maps-api.git",
@@ -21,10 +24,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
+  "main": "dist/cjs.js",
   "types": "dist/index.d.ts",
-  "unpkg": "dist/infobox.umd.production.min.js",
-  "module": "dist/infobox.esm.js",
+  "unpkg": "dist/umd.min.js",
+  "module": "dist/esm.js",
   "files": [
     "src/",
     "dist/"
@@ -38,7 +41,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "npx tsdx build --name infoBox --format=cjs,esm,umd",
+    "build": "rollup --config",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
@@ -49,6 +52,8 @@
   "dependencies": {},
   "devDependencies": {
     "@getify/eslint-plugin-proper-arrows": "11.0.3",
+    "@rollup/plugin-commonjs": "20.0.0",
+    "@rollup/plugin-node-resolve": "13.0.4",
     "@types/babel-types": "7.0.9",
     "@types/googlemaps": "3.43.3",
     "@types/react-dom": "17.0.5",
@@ -81,10 +86,11 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "rimraf": "3.0.2",
+    "rollup": "2.56.3",
+    "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-ts": "1.4.2",
     "ts-jest": "26.5.6",
-    "tsdx": "0.14.1",
-    "typescript": "4.2.4",
-    "webpack": "5.37.1"
+    "typescript": "4.2.4"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }

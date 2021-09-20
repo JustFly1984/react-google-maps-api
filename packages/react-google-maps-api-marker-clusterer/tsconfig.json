@@ -9,6 +9,7 @@
     "jsx": "react",
     "lib": ["dom", "es2017"],
     "rootDir": "src",
+    "declaration": true,
     "strict": true,
     "allowJs": false,
     "checkJs": false,
