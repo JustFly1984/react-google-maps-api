@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { memo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleLoadScript } from '../actions/app'
@@ -36,4 +36,4 @@ function ButtonLoadScript() {
   )
 }
 
-export default React.memo(ButtonLoadScript)
+export default memo(ButtonLoadScript)
