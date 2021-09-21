@@ -63,10 +63,10 @@ const updaterMap = {
   controlposition(instance: google.maps.Data, controlPosition: google.maps.ControlPosition): void {
     instance.setControlPosition(controlPosition)
   },
-  controls(instance: google.maps.Data, controls: google.maps.DrawingMode[] | null): void {
+  controls(instance: google.maps.Data, controls: string[] | null): void {
     instance.setControls(controls)
   },
-  drawingmode(instance: google.maps.Data, mode: google.maps.DrawingMode): void {
+  drawingmode(instance: google.maps.Data, mode: string | null): void {
     instance.setDrawingMode(mode)
   },
   map(instance: google.maps.Data, map: google.maps.Map): void {

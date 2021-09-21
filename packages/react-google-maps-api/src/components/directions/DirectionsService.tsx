@@ -13,7 +13,7 @@ export interface DirectionsServiceProps {
   callback: (
     // required
     /** The directions response retrieved from the directions server. You can render these using a DirectionsRenderer or parse this object and render it yourself. You must display the warnings and copyrights as noted in the Google Maps Platform Terms of Service. Note that though this result is "JSON-like," it is not strictly JSON, as it indirectly includes LatLng objects */
-    result: google.maps.DirectionsResult,
+    result: google.maps.DirectionsResult | null,
     // required
     /** The status returned by the DirectionsService on the completion of a call to route(). Specify these by value, or by using the constant's name. For example, 'OK' or google.maps.DirectionsStatus.OK */
     status: google.maps.DirectionsStatus

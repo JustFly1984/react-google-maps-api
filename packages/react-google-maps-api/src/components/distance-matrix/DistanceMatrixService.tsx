@@ -14,7 +14,7 @@ export interface DistanceMatrixServiceProps {
   callback: (
     // required
     /** The response to a DistanceMatrixService request, consisting of the formatted origin and destination addresses, and a sequence of DistanceMatrixResponseRows, one for each corresponding origin address. */
-    response: google.maps.DistanceMatrixResponse,
+    response: google.maps.DistanceMatrixResponse | null,
     // required
     /** The top-level status about the request in general returned by the DistanceMatrixService upon completion of a distance matrix request. Specify these by value, or by using the constant's name. For example, 'OK' or google.maps.DistanceMatrixStatus.OK. */
     status: google.maps.DistanceMatrixStatus
