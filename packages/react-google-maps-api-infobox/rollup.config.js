@@ -1,6 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import typescript from 'rollup-plugin-ts'
+import typescript from '@rollup/plugin-typescript'
+import dts from 'rollup-plugin-dts'
 import { terser } from 'rollup-plugin-terser'
 
 const output = (format) => {
@@ -24,19 +25,17 @@ const output = (format) => {
   ]
 }
 
-export default {
-  plugins: [
-    typescript({
-      hook: {
-        // Always rename declaration files to index.d.ts to avoid emitting three declaration files with identical contents
-        outputPath: (path, kind) => (kind === 'declaration' ? './dist/index.d.ts' : path),
-      },
-    }),
-    nodeResolve(),
-    commonjs(),
-  ],
-  external: ['react', 'react-dom'],
+export default [
+  {
+    plugins: [typescript(), nodeResolve(), commonjs()],
+    external: ['react', 'react-dom'],
 
-  input: 'src/index.ts',
-  output: [...output('cjs'), ...output('umd'), ...output('esm')],
-}
+    input: 'src/index.ts',
+    output: [...output('cjs'), ...output('umd'), ...output('esm')],
+  },
+  {
+    input: 'src/index.ts',
+    output: [{ file: 'dist/index.d.ts', format: 'es' }],
+    plugins: [dts()],
+  },
+]
