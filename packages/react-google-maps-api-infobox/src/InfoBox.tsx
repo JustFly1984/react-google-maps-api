@@ -272,22 +272,25 @@ export class InfoBox {
         const projection: google.maps.MapCanvasProjection = this.getProjection()
         const pixPosition = projection.fromLatLngToContainerPixel(this.position)
 
-        if (pixPosition.x < -iwOffsetX + padX) {
-          xOffset = pixPosition.x + iwOffsetX - padX
-        } else if (pixPosition.x + iwWidth + iwOffsetX + padX > mapWidth) {
-          xOffset = pixPosition.x + iwWidth + iwOffsetX + padX - mapWidth
-        }
-        if (this.alignBottom) {
-          if (pixPosition.y < -iwOffsetY + padY + iwHeight) {
-            yOffset = pixPosition.y + iwOffsetY - padY - iwHeight
-          } else if (pixPosition.y + iwOffsetY + padY > mapHeight) {
-            yOffset = pixPosition.y + iwOffsetY + padY - mapHeight
+        if (pixPosition !== null) {
+          if (pixPosition.x < -iwOffsetX + padX) {
+            xOffset = pixPosition.x + iwOffsetX - padX
+          } else if (pixPosition.x + iwWidth + iwOffsetX + padX > mapWidth) {
+            xOffset = pixPosition.x + iwWidth + iwOffsetX + padX - mapWidth
           }
-        } else {
-          if (pixPosition.y < -iwOffsetY + padY) {
-            yOffset = pixPosition.y + iwOffsetY - padY
-          } else if (pixPosition.y + iwHeight + iwOffsetY + padY > mapHeight) {
-            yOffset = pixPosition.y + iwHeight + iwOffsetY + padY - mapHeight
+
+          if (this.alignBottom) {
+            if (pixPosition.y < -iwOffsetY + padY + iwHeight) {
+              yOffset = pixPosition.y + iwOffsetY - padY - iwHeight
+            } else if (pixPosition.y + iwOffsetY + padY > mapHeight) {
+              yOffset = pixPosition.y + iwOffsetY + padY - mapHeight
+            }
+          } else {
+            if (pixPosition.y < -iwOffsetY + padY) {
+              yOffset = pixPosition.y + iwOffsetY - padY
+            } else if (pixPosition.y + iwHeight + iwOffsetY + padY > mapHeight) {
+              yOffset = pixPosition.y + iwHeight + iwOffsetY + padY - mapHeight
+            }
           }
         }
 
@@ -404,12 +407,14 @@ export class InfoBox {
       const projection: google.maps.MapCanvasProjection = this.getProjection()
       const pixPosition = projection.fromLatLngToDivPixel(this.position)
 
-      this.div.style.left = pixPosition.x + this.pixelOffset.width + 'px'
+      if (pixPosition !== null) {
+        this.div.style.left = pixPosition.x + this.pixelOffset.width + 'px'
 
-      if (this.alignBottom) {
-        this.div.style.bottom = -(pixPosition.y + this.pixelOffset.height) + 'px'
-      } else {
-        this.div.style.top = pixPosition.y + this.pixelOffset.height + 'px'
+        if (this.alignBottom) {
+          this.div.style.bottom = -(pixPosition.y + this.pixelOffset.height) + 'px'
+        } else {
+          this.div.style.top = pixPosition.y + this.pixelOffset.height + 'px'
+        }
       }
 
       if (this.isHidden) {

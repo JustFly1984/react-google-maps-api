@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.4.0 Replaced @types/googlemaps with @@types/google.maps, fixed d.ts files
+
 ## 2.3.0 Replaced tsdx with rollup for build, update typescript and other dependencies
 
 ## 2.2.0 Updated types @types/googlemaps@3.43.3, fix for marker-clusterer CALCULATOR by Krzysztof Karol

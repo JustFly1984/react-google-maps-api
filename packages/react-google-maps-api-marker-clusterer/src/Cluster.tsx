@@ -123,7 +123,9 @@ export class Cluster {
 
     const maxZoom = this.markerClusterer.getMaxZoom()
 
-    if (maxZoom !== null && this.map.getZoom() > maxZoom) {
+    const zoom = this.map.getZoom()
+
+    if (maxZoom !== null && typeof zoom !== 'undefined' && zoom > maxZoom) {
       // Zoomed in past max zoom, so show the marker.
       if (marker.getMap() !== this.map) {
         marker.setMap(this.map)
@@ -168,7 +170,9 @@ export class Cluster {
 
     const maxZoom = this.markerClusterer.getMaxZoom()
 
-    if (maxZoom !== null && this.map.getZoom() > maxZoom) {
+    const zoom = this.map.getZoom()
+
+    if (maxZoom !== null && typeof zoom !== 'undefined' && zoom > maxZoom) {
       this.clusterIcon.hide()
 
       return

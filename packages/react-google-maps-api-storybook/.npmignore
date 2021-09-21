@@ -1,7 +1,0 @@
-.editorconfig
-.eslintignore
-.prettierignore
-.eslintrc
-yarn.lock
-package-lock.json
-googleMapsKey.js
