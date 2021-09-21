@@ -1,7 +1,7 @@
 {
   "name": "@react-google-maps/infobox",
   "sideEffects": false,
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "InfoBox for React.js Google Maps API",
   "license": "MIT",
   "author": {
