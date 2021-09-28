@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.4.1 optional onLoad and unMount props for KmlLayer component
+
 ## 2.4.0 Replaced @types/googlemaps with @@types/google.maps, fixed d.ts files
 
 ## 2.3.0 Replaced tsdx with rollup for build, update typescript and other dependencies
