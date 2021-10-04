@@ -93,7 +93,7 @@ export interface GoogleMapProps {
   /** This event is repeatedly fired while the user drags the map. */
   onDrag?: () => void
   /** This event is fired when the user stops dragging the map. */
-  onDragEnd?: () => void
+  onDragEnd?: (e: google.maps.MapMouseEvent) => void
   /** This event is fired when the user starts dragging the map. */
   onDragStart?: () => void
   /** This event is fired when the mapTypeId property changes. */
