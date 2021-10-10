@@ -32,7 +32,9 @@
     "prebuild:gatsby": "yarn build:clusterer && yarn build:infobox && yarn build:api",
     "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start && cd ../..",
     "prestart:gatsby": "yarn build:clusterer && yarn build:infobox && yarn build:api",
-    "clean": "rimraf ./yarn.lock ./package-lock.json ./node_modules/ && yarn"
+    "clean": "rimraf ./yarn.lock ./package-lock.json ./node_modules/ && yarn",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "lint-staged": {
     "*.{ts|tsx}": [
@@ -42,12 +44,23 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@googlemaps/react-wrapper": "^1.1.8",
+    "@storybook/addon-actions": "^6.3.10",
+    "@storybook/addon-essentials": "^6.3.10",
+    "@storybook/addon-links": "^6.3.10",
+    "@storybook/react": "^6.3.10",
+    "babel-loader": "^8.2.2",
     "husky": "4.3.8",
-    "lint-staged": "10.5.3"
+    "lint-staged": "10.5.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.4.3"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "dependencies": {}
 }
