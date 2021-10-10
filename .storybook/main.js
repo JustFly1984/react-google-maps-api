@@ -11,4 +11,8 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials"
   ],
+  webpackFinal: (config) => {
+    config.resolve.alias['@react-google-maps/api'] = require.resolve('../packages/react-google-maps-api/src/index.ts');
+    return config;
+  },
 }
