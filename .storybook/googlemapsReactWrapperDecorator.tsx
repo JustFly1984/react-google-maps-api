@@ -1,4 +1,5 @@
-import { Wrapper } from '@googlemaps/react-wrapper'
+import React, { ReactElement } from "react";
+import { Wrapper, Status } from '@googlemaps/react-wrapper'
 import { googleMapsApiConfig } from './maps.config'
 
 /** Storybook decorator for loading google maps API
@@ -9,8 +10,14 @@ import { googleMapsApiConfig } from './maps.config'
  * @see https://www.npmjs.com/package/@googlemaps/react-wrapper
  */
 const googlemapsReactWrapperDecorator = (Story) => {
+  const render = (status: Status): ReactElement => {
+    if (status === Status.LOADING) return <h3>Loading ...</h3>;
+    return null;
+  };
+ 
+
   return (
-    <Wrapper {...googleMapsApiConfig}>
+    <Wrapper {...googleMapsApiConfig} render={render}>
       <Story />
     </Wrapper>
   )

@@ -63,4 +63,4 @@ googleMapKey.js
 .dccache
 
 # Hide secret Google Maps API Config
-.storybook/maps.config.js
+.storybook/maps.config.ts
