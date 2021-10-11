@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { GoogleMap } from '.'
 
 export default {
-  title: 'GoogleMap',
+  title: 'Example/GoogleMap',
   component: GoogleMap,
   args: {
     zoom: 8,
