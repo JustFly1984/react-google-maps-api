@@ -11,7 +11,7 @@ function selector(state) {
 
 const SectionHeatmap = () => {
   const heatmap = useSelector(selector)
-  heatmap ? <ExampleHeatmap styles={shapeExampleStyles} /> : <></>
+  return heatmap ? <ExampleHeatmap styles={shapeExampleStyles} /> : <></>
 }
 
 export default React.memo(SectionHeatmap)

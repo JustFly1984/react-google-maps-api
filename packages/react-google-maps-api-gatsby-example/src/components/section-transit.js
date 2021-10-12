@@ -11,7 +11,7 @@ function selector(state) {
 
 function SectionTransit() {
   const transit = useSelector(selector)
-  transit ? <ExampleTransit styles={shapeExampleStyles} /> : <></>
+  return transit ? <ExampleTransit styles={shapeExampleStyles} /> : <></>
 }
 
 export default React.memo(SectionTransit)

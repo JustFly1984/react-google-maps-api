@@ -11,7 +11,7 @@ function selector(state) {
 
 function SectionShapes() {
   const shapes = useSelector(selector)
-  shapes ? <ExampleShapes styles={shapeExampleStyles} /> : <></>
+  return shapes ? <ExampleShapes styles={shapeExampleStyles} /> : <></>
 }
 
 export default React.memo(SectionShapes)
