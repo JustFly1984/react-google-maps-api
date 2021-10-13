@@ -30,8 +30,16 @@ export function useJsApiLoader({
   isLoaded: boolean
   loadError: Error | undefined
 } {
+  const isMounted = React.useRef(false)
   const [isLoaded, setLoaded] = React.useState(false)
   const [loadError, setLoadError] = React.useState<Error | undefined>(undefined)
+
+  React.useEffect(function trackMountedState() {
+    isMounted.current = true
+    return (): void => {
+      isMounted.current = false
+    }
+  }, [])
 
   const loader = React.useMemo(function memo() {
     return new Loader({
@@ -51,7 +59,7 @@ export function useJsApiLoader({
       return
     } else {
       loader.load().then(function then() {
-        setLoaded(true)
+        if (isMounted.current) setLoaded(true)
       })
       .catch(function onrejected(error) {
         setLoadError(error)
