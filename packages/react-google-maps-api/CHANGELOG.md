@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.5.0 useJsApiLoader before this patch sets loaded state after loader has loaded, even if the component has already unmounted. This should fixes it
+
 ## 2.4.1 optional onLoad and unMount props for KmlLayer component
 
 ## 2.4.0 Replaced @types/googlemaps with @@types/google.maps, fixed d.ts files
