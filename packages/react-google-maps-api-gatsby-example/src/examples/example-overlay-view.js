@@ -30,29 +30,29 @@ function ExampleOverlayView({ styles }) {
   const changeIsShown = React.useCallback(() => {
     setIsShown(!isShown)
   }, [isShown])
-  const [overlayPane, setOverlayPane] = React.React.useState(
+  const [overlayPane, setOverlayPane] = React.useState(
     OverlayView.OVERLAY_MOUSE_TARGET
   )
-  const clickHandler = React.React.useCallback(() => {
+  const clickHandler = React.useCallback(() => {
     alert('You clicked overlay view')
   }, [])
-  const [overlayPosition, setOverlayPosition] = React.React.useState(mapCenter)
-  const randomOverlayPosition = React.React.useCallback(() => {
+  const [overlayPosition, setOverlayPosition] = React.useState(mapCenter)
+  const randomOverlayPosition = React.useCallback(() => {
     setOverlayPosition({
       lat: mapCenter.lat + Math.random() * -10 + 20,
       lng: mapCenter.lng + Math.random() * -10 + 20,
     })
   }, [])
-  const loadCallback = React.React.useCallback((e) => {
+  const loadCallback = React.useCallback((e) => {
     console.log('OverlayView onLoad: ', e)
   }, [])
-  const unmountCallback = React.React.useCallback((e) => {
+  const unmountCallback = React.useCallback((e) => {
     console.log('OverlayView onUnmount', e)
   }, [])
-  const setToMarkerLayerPane = React.React.useCallback(() => {
+  const setToMarkerLayerPane = React.useCallback(() => {
     setOverlayPane(OverlayView.MARKER_LAYER)
   }, [])
-  const setToMouseTargetPane = React.React.useCallback(() => {
+  const setToMouseTargetPane = React.useCallback(() => {
     setOverlayPane(OverlayView.OVERLAY_MOUSE_TARGET)
   }, [])
 
