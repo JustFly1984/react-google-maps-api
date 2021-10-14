@@ -38,9 +38,9 @@ export interface KmlLayerProps {
   /** This event is fired when the KML layer has finished loading. At this point it is safe to read the status property to determine if the layer loaded successfully. */
   onStatusChanged?: () => void
   /** This callback is called when the kmlLayer instance has loaded. It is called with the kmlLayer instance. */
-  onLoad: (kmlLayer: google.maps.KmlLayer) => void
+  onLoad?: (kmlLayer: google.maps.KmlLayer) => void
   /** This callback is called when the component unmounts. It is called with the kmlLayer instance. */
-  onUnmount: (kmlLayer: google.maps.KmlLayer) => void
+  onUnmount?: (kmlLayer: google.maps.KmlLayer) => void
 }
 
 export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
