@@ -65,6 +65,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "serve": "yarn && gatsby serve --open",
     "build": "yarn && gatsby build",
     "develop": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 gatsby develop -S",
     "start": "yarn develop",
@@ -74,6 +75,7 @@
     "update": "npm-check -u"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "7.15.8",
     "@types/react-dom": "17.0.9",
     "babel-eslint": "10.1.0",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
