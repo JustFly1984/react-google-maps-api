@@ -53,7 +53,6 @@ const Template: ComponentStory<typeof GoogleMarkerClusterer> = (args) => {
       <GoogleMarkerClusterer {...args}>
         {(clusterer) =>
           locations.map((location) => (
-            // @ts-ignore: clusterer variable does not match required Cluterer type
             <Marker key={createKey(location)} position={location} clusterer={clusterer} />
           )) as any
         }
