@@ -42,10 +42,10 @@ export const useGoogleMarkerClusterer = (options: MarkerClustererOptionsSubset):
  * 
  * Accepts {@link  MarkerClustererOptionsSubset} which is a subset of  {@link MarkerClustererOptions}
  */
-export const GoogleMakerClusterer = ({ children, options }: GoogleMarkerClustererProps) => {
+export const GoogleMarkerClusterer = ({ children, options }: GoogleMarkerClustererProps) => {
   const markerClusterer = useGoogleMarkerClusterer(options)
 
   return markerClusterer !== null ? children(markerClusterer) : null
 }
 
-export default GoogleMakerClusterer
+export default GoogleMarkerClusterer
