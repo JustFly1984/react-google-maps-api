@@ -7,6 +7,7 @@ import { ClusterIconStyle, ClusterIconInfo } from './types'
 export class ClusterIcon {
   cluster: Cluster
   className: string
+  clusterClassName: string
   styles: ClusterIconStyle[]
   center: google.maps.LatLng | undefined
   div: HTMLDivElement | null
@@ -30,7 +31,8 @@ export class ClusterIcon {
   constructor(cluster: Cluster, styles: ClusterIconStyle[]) {
     cluster.getClusterer().extend(ClusterIcon, google.maps.OverlayView)
     this.cluster = cluster
-    this.className = this.cluster.getClusterer().getClusterClass()
+    this.clusterClassName = this.cluster.getClusterer().getClusterClass()
+    this.className = this.clusterClassName
     this.styles = styles
     this.center = undefined
     this.div = null
@@ -309,15 +311,14 @@ export class ClusterIcon {
 
   useStyle(sums: ClusterIconInfo) {
     this.sums = sums
-
-    const style = this.styles[Math.min(this.styles.length - 1, Math.max(0, sums.index - 1))]
+    const styles = this.cluster.getClusterer().getStyles()
+    const style = styles[Math.min(styles.length - 1, Math.max(0, sums.index - 1))]
 
     this.url = style.url
     this.height = style.height
     this.width = style.width
 
-    if (style.className)
-      this.className = `${this.className} ${style.className}`
+    if (style.className) this.className = `${this.clusterClassName} ${style.className}`
 
     this.anchorText = style.anchorText || [0, 0]
     this.anchorIcon = style.anchorIcon || [this.height / 2, this.width / 2]
