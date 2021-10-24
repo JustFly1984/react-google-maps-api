@@ -81,4 +81,4 @@ export { default as Autocomplete, AutocompleteProps } from './components/places/
 
 export { default as MapContext, useGoogleMap } from './map-context'
 
-export * from '@googlemaps/markerclusterer'
+export * as GoogleMapsMarkerClusterer from '@googlemaps/markerclusterer'

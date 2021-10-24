@@ -3,7 +3,9 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { GoogleMap, Marker } from '../..'
 import GoogleMarkerClusterer from './GoogleMarkerClusterer'
 
-import { DBScanAlgorithm, GridAlgorithm, KmeansAlgorithm, NoopAlgorithm, Cluster } from '../..'
+import { GoogleMapsMarkerClusterer as gm } from '../..'
+
+const { DBScanAlgorithm, GridAlgorithm, KmeansAlgorithm, NoopAlgorithm } = gm
 
 const mapContainerStyle = {
   height: '400px',
@@ -87,7 +89,7 @@ export const Render = Template.bind({})
 Render.args = {
   options: {
     renderer: {
-      render: ({ count, position }: Cluster) =>
+      render: ({ count, position }: gm.Cluster) =>
         new google.maps.Marker({
           label: { text: String(count), color: 'white', fontSize: '10px' },
           position,
