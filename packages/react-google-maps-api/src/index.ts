@@ -25,6 +25,8 @@ export {
 
 export { default as InfoBox, InfoBoxProps } from './components/addons/InfoBox'
 
+export { default as GoogleMarkerClusterer, GoogleMarkerClustererProps } from './components/addons/GoogleMarkerClusterer'
+
 export { default as InfoWindow, InfoWindowProps } from './components/drawing/InfoWindow'
 
 export { default as Polyline, PolylineProps } from './components/drawing/Polyline'
@@ -78,3 +80,5 @@ export {
 export { default as Autocomplete, AutocompleteProps } from './components/places/Autocomplete'
 
 export { default as MapContext, useGoogleMap } from './map-context'
+
+export * as GoogleMapsMarkerClusterer from '@googlemaps/markerclusterer'
