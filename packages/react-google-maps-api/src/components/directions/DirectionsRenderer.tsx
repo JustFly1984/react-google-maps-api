@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -24,7 +24,7 @@ const updaterMap = {
   ): void {
     instance.setOptions(options)
   },
-  panel(instance: google.maps.DirectionsRenderer, panel: Element): void {
+  panel(instance: google.maps.DirectionsRenderer, panel: HTMLElement): void {
     instance.setPanel(panel)
   },
   routeIndex(instance: google.maps.DirectionsRenderer, routeIndex: number): void {
@@ -37,22 +37,22 @@ interface DirectionsRendererState {
 }
 
 export interface DirectionsRendererProps {
-  options?: google.maps.DirectionsRendererOptions
+  options?: google.maps.DirectionsRendererOptions | undefined
   /** The directions to display on the map and/or in a <div> panel, retrieved as a DirectionsResult object from DirectionsService. */
-  directions?: google.maps.DirectionsResult
+  directions?: google.maps.DirectionsResult | undefined
   /** The <div> in which to display the directions steps. */
-  panel?: Element
+  panel?: HTMLElement | undefined
   /** The index of the route within the DirectionsResult object. The default value is 0. */
-  routeIndex?: number
+  routeIndex?: number | undefined
   /** This event is fired when the rendered directions change, either when a new DirectionsResult is set or when the user finishes dragging a change to the directions path. */
-  onDirectionsChanged?: () => void
+  onDirectionsChanged?: (() => void) | undefined
   /** This callback is called when the directionsRenderer instance has loaded. It is called with the directionsRenderer instance. */
-  onLoad?: (directionsRenderer: google.maps.DirectionsRenderer) => void
+  onLoad?: ((directionsRenderer: google.maps.DirectionsRenderer) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the directionsRenderer instance. */
-  onUnmount?: (directionsRenderer: google.maps.DirectionsRenderer) => void
+  onUnmount?: ((directionsRenderer: google.maps.DirectionsRenderer) => void) | undefined
 }
 
-export class DirectionsRenderer extends React.PureComponent<
+export class DirectionsRenderer extends PureComponent<
   DirectionsRendererProps,
   DirectionsRendererState
 > {

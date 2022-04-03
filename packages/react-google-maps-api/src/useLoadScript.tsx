@@ -1,5 +1,5 @@
 /* eslint-disable filenames/match-regex */
-import * as React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import invariant from 'invariant'
 
 import { isBrowser } from './utils/isbrowser'
@@ -10,9 +10,9 @@ import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-scrip
 import { defaultLoadScriptProps } from './LoadScript'
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
-  id?: string
-  nonce?: string
-  preventGoogleFontsLoading?: boolean
+  id?: string | undefined
+  nonce?: string | undefined
+  preventGoogleFontsLoading?: boolean | undefined
 }
 
 let previouslyLoadedUrl: string
@@ -34,18 +34,18 @@ export function useLoadScript({
   loadError: Error | undefined
   url: string
 } {
-  const isMounted = React.useRef(false)
-  const [isLoaded, setLoaded] = React.useState(false)
-  const [loadError, setLoadError] = React.useState<Error | undefined>(undefined)
+  const isMounted = useRef(false)
+  const [isLoaded, setLoaded] = useState(false)
+  const [loadError, setLoadError] = useState<Error | undefined>(undefined)
 
-  React.useEffect(function trackMountedState() {
+  useEffect(function trackMountedState() {
     isMounted.current = true
     return (): void => {
       isMounted.current = false
     }
   }, [])
 
-  React.useEffect(
+  useEffect(
     function applyPreventGoogleFonts() {
       if (isBrowser && preventGoogleFontsLoading) {
         preventGoogleFonts()
@@ -54,7 +54,7 @@ export function useLoadScript({
     [preventGoogleFontsLoading]
   )
 
-  React.useEffect(
+  useEffect(
     function validateLoadedState() {
       if (isLoaded) {
         invariant(
@@ -77,7 +77,7 @@ export function useLoadScript({
     mapIds
   })
 
-  React.useEffect(
+  useEffect(
     function loadScriptAndModifyLoadedState() {
       if (!isBrowser) {
         return
@@ -112,9 +112,9 @@ export function useLoadScript({
     [id, url, nonce]
   )
 
-  const prevLibraries = React.useRef<undefined | string[]>()
+  const prevLibraries = useRef<undefined | string[]>()
 
-  React.useEffect(
+  useEffect(
     function checkPerformance() {
       if (prevLibraries.current && libraries !== prevLibraries.current) {
         console.warn(

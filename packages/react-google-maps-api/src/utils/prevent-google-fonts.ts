@@ -1,4 +1,4 @@
-const isRobotoStyle = (element: HTMLElement): boolean => {
+function isRobotoStyle(element: HTMLElement): boolean {
   // roboto font download
   if (
     (element as HTMLLinkElement).href &&
@@ -44,7 +44,7 @@ const isRobotoStyle = (element: HTMLElement): boolean => {
 }
 
 // Preventing the Google Maps library from downloading an extra font
-export const preventGoogleFonts = (): void => {
+export function preventGoogleFonts (): void {
   // we override these methods only for one particular head element
   // default methods for other elements are not affected
   const head = document.getElementsByTagName('head')[0]

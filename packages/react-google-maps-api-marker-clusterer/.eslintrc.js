@@ -5,7 +5,6 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'security-node',
-    'standard',
     'promise',
     'import',
     'node',

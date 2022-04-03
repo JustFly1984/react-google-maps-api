@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 import invariant from 'invariant'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
@@ -46,7 +46,7 @@ export interface HeatmapLayerProps {
   onUnmount?: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void
 }
 
-export class HeatmapLayer extends React.PureComponent<HeatmapLayerProps, HeatmapLayerState> {
+export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -115,7 +115,7 @@ export class HeatmapLayer extends React.PureComponent<HeatmapLayerProps, Heatmap
     }
   }
 
-  render(): React.ReactNode {
+  render(): null {
     return null
   }
 }

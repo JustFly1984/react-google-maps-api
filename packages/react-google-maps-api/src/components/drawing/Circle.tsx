@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -49,7 +49,7 @@ interface CircleState {
 }
 
 export interface CircleProps {
-  options?: google.maps.CircleOptions
+  options?: google.maps.CircleOptions | undefined
 
   // required
   /** sets the center of the circle */
@@ -59,44 +59,44 @@ export interface CircleProps {
   /** Sets the radius of this circle (in meters) */
   radius: number
   /** If set to true, the user can drag this circle over the map */
-  draggable?: boolean
+  draggable?: boolean | undefined
   /** If set to true, the user can edit this circle by dragging the control points shown at the center and around the circumference of the circle. */
-  editable?: boolean
+  editable?: boolean | undefined
   /** Hides this circle if set to false. */
-  visible?: boolean
+  visible?: boolean | undefined
   /** This event is fired when the DOM dblclick event is fired on the circle. */
-  onDblClick?: (e: google.maps.MapMouseEvent) => void
+  onDblClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the user stops dragging the circle. */
-  onDragEnd?: (e: google.maps.MapMouseEvent) => void
+  onDragEnd?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /**  This event is fired when the user starts dragging the circle. */
-  onDragStart?: (e: google.maps.MapMouseEvent) => void
+  onDragStart?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM mousedown event is fired on the circle. */
-  onMouseDown?: (e: google.maps.MapMouseEvent) => void
+  onMouseDown?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM mousemove event is fired on the circle. */
-  onMouseMove?: (e: google.maps.MapMouseEvent) => void
+  onMouseMove?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired on circle mouseout. */
-  onMouseOut?: (e: google.maps.MapMouseEvent) => void
+  onMouseOut?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired on circle mouseover. */
-  onMouseOver?: (e: google.maps.MapMouseEvent) => void
+  onMouseOver?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM mouseup event is fired on the circle. */
-  onMouseUp?: (e: google.maps.MapMouseEvent) => void
+  onMouseUp?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the circle is right-clicked on. */
-  onRightClick?: (e: google.maps.MapMouseEvent) => void
-  /** This event is fired when the circle's center is changed. */
-  onCenterChanged?: () => void
+  onRightClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM click event is fired on the circle. */
-  onClick?: (e: google.maps.MapMouseEvent) => void
+  onClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is repeatedly fired while the user drags the circle. */
-  onDrag?: (e: google.maps.MapMouseEvent) => void
+  onDrag?: ((e: google.maps.MapMouseEvent) => void) | undefined
+  /** This event is fired when the circle's center is changed. */
+  onCenterChanged?: (() => void) | undefined
   /** This event is fired when the circle's radius is changed. */
-  onRadiusChanged?: () => void
+  onRadiusChanged?: (() => void) | undefined
   /** This callback is called when the circle instance has loaded. It is called with the circle instance. */
-  onLoad?: (circle: google.maps.Circle) => void
+  onLoad?: ((circle: google.maps.Circle) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the circle instance. */
-  onUnmount?: (circle: google.maps.Circle) => void
+  onUnmount?: ((circle: google.maps.Circle) => void) | undefined
 }
 
-export class Circle extends React.PureComponent<CircleProps, CircleState> {
+export class Circle extends PureComponent<CircleProps, CircleState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -158,8 +158,8 @@ export class Circle extends React.PureComponent<CircleProps, CircleState> {
     }
   }
 
-  render(): JSX.Element {
-    return <></>
+  render(): null {
+    return null
   }
 }
 

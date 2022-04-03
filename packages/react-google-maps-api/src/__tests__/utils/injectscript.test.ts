@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { injectScript } from '../../utils/injectscript'
 
 interface WindowWithGoogleMap extends Window {

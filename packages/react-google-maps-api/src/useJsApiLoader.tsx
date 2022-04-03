@@ -1,5 +1,4 @@
-/* eslint-disable filenames/match-regex */
-import * as React from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Loader } from '@googlemaps/js-api-loader'
 
 import { isBrowser } from './utils/isbrowser'
@@ -9,9 +8,9 @@ import { LoadScriptUrlOptions, Libraries } from './utils/make-load-script-url'
 import { defaultLoadScriptProps } from './LoadScript'
 
 export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
-  id?: string
-  nonce?: string
-  preventGoogleFontsLoading?: boolean
+  id?: string | undefined
+  nonce?: string | undefined
+  preventGoogleFontsLoading?: boolean | undefined
 }
 
 export function useJsApiLoader({
@@ -30,18 +29,18 @@ export function useJsApiLoader({
   isLoaded: boolean
   loadError: Error | undefined
 } {
-  const isMounted = React.useRef(false)
-  const [isLoaded, setLoaded] = React.useState(false)
-  const [loadError, setLoadError] = React.useState<Error | undefined>(undefined)
+  const isMounted = useRef(false)
+  const [isLoaded, setLoaded] = useState(false)
+  const [loadError, setLoadError] = useState<Error | undefined>(undefined)
 
-  React.useEffect(function trackMountedState() {
+  useEffect(function trackMountedState() {
     isMounted.current = true
     return (): void => {
       isMounted.current = false
     }
   }, [])
 
-  const loader = React.useMemo(function memo() {
+  const loader = useMemo(function memo() {
     return new Loader({
       id,
       apiKey: googleMapsApiKey,
@@ -54,7 +53,7 @@ export function useJsApiLoader({
     })
   }, [id, googleMapsApiKey, version, libraries, language, region, mapIds, nonce])
 
-  React.useEffect(function effect() {
+  useEffect(function effect() {
     if (isLoaded) {
       return
     } else {
@@ -68,7 +67,7 @@ export function useJsApiLoader({
   }, [])
 
 
-  React.useEffect(
+  useEffect(
     function applyPreventGoogleFonts() {
       if (isBrowser && preventGoogleFontsLoading) {
         preventGoogleFonts()
@@ -77,9 +76,9 @@ export function useJsApiLoader({
     [preventGoogleFontsLoading]
   )
 
-  const prevLibraries = React.useRef<undefined | Libraries>()
+  const prevLibraries = useRef<undefined | Libraries>()
 
-  React.useEffect(
+  useEffect(
     function effect() {
       if (prevLibraries.current && libraries !== prevLibraries.current) {
         console.warn(

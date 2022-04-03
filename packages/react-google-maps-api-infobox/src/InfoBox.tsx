@@ -156,7 +156,6 @@ export class InfoBox {
           google.maps.event.addDomListener(
             this.div,
             'mouseover',
-          , @getify/proper-arrows/name
             () => {
               if (this.div) {
                 this.div.style.cursor = 'default'
@@ -213,7 +212,6 @@ export class InfoBox {
   }
 
   getCloseClickHandler() {
-  , @getify/proper-arrows/name
     return (event: Event) => {
       // 1.0.3 fix: Always prevent propagation of a close box click to the map:
       event.cancelBubble = true
@@ -347,7 +345,7 @@ export class InfoBox {
       return bw
     }
 
-    if (document.defaultView && document.defaultView.getComputedStyle) {
+    if (document.defaultView) {
       const ownerDocument = this.div.ownerDocument
       const computedStyle =
         ownerDocument && ownerDocument.defaultView
@@ -600,7 +598,6 @@ export class InfoBox {
       this.moveListener = google.maps.event.addListener(
         anchor,
         'position_changed',
-      , @getify/proper-arrows/name
         () => {
           // @ts-ignore
           const position = anchor.getPosition()
@@ -611,7 +608,6 @@ export class InfoBox {
       this.mapListener = google.maps.event.addListener(
         anchor,
         'map_changed',
-      , @getify/proper-arrows/name
         () => {
           // @ts-ignore
           this.setMap(anchor.map)

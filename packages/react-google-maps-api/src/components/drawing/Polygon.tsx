@@ -1,5 +1,5 @@
 /* global google */
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -113,7 +113,7 @@ export interface PolygonProps {
   onUnmount?: (polygon: google.maps.Polygon) => void
 }
 
-export class Polygon extends React.PureComponent<PolygonProps, PolygonState> {
+export class Polygon extends PureComponent<PolygonProps, PolygonState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -175,7 +175,7 @@ export class Polygon extends React.PureComponent<PolygonProps, PolygonState> {
     }
   }
 
-  render(): React.ReactNode {
+  render(): null {
     return null
   }
 }

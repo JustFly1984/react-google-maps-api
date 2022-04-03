@@ -1,14 +1,14 @@
-import * as React from 'react'
+import { memo, ReactElement, useEffect } from 'react'
 
 import { DefaultLoadingElement } from './LoadScript'
 import { useLoadScript, UseLoadScriptOptions } from './useLoadScript'
 
 export interface LoadScriptNextProps extends UseLoadScriptOptions {
-  loadingElement?: React.ReactElement
-  onLoad?: () => void
-  onError?: (error: Error) => void
-  onUnmount?: () => void
-  children: React.ReactElement
+  loadingElement?: ReactElement | undefined
+  onLoad?: (() => void) | undefined
+  onError?: ((error: Error) => void) | undefined
+  onUnmount?: (() => void) | undefined
+  children: ReactElement
 }
 
 const defaultLoadingElement = <DefaultLoadingElement />
@@ -23,7 +23,7 @@ function LoadScriptNext({
 }: LoadScriptNextProps): JSX.Element {
   const { isLoaded, loadError } = useLoadScript(hookOptions)
 
-  React.useEffect(
+  useEffect(
     function handleOnLoad() {
       if (isLoaded && typeof onLoad === 'function') {
         onLoad()
@@ -32,7 +32,7 @@ function LoadScriptNext({
     [isLoaded, onLoad]
   )
 
-  React.useEffect(
+  useEffect(
     function handleOnError() {
       if (loadError && typeof onError === 'function') {
         onError(loadError)
@@ -41,7 +41,7 @@ function LoadScriptNext({
     [loadError, onError]
   )
 
-  React.useEffect(
+  useEffect(
     function handleOnUnmount() {
       return () => {
         if (onUnmount) {
@@ -55,4 +55,4 @@ function LoadScriptNext({
   return isLoaded ? children : loadingElement || defaultLoadingElement
 }
 
-export default React.memo(LoadScriptNext)
+export default memo(LoadScriptNext)

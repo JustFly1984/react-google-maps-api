@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import MapContext from '../../map-context'
 
@@ -8,35 +8,22 @@ interface BicyclingLayerState {
 
 export interface BicyclingLayerProps {
   /** This callback is called when the bicyclingLayer instance has loaded. It is called with the bicyclingLayer instance. */
-  onLoad?: (bicyclingLayer: google.maps.BicyclingLayer) => void
+  onLoad?: ((bicyclingLayer: google.maps.BicyclingLayer) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the bicyclingLayer instance. */
-  onUnmount?: (bicyclingLayer: google.maps.BicyclingLayer) => void
+  onUnmount?: ((bicyclingLayer: google.maps.BicyclingLayer) => void) | undefined
 }
 
-export class BicyclingLayer extends React.PureComponent<BicyclingLayerProps, BicyclingLayerState> {
+export class BicyclingLayer extends PureComponent<BicyclingLayerProps, BicyclingLayerState> {
   static contextType = MapContext
 
-  state = {
+  state: BicyclingLayerState = {
     bicyclingLayer: null,
-  }
-
-  setBicyclingLayerCallback = (): void => {
-    if (this.state.bicyclingLayer !== null) {
-      // TODO: how is this possibly null if we're doing a null check
-      // @ts-ignore
-      this.state.bicyclingLayer.setMap(this.context)
-
-      if (this.props.onLoad) {
-        // @ts-ignore
-        this.props.onLoad(this.state.bicyclingLayer)
-      }
-    }
   }
 
   componentDidMount(): void {
     const bicyclingLayer = new google.maps.BicyclingLayer()
 
-    this.setState(function setBicyclingLayer() {
+    this.setState(() => {
       return {
         bicyclingLayer,
       }
@@ -46,7 +33,6 @@ export class BicyclingLayer extends React.PureComponent<BicyclingLayerProps, Bic
   componentWillUnmount(): void {
     if (this.state.bicyclingLayer !== null) {
       if (this.props.onUnmount) {
-        // @ts-ignore
         this.props.onUnmount(this.state.bicyclingLayer)
       }
 
@@ -55,7 +41,19 @@ export class BicyclingLayer extends React.PureComponent<BicyclingLayerProps, Bic
     }
   }
 
-  render(): React.ReactNode {
+  setBicyclingLayerCallback = (): void => {
+    if (this.state.bicyclingLayer !== null) {
+
+      this.state.bicyclingLayer.setMap(this.context)
+
+      if (this.props.onLoad) {
+        // @ts-ignore
+        this.props.onLoad(bicyclingLayer)
+      }
+    }
+  }
+
+  render(): null {
     return null
   }
 }

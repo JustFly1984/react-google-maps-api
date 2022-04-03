@@ -26,21 +26,21 @@ interface KmlLayerState {
 }
 
 export interface KmlLayerProps {
-  options?: google.maps.KmlLayerOptions
+  options?: google.maps.KmlLayerOptions | undefined
   /** The URL of the KML document to display. */
-  url?: string
+  url?: string | undefined
   /** The z-index of the layer. */
-  zIndex?: number
+  zIndex?: number | undefined
   /** This event is fired when a feature in the layer is clicked. */
-  onClick?: (e: google.maps.MapMouseEvent) => void
+  onClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the KML layers default viewport has changed. */
-  onDefaultViewportChanged?: () => void
+  onDefaultViewportChanged?: (() => void) | undefined | undefined
   /** This event is fired when the KML layer has finished loading. At this point it is safe to read the status property to determine if the layer loaded successfully. */
-  onStatusChanged?: () => void
+  onStatusChanged?: (() => void) | undefined | undefined
   /** This callback is called when the kmlLayer instance has loaded. It is called with the kmlLayer instance. */
-  onLoad?: (kmlLayer: google.maps.KmlLayer) => void
+  onLoad?: ((kmlLayer: google.maps.KmlLayer) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the kmlLayer instance. */
-  onUnmount?: (kmlLayer: google.maps.KmlLayer) => void
+  onUnmount?: ((kmlLayer: google.maps.KmlLayer) => void) | undefined
 }
 
 export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
@@ -105,7 +105,7 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     }
   }
 
-  render(): React.ReactNode {
+  render():null {
     return null
   }
 }

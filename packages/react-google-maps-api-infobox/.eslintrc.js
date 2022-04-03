@@ -1,129 +1,96 @@
+/* eslint-env node */
+
 module.exports = {
   parser: '@typescript-eslint/parser',
-  extends: [
-    'plugin:you-dont-need-lodash-underscore/compatible',
-    'plugin:import/errors',
-    'plugin:import/warnings',
-    'plugin:react/recommended',
-    'plugin:react-perf/recommended',
-    'standard-react',
-    'plugin:jsx-a11y/recommended',
-    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint/eslint-plugin
-// 'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint/eslint-plugin
-    'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
-    'prettier/react',
-    'prettier/standard',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended', // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
-  ],
   plugins: [
-    '@getify/proper-arrows',
+    '@typescript-eslint',
+    'security-node',
+    'promise',
+    'import',
+    'node',
+    'n',
     'you-dont-need-lodash-underscore',
+    'no-inferred-method-name',
     'json',
     'babel',
     'import',
     'filenames',
-    'jsx-a11y',
+    'optimize-regex',
     'html',
     'ascii',
-    'promise',
     'react',
-    'optimize-regex',
+    'jsx-a11y',
     'react-perf',
-    'no-inferred-method-name',
     'react-functional-set-state',
-    '@typescript-eslint'
-    // 'prettier'
+    'jest',
+    'jest-dom',
+    'prettier',
   ],
-  env: {
-    browser: true,
-    es6: true
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'standard',
+    'plugin:node/recommended',
+    'plugin:import/typescript',
+    'plugin:promise/recommended',
+    'plugin:security-node/recommended',
+    'plugin:jest-dom/recommended',
+    'plugin:you-dont-need-lodash-underscore/compatible',
+    // Always last
+    'prettier',
+  ],
+  rules: {
+    'no-unused-vars': 'off',
+    'no-useless-return': 'off',
+    'node/no-missing-import': 'off',
+    'node/no-unsupported-features/es-syntax': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+    ],
+    '@typescript-eslint/no-use-before-define': ['error', { functions: false, classes: false }],
+    'security-node/detect-crlf': 'off',
+  },
+  settings: {
+    ecmascript: 6,
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      // use <root>/path/to/folder/tsconfig.json
+      typescript: {
+        directory: './tsconfig.json',
+      },
+    },
+    react: {
+      version: 'detect',
+    },
+    jest: {
+      version: 27,
+    },
   },
   globals: {
     __DEV__: false,
     __PROD__: false,
     __PLAYER_DEBUG__: false,
     __BASENAME__: false,
-    google: true
-  },
-  settings: {
-    ecmascript: 6,
-    'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx']
-    },
-    'import/resolver': {
-     // use <root>/path/to/folder/tsconfig.json
-    'typescript': {
-        'directory': './tsconfig.json'
-      }
-    },
-    react: {
-      version: 'detect'
-    }
-  },
-  rules: {
-    'ascii/valid-name': 2,
-    'optimize-regex/optimize-regex': 'warn',
-    'filenames/no-index': 0,
-    'filenames/match-regex': [2, '^[a-z0-9-.]+$', true],
-    'filenames/match-exported': [2, ['camel', 'kebab', null]],
-    'template-curly-spacing': ['error', 'never'],
-    'react-functional-set-state/no-this-state-props': 2,
-    'no-void': 2,
-    'no-restricted-globals': 2,
-    'no-use-before-define': 2,
-    'func-names': 1,
-    'guard-for-in': 2,
-    'no-restricted-syntax': 2,
-
-    'jsx-a11y/label-has-for': 'off',
-    'no-console': 'off',
-    // 'react/no-typos': 'off',
-    'max-len': 'off',
-    'no-nested-ternary': 'off',
-    camelcase: [
-      2,
-      {
-        properties: 'never'
-      }
-    ],
-    'react-redux/prefer-separate-component-file': 'off',
-    'react/destructuring-assignment': 'off',
-    'babel/no-invalid-this': 1,
-    'babel/semi': 0,
-    'spaced-comment': 0,
-    'brace-style': 0,
-    'no-trailing-spaces': 0,
-    'import/default': 2,
-    'import/no-unresolved': [
-      2,
-      {
-        commonjs: true,
-        amd: true
-      }
-    ],
-    'import/named': 'off',
-    'import/namespace': 2,
-    'import/export': 2,
-    'import/no-duplicates': 0,
-    'import/imports-first': 2,
-    'semi': ['error', 'never'],
-    // 'prettier/prettier': ['error', {trailingComma: 'none', semi: false, singleQuote: true, printWidth: 80, tabWidth: 2, parser: 'typescript'}],
-    // @typescript-eslint rule overrides
-    "indent": "off",
-    '@typescript-eslint/indent': ["error", 2],
-    '@typescript-eslint/explicit-function-return-type': 0,
-    '@typescript-eslint/explicit-member-accessibility': 0,
-    '@typescript-eslint/no-explicit-any': 0
+    google: true,
   },
   parserOptions: {
-    'ecmaVersion': 2018,
-    'sourceType': 'module',
-    'ecmaFeatures': {
-      jsx: true
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
     },
-    'useJSXTextNode': true,
-    'project': './tsconfig.json',
-    'tsconfigRootDir': './'
-  }
+    useJSXTextNode: true,
+    project: './tsconfig.json',
+    tsconfigRootDir: './',
+  },
+  env: {
+    "jest/globals": true,
+    browser: true,
+    es6: true,
+  },
 }

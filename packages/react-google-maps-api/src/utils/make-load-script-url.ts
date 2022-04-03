@@ -4,13 +4,13 @@ export type Libraries = ("drawing" | "geometry" | "localContext" | "places" | "v
 
 export interface LoadScriptUrlOptions {
   googleMapsApiKey: string | ""
-  googleMapsClientId?: string
-  version?: string
-  language?: string
-  region?: string
-  libraries?: Libraries
-  channel?: string
-  mapIds?: string[]
+  googleMapsClientId?: string | undefined
+  version?: string | undefined
+  language?: string | undefined
+  region?: string | undefined
+  libraries?: Libraries | undefined
+  channel?: string | undefined
+  mapIds?: string[] | undefined
 }
 
 export function makeLoadScriptUrl({

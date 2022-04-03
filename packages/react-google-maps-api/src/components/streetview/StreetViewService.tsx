@@ -1,19 +1,19 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import MapContext from '../../map-context'
 
 export interface StreetViewServiceProps {
   /** This callback is called when the streetViewService instance has loaded. It is called with the streetViewService instance. */
-  onLoad?: (streetViewService: google.maps.StreetViewService | null) => void
+  onLoad?: ((streetViewService: google.maps.StreetViewService | null) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the streetViewService instance. */
-  onUnmount?: (streetViewService: google.maps.StreetViewService | null) => void
+  onUnmount?: ((streetViewService: google.maps.StreetViewService | null) => void) | undefined
 }
 
 interface StreetViewServiceState {
   streetViewService: google.maps.StreetViewService | null
 }
 
-export class StreetViewService extends React.PureComponent<
+export class StreetViewService extends PureComponent<
   StreetViewServiceProps,
   StreetViewServiceState
 > {
@@ -40,14 +40,12 @@ export class StreetViewService extends React.PureComponent<
   }
 
   componentWillUnmount(): void {
-    if (this.state.streetViewService !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.streetViewService)
-      }
+    if (this.state.streetViewService !== null && this.props.onUnmount) {
+      this.props.onUnmount(this.state.streetViewService)
     }
   }
 
-  render(): React.ReactNode {
+  render(): null {
     return null
   }
 }

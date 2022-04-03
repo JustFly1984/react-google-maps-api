@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -60,30 +60,30 @@ interface StreetViewPanoramaState {
 }
 
 export interface StreetViewPanoramaProps {
-  options?: google.maps.StreetViewPanoramaOptions
+  options?: google.maps.StreetViewPanoramaOptions | undefined
   /** This event is fired when the close button is clicked. */
-  onCloseclick?: (event: google.maps.MapMouseEvent) => void
+  onCloseclick?: ((event: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the panorama's pano id changes. The pano may change as the user navigates through the panorama or the position is manually set. Note that not all position changes trigger a pano_changed. */
-  onPanoChanged?: () => void
+  onPanoChanged?: (() => void) | undefined
   /** This event is fired when the panorama's position changes. The position changes as the user navigates through the panorama or the position is set manually. */
-  onPositionChanged?: () => void
+  onPositionChanged?: (() => void) | undefined
   /** This event is fired when the panorama's point-of-view changes. The point of view changes as the pitch, zoom, or heading changes. */
-  onPovChanged?: () => void
+  onPovChanged?: (() => void) | undefined
   /** Developers should trigger this event on the panorama when its div changes size: google.maps.event.trigger(panorama, 'resize'). */
-  onResize?: () => void
+  onResize?: (() => void) | undefined
   /** This event is fired after every panorama lookup by id or location, via setPosition() or setPano(). */
-  onStatusChanged?: () => void
+  onStatusChanged?: (() => void) | undefined
   /** This event is fired when the panorama's visibility changes. The visibility is changed when the Pegman is dragged onto the map, the close button is clicked, or setVisible() is called. */
-  onVisibleChanged?: () => void
+  onVisibleChanged?: (() => void) | undefined
   /** This event is fired when the panorama's zoom level changes. */
-  onZoomChange?: () => void
+  onZoomChange?: (() => void) | undefined
   /** This callback is called when the streetViewPanorama instance has loaded. It is called with the streetViewPanorama instance. */
-  onLoad?: (streetViewPanorama: google.maps.StreetViewPanorama) => void
+  onLoad?: ((streetViewPanorama: google.maps.StreetViewPanorama) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the streetViewPanorama instance. */
-  onUnmount?: (streetViewPanorama: google.maps.StreetViewPanorama) => void
+  onUnmount?: ((streetViewPanorama: google.maps.StreetViewPanorama) => void) | undefined
 }
 
-export class StreetViewPanorama extends React.PureComponent<
+export class StreetViewPanorama extends PureComponent<
   StreetViewPanoramaProps,
   StreetViewPanoramaState
 > {
@@ -112,7 +112,7 @@ export class StreetViewPanorama extends React.PureComponent<
       instance: streetViewPanorama,
     })
 
-    this.setState(function setStreetViewPanorama() {
+    this.setState(() => {
       return {
         streetViewPanorama,
       }
@@ -145,7 +145,7 @@ export class StreetViewPanorama extends React.PureComponent<
     }
   }
 
-  render(): React.ReactNode {
+  render(): null {
     return null
   }
 }

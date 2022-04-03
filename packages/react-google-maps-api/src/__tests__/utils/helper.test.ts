@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { applyUpdaterToNextProps } from './../../utils/helper'
 
 const updaterMap = {

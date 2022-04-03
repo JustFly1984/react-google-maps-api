@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -50,47 +50,48 @@ interface PolylineState {
 }
 
 export interface PolylineProps {
-  options?: google.maps.PolylineOptions
+  options?: google.maps.PolylineOptions | undefined
   /** If set to true, the user can drag this shape over the map. The geodesic property defines the mode of dragging. */
-  draggable?: boolean
+  draggable?: boolean | undefined
   /** If set to true, the user can edit this shape by dragging the control points shown at the vertices and on each segment. */
-  editable?: boolean
+  editable?: boolean | undefined
   /** Hides this poly if set to false. */
-  visible?: boolean
+  visible?: boolean | undefined
   /** Sets the path. The ordered sequence of coordinates of the Polyline. This path may be specified using either a simple array of LatLngs, or an MVCArray of LatLngs. Note that if you pass a simple array, it will be converted to an MVCArray Inserting or removing LatLngs in the MVCArray will automatically update the polyline on the map. */
   path?:
     | google.maps.MVCArray<google.maps.LatLng>
     | google.maps.LatLng[]
     | google.maps.LatLngLiteral[]
+    | undefined
   /** This event is fired when the DOM dblclick event is fired on the Polyline. */
-  onDblClick?: (e: google.maps.MapMouseEvent) => void
+  onDblClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the user stops dragging the polyline. */
-  onDragEnd?: (e: google.maps.MapMouseEvent) => void
+  onDragEnd?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the user starts dragging the polyline. */
-  onDragStart?: (e: google.maps.MapMouseEvent) => void
+  onDragStart?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM mousedown event is fired on the Polyline. */
-  onMouseDown?: (e: google.maps.MapMouseEvent) => void
+  onMouseDown?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM mousemove event is fired on the Polyline. */
-  onMouseMove?: (e: google.maps.MapMouseEvent) => void
+  onMouseMove?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired on Polyline mouseout. */
-  onMouseOut?: (e: google.maps.MapMouseEvent) => void
+  onMouseOut?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired on Polyline mouseover. */
-  onMouseOver?: (e: google.maps.MapMouseEvent) => void
+  onMouseOver?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM mouseup event is fired on the Polyline. */
-  onMouseUp?: (e: google.maps.MapMouseEvent) => void
+  onMouseUp?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the Polyline is right-clicked on. */
-  onRightClick?: (e: google.maps.MapMouseEvent) => void
+  onRightClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM click event is fired on the Polyline. */
-  onClick?: (e: google.maps.MapMouseEvent) => void
+  onClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is repeatedly fired while the user drags the polyline. */
-  onDrag?: (e: google.maps.MapMouseEvent) => void
+  onDrag?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This callback is called when the polyline instance has loaded. It is called with the polyline instance. */
-  onLoad?: (polyline: google.maps.Polyline) => void
+  onLoad?: ((polyline: google.maps.Polyline) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the polyline instance. */
-  onUnmount?: (polyline: google.maps.Polyline) => void
+  onUnmount?: ((polyline: google.maps.Polyline) => void) | undefined
 }
 
-export class Polyline extends React.PureComponent<PolylineProps, PolylineState> {
+export class Polyline extends PureComponent<PolylineProps, PolylineState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -152,8 +153,8 @@ export class Polyline extends React.PureComponent<PolylineProps, PolylineState> 
     }
   }
 
-  render(): React.ReactNode {
-    return <></>
+  render(): null {
+    return null
   }
 }
 

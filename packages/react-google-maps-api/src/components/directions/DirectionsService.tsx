@@ -19,9 +19,9 @@ export interface DirectionsServiceProps {
     status: google.maps.DirectionsStatus
   ) => void
   /** This callback is called when the directionsService instance has loaded. It is called with the directionsService instance. */
-  onLoad?: (directionsService: google.maps.DirectionsService) => void
+  onLoad?: ((directionsService: google.maps.DirectionsService) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the directionsService instance. */
-  onUnmount?: (directionsService: google.maps.DirectionsService) => void
+  onUnmount?: ((directionsService: google.maps.DirectionsService) => void) | undefined
 }
 
 export class DirectionsService extends React.PureComponent<
@@ -68,8 +68,8 @@ export class DirectionsService extends React.PureComponent<
     }
   }
 
-  render(): JSX.Element {
-    return <></>
+  render(): null {
+    return null
   }
 }
 

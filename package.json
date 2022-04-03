@@ -23,7 +23,6 @@
     "url": "https://github.com/JustFly1984/react-google-maps-api"
   },
   "scripts": {
-    "prepare": "husky install",
     "build:api": "cd packages/react-google-maps-api && yarn && yarn build && cd ../..",
     "build:docs": "cd packages/react-google-maps-api && yarn && yarn docs:build && cd ../..",
     "build:clusterer": "cd packages/react-google-maps-api-marker-clusterer && yarn && yarn build && cd ../..",

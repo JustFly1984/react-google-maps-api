@@ -43,11 +43,11 @@ export type PaneNames = keyof google.maps.MapPanes
 export interface OverlayViewProps {
   // required
   mapPaneName: PaneNames
-  getPixelPositionOffset?: (offsetWidth: number, offsetHeight: number) => { x: number; y: number }
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
-  position?: google.maps.LatLng | google.maps.LatLngLiteral
-  onLoad?: (overlayView: google.maps.OverlayView) => void
-  onUnmount?: (overlayView: google.maps.OverlayView) => void
+  getPixelPositionOffset?: ((offsetWidth: number, offsetHeight: number) => { x: number; y: number }) | undefined
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
+  position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
+  onLoad?: ((overlayView: google.maps.OverlayView) => void) | undefined
+  onUnmount?: ((overlayView: google.maps.OverlayView) => void) | undefined
 }
 
 export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayViewState> {
