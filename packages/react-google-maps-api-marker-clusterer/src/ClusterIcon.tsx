@@ -212,14 +212,12 @@ export class ClusterIcon {
 
   show() {
     if (this.div && this.center) {
-      let img = '',
-        divTitle = ''
+      let divTitle = ''
 
       // NOTE: values must be specified in px units
       const bp = this.backgroundPosition.split(' ')
 
       const spriteH = parseInt(bp[0].replace(/^\s+|\s+$/g, ''), 10)
-
       const spriteV = parseInt(bp[1].replace(/^\s+|\s+$/g, ''), 10)
 
       const pos = this.getPosFromLatLng(this.center)
@@ -230,79 +228,43 @@ export class ClusterIcon {
         divTitle = this.sums.title
       }
 
-      this.div.style.cssText = this.createCss(pos)
+      this.div.style.cursor = 'pointer'
+      this.div.style.position = 'absolute'
+      this.div.style.top = `${pos.y}px`
+      this.div.style.left = `${pos.x}px`
+      this.div.style.width = `${this.width}px`
+      this.div.style.height = `${this.height}px`
 
-      img =
-        "<img alt='" +
-        divTitle +
-        "' src='" +
-        this.url +
-        "' style='position: absolute; top: " +
-        spriteV +
-        'px; left: ' +
-        spriteH +
-        'px; '
+      const img = document.createElement('img')
+      img.alt = divTitle
+      img.src = this.url
+      img.style.position = 'absolute'
+      img.style.top = `${spriteV}px`
+      img.style.left = `${spriteH}px`
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      //@ts-ignore
       if (!this.cluster.getClusterer().enableRetinaIcons) {
-        img +=
-          'clip: rect(' +
-          -1 * spriteV +
-          'px, ' +
-          (-1 * spriteH + this.width) +
-          'px, ' +
-          (-1 * spriteV + this.height) +
-          'px, ' +
-          -1 * spriteH +
-          'px);'
+        img.style.clip = `rect(-${spriteV}px, -${spriteH + this.width}px, -${spriteV + this.height}, -${spriteH})`
       }
 
-      img += "'>"
+      const textElm = document.createElement('div')
+      textElm.style.position = 'absolute'
+      textElm.style.top = `${this.anchorText[0]}px`
+      textElm.style.left = `${this.anchorText[1]}px`
+      textElm.style.color = this.textColor
+      textElm.style.fontSize = `${this.textSize}px`
+      textElm.style.fontFamily = this.fontFamily
+      textElm.style.fontWeight = this.fontWeight
+      textElm.style.fontStyle = this.fontStyle
+      textElm.style.textDecoration = this.textDecoration
+      textElm.style.textAlign = 'center'
+      textElm.style.width = `${this.width}px`
+      textElm.style.lineHeight = `${this.height}px`
+      textElm.innerText = `${this.sums?.text}`
 
-      this.div.innerHTML =
-        img +
-        "<div style='" +
-        'position: absolute;' +
-        'top: ' +
-        this.anchorText[0] +
-        'px;' +
-        'left: ' +
-        this.anchorText[1] +
-        'px;' +
-        'color: ' +
-        this.textColor +
-        ';' +
-        'font-size: ' +
-        this.textSize +
-        'px;' +
-        'font-family: ' +
-        this.fontFamily +
-        ';' +
-        'font-weight: ' +
-        this.fontWeight +
-        ';' +
-        'font-style: ' +
-        this.fontStyle +
-        ';' +
-        'text-decoration: ' +
-        this.textDecoration +
-        ';' +
-        'text-align: center;' +
-        'width: ' +
-        this.width +
-        'px;' +
-        'line-height:' +
-        this.height +
-        'px;' +
-        "'>" +
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        this.sums.text +
-        '</div>'
-
+      this.div.innerHTML = ''
+      this.div.appendChild(img)
+      this.div.appendChild(textElm)
       this.div.title = divTitle
-
       this.div.style.display = ''
     }
 
@@ -340,18 +302,6 @@ export class ClusterIcon {
 
   setCenter(center: google.maps.LatLng) {
     this.center = center
-  }
-
-  createCss(pos: google.maps.Point): string {
-    const style = []
-
-    style.push('cursor: pointer;')
-
-    style.push('position: absolute; top: ' + pos.y + 'px; left: ' + pos.x + 'px;')
-
-    style.push('width: ' + this.width + 'px; height: ' + this.height + 'px;')
-
-    return style.join('')
   }
 
   getPosFromLatLng(latlng: google.maps.LatLng): google.maps.Point {
