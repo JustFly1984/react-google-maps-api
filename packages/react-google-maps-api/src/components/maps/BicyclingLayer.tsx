@@ -23,12 +23,10 @@ export class BicyclingLayer extends React.PureComponent<BicyclingLayerProps, Bic
   setBicyclingLayerCallback = (): void => {
     if (this.state.bicyclingLayer !== null) {
       // TODO: how is this possibly null if we're doing a null check
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.state.bicyclingLayer.setMap(this.context)
 
       if (this.props.onLoad) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onLoad(this.state.bicyclingLayer)
       }
@@ -48,12 +46,10 @@ export class BicyclingLayer extends React.PureComponent<BicyclingLayerProps, Bic
   componentWillUnmount(): void {
     if (this.state.bicyclingLayer !== null) {
       if (this.props.onUnmount) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onUnmount(this.state.bicyclingLayer)
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.state.bicyclingLayer.setMap(null)
     }

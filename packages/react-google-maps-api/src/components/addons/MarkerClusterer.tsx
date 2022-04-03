@@ -194,7 +194,6 @@ export class ClustererComponent extends React.PureComponent<ClustererProps, Clus
       }
 
       unregisterEvents(this.registeredEvents)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.state.markerClusterer.setMap(null)
     }

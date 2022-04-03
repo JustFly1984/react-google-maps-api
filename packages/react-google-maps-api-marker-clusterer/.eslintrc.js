@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: [
@@ -7,6 +9,7 @@ module.exports = {
     'promise',
     'import',
     'node',
+    'n',
     'you-dont-need-lodash-underscore',
     'no-inferred-method-name',
     'json',
@@ -19,8 +22,10 @@ module.exports = {
     'react',
     'jsx-a11y',
     'react-perf',
-    'prettier',
     'react-functional-set-state',
+    'jest',
+    'jest-dom',
+    'prettier',
   ],
   extends: [
     'eslint:recommended',
@@ -31,12 +36,10 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:promise/recommended',
     'plugin:security-node/recommended',
+    'plugin:jest-dom/recommended',
     'plugin:you-dont-need-lodash-underscore/compatible',
     // Always last
     'prettier',
-    'plugin:prettier/recommended',
-    'prettier/@typescript-eslint',
-    'prettier/standard',
   ],
   rules: {
     'no-unused-vars': 'off',
@@ -65,6 +68,9 @@ module.exports = {
     react: {
       version: 'detect',
     },
+    jest: {
+      version: 27,
+    },
   },
   globals: {
     __DEV__: false,
@@ -84,6 +90,7 @@ module.exports = {
     tsconfigRootDir: './',
   },
   env: {
+    "jest/globals": true,
     browser: true,
     es6: true,
   },

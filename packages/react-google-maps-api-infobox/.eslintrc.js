@@ -62,27 +62,6 @@ module.exports = {
     }
   },
   rules: {
-    '@getify/proper-arrows/params': [
-      'error', {
-        'unused': 'trailing'
-      }
-    ],
-    '@getify/proper-arrows/name': [
-      'error', { 'trivial': false }
-    ],
-    '@getify/proper-arrows/where': [
-      'error', { 'global': true }
-    ],
-    '@getify/proper-arrows/return': [
-      'error', { 'object': true }
-    ],
-    '@getify/proper-arrows/this': [
-      'error',
-      'never', {
-        'no-global': true
-      }
-    ],
-
     'ascii/valid-name': 2,
     'optimize-regex/optimize-regex': 'warn',
     'filenames/no-index': 0,

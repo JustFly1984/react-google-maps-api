@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { Clusterer } from '../Clusterer'
 
 describe('Clusterer', () => {

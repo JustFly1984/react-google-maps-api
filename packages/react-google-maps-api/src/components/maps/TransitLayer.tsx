@@ -23,12 +23,10 @@ export class TransitLayer extends React.PureComponent<TransitLayerProps, Transit
   setTransitLayerCallback = (): void => {
     if (this.state.transitLayer !== null) {
       // TODO: how is this possibly null if we're doing a null check
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.state.transitLayer.setMap(this.context)
 
       if (this.props.onLoad) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onLoad(this.state.transitLayer)
       }
@@ -48,12 +46,10 @@ export class TransitLayer extends React.PureComponent<TransitLayerProps, Transit
   componentWillUnmount(): void {
     if (this.state.transitLayer !== null) {
       if (this.props.onUnmount) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onUnmount(this.state.transitLayer)
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.state.transitLayer.setMap(null)
     }

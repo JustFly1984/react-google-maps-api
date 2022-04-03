@@ -33,7 +33,6 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
   setTrafficLayerCallback = () => {
     if (this.state.trafficLayer !== null) {
       if (this.props.onLoad) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onLoad(this.state.trafficLayer)
       }
@@ -80,14 +79,12 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
   componentWillUnmount(): void {
     if (this.state.trafficLayer !== null) {
       if (this.props.onUnmount) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onUnmount(this.state.trafficLayer)
       }
 
       unregisterEvents(this.registeredEvents)
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.state.trafficLayer.setMap(null)
     }

@@ -11,6 +11,22 @@ export type MarkerExtended = google.maps.Marker & {
 
 export type TCalculator = (markers: MarkerExtended[], num: number) => ClusterIconInfo
 
+export interface ClusterIconStyle {
+  url: string
+  className?: string
+  height: number
+  width: number
+  anchorText?: number[]
+  anchorIcon?: number[]
+  textColor?: string
+  textSize?: number
+  textDecoration?: string
+  fontWeight?: string
+  fontStyle?: string
+  fontFamily?: string
+  backgroundPosition?: string
+}
+
 export interface ClustererOptions {
   gridSize?: number
   maxZoom?: number
@@ -28,20 +44,4 @@ export interface ClustererOptions {
   imagePath?: string
   imageExtension?: string
   imageSizes?: number[]
-}
-
-export interface ClusterIconStyle {
-  url: string
-  className?: string
-  height: number
-  width: number
-  anchorText?: number[]
-  anchorIcon?: number[]
-  textColor?: string
-  textSize?: number
-  textDecoration?: string
-  fontWeight?: string
-  fontStyle?: string
-  fontFamily?: string
-  backgroundPosition?: string
 }
