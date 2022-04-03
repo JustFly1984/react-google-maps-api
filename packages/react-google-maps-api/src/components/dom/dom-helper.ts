@@ -1,9 +1,8 @@
 import { PositionDrawProps } from "../../types"
 
-/* eslint-disable filenames/match-regex */
 export function getOffsetOverride(
   containerElement: HTMLElement,
-  getPixelPositionOffset?: (offsetWidth: number, offsetHeight: number) => { x: number; y: number }
+  getPixelPositionOffset?:( (offsetWidth: number, offsetHeight: number) => { x: number; y: number }) | undefined
 ): { x: number; y: number } | {} {
   return typeof getPixelPositionOffset === 'function'
     ? getPixelPositionOffset(containerElement.offsetWidth, containerElement.offsetHeight)
@@ -11,25 +10,38 @@ export function getOffsetOverride(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const createLatLng = (inst: any, Type: any): any => new Type(inst.lat, inst.lng)
+function createLatLng(inst: any, Type: any): any { return new Type(inst.lat, inst.lng) }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const createLatLngBounds = (inst: any, Type: any): any =>
-  new Type(
+function createLatLngBounds(inst: any, Type: any): any {
+  return new Type(
     new google.maps.LatLng(inst.ne.lat, inst.ne.lng),
     new google.maps.LatLng(inst.sw.lat, inst.sw.lng)
   )
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ensureOfType = (inst: any, type: any, factory: any): any => {
+function ensureOfType(
+  inst: google.maps.LatLng | google.maps.LatLngLiteral | undefined,
+  type: any,
+  factory: any
+): any {
   return inst instanceof type ? inst : factory(inst, type)
 }
 
-const getLayoutStylesByBounds = (
+function ensureOfTypeBounds(
+  inst: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+  type: any,
+  factory: (inst: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, type: any) => any
+): any {
+  return inst instanceof type ? inst : factory(inst, type)
+}
+
+function getLayoutStylesByBounds(
   mapCanvasProjection: google.maps.MapCanvasProjection,
   offset: { x: number; y: number },
   bounds: google.maps.LatLngBounds
-): { left: string; top: string; width?: string; height?: string } => {
+): { left: string; top: string; width?: string | undefined; height?: string | undefined } {
   const ne = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(bounds.getNorthEast())
 
   const sw = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(bounds.getSouthWest())
@@ -49,11 +61,11 @@ const getLayoutStylesByBounds = (
   }
 }
 
-const getLayoutStylesByPosition = (
+function getLayoutStylesByPosition  (
   mapCanvasProjection: google.maps.MapCanvasProjection,
   offset: { x: number; y: number },
   position: google.maps.LatLng
-): { left: string; top: string } => {
+): { left: string; top: string } {
   const point = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(position)
 
   if (point) {
@@ -71,17 +83,17 @@ const getLayoutStylesByPosition = (
   }
 }
 
-export const getLayoutStyles = (
+export function getLayoutStyles (
   mapCanvasProjection: google.maps.MapCanvasProjection,
   offset: { x: number; y: number },
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
-  position?: google.maps.LatLng | google.maps.LatLngLiteral
-): PositionDrawProps => {
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined,
+  position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
+): PositionDrawProps {
   return bounds !== undefined
     ? getLayoutStylesByBounds(
         mapCanvasProjection,
         offset,
-        ensureOfType(bounds, google.maps.LatLngBounds, createLatLngBounds)
+        ensureOfTypeBounds(bounds, google.maps.LatLngBounds, createLatLngBounds)
       )
     : getLayoutStylesByPosition(
         mapCanvasProjection,
@@ -90,10 +102,10 @@ export const getLayoutStyles = (
       )
 }
 
-export const arePositionsEqual = (
+export function arePositionsEqual (
   currentPosition: PositionDrawProps,
   previousPosition: PositionDrawProps
-): boolean => {
+): boolean {
   return currentPosition.left === previousPosition.left
     && currentPosition.top === previousPosition.top
     && currentPosition.width === previousPosition.height

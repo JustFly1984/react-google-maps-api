@@ -1,10 +1,10 @@
 export interface HasMarkerAnchor {
-  anchor?: google.maps.Marker | null
+  anchor?: google.maps.Marker | null | undefined
 }
 
 export interface PositionDrawProps {
-  left?: string | number;
-  top?: string | number;
-  width?: string | number;
-  height?: string | number;
+  left?: string | number | undefined
+  top?: string | number | undefined
+  width?: string | number | undefined
+  height?: string | number | undefined
 }

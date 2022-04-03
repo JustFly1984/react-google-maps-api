@@ -20,9 +20,9 @@ export interface DistanceMatrixServiceProps {
     status: google.maps.DistanceMatrixStatus
   ) => void
   /** This callback is called when the distanceMatrixService instance has loaded. It is called with the distanceMatrixService instance. */
-  onLoad?: (distanceMatrixService: google.maps.DistanceMatrixService) => void
+  onLoad?: ((distanceMatrixService: google.maps.DistanceMatrixService) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the distanceMatrixService instance. */
-  onUnmount?: (distanceMatrixService: google.maps.DistanceMatrixService) => void
+  onUnmount?: ((distanceMatrixService: google.maps.DistanceMatrixService) => void) | undefined
 }
 
 export class DistanceMatrixService extends React.PureComponent<
@@ -62,15 +62,13 @@ export class DistanceMatrixService extends React.PureComponent<
   }
 
   componentWillUnmount(): void {
-    if (this.state.distanceMatrixService !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.distanceMatrixService)
-      }
+    if (this.state.distanceMatrixService !== null && this.props.onUnmount) {
+      this.props.onUnmount(this.state.distanceMatrixService)
     }
   }
 
-  render(): JSX.Element {
-    return <></>
+  render(): null {
+    return null
   }
 }
 

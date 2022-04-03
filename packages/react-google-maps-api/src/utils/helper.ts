@@ -3,7 +3,7 @@
 import { reduce } from './reduce'
 import { forEach } from './foreach'
 
-export const applyUpdaterToNextProps = (
+export function applyUpdaterToNextProps  (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updaterMap: any,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,7 +13,7 @@ export const applyUpdaterToNextProps = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   instance: any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): any => {
+): any {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const map: any = {}
 
@@ -58,6 +58,7 @@ export function registerEvents(
 
   return registeredList
 }
+
 function unregisterEvent(registered: google.maps.MapsEventListener): void {
   google.maps.event.removeListener(registered)
 }
@@ -84,6 +85,8 @@ export function applyUpdatersToPropsAndRegisterEvents({
   instance: any
 }): google.maps.MapsEventListener[] {
   const registeredEvents = registerEvents(nextProps, instance, eventMap)
+
   applyUpdaterToNextProps(updaterMap, prevProps, nextProps, instance)
+
   return registeredEvents
 }

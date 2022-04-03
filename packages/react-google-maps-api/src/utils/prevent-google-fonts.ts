@@ -1,4 +1,4 @@
-const isRobotoStyle = (element: HTMLElement): boolean => {
+function isRobotoStyle(element: HTMLElement): boolean {
   // roboto font download
   if (
     (element as HTMLLinkElement).href &&
@@ -10,17 +10,13 @@ const isRobotoStyle = (element: HTMLElement): boolean => {
   // roboto style elements
   if (
     element.tagName.toLowerCase() === 'style' &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     element.styleSheet &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     element.styleSheet.cssText &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     element.styleSheet.cssText.replace('\r\n', '').indexOf('.gm-style') === 0
   ) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     element.styleSheet.cssText = ''
     return true
@@ -37,7 +33,6 @@ const isRobotoStyle = (element: HTMLElement): boolean => {
   // when google tries to add empty style
   if (
     element.tagName.toLowerCase() === 'style' &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     !element.styleSheet &&
     !element.innerHTML
@@ -49,7 +44,7 @@ const isRobotoStyle = (element: HTMLElement): boolean => {
 }
 
 // Preventing the Google Maps library from downloading an extra font
-export const preventGoogleFonts = (): void => {
+export function preventGoogleFonts (): void {
   // we override these methods only for one particular head element
   // default methods for other elements are not affected
   const head = document.getElementsByTagName('head')[0]
@@ -57,7 +52,6 @@ export const preventGoogleFonts = (): void => {
   const trueInsertBefore = head.insertBefore.bind(head)
 
   // TODO: adding return before reflect solves the TS issue
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   head.insertBefore = function insertBefore(
     newElement: HTMLElement,
@@ -71,7 +65,6 @@ export const preventGoogleFonts = (): void => {
   const trueAppend = head.appendChild.bind(head)
 
   // TODO: adding return before reflect solves the TS issue
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   head.appendChild = function appendChild(textNode: HTMLElement): void {
     if (!isRobotoStyle(textNode)) {

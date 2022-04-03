@@ -29,7 +29,7 @@ const updaterMap = {
   addgeojson(
     instance: google.maps.Data,
     geojson: object,
-    options?: google.maps.Data.GeoJsonOptions
+    options?: google.maps.Data.GeoJsonOptions | undefined
   ): void {
     instance.addGeoJson(geojson, options)
   },
@@ -86,36 +86,37 @@ const updaterMap = {
 interface DataState {
   data: google.maps.Data | null
 }
+
 export interface DataProps {
-  options?: google.maps.Data.DataOptions
+  options?: google.maps.Data.DataOptions | undefined
   /**  This event is fired when a feature is added to the collection. */
-  onAddFeature?: (e: google.maps.Data.AddFeatureEvent) => void
+  onAddFeature?: ((e: google.maps.Data.AddFeatureEvent) => void) | undefined
   /**  This event is fired for a click on the geometry. */
-  onClick?: (e: google.maps.Data.MouseEvent) => void
+  onClick?: ((e: google.maps.Data.MouseEvent) => void) | undefined
   /**  This event is fired for a double click on the geometry. */
-  onDblClick?: (e: google.maps.Data.MouseEvent) => void
+  onDblClick?: ((e: google.maps.Data.MouseEvent) => void) | undefined
   /**  This event is fired for a mousedown on the geometry. */
-  onMouseDown?: (e: google.maps.Data.MouseEvent) => void
+  onMouseDown?: ((e: google.maps.Data.MouseEvent) => void) | undefined
   /**  This event is fired when the mouse leaves the area of the geometry. */
-  onMouseOut?: (e: google.maps.Data.MouseEvent) => void
+  onMouseOut?: ((e: google.maps.Data.MouseEvent) => void) | undefined
   /**  This event is fired when the mouse enters the area of the geometry. */
-  onMouseOver?: (e: google.maps.Data.MouseEvent) => void
+  onMouseOver?: ((e: google.maps.Data.MouseEvent) => void) | undefined
   /**  This event is fired for a mouseup on the geometry. */
-  onMouseUp?: (e: google.maps.Data.MouseEvent) => void
-  /**  This event is fired when a feature is removed from the collection. */
-  onRemoveFeature?: (e: google.maps.Data.RemoveFeatureEvent) => void
-  /**  This event is fired when a feature's property is removed. */
-  onRemoveProperty?: (e: google.maps.Data.RemovePropertyEvent) => void
+  onMouseUp?: ((e: google.maps.Data.MouseEvent) => void) | undefined
   /**  This event is fired for a rightclick on the geometry. */
-  onRightClick?: (e: google.maps.Data.MouseEvent) => void
+  onRightClick?: ((e: google.maps.Data.MouseEvent) => void) | undefined
+  /**  This event is fired when a feature is removed from the collection. */
+  onRemoveFeature?: ((e: google.maps.Data.RemoveFeatureEvent) => void) | undefined
+  /**  This event is fired when a feature's property is removed. */
+  onRemoveProperty?: ((e: google.maps.Data.RemovePropertyEvent) => void) | undefined
   /**  This event is fired when a feature's geometry is set. */
-  onSetGeometry?: (e: google.maps.Data.SetGeometryEvent) => void
+  onSetGeometry?: ((e: google.maps.Data.SetGeometryEvent) => void) | undefined
   /**  This event is fired when a feature's property is set. */
-  onSetProperty?: (e: google.maps.Data.SetPropertyEvent) => void
+  onSetProperty?: ((e: google.maps.Data.SetPropertyEvent) => void) | undefined
   /**  This callback is called when the data instance has loaded. It is called with the data instance. */
-  onLoad?: (data: google.maps.Data) => void
+  onLoad?: ((data: google.maps.Data) => void) | undefined
   /**  This callback is called when the component unmounts. It is called with the data instance.  */
-  onUnmount?: (data: google.maps.Data) => void
+  onUnmount?: ((data: google.maps.Data) => void) | undefined
 }
 
 export class Data extends React.PureComponent<DataProps, DataState> {
@@ -147,7 +148,7 @@ export class Data extends React.PureComponent<DataProps, DataState> {
       instance: data,
     })
 
-    this.setState(function setData() {
+    this.setState(() => {
       return {
         data,
       }

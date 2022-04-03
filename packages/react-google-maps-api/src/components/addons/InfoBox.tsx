@@ -1,7 +1,6 @@
 /* global google */
-/* eslint-disable filenames/match-exported */
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import { Children, PureComponent, type ReactPortal } from 'react'
+import { createPortal } from 'react-dom'
 import invariant from 'invariant'
 import {
   InfoBox as GoogleMapsInfoBox,
@@ -41,7 +40,7 @@ const updaterMap = {
 }
 
 type InfoBoxOptions = Omit<GoogleMapsInfoBoxOptions, 'position'> & {
-  position?: google.maps.LatLng | google.maps.LatLngLiteral
+  position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
 }
 
 interface InfoBoxState {
@@ -50,29 +49,29 @@ interface InfoBoxState {
 
 export interface InfoBoxProps {
   /** Can be any MVCObject that exposes a LatLng position property and optionally a Point anchorPoint property for calculating the pixelOffset. The anchorPoint is the offset from the anchor's position to the tip of the InfoBox. */
-  anchor?: google.maps.MVCObject
-  options?: InfoBoxOptions
+  anchor?: google.maps.MVCObject | undefined
+  options?: InfoBoxOptions | undefined
   /** The LatLng at which to display this InfoBox. If the InfoBox is opened with an anchor, the anchor's position will be used instead. */
-  position?: google.maps.LatLng | google.maps.LatLngLiteral
+  position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
   /** All InfoBoxes are displayed on the map in order of their zIndex, with higher values displaying in front of InfoBoxes with lower values. By default, InfoBoxes are displayed according to their latitude, with InfoBoxes of lower latitudes appearing in front of InfoBoxes at higher latitudes. InfoBoxes are always displayed in front of markers. */
-  zIndex?: number
+  zIndex?: number | undefined
   /** This event is fired when the close button was clicked. */
-  onCloseClick?: () => void
+  onCloseClick?: (() => void) | undefined
   /** This event is fired when the <div> containing the InfoBox's content is attached to the DOM. You may wish to monitor this event if you are building out your info window content dynamically. */
-  onDomReady?: () => void
+  onDomReady?: (() => void) | undefined
   /** This event is fired when the content property changes. */
-  onContentChanged?: () => void
+  onContentChanged?: (() => void) | undefined
   /** This event is fired when the position property changes. */
-  onPositionChanged?: () => void
+  onPositionChanged?: (() => void) | undefined
   /** This event is fired when the InfoBox's zIndex changes. */
-  onZindexChanged?: () => void
+  onZindexChanged?: (() => void) | undefined
   /** This callback is called when the infoBox instance has loaded. It is called with the infoBox instance. */
-  onLoad?: (infoBox: GoogleMapsInfoBox) => void
+  onLoad?: ((infoBox: GoogleMapsInfoBox) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the infoBox instance. */
-  onUnmount?: (infoBox: GoogleMapsInfoBox) => void
+  onUnmount?: ((infoBox: GoogleMapsInfoBox) => void) | undefined
 }
 
-export class InfoBoxComponent extends React.PureComponent<InfoBoxProps, InfoBoxState> {
+export class InfoBoxComponent extends PureComponent<InfoBoxProps, InfoBoxState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -163,12 +162,12 @@ export class InfoBoxComponent extends React.PureComponent<InfoBoxProps, InfoBoxS
     }
   }
 
-  render(): React.ReactPortal | null {
+  render(): ReactPortal | null {
     if (!this.containerElement) {
       return null
     }
 
-    return ReactDOM.createPortal(React.Children.only(this.props.children), this.containerElement)
+    return createPortal(Children.only(this.props.children), this.containerElement)
   }
 }
 

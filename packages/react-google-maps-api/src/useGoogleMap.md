@@ -1,13 +1,13 @@
 # Access google map instance
 
 ```js static
-import React from 'react'
+import { useEffect } from 'react'
 import { GoogleMap, useGoogleMap } from '@react-google-maps/api'
 
 function PanningComponent() {
   const map = useGoogleMap()
 
-  React.useEffect(() => {
+  useEffect(() => {
     map.panTo(...)
   }, [map])
 

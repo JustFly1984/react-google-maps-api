@@ -7,6 +7,7 @@ import { ClusterIconStyle, ClusterIconInfo } from './types'
 export class ClusterIcon {
   cluster: Cluster
   className: string
+  clusterClassName: string
   styles: ClusterIconStyle[]
   center: google.maps.LatLng | undefined
   div: HTMLDivElement | null
@@ -30,7 +31,8 @@ export class ClusterIcon {
   constructor(cluster: Cluster, styles: ClusterIconStyle[]) {
     cluster.getClusterer().extend(ClusterIcon, google.maps.OverlayView)
     this.cluster = cluster
-    this.className = this.cluster.getClusterer().getClusterClass()
+    this.clusterClassName = this.cluster.getClusterer().getClusterClass()
+    this.className = this.clusterClassName
     this.styles = styles
     this.center = undefined
     this.div = null
@@ -49,7 +51,6 @@ export class ClusterIcon {
     this.fontStyle = 'normal'
     this.fontFamily = 'Arial,sans-serif'
     this.backgroundPosition = '0 0'
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.setMap(cluster.getMap()) // Note: this causes onAdd to be called
   }
@@ -64,13 +65,11 @@ export class ClusterIcon {
       this.show()
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.getPanes().overlayMouseTarget.appendChild(this.div)
 
     // Fix for Issue 157
     this.boundsChangedListener = google.maps.event.addListener(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.getMap(),
       'boundschanged',
@@ -84,11 +83,9 @@ export class ClusterIcon {
       cDraggingMapByCluster = false
     })
 
-    // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
     google.maps.event.addDomListener(
       this.div,
       'click',
-      // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
       (event: Event) => {
         cMouseDownInCluster = false
 
@@ -112,21 +109,17 @@ export class ClusterIcon {
 
             const bounds = this.cluster.getBounds()
 
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             markerClusterer.getMap().fitBounds(bounds)
 
             // There is a fix for Issue 170 here:
             setTimeout(function timeout() {
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore
               markerClusterer.getMap().fitBounds(bounds)
 
               // Don't zoom beyond the max zoom level
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore
               if (maxZoom !== null && markerClusterer.getMap().getZoom() > maxZoom) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
                 // @ts-ignore
                 markerClusterer.getMap().setZoom(maxZoom + 1)
               }
@@ -146,7 +139,6 @@ export class ClusterIcon {
     google.maps.event.addDomListener(
       this.div,
       'mouseover',
-      // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
       () => {
         /**
          * This event is fired when the mouse moves over a cluster marker.
@@ -158,11 +150,9 @@ export class ClusterIcon {
       }
     )
 
-    // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
     google.maps.event.addDomListener(
       this.div,
       'mouseout',
-      // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
       () => {
         /**
          * This event is fired when the mouse moves out of a cluster marker.
@@ -210,14 +200,12 @@ export class ClusterIcon {
 
   show() {
     if (this.div && this.center) {
-      let img = '',
-        divTitle = ''
+      let divTitle = ''
 
       // NOTE: values must be specified in px units
       const bp = this.backgroundPosition.split(' ')
 
       const spriteH = parseInt(bp[0].replace(/^\s+|\s+$/g, ''), 10)
-
       const spriteV = parseInt(bp[1].replace(/^\s+|\s+$/g, ''), 10)
 
       const pos = this.getPosFromLatLng(this.center)
@@ -228,79 +216,43 @@ export class ClusterIcon {
         divTitle = this.sums.title
       }
 
-      this.div.style.cssText = this.createCss(pos)
+      this.div.style.cursor = 'pointer'
+      this.div.style.position = 'absolute'
+      this.div.style.top = `${pos.y}px`
+      this.div.style.left = `${pos.x}px`
+      this.div.style.width = `${this.width}px`
+      this.div.style.height = `${this.height}px`
 
-      img =
-        "<img alt='" +
-        divTitle +
-        "' src='" +
-        this.url +
-        "' style='position: absolute; top: " +
-        spriteV +
-        'px; left: ' +
-        spriteH +
-        'px; '
+      const img = document.createElement('img')
+      img.alt = divTitle
+      img.src = this.url
+      img.style.position = 'absolute'
+      img.style.top = `${spriteV}px`
+      img.style.left = `${spriteH}px`
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      //@ts-ignore
       if (!this.cluster.getClusterer().enableRetinaIcons) {
-        img +=
-          'clip: rect(' +
-          -1 * spriteV +
-          'px, ' +
-          (-1 * spriteH + this.width) +
-          'px, ' +
-          (-1 * spriteV + this.height) +
-          'px, ' +
-          -1 * spriteH +
-          'px);'
+        img.style.clip = `rect(-${spriteV}px, -${spriteH + this.width}px, -${spriteV + this.height}, -${spriteH})`
       }
 
-      img += "'>"
+      const textElm = document.createElement('div')
+      textElm.style.position = 'absolute'
+      textElm.style.top = `${this.anchorText[0]}px`
+      textElm.style.left = `${this.anchorText[1]}px`
+      textElm.style.color = this.textColor
+      textElm.style.fontSize = `${this.textSize}px`
+      textElm.style.fontFamily = this.fontFamily
+      textElm.style.fontWeight = this.fontWeight
+      textElm.style.fontStyle = this.fontStyle
+      textElm.style.textDecoration = this.textDecoration
+      textElm.style.textAlign = 'center'
+      textElm.style.width = `${this.width}px`
+      textElm.style.lineHeight = `${this.height}px`
+      textElm.innerText = `${this.sums?.text}`
 
-      this.div.innerHTML =
-        img +
-        "<div style='" +
-        'position: absolute;' +
-        'top: ' +
-        this.anchorText[0] +
-        'px;' +
-        'left: ' +
-        this.anchorText[1] +
-        'px;' +
-        'color: ' +
-        this.textColor +
-        ';' +
-        'font-size: ' +
-        this.textSize +
-        'px;' +
-        'font-family: ' +
-        this.fontFamily +
-        ';' +
-        'font-weight: ' +
-        this.fontWeight +
-        ';' +
-        'font-style: ' +
-        this.fontStyle +
-        ';' +
-        'text-decoration: ' +
-        this.textDecoration +
-        ';' +
-        'text-align: center;' +
-        'width: ' +
-        this.width +
-        'px;' +
-        'line-height:' +
-        this.height +
-        'px;' +
-        "'>" +
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        this.sums.text +
-        '</div>'
-
+      this.div.innerHTML = ''
+      this.div.appendChild(img)
+      this.div.appendChild(textElm)
       this.div.title = divTitle
-
       this.div.style.display = ''
     }
 
@@ -309,15 +261,14 @@ export class ClusterIcon {
 
   useStyle(sums: ClusterIconInfo) {
     this.sums = sums
-
-    const style = this.styles[Math.min(this.styles.length - 1, Math.max(0, sums.index - 1))]
+    const styles = this.cluster.getClusterer().getStyles()
+    const style = styles[Math.min(styles.length - 1, Math.max(0, sums.index - 1))]
 
     this.url = style.url
     this.height = style.height
     this.width = style.width
 
-    if (style.className)
-      this.className = `${this.className} ${style.className}`
+    if (style.className) this.className = `${this.clusterClassName} ${style.className}`
 
     this.anchorText = style.anchorText || [0, 0]
     this.anchorIcon = style.anchorIcon || [this.height / 2, this.width / 2]
@@ -341,20 +292,7 @@ export class ClusterIcon {
     this.center = center
   }
 
-  createCss(pos: google.maps.Point): string {
-    const style = []
-
-    style.push('cursor: pointer;')
-
-    style.push('position: absolute; top: ' + pos.y + 'px; left: ' + pos.x + 'px;')
-
-    style.push('width: ' + this.width + 'px; height: ' + this.height + 'px;')
-
-    return style.join('')
-  }
-
   getPosFromLatLng(latlng: google.maps.LatLng): google.maps.Point {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     const pos = this.getProjection().fromLatLngToDivPixel(latlng)
 

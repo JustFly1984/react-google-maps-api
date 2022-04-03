@@ -1,5 +1,7 @@
-// eslint-disable @typescript-eslint/no-non-null-assertion
-import * as React from 'react'
+/**
+ * @jest-environment jsdom
+ */
+
 import { render, cleanup } from "@testing-library/react"
 import GoogleMap from  "../../GoogleMap"
 import Circle, { CircleProps } from '../../components/drawing/Circle'

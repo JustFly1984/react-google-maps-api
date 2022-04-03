@@ -35,26 +35,26 @@ interface InfoWindowState {
 
 export interface InfoWindowProps {
   /** Can be any MVCObject that exposes a LatLng position property and optionally a Point anchorPoint property for calculating the pixelOffset. The anchorPoint is the offset from the anchor's position to the tip of the InfoWindow. */
-  anchor?: google.maps.MVCObject
-  options?: google.maps.InfoWindowOptions
+  anchor?: google.maps.MVCObject | undefined
+  options?: google.maps.InfoWindowOptions | undefined
   /** The LatLng at which to display this InfoWindow. If the InfoWindow is opened with an anchor, the anchor's position will be used instead. */
-  position?: google.maps.LatLng | google.maps.LatLngLiteral
+  position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
   /** All InfoWindows are displayed on the map in order of their zIndex, with higher values displaying in front of InfoWindows with lower values. By default, InfoWindows are displayed according to their latitude, with InfoWindows of lower latitudes appearing in front of InfoWindows at higher latitudes. InfoWindows are always displayed in front of markers. */
-  zIndex?: number
+  zIndex?: number | undefined
   /** This event is fired when the close button was clicked. */
-  onCloseClick?: () => void
+  onCloseClick?: (() => void) | undefined
   /** This event is fired when the <div> containing the InfoWindow's content is attached to the DOM. You may wish to monitor this event if you are building out your info window content dynamically. */
-  onDomReady?: () => void
+  onDomReady?: (() => void) | undefined
   /** This event is fired when the content property changes. */
-  onContentChanged?: () => void
+  onContentChanged?: (() => void) | undefined
   /** This event is fired when the position property changes. */
-  onPositionChanged?: () => void
+  onPositionChanged?: (() => void) | undefined
   /** This event is fired when the InfoWindow's zIndex changes. */
-  onZindexChanged?: () => void
+  onZindexChanged?: (() => void) | undefined
   /** This callback is called when the infoWindow instance has loaded. It is called with the infoWindow instance. */
-  onLoad?: (infoWindow: google.maps.InfoWindow) => void
+  onLoad?: ((infoWindow: google.maps.InfoWindow) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the infoWindow instance. */
-  onUnmount?: (infoWindow: google.maps.InfoWindow) => void
+  onUnmount?: ((infoWindow: google.maps.InfoWindow) => void) | undefined
 }
 
 export class InfoWindow extends React.PureComponent<InfoWindowProps, InfoWindowState> {
@@ -67,7 +67,7 @@ export class InfoWindow extends React.PureComponent<InfoWindowProps, InfoWindowS
     infoWindow: null,
   }
 
-  open = (infoWindow: google.maps.InfoWindow, anchor?: google.maps.MVCObject): void => {
+  open = (infoWindow: google.maps.InfoWindow, anchor?: google.maps.MVCObject | undefined): void => {
     if (anchor) {
       infoWindow.open(this.context, anchor)
     } else if (infoWindow.getPosition()) {
@@ -107,7 +107,7 @@ export class InfoWindow extends React.PureComponent<InfoWindowProps, InfoWindowS
       instance: infoWindow,
     })
 
-    this.setState(function setInfoWindow() {
+    this.setState(() => {
       return {
         infoWindow,
       }
@@ -136,11 +136,11 @@ export class InfoWindow extends React.PureComponent<InfoWindowProps, InfoWindowS
     }
   }
 
-  render(): React.ReactPortal | React.ReactNode {
+  render(): React.ReactPortal | null {
     return this.containerElement ? (
       ReactDOM.createPortal(React.Children.only(this.props.children), this.containerElement)
     ) : (
-      <></>
+      null
     )
   }
 }

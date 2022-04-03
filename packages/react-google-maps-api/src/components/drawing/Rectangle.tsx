@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
@@ -47,48 +47,48 @@ interface RectangleState {
 }
 
 export interface RectangleProps {
-  options?: google.maps.RectangleOptions
+  options?: google.maps.RectangleOptions | undefined
   /** Sets the bounds of this rectangle. */
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
   /** If set to true, the user can drag this rectangle over the map. */
-  draggable?: boolean
+  draggable?: boolean | undefined
   /** If set to true, the user can edit this rectangle by dragging the control points shown at the corners and on each edge. */
-  editable?: boolean
+  editable?: boolean | undefined
   /** Hides this rectangle if set to false. */
-  visible?: boolean
+  visible?: boolean | undefined
   /** Indicates whether this Rectangle handles mouse events. Defaults to true. */
-  clickable?: boolean
+  clickable?: boolean | undefined
   /** This event is fired when the DOM dblclick event is fired on the rectangle. */
-  onDblClick?: (e: google.maps.MapMouseEvent) => void
+  onDblClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the user stops dragging the rectangle. */
-  onDragEnd?: (e: google.maps.MapMouseEvent) => void
+  onDragEnd?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the user starts dragging the rectangle. */
-  onDragStart?: (e: google.maps.MapMouseEvent) => void
+  onDragStart?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM mousedown event is fired on the rectangle. */
-  onMouseDown?: (e: google.maps.MapMouseEvent) => void
+  onMouseDown?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM mousemove event is fired on the rectangle. */
-  onMouseMove?: (e: google.maps.MapMouseEvent) => void
+  onMouseMove?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired on rectangle mouseout. */
-  onMouseOut?: (e: google.maps.MapMouseEvent) => void
+  onMouseOut?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired on rectangle mouseover. */
-  onMouseOver?: (e: google.maps.MapMouseEvent) => void
+  onMouseOver?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM mouseup event is fired on the rectangle. */
-  onMouseUp?: (e: google.maps.MapMouseEvent) => void
+  onMouseUp?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the rectangle is right-clicked on. */
-  onRightClick?: (e: google.maps.MapMouseEvent) => void
+  onRightClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM click event is fired on the rectangle. */
-  onClick?: (e: google.maps.MapMouseEvent) => void
+  onClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is repeatedly fired while the user drags the rectangle. */
-  onDrag?: (e: google.maps.MapMouseEvent) => void
+  onDrag?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the rectangle's bounds are changed. */
-  onBoundsChanged?: () => void
+  onBoundsChanged?: (() => void) | undefined
   /** This callback is called when the rectangle instance has loaded. It is called with the rectangle instance. */
-  onLoad?: (rectangle: google.maps.Rectangle) => void
+  onLoad?: ((rectangle: google.maps.Rectangle) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the rectangle instance. */
-  onUnmount?: (rectangle: google.maps.Rectangle) => void
+  onUnmount?: ((rectangle: google.maps.Rectangle) => void) | undefined
 }
 
-export class Rectangle extends React.PureComponent<RectangleProps, RectangleState> {
+export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -150,8 +150,8 @@ export class Rectangle extends React.PureComponent<RectangleProps, RectangleStat
     }
   }
 
-  render(): React.ReactNode {
-    return <></>
+  render(): null {
+    return null
   }
 }
 

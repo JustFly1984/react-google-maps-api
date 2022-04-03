@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { type ChangeEvent, Component, type FormEvent, type ReactNode } from 'react'
 import { setKey, getKey } from './docs-api-key'
 
 import LoadScript from '../LoadScript'
@@ -25,7 +25,7 @@ interface DocsApiKeyInputState {
   loadScript: boolean
 }
 
-class DocsApiKeyInput extends React.Component<{}, DocsApiKeyInputState> {
+class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
   constructor(props: {}) {
     super(props)
 
@@ -34,7 +34,7 @@ class DocsApiKeyInput extends React.Component<{}, DocsApiKeyInputState> {
     this.state = key ? { key, loadScript: true } : { key: '', loadScript: false }
   }
 
-  onInputChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>): void => {
+  onInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>): void => {
     this.setState(function setKey() {
       return {
         key: value,
@@ -42,7 +42,7 @@ class DocsApiKeyInput extends React.Component<{}, DocsApiKeyInputState> {
     })
   }
 
-  onFormSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  onFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
 
     setKey(this.state.key)
@@ -54,7 +54,7 @@ class DocsApiKeyInput extends React.Component<{}, DocsApiKeyInputState> {
     })
   }
 
-  render(): React.ReactNode {
+  render(): ReactNode {
     return (
       <>
         <form onSubmit={this.onFormSubmit}>

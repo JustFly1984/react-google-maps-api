@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import MapContext from '../../map-context'
 
@@ -8,12 +8,12 @@ interface TransitLayerState {
 
 export interface TransitLayerProps {
   /** This callback is called when the transitLayer instance has loaded. It is called with the transitLayer instance. */
-  onLoad?: (transitLayer: google.maps.TransitLayer) => void
+  onLoad?: ((transitLayer: google.maps.TransitLayer) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the transitLayer instance. */
-  onUnmount?: (transitLayer: google.maps.TransitLayer) => void
+  onUnmount?: ((transitLayer: google.maps.TransitLayer) => void) | undefined
 }
 
-export class TransitLayer extends React.PureComponent<TransitLayerProps, TransitLayerState> {
+export class TransitLayer extends PureComponent<TransitLayerProps, TransitLayerState> {
   static contextType = MapContext
 
   state = {
@@ -23,12 +23,10 @@ export class TransitLayer extends React.PureComponent<TransitLayerProps, Transit
   setTransitLayerCallback = (): void => {
     if (this.state.transitLayer !== null) {
       // TODO: how is this possibly null if we're doing a null check
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.state.transitLayer.setMap(this.context)
 
       if (this.props.onLoad) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onLoad(this.state.transitLayer)
       }
@@ -48,18 +46,16 @@ export class TransitLayer extends React.PureComponent<TransitLayerProps, Transit
   componentWillUnmount(): void {
     if (this.state.transitLayer !== null) {
       if (this.props.onUnmount) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onUnmount(this.state.transitLayer)
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.state.transitLayer.setMap(null)
     }
   }
 
-  render(): React.ReactNode {
+  render(): null {
     return null
   }
 }

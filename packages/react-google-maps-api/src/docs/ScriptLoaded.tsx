@@ -1,11 +1,11 @@
-import * as React from 'react'
+import { Component, type ReactChild, type ReactChildren } from 'react'
 
 interface ScriptLoadedState {
   scriptLoaded: boolean
 }
 
 interface ScriptLoadedProps {
-  children: React.ReactChild | React.ReactChildren | Function
+  children: ReactChild | ReactChildren | Function
 }
 
 function SpanIntro(): JSX.Element {
@@ -16,7 +16,7 @@ function SpanIntro(): JSX.Element {
   )
 }
 
-class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState> {
+class ScriptLoaded extends Component<ScriptLoadedProps, ScriptLoadedState> {
   interval: number | undefined
 
   constructor(props: ScriptLoadedProps) {

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { CSSProperties, PureComponent, ReactNode } from 'react'
 
 import MapContext from './map-context'
 
@@ -65,76 +66,80 @@ interface GoogleMapState {
 }
 
 export interface GoogleMapProps {
-  children?: React.ReactNode
-  id?: string
-  mapContainerStyle?: React.CSSProperties
-  mapContainerClassName?: string
-  options?: google.maps.MapOptions
+  children?: ReactNode | undefined
+  id?: string | undefined
+  mapContainerStyle?: CSSProperties | undefined
+  mapContainerClassName?: string | undefined
+  options?: google.maps.MapOptions | undefined
   /** Additional map types to overlay. Overlay map types will display on top of the base map they are attached to, in the order in which they appear in the overlayMapTypes array (overlays with higher index values are displayed in front of overlays with lower index values). */
-  extraMapTypes?: google.maps.MapType[]
+  extraMapTypes?: google.maps.MapType[] | undefined
   /** The initial Map center. */
-  center?: google.maps.LatLng | google.maps.LatLngLiteral
+  center?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
   /** When false, map icons are not clickable. A map icon represents a point of interest, also known as a POI. By default map icons are clickable. */
-  clickableIcons?: boolean
+  clickableIcons?: boolean | undefined
   /** The heading for aerial imagery in degrees measured clockwise from cardinal direction North. Headings are snapped to the nearest available angle for which imagery is available. */
-  heading?: number
+  heading?: number | undefined
   /** The initial Map mapTypeId. Defaults to ROADMAP. */
-  mapTypeId?: string
+  mapTypeId?: string | undefined
   /** A StreetViewPanorama to display when the Street View pegman is dropped on the map. If no panorama is specified, a default StreetViewPanorama will be displayed in the map's div when the pegman is dropped. */
-  streetView?: google.maps.StreetViewPanorama
+  streetView?: google.maps.StreetViewPanorama | undefined
   /** Controls the automatic switching behavior for the angle of incidence of the map. The only allowed values are 0 and 45. The value 0 causes the map to always use a 0° overhead view regardless of the zoom level and viewport. The value 45 causes the tilt angle to automatically switch to 45 whenever 45° imagery is available for the current zoom level and viewport, and switch back to 0 whenever 45° imagery is not available (this is the default behavior). 45° imagery is only available for satellite and hybrid map types, within some locations, and at some zoom levels. Note: getTilt returns the current tilt angle, not the value specified by this option. Because getTilt and this option refer to different things, do not bind() the tilt property; doing so may yield unpredictable effects. */
-  tilt?: number
+  tilt?: number | undefined
   /** The initial Map zoom level. Required. Valid values: Integers between zero, and up to the supported maximum zoom level. */
-  zoom?: number
+  zoom?: number | undefined
   /** This event is fired when the user clicks on the map. An ApiMouseEvent with properties for the clicked location is returned unless a place icon was clicked, in which case an IconMouseEvent with a placeId is returned. IconMouseEvent and ApiMouseEvent are identical, except that IconMouseEvent has the placeId field. The event can always be treated as an ApiMouseEvent when the placeId is not important. The click event is not fired if a Marker or InfoWindow was clicked. */
-  onClick?: (e: google.maps.MapMouseEvent) => void
+  onClick?:( (e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the user double-clicks on the map. Note that the click event will also fire, right before this one. */
-  onDblClick?: (e: google.maps.MapMouseEvent) => void
+  onDblClick?:( (e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is repeatedly fired while the user drags the map. */
-  onDrag?: () => void
+  onDrag?:( () => void) | undefined
   /** This event is fired when the user stops dragging the map. */
-  onDragEnd?: () => void
+  onDragEnd?:( () => void) | undefined
   /** This event is fired when the user starts dragging the map. */
-  onDragStart?: () => void
+  onDragStart?:( () => void) | undefined
   /** This event is fired when the mapTypeId property changes. */
-  onMapTypeIdChanged?: () => void
+  onMapTypeIdChanged?:( () => void) | undefined
   /** This event is fired whenever the user's mouse moves over the map container. */
-  onMouseMove?: (e: google.maps.MapMouseEvent) => void
+  onMouseMove?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the user's mouse exits the map container. */
-  onMouseOut?: (e: google.maps.MapMouseEvent) => void
+  onMouseOut?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the user's mouse enters the map container. */
-  onMouseOver?: (e: google.maps.MapMouseEvent) => void
+  onMouseOver?: ((e: google.maps.MapMouseEvent) => void) | undefined
+  /** This event is fired when the DOM mousedown event is fired on the map container. */
+  onMouseDown?: ((e: google.maps.MapMouseEvent) => void) | undefined
+  /** This event is fired when the DOM mouseup event is fired on the map container. */
+  onMouseUp?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the DOM contextmenu event is fired on the map container. */
-  onRightClick?: (e: google.maps.MapMouseEvent) => void
+  onRightClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the visible tiles have finished loading. */
-  onTilesLoaded?: () => void
+  onTilesLoaded?: (() => void) | undefined
   /** This event is fired when the viewport bounds have changed. */
-  onBoundsChanged?: () => void
+  onBoundsChanged?: (() => void) | undefined
   /** This event is fired when the map center property changes. */
-  onCenterChanged?: () => void
+  onCenterChanged?: (() => void) | undefined
   /** This event is fired when the map heading property changes. */
-  onHeadingChanged?: () => void
+  onHeadingChanged?: (() => void) | undefined
   /** This event is fired when the map becomes idle after panning or zooming. */
-  onIdle?: () => void
+  onIdle?: (() => void) | undefined
   /** This event is fired when the projection has changed. */
-  onProjectionChanged?: () => void
+  onProjectionChanged?: (() => void) | undefined
   /** This event is fired when the map size has changed. */
-  onResize?: () => void
+  onResize?: (() => void) | undefined
   /** This event is fired when the map tilt property changes. */
-  onTiltChanged?: () => void
+  onTiltChanged?: (() => void) | undefined
   /** This event is fired when the map zoom property changes. */
-  onZoomChanged?: () => void
+  onZoomChanged?: (() => void) | undefined
   /** This callback is called when the map instance has loaded. It is called with the map instance. */
-  onLoad?: (map: google.maps.Map) => void | Promise<void>
+  onLoad?: ((map: google.maps.Map) => void | Promise<void>) | undefined
   /** This callback is called when the component unmounts. It is called with the map instance. */
-  onUnmount?: (map: google.maps.Map) => void | Promise<void>
+  onUnmount?: ((map: google.maps.Map) => void | Promise<void>) | undefined
 }
 
 // function GoogleMapFunctional({ children, options, id, mapContainerStyle, center, clickableIcons, extraMapTypes, heading, mapContainerClassName, mapTypeId, onBoundsChanged, onCenterChanged, onClick, onDblClick, onDrag, onDragEnd, onDragStart, onHeadingChanged, onIdle, onProjectionChanged, onResize, onTiltChanged, onLoad }: GoogleMapProps): JSX.Element {
-//   const [map, setMap] = React.useState<google.maps.Map | null>(null)
-//   const ref = React.useRef<HTMLDivElement | null>(null)
+//   const [map, setMap] = useState<google.maps.Map | null>(null)
+//   const ref = useRef<HTMLDivElement | null>(null)
 
-//   const getInstance = React.useCallback(() => {
+//   const getInstance = useCallback(() => {
 //     if (ref.current === null) {
 //       return null
 //     }
@@ -142,18 +147,18 @@ export interface GoogleMapProps {
 //     return new google.maps.Map(ref.current, options)
 //   }, [options])
 
-//   React.useEffect(() => {
+//   useEffect(() => {
 
 //   }, [])
 
-//   const panTo = React.useCallback((latLng: google.maps.LatLng | google.maps.LatLngLiteral): void => {
+//   const panTo = useCallback((latLng: google.maps.LatLng | google.maps.LatLngLiteral): void => {
 //     const map = getInstance()
 //     if (map) {
 //       map.panTo(latLng)
 //     }
 //   }, [])
 
-//   React.useEffect(() => {
+//   useEffect(() => {
 //     const map = getInstance()
 
 
@@ -174,14 +179,14 @@ export interface GoogleMapProps {
 //   )
 // }
 
-export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapState> {
+export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
   state: GoogleMapState = {
     map: null,
   }
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  mapRef: Element | null = null
+  mapRef: HTMLDivElement | null = null
 
   getInstance = (): google.maps.Map | null => {
     if (this.mapRef === null) {
@@ -248,11 +253,11 @@ export class GoogleMap extends React.PureComponent<GoogleMapProps, GoogleMapStat
     }
   }
 
-  getRef = (ref: HTMLDivElement | null): void => {
+  getRef: React.LegacyRef<HTMLDivElement> = (ref: HTMLDivElement | null): void => {
     this.mapRef = ref
   }
 
-  render(): React.ReactNode {
+  render(): ReactNode {
     return (
       <div
         id={this.props.id}

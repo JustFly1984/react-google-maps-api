@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { createRef, PureComponent, type ReactNode, type RefObject } from 'react'
 import invariant from 'invariant'
 
 import { injectScript } from './utils/injectscript'
@@ -15,8 +15,8 @@ interface LoadScriptState {
 
 export interface LoadScriptProps extends LoadScriptUrlOptions {
   id: string
-  nonce?: string
-  loadingElement?: React.ReactNode
+  nonce?: string | undefined
+  loadingElement?: ReactNode
   onLoad?: () => void
   onError?: (error: Error) => void
   onUnmount?: () => void
@@ -32,10 +32,10 @@ export const defaultLoadScriptProps = {
   version: 'weekly',
 }
 
-class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
+class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
   public static defaultProps = defaultLoadScriptProps
 
-  check: React.RefObject<HTMLDivElement> = React.createRef()
+  check: RefObject<HTMLDivElement> = createRef()
 
   state = {
     loaded: false,
@@ -214,7 +214,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
       })
   }
 
-  render(): React.ReactNode {
+  render(): ReactNode {
     return (
       <>
         <div ref={this.check} />

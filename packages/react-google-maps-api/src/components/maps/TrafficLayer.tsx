@@ -16,11 +16,11 @@ interface TrafficLayerState {
 }
 
 export interface TrafficLayerProps {
-  options?: google.maps.TrafficLayerOptions
+  options?: google.maps.TrafficLayerOptions | undefined
   /** This callback is called when the trafficLayer instance has loaded. It is called with the trafficLayer instance. */
-  onLoad?: (trafficLayer: google.maps.TrafficLayer) => void
+  onLoad?: ((trafficLayer: google.maps.TrafficLayer) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the trafficLayer instance. */
-  onUnmount?: (trafficLayer: google.maps.TrafficLayer) => void
+  onUnmount?: ((trafficLayer: google.maps.TrafficLayer) => void) | undefined
 }
 
 export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerState> {
@@ -31,12 +31,9 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
   }
 
   setTrafficLayerCallback = () => {
-    if (this.state.trafficLayer !== null) {
-      if (this.props.onLoad) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        this.props.onLoad(this.state.trafficLayer)
-      }
+    if (this.state.trafficLayer !== null && this.props.onLoad) {
+      // @ts-ignore
+      this.props.onLoad(this.state.trafficLayer)
     }
   }
 
@@ -80,20 +77,18 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
   componentWillUnmount(): void {
     if (this.state.trafficLayer !== null) {
       if (this.props.onUnmount) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.props.onUnmount(this.state.trafficLayer)
       }
 
       unregisterEvents(this.registeredEvents)
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.state.trafficLayer.setMap(null)
     }
   }
 
-  render() {
+  render(): null {
     return null
   }
 }

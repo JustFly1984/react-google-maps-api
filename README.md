@@ -25,7 +25,7 @@ Join our [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_i
 
 ### Requirements
 
-- basic git, JavaScript, React knowlwedge
+- basic git, JavaScript, React knowledge
 - Google Maps API Key from [Google CLoud Conosle](https://console.cloud.google.com)
 - git
 - node

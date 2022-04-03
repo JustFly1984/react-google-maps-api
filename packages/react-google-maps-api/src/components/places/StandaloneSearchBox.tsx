@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { Children, createRef, PureComponent, type RefObject } from 'react'
 
 import invariant from 'invariant'
 
@@ -25,17 +25,17 @@ interface StandaloneSearchBoxState {
 
 export interface StandaloneSearchBoxProps {
   /** The area towards which to bias query predictions. Predictions are biased towards, but not restricted to, queries targeting these bounds. */
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
-  options?: google.maps.places.SearchBoxOptions
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
+  options?: google.maps.places.SearchBoxOptions | undefined
   /** This event is fired when the user selects a query, getPlaces should be used to get new places. */
-  onPlacesChanged?: () => void
+  onPlacesChanged?: (() => void) | undefined
   /** This callback is called when the searchBox instance has loaded. It is called with the searchBox instance. */
-  onLoad?: (searchBox: google.maps.places.SearchBox) => void
+  onLoad?: ((searchBox: google.maps.places.SearchBox) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the searchBox instance. */
-  onUnmount?: (searchBox: google.maps.places.SearchBox) => void
+  onUnmount?: ((searchBox: google.maps.places.SearchBox) => void) | undefined
 }
 
-class StandaloneSearchBox extends React.PureComponent<
+class StandaloneSearchBox extends PureComponent<
   StandaloneSearchBoxProps,
   StandaloneSearchBoxState
 > {
@@ -43,7 +43,7 @@ class StandaloneSearchBox extends React.PureComponent<
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  containerElement: React.RefObject<HTMLDivElement> = React.createRef()
+  containerElement: RefObject<HTMLDivElement> = createRef()
 
   state: StandaloneSearchBoxState = {
     searchBox: null,
@@ -109,8 +109,8 @@ class StandaloneSearchBox extends React.PureComponent<
     }
   }
 
-  render(): React.ReactNode {
-    return <div ref={this.containerElement}>{React.Children.only(this.props.children)}</div>
+  render(): JSX.Element {
+    return <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
   }
 }
 

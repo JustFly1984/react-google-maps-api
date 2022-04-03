@@ -19,7 +19,6 @@ export class Cluster {
 
   constructor(markerClusterer: Clusterer) {
     this.markerClusterer = markerClusterer
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.map = this.markerClusterer.getMap()
 
@@ -75,7 +74,6 @@ export class Cluster {
   }
 
   remove() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.clusterIcon.setMap(null)
 

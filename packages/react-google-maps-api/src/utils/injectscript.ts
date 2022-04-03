@@ -1,31 +1,35 @@
 import { isBrowser } from './isbrowser'
 
 interface WindowWithGoogleMap extends Window {
-  initMap?: () => void
+  initMap?: (() => void) | undefined
 }
 
 interface InjectScriptArg {
   url: string
   id: string
-  nonce?: string
+  nonce?: string | undefined
 }
 
-export const injectScript = ({ url, id, nonce }: InjectScriptArg): Promise<any> => {
+export function injectScript({ url, id, nonce }: InjectScriptArg): Promise<any> {
   if (!isBrowser) {
     return Promise.reject(new Error('document is undefined'))
   }
 
   return new Promise(function injectScriptCallback(resolve, reject) {
     const existingScript = document.getElementById(id) as HTMLScriptElement | undefined
+
     const windowWithGoogleMap: WindowWithGoogleMap = window
+
     if (existingScript) {
       // Same script id/url: keep same script
       const dataStateAttribute = existingScript.getAttribute('data-state')
+
       if (existingScript.src === url && dataStateAttribute !== 'error') {
         if (dataStateAttribute === 'ready') {
           return resolve(id)
         } else {
           const originalInitMap = windowWithGoogleMap.initMap
+
           const originalErrorCallback = existingScript.onerror
 
           windowWithGoogleMap.initMap = function initMap(): void {
@@ -62,17 +66,20 @@ export const injectScript = ({ url, id, nonce }: InjectScriptArg): Promise<any> 
     script.nonce = nonce
     script.onerror = function onerror(err): void {
       script.setAttribute('data-state', 'error')
+
       reject(err)
     }
 
     windowWithGoogleMap.initMap = function onload(): void {
       script.setAttribute('data-state', 'ready')
+
       resolve(id)
     }
 
     document.head.appendChild(script)
   }).catch(err => {
     console.error('injectScript error: ', err)
+
     throw err
   })
 }

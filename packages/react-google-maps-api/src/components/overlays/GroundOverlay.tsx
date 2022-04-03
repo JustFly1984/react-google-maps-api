@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import invariant from 'invariant'
 
@@ -23,24 +23,24 @@ interface GroundOverlayState {
 }
 
 export interface GroundOverlayProps {
-  options?: google.maps.GroundOverlayOptions
+  options?: google.maps.GroundOverlayOptions | undefined
   /** The opacity of the overlay, expressed as a number between 0 and 1. Optional. Defaults to 1. */
-  opacity?: number
+  opacity?: number | undefined
   /** This event is fired when the DOM dblclick event is fired on the GroundOverlay. */
-  onDblClick?: (e: google.maps.MapMouseEvent) => void
+  onDblClick?: ((e: google.maps.MapMouseEvent) => void)  | undefined
   /** This event is fired when the DOM click event is fired on the GroundOverlay. */
-  onClick?: (e: google.maps.MapMouseEvent) => void
+  onClick?: ((e: google.maps.MapMouseEvent) => void)  | undefined
   /** The url of the projected image */
   url: string
   /** The bounds that the image will be scaled to fit */
   bounds: google.maps.LatLngBounds
   /** This callback is called when the groundOverlay instance has loaded. It is called with the groundOverlay instance. */
-  onLoad?: (groundOverlay: google.maps.GroundOverlay) => void
+  onLoad?: ((groundOverlay: google.maps.GroundOverlay) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the groundOverlay instance. */
-  onUnmount?: (groundOverlay: google.maps.GroundOverlay) => void
+  onUnmount?: ((groundOverlay: google.maps.GroundOverlay) => void) | undefined
 }
 
-export class GroundOverlay extends React.PureComponent<GroundOverlayProps, GroundOverlayState> {
+export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverlayState> {
   public static defaultProps = {
     onLoad: noop,
   }
@@ -109,7 +109,7 @@ export class GroundOverlay extends React.PureComponent<GroundOverlayProps, Groun
     }
   }
 
-  render(): React.ReactNode {
+  render(): null {
     return null
   }
 }

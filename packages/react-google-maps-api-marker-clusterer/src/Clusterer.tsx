@@ -26,7 +26,7 @@ const CALCULATOR = function CALCULATOR(
 
   return {
     text: count.toString(),
-    index: index,
+    index,
     title: '',
   }
 }
@@ -134,13 +134,11 @@ export class Clusterer {
     this.setupStyles()
 
     this.addMarkers(optMarkers, true)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.setMap(map) // Note: this causes onAdd to be called
   }
 
   onAdd() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.activeMap = this.getMap()
 
@@ -151,11 +149,9 @@ export class Clusterer {
     // Add the map event listeners
     this.listeners = [
       google.maps.event.addListener(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.getMap(),
         'zoom_changed',
-        // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
         () => {
           this.resetViewport(false)
           // Workaround for this Google bug: when map is at level 0 and "-" of
@@ -164,10 +160,8 @@ export class Clusterer {
           // event is triggered so the cluster markers that have been removed
           // do not get redrawn. Same goes for a zoom in at maxZoom.
           if (
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             this.getMap().getZoom() === (this.get('minZoom') || 0) ||
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             this.getMap().getZoom() === this.get('maxZoom')
           ) {
@@ -176,11 +170,9 @@ export class Clusterer {
         }
       ),
       google.maps.event.addListener(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.getMap(),
         'idle',
-        // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
         () => {
           this.redraw()
         }
@@ -188,7 +180,6 @@ export class Clusterer {
     ]
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this
   onRemove() {
     // Put all the managed markers back on the map:
     for (let i = 0; i < this.markers.length; i++) {
@@ -245,7 +236,6 @@ export class Clusterer {
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.getMap().fitBounds(bounds)
   }
@@ -396,7 +386,7 @@ export class Clusterer {
 
   addMarkers(markers: MarkerExtended[], optNoDraw: boolean) {
     for (const key in markers) {
-      if (markers.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(markers, key)) {
         this.pushMarkerTo(markers[key])
       }
     }
@@ -409,7 +399,6 @@ export class Clusterer {
   pushMarkerTo(marker: MarkerExtended) {
     // If the marker is draggable add a listener so we can update the clusters on the dragend:
     if (marker.getDraggable()) {
-      // eslint-disable-next-line @getify/proper-arrows/name, @getify/proper-arrows/this
       google.maps.event.addListener(marker, 'dragend', () => {
         if (this.ready) {
           marker.isAdded = false
@@ -500,7 +489,6 @@ export class Clusterer {
   }
 
   getExtendedBounds(bounds: google.maps.LatLngBounds): google.maps.LatLngBounds {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     const projection = this.getProjection()
     // Convert the points to pixels and the extend out by the grid size.
@@ -650,16 +638,13 @@ export class Clusterer {
     //
     // See Comments 9 & 11 on Issue 3651 relating to this workaround for a Google Maps bug:
     const mapBounds =
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       this.getMap().getZoom() > 3
         ? new google.maps.LatLngBounds(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             this.getMap()
               .getBounds()
               .getSouthWest(),
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             this.getMap()
               .getBounds()
@@ -686,7 +671,6 @@ export class Clusterer {
 
     if (iLast < this.markers.length) {
       this.timerRefStatic = window.setTimeout(
-        // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
         () => {
           this.createClusters(iLast)
         },
@@ -714,12 +698,10 @@ export class Clusterer {
     return function applyExtend(object: any) {
       // eslint-disable-next-line guard-for-in
       for (const property in object.prototype) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         this.prototype[property] = object.prototype[property]
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       return this
     }.apply(obj1, [obj2])
