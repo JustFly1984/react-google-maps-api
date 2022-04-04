@@ -47,8 +47,7 @@ export class BicyclingLayer extends PureComponent<BicyclingLayerProps, Bicycling
       this.state.bicyclingLayer.setMap(this.context)
 
       if (this.props.onLoad) {
-        // @ts-ignore
-        this.props.onLoad(bicyclingLayer)
+        this.props.onLoad(this.state.bicyclingLayer)
       }
     }
   }
