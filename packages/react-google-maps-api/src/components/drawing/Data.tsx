@@ -137,6 +137,7 @@ export class Data extends React.PureComponent<DataProps, DataState> {
   componentDidMount(): void {
     const data = new google.maps.Data({
       ...(this.props.options || {}),
+    // @ts-ignore
       map: this.context,
     })
 

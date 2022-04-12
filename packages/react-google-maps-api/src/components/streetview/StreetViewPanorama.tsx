@@ -102,6 +102,7 @@ export class StreetViewPanorama extends PureComponent<
   }
 
   componentDidMount(): void {
+    // @ts-ignore
     const streetViewPanorama = this.context.getStreetView()
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

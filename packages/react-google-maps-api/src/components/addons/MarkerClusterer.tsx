@@ -153,6 +153,7 @@ export class ClustererComponent extends PureComponent<ClustererProps, ClustererS
 
   componentDidMount(): void {
     if (this.context) {
+      // @ts-ignore
       const markerClusterer = new Clusterer(this.context, [], this.props.options)
 
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

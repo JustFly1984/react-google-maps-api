@@ -85,6 +85,7 @@ export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingMa
   componentDidMount(): void {
     const drawingManager = new google.maps.drawing.DrawingManager({
       ...(this.props.options || {}),
+      // @ts-ignore
       map: this.context,
     })
 

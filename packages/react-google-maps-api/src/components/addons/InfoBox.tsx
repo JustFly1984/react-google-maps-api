@@ -8,6 +8,7 @@ import {
 } from '@react-google-maps/infobox'
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
+import * as React from 'react'
 
 const eventMap = {
   onCloseClick: 'closeclick',
@@ -48,6 +49,7 @@ interface InfoBoxState {
 }
 
 export interface InfoBoxProps {
+  children?: React.ReactNode
   /** Can be any MVCObject that exposes a LatLng position property and optionally a Point anchorPoint property for calculating the pixelOffset. The anchorPoint is the offset from the anchor's position to the tip of the InfoBox. */
   anchor?: google.maps.MVCObject | undefined
   options?: InfoBoxOptions | undefined
@@ -83,8 +85,10 @@ export class InfoBoxComponent extends PureComponent<InfoBoxProps, InfoBoxState> 
 
   open = (infoBox: GoogleMapsInfoBox, anchor?: google.maps.MVCObject): void => {
     if (anchor) {
+      // @ts-ignore
       infoBox.open(this.context, anchor)
     } else if (infoBox.getPosition()) {
+      // @ts-ignore
       infoBox.open(this.context)
     } else {
       invariant(false, 'You must provide either an anchor or a position prop for <InfoBox>.')

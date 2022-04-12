@@ -73,6 +73,7 @@ export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerS
     const heatmapLayer = new google.maps.visualization.HeatmapLayer({
       ...(this.props.options || {}),
       data: this.props.data,
+      // @ts-ignore
       map: this.context,
     })
 

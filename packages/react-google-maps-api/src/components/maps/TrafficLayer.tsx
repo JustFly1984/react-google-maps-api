@@ -1,6 +1,6 @@
 import { PureComponent } from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import { applyUpdatersToPropsAndRegisterEvents, unregisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
 
 const eventMap = {}
@@ -42,6 +42,7 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
   componentDidMount(): void {
     const trafficLayer = new google.maps.TrafficLayer({
       ...(this.props.options || {}),
+    // @ts-ignore
       map: this.context,
     })
 

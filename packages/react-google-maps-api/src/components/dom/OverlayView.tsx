@@ -41,6 +41,7 @@ function convertToLatLngBoundsString(latLngBoundsLike?: google.maps.LatLngBounds
 
 export type PaneNames = keyof google.maps.MapPanes
 export interface OverlayViewProps {
+  children?: React.ReactNode
   // required
   mapPaneName: PaneNames
   getPixelPositionOffset?: ((offsetWidth: number, offsetHeight: number) => { x: number; y: number }) | undefined
@@ -152,6 +153,7 @@ export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayVi
   componentDidMount(): void {
     // You must call setMap() with a valid Map object to trigger the call to
     // the onAdd() method and setMap(null) in order to trigger the onRemove() method.
+    // @ts-ignore
     this.overlayView.setMap(this.context)
   }
 

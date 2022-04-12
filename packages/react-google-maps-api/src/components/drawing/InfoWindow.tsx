@@ -34,6 +34,7 @@ interface InfoWindowState {
 }
 
 export interface InfoWindowProps {
+  children?: React.ReactNode
   /** Can be any MVCObject that exposes a LatLng position property and optionally a Point anchorPoint property for calculating the pixelOffset. The anchorPoint is the offset from the anchor's position to the tip of the InfoWindow. */
   anchor?: google.maps.MVCObject | undefined
   options?: google.maps.InfoWindowOptions | undefined
@@ -69,8 +70,10 @@ export class InfoWindow extends React.PureComponent<InfoWindowProps, InfoWindowS
 
   open = (infoWindow: google.maps.InfoWindow, anchor?: google.maps.MVCObject | undefined): void => {
     if (anchor) {
+      // @ts-ignore
       infoWindow.open(this.context, anchor)
     } else if (infoWindow.getPosition()) {
+      // @ts-ignore
       infoWindow.open(this.context)
     } else {
       invariant(

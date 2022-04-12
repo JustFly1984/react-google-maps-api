@@ -44,6 +44,7 @@ export class BicyclingLayer extends PureComponent<BicyclingLayerProps, Bicycling
   setBicyclingLayerCallback = (): void => {
     if (this.state.bicyclingLayer !== null) {
 
+      // @ts-ignore
       this.state.bicyclingLayer.setMap(this.context)
 
       if (this.props.onLoad) {

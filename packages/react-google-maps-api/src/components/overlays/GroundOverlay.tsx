@@ -67,6 +67,7 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
 
     const groundOverlay = new google.maps.GroundOverlay(this.props.url, this.props.bounds, {
       ...this.props.options,
+      // @ts-ignore
       map: this.context,
     })
 
