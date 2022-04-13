@@ -6,7 +6,6 @@ import { preventGoogleFonts } from './utils/prevent-google-fonts'
 
 import { isBrowser } from './utils/isbrowser'
 import { LoadScriptUrlOptions, makeLoadScriptUrl } from './utils/make-load-script-url'
-import * as React from 'react'
 
 let cleaningUp = false
 
@@ -15,7 +14,7 @@ interface LoadScriptState {
 }
 
 export interface LoadScriptProps extends LoadScriptUrlOptions {
-  children?: React.ReactNode
+  children?: ReactNode
   id: string
   nonce?: string | undefined
   loadingElement?: ReactNode

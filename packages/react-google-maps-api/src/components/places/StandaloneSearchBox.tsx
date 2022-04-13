@@ -1,11 +1,10 @@
-import { Children, createRef, PureComponent, type RefObject } from 'react'
+import { Children, createRef, PureComponent, type RefObject, type ReactNode } from 'react'
 
 import invariant from 'invariant'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
-import * as React from 'react'
 
 const eventMap = {
   onPlacesChanged: 'places_changed',
@@ -25,7 +24,7 @@ interface StandaloneSearchBoxState {
 }
 
 export interface StandaloneSearchBoxProps {
-  children?: React.ReactNode
+  children?: ReactNode
   /** The area towards which to bias query predictions. Predictions are biased towards, but not restricted to, queries targeting these bounds. */
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
   options?: google.maps.places.SearchBoxOptions | undefined
