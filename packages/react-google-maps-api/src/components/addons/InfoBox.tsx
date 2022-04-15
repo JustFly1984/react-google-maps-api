@@ -1,5 +1,5 @@
 /* global google */
-import { Children, PureComponent, type ReactPortal, type ReactNode } from 'react'
+import { Children, PureComponent, ReactNode, type ReactPortal } from 'react'
 import { createPortal } from 'react-dom'
 import invariant from 'invariant'
 import {
@@ -48,7 +48,7 @@ interface InfoBoxState {
 }
 
 export interface InfoBoxProps {
-  children?: ReactNode
+  children?: ReactNode | undefined
   /** Can be any MVCObject that exposes a LatLng position property and optionally a Point anchorPoint property for calculating the pixelOffset. The anchorPoint is the offset from the anchor's position to the tip of the InfoBox. */
   anchor?: google.maps.MVCObject | undefined
   options?: InfoBoxOptions | undefined

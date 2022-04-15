@@ -1,4 +1,4 @@
-import { Children, createRef, PureComponent, type RefObject, type ReactNode } from 'react'
+import { Children, createRef, PureComponent, ReactNode, type RefObject } from 'react'
 
 import invariant from 'invariant'
 
@@ -24,7 +24,7 @@ interface StandaloneSearchBoxState {
 }
 
 export interface StandaloneSearchBoxProps {
-  children?: ReactNode
+  children?: ReactNode | undefined
   /** The area towards which to bias query predictions. Predictions are biased towards, but not restricted to, queries targeting these bounds. */
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
   options?: google.maps.places.SearchBoxOptions | undefined

@@ -1,10 +1,10 @@
 /* global google */
-import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
 import invariant from 'invariant'
+import { ReactNode, PureComponent, ReactPortal, Children } from 'react'
 
 const eventMap = {
   onCloseClick: 'closeclick',
@@ -34,7 +34,7 @@ interface InfoWindowState {
 }
 
 export interface InfoWindowProps {
-  children?: React.ReactNode
+  children?: ReactNode | undefined
   /** Can be any MVCObject that exposes a LatLng position property and optionally a Point anchorPoint property for calculating the pixelOffset. The anchorPoint is the offset from the anchor's position to the tip of the InfoWindow. */
   anchor?: google.maps.MVCObject | undefined
   options?: google.maps.InfoWindowOptions | undefined
@@ -58,7 +58,7 @@ export interface InfoWindowProps {
   onUnmount?: ((infoWindow: google.maps.InfoWindow) => void) | undefined
 }
 
-export class InfoWindow extends React.PureComponent<InfoWindowProps, InfoWindowState> {
+export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -139,9 +139,9 @@ export class InfoWindow extends React.PureComponent<InfoWindowProps, InfoWindowS
     }
   }
 
-  render(): React.ReactPortal | null {
+  render(): ReactPortal | null {
     return this.containerElement ? (
-      ReactDOM.createPortal(React.Children.only(this.props.children), this.containerElement)
+      ReactDOM.createPortal(Children.only(this.props.children), this.containerElement)
     ) : (
       null
     )

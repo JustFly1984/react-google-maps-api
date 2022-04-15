@@ -7,7 +7,6 @@ import { HasMarkerAnchor } from '../../types'
 
 import { Clusterer } from '@react-google-maps/marker-clusterer'
 import { MarkerClusterer as GoogleClusterer} from '@googlemaps/markerclusterer'
-import * as React from 'react'
 
 const eventMap = {
   onAnimationChanged: 'animation_changed',
@@ -82,7 +81,7 @@ const updaterMap = {
 }
 
 export interface MarkerProps {
-  children?: React.ReactNode
+  children?: ReactNode | undefined
   options?: google.maps.MarkerOptions | undefined
   /** Start an animation. Any ongoing animation will be cancelled. Currently supported animations are: BOUNCE, DROP. Passing in null will cause any animation to stop. */
   animation?: google.maps.Animation | undefined
