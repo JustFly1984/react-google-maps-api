@@ -1,4 +1,4 @@
-import { Children, createRef, PureComponent, ReactNode, type RefObject } from 'react'
+import { Children, createRef, PureComponent, type ReactNode, type RefObject } from 'react'
 
 import invariant from 'invariant'
 
