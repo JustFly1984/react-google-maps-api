@@ -1,4 +1,4 @@
-import { PureComponent } from 'react'
+import { memo, PureComponent, useContext, useEffect, useState, type ContextType } from 'react'
 
 import MapContext from '../../map-context'
 
@@ -13,8 +13,48 @@ export interface BicyclingLayerProps {
   onUnmount?: ((bicyclingLayer: google.maps.BicyclingLayer) => void) | undefined
 }
 
+function BicyclingLayerFunctional({ onLoad, onUnmount }: BicyclingLayerProps): null {
+  const context = useContext<google.maps.Map | null>(MapContext)
+
+  const [instance, setInstance] = useState<google.maps.BicyclingLayer | null>(null)
+
+  // Order does matter
+  useEffect(() => {
+    if (instance !== null) {
+      instance.setMap(context)
+    }
+  }, [context])
+
+  useEffect(() => {
+    const bicyclingLayer = new google.maps.BicyclingLayer()
+
+    setInstance(bicyclingLayer)
+
+    bicyclingLayer.setMap(context)
+
+    if (onLoad) {
+      onLoad(bicyclingLayer)
+    }
+
+    return () => {
+      if (bicyclingLayer !== null) {
+        if (onUnmount) {
+          onUnmount(bicyclingLayer)
+        }
+
+        bicyclingLayer.setMap(null)
+      }
+    }
+  }, [])
+
+  return null
+}
+
+export const BicyclingLayerF = memo(BicyclingLayerFunctional)
+
 export class BicyclingLayer extends PureComponent<BicyclingLayerProps, BicyclingLayerState> {
   static contextType = MapContext
+  declare context: ContextType<typeof MapContext>
 
   state: BicyclingLayerState = {
     bicyclingLayer: null,
@@ -36,7 +76,6 @@ export class BicyclingLayer extends PureComponent<BicyclingLayerProps, Bicycling
         this.props.onUnmount(this.state.bicyclingLayer)
       }
 
-      // @ts-ignore
       this.state.bicyclingLayer.setMap(null)
     }
   }
@@ -44,7 +83,6 @@ export class BicyclingLayer extends PureComponent<BicyclingLayerProps, Bicycling
   setBicyclingLayerCallback = (): void => {
     if (this.state.bicyclingLayer !== null) {
 
-      // @ts-ignore
       this.state.bicyclingLayer.setMap(this.context)
 
       if (this.props.onLoad) {

@@ -1,10 +1,10 @@
 /* global google */
-import { Children, PureComponent, ReactNode, type ReactPortal } from 'react'
+import { Children, memo, PureComponent, useContext, useEffect, useRef, useState, type ReactNode, type ReactPortal } from 'react'
 import { createPortal } from 'react-dom'
 import invariant from 'invariant'
 import {
   InfoBox as GoogleMapsInfoBox,
-  InfoBoxOptions as GoogleMapsInfoBoxOptions,
+  type InfoBoxOptions,
 } from '@react-google-maps/infobox'
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
@@ -18,7 +18,7 @@ const eventMap = {
 }
 
 const updaterMap = {
-  options(instance: GoogleMapsInfoBox, options: GoogleMapsInfoBoxOptions): void {
+  options(instance: GoogleMapsInfoBox, options: InfoBoxOptions): void {
     instance.setOptions(options)
   },
   position(
@@ -39,9 +39,10 @@ const updaterMap = {
   },
 }
 
-type InfoBoxOptions = Omit<GoogleMapsInfoBoxOptions, 'position'> & {
-  position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
-}
+// type InfoBoxOptions = Omit<GoogleMapsInfoBoxOptions, 'position'>
+// & {
+//   position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
+// }
 
 interface InfoBoxState {
   infoBox: GoogleMapsInfoBox | null
@@ -53,7 +54,7 @@ export interface InfoBoxProps {
   anchor?: google.maps.MVCObject | undefined
   options?: InfoBoxOptions | undefined
   /** The LatLng at which to display this InfoBox. If the InfoBox is opened with an anchor, the anchor's position will be used instead. */
-  position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
+  position?: google.maps.LatLng | undefined
   /** All InfoBoxes are displayed on the map in order of their zIndex, with higher values displaying in front of InfoBoxes with lower values. By default, InfoBoxes are displayed according to their latitude, with InfoBoxes of lower latitudes appearing in front of InfoBoxes at higher latitudes. InfoBoxes are always displayed in front of markers. */
   zIndex?: number | undefined
   /** This event is fired when the close button was clicked. */
@@ -71,6 +72,231 @@ export interface InfoBoxProps {
   /** This callback is called when the component unmounts. It is called with the infoBox instance. */
   onUnmount?: ((infoBox: GoogleMapsInfoBox) => void) | undefined
 }
+
+const defaultOptions: InfoBoxOptions = {}
+
+function InfoBoxFunctional({
+  children,
+  anchor,
+  options,
+  position,
+  zIndex,
+  onCloseClick,
+  onDomReady,
+  onContentChanged,
+  onPositionChanged,
+  onZindexChanged,
+  onLoad,
+  onUnmount
+}: InfoBoxProps): ReactPortal | null {
+  const context = useContext<google.maps.Map | null>(MapContext)
+
+  const [instance, setInstance] = useState<GoogleMapsInfoBox | null>(null)
+
+  const [closeclickListener, setCloseClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [domreadyclickListener, setDomReadyClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [contentchangedclickListener, setContentChangedClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [positionchangedclickListener, setPositionChangedClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [zindexchangedclickListener, setZindexChangedClickListener] = useState<google.maps.MapsEventListener | null>(null)
+
+  const containerElementRef = useRef<HTMLDivElement | null>(null)
+
+  // Order does matter
+  useEffect(() => {
+    if (context && instance !== null) {
+      instance.close()
+
+      if (anchor) {
+        instance.open(context, anchor)
+      } else if (instance.getPosition()) {
+        instance.open(context)
+      }
+    }
+  }, [context, instance, anchor])
+
+  useEffect(() => {
+    if (options && instance !== null) {
+      instance.setOptions(options)
+    }
+  }, [instance, options])
+
+  useEffect(() => {
+    if (position && instance !== null) {
+      const positionLatLng = position instanceof google.maps.LatLng
+        ? position
+        // @ts-ignore
+        : new google.maps.LatLng(position.lat, position.lng)
+
+      instance.setPosition(positionLatLng)
+    }
+  }, [position])
+
+  useEffect(() => {
+    if (typeof zIndex === 'number' && instance !== null) {
+      instance.setZIndex(zIndex)
+    }
+  }, [zIndex])
+
+  useEffect(() => {
+    if (instance && onCloseClick) {
+      if (closeclickListener !== null) {
+        google.maps.event.removeListener(closeclickListener)
+      }
+
+      setCloseClickListener(
+        google.maps.event.addListener(instance, 'closeclick', onCloseClick)
+      )
+    }
+  }, [onCloseClick])
+
+  useEffect(() => {
+    if (instance && onDomReady) {
+      if (domreadyclickListener !== null) {
+        google.maps.event.removeListener(domreadyclickListener)
+      }
+
+      setDomReadyClickListener(
+        google.maps.event.addListener(instance, 'domready', onDomReady)
+      )
+    }
+  }, [onDomReady])
+
+  useEffect(() => {
+    if (instance && onContentChanged) {
+      if (contentchangedclickListener !== null) {
+        google.maps.event.removeListener(contentchangedclickListener)
+      }
+
+      setContentChangedClickListener(
+        google.maps.event.addListener(instance, 'content_changed', onContentChanged)
+      )
+    }
+  }, [onContentChanged])
+
+  useEffect(() => {
+    if (instance && onPositionChanged) {
+      if (positionchangedclickListener !== null) {
+        google.maps.event.removeListener(positionchangedclickListener)
+      }
+
+      setPositionChangedClickListener(
+        google.maps.event.addListener(instance, 'position_changed', onPositionChanged)
+      )
+    }
+  }, [onPositionChanged])
+
+  useEffect(() => {
+    if (instance && onZindexChanged) {
+      if (zindexchangedclickListener !== null) {
+        google.maps.event.removeListener(zindexchangedclickListener)
+      }
+
+      setZindexChangedClickListener(
+        google.maps.event.addListener(instance, 'zindex_changed', onZindexChanged)
+      )
+    }
+  }, [onZindexChanged])
+
+  useEffect(() => {
+    if (context) {
+      const { position, ...infoBoxOptions }: InfoBoxOptions = options || defaultOptions
+
+      let positionLatLng: google.maps.LatLng | undefined
+
+      if (position && !(position instanceof google.maps.LatLng)) {
+        // @ts-ignore
+        positionLatLng = new google.maps.LatLng(position.lat, position.lng)
+      }
+
+      const infoBox = new GoogleMapsInfoBox({
+        ...infoBoxOptions,
+        ...(positionLatLng ? { position: positionLatLng } : {}),
+      })
+
+      containerElementRef.current = document.createElement('div')
+
+      setInstance(infoBox)
+
+      if (onCloseClick) {
+        setCloseClickListener(
+          google.maps.event.addListener(infoBox, 'circlecomplete', onCloseClick)
+        )
+      }
+
+      if (onDomReady) {
+        setDomReadyClickListener(
+          google.maps.event.addListener(infoBox, 'domready', onDomReady)
+        )
+      }
+
+      if (onContentChanged) {
+        setContentChangedClickListener(
+          google.maps.event.addListener(infoBox, 'content_changed', onContentChanged)
+        )
+      }
+
+      if (onPositionChanged) {
+        setPositionChangedClickListener(
+          google.maps.event.addListener(infoBox, 'position_changed', onPositionChanged)
+        )
+      }
+
+      if (onZindexChanged) {
+        setZindexChangedClickListener(
+          google.maps.event.addListener(infoBox, 'zindex_changed', onZindexChanged)
+        )
+      }
+
+      infoBox.setContent(containerElementRef.current)
+
+      if (anchor) {
+        infoBox.open(context, anchor)
+      } else if (infoBox.getPosition()) {
+        infoBox.open(context)
+      } else {
+        invariant(false, 'You must provide either an anchor or a position prop for <InfoBox>.')
+      }
+
+      if (onLoad) {
+        onLoad(infoBox)
+      }
+    }
+
+    return () => {
+      if (instance !== null) {
+        if (closeclickListener) {
+          google.maps.event.removeListener(closeclickListener)
+        }
+
+        if (contentchangedclickListener) {
+          google.maps.event.removeListener(contentchangedclickListener)
+        }
+
+        if (domreadyclickListener) {
+          google.maps.event.removeListener(domreadyclickListener)
+        }
+
+        if (positionchangedclickListener) {
+          google.maps.event.removeListener(positionchangedclickListener)
+        }
+
+        if (zindexchangedclickListener) {
+          google.maps.event.removeListener(zindexchangedclickListener)
+        }
+
+        if (onUnmount) {
+          onUnmount(instance)
+        }
+
+        instance.close()
+      }
+    }
+  }, [])
+
+  return containerElementRef.current ? createPortal(Children.only(children), containerElementRef.current) : null
+}
+
+export const InfoBoxF = memo(InfoBoxFunctional)
 
 export class InfoBoxComponent extends PureComponent<InfoBoxProps, InfoBoxState> {
   static contextType = MapContext
@@ -95,25 +321,24 @@ export class InfoBoxComponent extends PureComponent<InfoBoxProps, InfoBoxState> 
   }
 
   setInfoBoxCallback = (): void => {
-    const { anchor, onLoad } = this.props
-    const { infoBox } = this.state
+    if (this.state.infoBox !== null && this.containerElement !== null) {
+      this.state.infoBox.setContent(this.containerElement)
 
-    if (infoBox !== null && this.containerElement !== null) {
-      infoBox.setContent(this.containerElement)
-      this.open(infoBox, anchor)
+      this.open(this.state.infoBox, this.props.anchor)
 
-      if (onLoad) {
-        onLoad(infoBox)
+      if (this.props.onLoad) {
+        this.props.onLoad(this.state.infoBox)
       }
     }
   }
 
   componentDidMount(): void {
-    const { options } = this.props
-    const { position, ...infoBoxOptions }: InfoBoxOptions = options || {}
+    const { position, ...infoBoxOptions }: InfoBoxOptions = this.props.options || {}
 
     let positionLatLng: google.maps.LatLng | undefined
+
     if (position && !(position instanceof google.maps.LatLng)) {
+      // @ts-ignore
       positionLatLng = new google.maps.LatLng(position.lat, position.lng)
     }
 
@@ -166,11 +391,7 @@ export class InfoBoxComponent extends PureComponent<InfoBoxProps, InfoBoxState> 
   }
 
   render(): ReactPortal | null {
-    if (!this.containerElement) {
-      return null
-    }
-
-    return createPortal(Children.only(this.props.children), this.containerElement)
+    return this.containerElement ? createPortal(Children.only(this.props.children), this.containerElement) : null
   }
 }
 

@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.9.0 react@18 support, new functional versions of components
+
+- TrafficLayerF
+- BicyclingLayerF
+- TransitLayerF
+- DrawingManagerF
+- InfoBoxF
+- InfoWindowF
+
+please test in your applications each F component.
+
+updated typescript 4.7.0-dev
+installed lerna
+
+## 2.8.1 react@17 support
+
+## 2.7.0 update typescript and dependencies
+
 ## 2.6.0 "@googlemaps/markerclusterer": "1.0.8" GoogleMapsMarkerClusterer component, merged [https://github.com/JustFly1984/react-google-maps-api/pull/2895]( https://github.com/JustFly1984/react-google-maps-api/pull/2895) PR
 
 ## 2.5.0 useJsApiLoader before this patch sets loaded state after loader has loaded, even if the component has already unmounted. This should fixes it

@@ -19,6 +19,8 @@ export class Cluster {
 
   constructor(markerClusterer: Clusterer) {
     this.markerClusterer = markerClusterer
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.map = this.markerClusterer.getMap()
 
@@ -74,11 +76,13 @@ export class Cluster {
   }
 
   remove() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.clusterIcon.setMap(null)
 
     this.markers = []
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     delete this.markers
   }
@@ -197,11 +201,11 @@ export class Cluster {
   isMarkerAlreadyAdded(marker: MarkerExtended): boolean {
     if (this.markers.includes) {
       return this.markers.includes(marker)
-    } else {
-      for (let i = 0; i < this.markers.length; i++) {
-        if (marker === this.markers[i]) {
-          return true
-        }
+    }
+
+    for (let i = 0; i < this.markers.length; i++) {
+      if (marker === this.markers[i]) {
+        return true
       }
     }
 

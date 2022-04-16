@@ -1,5 +1,5 @@
-import React, { useState, useEffect, memo } from 'react'
-import { MarkerClusterer, MarkerClustererOptions } from '@googlemaps/markerclusterer'
+import { useState, useEffect, memo, type ReactElement } from 'react'
+import { MarkerClusterer, type MarkerClustererOptions } from '@googlemaps/markerclusterer'
 
 import { useGoogleMap } from '../../map-context'
 
@@ -10,7 +10,7 @@ export interface GoogleMarkerClustererProps {
    *
    * The callback function should return a list of Marker components.
    */
-  children: (markerClusterer: MarkerClusterer) => React.ReactElement<any, any>,
+  children: (markerClusterer: MarkerClusterer) => ReactElement<any, any>,
   /** Subset of {@link MarkerClustererOptions} options
    *
    * ```
@@ -24,7 +24,7 @@ export interface GoogleMarkerClustererProps {
   options: MarkerClustererOptionsSubset
 }
 
-export const useGoogleMarkerClusterer = (options: MarkerClustererOptionsSubset): MarkerClusterer | null => {
+export function useGoogleMarkerClusterer(options: MarkerClustererOptionsSubset): MarkerClusterer | null {
   const map = useGoogleMap()
 
   const [markerClusterer, setMarkerClusterer] = useState<MarkerClusterer | null>(null)
@@ -32,6 +32,7 @@ export const useGoogleMarkerClusterer = (options: MarkerClustererOptionsSubset):
   useEffect(() => {
     if (map && markerClusterer === null) {
       const markerCluster = new MarkerClusterer({ ...options, map })
+
       setMarkerClusterer(markerCluster)
     }
   }, [map])
