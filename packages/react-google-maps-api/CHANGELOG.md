@@ -6,10 +6,33 @@
 - BicyclingLayerF
 - TransitLayerF
 - DrawingManagerF
+- MarkerF
 - InfoBoxF
 - InfoWindowF
+- PolylineF
+- PolygonF
+- RectangleF
+- CircleF
+
+This components currently for tests only - I've planned to replace PureComponent class based components in 3.0.0 version.
 
 please test in your applications each F component.
+
+TODO:
+
+- LoadScript
+- GoogleMap
+- MarkerClustererF
+- DirectionsRendererF
+- DirectionsServiceF
+- DistanceMatrixServiceF
+- OverlayViewF
+- HeatmapLayerF
+- KmlLayerF
+- AutocompleteF
+- StandaloneSearchBoxF
+- StreetViewPanoramaF
+- StreetViewServiceF
 
 updated typescript 4.7.0-dev
 installed lerna

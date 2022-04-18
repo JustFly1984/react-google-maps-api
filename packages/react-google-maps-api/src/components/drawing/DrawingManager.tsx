@@ -1,5 +1,5 @@
 /* globals google */
-import { memo, PureComponent, useContext, useEffect, useState } from 'react'
+import { type ContextType, memo, PureComponent, useContext, useEffect, useState } from 'react'
 
 import invariant from 'invariant'
 
@@ -68,7 +68,7 @@ function DrawingManagerFunctional({
   onLoad,
   onUnmount
 }: DrawingManagerProps): null {
-  const context = useContext<google.maps.Map | null>(MapContext)
+  const map = useContext<google.maps.Map | null>(MapContext)
 
   const [instance, setInstance] = useState<google.maps.drawing.DrawingManager | null>(null)
 
@@ -81,9 +81,9 @@ function DrawingManagerFunctional({
   // Order does matter
   useEffect(() => {
     if (instance !== null) {
-      instance.setMap(context)
+      instance.setMap(map)
     }
-  }, [context])
+  }, [map])
 
   useEffect(() => {
     if (options && instance !== null) {
@@ -166,7 +166,7 @@ function DrawingManagerFunctional({
 
     const drawingManager = new google.maps.drawing.DrawingManager({
       ...(options || {}),
-      map: context,
+      map,
     })
 
     if (drawingMode) {
@@ -247,6 +247,7 @@ export const DrawingManagerF = memo(DrawingManagerFunctional)
 
 export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingManagerState> {
   static contextType = MapContext
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
@@ -273,7 +274,6 @@ export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingMa
   componentDidMount(): void {
     const drawingManager = new google.maps.drawing.DrawingManager({
       ...(this.props.options || {}),
-      // @ts-ignore
       map: this.context,
     })
 

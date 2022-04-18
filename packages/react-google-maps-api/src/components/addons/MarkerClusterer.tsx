@@ -1,4 +1,4 @@
-import { PureComponent, type ReactNode } from 'react'
+import { type ContextType, PureComponent, useState, memo } from 'react'
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
@@ -85,9 +85,9 @@ interface ClustererState {
   markerClusterer: Clusterer | null
 }
 
-export interface ClustererProps {
+export interface MarkerClustererProps {
   // required
-  children: (markerClusterer: Clusterer) => ReactNode
+  children: (markerClusterer: Clusterer) => JSX.Element
 
   options?: ClustererOptions | undefined
   /** Whether the position of a cluster marker should be the average position of all markers in the cluster. If set to false, the cluster marker is positioned at the location of the first marker added to the cluster. The default value is false. */
@@ -136,8 +136,46 @@ export interface ClustererProps {
   onUnmount?: ((markerClusterer: Clusterer) => void) | undefined
 }
 
-export class ClustererComponent extends PureComponent<ClustererProps, ClustererState> {
+function MarkerClustererFunctional({
+  children,
+  options,
+  averageCenter,
+  batchSizeIE,
+  calculator,
+  clusterClass,
+  enableRetinaIcons,
+  gridSize,
+  ignoreHidden,
+  imageExtension,
+  imagePath,
+  imageSizes,
+  maxZoom,
+  minimumClusterSize,
+  styles,
+  title,
+  zoomOnClick,
+  onClick,
+  onClusteringBegin,
+  onClusteringEnd,
+  onMouseOver,
+  onMouseOut,
+  onLoad,
+  onUnmount,
+}: MarkerClustererProps): JSX.Element | null {
+  const [instance, setInstance] = useState<Clusterer | null>(null)
+
+  // TODO!
+
+  return instance !== null
+  ? children(instance) || null
+  : null
+}
+
+export const MarkerClustererF = memo(MarkerClustererFunctional)
+
+export class ClustererComponent extends PureComponent<MarkerClustererProps, ClustererState> {
   static contextType = MapContext
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
@@ -153,7 +191,6 @@ export class ClustererComponent extends PureComponent<ClustererProps, ClustererS
 
   componentDidMount(): void {
     if (this.context) {
-      // @ts-ignore
       const markerClusterer = new Clusterer(this.context, [], this.props.options)
 
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -164,7 +201,7 @@ export class ClustererComponent extends PureComponent<ClustererProps, ClustererS
         instance: markerClusterer,
       })
 
-      this.setState(function setClusterer(): ClustererState {
+      this.setState((): ClustererState => {
         return {
           markerClusterer,
         }
@@ -172,7 +209,7 @@ export class ClustererComponent extends PureComponent<ClustererProps, ClustererS
     }
   }
 
-  componentDidUpdate(prevProps: ClustererProps): void {
+  componentDidUpdate(prevProps: MarkerClustererProps): void {
     if (this.state.markerClusterer) {
       unregisterEvents(this.registeredEvents)
 
@@ -193,12 +230,13 @@ export class ClustererComponent extends PureComponent<ClustererProps, ClustererS
       }
 
       unregisterEvents(this.registeredEvents)
+
       // @ts-ignore
       this.state.markerClusterer.setMap(null)
     }
   }
 
-  render(): ReactNode {
+  render(): JSX.Element | null {
     return this.state.markerClusterer !== null
       ? this.props.children(this.state.markerClusterer)
       : null

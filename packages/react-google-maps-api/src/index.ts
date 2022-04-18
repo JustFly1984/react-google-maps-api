@@ -16,11 +16,11 @@ export { default as TransitLayer, TransitLayerF, type TransitLayerProps } from '
 
 export { default as DrawingManager, DrawingManagerF, type DrawingManagerProps } from './components/drawing/DrawingManager'
 
-export { default as Marker, type MarkerProps } from './components/drawing/Marker'
+export { default as Marker, MarkerF, type MarkerProps } from './components/drawing/Marker'
 
 export {
   default as MarkerClusterer,
-  type ClustererProps as MarkerClustererProps,
+  type MarkerClustererProps,
 } from './components/addons/MarkerClusterer'
 
 export { default as InfoBox, InfoBoxF, type InfoBoxProps } from './components/addons/InfoBox'
@@ -29,15 +29,15 @@ export { default as GoogleMarkerClusterer, type GoogleMarkerClustererProps } fro
 
 export { default as InfoWindow, InfoWindowF, type InfoWindowProps } from './components/drawing/InfoWindow'
 
-export { default as Polyline, type PolylineProps } from './components/drawing/Polyline'
+export { default as Polyline, PolylineF, type PolylineProps } from './components/drawing/Polyline'
 
-export { default as Polygon, type PolygonProps } from './components/drawing/Polygon'
+export { default as Polygon, PolygonF, type PolygonProps } from './components/drawing/Polygon'
 
-export { default as Rectangle, type RectangleProps } from './components/drawing/Rectangle'
+export { default as Rectangle, RectangleF, type RectangleProps } from './components/drawing/Rectangle'
 
-export { default as Circle, type CircleProps } from './components/drawing/Circle'
+export { default as Circle, CircleF, type CircleProps } from './components/drawing/Circle'
 
-export { default as Data, type DataProps } from './components/drawing/Data'
+export { default as Data, DataF, type DataProps } from './components/drawing/Data'
 
 export { default as KmlLayer, type KmlLayerProps } from './components/kml/KmlLayer'
 

@@ -89,7 +89,7 @@ function InfoBoxFunctional({
   onLoad,
   onUnmount
 }: InfoBoxProps): ReactPortal | null {
-  const context = useContext<google.maps.Map | null>(MapContext)
+  const map = useContext<google.maps.Map | null>(MapContext)
 
   const [instance, setInstance] = useState<GoogleMapsInfoBox | null>(null)
 
@@ -103,16 +103,16 @@ function InfoBoxFunctional({
 
   // Order does matter
   useEffect(() => {
-    if (context && instance !== null) {
+    if (map && instance !== null) {
       instance.close()
 
       if (anchor) {
-        instance.open(context, anchor)
+        instance.open(map, anchor)
       } else if (instance.getPosition()) {
-        instance.open(context)
+        instance.open(map)
       }
     }
-  }, [context, instance, anchor])
+  }, [map, instance, anchor])
 
   useEffect(() => {
     if (options && instance !== null) {
@@ -198,7 +198,7 @@ function InfoBoxFunctional({
   }, [onZindexChanged])
 
   useEffect(() => {
-    if (context) {
+    if (map) {
       const { position, ...infoBoxOptions }: InfoBoxOptions = options || defaultOptions
 
       let positionLatLng: google.maps.LatLng | undefined
@@ -250,9 +250,9 @@ function InfoBoxFunctional({
       infoBox.setContent(containerElementRef.current)
 
       if (anchor) {
-        infoBox.open(context, anchor)
+        infoBox.open(map, anchor)
       } else if (infoBox.getPosition()) {
-        infoBox.open(context)
+        infoBox.open(map)
       } else {
         invariant(false, 'You must provide either an anchor or a position prop for <InfoBox>.')
       }

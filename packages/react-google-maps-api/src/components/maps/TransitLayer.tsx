@@ -14,23 +14,23 @@ export interface TransitLayerProps {
 }
 
 function TransitLayerFunctional({ onLoad, onUnmount }: TransitLayerProps): null {
-  const context = useContext<google.maps.Map | null>(MapContext)
+  const map = useContext<google.maps.Map | null>(MapContext)
 
   const [instance, setInstance] = useState<google.maps.TransitLayer | null>(null)
 
   // Order does matter
   useEffect(() => {
     if (instance !== null) {
-      instance.setMap(context)
+      instance.setMap(map)
     }
-  }, [context])
+  }, [map])
 
   useEffect(() => {
     const transitLayer = new google.maps.TransitLayer()
 
     setInstance(transitLayer)
 
-    transitLayer.setMap(context)
+    transitLayer.setMap(map)
 
     if (onLoad) {
       onLoad(transitLayer)
@@ -46,7 +46,7 @@ function TransitLayerFunctional({ onLoad, onUnmount }: TransitLayerProps): null 
         this.state.transitLayer.setMap(null)
       }
     }
-  }, [context])
+  }, [])
 
   return null
 }

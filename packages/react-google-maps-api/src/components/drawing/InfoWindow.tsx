@@ -83,7 +83,7 @@ function InfoWindowFunctional({
   onLoad,
   onUnmount
 }: InfoWindowProps): ReactPortal | null {
-  const context = useContext<google.maps.Map | null>(MapContext)
+  const map = useContext<google.maps.Map | null>(MapContext)
 
   const [instance, setInstance] = useState<google.maps.InfoWindow | null>(null)
 
@@ -101,12 +101,12 @@ function InfoWindowFunctional({
       instance.close()
 
       if (anchor) {
-        instance.open(context, anchor)
+        instance.open(map, anchor)
       } else if (instance.getPosition()) {
-        instance.open(context)
+        instance.open(map)
       }
     }
-  }, [context, instance, anchor])
+  }, [map, instance, anchor])
 
   useEffect(() => {
     if (options && instance !== null) {
@@ -236,9 +236,9 @@ function InfoWindowFunctional({
     }
 
     if (anchor) {
-      infoWindow.open(context, anchor)
+      infoWindow.open(map, anchor)
     } else if (infoWindow.getPosition()) {
-      infoWindow.open(context)
+      infoWindow.open(map)
     } else {
       invariant(
         false,

@@ -1,4 +1,4 @@
-import { Children, createRef, PureComponent, ReactNode, type RefObject } from 'react'
+import { Children, type ContextType, createRef, PureComponent, type ReactNode, type RefObject } from 'react'
 
 import invariant from 'invariant'
 
@@ -41,6 +41,7 @@ class StandaloneSearchBox extends PureComponent<
   StandaloneSearchBoxState
 > {
   static contextType = MapContext
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 

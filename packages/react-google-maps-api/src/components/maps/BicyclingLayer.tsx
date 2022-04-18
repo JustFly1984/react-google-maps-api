@@ -14,23 +14,23 @@ export interface BicyclingLayerProps {
 }
 
 function BicyclingLayerFunctional({ onLoad, onUnmount }: BicyclingLayerProps): null {
-  const context = useContext<google.maps.Map | null>(MapContext)
+  const map = useContext<google.maps.Map | null>(MapContext)
 
   const [instance, setInstance] = useState<google.maps.BicyclingLayer | null>(null)
 
   // Order does matter
   useEffect(() => {
     if (instance !== null) {
-      instance.setMap(context)
+      instance.setMap(map)
     }
-  }, [context])
+  }, [map])
 
   useEffect(() => {
     const bicyclingLayer = new google.maps.BicyclingLayer()
 
     setInstance(bicyclingLayer)
 
-    bicyclingLayer.setMap(context)
+    bicyclingLayer.setMap(map)
 
     if (onLoad) {
       onLoad(bicyclingLayer)

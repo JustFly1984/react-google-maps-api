@@ -24,16 +24,16 @@ export interface TrafficLayerProps {
 }
 
 function TrafficLayerFunctional({ options, onLoad, onUnmount }: TrafficLayerProps): null {
-  const context = useContext(MapContext)
+  const map = useContext(MapContext)
 
   const [instance, setInstance] = useState<google.maps.TrafficLayer | null>(null)
 
   // Order does matter
   useEffect(() => {
     if (instance !== null) {
-      instance.setMap(context)
+      instance.setMap(map)
     }
-  }, [context])
+  }, [map])
 
   useEffect(() => {
     if (options && instance !== null) {
@@ -45,7 +45,7 @@ function TrafficLayerFunctional({ options, onLoad, onUnmount }: TrafficLayerProp
   useEffect(() => {
     const trafficLayer = new google.maps.TrafficLayer({
       ...(options || {}),
-      map: context,
+      map,
     })
 
     setInstance(trafficLayer)
@@ -63,7 +63,7 @@ function TrafficLayerFunctional({ options, onLoad, onUnmount }: TrafficLayerProp
         instance.setMap(null)
       }
     }
-  }, [context])
+  }, [])
 
   return null
 }
