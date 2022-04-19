@@ -146,14 +146,14 @@ export class InfoBox {
 
         for (let i = 0; i < events.length; i++) {
           this.eventListeners.push(
-            google.maps.event.addDomListener(this.div, events[i], cancelHandler)
+            google.maps.event.addListener(this.div, events[i], cancelHandler)
           )
         }
 
         // Workaround for Google bug that causes the cursor to change to a pointer
         // when the mouse moves over a marker underneath InfoBox.
         this.eventListeners.push(
-          google.maps.event.addDomListener(
+          google.maps.event.addListener(
             this.div,
             'mouseover',
             () => {
@@ -165,7 +165,7 @@ export class InfoBox {
         )
       }
 
-      this.contextListener = google.maps.event.addDomListener(
+      this.contextListener = google.maps.event.addListener(
         this.div,
         'contextmenu',
         ignoreHandler
@@ -201,7 +201,7 @@ export class InfoBox {
   addClickHandler(): void {
     if (this.div && this.div.firstChild && this.closeBoxURL !== '') {
       const closeBox = this.div.firstChild
-      this.closeListener = google.maps.event.addDomListener(
+      this.closeListener = google.maps.event.addListener(
         closeBox,
         'click',
         this.getCloseClickHandler()
