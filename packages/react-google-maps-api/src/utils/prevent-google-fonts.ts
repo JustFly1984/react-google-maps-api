@@ -1,13 +1,15 @@
-function isRobotoStyle(element: HTMLElement): boolean {
-  // roboto font download
+function isGoogleFontStyle(element: HTMLElement): boolean {
+  // 'Roboto' or 'Google Sans Text' font download
+  const href = (element as HTMLLinkElement).href;
   if (
-    (element as HTMLLinkElement).href &&
-    (element as HTMLLinkElement).href.indexOf('https://fonts.googleapis.com/css?family=Roboto') ===
-      0
+    href && (
+      href.indexOf('https://fonts.googleapis.com/css?family=Roboto') === 0 ||
+      href.indexOf('https://fonts.googleapis.com/css?family=Google+Sans+Text') === 0
+    )
   ) {
     return true
   }
-  // roboto style elements
+  // font style elements
   if (
     element.tagName.toLowerCase() === 'style' &&
     // @ts-ignore
@@ -21,7 +23,7 @@ function isRobotoStyle(element: HTMLElement): boolean {
     element.styleSheet.cssText = ''
     return true
   }
-  // roboto style elements for other browsers
+  // font style elements for other browsers
   if (
     element.tagName.toLowerCase() === 'style' &&
     element.innerHTML &&
@@ -57,7 +59,7 @@ export function preventGoogleFonts (): void {
     newElement: HTMLElement,
     referenceElement: HTMLElement
   ): void {
-    if (!isRobotoStyle(newElement)) {
+    if (!isGoogleFontStyle(newElement)) {
       Reflect.apply(trueInsertBefore, head, [newElement, referenceElement])
     }
   }
@@ -67,7 +69,7 @@ export function preventGoogleFonts (): void {
   // TODO: adding return before reflect solves the TS issue
   // @ts-ignore
   head.appendChild = function appendChild(textNode: HTMLElement): void {
-    if (!isRobotoStyle(textNode)) {
+    if (!isGoogleFontStyle(textNode)) {
       Reflect.apply(trueAppend, head, [textNode])
     }
   }
