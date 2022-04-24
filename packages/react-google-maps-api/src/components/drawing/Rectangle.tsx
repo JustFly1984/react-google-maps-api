@@ -56,7 +56,7 @@ export interface RectangleProps {
   editable?: boolean | undefined
   /** Hides this rectangle if set to false. */
   visible?: boolean | undefined
-  /** Indicates whether this Rectangle handles mouse events. Defaults to true. */
+  /** @deprecated Indicates whether this Rectangle handles mouse events. Defaults to true. Does not exist on RectangleF component. In google-maps-api types it belongs to options! update options.clickable instead! */
   clickable?: boolean | undefined
   /** This event is fired when the DOM dblclick event is fired on the rectangle. */
   onDblClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
@@ -89,8 +89,8 @@ export interface RectangleProps {
 }
 
 function RectangleFunctional({
-  bounds,
   options,
+  bounds,
   draggable,
   editable,
   visible,
@@ -105,6 +105,7 @@ function RectangleFunctional({
   onRightClick,
   onClick,
   onDrag,
+  onBoundsChanged,
   onLoad,
   onUnmount,
 }: RectangleProps): null {
@@ -123,6 +124,7 @@ function RectangleFunctional({
   const [rightclickListener, setRightclickListener] = useState<google.maps.MapsEventListener | null>(null)
   const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
   const [dragListener, setDragListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [boundsChangedListener, setBoundsChangedListener] = useState<google.maps.MapsEventListener | null>(null)
 
   // Order does matter
   useEffect(() => {
@@ -149,11 +151,11 @@ function RectangleFunctional({
     }
   }, [instance, editable])
 
-    useEffect(() => {
-      if (typeof visible !== 'undefined' && instance !== null) {
-        instance.setVisible(visible)
-      }
-    }, [instance, visible])
+  useEffect(() => {
+    if (typeof visible !== 'undefined' && instance !== null) {
+      instance.setVisible(visible)
+    }
+  }, [instance, visible])
 
   useEffect(() => {
     if (typeof bounds !== 'undefined' && instance !== null) {
@@ -294,6 +296,18 @@ function RectangleFunctional({
   }, [onDrag])
 
   useEffect(() => {
+    if (instance && onBoundsChanged) {
+      if (boundsChangedListener !== null) {
+        google.maps.event.removeListener(boundsChangedListener)
+      }
+
+      setBoundsChangedListener(
+        google.maps.event.addListener(instance, 'bounds_changed', onBoundsChanged)
+      )
+    }
+  }, [onBoundsChanged])
+
+  useEffect(() => {
     const rectangle = new google.maps.Rectangle({
       ...(options || {}),
       map,
@@ -381,6 +395,12 @@ function RectangleFunctional({
       )
     }
 
+    if (onBoundsChanged) {
+      setBoundsChangedListener(
+        google.maps.event.addListener(rectangle, 'bounds_changed', onBoundsChanged)
+      )
+    }
+
     setInstance(rectangle)
 
     if (onLoad) {
@@ -427,6 +447,14 @@ function RectangleFunctional({
 
       if (clickListener !== null) {
         google.maps.event.removeListener(clickListener)
+      }
+
+      if (dragListener !== null) {
+        google.maps.event.removeListener(dragListener)
+      }
+
+      if (boundsChangedListener !== null) {
+        google.maps.event.removeListener(boundsChangedListener)
       }
 
       if (onUnmount) {

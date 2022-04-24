@@ -1,0 +1,27 @@
+{
+  "baseUrl": ".",
+  "include": ["/**/*"],
+  "exclude": ["node_modules"],
+  "types": ["googlemaps", "jest", "invariant", "react-dom", "eslint", "estree", "webpack"],
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es2015",
+    "jsx": "react-jsx",
+    "lib": ["dom"],
+    "rootDir": "src",
+    "declaration": true,
+    "declarationDir": "dist",
+    "strict": true,
+    "allowJs": false,
+    "checkJs": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noErrorTruncation": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitThis": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true
+  }
+}
