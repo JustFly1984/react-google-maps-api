@@ -1,4 +1,4 @@
-import { Children, createRef, PureComponent, type RefObject } from 'react'
+import { Children, type ContextType, createRef, PureComponent, type ReactNode, type RefObject } from 'react'
 
 import invariant from 'invariant'
 
@@ -24,6 +24,7 @@ interface StandaloneSearchBoxState {
 }
 
 export interface StandaloneSearchBoxProps {
+  children?: ReactNode | undefined
   /** The area towards which to bias query predictions. Predictions are biased towards, but not restricted to, queries targeting these bounds. */
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
   options?: google.maps.places.SearchBoxOptions | undefined
@@ -40,6 +41,7 @@ class StandaloneSearchBox extends PureComponent<
   StandaloneSearchBoxState
 > {
   static contextType = MapContext
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 

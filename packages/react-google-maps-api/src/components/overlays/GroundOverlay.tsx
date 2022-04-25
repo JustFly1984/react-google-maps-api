@@ -1,4 +1,4 @@
-import { PureComponent } from 'react'
+import { type ContextType, PureComponent } from 'react'
 
 import invariant from 'invariant'
 
@@ -46,6 +46,7 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
   }
 
   static contextType = MapContext
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
@@ -67,6 +68,7 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
 
     const groundOverlay = new google.maps.GroundOverlay(this.props.url, this.props.bounds, {
       ...this.props.options,
+      // @ts-ignore
       map: this.context,
     })
 

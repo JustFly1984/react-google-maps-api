@@ -1,14 +1,14 @@
-import * as React from 'react'
+import { type CSSProperties, memo, useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, OverlayView, Marker } from '@react-google-maps/api'
 
 const ExampleOverlayViewPropTypes = {
   styles: PropTypes.shape({
-    container: PropTypes.object.isRequired,
+    container: PropTypes.object,
   }).isRequired,
 }
 
-const mapCenter = {
+const mapCenter: google.maps.LatLngLiteral = {
   lat: 0,
   lng: -180,
 }
@@ -19,40 +19,55 @@ const contentStyles = {
   padding: 15,
 }
 
-const centerOverlayView = (width, height) => ({
-  x: -(width / 2),
-  y: -(height / 2),
-})
+function centerOverlayView(width: number, height: number): { x: number, y: number } {
+  return {
+    x: -(width / 2),
+    y: -(height / 2),
+  }
+}
 
-function ExampleOverlayView({ styles }) {
-  const [isShown, setIsShown] = React.useState(false)
+interface Props {
+  styles: {
+    container: CSSProperties | undefined
+  }
+}
 
-  const changeIsShown = React.useCallback(() => {
+function ExampleOverlayView({ styles }: Props): JSX.Element {
+  const [isShown, setIsShown] = useState(false)
+
+  const changeIsShown = useCallback(() => {
     setIsShown(!isShown)
   }, [isShown])
-  const [overlayPane, setOverlayPane] = React.useState(
+
+  const [overlayPane, setOverlayPane] = useState(
     OverlayView.OVERLAY_MOUSE_TARGET
   )
-  const clickHandler = React.useCallback(() => {
+  const clickHandler = useCallback(() => {
     alert('You clicked overlay view')
   }, [])
-  const [overlayPosition, setOverlayPosition] = React.useState(mapCenter)
-  const randomOverlayPosition = React.useCallback(() => {
+
+  const [overlayPosition, setOverlayPosition] = useState(mapCenter)
+
+  const randomOverlayPosition = useCallback(() => {
     setOverlayPosition({
       lat: mapCenter.lat + Math.random() * -10 + 20,
       lng: mapCenter.lng + Math.random() * -10 + 20,
     })
   }, [])
-  const loadCallback = React.useCallback((e) => {
+
+  const loadCallback = useCallback((e) => {
     console.log('OverlayView onLoad: ', e)
   }, [])
-  const unmountCallback = React.useCallback((e) => {
+
+  const unmountCallback = useCallback((e) => {
     console.log('OverlayView onUnmount', e)
   }, [])
-  const setToMarkerLayerPane = React.useCallback(() => {
+
+  const setToMarkerLayerPane = useCallback(() => {
     setOverlayPane(OverlayView.MARKER_LAYER)
   }, [])
-  const setToMouseTargetPane = React.useCallback(() => {
+
+  const setToMouseTargetPane = useCallback(() => {
     setOverlayPane(OverlayView.OVERLAY_MOUSE_TARGET)
   }, [])
 
@@ -66,7 +81,7 @@ function ExampleOverlayView({ styles }) {
           center={mapCenter}
         >
           <Marker position={mapCenter} onClick={changeIsShown} />
-          {isShown && (
+          {isShown ? (
             <OverlayView
               position={overlayPosition}
               mapPaneName={overlayPane}
@@ -82,7 +97,7 @@ function ExampleOverlayView({ styles }) {
                 <h1>OverlayView</h1>
               </button>
             </OverlayView>
-          )}
+          ) : null}
         </GoogleMap>
       </div>
 
@@ -126,4 +141,4 @@ function ExampleOverlayView({ styles }) {
 
 ExampleOverlayView.propTypes = ExampleOverlayViewPropTypes
 
-export default React.memo(ExampleOverlayView)
+export default memo(ExampleOverlayView)

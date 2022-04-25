@@ -1,6 +1,6 @@
 {
-  "rootDir": ".",
-  "include": ["src/**/*"],
+  "baseUrl": ".",
+  "include": ["/**/*"],
   "exclude": ["node_modules"],
   "types": ["googlemaps", "jest", "invariant", "react-dom", "eslint", "estree", "webpack"],
   "compilerOptions": {
@@ -12,6 +12,7 @@
     "rootDir": "src",
     "declaration": true,
     "declarationDir": "dist",
+    "noEmit": true,
     "strict": true,
     "allowJs": false,
     "checkJs": false,

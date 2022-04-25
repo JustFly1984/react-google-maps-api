@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { type CSSProperties, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, StandaloneSearchBox } from '@react-google-maps/api'
 
@@ -8,12 +8,12 @@ const ExampleSearchBoxPropTypes = {
   }).isRequired,
 }
 
-const center = {
+const center: google.maps.LatLngLiteral = {
   lat: 0,
   lng: -180,
 }
 
-const inputStyle = {
+const inputStyle: CSSProperties = {
   boxSizing: `border-box`,
   border: `1px solid transparent`,
   width: `240px`,
@@ -29,11 +29,17 @@ const inputStyle = {
   right: '10px',
 }
 
-const onClick = (...args) => {
+const onClick = (...args: any[]) => {
   console.log('onClick args: ', args)
 }
 
-function ExampleSearchBox({ styles }) {
+interface Props {
+  styles: {
+    container: CSSProperties | undefined
+  }
+}
+
+function ExampleSearchBox({ styles }: Props): JSX.Element{
   return (
     <div className='map'>
       <div className='map-container'>
@@ -59,4 +65,4 @@ function ExampleSearchBox({ styles }) {
 
 ExampleSearchBox.propTypes = ExampleSearchBoxPropTypes
 
-export default React.memo(ExampleSearchBox)
+export default memo(ExampleSearchBox)

@@ -1,5 +1,5 @@
 {
-  "rootDir": ".",
+  "rootDir": "/src",
   "include": ["src/**/*"],
   "exclude": ["node_modules"],
   "types": ["googlemaps", "jest", "invariant", "react-dom", "eslint", "estree", "webpack"],
@@ -13,8 +13,9 @@
     "declaration": true,
     "declarationDir": "dist",
     "strict": true,
-    "allowJs": false,
-    "checkJs": false,
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,

@@ -1,6 +1,17 @@
 /* global google */
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import {
+  memo,
+  useRef,
+  Children,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ReactNode,
+  type ReactPortal,
+  type ContextType,
+} from 'react'
+import { createPortal } from 'react-dom'
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
@@ -34,6 +45,7 @@ interface InfoWindowState {
 }
 
 export interface InfoWindowProps {
+  children?: ReactNode | undefined
   /** Can be any MVCObject that exposes a LatLng position property and optionally a Point anchorPoint property for calculating the pixelOffset. The anchorPoint is the offset from the anchor's position to the tip of the InfoWindow. */
   anchor?: google.maps.MVCObject | undefined
   options?: google.maps.InfoWindowOptions | undefined
@@ -57,8 +69,228 @@ export interface InfoWindowProps {
   onUnmount?: ((infoWindow: google.maps.InfoWindow) => void) | undefined
 }
 
-export class InfoWindow extends React.PureComponent<InfoWindowProps, InfoWindowState> {
+function InfoWindowFunctional({
+  children,
+  anchor,
+  options,
+  position,
+  zIndex,
+  onCloseClick,
+  onDomReady,
+  onContentChanged,
+  onPositionChanged,
+  onZindexChanged,
+  onLoad,
+  onUnmount
+}: InfoWindowProps): ReactPortal | null {
+  const map = useContext<google.maps.Map | null>(MapContext)
+
+  const [instance, setInstance] = useState<google.maps.InfoWindow | null>(null)
+
+  const [closeclickListener, setCloseClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [domreadyclickListener, setDomReadyClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [contentchangedclickListener, setContentChangedClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [positionchangedclickListener, setPositionChangedClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [zindexchangedclickListener, setZindexChangedClickListener] = useState<google.maps.MapsEventListener | null>(null)
+
+  const containerElementRef = useRef<HTMLDivElement | null>(null)
+
+  // Order does matter
+  useEffect(() => {
+    if (instance !== null) {
+      instance.close()
+
+      if (anchor) {
+        instance.open(map, anchor)
+      } else if (instance.getPosition()) {
+        instance.open(map)
+      }
+    }
+  }, [map, instance, anchor])
+
+  useEffect(() => {
+    if (options && instance !== null) {
+      instance.setOptions(options)
+    }
+  }, [instance, options])
+
+  useEffect(() => {
+    if (position && instance !== null) {
+      instance.setPosition(position)
+    }
+  }, [position])
+
+  useEffect(() => {
+    if (typeof zIndex === 'number' && instance !== null) {
+      instance.setZIndex(zIndex)
+    }
+  }, [zIndex])
+
+  useEffect(() => {
+    if (instance && onCloseClick) {
+      if (closeclickListener !== null) {
+        google.maps.event.removeListener(closeclickListener)
+      }
+
+      setCloseClickListener(
+        google.maps.event.addListener(instance, 'closeclick', onCloseClick)
+      )
+    }
+  }, [onCloseClick])
+
+  useEffect(() => {
+    if (instance && onDomReady) {
+      if (domreadyclickListener !== null) {
+        google.maps.event.removeListener(domreadyclickListener)
+      }
+
+      setDomReadyClickListener(
+        google.maps.event.addListener(instance, 'domready', onDomReady)
+      )
+    }
+  }, [onDomReady])
+
+  useEffect(() => {
+    if (instance && onContentChanged) {
+      if (contentchangedclickListener !== null) {
+        google.maps.event.removeListener(contentchangedclickListener)
+      }
+
+      setContentChangedClickListener(
+        google.maps.event.addListener(instance, 'content_changed', onContentChanged)
+      )
+    }
+  }, [onContentChanged])
+
+  useEffect(() => {
+    if (instance && onPositionChanged) {
+      if (positionchangedclickListener !== null) {
+        google.maps.event.removeListener(positionchangedclickListener)
+      }
+
+      setPositionChangedClickListener(
+        google.maps.event.addListener(instance, 'position_changed', onPositionChanged)
+      )
+    }
+  }, [onPositionChanged])
+
+  useEffect(() => {
+    if (instance && onZindexChanged) {
+      if (zindexchangedclickListener !== null) {
+        google.maps.event.removeListener(zindexchangedclickListener)
+      }
+
+      setZindexChangedClickListener(
+        google.maps.event.addListener(instance, 'zindex_changed', onZindexChanged)
+      )
+    }
+  }, [onZindexChanged])
+
+  useEffect(() => {
+    const infoWindow = new google.maps.InfoWindow({
+      ...(options || {}),
+    })
+
+    setInstance(infoWindow)
+
+    containerElementRef.current = document.createElement('div')
+
+    if (onCloseClick) {
+      setCloseClickListener(
+        google.maps.event.addListener(infoWindow, 'circlecomplete', onCloseClick)
+      )
+    }
+
+    if (onDomReady) {
+      setDomReadyClickListener(
+        google.maps.event.addListener(infoWindow, 'domready', onDomReady)
+      )
+    }
+
+    if (onContentChanged) {
+      setContentChangedClickListener(
+        google.maps.event.addListener(infoWindow, 'content_changed', onContentChanged)
+      )
+    }
+
+    if (onPositionChanged) {
+      setPositionChangedClickListener(
+        google.maps.event.addListener(infoWindow, 'position_changed', onPositionChanged)
+      )
+    }
+
+    if (onZindexChanged) {
+      setZindexChangedClickListener(
+        google.maps.event.addListener(infoWindow, 'zindex_changed', onZindexChanged)
+      )
+    }
+
+    infoWindow.setContent(containerElementRef.current)
+
+    if (position) {
+      infoWindow.setPosition(position)
+    }
+
+    if (zIndex) {
+      infoWindow.setZIndex(zIndex)
+    }
+
+    if (anchor) {
+      infoWindow.open(map, anchor)
+    } else if (infoWindow.getPosition()) {
+      infoWindow.open(map)
+    } else {
+      invariant(
+        false,
+        `You must provide either an anchor (typically render it inside a <Marker>) or a position props for <InfoWindow>.`
+      )
+    }
+
+    if (onLoad) {
+      onLoad(infoWindow)
+    }
+
+    return () => {
+      if (closeclickListener) {
+        google.maps.event.removeListener(closeclickListener)
+      }
+
+      if (contentchangedclickListener) {
+        google.maps.event.removeListener(contentchangedclickListener)
+      }
+
+      if (domreadyclickListener) {
+        google.maps.event.removeListener(domreadyclickListener)
+      }
+
+      if (positionchangedclickListener) {
+        google.maps.event.removeListener(positionchangedclickListener)
+      }
+
+      if (zindexchangedclickListener) {
+        google.maps.event.removeListener(zindexchangedclickListener)
+      }
+
+      if (onUnmount) {
+        onUnmount(infoWindow)
+      }
+
+      infoWindow.close()
+    }
+  }, [])
+
+  return containerElementRef.current ? (
+    createPortal(Children.only(children), containerElementRef.current)
+  ) : (
+    null
+  )
+}
+
+export const InfoWindowF = memo(InfoWindowFunctional)
+
+export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> {
   static contextType = MapContext
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
   containerElement: HTMLElement | null = null
@@ -71,6 +303,7 @@ export class InfoWindow extends React.PureComponent<InfoWindowProps, InfoWindowS
     if (anchor) {
       infoWindow.open(this.context, anchor)
     } else if (infoWindow.getPosition()) {
+      // @ts-ignore
       infoWindow.open(this.context)
     } else {
       invariant(
@@ -132,13 +365,17 @@ export class InfoWindow extends React.PureComponent<InfoWindowProps, InfoWindowS
     if (this.state.infoWindow !== null) {
       unregisterEvents(this.registeredEvents)
 
+      if (this.props.onUnmount) {
+        this.props.onUnmount(this.state.infoWindow)
+      }
+
       this.state.infoWindow.close()
     }
   }
 
-  render(): React.ReactPortal | null {
+  render(): ReactPortal | null {
     return this.containerElement ? (
-      ReactDOM.createPortal(React.Children.only(this.props.children), this.containerElement)
+      createPortal(Children.only(this.props.children), this.containerElement)
     ) : (
       null
     )

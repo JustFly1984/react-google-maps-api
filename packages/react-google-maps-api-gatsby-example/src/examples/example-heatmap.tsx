@@ -1,5 +1,4 @@
-/* eslint-disable */
-import * as React from 'react'
+import { type CSSProperties, memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
@@ -12,17 +11,23 @@ const ExampleHeatmapPropTypes = {
   }).isRequired
 }
 
-const center = {
+const center: google.maps.LatLngLiteral = {
   lat: 37.774546,
   lng: -122.433523
 }
 
-const onClick = (...args) => {
+const onClick = (...args: any[]) => {
   console.log('onClick args: ', args)
 }
 
-function ExampleHeatmap({ styles }) {
-  const data = React.useMemo(() => {
+interface Props {
+  styles: {
+    container: CSSProperties | undefined
+  }
+}
+
+function ExampleHeatmap({ styles }: Props): JSX.Element{
+  const data = useMemo(() => {
     return [
       new google.maps.LatLng(37.782, -122.447),
       new google.maps.LatLng(37.782, -122.445),
@@ -60,4 +65,4 @@ function ExampleHeatmap({ styles }) {
 
 ExampleHeatmap.propTypes = ExampleHeatmapPropTypes
 
-export default React.memo(ExampleHeatmap)
+export default memo(ExampleHeatmap)

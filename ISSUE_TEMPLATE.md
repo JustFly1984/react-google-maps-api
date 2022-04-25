@@ -1,10 +1,10 @@
 # Issue template
 
-If you want to ask question, ask it in Github Discussions, [Spectrum.chat](https://spectrum.chat/react-google-maps) or [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_invite/enQtODc5ODU1NTY5MzQ4LTBiNTYzZmY1YmVjYzJhZThkMGU0YzUwZjJkNGJmYjk4YjQyYjZhMDk2YThlZGEzNDc0M2RhNjBmMWE4ZTJiMjQ)
+If you want to ask question, please ask it in Github Discussions, [Spectrum.chat](https://spectrum.chat/react-google-maps) or [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_invite/enQtODc5ODU1NTY5MzQ4LTBiNTYzZmY1YmVjYzJhZThkMGU0YzUwZjJkNGJmYjk4YjQyYjZhMDk2YThlZGEzNDc0M2RhNjBmMWE4ZTJiMjQ)
 
-Please do not post unformatted code into issues, and please do not ask questions. Only real issues, PR or feature requests allowed. Minimal reproduction in codesandbox.io is must have.
+Please do not post unformatted code into issues, and please do not ask questions. Only real issues, PR's or feature requests are allowed. Minimal reproduction in codesandbox.io is required.
 
-## Please provide an explanation
+## Please provide an explanation of the issue
 
 ## Your Environment
 
@@ -20,8 +20,8 @@ webpack version
 
 @react-google-maps/api version
 
-## How is it behave?
+## How does it behave?
 
 ## How should it behave correctly?
 
-## basic implementation of incorrect behavior in codesandbox.com
+## Basic implementation of incorrect behavior in codesandbox.com

@@ -29,4 +29,4 @@
 
 export { InfoBox } from './InfoBox'
 
-export { InfoBoxOptions } from './types'
+export { type InfoBoxOptions } from './types'

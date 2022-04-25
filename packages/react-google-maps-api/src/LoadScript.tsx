@@ -14,6 +14,7 @@ interface LoadScriptState {
 }
 
 export interface LoadScriptProps extends LoadScriptUrlOptions {
+  children?: ReactNode | undefined
   id: string
   nonce?: string | undefined
   loadingElement?: ReactNode

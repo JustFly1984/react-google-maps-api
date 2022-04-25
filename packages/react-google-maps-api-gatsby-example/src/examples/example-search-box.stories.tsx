@@ -1,5 +1,4 @@
-import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
 import { StandaloneSearchBox as ExampleComponent} from '@react-google-maps/api'
 
 import ExampleSearchBox from './example-search-box'

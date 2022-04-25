@@ -1,6 +1,5 @@
-import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { Data as ExampleComponent} from '@react-google-maps/api'
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Data as ExampleComponent } from '@react-google-maps/api'
 
 import ExampleData from './example-data'
 import { shapeExampleStyles } from '../components/styles'
