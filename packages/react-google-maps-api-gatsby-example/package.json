@@ -20,7 +20,7 @@
     "@babel/preset-env": "7.16.11",
     "@babel/preset-react": "7.16.7",
     "@babel/runtime": "7.17.9",
-    "@react-google-maps/api": "2.8.1",
+    "@react-google-maps/api": "2.10.0",
     "@sentry/browser": "6.19.6",
     "cross-env": "7.0.3",
     "gatsby": "4.12.1",
