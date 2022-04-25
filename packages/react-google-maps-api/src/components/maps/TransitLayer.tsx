@@ -1,4 +1,4 @@
-import { PureComponent } from 'react'
+import { type ContextType, PureComponent, useContext, useEffect, useState, memo } from 'react'
 
 import MapContext from '../../map-context'
 
@@ -13,8 +13,49 @@ export interface TransitLayerProps {
   onUnmount?: ((transitLayer: google.maps.TransitLayer) => void) | undefined
 }
 
+function TransitLayerFunctional({ onLoad, onUnmount }: TransitLayerProps): null {
+  const map = useContext<google.maps.Map | null>(MapContext)
+
+  const [instance, setInstance] = useState<google.maps.TransitLayer | null>(null)
+
+  // Order does matter
+  useEffect(() => {
+    if (instance !== null) {
+      instance.setMap(map)
+    }
+  }, [map])
+
+  useEffect(() => {
+    const transitLayer = new google.maps.TransitLayer()
+
+    setInstance(transitLayer)
+
+    transitLayer.setMap(map)
+
+    if (onLoad) {
+      onLoad(transitLayer)
+    }
+
+    return () => {
+      if (instance !== null) {
+        if (onUnmount) {
+          onUnmount(instance)
+        }
+
+        // @ts-ignore
+        this.state.transitLayer.setMap(null)
+      }
+    }
+  }, [])
+
+  return null
+}
+
+export const TransitLayerF = memo(TransitLayerFunctional)
+
 export class TransitLayer extends PureComponent<TransitLayerProps, TransitLayerState> {
   static contextType = MapContext
+  declare context: ContextType<typeof MapContext>
 
   state = {
     transitLayer: null,
@@ -22,7 +63,7 @@ export class TransitLayer extends PureComponent<TransitLayerProps, TransitLayerS
 
   setTransitLayerCallback = (): void => {
     if (this.state.transitLayer !== null) {
-      // TODO: how is this possibly null if we're doing a null check
+
       // @ts-ignore
       this.state.transitLayer.setMap(this.context)
 

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { type CSSProperties, memo} from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, TransitLayer } from '@react-google-maps/api'
 
@@ -8,25 +8,31 @@ const ExampleTransitPropTypes = {
   }).isRequired,
 }
 
-const center = {
+const center: google.maps.LatLngLiteral = {
   lat: 0,
   lng: -180,
 }
 
-const onClick = (...args) => {
+const onClick = (...args: any[]) => {
   console.log('onClick args: ', args)
 }
 
-const onTransitLayerLoad = (transitLayer) => {
+const onTransitLayerLoad = (transitLayer: google.maps.TransitLayer) => {
   // Do something with transitLayer
   console.log('transitLayer: ', transitLayer)
 }
 
-const onMapLoad = (map) => {
+const onMapLoad = (map: google.maps.Map) => {
   console.log('map: ', map)
 }
 
-function ExampleTransit({ styles }) {
+interface Props {
+  styles: {
+    container: CSSProperties | undefined
+  }
+}
+
+function ExampleTransit({ styles }: Props): JSX.Element {
   return (
     <div className='map'>
       <div className='map-container'>
@@ -47,4 +53,4 @@ function ExampleTransit({ styles }) {
 
 ExampleTransit.propTypes = ExampleTransitPropTypes
 
-export default React.memo(ExampleTransit)
+export default memo(ExampleTransit)

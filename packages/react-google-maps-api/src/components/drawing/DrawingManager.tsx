@@ -1,5 +1,5 @@
 /* globals google */
-import { PureComponent } from 'react'
+import { type ContextType, memo, PureComponent, useContext, useEffect, useState } from 'react'
 
 import invariant from 'invariant'
 
@@ -57,8 +57,197 @@ export interface DrawingManagerProps {
   onUnmount?: ((drawingManager: google.maps.drawing.DrawingManager) => void) | undefined
 }
 
+function DrawingManagerFunctional({
+  options,
+  drawingMode,
+  onCircleComplete,
+  onMarkerComplete,
+  onOverlayComplete,
+  onPolylineComplete,
+  onRectangleComplete,
+  onLoad,
+  onUnmount
+}: DrawingManagerProps): null {
+  const map = useContext<google.maps.Map | null>(MapContext)
+
+  const [instance, setInstance] = useState<google.maps.drawing.DrawingManager | null>(null)
+
+  const [circlecompleteListener, setCircleCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [markercompleteListener, setMarkerCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [overlaycompleteListener, setOverlayCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [polygoncompleteListener, setPolygonCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [rectanglecompleteListener, setRectangleCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
+
+  // Order does matter
+  useEffect(() => {
+    if (instance !== null) {
+      instance.setMap(map)
+    }
+  }, [map])
+
+  useEffect(() => {
+    if (options && instance !== null) {
+      instance.setOptions(options)
+    }
+  }, [instance, options])
+
+  useEffect(() => {
+    if (drawingMode && instance !== null) {
+      instance.setDrawingMode(drawingMode)
+    }
+  }, [instance, drawingMode])
+
+  useEffect(() => {
+    if (instance && onCircleComplete) {
+      if (circlecompleteListener !== null) {
+        google.maps.event.removeListener(circlecompleteListener)
+      }
+
+      setCircleCompleteListener(
+        google.maps.event.addListener(instance, 'circlecomplete', onCircleComplete)
+      )
+    }
+  }, [instance, onCircleComplete])
+
+  useEffect(() => {
+    if (instance && onMarkerComplete) {
+      if (markercompleteListener !== null) {
+        google.maps.event.removeListener(markercompleteListener)
+      }
+
+      setMarkerCompleteListener(
+        google.maps.event.addListener(instance, 'markercomplete', onMarkerComplete)
+      )
+    }
+  }, [instance, onMarkerComplete])
+
+  useEffect(() => {
+    if (instance && onOverlayComplete) {
+      if (overlaycompleteListener !== null) {
+        google.maps.event.removeListener(overlaycompleteListener)
+      }
+
+      setOverlayCompleteListener(
+        google.maps.event.addListener(instance, 'overlaycomplete', onOverlayComplete)
+      )
+    }
+  }, [instance, onOverlayComplete])
+
+  useEffect(() => {
+    if (instance && onPolylineComplete) {
+      if (polygoncompleteListener !== null) {
+        google.maps.event.removeListener(polygoncompleteListener)
+      }
+
+      setPolygonCompleteListener(
+        google.maps.event.addListener(instance, 'polygoncomplete', onPolylineComplete)
+      )
+    }
+  }, [instance, onPolylineComplete])
+
+  useEffect(() => {
+    if (instance && onRectangleComplete) {
+      if (rectanglecompleteListener !== null) {
+        google.maps.event.removeListener(rectanglecompleteListener)
+      }
+
+      setRectangleCompleteListener(
+        google.maps.event.addListener(instance, 'rectanglecomplete', onRectangleComplete)
+      )
+    }
+  }, [instance, onRectangleComplete])
+
+  useEffect(() => {
+    invariant(
+      !!google.maps.drawing,
+      `Did you include prop libraries={['drawing']} in the URL? %s`,
+      google.maps.drawing
+    )
+
+    const drawingManager = new google.maps.drawing.DrawingManager({
+      ...(options || {}),
+      map,
+    })
+
+    if (drawingMode) {
+      drawingManager.setDrawingMode(drawingMode)
+    }
+
+    if (onCircleComplete) {
+      setCircleCompleteListener(
+        google.maps.event.addListener(drawingManager, 'circlecomplete', onCircleComplete)
+      )
+    }
+
+    if (onMarkerComplete) {
+      setMarkerCompleteListener(
+        google.maps.event.addListener(drawingManager, 'markercomplete', onMarkerComplete)
+      )
+    }
+
+    if (onOverlayComplete) {
+      setOverlayCompleteListener(
+        google.maps.event.addListener(drawingManager, 'overlaycomplete', onOverlayComplete)
+      )
+    }
+
+    if (onPolylineComplete) {
+      setPolygonCompleteListener(
+        google.maps.event.addListener(drawingManager, 'polygoncomplete', onPolylineComplete)
+      )
+    }
+
+    if (onRectangleComplete) {
+      setRectangleCompleteListener(
+        google.maps.event.addListener(drawingManager, 'rectanglecomplete', onRectangleComplete)
+      )
+    }
+
+    setInstance(drawingManager)
+
+    if (onLoad) {
+      onLoad(drawingManager)
+    }
+
+    return () => {
+      if (instance !== null) {
+        if (circlecompleteListener) {
+          google.maps.event.removeListener(circlecompleteListener)
+        }
+
+        if (markercompleteListener) {
+          google.maps.event.removeListener(markercompleteListener)
+        }
+
+        if (overlaycompleteListener) {
+          google.maps.event.removeListener(overlaycompleteListener)
+        }
+
+        if (polygoncompleteListener) {
+          google.maps.event.removeListener(polygoncompleteListener)
+        }
+
+        if (rectanglecompleteListener) {
+          google.maps.event.removeListener(rectanglecompleteListener)
+        }
+
+        if (onUnmount) {
+          onUnmount(instance)
+        }
+
+        instance.setMap(null)
+      }
+    }
+  }, [])
+
+  return null
+}
+
+export const DrawingManagerF = memo(DrawingManagerFunctional)
+
 export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingManagerState> {
   static contextType = MapContext
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 

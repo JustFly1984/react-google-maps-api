@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { type CSSProperties, memo, useCallback, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
@@ -11,6 +11,7 @@ import {
   InfoWindow,
 } from '@react-google-maps/api'
 
+// @ts-ignore
 import pinIcon from '../assets/pin.svg'
 
 const FLIGHT_PLAN_COORDS = [
@@ -53,22 +54,22 @@ const ExampleShapesPropTypes = {
   }).isRequired,
 }
 
-const mapCenter = {
+const mapCenter: google.maps.LatLngLiteral = {
   lat: 0,
   lng: -180,
 }
 
-const MARKER_POSITION = {
+const MARKER_POSITION: google.maps.LatLngLiteral = {
   lat: 37.772,
   lng: -122.214,
 }
 
-const OVERLAY_VIEW_POSITION = {
+const OVERLAY_VIEW_POSITION: google.maps.LatLngLiteral = {
   lat: 35.772,
   lng: -120.214,
 }
 
-const INFO_WINDOW_POSITION = {
+const INFO_WINDOW_POSITION: google.maps.LatLngLiteral = {
   lat: 33.772,
   lng: -117.214,
 }
@@ -101,7 +102,7 @@ const sfPolygonOptions = {
   zIndex: 1,
 }
 
-const circleOptions = {
+const circleOptions: google.maps.CircleOptions = {
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 2,
@@ -133,25 +134,31 @@ const infoWindowStyle = {
   padding: 15,
 }
 
-function ExampleShapes({ styles }) {
-  const [polylineVisible, setPolylineVisible] = React.useState(true)
-  const [polylineOptions, setPolylineOptions] = React.useState(
+interface Props {
+  styles: {
+    container: CSSProperties | undefined
+  }
+}
+
+function ExampleShapes({ styles }: Props): JSX.Element {
+  const [polylineVisible, setPolylineVisible] = useState(true)
+  const [polylineOptions, setPolylineOptions] = useState(
     JSON.stringify(POLYLINE_OPTIONS)
   )
 
-  const onCheckboxChange = React.useCallback(() => {
+  const onCheckboxChange = useCallback(() => {
     setPolylineVisible((bool) => !bool)
   }, [])
 
-  const onTextAreaChange = React.useCallback(({ target: { value } }) => {
+  const onTextAreaChange = useCallback(({ target: { value } }) => {
     setPolylineOptions(value)
   }, [])
 
-  const onClick = React.useCallback(() => {
+  const onClick = useCallback(() => {
     console.info('I have been clicked!')
   }, [])
 
-  const po = React.useMemo(() => {
+  const po = useMemo(() => {
     try {
       return JSON.parse(polylineOptions)
     } catch (e) {
@@ -188,7 +195,6 @@ function ExampleShapes({ styles }) {
           <textarea
             id='polyline-options-input'
             className='form-control'
-            type='text'
             value={polylineOptions}
             style={textareaStyle}
             onChange={onTextAreaChange}
@@ -243,4 +249,4 @@ function ExampleShapes({ styles }) {
 
 ExampleShapes.propTypes = ExampleShapesPropTypes
 
-export default React.memo(ExampleShapes)
+export default memo(ExampleShapes)

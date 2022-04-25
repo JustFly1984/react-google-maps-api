@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { CSSProperties, memo, useCallback, useMemo, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
@@ -12,20 +12,26 @@ const ExampleDirectionsPropTypes = {
   }).isRequired,
 }
 
-const center = {
+const center: google.maps.LatLngLiteral = {
   lat: 0,
   lng: -180,
 }
 
-function ExampleDirections({ styles }) {
-  const [response, setResponse] = React.useState(null)
-  const [travelMode, setTravelMode] = React.useState('DRIVING')
-  const [origin, setOrigin] = React.useState('')
-  const [destination, setDestination] = React.useState('')
-  const originRef = React.useRef()
-  const destinationRef = React.useRef()
+interface Props {
+  styles: {
+    container: CSSProperties | undefined
+  }
+}
 
-  const directionsCallback = React.useCallback((res) => {
+function ExampleDirections({ styles }: Props): JSX.Element {
+  const [response, setResponse] = useState(null)
+  const [travelMode, setTravelMode] = useState<google.maps.TravelMode>(google.maps.TravelMode.DRIVING)
+  const [origin, setOrigin] = useState('')
+  const [destination, setDestination] = useState('')
+  const originRef = useRef<HTMLInputElement | null>(null)
+  const destinationRef = useRef<HTMLInputElement | null>(null)
+
+  const directionsCallback = useCallback((res) => {
     console.log(res)
 
     if (res !== null) {
@@ -37,34 +43,35 @@ function ExampleDirections({ styles }) {
     }
   }, [])
 
-  const checkDriving = React.useCallback(({ target: { checked } }) => {
-    checked && setTravelMode('DRIVING')
+  const checkDriving = useCallback(({ target: { checked } }) => {
+    checked && setTravelMode(google.maps.TravelMode.DRIVING)
   }, [])
 
-  const checkBicycling = React.useCallback(({ target: { checked } }) => {
-    checked && setTravelMode('BICYCLING')
+  const checkBicycling = useCallback(({ target: { checked } }) => {
+    checked && setTravelMode(google.maps.TravelMode.BICYCLING)
   }, [])
 
-  const checkTransit = React.useCallback(({ target: { checked } }) => {
-    checked && setTravelMode('TRANSIT')
+  const checkTransit = useCallback(({ target: { checked } }) => {
+    checked && setTravelMode(google.maps.TravelMode.TRANSIT)
   }, [])
 
-  const checkWalking = React.useCallback(({ target: { checked } }) => {
-    checked && setTravelMode('WALKING')
+  const checkWalking = useCallback(({ target: { checked } }) => {
+    checked && setTravelMode(google.maps.TravelMode.WALKING)
   }, [])
 
-  const onClick = React.useCallback(() => {
-    if (originRef.current.value !== '' && destinationRef.current.value !== '') {
+  const onClick = useCallback(() => {
+    if (originRef.current && originRef.current.value !== '' && destinationRef.current && destinationRef.current.value !== '') {
       setOrigin(originRef.current.value)
+
       setDestination(destinationRef.current.value)
     }
   }, [])
 
-  const onMapClick = React.useCallback((...args) => {
+  const onMapClick = useCallback((...args) => {
     console.log('onClick args: ', args)
   }, [])
 
-  const directionsServiceOptions = React.useMemo(() => {
+  const directionsServiceOptions = useMemo<google.maps.DirectionsRequest>(() => {
     return {
       destination: destination,
       origin: origin,
@@ -72,7 +79,7 @@ function ExampleDirections({ styles }) {
     }
   }, [])
 
-  const directionsRendererOptions = React.useMemo(() => {
+  const directionsRendererOptions = useMemo(() => {
     return {
       directions: response,
     }
@@ -200,4 +207,4 @@ function ExampleDirections({ styles }) {
 
 ExampleDirections.propTypes = ExampleDirectionsPropTypes
 
-export default React.memo(ExampleDirections)
+export default memo(ExampleDirections)

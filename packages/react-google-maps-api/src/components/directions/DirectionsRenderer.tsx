@@ -66,6 +66,7 @@ export class DirectionsRenderer extends PureComponent<
 
   setDirectionsRendererCallback = (): void => {
     if (this.state.directionsRenderer !== null) {
+      // @ts-ignore
       this.state.directionsRenderer.setMap(this.context)
 
       if (this.props.onLoad) {

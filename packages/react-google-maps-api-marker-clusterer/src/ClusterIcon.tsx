@@ -78,12 +78,12 @@ export class ClusterIcon {
       }
     )
 
-    google.maps.event.addDomListener(this.div, 'mousedown', function onMouseDown() {
+    google.maps.event.addListener(this.div, 'mousedown', function onMouseDown() {
       cMouseDownInCluster = true
       cDraggingMapByCluster = false
     })
 
-    google.maps.event.addDomListener(
+    google.maps.event.addListener(
       this.div,
       'click',
       (event: Event) => {
@@ -136,7 +136,7 @@ export class ClusterIcon {
       }
     )
 
-    google.maps.event.addDomListener(
+    google.maps.event.addListener(
       this.div,
       'mouseover',
       () => {
@@ -150,7 +150,7 @@ export class ClusterIcon {
       }
     )
 
-    google.maps.event.addDomListener(
+    google.maps.event.addListener(
       this.div,
       'mouseout',
       () => {

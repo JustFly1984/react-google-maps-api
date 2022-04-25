@@ -1,4 +1,4 @@
-import { PureComponent } from 'react'
+import { type ContextType, PureComponent } from 'react'
 import invariant from 'invariant'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
@@ -39,15 +39,16 @@ export interface HeatmapLayerProps {
     | google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation>
     | google.maps.LatLng[]
     | google.maps.visualization.WeightedLocation[]
-  options?: google.maps.visualization.HeatmapLayerOptions
+  options?: google.maps.visualization.HeatmapLayerOptions | undefined
   /** This callback is called when the heatmapLayer instance has loaded. It is called with the heatmapLayer instance. */
-  onLoad?: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void
+  onLoad?: ((heatmapLayer: google.maps.visualization.HeatmapLayer) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the heatmapLayer instance. */
-  onUnmount?: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void
+  onUnmount?: ((heatmapLayer: google.maps.visualization.HeatmapLayer) => void) | undefined
 }
 
 export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerState> {
   static contextType = MapContext
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
@@ -73,6 +74,7 @@ export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerS
     const heatmapLayer = new google.maps.visualization.HeatmapLayer({
       ...(this.props.options || {}),
       data: this.props.data,
+      // @ts-ignore
       map: this.context,
     })
 

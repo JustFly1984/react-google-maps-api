@@ -1,6 +1,6 @@
-import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { BicyclingLayer as ExampleComponent} from '@react-google-maps/api'
+
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
+import { BicyclingLayer as ExampleComponent } from '@react-google-maps/api'
 
 import ExampleBicycling from './example-bicycling'
 import { shapeExampleStyles } from '../components/styles'

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { type CSSProperties, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap } from '@react-google-maps/api'
 
@@ -8,7 +8,7 @@ const ExampleOptionsPropTypes = {
   }).isRequired,
 }
 
-const center = {
+const center: google.maps.LatLngLiteral = {
   lat: 0,
   lng: -180,
 }
@@ -20,11 +20,17 @@ const options = {
   streetViewControl: false,
 }
 
-const onClick = (...args) => {
+const onClick = (...args: any[]) => {
   console.log('onClick args: ', args)
 }
 
-function ExampleOptions({ styles }) {
+interface Props {
+  styles: {
+    container: CSSProperties | undefined
+  }
+}
+
+function ExampleOptions({ styles }: Props): JSX.Element {
   return (
     <div className='map'>
       <div className='map-container'>
@@ -43,4 +49,4 @@ function ExampleOptions({ styles }) {
 
 ExampleOptions.propTypes = ExampleOptionsPropTypes
 
-export default React.memo(ExampleOptions)
+export default memo(ExampleOptions)

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { type CSSProperties, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, TrafficLayer } from '@react-google-maps/api'
 
@@ -8,16 +8,22 @@ const ExampleTrafficPropTypes = {
   }).isRequired,
 }
 
-const center = {
+const center: google.maps.LatLngLiteral = {
   lat: 0,
   lng: -180,
 }
 
-const onClick = (...args) => {
+const onClick = (...args: any[]) => {
   console.log('onClick args: ', args)
 }
 
-function ExampleTraffic({ styles }) {
+interface Props {
+  styles: {
+    container: CSSProperties | undefined
+  }
+}
+
+function ExampleTraffic({ styles }: Props): JSX.Element {
   return (
     <div className='map'>
       <div className='map-container'>
@@ -37,4 +43,4 @@ function ExampleTraffic({ styles }) {
 
 ExampleTraffic.propTypes = ExampleTrafficPropTypes
 
-export default React.memo(ExampleTraffic)
+export default memo(ExampleTraffic)

@@ -3,7 +3,7 @@
 import { reduce } from './reduce'
 import { forEach } from './foreach'
 
-export function applyUpdaterToNextProps  (
+export function applyUpdaterToNextProps(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updaterMap: any,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
