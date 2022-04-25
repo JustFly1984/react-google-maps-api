@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.9.0 react@18 support, new functional versions of components
+## 2.10.0 react@18 support, new functional versions of components
 
 - TrafficLayerF
 - BicyclingLayerF
