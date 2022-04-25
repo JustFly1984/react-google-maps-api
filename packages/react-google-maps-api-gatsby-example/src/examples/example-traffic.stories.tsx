@@ -1,5 +1,4 @@
-import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
 import { TrafficLayer as ExampleComponent} from '@react-google-maps/api'
 
 import ExampleTraffic from './example-traffic'

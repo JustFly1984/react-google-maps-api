@@ -174,7 +174,7 @@ function GoogleMapFunctional({
   const [map, setMap] = useState<google.maps.Map | null>(null)
   const ref = useRef<HTMLDivElement | null>(null)
 
-  const [extraMapTypesListener, setExtraMapTypesListener] = useState<google.maps.MapsEventListener | null>(null)
+  // const [extraMapTypesListener, setExtraMapTypesListener] = useState<google.maps.MapsEventListener | null>(null)
   const [centerChangedListener, setCenterChangedListener] = useState<google.maps.MapsEventListener | null>(null)
 
   const [dblclickListener, setDblclickListener] = useState<google.maps.MapsEventListener | null>(null)

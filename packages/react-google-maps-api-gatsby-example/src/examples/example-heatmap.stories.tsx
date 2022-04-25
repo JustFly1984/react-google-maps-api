@@ -1,5 +1,4 @@
-import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
 import { HeatmapLayer as ExampleComponent} from '@react-google-maps/api'
 
 import ExampleHeatmap from './example-heatmap'

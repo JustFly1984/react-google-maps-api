@@ -1,8 +1,8 @@
-import * as React from 'react'
+import { type CSSProperties, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, DrawingManager } from '@react-google-maps/api'
 
-const center = {
+const center: google.maps.LatLngLiteral = {
   lat: 0,
   lng: -180,
 }
@@ -13,7 +13,13 @@ const ExampleDrawingPropTypes = {
   }).isRequired,
 }
 
-function ExampleDrawing({ styles }) {
+interface Props {
+  styles: {
+    container: CSSProperties | undefined
+  }
+}
+
+function ExampleDrawing({ styles }: Props): JSX.Element {
   return (
     <div className='map'>
       <div className='map-container'>
@@ -32,4 +38,4 @@ function ExampleDrawing({ styles }) {
 
 ExampleDrawing.propTypes = ExampleDrawingPropTypes
 
-export default React.memo(ExampleDrawing)
+export default memo(ExampleDrawing)

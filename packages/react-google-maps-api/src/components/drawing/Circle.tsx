@@ -51,13 +51,12 @@ interface CircleState {
 export interface CircleProps {
   options?: google.maps.CircleOptions | undefined
 
-  // required
   /** sets the center of the circle */
-  center: google.maps.LatLng | google.maps.LatLngLiteral
+  center?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
 
   // required
   /** Sets the radius of this circle (in meters) */
-  radius: number
+  radius?: number | undefined
   /** If set to true, the user can drag this circle over the map */
   draggable?: boolean | undefined
   /** If set to true, the user can edit this circle by dragging the control points shown at the center and around the circumference of the circle. */
@@ -177,7 +176,7 @@ function CircleFunctional({
   }, [instance, radius])
 
   useEffect(() => {
-    if (instance !== null) {
+    if (typeof center !== 'undefined' && instance !== null) {
       instance.setCenter(center)
     }
   }, [instance, center])
@@ -344,9 +343,13 @@ function CircleFunctional({
       map,
     })
 
-    circle.setRadius(radius)
+    if (typeof radius === 'number') {
+      circle.setRadius(radius)
+    }
 
-    circle.setCenter(center)
+    if (typeof center !== 'undefined') {
+      circle.setCenter(center)
+    }
 
     if (typeof radius === 'number') {
       circle.setRadius(radius)

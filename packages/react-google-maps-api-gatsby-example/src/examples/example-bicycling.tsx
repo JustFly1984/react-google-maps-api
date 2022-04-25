@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { type CSSProperties, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, BicyclingLayer } from '@react-google-maps/api'
 
@@ -8,25 +8,31 @@ const ExampleBicyclingPropTypes = {
   }).isRequired,
 }
 
-const center = {
+const center: google.maps.LatLngLiteral = {
   lat: 0,
   lng: -180,
 }
 
-const onClick = (...args) => {
+function onClick(...args: any[]) {
   console.log('onClick args: ', args)
 }
 
-const onBicyclingLayerLoad = (bicyclingLayer) => {
+function onBicyclingLayerLoad (bicyclingLayer: google.maps.BicyclingLayer) {
   // Do something with bicyclingLayer
   console.log('bicyclingLayer: ', bicyclingLayer)
 }
 
-const onMapLoad = (map) => {
+const onMapLoad = (map: google.maps.Map) => {
   console.log('map: ', map)
 }
 
-function ExampleBicycling({ styles }) {
+interface Props {
+  styles: {
+    container: CSSProperties | undefined
+  }
+}
+
+function ExampleBicycling({ styles }: Props) {
   return (
     <div className='map'>
       <div className='map-container'>
@@ -47,4 +53,4 @@ function ExampleBicycling({ styles }) {
 
 ExampleBicycling.propTypes = ExampleBicyclingPropTypes
 
-export default React.memo(ExampleBicycling)
+export default memo(ExampleBicycling)

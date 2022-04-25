@@ -12,6 +12,7 @@
     "rootDir": "src",
     "declaration": true,
     "declarationDir": "dist",
+    "noEmit": true,
     "strict": true,
     "allowJs": false,
     "checkJs": false,

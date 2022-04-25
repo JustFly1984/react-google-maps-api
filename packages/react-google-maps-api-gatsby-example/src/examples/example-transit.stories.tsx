@@ -1,5 +1,4 @@
-import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
 import { TransitLayer as ExampleComponent} from '@react-google-maps/api'
 
 import ExampleTransit from './example-transit'
