@@ -1,6 +1,6 @@
 <div align="center">
 
-![react-google-maps-icon](https://user-images.githubusercontent.com/4543783/166573378-fe4b8815-e8b9-40b9-97cb-56b86232df6b.svg)
+![logo](https://raw.githubusercontent.com/JustFly1984/react-google-maps-api/master/logo.png)
 
 # @react-google-maps organization root
 
