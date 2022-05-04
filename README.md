@@ -26,13 +26,13 @@ Join our [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_i
 ### Requirements
 
 - basic git, JavaScript, React knowledge
-- Google Maps API Key from [Google CLoud Conosle](https://console.cloud.google.com)
+- Google Maps API Key from [Google Cloud Console](https://console.cloud.google.com)
 - git
 - node
 - yarn
 
 
-### To develop localy
+### To develop locally
 
 Fork original repo at https://github.com/JustFly1984/react-google-maps-api. Clone your fork to local directory of your choice, install dependencies, set up your API Key, and start storybook server. Following commands should do the job:
 
@@ -43,7 +43,7 @@ Fork original repo at https://github.com/JustFly1984/react-google-maps-api. Clon
 - `yarn install` - install dependencies
 - `yarn storybook` - run storybook server
 
-Eny changes you make to src folders of contained packages, should reflect in sotybook server.
+Any changes you make to src folders of contained packages should reflect on the storybook server.
 
 ### To contribute
 
