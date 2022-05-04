@@ -21,10 +21,10 @@ export interface GoogleMarkerClustererProps {
    * }
    * ```
    */
-  options: MarkerClustererOptionsSubset
+  options?: MarkerClustererOptionsSubset
 }
 
-export function useGoogleMarkerClusterer(options: MarkerClustererOptionsSubset): MarkerClusterer | null {
+export function useGoogleMarkerClusterer(options?: MarkerClustererOptionsSubset): MarkerClusterer | null {
   const map = useGoogleMap()
 
   const [markerClusterer, setMarkerClusterer] = useState<MarkerClusterer | null>(null)
