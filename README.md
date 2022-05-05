@@ -4,6 +4,8 @@
 
 # @react-google-maps organization root
 
+You can donate or became a sponsor [https://opencollective.com/react-google-maps-api#category-CONTRIBUTE](https://opencollective.com/react-google-maps-api#category-CONTRIBUTE)
+
 [![npm package](https://img.shields.io/npm/v/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![npm downloads](https://img.shields.io/npm/dt/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
@@ -26,15 +28,14 @@ Join our [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_i
 ### Requirements
 
 - basic git, JavaScript, React knowledge
-- Google Maps API Key from [Google CLoud Conosle](https://console.cloud.google.com)
+- Google Maps API Key from [Google Cloud Console](https://console.cloud.google.com)
 - git
 - node
 - yarn
 
+### To develop locally
 
-### To develop localy
-
-Fork original repo at https://github.com/JustFly1984/react-google-maps-api. Clone your fork to local directory of your choice, install dependencies, set up your API Key, and start storybook server. Following commands should do the job:
+Fork original repo at <https://github.com/JustFly1984/react-google-maps-api>. Clone your fork to local directory of your choice, install dependencies, set up your API Key, and start storybook server. Following commands should do the job:
 
 - `git clone https://github.com/YOUR_USER_NAME/react-google-maps-api.git` - clone your fork
 `
@@ -43,8 +44,10 @@ Fork original repo at https://github.com/JustFly1984/react-google-maps-api. Clon
 - `yarn install` - install dependencies
 - `yarn storybook` - run storybook server
 
-Eny changes you make to src folders of contained packages, should reflect in sotybook server.
+Any changes you make to src folders of contained packages should reflect on the storybook server.
 
 ### To contribute
 
 Create a feature/fix branch on your own fork and make pull request towards develop branch of the original repo.
+
+You can donate or became a sponsor [https://opencollective.com/react-google-maps-api#category-CONTRIBUTE](https://opencollective.com/react-google-maps-api#category-CONTRIBUTE)

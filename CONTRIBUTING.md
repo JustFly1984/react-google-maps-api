@@ -23,4 +23,4 @@ Inside root folder you will find packages:
 4. gatsby-example [https://github.com/gatsbyjs/gatsby/issues](https://github.com/gatsbyjs/gatsby/issues)
 5. storybook [https://github.com/storybooks/storybook](https://github.com/storybooks/storybook) - for visual testing of our components
 
-Current version of TSDX has issue on running with node.js above 13.3.0
+You can donate or became a sponsor [https://opencollective.com/react-google-maps-api#category-CONTRIBUTE](https://opencollective.com/react-google-maps-api#category-CONTRIBUTE)
