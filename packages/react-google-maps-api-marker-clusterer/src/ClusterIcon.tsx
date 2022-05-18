@@ -67,24 +67,22 @@ export class ClusterIcon {
 
     // @ts-ignore
     this.getPanes().overlayMouseTarget.appendChild(this.div)
-
     // Fix for Issue 157
     this.boundsChangedListener = google.maps.event.addListener(
       // @ts-ignore
       this.getMap(),
-      'boundschanged',
+      'bounds_changed',
       function boundsChanged() {
         cDraggingMapByCluster = cMouseDownInCluster
       }
     )
 
-    google.maps.event.addListener(this.div, 'mousedown', function onMouseDown() {
+    this.div.addEventListener('mousedown', function onMouseDown() {
       cMouseDownInCluster = true
       cDraggingMapByCluster = false
     })
 
-    google.maps.event.addListener(
-      this.div,
+    this.div.addEventListener(
       'click',
       (event: Event) => {
         cMouseDownInCluster = false
@@ -136,8 +134,7 @@ export class ClusterIcon {
       }
     )
 
-    google.maps.event.addListener(
-      this.div,
+    this.div.addEventListener(
       'mouseover',
       () => {
         /**
@@ -150,8 +147,7 @@ export class ClusterIcon {
       }
     )
 
-    google.maps.event.addListener(
-      this.div,
+    this.div.addEventListener(
       'mouseout',
       () => {
         /**
@@ -172,8 +168,6 @@ export class ClusterIcon {
       if (this.boundsChangedListener !== null) {
         google.maps.event.removeListener(this.boundsChangedListener)
       }
-
-      google.maps.event.clearInstanceListeners(this.div)
 
       this.div.parentNode.removeChild(this.div)
 
