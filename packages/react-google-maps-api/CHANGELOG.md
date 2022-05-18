@@ -37,6 +37,8 @@ TODO:
 updated typescript 4.7.0-dev
 installed lerna
 
+## 2.10.3 fix MarkerClusterer bugs, improve performance, fix memory leaks
+
 ## 2.8.1 react@17 support
 
 ## 2.7.0 update typescript and dependencies
