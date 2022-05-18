@@ -25,6 +25,9 @@ export class ClusterIcon {
   fontStyle: string
   fontFamily: string
   backgroundPosition: string
+  cMouseDownInCluster: boolean | null
+  cDraggingMapByCluster: boolean | null
+  timeOut: number | null
 
   boundsChangedListener: google.maps.MapsEventListener | null
 
@@ -51,114 +54,135 @@ export class ClusterIcon {
     this.fontStyle = 'normal'
     this.fontFamily = 'Arial,sans-serif'
     this.backgroundPosition = '0 0'
+
+    this.cMouseDownInCluster = null
+    this.cDraggingMapByCluster = null
+    this.timeOut = null
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.setMap(cluster.getMap()) // Note: this causes onAdd to be called
   }
 
-  onAdd() {
-    let cMouseDownInCluster: boolean
-    let cDraggingMapByCluster: boolean
+  onBoundsChanged() {
+    this.cDraggingMapByCluster = this.cMouseDownInCluster
+  }
 
+  onMouseDown() {
+    this.cMouseDownInCluster = true
+
+    this.cDraggingMapByCluster = false
+  }
+
+  onClick(event: Event) {
+    this.cMouseDownInCluster = false
+
+    if (!this.cDraggingMapByCluster) {
+      const markerClusterer = this.cluster.getClusterer()
+
+      /**
+       * This event is fired when a cluster marker is clicked.
+       * @name MarkerClusterer#click
+       * @param {Cluster} c The cluster that was clicked.
+       * @event
+       */
+      google.maps.event.trigger(markerClusterer, 'click', this.cluster)
+      google.maps.event.trigger(markerClusterer, 'clusterclick', this.cluster) // deprecated name
+
+      // The default click handler follows. Disable it by setting
+      // the zoomOnClick property to false.
+      if (markerClusterer.getZoomOnClick()) {
+        // Zoom into the cluster.
+        const maxZoom = markerClusterer.getMaxZoom()
+
+        const bounds = this.cluster.getBounds()
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        markerClusterer.getMap().fitBounds(bounds)
+
+        // There is a fix for Issue 170 here:
+        this.timeOut = window.setTimeout(() => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          markerClusterer.getMap().fitBounds(bounds)
+
+          // Don't zoom beyond the max zoom level
+          if (
+            maxZoom !== null &&
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            markerClusterer.getMap().getZoom() > maxZoom
+          ) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            markerClusterer.getMap().setZoom(maxZoom + 1)
+          }
+        }, 100)
+      }
+
+      // Prevent event propagation to the map:
+      event.cancelBubble = true
+
+      if (event.stopPropagation) {
+        event.stopPropagation()
+      }
+    }
+  }
+
+  onMouseOver() {
+    /**
+     * This event is fired when the mouse moves over a cluster marker.
+     * @name MarkerClusterer#mouseover
+     * @param {Cluster} c The cluster that the mouse moved over.
+     * @event
+     */
+    google.maps.event.trigger(
+      this.cluster.getClusterer(),
+      'mouseover',
+      this.cluster
+    )
+  }
+
+  onMouseOut() {
+    /**
+     * This event is fired when the mouse moves out of a cluster marker.
+     * @name MarkerClusterer#mouseout
+     * @param {Cluster} c The cluster that the mouse moved out of.
+     * @event
+     */
+    google.maps.event.trigger(
+      this.cluster.getClusterer(),
+      'mouseout',
+      this.cluster
+    )
+  }
+
+  onAdd() {
     this.div = document.createElement('div')
     this.div.className = this.className
     if (this.visible) {
       this.show()
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.getPanes().overlayMouseTarget.appendChild(this.div)
     // Fix for Issue 157
     this.boundsChangedListener = google.maps.event.addListener(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this.getMap(),
       'bounds_changed',
-      function boundsChanged() {
-        cDraggingMapByCluster = cMouseDownInCluster
-      }
+      this.onBoundsChanged
     )
 
-    this.div.addEventListener('mousedown', function onMouseDown() {
-      cMouseDownInCluster = true
-      cDraggingMapByCluster = false
-    })
+    this.div.addEventListener('mousedown', this.onMouseDown)
 
-    this.div.addEventListener(
-      'click',
-      (event: Event) => {
-        cMouseDownInCluster = false
+    this.div.addEventListener('click', this.onClick)
 
-        if (!cDraggingMapByCluster) {
-          const markerClusterer = this.cluster.getClusterer()
+    this.div.addEventListener('mouseover', this.onMouseOver)
 
-          /**
-           * This event is fired when a cluster marker is clicked.
-           * @name MarkerClusterer#click
-           * @param {Cluster} c The cluster that was clicked.
-           * @event
-           */
-          google.maps.event.trigger(markerClusterer, 'click', this.cluster)
-          google.maps.event.trigger(markerClusterer, 'clusterclick', this.cluster) // deprecated name
-
-          // The default click handler follows. Disable it by setting
-          // the zoomOnClick property to false.
-          if (markerClusterer.getZoomOnClick()) {
-            // Zoom into the cluster.
-            const maxZoom = markerClusterer.getMaxZoom()
-
-            const bounds = this.cluster.getBounds()
-
-            // @ts-ignore
-            markerClusterer.getMap().fitBounds(bounds)
-
-            // There is a fix for Issue 170 here:
-            setTimeout(function timeout() {
-              // @ts-ignore
-              markerClusterer.getMap().fitBounds(bounds)
-
-              // Don't zoom beyond the max zoom level
-              // @ts-ignore
-              if (maxZoom !== null && markerClusterer.getMap().getZoom() > maxZoom) {
-                // @ts-ignore
-                markerClusterer.getMap().setZoom(maxZoom + 1)
-              }
-            }, 100)
-          }
-
-          // Prevent event propagation to the map:
-          event.cancelBubble = true
-
-          if (event.stopPropagation) {
-            event.stopPropagation()
-          }
-        }
-      }
-    )
-
-    this.div.addEventListener(
-      'mouseover',
-      () => {
-        /**
-         * This event is fired when the mouse moves over a cluster marker.
-         * @name MarkerClusterer#mouseover
-         * @param {Cluster} c The cluster that the mouse moved over.
-         * @event
-         */
-        google.maps.event.trigger(this.cluster.getClusterer(), 'mouseover', this.cluster)
-      }
-    )
-
-    this.div.addEventListener(
-      'mouseout',
-      () => {
-        /**
-         * This event is fired when the mouse moves out of a cluster marker.
-         * @name MarkerClusterer#mouseout
-         * @param {Cluster} c The cluster that the mouse moved out of.
-         * @event
-         */
-        google.maps.event.trigger(this.cluster.getClusterer(), 'mouseout', this.cluster)
-      }
-    )
+    this.div.addEventListener('mouseout', this.onMouseOut)
   }
 
   onRemove() {
@@ -169,7 +193,21 @@ export class ClusterIcon {
         google.maps.event.removeListener(this.boundsChangedListener)
       }
 
+      this.div.removeEventListener('mousedown', this.onMouseDown)
+
+      this.div.removeEventListener('click', this.onClick)
+
+      this.div.removeEventListener('mouseover', this.onMouseOver)
+
+      this.div.removeEventListener('mouseout', this.onMouseOut)
+
       this.div.parentNode.removeChild(this.div)
+
+      if (this.timeOut !== null) {
+        window.clearTimeout(this.timeOut)
+
+        this.timeOut = null
+      }
 
       this.div = null
     }
@@ -179,8 +217,8 @@ export class ClusterIcon {
     if (this.visible && this.div !== null && this.center) {
       const { x, y } = this.getPosFromLatLng(this.center)
 
-      this.div.style.top = y + 'px'
-      this.div.style.left = x + 'px'
+      this.div.style.top = `${y}px`
+      this.div.style.left = `${x}px`
     }
   }
 
@@ -204,7 +242,11 @@ export class ClusterIcon {
 
       const pos = this.getPosFromLatLng(this.center)
 
-      if (this.sums === null || typeof this.sums.title === 'undefined' || this.sums.title === '') {
+      if (
+        this.sums === null ||
+        typeof this.sums.title === 'undefined' ||
+        this.sums.title === ''
+      ) {
         divTitle = this.cluster.getClusterer().getTitle()
       } else {
         divTitle = this.sums.title
@@ -225,10 +267,13 @@ export class ClusterIcon {
       img.style.left = `${spriteH}px`
 
       if (!this.cluster.getClusterer().enableRetinaIcons) {
-        img.style.clip = `rect(-${spriteV}px, -${spriteH + this.width}px, -${spriteV + this.height}, -${spriteH})`
+        img.style.clip = `rect(-${spriteV}px, -${spriteH + this.width}px, -${
+          spriteV + this.height
+        }, -${spriteH})`
       }
 
       const textElm = document.createElement('div')
+
       textElm.style.position = 'absolute'
       textElm.style.top = `${this.anchorText[0]}px`
       textElm.style.left = `${this.anchorText[1]}px`
@@ -244,9 +289,12 @@ export class ClusterIcon {
       textElm.innerText = `${this.sums?.text}`
 
       this.div.innerHTML = ''
+
       this.div.appendChild(img)
       this.div.appendChild(textElm)
+
       this.div.title = divTitle
+
       this.div.style.display = ''
     }
 
@@ -255,14 +303,18 @@ export class ClusterIcon {
 
   useStyle(sums: ClusterIconInfo) {
     this.sums = sums
+
     const styles = this.cluster.getClusterer().getStyles()
-    const style = styles[Math.min(styles.length - 1, Math.max(0, sums.index - 1))]
+
+    const style =
+      styles[Math.min(styles.length - 1, Math.max(0, sums.index - 1))]
 
     this.url = style.url
     this.height = style.height
     this.width = style.width
 
-    if (style.className) this.className = `${this.clusterClassName} ${style.className}`
+    if (style.className)
+      this.className = `${this.clusterClassName} ${style.className}`
 
     this.anchorText = style.anchorText || [0, 0]
     this.anchorIcon = style.anchorIcon || [this.height / 2, this.width / 2]
@@ -293,10 +345,6 @@ export class ClusterIcon {
     pos.x -= this.anchorIcon[1]
 
     pos.y -= this.anchorIcon[0]
-
-    // pos.x = pos.x
-
-    // pos.y = pos.y
 
     return pos
   }
