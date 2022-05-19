@@ -61,6 +61,11 @@ export class ClusterIcon {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.setMap(cluster.getMap()) // Note: this causes onAdd to be called
+    this.onBoundsChanged = this.onBoundsChanged.bind(this)
+    this.onMouseDown = this.onMouseDown.bind(this)
+    this.onClick = this.onClick.bind(this)
+    this.onMouseOver = this.onMouseOver.bind(this)
+    this.onMouseOut = this.onMouseOut.bind(this)
   }
 
   onBoundsChanged() {
@@ -252,6 +257,7 @@ export class ClusterIcon {
         divTitle = this.sums.title
       }
 
+      this.div.className = this.className
       this.div.style.cursor = 'pointer'
       this.div.style.position = 'absolute'
       this.div.style.top = `${pos.y}px`
@@ -262,6 +268,8 @@ export class ClusterIcon {
       const img = document.createElement('img')
       img.alt = divTitle
       img.src = this.url
+      img.width = this.width
+      img.height = this.height
       img.style.position = 'absolute'
       img.style.top = `${spriteV}px`
       img.style.left = `${spriteH}px`
