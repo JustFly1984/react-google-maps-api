@@ -33,34 +33,48 @@ export class ClusterIcon {
 
   constructor(cluster: Cluster, styles: ClusterIconStyle[]) {
     cluster.getClusterer().extend(ClusterIcon, google.maps.OverlayView)
+
     this.cluster = cluster
+
     this.clusterClassName = this.cluster.getClusterer().getClusterClass()
+
     this.className = this.clusterClassName
+
     this.styles = styles
+
     this.center = undefined
+
     this.div = null
+
     this.sums = null
+
     this.visible = false
+
     this.boundsChangedListener = null
+
     this.url = ''
+
     this.height = 0
     this.width = 0
+
     this.anchorText = [0, 0]
     this.anchorIcon = [0, 0]
+
     this.textColor = 'black'
     this.textSize = 11
     this.textDecoration = 'none'
     this.fontWeight = 'bold'
     this.fontStyle = 'normal'
     this.fontFamily = 'Arial,sans-serif'
+
     this.backgroundPosition = '0 0'
 
     this.cMouseDownInCluster = null
     this.cDraggingMapByCluster = null
-    this.timeOut = null
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.setMap(cluster.getMap()) // Note: this causes onAdd to be called
+    this.timeOut = null;
+
+
+    (this as unknown as google.maps.OverlayView).setMap(cluster.getMap()) // Note: this causes onAdd to be called
   }
 
   onBoundsChanged() {
@@ -96,26 +110,31 @@ export class ClusterIcon {
 
         const bounds = this.cluster.getBounds()
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        markerClusterer.getMap().fitBounds(bounds)
+        const map = (markerClusterer as unknown as google.maps.OverlayView).getMap()
+
+        if (map !== null && 'fitBounds' in map) {
+          map.fitBounds(bounds)
+        }
+
 
         // There is a fix for Issue 170 here:
         this.timeOut = window.setTimeout(() => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          markerClusterer.getMap().fitBounds(bounds)
+          const map = (markerClusterer as unknown as google.maps.OverlayView).getMap()
 
-          // Don't zoom beyond the max zoom level
-          if (
-            maxZoom !== null &&
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            markerClusterer.getMap().getZoom() > maxZoom
-          ) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            markerClusterer.getMap().setZoom(maxZoom + 1)
+          if (map !== null) {
+            if ('fitBounds' in map) {
+              map.fitBounds(bounds)
+            }
+
+            const zoom = map.getZoom() || 0
+
+            // Don't zoom beyond the max zoom level
+            if (
+              maxZoom !== null &&
+              zoom > maxZoom
+            ) {
+              map.setZoom(maxZoom + 1)
+            }
           }
         }, 100)
       }
@@ -159,30 +178,33 @@ export class ClusterIcon {
 
   onAdd() {
     this.div = document.createElement('div')
+
     this.div.className = this.className
+
     if (this.visible) {
       this.show()
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.getPanes().overlayMouseTarget.appendChild(this.div)
-    // Fix for Issue 157
-    this.boundsChangedListener = google.maps.event.addListener(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.getMap(),
-      'bounds_changed',
-      this.onBoundsChanged
-    )
+    ;(this as unknown as google.maps.OverlayView).getPanes()?.overlayMouseTarget.appendChild(this.div)
 
-    this.div.addEventListener('mousedown', this.onMouseDown)
+    const map = (this as unknown as google.maps.OverlayView).getMap()
 
-    this.div.addEventListener('click', this.onClick)
+    if (map !== null) {
+      // Fix for Issue 157
+      this.boundsChangedListener = google.maps.event.addListener(
+        map,
+        'bounds_changed',
+        this.onBoundsChanged
+      )
 
-    this.div.addEventListener('mouseover', this.onMouseOver)
+      this.div.addEventListener('mousedown', this.onMouseDown)
 
-    this.div.addEventListener('mouseout', this.onMouseOut)
+      this.div.addEventListener('click', this.onClick)
+
+      this.div.addEventListener('mouseover', this.onMouseOver)
+
+      this.div.addEventListener('mouseout', this.onMouseOut)
+    }
   }
 
   onRemove() {
@@ -215,10 +237,10 @@ export class ClusterIcon {
 
   draw() {
     if (this.visible && this.div !== null && this.center) {
-      const { x, y } = this.getPosFromLatLng(this.center)
+      const pos = this.getPosFromLatLng(this.center)
 
-      this.div.style.top = `${y}px`
-      this.div.style.left = `${x}px`
+      this.div.style.top = pos !== null ? `${pos.y}px` : '0'
+      this.div.style.left = pos !== null ? `${pos.x}px` : '0'
     }
   }
 
@@ -254,12 +276,15 @@ export class ClusterIcon {
 
       this.div.style.cursor = 'pointer'
       this.div.style.position = 'absolute'
-      this.div.style.top = `${pos.y}px`
-      this.div.style.left = `${pos.x}px`
+
+      this.div.style.top = pos !== null ? `${pos.y}px` : '0'
+      this.div.style.left = pos !== null ? `${pos.x}px` : '0'
+
       this.div.style.width = `${this.width}px`
       this.div.style.height = `${this.height}px`
 
       const img = document.createElement('img')
+
       img.alt = divTitle
       img.src = this.url
       img.style.position = 'absolute'
@@ -338,13 +363,14 @@ export class ClusterIcon {
     this.center = center
   }
 
-  getPosFromLatLng(latlng: google.maps.LatLng): google.maps.Point {
-    // @ts-ignore
-    const pos = this.getProjection().fromLatLngToDivPixel(latlng)
+  getPosFromLatLng(latlng: google.maps.LatLng): google.maps.Point | null {
+    const pos = (this as unknown as google.maps.OverlayView).getProjection().fromLatLngToDivPixel(latlng)
 
-    pos.x -= this.anchorIcon[1]
+    if (pos !== null) {
+      pos.x -= this.anchorIcon[1]
 
-    pos.y -= this.anchorIcon[0]
+      pos.y -= this.anchorIcon[0]
+    }
 
     return pos
   }

@@ -1,20 +1,20 @@
 export interface InfoBoxOptions {
-  alignBottom?: boolean
-  boxClass?: string
+  alignBottom?: boolean | undefined
+  boxClass?: string | undefined
   boxStyle?: {
     [key: string]: any
-  }
-  closeBoxMargin?: string
-  closeBoxURL?: string
-  content?: string | Node
-  disableAutoPan?: boolean
-  enableEventPropagation?: boolean
-  infoBoxClearance?: google.maps.Size
-  isHidden?: boolean
-  maxWidth?: number
-  pixelOffset?: google.maps.Size
-  position?: google.maps.LatLng
-  pane?: string
-  visible?: boolean
-  zIndex?: number
+  } | undefined
+  closeBoxMargin?: string | undefined
+  closeBoxURL?: string | undefined
+  content?: string | Node | undefined
+  disableAutoPan?: boolean | undefined
+  enableEventPropagation?: boolean | undefined
+  infoBoxClearance?: google.maps.Size | undefined
+  isHidden?: boolean | undefined
+  maxWidth?: number | undefined
+  pixelOffset?: google.maps.Size | undefined
+  position?: google.maps.LatLng | undefined
+  pane?: keyof google.maps.MapPanes | undefined
+  visible?: boolean | undefined
+  zIndex?: number | undefined
 }

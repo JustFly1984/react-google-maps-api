@@ -1,6 +1,7 @@
 /* global google */
 /* eslint-disable filenames/match-regex */
 import { Cluster } from './Cluster'
+import { ClusterIcon } from './ClusterIcon'
 
 import {
   MarkerExtended,
@@ -133,57 +134,55 @@ export class Clusterer {
 
     this.setupStyles()
 
-    this.addMarkers(optMarkers, true)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.setMap(map) // Note: this causes onAdd to be called
+    this.addMarkers(optMarkers, true);
+
+    (this as unknown as google.maps.OverlayView).setMap(map) // Note: this causes onAdd to be called
+  }
+
+  onZoomChanged() {
+    this.resetViewport(false)
+
+    // Workaround for this Google bug: when map is at level 0 and "-" of
+    // zoom slider is clicked, a "zoom_changed" event is fired even though
+    // the map doesn't zoom out any further. In this situation, no "idle"
+    // event is triggered so the cluster markers that have been removed
+    // do not get redrawn. Same goes for a zoom in at maxZoom.
+    if (
+      (this as unknown as google.maps.OverlayView).getMap()?.getZoom() === ((this as unknown as google.maps.OverlayView).get('minZoom') || 0) ||
+      (this as unknown as google.maps.OverlayView).getMap()?.getZoom() === (this as unknown as google.maps.OverlayView).get('maxZoom')
+    ) {
+      google.maps.event.trigger(this, 'idle')
+    }
+  }
+
+  onIdle() {
+    this.redraw()
   }
 
   onAdd() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.activeMap = this.getMap()
+    const map = (this as unknown as google.maps.OverlayView).getMap()
+
+    this.activeMap = map
 
     this.ready = true
 
     this.repaint()
 
-    // Add the map event listeners
-    this.listeners = [
-      google.maps.event.addListener(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        this.getMap(),
-        'zoom_changed',
-        () => {
-          this.resetViewport(false)
-          // Workaround for this Google bug: when map is at level 0 and "-" of
-          // zoom slider is clicked, a "zoom_changed" event is fired even though
-          // the map doesn't zoom out any further. In this situation, no "idle"
-          // event is triggered so the cluster markers that have been removed
-          // do not get redrawn. Same goes for a zoom in at maxZoom.
-          if (
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.getMap().getZoom() === (this.get('minZoom') || 0) ||
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.getMap().getZoom() === this.get('maxZoom')
-          ) {
-            google.maps.event.trigger(this, 'idle')
-          }
-        }
-      ),
-      google.maps.event.addListener(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        this.getMap(),
-        'idle',
-        () => {
-          this.redraw()
-        }
-      ),
-    ]
+    if (map !== null) {
+      // Add the map event listeners
+      this.listeners = [
+        google.maps.event.addListener(
+          map,
+          'zoom_changed',
+          this.onZoomChanged
+        ),
+        google.maps.event.addListener(
+          map,
+          'idle',
+          this.onIdle
+        ),
+      ]
+    }
   }
 
   onRemove() {
@@ -237,14 +236,18 @@ export class Clusterer {
 
     for (let i = 0; i < markers.length; i++) {
       const position = markers[i].getPosition()
+
       if (position) {
         bounds.extend(position)
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.getMap().fitBounds(bounds)
+    const map = (this as unknown as google.maps.OverlayView).getMap()
+
+    if (map !== null && 'fitBounds' in map) {
+      map.fitBounds(bounds)
+    }
+
   }
 
   getGridSize(): number {
@@ -496,36 +499,51 @@ export class Clusterer {
   }
 
   getExtendedBounds(bounds: google.maps.LatLngBounds): google.maps.LatLngBounds {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const projection = this.getProjection()
+    const projection = (this as unknown as google.maps.OverlayView).getProjection()
+
     // Convert the points to pixels and the extend out by the grid size.
     const trPix = projection.fromLatLngToDivPixel(
       // Turn the bounds into latlng.
       new google.maps.LatLng(bounds.getNorthEast().lat(), bounds.getNorthEast().lng())
     )
 
-    trPix.x += this.gridSize
-    trPix.y -= this.gridSize
+    if (trPix !== null) {
+      trPix.x += this.gridSize
+      trPix.y -= this.gridSize
+    }
 
     const blPix = projection.fromLatLngToDivPixel(
       // Turn the bounds into latlng.
       new google.maps.LatLng(bounds.getSouthWest().lat(), bounds.getSouthWest().lng())
     )
 
-    blPix.x -= this.gridSize
-    blPix.y += this.gridSize
+    if (blPix !== null) {
+      blPix.x -= this.gridSize
+      blPix.y += this.gridSize
+    }
+
 
     // Extend the bounds to contain the new bounds.
-    bounds.extend(
+    if (trPix !== null) {
       // Convert the pixel points back to LatLng nw
-      projection.fromDivPixelToLatLng(trPix)
-    )
+      const point1 = projection.fromDivPixelToLatLng(trPix)
 
-    bounds.extend(
+      if (point1 !== null) {
+        bounds.extend(point1)
+      }
+    }
+
+    if (blPix !== null) {
       // Convert the pixel points back to LatLng sw
-      projection.fromDivPixelToLatLng(blPix)
-    )
+      const point2 =  projection.fromDivPixelToLatLng(blPix)
+
+      if (point2 !== null) {
+        bounds.extend(
+          point2
+        )
+      }
+    }
+
 
     return bounds
   }
@@ -642,39 +660,33 @@ export class Clusterer {
       }
     }
 
+    const map = (this as unknown as google.maps.OverlayView).getMap()
+
+    const bounds = map !== null && 'getBounds' in map ? map.getBounds() : null
+
+    const zoom =  map?.getZoom() || 0
     // Get our current map view bounds.
     // Create a new bounds object so we don't affect the map.
     //
     // See Comments 9 & 11 on Issue 3651 relating to this workaround for a Google Maps bug:
-    const mapBounds =
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.getMap().getZoom() > 3
+    const mapBounds = zoom > 3
         ? new google.maps.LatLngBounds(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.getMap()
-              .getBounds()
-              .getSouthWest(),
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.getMap()
-              .getBounds()
-              .getNorthEast()
+            bounds?.getSouthWest(),
+            bounds?.getNorthEast()
           )
         : new google.maps.LatLngBounds(
             new google.maps.LatLng(85.02070771743472, -178.48388434375),
             new google.maps.LatLng(-85.08136444384544, 178.00048865625)
           )
 
-    const bounds = this.getExtendedBounds(mapBounds)
+    const extendedMapBounds = this.getExtendedBounds(mapBounds)
 
     const iLast = Math.min(iFirst + this.batchSize, this.markers.length)
 
     for (let i = iFirst; i < iLast; i++) {
       const marker = this.markers[i]
 
-      if (!marker.isAdded && this.isMarkerInBounds(marker, bounds) && (!this.ignoreHidden || (this.ignoreHidden && marker.getVisible()))) {
+      if (!marker.isAdded && this.isMarkerInBounds(marker, extendedMapBounds) && (!this.ignoreHidden || (this.ignoreHidden && marker.getVisible()))) {
         this.addToClosestCluster(marker)
       }
     }
@@ -704,18 +716,13 @@ export class Clusterer {
     }
   }
 
-  extend(obj1: any, obj2: any): any {
-    return function applyExtend(object: any) {
-      // eslint-disable-next-line guard-for-in
+  extend<A extends typeof ClusterIcon | typeof Clusterer>(obj1: A, obj2: typeof google.maps.OverlayView): A {
+    return function applyExtend(this: A, object: typeof google.maps.OverlayView): A {
       for (const property in object.prototype) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        this.prototype[property] = object.prototype[property]
+        (this.prototype as unknown as google.maps.OverlayView).set(property, object.prototype.get(property))
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       return this
-    }.apply(obj1, [obj2])
+    }.apply<A, [typeof google.maps.OverlayView], any>(obj1, [obj2])
   }
 }
