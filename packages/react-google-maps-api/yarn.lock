@@ -925,15 +925,15 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.1.tgz#728ecd95ab207aab8a9a4e421f0422db329232be"
   integrity sha512-HnUhk1Sy9IuKrxEMdIRCxpIqPw6BFsbYSEUO9p/hNw5sMld/+3OLMWQP80F8/db9qsv3qUjs7ZR5bS/R+iinXw==
 
-"@react-google-maps/infobox@2.11.2":
-  version "2.11.2"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.11.2.tgz#04cd40ba9f23e0c2971d7a4569062e49b4de24d9"
-  integrity sha512-1nlbnf8gT0aMT3afzJnmDJXQYogyKaNgo07uQ1lSObX7HKezFWmr1nKWKBu3NYZV1881tyI2XaNf4sDaqxD2QA==
+"@react-google-maps/infobox@2.11.4":
+  version "2.11.4"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.11.4.tgz#333d112b9b98520a4de6e9eeeb730a8bd8803276"
+  integrity sha512-7sUDFWAFT7gX9EdveRovK1Xcviq3VRMv0bHs0xHTHt8o0vs4cS7fLAn6MMGFkfovOCpys7wgziMWe1J2oTqNgA==
 
-"@react-google-maps/marker-clusterer@2.11.3":
-  version "2.11.3"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.11.3.tgz#64bcaa3cecba7b3fb39db9aa0a8a1bfed02938d0"
-  integrity sha512-KdGU1HmaxHRd+uLJ9Y+puU4ZSSWTV+1X29qFuTLUix1V3URTZwD3uMXiRcCsogkegCaLBBVfY8VI//WCKTzdNQ==
+"@react-google-maps/marker-clusterer@2.11.4":
+  version "2.11.4"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.11.4.tgz#7e28e87aef54c6892fe56d034d82c7a15ed1d18e"
+  integrity sha512-zKTROAMo/YWIK0BQNdbUzTh3yNXviCHxs+o33Z/+AOc5NW/xReqtwOoEbg/ttLF8zRjqic3eP/qLZAthKGINMw==
 
 "@rollup/plugin-commonjs@22.0.0":
   version "22.0.0"
@@ -1082,10 +1082,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/google.maps@3.48.8":
-  version "3.48.8"
-  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.48.8.tgz#54025ff2352122283a7ccfc1213ab7fcc1dde838"
-  integrity sha512-//H3NjhH8GqWOdSecsodAc1FtcGWZKTi45q59Ym/sV0F8bituz4JcPicLRhSvdSLi9fjZKNUUdjXwgJeWv/M5w==
+"@types/google.maps@3.49.0":
+  version "3.49.0"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.49.0.tgz#26fcf3d86ecbc6545db0e6691a434ec8132df48b"
+  integrity sha512-hFGEX4srYvWf2+WiJ7OX2ehgEzx88HcXMBa+RIW8vF3oyPShZ9pcU2ZZAM9oIlomWdJ0pC89ibalJ77ioTGVEA==
 
 "@types/graceful-fs@^4.1.3":
   version "4.1.5"

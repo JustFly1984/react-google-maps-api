@@ -2,6 +2,15 @@
 /* eslint-disable filenames/match-regex */
 import { InfoBoxOptions } from './types'
 
+// This handler prevents an event in the InfoBox from being passed on to the map.
+function cancelHandler(event: Event) {
+  event.cancelBubble = true
+
+  if (event.stopPropagation) {
+    event.stopPropagation()
+  }
+}
+
 export class InfoBox {
   content: string | Node
   disableAutoPan: boolean
@@ -71,17 +80,34 @@ export class InfoBox {
     this.contextListener = null
     this.eventListeners = null
     this.fixedWidthSet = null
+
+    this.createInfoBoxDiv = this.createInfoBoxDiv.bind(this)
+    this.getCloseBoxImg = this.getCloseBoxImg.bind(this)
+    this.addClickHandler = this.addClickHandler.bind(this)
+    this.closeClickHandler = this.closeClickHandler.bind(this)
+    this.getCloseClickHandler = this.getCloseClickHandler.bind(this)
+    this.panBox = this.panBox.bind(this)
+    this.setBoxStyle = this.setBoxStyle.bind(this)
+    this.getBoxWidths = this.getBoxWidths.bind(this)
+    this.onRemove = this.onRemove.bind(this)
+    this.draw = this.draw.bind(this)
+    this.setOptions = this.setOptions.bind(this)
+    this.setContent = this.setContent.bind(this)
+    this.setPosition = this.setPosition.bind(this)
+    this.setVisible = this.setVisible.bind(this)
+    this.setZIndex = this.setZIndex.bind(this)
+    this.getContent = this.getContent.bind(this)
+    this.getPosition = this.getPosition.bind(this)
+    this.getZIndex = this.getZIndex.bind(this)
+    this.getVisible = this.getVisible.bind(this)
+    this.show = this.show.bind(this)
+    this.hide = this.hide.bind(this)
+    this.open = this.open.bind(this)
+    this.close = this.close.bind(this)
+    this.extend = this.extend.bind(this)
   }
 
   createInfoBoxDiv(): void {
-    // This handler prevents an event in the InfoBox from being passed on to the map.
-    function cancelHandler(event: Event) {
-      event.cancelBubble = true
-      if (event.stopPropagation) {
-        event.stopPropagation()
-      }
-    }
-
     // This handler ignores the current event in the InfoBox and conditionally prevents
     // the event from being passed on to the map. It is used for the contextmenu event.
     const ignoreHandler = (event: Event) => {
@@ -203,36 +229,35 @@ export class InfoBox {
   }
 
   addClickHandler(): void {
-    if (this.div && this.div.firstChild && this.closeBoxURL !== '') {
-      const closeBox = this.div.firstChild
-      this.closeListener = google.maps.event.addListener(
-        closeBox,
+    this.closeListener = this.div && this.div.firstChild && this.closeBoxURL !== ''
+      ? google.maps.event.addListener(
+        this.div.firstChild,
         'click',
         this.getCloseClickHandler()
       )
-    } else {
-      this.closeListener = null
-    }
+      : null;
   }
 
-  getCloseClickHandler() {
-    return (event: Event) => {
-      // 1.0.3 fix: Always prevent propagation of a close box click to the map:
-      event.cancelBubble = true
+  closeClickHandler(event: Event): void {
+    // 1.0.3 fix: Always prevent propagation of a close box click to the map:
+    event.cancelBubble = true
 
-      if (event.stopPropagation) {
-        event.stopPropagation()
-      }
-
-      /**
-       * This event is fired when the InfoBox's close box is clicked.
-       * @name InfoBox#closeclick
-       * @event
-       */
-      google.maps.event.trigger(this, 'closeclick')
-
-      this.close()
+    if (event.stopPropagation) {
+      event.stopPropagation()
     }
+
+    /**
+     * This event is fired when the InfoBox's close box is clicked.
+     * @name InfoBox#closeclick
+     * @event
+     */
+    google.maps.event.trigger(this, 'closeclick')
+
+    this.close()
+  }
+
+  getCloseClickHandler(): (event: Event) => void {
+    return this.closeClickHandler
   }
 
   panBox(disablePan?: boolean | undefined): void {
@@ -543,6 +568,7 @@ export class InfoBox {
 
   setVisible(isVisible: boolean): void {
     this.isHidden = !isVisible
+
     if (this.div) {
       this.div.style.visibility = this.isHidden ? 'hidden' : 'visible'
     }
@@ -576,23 +602,14 @@ export class InfoBox {
   }
 
   getVisible(): boolean {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const map: google.maps.Map | google.maps.StreetViewPanorama | null | undefined = this.getMap()
+    const map: google.maps.Map | google.maps.StreetViewPanorama | null | undefined = (this as unknown as google.maps.OverlayView).getMap()
 
-    let isVisible
-
-    if (typeof map === 'undefined' || map === null) {
-      isVisible = false
-    } else {
-      isVisible = !this.isHidden
-    }
-
-    return isVisible
+    return typeof map === 'undefined' || map === null ? false : !this.isHidden
   }
 
   show(): void {
     this.isHidden = false
+
     if (this.div) {
       this.div.style.visibility = 'visible'
     }
@@ -600,6 +617,7 @@ export class InfoBox {
 
   hide(): void {
     this.isHidden = true
+
     if (this.div) {
       this.div.style.visibility = 'hidden'
     }
@@ -607,7 +625,7 @@ export class InfoBox {
 
   open(
     map: google.maps.Map | google.maps.StreetViewPanorama,
-    anchor?: google.maps.MVCObject
+    anchor?: google.maps.MVCObject | undefined
   ): void {
     if (anchor) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -637,9 +655,7 @@ export class InfoBox {
       )
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.setMap(map)
+    (this as unknown as google.maps.OverlayView).setMap(map)
 
     if (this.div) {
       this.panBox()
@@ -649,6 +665,7 @@ export class InfoBox {
   close() {
     if (this.closeListener) {
       google.maps.event.removeListener(this.closeListener)
+
       this.closeListener = null
     }
 
@@ -656,21 +673,25 @@ export class InfoBox {
       for (let i = 0; i < this.eventListeners.length; i++) {
         google.maps.event.removeListener(this.eventListeners[i])
       }
+
       this.eventListeners = null
     }
 
     if (this.moveListener) {
       google.maps.event.removeListener(this.moveListener)
+
       this.moveListener = null
     }
 
     if (this.mapListener) {
       google.maps.event.removeListener(this.mapListener)
+
       this.mapListener = null
     }
 
     if (this.contextListener) {
       google.maps.event.removeListener(this.contextListener)
+
       this.contextListener = null
     }
 

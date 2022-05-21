@@ -15,7 +15,7 @@ import {
  * Supports up to 9007199254740991 (Number.MAX_SAFE_INTEGER) markers
  * which is not a problem as max array length is 4294967296 (2**32)
  */
-const CALCULATOR = function CALCULATOR(
+function CALCULATOR(
   markers: MarkerExtended[],
   numStyles: number
 ): ClusterIconInfo {
@@ -137,6 +137,61 @@ export class Clusterer {
     this.addMarkers(optMarkers, true);
 
     (this as unknown as google.maps.OverlayView).setMap(map) // Note: this causes onAdd to be called
+
+    this.onZoomChanged = this.onZoomChanged.bind(this)
+    this.onIdle = this.onIdle.bind(this)
+    this.onAdd = this.onAdd.bind(this)
+    this.onRemove = this.onRemove.bind(this)
+    this.draw = this.draw.bind(this)
+    this.setupStyles = this.setupStyles.bind(this)
+    this.fitMapToMarkers = this.fitMapToMarkers.bind(this)
+    this.getGridSize = this.getGridSize.bind(this)
+    this.setGridSize = this.setGridSize.bind(this)
+    this.getMinimumClusterSize = this.getMinimumClusterSize.bind(this)
+    this.setMinimumClusterSize = this.setMinimumClusterSize.bind(this)
+    this.getMaxZoom = this.getMaxZoom.bind(this)
+    this.setMaxZoom = this.setMaxZoom.bind(this)
+    this.getStyles = this.getStyles.bind(this)
+    this.setStyles = this.setStyles.bind(this)
+    this.getTitle = this.getTitle.bind(this)
+    this.setTitle = this.setTitle.bind(this)
+    this.getZoomOnClick = this.getZoomOnClick.bind(this)
+    this.setZoomOnClick = this.setZoomOnClick.bind(this)
+    this.getAverageCenter = this.getAverageCenter.bind(this)
+    this.setAverageCenter = this.setAverageCenter.bind(this)
+    this.getIgnoreHidden = this.getIgnoreHidden.bind(this)
+    this.setIgnoreHidden = this.setIgnoreHidden.bind(this)
+    this.getEnableRetinaIcons = this.getEnableRetinaIcons.bind(this)
+    this.setEnableRetinaIcons = this.setEnableRetinaIcons.bind(this)
+    this.getImageExtension = this.getImageExtension.bind(this)
+    this.setImageExtension = this.setImageExtension.bind(this)
+    this.getImagePath = this.getImagePath.bind(this)
+    this.setImagePath = this.setImagePath.bind(this)
+    this.getImageSizes = this.getImageSizes.bind(this)
+    this.setImageSizes = this.setImageSizes.bind(this)
+    this.getCalculator = this.getCalculator.bind(this)
+    this.setCalculator = this.setCalculator.bind(this)
+    this.getBatchSizeIE = this.getBatchSizeIE.bind(this)
+    this.setBatchSizeIE = this.setBatchSizeIE.bind(this)
+    this.getClusterClass = this.getClusterClass.bind(this)
+    this.setClusterClass = this.setClusterClass.bind(this)
+    this.getMarkers = this.getMarkers.bind(this)
+    this.getTotalMarkers = this.getTotalMarkers.bind(this)
+    this.getClusters = this.getClusters.bind(this)
+    this.getTotalClusters = this.getTotalClusters.bind(this)
+    this.addMarker = this.addMarker.bind(this)
+    this.addMarkers = this.addMarkers.bind(this)
+    this.pushMarkerTo = this.pushMarkerTo.bind(this)
+    this.removeMarker = this.removeMarker.bind(this)
+    this.removeMarkers = this.removeMarkers.bind(this)
+    this.clearMarkers = this.clearMarkers.bind(this)
+    this.repaint = this.repaint.bind(this)
+    this.getExtendedBounds = this.getExtendedBounds.bind(this)
+    this.redraw = this.redraw.bind(this)
+    this.resetViewport = this.resetViewport.bind(this)
+    this.addToClosestCluster = this.addToClosestCluster.bind(this)
+    this.createClusters = this.createClusters.bind(this)
+    this.extend = this.extend.bind(this)
   }
 
   onZoomChanged() {
@@ -212,8 +267,7 @@ export class Clusterer {
     this.ready = false
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  draw() {}
+  draw() { return }
 
   setupStyles() {
     if (this.styles.length > 0) {
@@ -222,7 +276,7 @@ export class Clusterer {
 
     for (let i = 0; i < this.imageSizes.length; i++) {
       this.styles.push({
-        url: this.imagePath + (i + 1) + '.' + this.imageExtension,
+        url: `${this.imagePath + (i + 1)}.${this.imageExtension}`,
         height: this.imageSizes[i],
         width: this.imageSizes[i],
       })

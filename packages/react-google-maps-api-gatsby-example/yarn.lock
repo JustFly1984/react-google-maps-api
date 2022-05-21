@@ -3590,27 +3590,27 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@react-google-maps/api@2.11.3":
-  version "2.11.3"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.11.3.tgz#b207db6dc87cba04f0640e33b1d0ca953265063d"
-  integrity sha512-wU8LJPwTy3Ljy4+6zTHCvsdb3o5g1KOKV2mKgpuQD0mauXSbjKBpM2u/PeyJL70Bz+b4R64gGu+JRNA2lsJcSg==
+"@react-google-maps/api@2.11.4":
+  version "2.11.4"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.11.4.tgz#4f90d3f9944895b3233fa7166c860fbd3acf51ce"
+  integrity sha512-tKxJ3Q/iWYH1LC0Pu5jnY1397vcmFPoDJgZ079Jlnvuizh7c6sHcauC+oACOIADy23DyhD4mLJ3m7iWptrbyVg==
   dependencies:
     "@googlemaps/js-api-loader" "1.14.3"
     "@googlemaps/markerclusterer" "2.0.7"
-    "@react-google-maps/infobox" "2.11.2"
-    "@react-google-maps/marker-clusterer" "2.11.3"
-    "@types/google.maps" "3.48.8"
+    "@react-google-maps/infobox" "2.11.4"
+    "@react-google-maps/marker-clusterer" "2.11.4"
+    "@types/google.maps" "3.49.0"
     invariant "2.2.4"
 
-"@react-google-maps/infobox@2.11.2":
-  version "2.11.2"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.11.2.tgz#04cd40ba9f23e0c2971d7a4569062e49b4de24d9"
-  integrity sha512-1nlbnf8gT0aMT3afzJnmDJXQYogyKaNgo07uQ1lSObX7HKezFWmr1nKWKBu3NYZV1881tyI2XaNf4sDaqxD2QA==
+"@react-google-maps/infobox@2.11.4":
+  version "2.11.4"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.11.4.tgz#333d112b9b98520a4de6e9eeeb730a8bd8803276"
+  integrity sha512-7sUDFWAFT7gX9EdveRovK1Xcviq3VRMv0bHs0xHTHt8o0vs4cS7fLAn6MMGFkfovOCpys7wgziMWe1J2oTqNgA==
 
-"@react-google-maps/marker-clusterer@2.11.3":
-  version "2.11.3"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.11.3.tgz#64bcaa3cecba7b3fb39db9aa0a8a1bfed02938d0"
-  integrity sha512-KdGU1HmaxHRd+uLJ9Y+puU4ZSSWTV+1X29qFuTLUix1V3URTZwD3uMXiRcCsogkegCaLBBVfY8VI//WCKTzdNQ==
+"@react-google-maps/marker-clusterer@2.11.4":
+  version "2.11.4"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.11.4.tgz#7e28e87aef54c6892fe56d034d82c7a15ed1d18e"
+  integrity sha512-zKTROAMo/YWIK0BQNdbUzTh3yNXviCHxs+o33Z/+AOc5NW/xReqtwOoEbg/ttLF8zRjqic3eP/qLZAthKGINMw==
 
 "@sentry/browser@6.19.7":
   version "6.19.7"
@@ -3895,10 +3895,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/google.maps@3.48.8":
-  version "3.48.8"
-  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.48.8.tgz#54025ff2352122283a7ccfc1213ab7fcc1dde838"
-  integrity sha512-//H3NjhH8GqWOdSecsodAc1FtcGWZKTi45q59Ym/sV0F8bituz4JcPicLRhSvdSLi9fjZKNUUdjXwgJeWv/M5w==
+"@types/google.maps@3.49.0":
+  version "3.49.0"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.49.0.tgz#26fcf3d86ecbc6545db0e6691a434ec8132df48b"
+  integrity sha512-hFGEX4srYvWf2+WiJ7OX2ehgEzx88HcXMBa+RIW8vF3oyPShZ9pcU2ZZAM9oIlomWdJ0pC89ibalJ77ioTGVEA==
 
 "@types/graceful-fs@^4.1.3":
   version "4.1.5"
@@ -10324,11 +10324,6 @@ normalize-range@^0.1.2:
   resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
   integrity sha1-LRDAa9/TEuqXd2laTShDlFa3WUI=
 
-normalize-selector@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/normalize-selector/-/normalize-selector-0.2.0.tgz#d0b145eb691189c63a78d201dc4fdb1293ef0c03"
-  integrity sha1-0LFF62kRicY6eNIB3E/bEpPvDAM=
-
 normalize-url@^4.1.0:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.1.tgz#0dd90cf1288ee1d1313b87081c9a5932ee48518a"
@@ -12684,10 +12679,10 @@ stylelint-scss@^4.2.0:
     postcss-selector-parser "^6.0.6"
     postcss-value-parser "^4.1.0"
 
-stylelint@14.8.2:
-  version "14.8.2"
-  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-14.8.2.tgz#801eef74fe6020611e6a515abb9fc7caeb125793"
-  integrity sha512-tjDfexCYfoPdl/xcDJ9Fv+Ko9cvzbDnmdiaqEn3ovXHXasi/hbkt5tSjsiReQ+ENqnz0eltaX/AOO+AlzVdcNA==
+stylelint@14.8.3:
+  version "14.8.3"
+  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-14.8.3.tgz#25d2df1e010cda52ff56327059d1ce25319109be"
+  integrity sha512-aLpskXwSgFEBYbFRKA/BfuyYMGuXNtn2t5GqoffNPSezvw97x/vVNWcZNF0+cwt+LBjfvyq9/MRE3OjInGRgNA==
   dependencies:
     balanced-match "^2.0.0"
     colord "^2.9.2"
@@ -12712,7 +12707,6 @@ stylelint@14.8.2:
     meow "^9.0.0"
     micromatch "^4.0.5"
     normalize-path "^3.0.0"
-    normalize-selector "^0.2.0"
     picocolors "^1.0.0"
     postcss "^8.4.13"
     postcss-media-query-parser "^0.2.3"

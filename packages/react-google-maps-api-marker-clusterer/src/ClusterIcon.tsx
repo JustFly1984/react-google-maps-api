@@ -74,12 +74,20 @@ export class ClusterIcon {
     this.timeOut = null;
 
     (this as unknown as google.maps.OverlayView).setMap(cluster.getMap()) // Note: this causes onAdd to be called
-        
+
     this.onBoundsChanged = this.onBoundsChanged.bind(this)
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onClick = this.onClick.bind(this)
     this.onMouseOver = this.onMouseOver.bind(this)
     this.onMouseOut = this.onMouseOut.bind(this)
+    this.onAdd = this.onAdd.bind(this)
+    this.onRemove = this.onRemove.bind(this)
+    this.draw = this.draw.bind(this)
+    this.hide = this.hide.bind(this)
+    this.show = this.show.bind(this)
+    this.useStyle = this.useStyle.bind(this)
+    this.setCenter = this.setCenter.bind(this)
+    this.getPosFromLatLng = this.getPosFromLatLng.bind(this)
   }
 
   onBoundsChanged() {

@@ -35,6 +35,19 @@ export class Cluster {
     this.bounds = null
 
     this.clusterIcon = new ClusterIcon(this, this.markerClusterer.getStyles())
+
+    this.getSize = this.getSize.bind(this)
+    this.getMarkers = this.getMarkers.bind(this)
+    this.getCenter = this.getCenter.bind(this)
+    this.getMap = this.getMap.bind(this)
+    this.getClusterer = this.getClusterer.bind(this)
+    this.getBounds = this.getBounds.bind(this)
+    this.remove = this.remove.bind(this)
+    this.addMarker = this.addMarker.bind(this)
+    this.isMarkerInClusterBounds = this.isMarkerInClusterBounds.bind(this)
+    this.calculateBounds = this.calculateBounds.bind(this)
+    this.updateIcon = this.updateIcon.bind(this)
+    this.isMarkerAlreadyAdded = this.isMarkerAlreadyAdded.bind(this)
   }
 
   getSize(): number {
