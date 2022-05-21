@@ -8,7 +8,7 @@ import { MarkerExtended } from './types'
 
 export class Cluster {
   markerClusterer: Clusterer
-  map: google.maps.Map | google.maps.StreetViewPanorama
+  map: google.maps.Map | google.maps.StreetViewPanorama | null
   gridSize: number
   minClusterSize: number
   averageCenter: boolean
@@ -20,9 +20,7 @@ export class Cluster {
   constructor(markerClusterer: Clusterer) {
     this.markerClusterer = markerClusterer
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.map = this.markerClusterer.getMap()
+    this.map = (this.markerClusterer as unknown as google.maps.OverlayView).getMap()
 
     this.gridSize = this.markerClusterer.getGridSize()
 
@@ -37,6 +35,19 @@ export class Cluster {
     this.bounds = null
 
     this.clusterIcon = new ClusterIcon(this, this.markerClusterer.getStyles())
+
+    this.getSize = this.getSize.bind(this)
+    this.getMarkers = this.getMarkers.bind(this)
+    this.getCenter = this.getCenter.bind(this)
+    this.getMap = this.getMap.bind(this)
+    this.getClusterer = this.getClusterer.bind(this)
+    this.getBounds = this.getBounds.bind(this)
+    this.remove = this.remove.bind(this)
+    this.addMarker = this.addMarker.bind(this)
+    this.isMarkerInClusterBounds = this.isMarkerInClusterBounds.bind(this)
+    this.calculateBounds = this.calculateBounds.bind(this)
+    this.updateIcon = this.updateIcon.bind(this)
+    this.isMarkerAlreadyAdded = this.isMarkerAlreadyAdded.bind(this)
   }
 
   getSize(): number {
@@ -51,7 +62,7 @@ export class Cluster {
     return this.center
   }
 
-  getMap(): google.maps.Map | google.maps.StreetViewPanorama {
+  getMap(): google.maps.Map | google.maps.StreetViewPanorama | null {
     return this.map
   }
 
@@ -76,9 +87,7 @@ export class Cluster {
   }
 
   remove() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.clusterIcon.setMap(null)
+    (this.clusterIcon as unknown as google.maps.OverlayView).setMap(null)
 
     this.markers = []
 
@@ -125,7 +134,7 @@ export class Cluster {
 
     const maxZoom = this.markerClusterer.getMaxZoom()
 
-    const zoom = this.map.getZoom()
+    const zoom = this.map?.getZoom()
 
     if (maxZoom !== null && typeof zoom !== 'undefined' && zoom > maxZoom) {
       // Zoomed in past max zoom, so show the marker.
@@ -172,7 +181,7 @@ export class Cluster {
 
     const maxZoom = this.markerClusterer.getMaxZoom()
 
-    const zoom = this.map.getZoom()
+    const zoom = this.map?.getZoom()
 
     if (maxZoom !== null && typeof zoom !== 'undefined' && zoom > maxZoom) {
       this.clusterIcon.hide()

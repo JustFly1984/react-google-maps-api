@@ -13,14 +13,17 @@
   "publishConfig": {
     "access": "public"
   },
+  "resolutions": {
+    "@babel/core": "7.18.0"
+  },
   "dependencies": {
-    "@babel/core": "7.17.12",
+    "@babel/core": "7.18.0",
     "@babel/node": "7.17.10",
     "@babel/polyfill": "7.12.1",
-    "@babel/preset-env": "7.17.12",
+    "@babel/preset-env": "7.18.0",
     "@babel/preset-react": "7.17.12",
-    "@babel/runtime": "7.17.9",
-    "@react-google-maps/api": "2.10.3",
+    "@babel/runtime": "7.18.0",
+    "@react-google-maps/api": "2.11.4",
     "@sentry/browser": "6.19.7",
     "cross-env": "7.0.3",
     "gatsby": "4.14.1",
@@ -39,7 +42,7 @@
     "redux-actions": "2.6.5",
     "redux-immutable": "4.0.0",
     "redux-thunk": "2.4.1",
-    "stylelint": "14.8.2",
+    "stylelint": "14.8.3",
     "stylelint-a11y": "1.2.3",
     "stylelint-config-css-modules": "4.1.0",
     "stylelint-config-recommended": "7.0.0",
@@ -68,7 +71,7 @@
     "update": "npm-check -u"
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "7.17.12",
+    "@babel/plugin-transform-runtime": "7.18.0",
     "babel-eslint": "10.1.0",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
     "jest": "28.1.0",
