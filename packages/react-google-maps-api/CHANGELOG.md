@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.11.3 improved code and types for @react-google-maps/marker-clusterer and @react-google-maps/infobox
+
 ## 2.10.0 react@18 support, new functional versions of components
 
 - TrafficLayerF

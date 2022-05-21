@@ -19,7 +19,7 @@ export class InfoBox {
   infoBoxClearance: google.maps.Size
   isHidden: boolean
   alignBottom: boolean
-  pane: string
+  pane: keyof google.maps.MapPanes
   enableEventPropagation: boolean
   div: HTMLDivElement | null
   closeListener: google.maps.MapsEventListener | null
@@ -57,6 +57,7 @@ export class InfoBox {
         options.visible = !options.isHidden
       }
     }
+
     this.isHidden = !options.visible
 
     this.alignBottom = options.alignBottom || false
@@ -106,10 +107,11 @@ export class InfoBox {
         this.div.appendChild(this.content)
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const panes = this.getPanes()
-      panes[this.pane].appendChild(this.div) // Add the InfoBox div to the DOM
+      const panes = (this as unknown as google.maps.OverlayView).getPanes()
+
+      if (panes !== null) {
+        panes[this.pane].appendChild(this.div) // Add the InfoBox div to the DOM
+      }
 
       this.addClickHandler()
 
@@ -233,7 +235,7 @@ export class InfoBox {
     }
   }
 
-  panBox(disablePan?: boolean): void {
+  panBox(disablePan?: boolean | undefined): void {
     if (this.div && !disablePan) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -677,21 +679,14 @@ export class InfoBox {
     this.setMap(null)
   }
 
-  extend(obj1: any, obj2: any): any {
-    return function applyExtend(object: any) {
-      // eslint-disable-next-line guard-for-in
+  extend<A extends typeof InfoBox>(obj1: A, obj2: typeof google.maps.OverlayView): A {
+    return function applyExtend(this: A, object: typeof google.maps.OverlayView): A {
       for (const property in object.prototype) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         if (!Object.prototype.hasOwnProperty.call(this, property)) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          this.prototype[property] = object.prototype[property]
+          (this.prototype as unknown as  google.maps.OverlayView).set(property, object.prototype.get(property))
         }
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       return this
     }.apply(obj1, [obj2])
   }
