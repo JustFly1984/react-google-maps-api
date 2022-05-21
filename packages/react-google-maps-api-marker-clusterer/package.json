@@ -1,7 +1,7 @@
 {
   "name": "@react-google-maps/marker-clusterer",
   "sideEffects": false,
-  "version": "2.11.3",
+  "version": "2.11.4",
   "description": "Marker Clusterer for React.js Google Maps API",
   "license": "MIT",
   "author": {
@@ -57,7 +57,7 @@
     "@rollup/plugin-node-resolve": "13.3.0",
     "@rollup/plugin-typescript": "8.3.2",
     "@types/babel-types": "7.0.11",
-    "@types/google.maps": "3.48.8",
+    "@types/google.maps": "3.49.0",
     "jest": "28.1.0",
     "jest-cli": "28.1.0",
     "rimraf": "3.0.2",
