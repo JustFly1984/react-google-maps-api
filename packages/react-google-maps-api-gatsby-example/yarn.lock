@@ -3590,27 +3590,27 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@react-google-maps/api@2.11.4":
-  version "2.11.4"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.11.4.tgz#4f90d3f9944895b3233fa7166c860fbd3acf51ce"
-  integrity sha512-tKxJ3Q/iWYH1LC0Pu5jnY1397vcmFPoDJgZ079Jlnvuizh7c6sHcauC+oACOIADy23DyhD4mLJ3m7iWptrbyVg==
+"@react-google-maps/api@2.11.8":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.11.8.tgz#b8cdde7765546b145f18f39030d23a2115fb87b6"
+  integrity sha512-Tf/BQ6deNQaYeziL9cysbwO90TJKU6GF6VMu0GlyGRO90Yesty4WJnnqM5a8Hdk9bmMYtQCqZwmrtjhWE9ql8Q==
   dependencies:
     "@googlemaps/js-api-loader" "1.14.3"
     "@googlemaps/markerclusterer" "2.0.7"
-    "@react-google-maps/infobox" "2.11.4"
-    "@react-google-maps/marker-clusterer" "2.11.4"
+    "@react-google-maps/infobox" "2.11.8"
+    "@react-google-maps/marker-clusterer" "2.11.8"
     "@types/google.maps" "3.49.0"
     invariant "2.2.4"
 
-"@react-google-maps/infobox@2.11.4":
-  version "2.11.4"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.11.4.tgz#333d112b9b98520a4de6e9eeeb730a8bd8803276"
-  integrity sha512-7sUDFWAFT7gX9EdveRovK1Xcviq3VRMv0bHs0xHTHt8o0vs4cS7fLAn6MMGFkfovOCpys7wgziMWe1J2oTqNgA==
+"@react-google-maps/infobox@2.11.8":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.11.8.tgz#8f1f6c4373ab4b1c5b69747c5f3bc1ea21d7045f"
+  integrity sha512-15y3dniys1Op5HREyLwiJI2pAdeeHRJT5b4WPrS+vyL5KF6iXK1P3y/9bXtnxHiKe2v6iPreaEhR3VgvfRA50Q==
 
-"@react-google-maps/marker-clusterer@2.11.4":
-  version "2.11.4"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.11.4.tgz#7e28e87aef54c6892fe56d034d82c7a15ed1d18e"
-  integrity sha512-zKTROAMo/YWIK0BQNdbUzTh3yNXviCHxs+o33Z/+AOc5NW/xReqtwOoEbg/ttLF8zRjqic3eP/qLZAthKGINMw==
+"@react-google-maps/marker-clusterer@2.11.8":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.11.8.tgz#9b830b405cc203b305ac6f771da2e307ad30515e"
+  integrity sha512-OEcdbTXEgPwdpGvVuSrhIhjcZPhlzPz2TvaKCBLraf1PKiDyLOPhlTVRlbIziLiu0xN89pJcill1w9UVIVFF+Q==
 
 "@sentry/browser@6.19.7":
   version "6.19.7"
