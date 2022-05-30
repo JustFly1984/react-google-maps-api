@@ -1010,10 +1010,10 @@
     lz-string "^1.4.4"
     pretty-format "^27.0.2"
 
-"@testing-library/react@13.2.0":
-  version "13.2.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-13.2.0.tgz#2db00bc94d71c4e90e5c25582e90a650ae2925bf"
-  integrity sha512-Bprbz/SZVONCJy5f7hcihNCv313IJXdYiv0nSJklIs1SQCIHHNlnGNkosSXnGZTmesyGIcBGNppYhXcc11pb7g==
+"@testing-library/react@13.3.0":
+  version "13.3.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-13.3.0.tgz#bf298bfbc5589326bbcc8052b211f3bb097a97c5"
+  integrity sha512-DB79aA426+deFgGSjnf5grczDPiL4taK3hFaa+M5q7q20Kcve9eQottOG5kZ74KEr55v0tU2CQormSSDK87zYQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@testing-library/dom" "^8.5.0"
@@ -1082,10 +1082,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/google.maps@3.49.0":
-  version "3.49.0"
-  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.49.0.tgz#26fcf3d86ecbc6545db0e6691a434ec8132df48b"
-  integrity sha512-hFGEX4srYvWf2+WiJ7OX2ehgEzx88HcXMBa+RIW8vF3oyPShZ9pcU2ZZAM9oIlomWdJ0pC89ibalJ77ioTGVEA==
+"@types/google.maps@3.49.1":
+  version "3.49.1"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.49.1.tgz#863cc43e11008eed5eed22eb2153528fac6cd435"
+  integrity sha512-Sbl5anucT7LUcUxXsRxkCozHdXIkUiY+Tyru+OVl5rot0+VIZuuulmABC7X+nF7rL7BRTAguSBSAD/e/AfIkkA==
 
 "@types/graceful-fs@^4.1.3":
   version "4.1.5"
@@ -5360,7 +5360,23 @@ react-docgen-typescript@2.2.2:
   resolved "https://registry.yarnpkg.com/react-docgen-typescript/-/react-docgen-typescript-2.2.2.tgz#4611055e569edc071204aadb20e1c93e1ab1659c"
   integrity sha512-tvg2ZtOpOi6QDwsb3GZhOjDkkX0h8Z2gipvTg6OVMUyoYoURhEiRNePT8NZItTVCDh39JJHnLdfCOkzoLbFnTg==
 
-react-docgen@5.4.0, react-docgen@^5.0.0:
+react-docgen@5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/react-docgen/-/react-docgen-5.4.1.tgz#867168accce39e25095a23a922eaa90722e9d182"
+  integrity sha512-TZqD1aApirw86NV6tHrmDoxUn8wlinkVyutFarzbdwuhEurAzDN0y5sSj64o+BrHLPqjwpH9tunpfwgy+3Uyww==
+  dependencies:
+    "@babel/core" "^7.7.5"
+    "@babel/generator" "^7.12.11"
+    "@babel/runtime" "^7.7.6"
+    ast-types "^0.14.2"
+    commander "^2.19.0"
+    doctrine "^3.0.0"
+    estree-to-babel "^3.1.0"
+    neo-async "^2.6.1"
+    node-dir "^0.1.10"
+    strip-indent "^3.0.0"
+
+react-docgen@^5.0.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/react-docgen/-/react-docgen-5.4.0.tgz#2cd7236720ec2769252ef0421f23250b39a153a1"
   integrity sha512-JBjVQ9cahmNlfjMGxWUxJg919xBBKAoy3hgDgKERbR+BcF4ANpDuzWAScC7j27hZfd8sJNmMPOLWo9+vB/XJEQ==
@@ -5732,10 +5748,10 @@ rimraf@^2.6.3:
   dependencies:
     glob "^7.1.3"
 
-rollup-plugin-dts@4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-dts/-/rollup-plugin-dts-4.2.1.tgz#c17968a0f7c5ae70a9e0ab37e715f3ef63da01c7"
-  integrity sha512-eaxQZNUJ5iQcxNGlpJ1CUgG4OSVqWjDZ3nNSWBIoGrpcote2aNphSe1RJOaSYkb8dwn3o+rYm1vvld/5z3EGSQ==
+rollup-plugin-dts@4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-dts/-/rollup-plugin-dts-4.2.2.tgz#82876b8784213af29b02cf260b45e404ff835ce1"
+  integrity sha512-A3g6Rogyko/PXeKoUlkjxkP++8UDVpgA7C+Tdl77Xj4fgEaIjPSnxRmR53EzvoYy97VMVwLAOcWJudaVAuxneQ==
   dependencies:
     magic-string "^0.26.1"
   optionalDependencies:
@@ -5751,10 +5767,10 @@ rollup-plugin-terser@7.0.2:
     serialize-javascript "^4.0.0"
     terser "^5.0.0"
 
-rollup@2.74.1:
-  version "2.74.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.74.1.tgz#4fba0ff1c312cc4ee82691b154eee69a0d01929f"
-  integrity sha512-K2zW7kV8Voua5eGkbnBtWYfMIhYhT9Pel2uhBk2WO5eMee161nPze/XRfvEQPFYz7KgrCCnmh2Wy0AMFLGGmMA==
+rollup@2.75.3:
+  version "2.75.3"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.75.3.tgz#11bd3e8ace526911feea8af17f2a286fbfdb4cf8"
+  integrity sha512-YA29fLU6MAYSaDxIQYrGGOcbXlDmG96h0krGGYObroezcQ0KgEPM3+7MtKD/qeuUbFuAJXvKZee5dA1dpwq1PQ==
   optionalDependencies:
     fsevents "~2.3.2"
 

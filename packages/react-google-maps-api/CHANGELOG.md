@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.11.9 fixed typo in PolygonF component
+
 ## 2.11.8 Improved method bindings in constructor for infobox and markerclusterer
 
 ## 2.11.3 improved code and types for @react-google-maps/marker-clusterer and @react-google-maps/infobox
