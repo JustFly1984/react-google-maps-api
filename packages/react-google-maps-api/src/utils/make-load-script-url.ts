@@ -11,7 +11,7 @@ export interface LoadScriptUrlOptions {
   libraries?: Libraries | undefined
   channel?: string | undefined
   mapIds?: string[] | undefined
-  authReferrerPolicy?: string | undefined
+  authReferrerPolicy?: 'origin' | undefined
 }
 
 export function makeLoadScriptUrl({
