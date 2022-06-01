@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.12.0 add auth_referrer_policy to useLoadScript, fix DrawingManager
+
 ## 2.11.9 fixed typo in PolygonF component
 
 ## 2.11.8 Improved method bindings in constructor for infobox and markerclusterer
