@@ -11,6 +11,7 @@ export interface LoadScriptUrlOptions {
   libraries?: Libraries | undefined
   channel?: string | undefined
   mapIds?: string[] | undefined
+  authReferrerPolicy?: 'origin' | undefined
 }
 
 export function makeLoadScriptUrl({
@@ -21,7 +22,8 @@ export function makeLoadScriptUrl({
   region,
   libraries,
   channel,
-  mapIds
+  mapIds,
+  authReferrerPolicy
 }: LoadScriptUrlOptions): string {
   const params = []
 
@@ -58,6 +60,10 @@ export function makeLoadScriptUrl({
 
   if (mapIds && mapIds.length) {
     params.push(`map_ids=${mapIds.join(',')}`)
+  }
+
+  if (authReferrerPolicy) {
+    params.push(`auth_referrer_policy=${authReferrerPolicy}`)
   }
 
   params.push('callback=initMap')
