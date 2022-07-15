@@ -1,6 +1,5 @@
 {
   "baseUrl": ".",
-  "include": ["/**/*"],
   "exclude": ["node_modules"],
   "types": ["googlemaps", "jest", "invariant", "react-dom", "eslint", "estree", "webpack"],
   "compilerOptions": {
