@@ -197,7 +197,7 @@ function InfoWindowFunctional({
 
     if (onCloseClick) {
       setCloseClickListener(
-        google.maps.event.addListener(infoWindow, 'circlecomplete', onCloseClick)
+        google.maps.event.addListener(infoWindow, 'closeclick', onCloseClick)
       )
     }
 
