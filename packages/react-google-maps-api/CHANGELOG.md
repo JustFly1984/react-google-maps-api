@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.12.2 Fix onCloseClick of InfoWindowF not triggering, update @googlemaps/markerclusterer@2.0.10
+
 ## 2.12.1 fixed interface GroundOverlayProps
 
 ## 2.12.0 add auth_referrer_policy to useLoadScript, fix DrawingManager

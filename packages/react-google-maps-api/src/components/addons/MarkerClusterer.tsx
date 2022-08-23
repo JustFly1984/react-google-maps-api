@@ -231,6 +231,7 @@ export class ClustererComponent extends PureComponent<MarkerClustererProps, Clus
 
       unregisterEvents(this.registeredEvents)
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this.state.markerClusterer.setMap(null)
     }
