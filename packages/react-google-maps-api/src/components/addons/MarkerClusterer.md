@@ -1,7 +1,7 @@
 # MarkerClusterer example
 
 ```jsx
-const { GoogleMap, LoadScript, MarkerClusterer, Marker } = require('../../')
+const { GoogleMap, LoadScript, MarkerClusterer, MarkerF } = require('../../')
 const ScriptLoaded = require('../../docs/ScriptLoaded').default
 
 const mapContainerStyle = {
@@ -53,7 +53,7 @@ const MapWithMarkerClusterer = () => {
         <MarkerClusterer options={options}>
           {(clusterer) =>
             locations.map((location) => (
-              <Marker key={createKey(location)} position={location} clusterer={clusterer} />
+              <MarkerF key={createKey(location)} position={location} clusterer={clusterer} />
             ))
           }
         </MarkerClusterer>
