@@ -41,7 +41,7 @@ export { default as Data, DataF, type DataProps } from './components/drawing/Dat
 
 export { default as KmlLayer, type KmlLayerProps } from './components/kml/KmlLayer'
 
-export { default as OverlayView, type OverlayViewProps } from './components/dom/OverlayView'
+export { default as OverlayView, OverlayViewF, type OverlayViewProps } from './components/dom/OverlayView'
 
 export { default as GroundOverlay, type GroundOverlayProps } from './components/overlays/GroundOverlay'
 
