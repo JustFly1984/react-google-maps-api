@@ -20,6 +20,7 @@ import {
   useContext,
   useMemo,
   useEffect,
+  memo,
 } from 'react'
 import { createOverlay } from './Overlay'
 
@@ -86,7 +87,7 @@ export const MAP_PANE: PaneNames = `mapPane`
 export const MARKER_LAYER: PaneNames = `markerLayer`
 export const OVERLAY_LAYER: PaneNames = `overlayLayer`
 export const OVERLAY_MOUSE_TARGET: PaneNames = `overlayMouseTarget`
-export function OverlayViewF({
+function OverlayViewFunctional({
   position,
   mapPaneName,
   zIndex,
@@ -127,6 +128,8 @@ export function OverlayViewF({
 
   return ReactDOM.createPortal(children, container)
 }
+
+export const OverlayViewF = memo(OverlayViewFunctional)
 
 export class OverlayView extends PureComponent<
   OverlayViewProps,
