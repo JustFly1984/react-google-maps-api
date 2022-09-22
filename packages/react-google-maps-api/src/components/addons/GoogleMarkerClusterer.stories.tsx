@@ -1,9 +1,8 @@
 
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { GoogleMap, Marker } from '../..'
+import { GoogleMap, MarkerF , GoogleMapsMarkerClusterer as gm } from '../..'
 import GoogleMarkerClusterer from './GoogleMarkerClusterer'
 
-import { GoogleMapsMarkerClusterer as gm } from '../..'
 
 const { DBScanAlgorithm, GridAlgorithm, KmeansAlgorithm, NoopAlgorithm } = gm
 
@@ -55,7 +54,7 @@ const Template: ComponentStory<typeof GoogleMarkerClusterer> = (args) => {
       <GoogleMarkerClusterer {...args}>
         {(clusterer) =>
           locations.map((location) => (
-            <Marker key={createKey(location)} position={location} clusterer={clusterer} />
+            <MarkerF key={createKey(location)} position={location} clusterer={clusterer} />
           )) as any
         }
       </GoogleMarkerClusterer>

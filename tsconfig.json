@@ -1,6 +1,5 @@
 {
   "baseUrl": ".",
-  "include": ["/**/*"],
   "exclude": ["node_modules"],
   "types": ["googlemaps", "jest", "invariant", "react-dom", "eslint", "estree", "webpack"],
   "compilerOptions": {
@@ -9,7 +8,7 @@
     "target": "es2015",
     "jsx": "react-jsx",
     "lib": ["dom"],
-    "rootDir": "src",
+    "rootDir": "packages",
     "declaration": true,
     "declarationDir": "dist",
     "noEmit": true,

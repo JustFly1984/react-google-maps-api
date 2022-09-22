@@ -219,7 +219,7 @@ function InfoBoxFunctional({
 
       if (onCloseClick) {
         setCloseClickListener(
-          google.maps.event.addListener(infoBox, 'circlecomplete', onCloseClick)
+          google.maps.event.addListener(infoBox, 'closeclick', onCloseClick)
         )
       }
 

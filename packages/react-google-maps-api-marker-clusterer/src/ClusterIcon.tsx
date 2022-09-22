@@ -267,7 +267,9 @@ export class ClusterIcon {
 
   show() {
     if (this.div && this.center) {
-      let divTitle = ''
+      const divTitle = this.sums === null ||
+      typeof this.sums.title === 'undefined' ||
+      this.sums.title === '' ? this.cluster.getClusterer().getTitle() :  this.sums.title
 
       // NOTE: values must be specified in px units
       const bp = this.backgroundPosition.split(' ')
@@ -277,25 +279,8 @@ export class ClusterIcon {
 
       const pos = this.getPosFromLatLng(this.center)
 
-      if (
-        this.sums === null ||
-        typeof this.sums.title === 'undefined' ||
-        this.sums.title === ''
-      ) {
-        divTitle = this.cluster.getClusterer().getTitle()
-      } else {
-        divTitle = this.sums.title
-      }
-
       this.div.className = this.className
-      this.div.style.cursor = 'pointer'
-      this.div.style.position = 'absolute'
-
-      this.div.style.top = pos !== null ? `${pos.y}px` : '0'
-      this.div.style.left = pos !== null ? `${pos.x}px` : '0'
-
-      this.div.style.width = `${this.width}px`
-      this.div.style.height = `${this.height}px`
+      this.div .setAttribute('style', `cursor: 'pointer'; position: 'absolute'; top: ${pos !== null ? `${pos.y}px` : '0'}; left: ${pos !== null ? `${pos.x}px` : '0'}; width: ${this.width}px; height: ${this.height}px; `)
 
       const img = document.createElement('img')
 
@@ -303,9 +288,7 @@ export class ClusterIcon {
       img.src = this.url
       img.width = this.width
       img.height = this.height
-      img.style.position = 'absolute'
-      img.style.top = `${spriteV}px`
-      img.style.left = `${spriteH}px`
+      img.setAttribute('style', `position: absolute; top: ${spriteV}px; left: ${spriteH}px`)
 
       if (!this.cluster.getClusterer().enableRetinaIcons) {
         img.style.clip = `rect(-${spriteV}px, -${spriteH + this.width}px, -${
@@ -315,18 +298,8 @@ export class ClusterIcon {
 
       const textElm = document.createElement('div')
 
-      textElm.style.position = 'absolute'
-      textElm.style.top = `${this.anchorText[0]}px`
-      textElm.style.left = `${this.anchorText[1]}px`
-      textElm.style.color = this.textColor
-      textElm.style.fontSize = `${this.textSize}px`
-      textElm.style.fontFamily = this.fontFamily
-      textElm.style.fontWeight = this.fontWeight
-      textElm.style.fontStyle = this.fontStyle
-      textElm.style.textDecoration = this.textDecoration
-      textElm.style.textAlign = 'center'
-      textElm.style.width = `${this.width}px`
-      textElm.style.lineHeight = `${this.height}px`
+      textElm .setAttribute('style', `position: absolute; top: ${this.anchorText[0]}px; left: ${this.anchorText[1]}px; color: ${this.textColor}; font-size: ${this.textSize}px; font-family: ${this.fontFamily}; font-weight: ${this.fontWeight}; fontStyle: ${this.fontStyle}; text-decoration: ${this.textDecoration}; text-align: center; width: ${this.width}px; line-height: ${this.height}px`)
+
       textElm.innerText = `${this.sums?.text}`
 
       this.div.innerHTML = ''

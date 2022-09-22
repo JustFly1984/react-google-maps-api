@@ -34,14 +34,14 @@ const onLoad = infoWindow => {
     center={center}
   >
 
-    <InfoWindow
+    <InfoWindowF
       onLoad={onLoad}
       position={position}
     >
       <div style={divStyle}>
         <h1>InfoWindow</h1>
       </div>
-    </InfoWindow>
+    </InfoWindowF>
 
   </GoogleMap>
 </ScriptLoaded>

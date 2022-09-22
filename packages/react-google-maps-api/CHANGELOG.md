@@ -1,6 +1,16 @@
 # Changelog
 
-## 2.11.4 Improved method bindings in constructor for infobox and markerclusterer
+## 2.13.1 OverlayViewF component
+
+## 2.12.2 Fix onCloseClick of InfoWindowF not triggering, update @googlemaps/markerclusterer@2.0.10
+
+## 2.12.1 fixed interface GroundOverlayProps
+
+## 2.12.0 add auth_referrer_policy to useLoadScript, fix DrawingManager
+
+## 2.11.9 fixed typo in PolygonF component
+
+## 2.11.8 Improved method bindings in constructor for infobox and markerclusterer
 
 ## 2.11.3 improved code and types for @react-google-maps/marker-clusterer and @react-google-maps/infobox
 
@@ -17,6 +27,7 @@
 - PolygonF
 - RectangleF
 - CircleF
+- OverlayViewF
 
 This components currently for tests only - I've planned to replace PureComponent class based components in 3.0.0 version.
 
@@ -30,7 +41,6 @@ TODO:
 - DirectionsRendererF
 - DirectionsServiceF
 - DistanceMatrixServiceF
-- OverlayViewF
 - HeatmapLayerF
 - KmlLayerF
 - AutocompleteF

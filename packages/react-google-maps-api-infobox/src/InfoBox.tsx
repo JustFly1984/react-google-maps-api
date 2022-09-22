@@ -39,6 +39,31 @@ export class InfoBox {
   fixedWidthSet: boolean | null
 
   constructor(options: InfoBoxOptions = {}) {
+    this.getCloseClickHandler = this.getCloseClickHandler.bind(this)
+    this.closeClickHandler = this.closeClickHandler.bind(this)
+    this.createInfoBoxDiv = this.createInfoBoxDiv.bind(this)
+    this.addClickHandler = this.addClickHandler.bind(this)
+    this.getCloseBoxImg = this.getCloseBoxImg.bind(this)
+    this.getBoxWidths = this.getBoxWidths.bind(this)
+    this.setBoxStyle = this.setBoxStyle.bind(this)
+    this.setPosition = this.setPosition.bind(this)
+    this.getPosition = this.getPosition.bind(this)
+    this.setOptions = this.setOptions.bind(this)
+    this.setContent = this.setContent.bind(this)
+    this.setVisible = this.setVisible.bind(this)
+    this.getContent = this.getContent.bind(this)
+    this.getVisible = this.getVisible.bind(this)
+    this.setZIndex = this.setZIndex.bind(this)
+    this.getZIndex = this.getZIndex.bind(this)
+    this.onRemove = this.onRemove.bind(this)
+    this.panBox = this.panBox.bind(this)
+    this.extend = this.extend.bind(this)
+    this.close = this.close.bind(this)
+    this.draw = this.draw.bind(this)
+    this.show = this.show.bind(this)
+    this.hide = this.hide.bind(this)
+    this.open = this.open.bind(this)
+
     this.extend(InfoBox, google.maps.OverlayView)
 
     // Standard options (in common with google.maps.InfoWindow):
@@ -80,31 +105,6 @@ export class InfoBox {
     this.contextListener = null
     this.eventListeners = null
     this.fixedWidthSet = null
-
-    this.createInfoBoxDiv = this.createInfoBoxDiv.bind(this)
-    this.getCloseBoxImg = this.getCloseBoxImg.bind(this)
-    this.addClickHandler = this.addClickHandler.bind(this)
-    this.closeClickHandler = this.closeClickHandler.bind(this)
-    this.getCloseClickHandler = this.getCloseClickHandler.bind(this)
-    this.panBox = this.panBox.bind(this)
-    this.setBoxStyle = this.setBoxStyle.bind(this)
-    this.getBoxWidths = this.getBoxWidths.bind(this)
-    this.onRemove = this.onRemove.bind(this)
-    this.draw = this.draw.bind(this)
-    this.setOptions = this.setOptions.bind(this)
-    this.setContent = this.setContent.bind(this)
-    this.setPosition = this.setPosition.bind(this)
-    this.setVisible = this.setVisible.bind(this)
-    this.setZIndex = this.setZIndex.bind(this)
-    this.getContent = this.getContent.bind(this)
-    this.getPosition = this.getPosition.bind(this)
-    this.getZIndex = this.getZIndex.bind(this)
-    this.getVisible = this.getVisible.bind(this)
-    this.show = this.show.bind(this)
-    this.hide = this.hide.bind(this)
-    this.open = this.open.bind(this)
-    this.close = this.close.bind(this)
-    this.extend = this.extend.bind(this)
   }
 
   createInfoBoxDiv(): void {
@@ -704,7 +704,8 @@ export class InfoBox {
     return function applyExtend(this: A, object: typeof google.maps.OverlayView): A {
       for (const property in object.prototype) {
         if (!Object.prototype.hasOwnProperty.call(this, property)) {
-          (this.prototype as unknown as  google.maps.OverlayView).set(property, object.prototype.get(property))
+          // @ts-ignore
+          this.prototype[property] = object.prototype[property  as keyof google.maps.OverlayView]
         }
       }
 
