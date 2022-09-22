@@ -1,27 +1,27 @@
+import {
+  memo,
+  useMemo,
+  Children,
+  createRef,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ReactNode,
+  type RefObject,
+  type ReactPortal,
+  type CSSProperties,
+} from 'react'
 import * as ReactDOM from 'react-dom'
-
 import invariant from 'invariant'
 
 import MapContext from '../../map-context'
 
 import {
-  getOffsetOverride,
   getLayoutStyles,
   arePositionsEqual,
+  getOffsetOverride,
 } from './dom-helper'
-import {
-  ReactNode,
-  CSSProperties,
-  PureComponent,
-  RefObject,
-  createRef,
-  ReactPortal,
-  Children,
-  useContext,
-  useMemo,
-  useEffect,
-  memo,
-} from 'react'
+
 import { createOverlay } from './Overlay'
 
 interface OverlayViewState {
@@ -87,6 +87,7 @@ export const MAP_PANE: PaneNames = `mapPane`
 export const MARKER_LAYER: PaneNames = `markerLayer`
 export const OVERLAY_LAYER: PaneNames = `overlayLayer`
 export const OVERLAY_MOUSE_TARGET: PaneNames = `overlayMouseTarget`
+
 function OverlayViewFunctional({
   position,
   mapPaneName,
@@ -175,6 +176,7 @@ export class OverlayView extends PureComponent<
       })
     }
   }
+
   onAdd = (): void => {
     this.updatePane()
     this.props.onLoad?.(this.overlayView)
@@ -239,6 +241,7 @@ export class OverlayView extends PureComponent<
   componentDidMount(): void {
     // You must call setMap() with a valid Map object to trigger the call to
     // the onAdd() method and setMap(null) in order to trigger the onRemove() method.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.overlayView.setMap(this.context)
   }

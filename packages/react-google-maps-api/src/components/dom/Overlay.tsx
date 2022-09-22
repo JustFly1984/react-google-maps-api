@@ -35,11 +35,12 @@ export function createOverlay(
       const projection = this.getProjection()
       const point = projection.fromLatLngToDivPixel(this.position)
       const offset = {
-        x: 0,
-        y: 0,
         ...(this.container
           ? getOffsetOverride(this.container, getPixelPositionOffset)
-          : {}),
+          : {
+            x: 0,
+            y: 0,
+          }),
       }
       if (point === null) {
         return

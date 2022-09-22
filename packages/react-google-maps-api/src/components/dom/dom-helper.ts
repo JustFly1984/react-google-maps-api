@@ -3,10 +3,13 @@ import { PositionDrawProps } from "../../types"
 export function getOffsetOverride(
   containerElement: HTMLElement,
   getPixelPositionOffset?:( (offsetWidth: number, offsetHeight: number) => { x: number; y: number }) | undefined
-): { x: number; y: number } | {} {
+): { x: number; y: number } {
   return typeof getPixelPositionOffset === 'function'
     ? getPixelPositionOffset(containerElement.offsetWidth, containerElement.offsetHeight)
-    : {}
+    : {
+      x: 0,
+      y: 0,
+    }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

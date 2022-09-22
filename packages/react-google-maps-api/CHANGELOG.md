@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.13.0 OverlayViewF component
+
 ## 2.12.2 Fix onCloseClick of InfoWindowF not triggering, update @googlemaps/markerclusterer@2.0.10
 
 ## 2.12.1 fixed interface GroundOverlayProps
@@ -25,6 +27,7 @@
 - PolygonF
 - RectangleF
 - CircleF
+- OverlayViewF
 
 This components currently for tests only - I've planned to replace PureComponent class based components in 3.0.0 version.
 
@@ -38,7 +41,6 @@ TODO:
 - DirectionsRendererF
 - DirectionsServiceF
 - DistanceMatrixServiceF
-- OverlayViewF
 - HeatmapLayerF
 - KmlLayerF
 - AutocompleteF

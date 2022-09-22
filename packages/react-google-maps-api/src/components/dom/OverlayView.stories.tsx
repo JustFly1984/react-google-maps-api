@@ -25,7 +25,7 @@ const getPixelPositionOffset = (width: number, height: number) => ({
   x: -(width / 2),
   y: -(height / 2),
 })
-const Template: ComponentStory<typeof OverlayViewF> = (args) => {
+const Template: ComponentStory<typeof OverlayViewF> = () => {
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
       {locations.map((location, index) => (
