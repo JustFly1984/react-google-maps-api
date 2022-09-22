@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.13.0 OverlayViewF component
+## 2.13.1 OverlayViewF component
 
 ## 2.12.2 Fix onCloseClick of InfoWindowF not triggering, update @googlemaps/markerclusterer@2.0.10
 

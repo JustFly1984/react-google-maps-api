@@ -1,6 +1,6 @@
 import { type CSSProperties, memo, useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
-import { GoogleMap, OverlayView, Marker } from '@react-google-maps/api'
+import { GoogleMap, OverlayViewF, MarkerF, OVERLAY_MOUSE_TARGET, MARKER_LAYER,  } from '@react-google-maps/api'
 
 const ExampleOverlayViewPropTypes = {
   styles: PropTypes.shape({
@@ -40,7 +40,7 @@ function ExampleOverlayView({ styles }: Props): JSX.Element {
   }, [isShown])
 
   const [overlayPane, setOverlayPane] = useState(
-    OverlayView.OVERLAY_MOUSE_TARGET
+    OVERLAY_MOUSE_TARGET
   )
   const clickHandler = useCallback(() => {
     alert('You clicked overlay view')
@@ -64,11 +64,11 @@ function ExampleOverlayView({ styles }: Props): JSX.Element {
   }, [])
 
   const setToMarkerLayerPane = useCallback(() => {
-    setOverlayPane(OverlayView.MARKER_LAYER)
+    setOverlayPane(MARKER_LAYER)
   }, [])
 
   const setToMouseTargetPane = useCallback(() => {
-    setOverlayPane(OverlayView.OVERLAY_MOUSE_TARGET)
+    setOverlayPane(OVERLAY_MOUSE_TARGET)
   }, [])
 
   return (
@@ -80,9 +80,10 @@ function ExampleOverlayView({ styles }: Props): JSX.Element {
           zoom={2}
           center={mapCenter}
         >
-          <Marker position={mapCenter} onClick={changeIsShown} />
+          <MarkerF position={mapCenter} onClick={changeIsShown} />
+
           {isShown ? (
-            <OverlayView
+            <OverlayViewF
               position={overlayPosition}
               mapPaneName={overlayPane}
               onLoad={loadCallback}
@@ -96,7 +97,7 @@ function ExampleOverlayView({ styles }: Props): JSX.Element {
               >
                 <h1>OverlayView</h1>
               </button>
-            </OverlayView>
+            </OverlayViewF>
           ) : null}
         </GoogleMap>
       </div>
@@ -107,7 +108,7 @@ function ExampleOverlayView({ styles }: Props): JSX.Element {
           className='custom-control-input'
           type='radio'
           name='overlayPane'
-          checked={overlayPane === OverlayView.MARKER_LAYER}
+          checked={overlayPane === MARKER_LAYER}
           onChange={setToMarkerLayerPane}
         />
         <label className='custom-control-label' htmlFor='MARKER_LAYER'>
@@ -120,7 +121,7 @@ function ExampleOverlayView({ styles }: Props): JSX.Element {
           className='custom-control-input'
           type='radio'
           name='overlayPane'
-          checked={overlayPane === OverlayView.OVERLAY_MOUSE_TARGET}
+          checked={overlayPane === OVERLAY_MOUSE_TARGET}
           onChange={setToMouseTargetPane}
         />
         <label className='custom-control-label' htmlFor='OVERLAY_MOUSE_TARGET'>

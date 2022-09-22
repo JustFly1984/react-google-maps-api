@@ -31,7 +31,7 @@ const divStyle = {
     zoom={11}
     center={center}
   >
-    <OverlayView
+    <OverlayViewF
       position={center}
       mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
     >
@@ -45,7 +45,7 @@ const divStyle = {
           Click me
         </button>
       </div>
-    </OverlayView>
+    </OverlayViewF>
   </GoogleMap>
 </ScriptLoaded>
 ```

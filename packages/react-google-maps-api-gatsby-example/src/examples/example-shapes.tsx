@@ -1,14 +1,15 @@
-import { type CSSProperties, memo, useCallback, useMemo, useState } from 'react'
+import { type CSSProperties, memo, useCallback, useMemo, useState, ChangeEventHandler } from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
-  Polyline,
-  Polygon,
-  Rectangle,
-  Circle,
-  Marker,
-  OverlayView,
-  InfoWindow,
+  PolylineF,
+  PolygonF,
+  RectangleF,
+  CircleF,
+  MarkerF,
+  OverlayViewF,
+  InfoWindowF,
+  OVERLAY_MOUSE_TARGET
 } from '@react-google-maps/api'
 
 // @ts-ignore
@@ -150,7 +151,7 @@ function ExampleShapes({ styles }: Props): JSX.Element {
     setPolylineVisible((bool) => !bool)
   }, [])
 
-  const onTextAreaChange = useCallback(({ target: { value } }) => {
+  const onTextAreaChange = useCallback<ChangeEventHandler<HTMLTextAreaElement>>(({ target: { value } }) => {
     setPolylineOptions(value)
   }, [])
 
@@ -210,22 +211,22 @@ function ExampleShapes({ styles }: Props): JSX.Element {
           center={mapCenter}
         >
           {polylineVisible && (
-            <Polyline path={FLIGHT_PLAN_COORDS} options={po} />
+            <PolylineF path={FLIGHT_PLAN_COORDS} options={po} />
           )}
 
-          <Polygon path={BRISBANE_COORDS} options={brisbanePolygonOptions} />
+          <PolygonF path={BRISBANE_COORDS} options={brisbanePolygonOptions} />
 
-          <Polygon path={SAN_FRANCISCO_COORDS} options={sfPolygonOptions} />
+          <PolygonF path={SAN_FRANCISCO_COORDS} options={sfPolygonOptions} />
 
-          <Rectangle bounds={RECTANGLE_BOUNDS} />
+          <RectangleF bounds={RECTANGLE_BOUNDS} />
 
-          <Circle options={circleOptions} />
+          <CircleF options={circleOptions} />
 
-          <Marker position={MARKER_POSITION} icon={pinIcon} />
+          <MarkerF position={MARKER_POSITION} icon={pinIcon} />
 
-          <OverlayView
+          <OverlayViewF
             position={OVERLAY_VIEW_POSITION}
-            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+            mapPaneName={OVERLAY_MOUSE_TARGET}
           >
             <div style={infoWindowStyle}>
               <h1>OverlayView</h1>
@@ -234,13 +235,13 @@ function ExampleShapes({ styles }: Props): JSX.Element {
                 I have been clicked
               </button>
             </div>
-          </OverlayView>
+          </OverlayViewF>
 
-          <InfoWindow position={INFO_WINDOW_POSITION}>
+          <InfoWindowF position={INFO_WINDOW_POSITION}>
             <div style={infoWindowStyle}>
               <h1>InfoWindow</h1>
             </div>
-          </InfoWindow>
+          </InfoWindowF>
         </GoogleMap>
       </div>
     </div>
