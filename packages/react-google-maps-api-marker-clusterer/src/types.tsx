@@ -2,7 +2,8 @@
 export interface ClusterIconInfo {
   text: string
   index: number
-  title: string
+  title?: string
+  html?: string
 }
 
 export type MarkerExtended = google.maps.Marker & {
