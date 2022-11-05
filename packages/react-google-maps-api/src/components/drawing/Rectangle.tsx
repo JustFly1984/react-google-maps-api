@@ -185,7 +185,7 @@ function RectangleFunctional({
         google.maps.event.addListener(instance, 'dragend', onDragEnd)
       )
     }
-  }, [onDblClick])
+  }, [onDragEnd])
 
   useEffect(() => {
     if (instance && onDragStart) {
