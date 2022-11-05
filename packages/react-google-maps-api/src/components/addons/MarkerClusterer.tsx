@@ -1,5 +1,15 @@
-import { type ContextType, PureComponent, useState, memo } from 'react'
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  type ContextType,
+  PureComponent,
+  useState,
+  memo,
+  useContext,
+  useEffect,
+} from 'react'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper'
 
 import MapContext from '../../map-context'
 
@@ -85,6 +95,8 @@ interface ClustererState {
   markerClusterer: Clusterer | null
 }
 
+const defaultOptions = {}
+
 export interface MarkerClustererProps {
   // required
   children: (markerClusterer: Clusterer) => JSX.Element
@@ -127,48 +139,364 @@ export interface MarkerClustererProps {
   /** This event is fired when the MarkerClusterer stops clustering markers. */
   onClusteringEnd?: ((markerClusterer: Clusterer) => void) | undefined
   /** 	This event is fired when the mouse moves over a cluster marker. */
-  onMouseOver?: ((cluster: Cluster) => void | undefined)
+  onMouseOver?: (cluster: Cluster) => void | undefined
   /** This event is fired when the mouse moves out of a cluster marker. */
-  onMouseOut?: ((cluster: Cluster) => void | undefined)
+  onMouseOut?: (cluster: Cluster) => void | undefined
   /** This callback is called when the markerClusterer instance has loaded. It is called with the markerClusterer instance. */
   onLoad?: ((markerClusterer: Clusterer) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the markerClusterer instance. */
   onUnmount?: ((markerClusterer: Clusterer) => void) | undefined
 }
 
-function MarkerClustererFunctional({
-  children,
-  // options,
-  // averageCenter,
-  // batchSizeIE,
-  // calculator,
-  // clusterClass,
-  // enableRetinaIcons,
-  // gridSize,
-  // ignoreHidden,
-  // imageExtension,
-  // imagePath,
-  // imageSizes,
-  // maxZoom,
-  // minimumClusterSize,
-  // styles,
-  // title,
-  // zoomOnClick,
-  // onClick,
-  // onClusteringBegin,
-  // onClusteringEnd,
-  // onMouseOver,
-  // onMouseOut,
-  // onLoad,
-  // onUnmount,
-}: MarkerClustererProps): JSX.Element | null {
-  const [instance, /* setInstance */] = useState<Clusterer | null>(null)
+function MarkerClustererFunctional(
+  props: MarkerClustererProps
+): JSX.Element | null {
+  const {
+    children,
+    options,
+    averageCenter,
+    batchSizeIE,
+    calculator,
+    clusterClass,
+    enableRetinaIcons,
+    gridSize,
+    ignoreHidden,
+    imageExtension,
+    imagePath,
+    imageSizes,
+    maxZoom,
+    minimumClusterSize,
+    styles,
+    title,
+    zoomOnClick,
+    onClick,
+    onClusteringBegin,
+    onClusteringEnd,
+    onMouseOver,
+    onMouseOut,
+    onLoad,
+    onUnmount,
+  } = props
+  const [instance, setInstance] = useState<Clusterer | null>(null)
+  const map = useContext<google.maps.Map | null>(MapContext)
 
-  // TODO!
+  const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [clusteringBeginListener, setClusteringBeginListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [clusteringEndListener, setClusteringEndListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoutListener, setMouseoutListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoverListener, setMouseoverListener] = useState<google.maps.MapsEventListener | null>(null)
 
-  return instance !== null
-  ? children(instance) || null
-  : null
+  useEffect(() => {
+    if (instance && onMouseOut) {
+      if (mouseoutListener !== null) {
+        google.maps.event.removeListener(mouseoutListener)
+      }
+
+      setMouseoutListener(
+        google.maps.event.addListener(instance, eventMap.onMouseOut, onMouseOut)
+      )
+    }
+  }, [onMouseOut])
+
+  useEffect(() => {
+    if (instance && onMouseOver) {
+      if (mouseoverListener !== null) {
+        google.maps.event.removeListener(mouseoverListener)
+      }
+
+      setMouseoverListener(
+        google.maps.event.addListener(
+          instance,
+          eventMap.onMouseOver,
+          onMouseOver
+        )
+      )
+    }
+  }, [onMouseOver])
+
+  useEffect(() => {
+    if (instance && onClick) {
+      if (clickListener !== null) {
+        google.maps.event.removeListener(clickListener)
+      }
+
+      setClickListener(
+        google.maps.event.addListener(instance, eventMap.onClick, onClick)
+      )
+    }
+  }, [onClick])
+
+  useEffect(() => {
+    if (instance && onClusteringBegin) {
+      if (clusteringBeginListener !== null) {
+        google.maps.event.removeListener(clusteringBeginListener)
+      }
+
+      setClusteringBeginListener(
+        google.maps.event.addListener(
+          instance,
+          eventMap.onClusteringBegin,
+          onClusteringBegin
+        )
+      )
+    }
+  }, [onClusteringBegin])
+
+  useEffect(() => {
+    if (instance && onClusteringEnd) {
+      if (clusteringEndListener !== null) {
+        google.maps.event.removeListener(clusteringEndListener)
+      }
+
+      setClusteringBeginListener(
+        google.maps.event.addListener(
+          instance,
+          eventMap.onClusteringEnd,
+          onClusteringEnd
+        )
+      )
+    }
+  }, [onClusteringEnd])
+
+  useEffect(() => {
+    if (typeof averageCenter !== 'undefined' && instance !== null) {
+      updaterMap.averageCenter(instance, averageCenter)
+    }
+  }, [instance, averageCenter])
+
+  useEffect(() => {
+    if (typeof batchSizeIE !== 'undefined' && instance !== null) {
+      updaterMap.batchSizeIE(instance, batchSizeIE)
+    }
+  }, [instance, batchSizeIE])
+
+  useEffect(() => {
+    if (typeof calculator !== 'undefined' && instance !== null) {
+      updaterMap.calculator(instance, calculator)
+    }
+  }, [instance, calculator])
+
+  useEffect(() => {
+    if (typeof clusterClass !== 'undefined' && instance !== null) {
+      updaterMap.clusterClass(instance, clusterClass)
+    }
+  }, [instance, clusterClass])
+
+  useEffect(() => {
+    if (typeof enableRetinaIcons !== 'undefined' && instance !== null) {
+      updaterMap.enableRetinaIcons(instance, enableRetinaIcons)
+    }
+  }, [instance, enableRetinaIcons])
+
+  useEffect(() => {
+    if (typeof gridSize !== 'undefined' && instance !== null) {
+      updaterMap.gridSize(instance, gridSize)
+    }
+  }, [instance, gridSize])
+
+  useEffect(() => {
+    if (typeof ignoreHidden !== 'undefined' && instance !== null) {
+      updaterMap.ignoreHidden(instance, ignoreHidden)
+    }
+  }, [instance, ignoreHidden])
+
+  useEffect(() => {
+    if (typeof imageExtension !== 'undefined' && instance !== null) {
+      updaterMap.imageExtension(instance, imageExtension)
+    }
+  }, [instance, imageExtension])
+
+  useEffect(() => {
+    if (typeof imagePath !== 'undefined' && instance !== null) {
+      updaterMap.imagePath(instance, imagePath)
+    }
+  }, [instance, imagePath])
+
+  useEffect(() => {
+    if (typeof imageSizes !== 'undefined' && instance !== null) {
+      updaterMap.imageSizes(instance, imageSizes)
+    }
+  }, [instance, imageSizes])
+
+  useEffect(() => {
+    if (typeof maxZoom !== 'undefined' && instance !== null) {
+      updaterMap.maxZoom(instance, maxZoom)
+    }
+  }, [instance, maxZoom])
+
+  useEffect(() => {
+    if (typeof minimumClusterSize !== 'undefined' && instance !== null) {
+      updaterMap.minimumClusterSize(instance, minimumClusterSize)
+    }
+  }, [instance, minimumClusterSize])
+
+  useEffect(() => {
+    if (typeof styles !== 'undefined' && instance !== null) {
+      updaterMap.styles(instance, styles)
+    }
+  }, [instance, styles])
+
+  useEffect(() => {
+    if (typeof title !== 'undefined' && instance !== null) {
+      updaterMap.title(instance, title)
+    }
+  }, [instance, title])
+
+  useEffect(() => {
+    if (typeof zoomOnClick !== 'undefined' && instance !== null) {
+      updaterMap.zoomOnClick(instance, zoomOnClick)
+    }
+  }, [instance, zoomOnClick])
+
+  useEffect(() => {
+    if (!map) return
+
+    const clustererOptions = {
+      ...(options || defaultOptions),
+    }
+
+    const clusterer = new Clusterer(map, [], clustererOptions)
+
+    if (averageCenter) {
+      updaterMap.averageCenter(clusterer, averageCenter)
+    }
+
+    if (batchSizeIE) {
+      updaterMap.batchSizeIE(clusterer, batchSizeIE)
+    }
+
+    if (calculator) {
+      updaterMap.calculator(clusterer, calculator)
+    }
+
+    if (clusterClass) {
+      updaterMap.clusterClass(clusterer, clusterClass)
+    }
+
+    if (enableRetinaIcons) {
+      updaterMap.enableRetinaIcons(clusterer, enableRetinaIcons)
+    }
+
+    if (gridSize) {
+      updaterMap.gridSize(clusterer, gridSize)
+    }
+
+    if (ignoreHidden) {
+      updaterMap.ignoreHidden(clusterer, ignoreHidden)
+    }
+
+    if (imageExtension) {
+      updaterMap.imageExtension(clusterer, imageExtension)
+    }
+
+    if (imagePath) {
+      updaterMap.imagePath(clusterer, imagePath)
+    }
+
+    if (imageSizes) {
+      updaterMap.imageSizes(clusterer, imageSizes)
+    }
+
+    if (maxZoom) {
+      updaterMap.maxZoom(clusterer, maxZoom)
+    }
+
+    if (minimumClusterSize) {
+      updaterMap.minimumClusterSize(clusterer, minimumClusterSize)
+    }
+
+    if (styles) {
+      updaterMap.styles(clusterer, styles)
+    }
+
+    if (title) {
+      updaterMap.title(clusterer, title)
+    }
+
+    if (zoomOnClick) {
+      updaterMap.zoomOnClick(clusterer, zoomOnClick)
+    }
+
+    if (onMouseOut) {
+      setMouseoutListener(
+        google.maps.event.addListener(
+          clusterer,
+          eventMap.onMouseOut,
+          onMouseOut
+        )
+      )
+    }
+
+    if (onMouseOver) {
+      setMouseoverListener(
+        google.maps.event.addListener(
+          clusterer,
+          eventMap.onMouseOver,
+          onMouseOver
+        )
+      )
+    }
+
+    if (onClick) {
+      setClickListener(
+        google.maps.event.addListener(clusterer, eventMap.onClick, onClick)
+      )
+    }
+
+    if (onClusteringBegin) {
+      setClusteringBeginListener(
+        google.maps.event.addListener(
+          clusterer,
+          eventMap.onClusteringBegin,
+          onClusteringBegin
+        )
+      )
+    }
+
+    if (onClusteringEnd) {
+      setClusteringEndListener(
+        google.maps.event.addListener(
+          clusterer,
+          eventMap.onClusteringEnd,
+          onClusteringEnd
+        )
+      )
+    }
+
+    setInstance(clusterer)
+
+    if (onLoad) {
+      onLoad(clusterer)
+    }
+
+    return () => {
+      if (mouseoutListener !== null) {
+        google.maps.event.removeListener(mouseoutListener)
+      }
+
+      if (mouseoverListener !== null) {
+        google.maps.event.removeListener(mouseoverListener)
+      }
+
+      if (clickListener !== null) {
+        google.maps.event.removeListener(clickListener)
+      }
+
+      if (clusteringBeginListener !== null) {
+        google.maps.event.removeListener(clusteringBeginListener)
+      }
+
+      if (clusteringEndListener !== null) {
+        google.maps.event.removeListener(clusteringEndListener)
+      }
+
+      if (onUnmount) {
+        onUnmount(clusterer)
+      }
+    }
+  }, [])
+
+  return instance !== null ? children(instance) || null : null
 }
 
 export const MarkerClustererF = memo(MarkerClustererFunctional)
