@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.14.0 fixed bugs with onDragEnd hooks, fixed PolygonF component, improved @react-google-maps/marker-clusterer component
+
 ## 2.13.1 OverlayViewF component
 
 ## 2.12.2 Fix onCloseClick of InfoWindowF not triggering, update @googlemaps/markerclusterer@2.0.10

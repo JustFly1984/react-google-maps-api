@@ -300,7 +300,8 @@ export class ClusterIcon {
 
       textElm .setAttribute('style', `position: absolute; top: ${this.anchorText[0]}px; left: ${this.anchorText[1]}px; color: ${this.textColor}; font-size: ${this.textSize}px; font-family: ${this.fontFamily}; font-weight: ${this.fontWeight}; fontStyle: ${this.fontStyle}; text-decoration: ${this.textDecoration}; text-align: center; width: ${this.width}px; line-height: ${this.height}px`)
 
-      textElm.innerText = `${this.sums?.text}`
+      if (this.sums?.text) textElm.innerText = `${this.sums?.text}`
+      if (this.sums?.html) textElm.innerHTML = `${this.sums?.html}`
 
       this.div.innerHTML = ''
 
