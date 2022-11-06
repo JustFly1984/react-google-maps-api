@@ -20,6 +20,7 @@ export { default as Marker, MarkerF, type MarkerProps } from './components/drawi
 
 export {
   default as MarkerClusterer,
+  MarkerClustererF,
   type MarkerClustererProps,
 } from './components/addons/MarkerClusterer'
 
