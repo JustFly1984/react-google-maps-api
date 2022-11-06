@@ -2577,27 +2577,27 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@react-google-maps/api@2.15.0":
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.15.0.tgz#5e19fdbcdbdc067e33c3864e13f4fa8bc6be1d09"
-  integrity sha512-kcVtALbjtW9soc2y3mEOhe5S2/AEnQCJfrGsS5WtJQ1XhgGhf2mpPDXro7m/Gs4JxO+wtqO7qJ2Wdr6zdcksog==
+"@react-google-maps/api@2.16.0":
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.16.0.tgz#411747a1fd4c1ef1d693d9c6f8bbfcd963b9bc0a"
+  integrity sha512-xOqA+Qvo0Rtz8S67P60d85JjR7f3BWmkTevtpN/CY6s5ortHVsboUCtqSXn9JA7oGXxOakrapQofDJyIMswn5Q==
   dependencies:
     "@googlemaps/js-api-loader" "1.15.1"
     "@googlemaps/markerclusterer" "2.0.13"
-    "@react-google-maps/infobox" "2.14.0"
-    "@react-google-maps/marker-clusterer" "2.14.0"
+    "@react-google-maps/infobox" "2.16.0"
+    "@react-google-maps/marker-clusterer" "2.16.0"
     "@types/google.maps" "3.50.5"
     invariant "2.2.4"
 
-"@react-google-maps/infobox@2.14.0":
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.14.0.tgz#483422237a37a763cdba49d94ffcdf35d2d2fc1f"
-  integrity sha512-9LSFn312a1aTtjk0u1r4tv68OvK++I+P517VJmY8ywXlQJvnpZsogBrmk4mGdXYeFGcBbiIJre5X4Da27aZHKA==
+"@react-google-maps/infobox@2.16.0":
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.16.0.tgz#871423de1a1ffb08518927b083b239d92e58ce4e"
+  integrity sha512-ZojiMS25388RcUHQPycUAerSqdHDom+3dHczVcXHdT/i8fka3O8InkHxXwMhvBoM143ips7mv2BPaYOAJ5f4Nw==
 
-"@react-google-maps/marker-clusterer@2.14.0":
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.14.0.tgz#7a34f79c169c7921c48f2279aadc22aa99c1932d"
-  integrity sha512-4VpX0OkK676AzTElnZeiICyjg4f98yFYqLnpDB6IFK+YXhv08UW2zfXnrvpEWE9y2aLYNSrJMQSic7sDMX528Q==
+"@react-google-maps/marker-clusterer@2.16.0":
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.16.0.tgz#3d66b7d3e37c1126dc3ec64846c6c73f95ed0d5b"
+  integrity sha512-H5ovCmYVgFcmKyDcPMJwv/TusomCH0uGH9LvFLhBuvh3bNG4DIpxHVjYWvyuVR8JVzC9Xs7zZ71pwD8ABMapWA==
 
 "@sentry/browser@7.17.4":
   version "7.17.4"
