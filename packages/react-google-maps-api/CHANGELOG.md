@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.15.0 MarkerClustererF component
+
 ## 2.14.0 fixed bugs with onDragEnd hooks, fixed PolygonF component, improved @react-google-maps/marker-clusterer component
 
 ## 2.13.1 OverlayViewF component
