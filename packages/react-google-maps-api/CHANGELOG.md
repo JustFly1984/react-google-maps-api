@@ -1,6 +1,40 @@
 # Changelog
 
+## 2.16.0 fix build, sorry 2.14.0 and 2.15.0 is broken due to rollup update issues.
+
 ## 2.15.0 MarkerClustererF component
+
+- TrafficLayerF
+- BicyclingLayerF
+- TransitLayerF
+- DrawingManagerF
+- MarkerF
+- InfoBoxF
+- InfoWindowF
+- PolylineF
+- PolygonF
+- RectangleF
+- CircleF
+- OverlayViewF
+- MarkerClustererF
+
+This components currently for tests only - I've planned to replace PureComponent class based components in 3.0.0 version.
+
+please test in your applications each F component.
+
+TODO:
+
+- LoadScriptF
+- GoogleMapF
+- DirectionsRendererF
+- DirectionsServiceF
+- DistanceMatrixServiceF
+- HeatmapLayerF
+- KmlLayerF
+- AutocompleteF
+- StandaloneSearchBoxF
+- StreetViewPanoramaF
+- StreetViewServiceF
 
 ## 2.14.0 fixed bugs with onDragEnd hooks, fixed PolygonF component, improved @react-google-maps/marker-clusterer component
 
@@ -39,8 +73,8 @@ please test in your applications each F component.
 
 TODO:
 
-- LoadScript
-- GoogleMap
+- LoadScriptF
+- GoogleMapF
 - MarkerClustererF
 - DirectionsRendererF
 - DirectionsServiceF
