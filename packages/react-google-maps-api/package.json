@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "name": "@react-google-maps/api",
   "sideEffects": false,
   "version": "2.15.0",
@@ -86,11 +85,11 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@googlemaps/js-api-loader": "1.15.1",
-    "@googlemaps/markerclusterer": "2.0.13",
-    "@react-google-maps/infobox": "2.14.0",
-    "@react-google-maps/marker-clusterer": "2.14.0",
-    "@types/google.maps": "3.50.5",
+    "@googlemaps/js-api-loader": "1.14.3",
+    "@googlemaps/markerclusterer": "2.0.10",
+    "@react-google-maps/infobox": "2.11.8",
+    "@react-google-maps/marker-clusterer": "2.11.8",
+    "@types/google.maps": "3.49.2",
     "invariant": "2.2.4"
   },
   "peerDependencies": {

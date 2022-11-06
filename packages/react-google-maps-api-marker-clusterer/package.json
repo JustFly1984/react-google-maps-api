@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "name": "@react-google-maps/marker-clusterer",
   "sideEffects": false,
   "version": "2.14.0",
