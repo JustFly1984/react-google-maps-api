@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.16.1 fix marker-clusterer markers stack css
+
 ## 2.16.0 fix build, sorry 2.14.0 and 2.15.0 is broken due to rollup update issues.
 
 ## 2.15.0 MarkerClustererF component
