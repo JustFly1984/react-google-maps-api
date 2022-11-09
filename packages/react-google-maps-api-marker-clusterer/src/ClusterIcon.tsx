@@ -280,7 +280,7 @@ export class ClusterIcon {
       const pos = this.getPosFromLatLng(this.center)
 
       this.div.className = this.className
-      this.div .setAttribute('style', `cursor: 'pointer'; position: 'absolute'; top: ${pos !== null ? `${pos.y}px` : '0'}; left: ${pos !== null ? `${pos.x}px` : '0'}; width: ${this.width}px; height: ${this.height}px; `)
+      this.div .setAttribute('style', `cursor: pointer; position: absolute; top: ${pos !== null ? `${pos.y}px` : '0'}; left: ${pos !== null ? `${pos.x}px` : '0'}; width: ${this.width}px; height: ${this.height}px; `)
 
       const img = document.createElement('img')
 

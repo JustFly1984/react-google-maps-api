@@ -2577,15 +2577,15 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@react-google-maps/api@2.16.0":
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.16.0.tgz#411747a1fd4c1ef1d693d9c6f8bbfcd963b9bc0a"
-  integrity sha512-xOqA+Qvo0Rtz8S67P60d85JjR7f3BWmkTevtpN/CY6s5ortHVsboUCtqSXn9JA7oGXxOakrapQofDJyIMswn5Q==
+"@react-google-maps/api@2.16.1":
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.16.1.tgz#3875a9bfc3cbdf255699556d49befccb93982c2b"
+  integrity sha512-fqTV6PjX6NwalrnYo5ZmhM0W0iMrRainAL8CCnSVG0Ny5A/To+fZq500KQKcjXHNM8I/zb3a7ZuXZLZG1cpe8Q==
   dependencies:
     "@googlemaps/js-api-loader" "1.15.1"
     "@googlemaps/markerclusterer" "2.0.13"
     "@react-google-maps/infobox" "2.16.0"
-    "@react-google-maps/marker-clusterer" "2.16.0"
+    "@react-google-maps/marker-clusterer" "2.16.1"
     "@types/google.maps" "3.50.5"
     invariant "2.2.4"
 
@@ -2594,10 +2594,10 @@
   resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.16.0.tgz#871423de1a1ffb08518927b083b239d92e58ce4e"
   integrity sha512-ZojiMS25388RcUHQPycUAerSqdHDom+3dHczVcXHdT/i8fka3O8InkHxXwMhvBoM143ips7mv2BPaYOAJ5f4Nw==
 
-"@react-google-maps/marker-clusterer@2.16.0":
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.16.0.tgz#3d66b7d3e37c1126dc3ec64846c6c73f95ed0d5b"
-  integrity sha512-H5ovCmYVgFcmKyDcPMJwv/TusomCH0uGH9LvFLhBuvh3bNG4DIpxHVjYWvyuVR8JVzC9Xs7zZ71pwD8ABMapWA==
+"@react-google-maps/marker-clusterer@2.16.1":
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.16.1.tgz#882878a7b49ce9ae44c7b02ff6fbc4c2aeb77c95"
+  integrity sha512-jOuyqzWLeXvQcoAu6TCVWHAuko+sDt0JjawNHBGqUNLywMtTCvYP0L0PiqJZOUCUeRYGdUy0AKxQ+30vAkvwag==
 
 "@sentry/browser@7.17.4":
   version "7.17.4"

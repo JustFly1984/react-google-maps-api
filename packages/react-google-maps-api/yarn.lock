@@ -960,10 +960,10 @@
   resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.16.0.tgz#871423de1a1ffb08518927b083b239d92e58ce4e"
   integrity sha512-ZojiMS25388RcUHQPycUAerSqdHDom+3dHczVcXHdT/i8fka3O8InkHxXwMhvBoM143ips7mv2BPaYOAJ5f4Nw==
 
-"@react-google-maps/marker-clusterer@2.16.0":
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.16.0.tgz#3d66b7d3e37c1126dc3ec64846c6c73f95ed0d5b"
-  integrity sha512-H5ovCmYVgFcmKyDcPMJwv/TusomCH0uGH9LvFLhBuvh3bNG4DIpxHVjYWvyuVR8JVzC9Xs7zZ71pwD8ABMapWA==
+"@react-google-maps/marker-clusterer@2.16.1":
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.16.1.tgz#882878a7b49ce9ae44c7b02ff6fbc4c2aeb77c95"
+  integrity sha512-jOuyqzWLeXvQcoAu6TCVWHAuko+sDt0JjawNHBGqUNLywMtTCvYP0L0PiqJZOUCUeRYGdUy0AKxQ+30vAkvwag==
 
 "@rollup/plugin-commonjs@22.0.2":
   version "22.0.2"
