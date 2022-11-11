@@ -1,5 +1,39 @@
 # Changelog
 
+## 2.17.0 HeatmapLayerF component
+
+- TrafficLayerF
+- BicyclingLayerF
+- TransitLayerF
+- DrawingManagerF
+- MarkerF
+- InfoBoxF
+- InfoWindowF
+- PolylineF
+- PolygonF
+- RectangleF
+- CircleF
+- OverlayViewF
+- MarkerClustererF
+- HeatmapLayerF
+
+This components currently for tests only - I've planned to replace PureComponent class based components in 3.0.0 version.
+
+please test in your applications each F component.
+
+TODO:
+
+- LoadScriptF
+- GoogleMapF
+- DirectionsRendererF
+- DirectionsServiceF
+- DistanceMatrixServiceF
+- KmlLayerF
+- AutocompleteF
+- StandaloneSearchBoxF
+- StreetViewPanoramaF
+- StreetViewServiceF
+
 ## 2.16.1 fix marker-clusterer markers stack css
 
 ## 2.16.0 fix build, sorry 2.14.0 and 2.15.0 is broken due to rollup update issues.

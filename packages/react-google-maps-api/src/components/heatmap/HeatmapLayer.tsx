@@ -1,9 +1,8 @@
-import { type ContextType, PureComponent } from 'react'
-import invariant from 'invariant'
+import invariant from 'invariant';
+import { ContextType, memo, PureComponent, useContext, useEffect, useState } from 'react';
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
-
-import MapContext from '../../map-context'
+import MapContext from '../../map-context';
+import { applyUpdatersToPropsAndRegisterEvents, unregisterEvents } from '../../utils/helper';
 
 const eventMap = {}
 
@@ -11,13 +10,18 @@ const updaterMap = {
   data(
     instance: google.maps.visualization.HeatmapLayer,
     data:
-      | google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation>
+      | google.maps.MVCArray<
+          google.maps.LatLng | google.maps.visualization.WeightedLocation
+        >
       | google.maps.LatLng[]
       | google.maps.visualization.WeightedLocation[]
   ): void {
     instance.setData(data)
   },
-  map(instance: google.maps.visualization.HeatmapLayer, map: google.maps.Map): void {
+  map(
+    instance: google.maps.visualization.HeatmapLayer,
+    map: google.maps.Map
+  ): void {
     instance.setMap(map)
   },
   options(
@@ -36,17 +40,92 @@ export interface HeatmapLayerProps {
   // required
   /** The data points to display. Required. */
   data:
-    | google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation>
+    | google.maps.MVCArray<
+        google.maps.LatLng | google.maps.visualization.WeightedLocation
+      >
     | google.maps.LatLng[]
     | google.maps.visualization.WeightedLocation[]
   options?: google.maps.visualization.HeatmapLayerOptions | undefined
   /** This callback is called when the heatmapLayer instance has loaded. It is called with the heatmapLayer instance. */
-  onLoad?: ((heatmapLayer: google.maps.visualization.HeatmapLayer) => void) | undefined
+  onLoad?:
+    | ((heatmapLayer: google.maps.visualization.HeatmapLayer) => void)
+    | undefined
   /** This callback is called when the component unmounts. It is called with the heatmapLayer instance. */
-  onUnmount?: ((heatmapLayer: google.maps.visualization.HeatmapLayer) => void) | undefined
+  onUnmount?:
+    | ((heatmapLayer: google.maps.visualization.HeatmapLayer) => void)
+    | undefined
 }
 
-export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerState> {
+function HeatmapLayerFunctional({
+  data,
+  onLoad,
+  onUnmount,
+  options,
+}: HeatmapLayerProps) {
+  const map = useContext(MapContext)
+  const [instance, setInstance] =
+    useState<google.maps.visualization.HeatmapLayer | null>(null)
+
+  useEffect(() => {
+    if (!google.maps.visualization) {
+      invariant(
+        !!google.maps.visualization,
+        'Did you include prop libraries={["visualization"]} in useJsApiScript? %s',
+        google.maps.visualization
+      )
+    }
+  }, [])
+
+  useEffect(() => {
+    invariant(!!data, 'data property is required in HeatmapLayer %s', data)
+  }, [data])
+
+  // Order does matter
+  useEffect(() => {
+    if (instance !== null) {
+      instance.setMap(map)
+    }
+  }, [map])
+
+  useEffect(() => {
+    if (options && instance !== null) {
+      instance.setOptions(options)
+    }
+  }, [instance, options])
+
+  useEffect(() => {
+    const heatmapLayer = new google.maps.visualization.HeatmapLayer({
+      ...(options || {}),
+      data,
+      map,
+    })
+
+    setInstance(heatmapLayer)
+
+    if (onLoad) {
+      onLoad(heatmapLayer)
+    }
+
+    return () => {
+      if (instance !== null) {
+        if (onUnmount) {
+          onUnmount(instance)
+        }
+
+        instance.setMap(null)
+      }
+    }
+  }, [])
+
+  return null
+}
+
+export const HeatmapLayerF = memo(HeatmapLayerFunctional)
+
+export class HeatmapLayer extends PureComponent<
+  HeatmapLayerProps,
+  HeatmapLayerState
+> {
   static contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
@@ -69,12 +148,15 @@ export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerS
       google.maps.visualization
     )
 
-    invariant(!!this.props.data, 'data property is required in HeatmapLayer %s', this.props.data)
+    invariant(
+      !!this.props.data,
+      'data property is required in HeatmapLayer %s',
+      this.props.data
+    )
 
     const heatmapLayer = new google.maps.visualization.HeatmapLayer({
       ...(this.props.options || {}),
       data: this.props.data,
-      // @ts-ignore
       map: this.context,
     })
 
