@@ -50,15 +50,17 @@ const Template: ComponentStory<typeof GoogleMarkerClusterer> = (args) => {
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
       <GoogleMarkerClusterer {...args}>
-        {(clusterer) =>
-          locations.map((location) => (
-            <MarkerF
-              key={createKey(location)}
-              position={location}
-              clusterer={clusterer}
-            />
-          )) as any
-        }
+        {(clusterer) => (
+          <>
+            {locations.map((location) => (
+              <MarkerF
+                key={createKey(location)}
+                position={location}
+                clusterer={clusterer}
+              />
+            ))}
+          </>
+        )}
       </GoogleMarkerClusterer>
     </GoogleMap>
   )
