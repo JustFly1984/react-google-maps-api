@@ -1,4 +1,4 @@
-import { getOffsetOverride } from './dom-helper'
+import { getOffsetOverride, getLayoutStyles } from './dom-helper'
 
 type fnPixelPositionOffset = (
   offsetWidth: number,
@@ -7,23 +7,27 @@ type fnPixelPositionOffset = (
 export function createOverlay(
   container: HTMLElement,
   pane: keyof google.maps.MapPanes,
-  position: google.maps.LatLng | google.maps.LatLngLiteral,
+  position?: google.maps.LatLng | google.maps.LatLngLiteral,
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
   getPixelPositionOffset?: fnPixelPositionOffset
 ) {
   class Overlay extends google.maps.OverlayView {
     container: HTMLElement
     pane: keyof google.maps.MapPanes
-    position: google.maps.LatLng | google.maps.LatLngLiteral
+    position: google.maps.LatLng | google.maps.LatLngLiteral | undefined
+    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
 
     constructor(
       container: HTMLElement,
       pane: keyof google.maps.MapPanes,
-      position: google.maps.LatLng | google.maps.LatLngLiteral
+      position?: google.maps.LatLng | google.maps.LatLngLiteral,
+      bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
     ) {
       super()
       this.container = container
       this.pane = pane
       this.position = position
+      this.bounds = bounds
     }
 
     onAdd(): void {
@@ -33,7 +37,6 @@ export function createOverlay(
 
     draw(): void {
       const projection = this.getProjection()
-      const point = projection.fromLatLngToDivPixel(this.position)
       const offset = {
         ...(this.container
           ? getOffsetOverride(this.container, getPixelPositionOffset)
@@ -41,14 +44,19 @@ export function createOverlay(
             x: 0,
             y: 0,
           }),
-      }
-      if (point === null) {
-        return
+        }
+
+      const layoutStyles = getLayoutStyles(
+        projection,
+        offset,
+        this.bounds,
+        this.position
+      )
+
+      for (const [key, value] of Object.entries(layoutStyles)) {
+        this.container.style[key] = value
       }
 
-      this.container.style.transform = `translate(${point.x + offset.x}px, ${
-        point.y + offset.y
-      }px)`
     }
 
     onRemove(): void {
@@ -57,5 +65,5 @@ export function createOverlay(
       }
     }
   }
-  return new Overlay(container, pane, position)
+  return new Overlay(container, pane, position, bounds)
 }

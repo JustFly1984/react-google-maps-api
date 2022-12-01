@@ -70,7 +70,7 @@ export interface OverlayViewProps {
   children?: ReactNode | undefined
   // required
   mapPaneName: PaneNames
-  position: google.maps.LatLng | google.maps.LatLngLiteral
+  position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
   getPixelPositionOffset?:
     | ((offsetWidth: number, offsetHeight: number) => { x: number; y: number })
     | undefined
@@ -90,6 +90,7 @@ export const OVERLAY_MOUSE_TARGET: PaneNames = `overlayMouseTarget`
 
 function OverlayViewFunctional({
   position,
+  bounds,
   mapPaneName,
   zIndex,
   onLoad,
@@ -109,9 +110,10 @@ function OverlayViewFunctional({
       container,
       mapPaneName,
       position,
+      bounds,
       getPixelPositionOffset
     )
-  }, [container, mapPaneName, position])
+  }, [container, mapPaneName, position, bounds])
 
   useEffect(() => {
     onLoad?.(overlay)
