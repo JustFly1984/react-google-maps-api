@@ -2,7 +2,12 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { GoogleMap, Marker } from '../..'
 import MarkerClusterer from './MarkerClusterer'
 
-import { ClustererOptions, ClusterIconInfo, ClusterIconStyle, MarkerExtended } from '@react-google-maps/marker-clusterer'
+import {
+  ClustererOptions,
+  ClusterIconInfo,
+  ClusterIconStyle,
+  MarkerExtended,
+} from '@react-google-maps/marker-clusterer'
 
 const mapContainerStyle = {
   height: '400px',
@@ -72,7 +77,11 @@ const largeClusterIconStyle: ClusterIconStyle = {
   textSize: 22,
 }
 
-const clusterIconStyles = [smallClusterIconStyle, mediumClusterIconStyle, largeClusterIconStyle]
+const clusterIconStyles = [
+  smallClusterIconStyle,
+  mediumClusterIconStyle,
+  largeClusterIconStyle,
+]
 
 const markerLengthToIndex = (length: number): number => {
   if (length >= 50) {
@@ -83,7 +92,9 @@ const markerLengthToIndex = (length: number): number => {
   return 1
 }
 
-const markerClustererCalculator = (markers: MarkerExtended[]): ClusterIconInfo => ({
+const markerClustererCalculator = (
+  markers: MarkerExtended[]
+): ClusterIconInfo => ({
   text: `${markers.length}`,
   index: markerLengthToIndex(markers.length),
   title: '',
@@ -105,11 +116,17 @@ const Template: ComponentStory<typeof MarkerClusterer> = (args) => {
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
       <MarkerClusterer {...args} options={markerClustererOptions}>
-        {(clusterer) =>
-          locations.map((location) => (
-            <Marker key={createKey(location)} position={location} clusterer={clusterer} />
-          )) as any
-        }
+        {(clusterer) => (
+          <>
+            {locations.map((location) => (
+              <Marker
+                key={createKey(location)}
+                position={location}
+                clusterer={clusterer}
+              />
+            ))}
+          </>
+        )}
       </MarkerClusterer>
     </GoogleMap>
   )

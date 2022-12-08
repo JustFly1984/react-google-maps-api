@@ -1,10 +1,8 @@
-
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { GoogleMap, MarkerF , GoogleMapsMarkerClusterer as gm } from '../..'
+import { GoogleMap, MarkerF, GoogleMapsMarkerClusterer as gm } from '../..'
 import GoogleMarkerClusterer from './GoogleMarkerClusterer'
 
-
-const { DBScanAlgorithm, GridAlgorithm, KmeansAlgorithm, NoopAlgorithm } = gm
+const { GridAlgorithm, NoopAlgorithm } = gm
 
 const mapContainerStyle = {
   height: '400px',
@@ -52,11 +50,17 @@ const Template: ComponentStory<typeof GoogleMarkerClusterer> = (args) => {
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
       <GoogleMarkerClusterer {...args}>
-        {(clusterer) =>
-          locations.map((location) => (
-            <MarkerF key={createKey(location)} position={location} clusterer={clusterer} />
-          )) as any
-        }
+        {(clusterer) => (
+          <>
+            {locations.map((location) => (
+              <MarkerF
+                key={createKey(location)}
+                position={location}
+                clusterer={clusterer}
+              />
+            ))}
+          </>
+        )}
       </GoogleMarkerClusterer>
     </GoogleMap>
   )
@@ -64,19 +68,9 @@ const Template: ComponentStory<typeof GoogleMarkerClusterer> = (args) => {
 
 export const Default = Template.bind({})
 
-export const DBScan = Template.bind({})
-DBScan.args = {
-  options: { algorithm: new DBScanAlgorithm({}) },
-}
-
 export const Grid = Template.bind({})
 Grid.args = {
   options: { algorithm: new GridAlgorithm({ maxDistance: 40000 }) },
-}
-
-export const Kmeans = Template.bind({})
-Kmeans.args = {
-  options: { algorithm: new KmeansAlgorithm({ numberOfClusters: 10 }) },
 }
 
 export const Noop = Template.bind({})
