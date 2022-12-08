@@ -21,12 +21,14 @@ export default {
   component: OverlayViewF,
 } as ComponentMeta<typeof OverlayViewF>
 
+
 const getPixelPositionOffset = (width: number, height: number) => ({
   x: -(width / 2),
   y: -(height / 2),
 })
 const Template: ComponentStory<typeof OverlayViewF> = () => {
-  return (
+const newZealand = new google.maps.LatLngBounds({lat: -46.641, lng: 166.509}, {lat: -34.450, lng: 178.517})
+return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
       {locations.map((location, index) => (
         <OverlayViewF
@@ -47,6 +49,23 @@ const Template: ComponentStory<typeof OverlayViewF> = () => {
           </div>
         </OverlayViewF>
       ))}
+
+      <OverlayViewF
+        mapPaneName={OVERLAY_LAYER}
+        bounds={newZealand}
+        position={{lat: -46.641, lng: 166.509}}
+        >
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(255,255,0,0.4)',
+            fontSize: '12px',
+          }}
+        >
+          Overlay with Bounds
+        </div>
+      </OverlayViewF>
     </GoogleMap>
   )
 }
