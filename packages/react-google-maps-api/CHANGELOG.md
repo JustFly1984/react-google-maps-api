@@ -1,5 +1,7 @@
 # Changelog
 
+
+## 2.17.1 OverlayViewF improvements, docs improvemwnts
 ## 2.17.0 HeatmapLayerF component
 
 - TrafficLayerF
