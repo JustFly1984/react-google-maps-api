@@ -60,7 +60,7 @@ const updaterMap = {
   },
 }
 
-interface GoogleMapState {
+export interface GoogleMapState {
   map: google.maps.Map | null
 }
 
