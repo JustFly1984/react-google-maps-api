@@ -33,6 +33,10 @@ const onLoad = data => {
         drawingMode: "Point", //  "LineString" or "Polygon".
         featureFactory: geometry => {
           console.log("geometry: ", geometry);
+          return {
+            id: '1',
+            geometry,
+          }
         },
         // Type:  boolean
         // If true, the marker receives mouse and touch events. Default value is true.
