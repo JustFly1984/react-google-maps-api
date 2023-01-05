@@ -112,6 +112,7 @@ export {
 
 export {
   default as GroundOverlay,
+  GroundOverlayF,
   type GroundOverlayProps,
 } from './components/overlays/GroundOverlay'
 
