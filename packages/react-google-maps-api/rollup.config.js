@@ -13,6 +13,7 @@ const output = (format) => {
     globals: {
       react: 'React',
       'react-dom': 'ReactDOM',
+      'react/jsx-runtime': 'ReactJSXRuntime'
     },
   }
 
@@ -28,7 +29,7 @@ const output = (format) => {
 export default [
   {
     plugins: [typescript(), nodeResolve(), commonjs()],
-    external: ['react', 'react-dom'],
+    external: ['react', 'react-dom', 'react/jsx-runtime'],
 
     input: 'src/index.ts',
     output: [...output('cjs'), ...output('umd'), ...output('esm')],
