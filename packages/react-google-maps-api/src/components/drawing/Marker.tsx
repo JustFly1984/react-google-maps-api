@@ -912,7 +912,7 @@ export class Marker extends PureComponent<MarkerProps> {
           return child
         }
 
-        let elementChild: ReactElement<HasMarkerAnchor> = child
+        const elementChild: ReactElement<HasMarkerAnchor> = child
 
         return cloneElement(elementChild, { anchor: this.marker })
       })

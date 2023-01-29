@@ -1,7 +1,42 @@
 # Changelog
 
+## 2.18.0 GroundOverlayF component, reduce bundle size by externalizing react/jsx-runtime
 
-## 2.17.1 OverlayViewF improvements, docs improvemwnts
+- TrafficLayerF
+- BicyclingLayerF
+- TransitLayerF
+- DrawingManagerF
+- MarkerF
+- InfoBoxF
+- InfoWindowF
+- PolylineF
+- PolygonF
+- RectangleF
+- CircleF
+- OverlayViewF
+- MarkerClustererF
+- HeatmapLayerF
+- GroundOverlayF
+
+This components currently for tests only - I've planned to replace PureComponent class based components in 3.0.0 version.
+
+please test in your applications each F component.
+
+TODO:
+
+- LoadScriptF
+- GoogleMapF
+- DirectionsRendererF
+- DirectionsServiceF
+- DistanceMatrixServiceF
+- KmlLayerF
+- AutocompleteF
+- StandaloneSearchBoxF
+- StreetViewPanoramaF
+- StreetViewServiceF
+
+## 2.17.1 OverlayViewF improvements, docs improvements
+
 ## 2.17.0 HeatmapLayerF component
 
 - TrafficLayerF
@@ -18,6 +53,7 @@
 - OverlayViewF
 - MarkerClustererF
 - HeatmapLayerF
+- GroundOverlayF
 
 This components currently for tests only - I've planned to replace PureComponent class based components in 3.0.0 version.
 
