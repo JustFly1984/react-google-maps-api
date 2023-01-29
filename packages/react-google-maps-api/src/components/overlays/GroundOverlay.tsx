@@ -33,7 +33,7 @@ export interface GroundOverlayProps {
   /** The url of the projected image */
   url: string
   /** The bounds that the image will be scaled to fit */
-  bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
+  bounds: google.maps.LatLngBoundsLiteral
   /** This callback is called when the groundOverlay instance has loaded. It is called with the groundOverlay instance. */
   onLoad?: ((groundOverlay: google.maps.GroundOverlay) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the groundOverlay instance. */
@@ -120,7 +120,6 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
 
     const groundOverlay = new google.maps.GroundOverlay(this.props.url, this.props.bounds, {
       ...this.props.options,
-      // @ts-ignore
       map: this.context,
     })
 
