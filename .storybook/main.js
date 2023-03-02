@@ -84,6 +84,7 @@ const babelOptions = {
   ],
 }
 
+
 module.exports = {
   reactOptions: {
     fastRefresh: true,
@@ -127,7 +128,10 @@ module.exports = {
 
     config.resolve.plugins = [
       ...(config.resolve.plugins || []),
-      new TsconfigPathsPlugin(),
+      new TsconfigPathsPlugin({
+        configFile: path.resolve(__dirname, '../tsconfig.json'),
+        baseUrl: path.resolve(__dirname, '.'),
+      }),
     ]
 
     config.resolve.extensions = [
