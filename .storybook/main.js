@@ -130,7 +130,7 @@ module.exports = {
       ...(config.resolve.plugins || []),
       new TsconfigPathsPlugin({
         configFile: path.resolve(__dirname, '../tsconfig.json'),
-        baseUrl: path.resolve(__dirname, '.'),
+        baseUrl: path.resolve(__dirname, '..'),
       }),
     ]
 
