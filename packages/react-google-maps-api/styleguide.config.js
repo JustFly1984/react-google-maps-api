@@ -1,7 +1,7 @@
 const path = require("path")
 
 module.exports = {
-  ignore: ["**/*.js", "**/*.ts"],
+  ignore: ["**/*.js", "**/*.ts", "**/*.stories.tsx"],
   propsParser: require("react-docgen-typescript").withCustomConfig('./tsconfig.json').parse,
   getComponentPathLine(componentPath) {
     const name = path.basename(componentPath, ".tsx")
@@ -13,7 +13,7 @@ module.exports = {
       rules: [
         {
           test: /\.ts|\.tsx$/,
-          loader: "awesome-typescript-loader"
+          loader: "ts-loader"
         }
       ]
     },
