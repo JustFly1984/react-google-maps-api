@@ -109,7 +109,7 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
 const mapContainerStyle = {
   height: "400px",
   width: "800px"
-}
+};
 
 const centers = [{
   lat: 37.772,
@@ -122,10 +122,10 @@ const SvgCircleMarker = () => {
   /* Your component logic here */
   return (
     <svg viewBox="0 0 102 102">
-      <circle cx="51" cy="51" r="50" fill="powderblue" stroke="#333">
+      <circle cx="51" cy="51" r="50" fill="powderblue" stroke="#333" />
     </svg>
   );
-}
+};
 
 const markerSvgString = encodeURIComponent(
   renderToStaticMarkup(<SvgCircleMarker />)
