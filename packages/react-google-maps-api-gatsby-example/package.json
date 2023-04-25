@@ -41,7 +41,7 @@
     "redux-actions": "2.6.5",
     "redux-immutable": "4.0.0",
     "redux-thunk": "2.4.2",
-    "stylelint": "14.14.1",
+    "stylelint": "15.0.0",
     "stylelint-a11y": "1.2.3",
     "stylelint-config-css-modules": "4.1.0",
     "stylelint-config-recommended": "9.0.0",
