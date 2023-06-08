@@ -25,7 +25,7 @@
     "@react-google-maps/api": "2.18.1",
     "@sentry/browser": "7.34.0",
     "cross-env": "7.0.3",
-    "gatsby": "5.5.0",
+    "gatsby": "5.9.1",
     "gatsby-plugin-manifest": "5.5.0",
     "gatsby-plugin-purgecss": "6.2.1",
     "gatsby-plugin-react-helmet": "6.5.0",
