@@ -67,13 +67,13 @@ export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteS
     className: ''
   }
 
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
   containerElement: RefObject<HTMLDivElement> = createRef()
 
-  state: AutocompleteState = {
+  override state: AutocompleteState = {
     autocomplete: null,
   }
 
@@ -83,7 +83,7 @@ export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteS
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     invariant(
       !!google.maps.places,
       'You need to provide libraries={["places"]} prop to <LoadScript /> component %s',
@@ -91,8 +91,8 @@ export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteS
     )
 
     // TODO: why current could be equal null?
-    // @ts-ignore
-    const input = this.containerElement.current.querySelector('input')
+
+    const input = this.containerElement.current?.querySelector('input')
 
     if (input) {
       const autocomplete = new google.maps.places.Autocomplete(input, this.props.options)
@@ -113,7 +113,7 @@ export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteS
     }
   }
 
-  componentDidUpdate(prevProps: AutocompleteProps): void {
+  override componentDidUpdate(prevProps: AutocompleteProps): void {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -125,13 +125,13 @@ export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteS
     })
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.autocomplete !== null) {
       unregisterEvents(this.registeredEvents)
     }
   }
 
-  render(): JSX.Element {
+  override render(): JSX.Element {
     return <div ref={this.containerElement} className={this.props.className}>{Children.only(this.props.children)}</div>
   }
 }

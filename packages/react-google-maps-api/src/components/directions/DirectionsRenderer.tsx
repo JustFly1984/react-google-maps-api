@@ -1,4 +1,4 @@
-import { PureComponent } from 'react'
+import { type ContextType, PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -56,17 +56,18 @@ export class DirectionsRenderer extends PureComponent<
   DirectionsRendererProps,
   DirectionsRendererState
 > {
-  static contextType = MapContext
+  static override contextType = MapContext
+
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: DirectionsRendererState = {
+  override state: DirectionsRendererState = {
     directionsRenderer: null,
   }
 
   setDirectionsRendererCallback = (): void => {
     if (this.state.directionsRenderer !== null) {
-      // @ts-ignore
       this.state.directionsRenderer.setMap(this.context)
 
       if (this.props.onLoad) {
@@ -75,7 +76,7 @@ export class DirectionsRenderer extends PureComponent<
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const directionsRenderer = new google.maps.DirectionsRenderer(this.props.options)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -93,7 +94,7 @@ export class DirectionsRenderer extends PureComponent<
     }, this.setDirectionsRendererCallback)
   }
 
-  componentDidUpdate(prevProps: DirectionsRendererProps): void {
+  override componentDidUpdate(prevProps: DirectionsRendererProps): void {
     if (this.state.directionsRenderer !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -107,7 +108,7 @@ export class DirectionsRenderer extends PureComponent<
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.directionsRenderer !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.directionsRenderer)
@@ -121,7 +122,7 @@ export class DirectionsRenderer extends PureComponent<
     }
   }
 
-  render(): JSX.Element {
+  override render(): JSX.Element {
     return <></>
   }
 }

@@ -17,9 +17,11 @@ export class StreetViewService extends PureComponent<
   StreetViewServiceProps,
   StreetViewServiceState
 > {
-  static contextType = MapContext
+  static override contextType = MapContext
 
-  state = {
+  declare context: React.ContextType<typeof MapContext>
+
+  override state = {
     streetViewService: null,
   }
 
@@ -29,7 +31,7 @@ export class StreetViewService extends PureComponent<
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const streetViewService = new google.maps.StreetViewService()
 
     this.setState(function setStreetViewService() {
@@ -39,13 +41,13 @@ export class StreetViewService extends PureComponent<
     }, this.setStreetViewServiceCallback)
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.streetViewService !== null && this.props.onUnmount) {
       this.props.onUnmount(this.state.streetViewService)
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

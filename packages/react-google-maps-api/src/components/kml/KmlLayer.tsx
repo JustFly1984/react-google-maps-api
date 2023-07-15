@@ -44,12 +44,12 @@ export interface KmlLayerProps {
 }
 
 export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: KmlLayerState = {
+  override state: KmlLayerState = {
     kmlLayer: null,
   }
 
@@ -59,7 +59,7 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const kmlLayer = new google.maps.KmlLayer({
       ...this.props.options,
       map: this.context,
@@ -80,7 +80,7 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     }, this.setKmlLayerCallback)
   }
 
-  componentDidUpdate(prevProps: KmlLayerProps): void {
+  override componentDidUpdate(prevProps: KmlLayerProps): void {
     if (this.state.kmlLayer !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -94,7 +94,7 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.kmlLayer !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.kmlLayer)
@@ -106,7 +106,7 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     }
   }
 
-  render():null {
+  override render():null {
     return null
   }
 }

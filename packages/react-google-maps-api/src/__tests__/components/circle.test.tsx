@@ -4,7 +4,7 @@
 
 import { render, cleanup } from "@testing-library/react"
 import GoogleMap from  "../../GoogleMap"
-import Circle, { CircleProps } from '../../components/drawing/Circle'
+import Circle, { type CircleProps } from '../../components/drawing/Circle'
 
 const CENTER = {
   lat: 0,

@@ -25,7 +25,9 @@ interface DocsApiKeyInputState {
   loadScript: boolean
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   constructor(props: {}) {
     super(props)
 
@@ -54,7 +56,7 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
     })
   }
 
-  render(): ReactNode {
+  override render(): ReactNode {
     return (
       <>
         <form onSubmit={this.onFormSubmit}>

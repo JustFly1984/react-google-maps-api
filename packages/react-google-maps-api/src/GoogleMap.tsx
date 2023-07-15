@@ -385,7 +385,7 @@ function GoogleMapFunctional({
 export const GoogleMapF = memo(GoogleMapFunctional)
 
 export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
-  state: GoogleMapState = {
+  override state: GoogleMapState = {
     map: null,
   }
 
@@ -416,7 +416,7 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const map = this.getInstance()
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -434,7 +434,7 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
     }, this.setMapCallback)
   }
 
-  componentDidUpdate(prevProps: GoogleMapProps): void {
+  override componentDidUpdate(prevProps: GoogleMapProps): void {
     if (this.state.map !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -448,7 +448,7 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.map !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.map)
@@ -462,7 +462,7 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
     this.mapRef = ref
   }
 
-  render(): ReactNode {
+  override render(): ReactNode {
     return (
       <div
         id={this.props.id}

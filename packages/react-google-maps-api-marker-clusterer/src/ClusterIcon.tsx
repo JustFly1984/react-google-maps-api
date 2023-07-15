@@ -1,8 +1,8 @@
 /* global google */
 /* eslint-disable filenames/match-regex */
-import { Cluster } from './Cluster'
+import type { Cluster } from './Cluster'
 
-import { ClusterIconStyle, ClusterIconInfo } from './types'
+import type { ClusterIconStyle, ClusterIconInfo } from './types'
 
 export class ClusterIcon {
   cluster: Cluster
@@ -16,8 +16,8 @@ export class ClusterIcon {
   url: string
   height: number
   width: number
-  anchorText: number[]
-  anchorIcon: number[]
+  anchorText: [number, number]
+  anchorIcon: [number, number]
   textColor: string
   textSize: number
   textDecoration: string
@@ -274,8 +274,8 @@ export class ClusterIcon {
       // NOTE: values must be specified in px units
       const bp = this.backgroundPosition.split(' ')
 
-      const spriteH = parseInt(bp[0].replace(/^\s+|\s+$/g, ''), 10)
-      const spriteV = parseInt(bp[1].replace(/^\s+|\s+$/g, ''), 10)
+      const spriteH = parseInt(bp[0]?.replace(/^\s+|\s+$/g, '') || '0', 10)
+      const spriteV = parseInt(bp[1]?.replace(/^\s+|\s+$/g, '') || '0', 10)
 
       const pos = this.getPosFromLatLng(this.center)
 
@@ -324,29 +324,32 @@ export class ClusterIcon {
     const style =
       styles[Math.min(styles.length - 1, Math.max(0, sums.index - 1))]
 
-    this.url = style.url
-    this.height = style.height
-    this.width = style.width
+    if (style) {
+      this.url = style.url
+      this.height = style.height
+      this.width = style.width
 
-    if (style.className)
-      this.className = `${this.clusterClassName} ${style.className}`
+      if (style.className) {
+        this.className = `${this.clusterClassName} ${style.className}`
+      }
 
-    this.anchorText = style.anchorText || [0, 0]
-    this.anchorIcon = style.anchorIcon || [this.height / 2, this.width / 2]
+      this.anchorText = style.anchorText || [0, 0]
+      this.anchorIcon = style.anchorIcon || [this.height / 2, this.width / 2]
 
-    this.textColor = style.textColor || 'black'
+      this.textColor = style.textColor || 'black'
 
-    this.textSize = style.textSize || 11
+      this.textSize = style.textSize || 11
 
-    this.textDecoration = style.textDecoration || 'none'
+      this.textDecoration = style.textDecoration || 'none'
 
-    this.fontWeight = style.fontWeight || 'bold'
+      this.fontWeight = style.fontWeight || 'bold'
 
-    this.fontStyle = style.fontStyle || 'normal'
+      this.fontStyle = style.fontStyle || 'normal'
 
-    this.fontFamily = style.fontFamily || 'Arial,sans-serif'
+      this.fontFamily = style.fontFamily || 'Arial,sans-serif'
 
-    this.backgroundPosition = style.backgroundPosition || '0 0'
+      this.backgroundPosition = style.backgroundPosition || '0 0'
+    }
   }
 
   setCenter(center: google.maps.LatLng) {

@@ -3,7 +3,7 @@ import { Loader } from '@googlemaps/js-api-loader'
 
 import { isBrowser } from './utils/isbrowser'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
-import { LoadScriptUrlOptions, Libraries } from './utils/make-load-script-url'
+import type { LoadScriptUrlOptions, Libraries } from './utils/make-load-script-url'
 
 import { defaultLoadScriptProps } from './LoadScript'
 
@@ -13,6 +13,8 @@ export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
   preventGoogleFontsLoading?: boolean | undefined
 }
 
+const defaultLibraries: Libraries = ['maps']
+
 export function useJsApiLoader({
   id = defaultLoadScriptProps.id,
   version = defaultLoadScriptProps.version,
@@ -21,7 +23,7 @@ export function useJsApiLoader({
   // googleMapsClientId,
   language,
   region,
-  libraries,
+  libraries = defaultLibraries,
   preventGoogleFontsLoading,
   // channel,
   mapIds,
@@ -41,17 +43,17 @@ export function useJsApiLoader({
     }
   }, [])
 
-  const loader = useMemo(function memo() {
+  const loader = useMemo(() => {
     return new Loader({
       id,
       apiKey: googleMapsApiKey,
       version,
       libraries,
-      language,
-      region,
-      mapIds,
-      nonce,
-      authReferrerPolicy,
+      language: language || 'en',
+      region: region || 'US',
+      mapIds: mapIds || [],
+      nonce: nonce || '',
+      authReferrerPolicy: authReferrerPolicy || 'origin',
     })
   }, [id, googleMapsApiKey, version, libraries, language, region, mapIds, nonce, authReferrerPolicy])
 
@@ -59,10 +61,12 @@ export function useJsApiLoader({
     if (isLoaded) {
       return
     } else {
-      loader.load().then(function then() {
-        if (isMounted.current) setLoaded(true)
+      loader.load().then(() => {
+        if (isMounted.current) {setLoaded(true)}
+
+        return
       })
-      .catch(function onrejected(error) {
+      .catch((error) => {
         setLoadError(error)
       })
     }
@@ -70,7 +74,7 @@ export function useJsApiLoader({
 
 
   useEffect(
-    function applyPreventGoogleFonts() {
+    () => {
       if (isBrowser && preventGoogleFontsLoading) {
         preventGoogleFonts()
       }
@@ -81,7 +85,7 @@ export function useJsApiLoader({
   const prevLibraries = useRef<undefined | Libraries>()
 
   useEffect(
-    function effect() {
+    () => {
       if (prevLibraries.current && libraries !== prevLibraries.current) {
         console.warn(
           'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables'

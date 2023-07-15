@@ -7,9 +7,9 @@ type fnPixelPositionOffset = (
 export function createOverlay(
   container: HTMLElement,
   pane: keyof google.maps.MapPanes,
-  position?: google.maps.LatLng | google.maps.LatLngLiteral,
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
-  getPixelPositionOffset?: fnPixelPositionOffset
+  position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined,
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined,
+  getPixelPositionOffset?: fnPixelPositionOffset | undefined
 ) {
   class Overlay extends google.maps.OverlayView {
     container: HTMLElement
@@ -30,12 +30,12 @@ export function createOverlay(
       this.bounds = bounds
     }
 
-    onAdd(): void {
+    override onAdd(): void {
       const pane = this.getPanes()?.[this.pane]
       pane?.appendChild(this.container)
     }
 
-    draw(): void {
+    override draw(): void {
       const projection = this.getProjection()
       const offset = {
         ...(this.container
@@ -61,11 +61,12 @@ export function createOverlay(
 
     }
 
-    onRemove(): void {
+    override onRemove(): void {
       if (this.container.parentNode !== null) {
         this.container.parentNode.removeChild(this.container)
       }
     }
   }
+
   return new Overlay(container, pane, position, bounds)
 }

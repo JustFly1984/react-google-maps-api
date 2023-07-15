@@ -1,8 +1,8 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
 import { GoogleMap, Marker } from '../..'
 import { MarkerClustererF } from './MarkerClusterer'
 
-import {
+import type {
   ClustererOptions,
   ClusterIconInfo,
   ClusterIconStyle,

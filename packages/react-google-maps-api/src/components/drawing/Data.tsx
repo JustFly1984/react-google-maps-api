@@ -482,12 +482,13 @@ function DataFunctional({
 export const DataF = memo(DataFunctional)
 
 export class Data extends PureComponent<DataProps, DataState> {
-  static contextType = MapContext
+  static override contextType = MapContext
+
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: DataState = {
+  override state: DataState = {
     data: null,
   }
 
@@ -497,7 +498,7 @@ export class Data extends PureComponent<DataProps, DataState> {
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     if (this.context !== null) {
       const data = new google.maps.Data({
         ...(this.props.options || {}),
@@ -520,7 +521,7 @@ export class Data extends PureComponent<DataProps, DataState> {
     }
   }
 
-  componentDidUpdate(prevProps: DataProps): void {
+  override componentDidUpdate(prevProps: DataProps): void {
     if (this.state.data !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -534,7 +535,7 @@ export class Data extends PureComponent<DataProps, DataState> {
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.data !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.data)
@@ -548,7 +549,7 @@ export class Data extends PureComponent<DataProps, DataState> {
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

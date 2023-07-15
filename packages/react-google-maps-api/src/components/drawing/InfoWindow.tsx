@@ -289,13 +289,14 @@ function InfoWindowFunctional({
 export const InfoWindowF = memo(InfoWindowFunctional)
 
 export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> {
-  static contextType = MapContext
+  static override contextType = MapContext
+
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
   containerElement: HTMLElement | null = null
 
-  state: InfoWindowState = {
+  override state: InfoWindowState = {
     infoWindow: null,
   }
 
@@ -303,7 +304,6 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
     if (anchor) {
       infoWindow.open(this.context, anchor)
     } else if (infoWindow.getPosition()) {
-      // @ts-ignore
       infoWindow.open(this.context)
     } else {
       invariant(
@@ -325,7 +325,7 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const infoWindow = new google.maps.InfoWindow({
       ...(this.props.options || {}),
     })
@@ -347,7 +347,7 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
     }, this.setInfoWindowCallback)
   }
 
-  componentDidUpdate(prevProps: InfoWindowProps): void {
+  override componentDidUpdate(prevProps: InfoWindowProps): void {
     if (this.state.infoWindow !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -361,7 +361,7 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.infoWindow !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -373,7 +373,7 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
     }
   }
 
-  render(): ReactPortal | null {
+  override render(): ReactPortal | null {
     return this.containerElement ? (
       createPortal(Children.only(this.props.children), this.containerElement)
     ) : (

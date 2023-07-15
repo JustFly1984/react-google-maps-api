@@ -71,10 +71,10 @@ function TrafficLayerFunctional({ options, onLoad, onUnmount }: TrafficLayerProp
 export const TrafficLayerF = memo(TrafficLayerFunctional)
 
 export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerState> {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
-  state = {
+  override state: TrafficLayerState = {
     trafficLayer: null,
   }
 
@@ -86,7 +86,7 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const trafficLayer = new google.maps.TrafficLayer({
       ...(this.props.options || {}),
       map: this.context,
@@ -107,7 +107,7 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
     }, this.setTrafficLayerCallback)
   }
 
-  componentDidUpdate(prevProps: TrafficLayerProps): void {
+  override componentDidUpdate(prevProps: TrafficLayerProps): void {
     if (this.state.trafficLayer !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -121,7 +121,7 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.trafficLayer !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.trafficLayer)
@@ -129,12 +129,12 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
 
       unregisterEvents(this.registeredEvents)
 
-      // @ts-ignore
+
       this.state.trafficLayer.setMap(null)
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

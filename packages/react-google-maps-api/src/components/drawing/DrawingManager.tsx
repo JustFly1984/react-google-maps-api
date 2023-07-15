@@ -152,7 +152,7 @@ function DrawingManagerFunctional({
       if (polylinecompleteListener !== null) {
         google.maps.event.removeListener(polylinecompleteListener)
       }
-      
+
       setPolylineCompleteListener(
         google.maps.event.addListener(instance, 'polylinecomplete', onPolylineComplete)
       )
@@ -270,12 +270,13 @@ function DrawingManagerFunctional({
 export const DrawingManagerF = memo(DrawingManagerFunctional)
 
 export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingManagerState> {
-  static contextType = MapContext
+  static override contextType = MapContext
+
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: DrawingManagerState = {
+  override state: DrawingManagerState = {
     drawingManager: null,
   }
 
@@ -295,7 +296,7 @@ export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingMa
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const drawingManager = new google.maps.drawing.DrawingManager({
       ...(this.props.options || {}),
       map: this.context,
@@ -316,7 +317,7 @@ export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingMa
     }, this.setDrawingManagerCallback)
   }
 
-  componentDidUpdate(prevProps: DrawingManagerProps): void {
+  override componentDidUpdate(prevProps: DrawingManagerProps): void {
     if (this.state.drawingManager !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -330,7 +331,7 @@ export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingMa
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.drawingManager !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.drawingManager)
@@ -342,7 +343,7 @@ export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingMa
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

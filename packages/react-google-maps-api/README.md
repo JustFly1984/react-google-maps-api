@@ -161,10 +161,6 @@ Since version 1.2.2 We added useGoogleMap hook, which is working only with React
 
 ## Websites made with @react-google-maps-api
 
-[DriveFromTo.com](https://www.drivefromto.com/en) Transfer Booking service PWA.
-
-[Shipwrecks.cc](https://shipwrecks.cc/) Shipwrecks from Wikipedia visualized on the map [(Github)](https://github.com/lauriharpf/shipwrecks)
-
 [nycmesh.net](https://nycmesh.net) Network topography visualized on the map [(Github)](https://github.com/meshcenter/network-map)
 
 add your website by making PR!

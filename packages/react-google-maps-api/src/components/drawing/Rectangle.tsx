@@ -1,4 +1,4 @@
-import { memo, PureComponent, useContext, useEffect, useState } from 'react'
+import { memo, type ContextType, PureComponent, useContext, useEffect, useState } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
@@ -121,7 +121,7 @@ function RectangleFunctional({
   const [mouseoutListener, setMouseoutListener] = useState<google.maps.MapsEventListener | null>(null)
   const [mouseoverListener, setMouseoverListener] = useState<google.maps.MapsEventListener | null>(null)
   const [mouseupListener, setMouseupListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [rightclickListener, setRightclickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [rightClickListener, setRightClickListener] = useState<google.maps.MapsEventListener | null>(null)
   const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
   const [dragListener, setDragListener] = useState<google.maps.MapsEventListener | null>(null)
   const [boundsChangedListener, setBoundsChangedListener] = useState<google.maps.MapsEventListener | null>(null)
@@ -261,11 +261,11 @@ function RectangleFunctional({
 
   useEffect(() => {
     if (instance && onRightClick) {
-      if (rightclickListener !== null) {
-        google.maps.event.removeListener(rightclickListener)
+      if (rightClickListener !== null) {
+        google.maps.event.removeListener(rightClickListener)
       }
 
-      setRightclickListener(
+      setRightClickListener(
         google.maps.event.addListener(instance, 'rightclick', onRightClick)
       )
     }
@@ -378,7 +378,7 @@ function RectangleFunctional({
     }
 
     if (onRightClick) {
-      setRightclickListener(
+      setRightClickListener(
         google.maps.event.addListener(rectangle, 'rightclick', onRightClick)
       )
     }
@@ -441,8 +441,8 @@ function RectangleFunctional({
         google.maps.event.removeListener(mouseupListener)
       }
 
-      if (rightclickListener !== null) {
-        google.maps.event.removeListener(rightclickListener)
+      if (rightClickListener !== null) {
+        google.maps.event.removeListener(rightClickListener)
       }
 
       if (clickListener !== null) {
@@ -471,11 +471,13 @@ function RectangleFunctional({
 export const RectangleF = memo(RectangleFunctional)
 
 export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
-  static contextType = MapContext
+  static override contextType = MapContext
+
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: RectangleState = {
+  override state: RectangleState = {
     rectangle: null,
   }
 
@@ -485,10 +487,9 @@ export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const rectangle = new google.maps.Rectangle({
       ...(this.props.options || {}),
-      // @ts-ignore
       map: this.context,
     })
 
@@ -507,7 +508,7 @@ export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
     }, this.setRectangleCallback)
   }
 
-  componentDidUpdate(prevProps: RectangleProps): void {
+  override componentDidUpdate(prevProps: RectangleProps): void {
     if (this.state.rectangle !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -521,7 +522,7 @@ export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.rectangle !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.rectangle)
@@ -533,7 +534,7 @@ export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

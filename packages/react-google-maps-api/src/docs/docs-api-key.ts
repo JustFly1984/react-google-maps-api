@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import localDevKey from './googleMapKey'
 const KEY_NAME = 'react-google-maps-api-key'
 

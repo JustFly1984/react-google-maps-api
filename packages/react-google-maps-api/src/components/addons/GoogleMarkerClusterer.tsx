@@ -10,6 +10,7 @@ export interface GoogleMarkerClustererProps {
    *
    * The callback function should return a list of Marker components.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: (markerClusterer: MarkerClusterer) => ReactElement<any, any>,
   /** Subset of {@link MarkerClustererOptions} options
    *

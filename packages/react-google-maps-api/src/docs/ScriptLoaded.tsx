@@ -5,6 +5,7 @@ interface ScriptLoadedState {
 }
 
 interface ScriptLoadedProps {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   children: ReactChild | ReactChildren | Function
 }
 
@@ -45,11 +46,11 @@ class ScriptLoaded extends Component<ScriptLoadedProps, ScriptLoadedState> {
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     window.clearInterval(this.interval)
   }
 
-  render(): JSX.Element {
+  override render(): JSX.Element {
     if (!this.state.scriptLoaded) {
       return <SpanIntro />
     }

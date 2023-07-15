@@ -1,10 +1,10 @@
 /* global google */
-/* eslint-disable filenames/match-regex */
-import { Clusterer } from './Clusterer'
+
+import type { Clusterer } from './Clusterer'
 
 import { ClusterIcon } from './ClusterIcon'
 
-import { MarkerExtended } from './types'
+import type { MarkerExtended } from './types'
 
 export class Cluster {
   markerClusterer: Clusterer
@@ -75,8 +75,8 @@ export class Cluster {
 
     const markers = this.getMarkers()
 
-    for (let i = 0; i < markers.length; i++) {
-      const position = markers[i].getPosition()
+    for (const marker of markers) {
+      const position = marker.getPosition()
 
       if (position) {
         bounds.extend(position)
@@ -148,8 +148,8 @@ export class Cluster {
       }
     } else if (mCount === this.minClusterSize) {
       // Hide the markers that were showing.
-      for (let i = 0; i < mCount; i++) {
-        this.markers[i].setMap(null)
+      for (const markerElement of this.markers) {
+        markerElement.setMap(null)
       }
     } else {
       marker.setMap(null)

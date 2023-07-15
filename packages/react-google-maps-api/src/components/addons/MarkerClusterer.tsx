@@ -14,11 +14,11 @@ import {
 import MapContext from '../../map-context'
 
 import {
-  Clusterer,
-  ClusterIconStyle,
   Cluster,
-  ClustererOptions,
-  TCalculator,
+  Clusterer,
+  type TCalculator,
+  type ClusterIconStyle,
+  type ClustererOptions,
 } from '@react-google-maps/marker-clusterer'
 
 const eventMap = {
@@ -38,7 +38,7 @@ const updaterMap = {
     instance.setBatchSizeIE(batchSizeIE)
   },
 
-  calculator(instance: Clusterer, calculator: any): void {
+  calculator(instance: Clusterer, calculator: TCalculator): void {
     instance.setCalculator(calculator)
   },
 
@@ -502,12 +502,12 @@ function MarkerClustererFunctional(
 export const MarkerClustererF = memo(MarkerClustererFunctional)
 
 export class ClustererComponent extends PureComponent<MarkerClustererProps, ClustererState> {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: ClustererState = {
+  override state: ClustererState = {
     markerClusterer: null,
   }
 
@@ -517,7 +517,7 @@ export class ClustererComponent extends PureComponent<MarkerClustererProps, Clus
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     if (this.context) {
       const markerClusterer = new Clusterer(this.context, [], this.props.options)
 
@@ -537,7 +537,7 @@ export class ClustererComponent extends PureComponent<MarkerClustererProps, Clus
     }
   }
 
-  componentDidUpdate(prevProps: MarkerClustererProps): void {
+  override componentDidUpdate(prevProps: MarkerClustererProps): void {
     if (this.state.markerClusterer) {
       unregisterEvents(this.registeredEvents)
 
@@ -551,7 +551,7 @@ export class ClustererComponent extends PureComponent<MarkerClustererProps, Clus
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.markerClusterer !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.markerClusterer)
@@ -565,7 +565,7 @@ export class ClustererComponent extends PureComponent<MarkerClustererProps, Clus
     }
   }
 
-  render(): JSX.Element | null {
+  override render(): JSX.Element | null {
     return this.state.markerClusterer !== null
       ? this.props.children(this.state.markerClusterer)
       : null

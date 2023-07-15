@@ -97,12 +97,12 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
     onLoad: noop,
   }
 
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: GroundOverlayState = {
+  override state: GroundOverlayState = {
     groundOverlay: null,
   }
 
@@ -112,7 +112,7 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     invariant(
       !!this.props.url || !!this.props.bounds,
       `For GroundOverlay, url and bounds are passed in to constructor and are immutable after instantiated. This is the behavior of Google Maps JavaScript API v3 ( See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay) Hence, use the corresponding two props provided by \`react-google-maps-api\`, url and bounds. In some cases, you'll need the GroundOverlay component to reflect the changes of url and bounds. You can leverage the React's key property to remount the component. Typically, just \`key={url}\` would serve your need. See https://github.com/tomchentw/react-google-maps/issues/655`
@@ -138,7 +138,7 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
     }, this.setGroundOverlayCallback)
   }
 
-  componentDidUpdate(prevProps: GroundOverlayProps): void {
+  override componentDidUpdate(prevProps: GroundOverlayProps): void {
     if (this.state.groundOverlay !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -152,7 +152,7 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.groundOverlay) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.groundOverlay)
@@ -162,7 +162,7 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

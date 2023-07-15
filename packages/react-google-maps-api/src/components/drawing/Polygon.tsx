@@ -480,12 +480,12 @@ function PolygonFunctional({
 export const PolygonF = memo(PolygonFunctional)
 
 export class Polygon extends PureComponent<PolygonProps, PolygonState> {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: PolygonState = {
+  override state: PolygonState = {
     polygon: null,
   }
 
@@ -495,10 +495,9 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const polygon = new google.maps.Polygon({
       ...(this.props.options || {}),
-      // @ts-ignore
       map: this.context,
     })
 
@@ -517,7 +516,7 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
     }, this.setPolygonCallback)
   }
 
-  componentDidUpdate(prevProps: PolygonProps): void {
+  override componentDidUpdate(prevProps: PolygonProps): void {
     if (this.state.polygon !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -531,7 +530,7 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.polygon !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.polygon)
@@ -543,7 +542,7 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

@@ -38,18 +38,19 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
 
   check: RefObject<HTMLDivElement> = createRef()
 
-  state = {
+  override state = {
     loaded: false,
   }
 
   cleanupCallback = (): void => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     delete window.google.maps
 
     this.injectScript()
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     if (isBrowser) {
       if (window.google && window.google.maps && !cleaningUp) {
         console.error('google api is already presented')
@@ -65,7 +66,7 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
     }
   }
 
-  componentDidUpdate(prevProps: LoadScriptProps): void {
+  override componentDidUpdate(prevProps: LoadScriptProps): void {
     if (this.props.libraries !== prevProps.libraries) {
       console.warn(
         'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables'
@@ -75,7 +76,6 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
     if (isBrowser && prevProps.language !== this.props.language) {
       this.cleanup()
       // TODO: refactor to use gDSFP maybe... wait for hooks refactoring.
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState(function setLoaded() {
         return {
           loaded: false,
@@ -84,12 +84,13 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (isBrowser) {
       this.cleanup()
 
       const timeoutCallback = (): void => {
         if (!this.check.current) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           delete window.google
           cleaningUp = false
@@ -215,7 +216,7 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
       })
   }
 
-  render(): ReactNode {
+  override render(): ReactNode {
     return (
       <>
         <div ref={this.check} />
