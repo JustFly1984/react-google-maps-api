@@ -22,6 +22,20 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitThis": true,
     "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "pretty": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "importsNotUsedAsValues": "error",
+    "ignoreDeprecations": "5.0"
   }
 }

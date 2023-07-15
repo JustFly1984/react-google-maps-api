@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.json",
   "rootDir": ".",
   "include": ["src/**/*"],
   "exclude": ["node_modules"],
@@ -11,17 +12,6 @@
     "lib": ["dom", "es2017"],
     "rootDir": "src",
     "declaration": true,
-    "declarationDir": "dist",
-    "strict": true,
-    "allowJs": false,
-    "checkJs": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noErrorTruncation": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitThis": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true
+    "declarationDir": "dist"
   }
 }

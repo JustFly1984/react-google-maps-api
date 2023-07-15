@@ -43,7 +43,6 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
   }
 
   cleanupCallback = (): void => {
-    // @ts-ignore
     delete window.google.maps
 
     this.injectScript()
@@ -75,7 +74,6 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
     if (isBrowser && prevProps.language !== this.props.language) {
       this.cleanup()
       // TODO: refactor to use gDSFP maybe... wait for hooks refactoring.
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState(function setLoaded() {
         return {
           loaded: false,
@@ -90,7 +88,6 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
 
       const timeoutCallback = (): void => {
         if (!this.check.current) {
-          // @ts-ignore
           delete window.google
           cleaningUp = false
         }

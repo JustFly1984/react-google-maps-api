@@ -1,9 +1,9 @@
 /* global google */
 /* eslint-disable filenames/match-regex */
 import { Cluster } from './Cluster'
-import { ClusterIcon } from './ClusterIcon'
+import type { ClusterIcon } from './ClusterIcon'
 
-import {
+import type {
   MarkerExtended,
   ClustererOptions,
   ClusterIconStyle,
@@ -242,22 +242,22 @@ export class Clusterer {
 
   onRemove() {
     // Put all the managed markers back on the map:
-    for (let i = 0; i < this.markers.length; i++) {
-      if (this.markers[i].getMap() !== this.activeMap) {
-        this.markers[i].setMap(this.activeMap)
+    for (const marker of this.markers) {
+      if (marker.getMap() !== this.activeMap) {
+        marker.setMap(this.activeMap)
       }
     }
 
     // Remove all clusters:
-    for (let i = 0; i < this.clusters.length; i++) {
-      this.clusters[i].remove()
+    for (const cluster of this.clusters) {
+      cluster.remove()
     }
 
     this.clusters = []
 
     // Remove map event listeners:
-    for (let i = 0; i < this.listeners.length; i++) {
-      google.maps.event.removeListener(this.listeners[i])
+    for (const listener of this.listeners) {
+      google.maps.event.removeListener(listener)
     }
 
     this.listeners = []
@@ -277,8 +277,8 @@ export class Clusterer {
     for (let i = 0; i < this.imageSizes.length; i++) {
       this.styles.push({
         url: `${this.imagePath + (i + 1)}.${this.imageExtension}`,
-        height: this.imageSizes[i],
-        width: this.imageSizes[i],
+        height: this.imageSizes[i] || 0,
+        width: this.imageSizes[i] || 0,
       })
     }
   }
@@ -288,8 +288,8 @@ export class Clusterer {
 
     const bounds = new google.maps.LatLngBounds()
 
-    for (let i = 0; i < markers.length; i++) {
-      const position = markers[i].getPosition()
+    for (const marker of markers) {
+      const position = marker.getPosition()
 
       if (position) {
         bounds.extend(position)
@@ -451,7 +451,11 @@ export class Clusterer {
   addMarkers(markers: MarkerExtended[], optNoDraw: boolean) {
     for (const key in markers) {
       if (Object.prototype.hasOwnProperty.call(markers, key)) {
-        this.pushMarkerTo(markers[key])
+        const marker = markers[key]
+
+        if (marker) {
+          this.pushMarkerTo(marker)
+        }
       }
     }
 
@@ -517,8 +521,8 @@ export class Clusterer {
   removeMarkers(markers: MarkerExtended[], optNoDraw: boolean): boolean {
     let removed = false
 
-    for (let i = 0; i < markers.length; i++) {
-      removed = removed || this.removeMarker_(markers[i])
+    for (const marker of markers) {
+      removed = removed || this.removeMarker_(marker)
     }
 
     if (!optNoDraw && removed) {
@@ -546,8 +550,8 @@ export class Clusterer {
     // Remove the old clusters.
     // Do it in a timeout to prevent blinking effect.
     setTimeout(function timeout() {
-      for (let i = 0; i < oldClusters.length; i++) {
-        oldClusters[i].remove()
+      for (const oldCluster of oldClusters) {
+        oldCluster.remove()
       }
     }, 0)
   }
@@ -609,16 +613,14 @@ export class Clusterer {
 
   resetViewport(optHide: boolean) {
     // Remove all the clusters
-    for (let i = 0; i < this.clusters.length; i++) {
-      this.clusters[i].remove()
+    for (const cluster of this.clusters) {
+      cluster.remove()
     }
 
     this.clusters = []
 
     // Reset the markers to not be added and to be removed from the map.
-    for (let i = 0; i < this.markers.length; i++) {
-      const marker = this.markers[i]
-
+    for (const marker of this.markers) {
       marker.isAdded = false
 
       if (optHide) {
@@ -660,8 +662,8 @@ export class Clusterer {
 
     let clusterToAddTo = null
 
-    for (let i = 0; i < this.clusters.length; i++) {
-      cluster = this.clusters[i]
+    for (const clusterElement of this.clusters) {
+      cluster = clusterElement
 
       const center = cluster.getCenter()
 
@@ -740,7 +742,7 @@ export class Clusterer {
     for (let i = iFirst; i < iLast; i++) {
       const marker = this.markers[i]
 
-      if (!marker.isAdded && this.isMarkerInBounds(marker, extendedMapBounds) && (!this.ignoreHidden || (this.ignoreHidden && marker.getVisible()))) {
+      if (marker && !marker.isAdded && this.isMarkerInBounds(marker, extendedMapBounds) && (!this.ignoreHidden || (this.ignoreHidden && marker.getVisible()))) {
         this.addToClosestCluster(marker)
       }
     }
@@ -764,8 +766,8 @@ export class Clusterer {
        */
       google.maps.event.trigger(this, 'clusteringend', this)
 
-      for (let i = 0; i < this.clusters.length; i++) {
-        this.clusters[i].updateIcon()
+      for (const cluster of this.clusters) {
+        cluster.updateIcon()
       }
     }
   }
@@ -773,11 +775,13 @@ export class Clusterer {
   extend<A extends typeof ClusterIcon | typeof Clusterer>(obj1: A, obj2: typeof google.maps.OverlayView): A {
     return function applyExtend(this: A, object: typeof google.maps.OverlayView): A {
       for (const property in object.prototype) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.prototype[property] = object.prototype[property  as keyof google.maps.OverlayView]
       }
 
       return this
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }.apply<A, [typeof google.maps.OverlayView], any>(obj1, [obj2])
   }
 }

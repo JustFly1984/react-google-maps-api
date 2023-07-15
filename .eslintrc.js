@@ -21,7 +21,6 @@ module.exports = {
     'react',
     'jsx-a11y',
     'react-perf',
-    'react-functional-set-state',
     'jest',
     'jest-dom',
     'prettier',

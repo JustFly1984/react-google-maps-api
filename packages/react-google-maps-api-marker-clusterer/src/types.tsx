@@ -2,47 +2,47 @@
 export interface ClusterIconInfo {
   text: string
   index: number
-  title?: string
-  html?: string
+  title?: string | undefined
+  html?: string | undefined
 }
 
 export type MarkerExtended = google.maps.Marker & {
-  isAdded?: boolean
+  isAdded?: boolean | undefined
 }
 
 export type TCalculator = (markers: MarkerExtended[], num: number) => ClusterIconInfo
 
 export interface ClusterIconStyle {
   url: string
-  className?: string
+  className?: string | undefined
   height: number
   width: number
-  anchorText?: number[]
-  anchorIcon?: number[]
-  textColor?: string
-  textSize?: number
-  textDecoration?: string
-  fontWeight?: string
-  fontStyle?: string
-  fontFamily?: string
-  backgroundPosition?: string
+  anchorText?: [number, number] | undefined
+  anchorIcon?: [number, number] | undefined
+  textColor?: string | undefined
+  textSize?: number | undefined
+  textDecoration?: string | undefined
+  fontWeight?: string | undefined
+  fontStyle?: string | undefined
+  fontFamily?: string | undefined
+  backgroundPosition?: string | undefined
 }
 
 export interface ClustererOptions {
-  gridSize?: number
-  maxZoom?: number
-  zoomOnClick?: boolean
-  averageCenter?: boolean
-  minimumClusterSize?: number
-  ignoreHidden?: boolean
-  title?: string
-  calculator?: TCalculator
-  clusterClass?: string
-  styles?: ClusterIconStyle[]
-  enableRetinaIcons?: boolean
-  batchSize?: number
-  batchSizeIE?: number
-  imagePath?: string
-  imageExtension?: string
-  imageSizes?: number[]
+  gridSize?: number | undefined
+  maxZoom?: number | undefined
+  zoomOnClick?: boolean | undefined
+  averageCenter?: boolean | undefined
+  minimumClusterSize?: number | undefined
+  ignoreHidden?: boolean | undefined
+  title?: string | undefined
+  calculator?: TCalculator | undefined
+  clusterClass?: string | undefined
+  styles?: ClusterIconStyle[] | undefined
+  enableRetinaIcons?: boolean | undefined
+  batchSize?: number | undefined
+  batchSizeIE?: number | undefined
+  imagePath?: string | undefined
+  imageExtension?: string | undefined
+  imageSizes?: number[] | undefined
 }
