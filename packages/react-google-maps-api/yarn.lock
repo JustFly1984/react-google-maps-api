@@ -1185,15 +1185,15 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.1.tgz#728ecd95ab207aab8a9a4e421f0422db329232be"
   integrity sha512-HnUhk1Sy9IuKrxEMdIRCxpIqPw6BFsbYSEUO9p/hNw5sMld/+3OLMWQP80F8/db9qsv3qUjs7ZR5bS/R+iinXw==
 
-"@react-google-maps/infobox@2.19.0":
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.19.0.tgz#6f97008b8e83c247e1a7ca4a3e37df448b80fb4b"
-  integrity sha512-1FeZRSdP1fyCjlFtqSnYwYUL1RgD84oiA3nKzu5m//FGeLhrFjFcogRueI8rK5gs/1E3oJcYsPmw/KtjCyYCdg==
+"@react-google-maps/infobox@2.19.1":
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.19.1.tgz#1a450506a3055d5e83ae105d454b2b8100f6021c"
+  integrity sha512-amdclymXFGxM/qQj9LjZ4kysDs3LKJnL2NeJfsexhrQulKadEChmNQ2SUwtX0MfvyBdB79QaKcr7wjaLcvPONQ==
 
-"@react-google-maps/marker-clusterer@2.19.0":
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.19.0.tgz#9bd9be2a8bc5ae74f46a2932a84735918123da73"
-  integrity sha512-EeNNaeVYYpsU10U33oqm0WslsmcDw+8tyqiCap0gxc7ypijLC2jrOnTGuzp7SynA9ZV2sNVeKbeWSCtjSrXBGQ==
+"@react-google-maps/marker-clusterer@2.19.1":
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.19.1.tgz#c5fdf06fdaa323ec11aaa1433daf143b942ba36e"
+  integrity sha512-zaW4UBiA6VkIegFaHcv0RNIV9ToAh6SfcBiZygvkhhT0hlHRYuB8S25pIKWJ15zYucmZwAPF1QVKdUhm9HsUDQ==
 
 "@rollup/plugin-commonjs@25.0.2":
   version "25.0.2"
