@@ -279,9 +279,7 @@ function MarkerFunctional({
     }, [instance, visible])
 
   useEffect(() => {
-    if (animation && instance !== null) {
-      instance.setAnimation(animation)
-    }
+    instance?.setAnimation(animation)
   }, [instance, animation])
 
   useEffect(() => {
