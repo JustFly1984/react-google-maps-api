@@ -448,12 +448,12 @@ function PolylineFunctional({
 export const PolylineF = memo(PolylineFunctional)
 
 export class Polyline extends PureComponent<PolylineProps, PolylineState> {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: PolylineState = {
+  override state: PolylineState = {
     polyline: null,
   }
 
@@ -463,7 +463,7 @@ export class Polyline extends PureComponent<PolylineProps, PolylineState> {
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const polyline = new google.maps.Polyline({
       ...(this.props.options || {}),
       map: this.context,
@@ -484,7 +484,7 @@ export class Polyline extends PureComponent<PolylineProps, PolylineState> {
     }, this.setPolylineCallback)
   }
 
-  componentDidUpdate(prevProps: PolylineProps): void {
+  override componentDidUpdate(prevProps: PolylineProps): void {
     if (this.state.polyline !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -498,7 +498,7 @@ export class Polyline extends PureComponent<PolylineProps, PolylineState> {
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.polyline !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.polyline)
@@ -510,7 +510,7 @@ export class Polyline extends PureComponent<PolylineProps, PolylineState> {
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

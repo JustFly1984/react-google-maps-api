@@ -53,14 +53,14 @@ function BicyclingLayerFunctional({ onLoad, onUnmount }: BicyclingLayerProps): n
 export const BicyclingLayerF = memo(BicyclingLayerFunctional)
 
 export class BicyclingLayer extends PureComponent<BicyclingLayerProps, BicyclingLayerState> {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
-  state: BicyclingLayerState = {
+  override state: BicyclingLayerState = {
     bicyclingLayer: null,
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const bicyclingLayer = new google.maps.BicyclingLayer()
 
     this.setState(() => {
@@ -70,7 +70,7 @@ export class BicyclingLayer extends PureComponent<BicyclingLayerProps, Bicycling
     }, this.setBicyclingLayerCallback)
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.bicyclingLayer !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.bicyclingLayer)
@@ -91,7 +91,7 @@ export class BicyclingLayer extends PureComponent<BicyclingLayerProps, Bicycling
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

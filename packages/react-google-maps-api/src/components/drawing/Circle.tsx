@@ -514,12 +514,12 @@ function CircleFunctional({
 export const CircleF = memo(CircleFunctional)
 
 export class Circle extends PureComponent<CircleProps, CircleState> {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: CircleState = {
+  override state: CircleState = {
     circle: null,
   }
 
@@ -529,10 +529,9 @@ export class Circle extends PureComponent<CircleProps, CircleState> {
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const circle = new google.maps.Circle({
       ...(this.props.options || {}),
-    // @ts-ignore
       map: this.context,
     })
 
@@ -551,7 +550,7 @@ export class Circle extends PureComponent<CircleProps, CircleState> {
     }, this.setCircleCallback)
   }
 
-  componentDidUpdate(prevProps: CircleProps): void {
+  override componentDidUpdate(prevProps: CircleProps): void {
     if (this.state.circle !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -565,7 +564,7 @@ export class Circle extends PureComponent<CircleProps, CircleState> {
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.circle !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.circle)
@@ -573,11 +572,11 @@ export class Circle extends PureComponent<CircleProps, CircleState> {
 
       unregisterEvents(this.registeredEvents)
 
-      this.state.circle && this.state.circle.setMap(null)
+      this.state.circle?.setMap(null)
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

@@ -8,6 +8,7 @@ import {
   PureComponent,
   type ReactNode,
   type RefObject,
+  type ContextType,
   type ReactPortal,
   type CSSProperties,
 } from 'react'
@@ -30,7 +31,7 @@ interface OverlayViewState {
 }
 
 function convertToLatLngString(
-  latLngLike?: google.maps.LatLng | google.maps.LatLngLiteral | null
+  latLngLike?: google.maps.LatLng | google.maps.LatLngLiteral | null | undefined
 ) {
   if (!latLngLike) {
     return ''
@@ -48,7 +49,7 @@ function convertToLatLngBoundsString(
   latLngBoundsLike?:
     | google.maps.LatLngBounds
     | google.maps.LatLngBoundsLiteral
-    | null
+    | null | undefined
 ) {
   if (!latLngBoundsLike) {
     return ''
@@ -78,10 +79,11 @@ export interface OverlayViewProps {
     | google.maps.LatLngBounds
     | google.maps.LatLngBoundsLiteral
     | undefined
-  zIndex?: number
+  zIndex?: number | undefined
   onLoad?: ((overlayView: google.maps.OverlayView) => void) | undefined
   onUnmount?: ((overlayView: google.maps.OverlayView) => void) | undefined
 }
+
 export const FLOAT_PANE: PaneNames = `floatPane`
 export const MAP_PANE: PaneNames = `mapPane`
 export const MARKER_LAYER: PaneNames = `markerLayer`
@@ -144,9 +146,11 @@ export class OverlayView extends PureComponent<
   static OVERLAY_LAYER: PaneNames = `overlayLayer`
   static OVERLAY_MOUSE_TARGET: PaneNames = `overlayMouseTarget`
 
-  static contextType = MapContext
+  static override contextType = MapContext
 
-  state: OverlayViewState = {
+  declare context: ContextType<typeof MapContext>
+
+  override state: OverlayViewState = {
     paneEl: null,
     containerStyle: {
       // set initial position
@@ -206,10 +210,14 @@ export class OverlayView extends PureComponent<
     )
 
     const { left, top, width, height } = this.state.containerStyle
+
     if (!arePositionsEqual(layoutStyles, { left, top, width, height })) {
       this.setState({
         containerStyle: {
-          ...layoutStyles,
+          top: layoutStyles.top || 0,
+          left: layoutStyles.left || 0,
+          width: layoutStyles.width || 0,
+          height: layoutStyles.height || 0,
           position: 'absolute',
         },
       })
@@ -224,7 +232,7 @@ export class OverlayView extends PureComponent<
     this.setState(() => ({
       paneEl: null,
     }))
-    // this.mapPaneEl = null
+
     this.props.onUnmount?.(this.overlayView)
   }
 
@@ -240,15 +248,11 @@ export class OverlayView extends PureComponent<
     this.overlayView = overlayView
   }
 
-  componentDidMount(): void {
-    // You must call setMap() with a valid Map object to trigger the call to
-    // the onAdd() method and setMap(null) in order to trigger the onRemove() method.
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+  override componentDidMount(): void {
     this.overlayView.setMap(this.context)
   }
 
-  componentDidUpdate(prevProps: OverlayViewProps): void {
+  override componentDidUpdate(prevProps: OverlayViewProps): void {
     const prevPositionString = convertToLatLngString(prevProps.position)
     const positionString = convertToLatLngString(this.props.position)
     const prevBoundsString = convertToLatLngBoundsString(prevProps.bounds)
@@ -265,11 +269,11 @@ export class OverlayView extends PureComponent<
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     this.overlayView.setMap(null)
   }
 
-  render(): ReactPortal | ReactNode {
+  override render(): ReactPortal | ReactNode {
     const paneEl = this.state.paneEl
     if (paneEl) {
       return ReactDOM.createPortal(

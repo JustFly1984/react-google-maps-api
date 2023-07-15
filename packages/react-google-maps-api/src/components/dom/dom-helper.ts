@@ -1,4 +1,4 @@
-import { PositionDrawProps } from "../../types"
+import type { PositionDrawProps } from "../../types"
 
 export function getOffsetOverride(
   containerElement: HTMLElement,
@@ -26,16 +26,22 @@ function createLatLngBounds(inst: any, Type: any): any {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ensureOfType(
   inst: google.maps.LatLng | google.maps.LatLngLiteral | undefined,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   type: any,
-  factory: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  factory: (inst: google.maps.LatLng | google.maps.LatLngLiteral | undefined, type: any) => any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any {
   return inst instanceof type ? inst : factory(inst, type)
 }
 
 function ensureOfTypeBounds(
   inst: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   type: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   factory: (inst: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, type: any) => any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any {
   return inst instanceof type ? inst : factory(inst, type)
 }
@@ -44,7 +50,7 @@ function getLayoutStylesByBounds(
   mapCanvasProjection: google.maps.MapCanvasProjection,
   offset: { x: number; y: number },
   bounds: google.maps.LatLngBounds
-): { left: string; top: string; width?: string | undefined; height?: string | undefined } {
+): { left: string; top: string; width: string; height: string } | { left: string; top: string } {
   const ne = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(bounds.getNorthEast())
 
   const sw = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(bounds.getSouthWest())

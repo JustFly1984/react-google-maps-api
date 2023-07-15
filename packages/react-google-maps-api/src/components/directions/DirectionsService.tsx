@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 import invariant from 'invariant'
 
 interface DirectionsServiceState {
@@ -24,11 +24,11 @@ export interface DirectionsServiceProps {
   onUnmount?: ((directionsService: google.maps.DirectionsService) => void) | undefined
 }
 
-export class DirectionsService extends React.PureComponent<
+export class DirectionsService extends PureComponent<
   DirectionsServiceProps,
   DirectionsServiceState
 > {
-  state: DirectionsServiceState = {
+  override state: DirectionsServiceState = {
     directionsService: null,
   }
 
@@ -38,7 +38,7 @@ export class DirectionsService extends React.PureComponent<
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     invariant(
       !!this.props.options,
       'DirectionsService expected options object as parameter, but got %s',
@@ -54,13 +54,13 @@ export class DirectionsService extends React.PureComponent<
     }, this.setDirectionsServiceCallback)
   }
 
-  componentDidUpdate(): void {
+  override componentDidUpdate(): void {
     if (this.state.directionsService !== null) {
       this.state.directionsService.route(this.props.options, this.props.callback)
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.directionsService !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.directionsService)
@@ -68,7 +68,7 @@ export class DirectionsService extends React.PureComponent<
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

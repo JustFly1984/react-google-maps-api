@@ -1,6 +1,6 @@
 /* global google */
 /* eslint-disable filenames/match-regex */
-import { InfoBoxOptions } from './types'
+import type { InfoBoxOptions } from './types'
 
 // This handler prevents an event in the InfoBox from being passed on to the map.
 function cancelHandler(event: Event) {
@@ -19,9 +19,7 @@ export class InfoBox {
   position: google.maps.LatLng
   zIndex: number | undefined | null
   boxClass: string
-  boxStyle: {
-    [key: string]: any
-  }
+  boxStyle: CSSStyleDeclaration
 
   closeBoxMargin: string
   closeBoxURL: string
@@ -76,7 +74,7 @@ export class InfoBox {
 
     // Additional options (unique to InfoBox):
     this.boxClass = options.boxClass || 'infoBox'
-    this.boxStyle = options.boxStyle || {}
+    this.boxStyle = options.boxStyle || {} as CSSStyleDeclaration
     this.closeBoxMargin = options.closeBoxMargin || '2px'
     this.closeBoxURL = options.closeBoxURL || 'http://www.google.com/intl/en_us/mapfiles/close.gif'
     if (options.closeBoxURL === '') {
@@ -174,9 +172,9 @@ export class InfoBox {
           'touchmove',
         ]
 
-        for (let i = 0; i < events.length; i++) {
+        for (const event of events) {
           this.eventListeners.push(
-            google.maps.event.addListener(this.div, events[i], cancelHandler)
+            google.maps.event.addListener(this.div, event, cancelHandler)
           )
         }
 
@@ -336,7 +334,8 @@ export class InfoBox {
       this.div.style.cssText = ''
 
       // Apply style values defined in the boxStyle parameter:
-      const boxStyle = this.boxStyle
+      const boxStyle: CSSStyleDeclaration = this.boxStyle
+
       for (const i in boxStyle) {
 
         if (Object.prototype.hasOwnProperty.call(boxStyle, i)) {
@@ -670,8 +669,8 @@ export class InfoBox {
     }
 
     if (this.eventListeners) {
-      for (let i = 0; i < this.eventListeners.length; i++) {
-        google.maps.event.removeListener(this.eventListeners[i])
+      for (const eventListener of this.eventListeners) {
+        google.maps.event.removeListener(eventListener)
       }
 
       this.eventListeners = null
@@ -704,6 +703,7 @@ export class InfoBox {
     return function applyExtend(this: A, object: typeof google.maps.OverlayView): A {
       for (const property in object.prototype) {
         if (!Object.prototype.hasOwnProperty.call(this, property)) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           this.prototype[property] = object.prototype[property  as keyof google.maps.OverlayView]
         }

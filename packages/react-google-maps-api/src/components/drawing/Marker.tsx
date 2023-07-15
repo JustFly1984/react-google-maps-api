@@ -16,10 +16,10 @@ import {
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
 import MapContext from '../../map-context'
-import { HasMarkerAnchor } from '../../types'
+import type { HasMarkerAnchor } from '../../types'
 
-import { Clusterer } from '@react-google-maps/marker-clusterer'
-import { MarkerClusterer as GoogleClusterer} from '@googlemaps/markerclusterer'
+import  type{ Clusterer } from '@react-google-maps/marker-clusterer'
+import type { MarkerClusterer as GoogleClusterer} from '@googlemaps/markerclusterer'
 
 const eventMap = {
   onAnimationChanged: 'animation_changed',
@@ -538,7 +538,7 @@ function MarkerFunctional({
     const markerOptions = {
       ...(options || defaultOptions),
       ...(clusterer ? defaultOptions : { map }),
-      position: position,
+      position,
     }
 
     const marker = new google.maps.Marker(markerOptions)
@@ -834,14 +834,14 @@ function MarkerFunctional({
 export const MarkerF = memo(MarkerFunctional)
 
 export class Marker extends PureComponent<MarkerProps> {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
   marker: google.maps.Marker | undefined
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const markerOptions = {
       ...(this.props.options || defaultOptions),
       ...(this.props.clusterer ? defaultOptions : { map: this.context }),
@@ -871,7 +871,7 @@ export class Marker extends PureComponent<MarkerProps> {
     }
   }
 
-  componentDidUpdate(prevProps: MarkerProps): void {
+  override componentDidUpdate(prevProps: MarkerProps): void {
     if (this.marker) {
       unregisterEvents(this.registeredEvents)
 
@@ -885,7 +885,7 @@ export class Marker extends PureComponent<MarkerProps> {
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.marker) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.marker)
@@ -901,7 +901,7 @@ export class Marker extends PureComponent<MarkerProps> {
     }
   }
 
-  render(): ReactNode {
+  override render(): ReactNode {
     let children: ReactNode | null = null
 
     if (this.props.children) {

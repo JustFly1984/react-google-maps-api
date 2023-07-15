@@ -45,7 +45,7 @@ const IMAGE_SIZES = [53, 56, 66, 78, 90]
 
 const CLUSTERER_CLASS = 'cluster'
 
-export class Clusterer {
+export class Clusterer implements google.maps.OverlayView {
   markers: MarkerExtended[]
   clusters: Cluster[]
   listeners: google.maps.MapsEventListener[]
@@ -125,10 +125,10 @@ export class Clusterer {
     this.repaint = this.repaint.bind(this)
     this.onIdle = this.onIdle.bind(this)
     this.redraw = this.redraw.bind(this)
-    this.extend = this.extend.bind(this)
     this.onAdd = this.onAdd.bind(this)
     this.draw = this.draw.bind(this)
 
+    this.extend = this.extend.bind(this)
     this.extend(Clusterer, google.maps.OverlayView)
 
     this.markers = []
@@ -194,7 +194,7 @@ export class Clusterer {
     (this as unknown as google.maps.OverlayView).setMap(map) // Note: this causes onAdd to be called
   }
 
-  onZoomChanged() {
+  onZoomChanged(): void {
     this.resetViewport(false)
 
     // Workaround for this Google bug: when map is at level 0 and "-" of
@@ -210,11 +210,11 @@ export class Clusterer {
     }
   }
 
-  onIdle() {
+  onIdle(): void {
     this.redraw()
   }
 
-  onAdd() {
+  onAdd(): void {
     const map = (this as unknown as google.maps.OverlayView).getMap()
 
     this.activeMap = map
@@ -240,7 +240,7 @@ export class Clusterer {
     }
   }
 
-  onRemove() {
+  onRemove(): void {
     // Put all the managed markers back on the map:
     for (const marker of this.markers) {
       if (marker.getMap() !== this.activeMap) {
@@ -267,9 +267,43 @@ export class Clusterer {
     this.ready = false
   }
 
-  draw() { return }
+  draw(): void { return }
 
-  setupStyles() {
+  getMap(): null { return null }
+
+  getPanes(): null { return null }
+
+  getProjection()  {
+    return {
+      fromContainerPixelToLatLng(): null { return null },
+      fromDivPixelToLatLng(): null { return null},
+      fromLatLngToContainerPixel(): null { return null},
+      fromLatLngToDivPixel(): null { return null},
+      getVisibleRegion(): null { return null },
+      getWorldWidth(): number { return 0 }
+    }
+  }
+
+  setMap(): void { return }
+
+  addListener() {
+    return {
+      remove() { return }
+    }
+  }
+
+  bindTo(): void { return }
+
+  get(): void { return }
+
+  notify(): void { return }
+
+  set(): void { return }
+  setValues(): void { return }
+  unbind(): void { return }
+  unbindAll(): void { return }
+
+  setupStyles(): void {
     if (this.styles.length > 0) {
       return
     }
@@ -283,7 +317,7 @@ export class Clusterer {
     }
   }
 
-  fitMapToMarkers() {
+  fitMapToMarkers(): void {
     const markers = this.getMarkers()
 
     const bounds = new google.maps.LatLngBounds()
@@ -772,16 +806,19 @@ export class Clusterer {
     }
   }
 
-  extend<A extends typeof ClusterIcon | typeof Clusterer>(obj1: A, obj2: typeof google.maps.OverlayView): A {
+  extend<A extends typeof Clusterer | typeof ClusterIcon>(obj1: A, obj2: typeof google.maps.OverlayView): A {
     return function applyExtend(this: A, object: typeof google.maps.OverlayView): A {
       for (const property in object.prototype) {
+
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        const prop = property as keyof google.maps.OverlayView & (string & {})
+
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        this.prototype[property] = object.prototype[property  as keyof google.maps.OverlayView]
+        this.prototype[prop] = object.prototype[prop]
       }
 
       return this
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    }.apply<A, [typeof google.maps.OverlayView], any>(obj1, [obj2])
+    }.apply<A, [typeof google.maps.OverlayView], A>(obj1, [obj2])
   }
 }

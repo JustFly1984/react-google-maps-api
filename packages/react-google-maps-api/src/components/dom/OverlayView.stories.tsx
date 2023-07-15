@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
 import GoogleMap from '../../GoogleMap'
 import { OverlayViewF, OVERLAY_LAYER } from './OverlayView'
 
@@ -26,9 +26,11 @@ const getPixelPositionOffset = (width: number, height: number) => ({
   x: -(width / 2),
   y: -(height / 2),
 })
+
 const Template: ComponentStory<typeof OverlayViewF> = () => {
-const newZealand = new google.maps.LatLngBounds({lat: -46.641, lng: 166.509}, {lat: -34.450, lng: 178.517})
-return (
+  const newZealand = new google.maps.LatLngBounds({lat: -46.641, lng: 166.509}, {lat: -34.450, lng: 178.517})
+
+  return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
       {locations.map((location, index) => (
         <OverlayViewF

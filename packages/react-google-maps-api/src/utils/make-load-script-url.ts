@@ -1,6 +1,7 @@
+import type { Library } from '@googlemaps/js-api-loader'
 import invariant from 'invariant'
 
-export type Libraries = ("drawing" | "geometry" | "localContext" | "places" | "visualization")[]
+export type Libraries = Library[]
 
 export interface LoadScriptUrlOptions {
   googleMapsApiKey: string | ""

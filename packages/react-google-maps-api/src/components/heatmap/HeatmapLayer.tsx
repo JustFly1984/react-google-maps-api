@@ -126,12 +126,12 @@ export class HeatmapLayer extends PureComponent<
   HeatmapLayerProps,
   HeatmapLayerState
 > {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: HeatmapLayerState = {
+  override state: HeatmapLayerState = {
     heatmapLayer: null,
   }
 
@@ -141,7 +141,7 @@ export class HeatmapLayer extends PureComponent<
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     invariant(
       !!google.maps.visualization,
       'Did you include prop libraries={["visualization"]} to <LoadScript />? %s',
@@ -175,7 +175,7 @@ export class HeatmapLayer extends PureComponent<
     }, this.setHeatmapLayerCallback)
   }
 
-  componentDidUpdate(prevProps: HeatmapLayerProps): void {
+  override componentDidUpdate(prevProps: HeatmapLayerProps): void {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -187,7 +187,7 @@ export class HeatmapLayer extends PureComponent<
     })
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.heatmapLayer !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.heatmapLayer)
@@ -199,7 +199,7 @@ export class HeatmapLayer extends PureComponent<
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

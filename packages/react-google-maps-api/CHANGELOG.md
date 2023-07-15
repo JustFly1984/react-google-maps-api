@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.19.0 fix to MarkerF animation, update Typescript@5.1.6
+
 ## 2.18.0 GroundOverlayF component, reduce bundle size by externalizing react/jsx-runtime
 
 - TrafficLayerF

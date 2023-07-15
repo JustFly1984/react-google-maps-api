@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { PureComponent } from 'react'
 
 import invariant from 'invariant'
 
@@ -25,11 +25,11 @@ export interface DistanceMatrixServiceProps {
   onUnmount?: ((distanceMatrixService: google.maps.DistanceMatrixService) => void) | undefined
 }
 
-export class DistanceMatrixService extends React.PureComponent<
+export class DistanceMatrixService extends PureComponent<
   DistanceMatrixServiceProps,
   DistanceMatrixServiceState
 > {
-  state: DistanceMatrixServiceState = {
+  override state: DistanceMatrixServiceState = {
     distanceMatrixService: null,
   }
 
@@ -39,7 +39,7 @@ export class DistanceMatrixService extends React.PureComponent<
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     invariant(
       !!this.props.options,
       'DistanceMatrixService expected options object as parameter, but go %s',
@@ -55,19 +55,19 @@ export class DistanceMatrixService extends React.PureComponent<
     }, this.setDistanceMatrixServiceCallback)
   }
 
-  componentDidUpdate(): void {
+  override componentDidUpdate(): void {
     if (this.state.distanceMatrixService !== null) {
       this.state.distanceMatrixService.getDistanceMatrix(this.props.options, this.props.callback)
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.distanceMatrixService !== null && this.props.onUnmount) {
       this.props.onUnmount(this.state.distanceMatrixService)
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

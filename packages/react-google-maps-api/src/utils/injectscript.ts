@@ -10,6 +10,7 @@ interface InjectScriptArg {
   nonce?: string | undefined
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function injectScript({ url, id, nonce }: InjectScriptArg): Promise<any> {
   if (!isBrowser) {
     return Promise.reject(new Error('document is undefined'))
@@ -63,7 +64,7 @@ export function injectScript({ url, id, nonce }: InjectScriptArg): Promise<any> 
     script.src = url
     script.id = id
     script.async = true
-    script.nonce = nonce
+    script.nonce = nonce || ''
     script.onerror = function onerror(err): void {
       script.setAttribute('data-state', 'error')
 

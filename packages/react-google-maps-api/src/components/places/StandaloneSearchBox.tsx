@@ -40,14 +40,14 @@ class StandaloneSearchBox extends PureComponent<
   StandaloneSearchBoxProps,
   StandaloneSearchBoxState
 > {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
   containerElement: RefObject<HTMLDivElement> = createRef()
 
-  state: StandaloneSearchBoxState = {
+  override state: StandaloneSearchBoxState = {
     searchBox: null,
   }
 
@@ -57,7 +57,7 @@ class StandaloneSearchBox extends PureComponent<
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     invariant(
       !!google.maps.places,
       'You need to provide libraries={["places"]} prop to <LoadScript /> component %s',
@@ -87,7 +87,7 @@ class StandaloneSearchBox extends PureComponent<
     }
   }
 
-  componentDidUpdate(prevProps: StandaloneSearchBoxProps): void {
+  override componentDidUpdate(prevProps: StandaloneSearchBoxProps): void {
     if (this.state.searchBox !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -101,7 +101,7 @@ class StandaloneSearchBox extends PureComponent<
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.searchBox !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.searchBox)
@@ -111,7 +111,7 @@ class StandaloneSearchBox extends PureComponent<
     }
   }
 
-  render(): JSX.Element {
+  override render(): JSX.Element {
     return <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
   }
 }

@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
 import { GoogleMap, MarkerF, GoogleMapsMarkerClusterer as gm } from '../..'
 import GoogleMarkerClusterer from './GoogleMarkerClusterer'
 

@@ -1,4 +1,4 @@
-import { PureComponent } from 'react'
+import { type ContextType, PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -87,11 +87,13 @@ export class StreetViewPanorama extends PureComponent<
   StreetViewPanoramaProps,
   StreetViewPanoramaState
 > {
-  static contextType = MapContext
+  static override contextType = MapContext
+
+  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: StreetViewPanoramaState = {
+  override state: StreetViewPanoramaState = {
     streetViewPanorama: null,
   }
 
@@ -101,9 +103,9 @@ export class StreetViewPanorama extends PureComponent<
     }
   }
 
-  componentDidMount(): void {
-    // @ts-ignore
-    const streetViewPanorama = this.context.getStreetView()
+  override componentDidMount(): void {
+
+    const streetViewPanorama = this.context?.getStreetView() ?? null
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
@@ -120,7 +122,7 @@ export class StreetViewPanorama extends PureComponent<
     }, this.setStreetViewPanoramaCallback)
   }
 
-  componentDidUpdate(prevProps: StreetViewPanoramaProps): void {
+  override componentDidUpdate(prevProps: StreetViewPanoramaProps): void {
     if (this.state.streetViewPanorama !== null) {
       unregisterEvents(this.registeredEvents)
 
@@ -134,7 +136,7 @@ export class StreetViewPanorama extends PureComponent<
     }
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.streetViewPanorama !== null) {
       if (this.props.onUnmount) {
         this.props.onUnmount(this.state.streetViewPanorama)
@@ -146,7 +148,7 @@ export class StreetViewPanorama extends PureComponent<
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

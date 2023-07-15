@@ -42,8 +42,7 @@ function TransitLayerFunctional({ onLoad, onUnmount }: TransitLayerProps): null 
           onUnmount(instance)
         }
 
-        // @ts-ignore
-        this.state.transitLayer.setMap(null)
+        instance.setMap(null)
       }
     }
   }, [])
@@ -54,27 +53,25 @@ function TransitLayerFunctional({ onLoad, onUnmount }: TransitLayerProps): null 
 export const TransitLayerF = memo(TransitLayerFunctional)
 
 export class TransitLayer extends PureComponent<TransitLayerProps, TransitLayerState> {
-  static contextType = MapContext
+  static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
-  state = {
+  override state: TransitLayerState = {
     transitLayer: null,
   }
 
   setTransitLayerCallback = (): void => {
     if (this.state.transitLayer !== null) {
 
-      // @ts-ignore
       this.state.transitLayer.setMap(this.context)
 
       if (this.props.onLoad) {
-        // @ts-ignore
         this.props.onLoad(this.state.transitLayer)
       }
     }
   }
 
-  componentDidMount(): void {
+  override componentDidMount(): void {
     const transitLayer = new google.maps.TransitLayer()
 
     this.setState(function setTransitLayer() {
@@ -84,19 +81,17 @@ export class TransitLayer extends PureComponent<TransitLayerProps, TransitLayerS
     }, this.setTransitLayerCallback)
   }
 
-  componentWillUnmount(): void {
+  override componentWillUnmount(): void {
     if (this.state.transitLayer !== null) {
       if (this.props.onUnmount) {
-        // @ts-ignore
         this.props.onUnmount(this.state.transitLayer)
       }
 
-      // @ts-ignore
       this.state.transitLayer.setMap(null)
     }
   }
 
-  render(): null {
+  override render(): null {
     return null
   }
 }

@@ -1,4 +1,4 @@
-function isGoogleFontStyle(element: HTMLElement): boolean {
+function isGoogleFontStyle(element: Node): boolean {
   // 'Roboto' or 'Google Sans Text' font download
   const href = (element as HTMLLinkElement).href;
   if (
@@ -11,32 +11,51 @@ function isGoogleFontStyle(element: HTMLElement): boolean {
   }
   // font style elements
   if (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     element.tagName.toLowerCase() === 'style' &&
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.styleSheet &&
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.styleSheet.cssText &&
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.styleSheet.cssText.replace('\r\n', '').indexOf('.gm-style') === 0
   ) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.styleSheet.cssText = ''
     return true
   }
   // font style elements for other browsers
   if (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     element.tagName.toLowerCase() === 'style' &&
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     element.innerHTML &&
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     element.innerHTML.replace('\r\n', '').indexOf('.gm-style') === 0
   ) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     element.innerHTML = ''
     return true
   }
   // when google tries to add empty style
   if (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     element.tagName.toLowerCase() === 'style' &&
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     !element.styleSheet &&
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     !element.innerHTML
   ) {
     return true
@@ -51,26 +70,33 @@ export function preventGoogleFonts (): void {
   // default methods for other elements are not affected
   const head = document.getElementsByTagName('head')[0]
 
-  const trueInsertBefore = head.insertBefore.bind(head)
+  if (head) {
+    const trueInsertBefore = head.insertBefore.bind(head)
 
-  // TODO: adding return before reflect solves the TS issue
-  // @ts-ignore
-  head.insertBefore = function insertBefore(
-    newElement: HTMLElement,
-    referenceElement: HTMLElement
-  ): void {
-    if (!isGoogleFontStyle(newElement)) {
-      Reflect.apply(trueInsertBefore, head, [newElement, referenceElement])
+    // TODO: adding return before reflect solves the TS issue
+
+    head.insertBefore = function insertBefore<T extends Node>(
+      newElement: T,
+      referenceElement: HTMLElement
+    ): T {
+      if (!isGoogleFontStyle(newElement)) {
+        Reflect.apply(trueInsertBefore, head, [newElement, referenceElement])
+      }
+
+      return newElement
+    }
+
+    const trueAppend = head.appendChild.bind(head)
+
+    // TODO: adding return before reflect solves the TS issue
+
+    head.appendChild = function appendChild<T extends Node>(textNode: T): T {
+      if (!isGoogleFontStyle(textNode)) {
+        Reflect.apply(trueAppend, head, [textNode])
+      }
+
+      return textNode
     }
   }
 
-  const trueAppend = head.appendChild.bind(head)
-
-  // TODO: adding return before reflect solves the TS issue
-  // @ts-ignore
-  head.appendChild = function appendChild(textNode: HTMLElement): void {
-    if (!isGoogleFontStyle(textNode)) {
-      Reflect.apply(trueAppend, head, [textNode])
-    }
-  }
 }
