@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import ExampleHeatmap from '../examples/example-heatmap'
@@ -14,4 +15,4 @@ const SectionHeatmap = () => {
   return heatmap ? <ExampleHeatmap styles={shapeExampleStyles} /> : <></>
 }
 
-export default React.memo(SectionHeatmap)
+export default memo(SectionHeatmap)

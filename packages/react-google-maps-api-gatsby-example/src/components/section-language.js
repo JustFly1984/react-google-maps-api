@@ -1,8 +1,10 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
 import langEn from '../img/us.svg'
 import langEs from '../img/es.svg'
 import langRu from '../img/ru.svg'
-import { useSelector, useDispatch } from 'react-redux'
 
 import { changeLanguage } from '../actions/app'
 
@@ -13,7 +15,7 @@ function selector(state) {
 function SectionLanguage() {
   const dispatch = useDispatch()
 
-  const setEnLang = React.useCallback(
+  const setEnLang = useCallback(
     ({ target: { checked } }) => {
       if (checked) {
         dispatch(
@@ -26,7 +28,7 @@ function SectionLanguage() {
     [dispatch]
   )
 
-  const setRuLang = React.useCallback(
+  const setRuLang = useCallback(
     ({ target: { checked } }) => {
       if (checked) {
         dispatch(
@@ -39,7 +41,7 @@ function SectionLanguage() {
     [dispatch]
   )
 
-  const setEsLang = React.useCallback(
+  const setEsLang = useCallback(
     ({ target: { checked } }) => {
       if (checked) {
         dispatch(
@@ -104,4 +106,4 @@ function SectionLanguage() {
   )
 }
 
-export default React.memo(SectionLanguage)
+export default memo(SectionLanguage)

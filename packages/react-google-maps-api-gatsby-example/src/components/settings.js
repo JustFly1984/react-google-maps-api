@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 
 import Card from '../components/card'
 import InputBoxApiKey from './input-box-api-key'
@@ -33,4 +34,4 @@ function Settings() {
   )
 }
 
-export default React.memo(Settings)
+export default memo(Settings)

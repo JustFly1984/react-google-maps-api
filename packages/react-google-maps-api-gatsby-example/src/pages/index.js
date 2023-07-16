@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import Layout from '../components/layout'
 import { useSelector } from 'react-redux'
 
@@ -44,4 +45,4 @@ function IndexPage() {
   )
 }
 
-export default React.memo(IndexPage)
+export default memo(IndexPage)

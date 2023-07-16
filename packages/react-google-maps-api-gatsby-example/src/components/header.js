@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { Link } from 'gatsby'
 import logo from '../img/logo.svg'
 
@@ -15,4 +16,4 @@ function Header() {
   )
 }
 
-export default React.memo(Header)
+export default memo(Header)

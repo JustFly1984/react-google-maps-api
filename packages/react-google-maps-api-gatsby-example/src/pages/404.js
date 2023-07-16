@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { Link } from 'gatsby'
 import Layout from '../components/layout'
 import Card from '../components/card'
@@ -23,4 +24,4 @@ function NotFoundPage() {
   )
 }
 
-export default React.memo(NotFoundPage)
+export default memo(NotFoundPage)

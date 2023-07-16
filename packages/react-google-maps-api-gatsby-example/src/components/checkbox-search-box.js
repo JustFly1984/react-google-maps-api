@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleStandaloneSearchBox } from '../actions/app'
@@ -11,7 +12,8 @@ function selector(state) {
 
 function CheckboxSearchBox() {
   const dispatch = useDispatch()
-  const onChange = React.useCallback(
+
+  const onChange = useCallback(
     ({ target: { checked } }) => {
       dispatch(
         toggleStandaloneSearchBox({
@@ -21,7 +23,9 @@ function CheckboxSearchBox() {
     },
     [dispatch]
   )
+
   const value = useSelector(selector)
+
   return (
     <div className='custom-control custom-checkbox'>
       <input
@@ -33,10 +37,10 @@ function CheckboxSearchBox() {
       />
 
       <label className='custom-control-label' htmlFor={id}>
-        Searchbox
+        SearchBox
       </label>
     </div>
   )
 }
 
-export default React.memo(CheckboxSearchBox)
+export default memo(CheckboxSearchBox)

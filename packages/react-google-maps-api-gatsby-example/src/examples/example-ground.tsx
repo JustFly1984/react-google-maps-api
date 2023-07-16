@@ -1,4 +1,5 @@
-import { type CSSProperties, memo, useMemo } from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { type CSSProperties, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, GroundOverlay } from '@react-google-maps/api'
 
@@ -20,8 +21,8 @@ const BoundsLiteral: google.maps.LatLngBoundsLiteral = {
   west: -74.22655,
 }
 
-const onClick = (...args: any[]) => {
-  console.log('onClick args: ', args)
+const onClick = (e: google.maps.MapMouseEvent) => {
+  console.log('onClick args: ', e)
 }
 
 interface Props {
@@ -31,14 +32,10 @@ interface Props {
 }
 
 function GroundOverlayC(): JSX.Element {
-  const BOUNDS = useMemo(() => {
-    return new google.maps.LatLngBounds().union(BoundsLiteral)
-  }, [])
-
   return (
     <GroundOverlay
     url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
-    bounds={BOUNDS}
+    bounds={BoundsLiteral}
   />
   )
 }

@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleShapes } from '../actions/app'
@@ -11,7 +12,7 @@ function selector(state) {
 
 function CheckboxShapes() {
   const dispatch = useDispatch()
-  const onChange = React.useCallback(
+  const onChange = useCallback(
     ({ target: { checked } }) => {
       dispatch(
         toggleShapes({
@@ -39,4 +40,4 @@ function CheckboxShapes() {
   )
 }
 
-export default React.memo(CheckboxShapes)
+export default memo(CheckboxShapes)

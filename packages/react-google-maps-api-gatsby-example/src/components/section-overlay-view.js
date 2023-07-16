@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import ExampleOverlayView from '../examples/example-overlay-view'
@@ -18,4 +19,4 @@ function SectionOverlayView() {
   )
 }
 
-export default React.memo(SectionOverlayView)
+export default memo(SectionOverlayView)

@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 
 import Card from '../components/card'
 
@@ -12,4 +13,4 @@ function NoMaps() {
   )
 }
 
-export default React.memo(NoMaps)
+export default memo(NoMaps)

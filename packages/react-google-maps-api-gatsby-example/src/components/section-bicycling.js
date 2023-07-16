@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import ExampleBicycling from '../examples/example-bicycling'
@@ -14,4 +15,4 @@ function SectionBicycling() {
   return bicycling ? <ExampleBicycling styles={shapeExampleStyles} /> : <></>
 }
 
-export default React.memo(SectionBicycling)
+export default memo(SectionBicycling)

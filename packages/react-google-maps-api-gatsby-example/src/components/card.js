@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 
 function Card({ children }) {
@@ -13,4 +14,4 @@ Card.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default React.memo(Card)
+export default memo(Card)

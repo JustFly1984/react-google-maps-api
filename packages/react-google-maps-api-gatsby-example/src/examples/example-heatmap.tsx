@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-extraneous-import
 import { type CSSProperties, memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -16,8 +17,8 @@ const center: google.maps.LatLngLiteral = {
   lng: -122.433523
 }
 
-const onClick = (...args: any[]) => {
-  console.log('onClick args: ', args)
+const onClick = (e: google.maps.MapMouseEvent) => {
+  console.log('onClick args: ', e)
 }
 
 interface Props {

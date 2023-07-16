@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleTraffic } from '../actions/app'
@@ -10,7 +11,8 @@ function selector(state) {
 
 function CheckboxTraffic() {
   const dispatch = useDispatch()
-  const onChange = React.useCallback(
+
+  const onChange = useCallback(
     ({ target: { checked } }) => {
       dispatch(
         toggleTraffic({
@@ -20,7 +22,9 @@ function CheckboxTraffic() {
     },
     [dispatch]
   )
+
   const value = useSelector(selector)
+
   return (
     <div className='custom-control custom-checkbox'>
       <input
@@ -38,4 +42,4 @@ function CheckboxTraffic() {
   )
 }
 
-export default React.memo(CheckboxTraffic)
+export default memo(CheckboxTraffic)

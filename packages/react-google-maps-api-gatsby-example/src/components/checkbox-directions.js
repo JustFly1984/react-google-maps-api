@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleDirections } from '../actions/app'
@@ -12,7 +13,7 @@ function selector(state) {
 function CheckboxDirections() {
   const dispatch = useDispatch()
 
-  const onChange = React.useCallback(
+  const onChange = useCallback(
     ({ target: { checked } }) => {
       dispatch(
         toggleDirections({
@@ -42,4 +43,4 @@ function CheckboxDirections() {
   )
 }
 
-export default React.memo(CheckboxDirections)
+export default memo(CheckboxDirections)

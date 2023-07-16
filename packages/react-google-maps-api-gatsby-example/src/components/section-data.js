@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import ExampleData from '../examples/example-data'
@@ -14,4 +15,4 @@ function SectionData() {
   return data ? <ExampleData styles={shapeExampleStyles} /> : <></>
 }
 
-export default React.memo(SectionData)
+export default memo(SectionData)

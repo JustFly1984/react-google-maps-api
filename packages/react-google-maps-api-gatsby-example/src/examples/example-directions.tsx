@@ -1,4 +1,5 @@
-import { CSSProperties, memo, useCallback, useMemo, useRef, useState } from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { type CSSProperties, memo, useCallback, useMemo, useRef, useState, type ChangeEventHandler as ReactChangeEventHandler, type MouseEventHandler as ReactMouseEventHandler } from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
@@ -24,42 +25,42 @@ interface Props {
 }
 
 function ExampleDirections({ styles }: Props): JSX.Element {
-  const [response, setResponse] = useState(null)
+  const [response, setResponse] = useState<google.maps.DirectionsResult | null>(null)
   const [travelMode, setTravelMode] = useState<google.maps.TravelMode>(google.maps.TravelMode.DRIVING)
   const [origin, setOrigin] = useState('')
   const [destination, setDestination] = useState('')
   const originRef = useRef<HTMLInputElement | null>(null)
   const destinationRef = useRef<HTMLInputElement | null>(null)
 
-  const directionsCallback = useCallback((res) => {
-    console.log(res)
+  const directionsCallback = useCallback((result: google.maps.DirectionsResult | null, status: google.maps.DirectionsStatus) => {
+    console.log(result)
 
-    if (res !== null) {
-      if (res.status === 'OK') {
-        setResponse(res)
+    if (result !== null) {
+      if (status === 'OK') {
+        setResponse(result)
       } else {
-        console.log('response: ', res)
+        console.log('response: ', result)
       }
     }
   }, [])
 
-  const checkDriving = useCallback(({ target: { checked } }) => {
+  const checkDriving = useCallback<ReactChangeEventHandler<HTMLInputElement>>(({ target: { checked } }) => {
     checked && setTravelMode(google.maps.TravelMode.DRIVING)
   }, [])
 
-  const checkBicycling = useCallback(({ target: { checked } }) => {
+  const checkBicycling = useCallback<ReactChangeEventHandler<HTMLInputElement>>(({ target: { checked } }) => {
     checked && setTravelMode(google.maps.TravelMode.BICYCLING)
   }, [])
 
-  const checkTransit = useCallback(({ target: { checked } }) => {
+  const checkTransit = useCallback<ReactChangeEventHandler<HTMLInputElement>>(({ target: { checked } }) => {
     checked && setTravelMode(google.maps.TravelMode.TRANSIT)
   }, [])
 
-  const checkWalking = useCallback(({ target: { checked } }) => {
+  const checkWalking = useCallback<ReactChangeEventHandler<HTMLInputElement>>(({ target: { checked } }) => {
     checked && setTravelMode(google.maps.TravelMode.WALKING)
   }, [])
 
-  const onClick = useCallback(() => {
+  const onClick = useCallback<ReactMouseEventHandler<HTMLButtonElement>>(() => {
     if (originRef.current && originRef.current.value !== '' && destinationRef.current && destinationRef.current.value !== '') {
       setOrigin(originRef.current.value)
 
@@ -67,15 +68,15 @@ function ExampleDirections({ styles }: Props): JSX.Element {
     }
   }, [])
 
-  const onMapClick = useCallback((...args) => {
-    console.log('onClick args: ', args)
+  const onMapClick = useCallback((e: google.maps.MapMouseEvent) => {
+    console.log('onClick args: ', e)
   }, [])
 
   const directionsServiceOptions = useMemo<google.maps.DirectionsRequest>(() => {
     return {
-      destination: destination,
-      origin: origin,
-      travelMode: travelMode,
+      destination,
+      origin,
+      travelMode,
     }
   }, [])
 

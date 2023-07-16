@@ -1,4 +1,5 @@
-import React, { memo } from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import uniqid from 'uniqid'
 import { useSelector } from 'react-redux'
 

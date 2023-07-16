@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 
 function Footer() {
   return (
@@ -8,4 +9,4 @@ function Footer() {
   )
 }
 
-export default React.memo(Footer)
+export default memo(Footer)
