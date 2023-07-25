@@ -1,11 +1,18 @@
 // eslint-disable-next-line node/no-extraneous-import
-import { type CSSProperties, memo, useCallback, useMemo, useRef, useState, type ChangeEventHandler as ReactChangeEventHandler, type MouseEventHandler as ReactMouseEventHandler } from 'react'
-import PropTypes from 'prop-types'
 import {
-  GoogleMap,
-  DirectionsService,
   DirectionsRenderer,
+  DirectionsService,
+  GoogleMap,
 } from '@react-google-maps/api'
+import * as PropTypes from 'prop-types'
+import {
+  memo,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from 'react'
 
 const ExampleDirectionsPropTypes = {
   styles: PropTypes.shape({
@@ -25,66 +32,117 @@ interface Props {
 }
 
 function ExampleDirections({ styles }: Props): JSX.Element {
-  const [response, setResponse] = useState<google.maps.DirectionsResult | null>(null)
-  const [travelMode, setTravelMode] = useState<google.maps.TravelMode>(google.maps.TravelMode.DRIVING)
-  const [origin, setOrigin] = useState('')
-  const [destination, setDestination] = useState('')
+  const [response, setResponse] = useState<google.maps.DirectionsResult | null>(
+    null
+  )
+
+  const [directionsFormValue, setDirectionsFormValue] = useState({
+    origin: '',
+    destination: '',
+    travelMode: google.maps.TravelMode.DRIVING,
+  })
+
   const originRef = useRef<HTMLInputElement | null>(null)
   const destinationRef = useRef<HTMLInputElement | null>(null)
 
-  const directionsCallback = useCallback((result: google.maps.DirectionsResult | null, status: google.maps.DirectionsStatus) => {
-    console.log(result)
-
-    if (result !== null) {
-      if (status === 'OK') {
-        setResponse(result)
-      } else {
-        console.log('response: ', result)
+  const directionsCallback = useCallback(
+    (
+      result: google.maps.DirectionsResult | null,
+      status: google.maps.DirectionsStatus
+    ) => {
+      if (result !== null) {
+        if (status === 'OK') {
+          setResponse(result)
+        } else {
+          console.log('response: ', result)
+        }
       }
+    },
+    []
+  )
+
+  const checkDriving = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
+    ({ target: { checked } }) => {
+      checked &&
+        setDirectionsFormValue((currentValue) => ({
+          ...currentValue,
+          travelMode: google.maps.TravelMode.DRIVING,
+        }))
+    },
+    []
+  )
+
+  const checkBicycling = useCallback<
+    React.ChangeEventHandler<HTMLInputElement>
+  >(({ target: { checked } }) => {
+    checked &&
+      setDirectionsFormValue((currentValue) => ({
+        ...currentValue,
+        travelMode: google.maps.TravelMode.BICYCLING,
+      }))
+  }, [])
+
+  const checkTransit = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
+    ({ target: { checked } }) => {
+      checked &&
+        setDirectionsFormValue((currentValue) => ({
+          ...currentValue,
+          travelMode: google.maps.TravelMode.TRANSIT,
+        }))
+    },
+    []
+  )
+
+  const checkWalking = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
+    ({ target: { checked } }) => {
+      checked &&
+        setDirectionsFormValue((currentValue) => ({
+          ...currentValue,
+          travelMode: google.maps.TravelMode.WALKING,
+        }))
+    },
+    []
+  )
+
+  const onClick = useCallback<
+    React.MouseEventHandler<HTMLButtonElement>
+  >(() => {
+    if (
+      originRef.current &&
+      originRef.current.value !== '' &&
+      destinationRef.current &&
+      destinationRef.current.value !== ''
+    ) {
+      setDirectionsFormValue((currentValue) => ({
+        ...currentValue,
+        origin: originRef.current?.value ?? '',
+        destination: destinationRef.current?.value ?? '',
+      }))
     }
-  }, [])
-
-  const checkDriving = useCallback<ReactChangeEventHandler<HTMLInputElement>>(({ target: { checked } }) => {
-    checked && setTravelMode(google.maps.TravelMode.DRIVING)
-  }, [])
-
-  const checkBicycling = useCallback<ReactChangeEventHandler<HTMLInputElement>>(({ target: { checked } }) => {
-    checked && setTravelMode(google.maps.TravelMode.BICYCLING)
-  }, [])
-
-  const checkTransit = useCallback<ReactChangeEventHandler<HTMLInputElement>>(({ target: { checked } }) => {
-    checked && setTravelMode(google.maps.TravelMode.TRANSIT)
-  }, [])
-
-  const checkWalking = useCallback<ReactChangeEventHandler<HTMLInputElement>>(({ target: { checked } }) => {
-    checked && setTravelMode(google.maps.TravelMode.WALKING)
-  }, [])
-
-  const onClick = useCallback<ReactMouseEventHandler<HTMLButtonElement>>(() => {
-    if (originRef.current && originRef.current.value !== '' && destinationRef.current && destinationRef.current.value !== '') {
-      setOrigin(originRef.current.value)
-
-      setDestination(destinationRef.current.value)
-    }
-  }, [])
+  }, [originRef.current?.value, destinationRef.current?.value])
 
   const onMapClick = useCallback((e: google.maps.MapMouseEvent) => {
     console.log('onClick args: ', e)
   }, [])
 
-  const directionsServiceOptions = useMemo<google.maps.DirectionsRequest>(() => {
-    return {
-      destination,
-      origin,
-      travelMode,
-    }
-  }, [])
+  const directionsServiceOptions =
+    useMemo<google.maps.DirectionsRequest>(() => {
+      return {
+        destination: directionsFormValue.destination,
+        origin: directionsFormValue.origin,
+        travelMode: directionsFormValue.travelMode,
+      }
+    }, [
+      directionsFormValue.origin,
+      directionsFormValue.destination,
+      directionsFormValue.travelMode,
+    ])
 
-  const directionsRendererOptions = useMemo(() => {
+  const directionsResult = useMemo(() => {
     return {
       directions: response,
     }
-  }, [])
+  }, [response])
 
   return (
     <div className='map'>
@@ -126,7 +184,10 @@ function ExampleDirections({ styles }: Props): JSX.Element {
               className='custom-control-input'
               name='travelMode'
               type='radio'
-              checked={travelMode === 'DRIVING'}
+              checked={
+                directionsFormValue.travelMode ===
+                google.maps.TravelMode.DRIVING
+              }
               onChange={checkDriving}
             />
             <label className='custom-control-label' htmlFor='DRIVING'>
@@ -140,7 +201,10 @@ function ExampleDirections({ styles }: Props): JSX.Element {
               className='custom-control-input'
               name='travelMode'
               type='radio'
-              checked={travelMode === 'BICYCLING'}
+              checked={
+                directionsFormValue.travelMode ===
+                google.maps.TravelMode.BICYCLING
+              }
               onChange={checkBicycling}
             />
             <label className='custom-control-label' htmlFor='BICYCLING'>
@@ -154,7 +218,10 @@ function ExampleDirections({ styles }: Props): JSX.Element {
               className='custom-control-input'
               name='travelMode'
               type='radio'
-              checked={travelMode === 'TRANSIT'}
+              checked={
+                directionsFormValue.travelMode ===
+                google.maps.TravelMode.TRANSIT
+              }
               onChange={checkTransit}
             />
             <label className='custom-control-label' htmlFor='TRANSIT'>
@@ -168,7 +235,10 @@ function ExampleDirections({ styles }: Props): JSX.Element {
               className='custom-control-input'
               name='travelMode'
               type='radio'
-              checked={travelMode === 'WALKING'}
+              checked={
+                directionsFormValue.travelMode ===
+                google.maps.TravelMode.WALKING
+              }
               onChange={checkWalking}
             />
             <label className='custom-control-label' htmlFor='WALKING'>
@@ -190,15 +260,16 @@ function ExampleDirections({ styles }: Props): JSX.Element {
           center={center}
           onClick={onMapClick}
         >
-          {destination !== '' && origin !== '' && (
-            <DirectionsService
-              options={directionsServiceOptions}
-              callback={directionsCallback}
-            />
-          )}
+          {directionsFormValue.destination !== '' &&
+            directionsFormValue.origin !== '' && (
+              <DirectionsService
+                options={directionsServiceOptions}
+                callback={directionsCallback}
+              />
+            )}
 
-          {response !== null && (
-            <DirectionsRenderer options={directionsRendererOptions} />
+          {directionsResult.directions && (
+            <DirectionsRenderer options={directionsResult} />
           )}
         </GoogleMap>
       </div>
