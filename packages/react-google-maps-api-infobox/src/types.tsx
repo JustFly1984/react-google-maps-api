@@ -1,7 +1,7 @@
 export interface InfoBoxOptions {
   alignBottom?: boolean | undefined
   boxClass?: string | undefined
-  boxStyle?: CSSStyleDeclaration | undefined
+  boxStyle?: Partial<CSSStyleDeclaration> | undefined
   closeBoxMargin?: string | undefined
   closeBoxURL?: string | undefined
   content?: string | Node | undefined
