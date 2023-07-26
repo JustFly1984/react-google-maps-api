@@ -19,7 +19,7 @@ export class InfoBox {
   position: google.maps.LatLng
   zIndex: number | undefined | null
   boxClass: string
-  boxStyle: CSSStyleDeclaration
+  boxStyle: Partial<CSSStyleDeclaration>
 
   closeBoxMargin: string
   closeBoxURL: string
@@ -74,7 +74,7 @@ export class InfoBox {
 
     // Additional options (unique to InfoBox):
     this.boxClass = options.boxClass || 'infoBox'
-    this.boxStyle = options.boxStyle || {} as CSSStyleDeclaration
+    this.boxStyle = options.boxStyle || {} as Partial<CSSStyleDeclaration>
     this.closeBoxMargin = options.closeBoxMargin || '2px'
     this.closeBoxURL = options.closeBoxURL || 'http://www.google.com/intl/en_us/mapfiles/close.gif'
     if (options.closeBoxURL === '') {
@@ -334,7 +334,7 @@ export class InfoBox {
       this.div.style.cssText = ''
 
       // Apply style values defined in the boxStyle parameter:
-      const boxStyle: CSSStyleDeclaration = this.boxStyle
+      const boxStyle: Partial<CSSStyleDeclaration> = this.boxStyle
 
       for (const i in boxStyle) {
 
