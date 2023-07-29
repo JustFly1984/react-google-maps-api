@@ -27,18 +27,18 @@ class Directions extends Component {
     this.onMapClick = this.onMapClick.bind(this)
   }
 
-  directionsCallback (response) {
-    console.log(response)
+  directionsCallback (result, status) {
+    console.log(result)
 
-    if (response !== null) {
-      if (response.status === 'OK') {
+    if (result !== null) {
+      if (status === 'OK') {
         this.setState(
           () => ({
-            response
+            response: result
           })
         )
       } else {
-        console.log('response: ', response)
+        console.log('response: ', result)
       }
     }
   }
@@ -235,7 +235,7 @@ class Directions extends Component {
             }
 
             {
-              this.state.response !== null && (
+              this.state.response && (
                 <DirectionsRenderer
                   // required
                   options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
