@@ -271,14 +271,6 @@ function Directions(): JSX.Element {
           center={center}
           // optional
           onClick={onMapClick}
-          // optional
-          onLoad={(map) => {
-            console.log('DirectionsRenderer onLoad map: ', map);
-          }}
-          // optional
-          onUnmount={(map) => {
-            console.log('DirectionsRenderer onUnmount map: ', map);
-          }}
         >
           {directionsFormValue.destination !== '' &&
             directionsFormValue.origin !== '' && (
@@ -298,20 +290,6 @@ function Directions(): JSX.Element {
             <DirectionsRenderer
               // required
               options={directionsResult}
-              // optional
-              onLoad={(directionsRenderer) => {
-                console.log(
-                  'DirectionsRenderer onLoad directionsRenderer: ',
-                  directionsRenderer
-                );
-              }}
-              // optional
-              onUnmount={(directionsRenderer) => {
-                console.log(
-                  'DirectionsRenderer onUnmount directionsRenderer: ',
-                  directionsRenderer
-                );
-              }}
             />
           )}
         </GoogleMap>
