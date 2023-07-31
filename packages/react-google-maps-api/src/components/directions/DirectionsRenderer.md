@@ -1,262 +1,301 @@
 # DirectionsRenderer and DirectionsService example
 
 ```jsx
-const { Component } = require('react');
-const { GoogleMap, LoadScript, DirectionsService } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 
-class Directions extends Component {
-  constructor (props) {
-    super(props)
+import {
+  GoogleMap,
+  DirectionsService,
+  DirectionsRenderer,
+} from '@react-google-maps/api';
 
-    this.state = {
-      response: null,
-      travelMode: 'DRIVING',
-      origin: '',
-      destination: ''
-    }
+function Directions(): JSX.Element {
+  const [response, setResponse] = useState<google.maps.DirectionsResult | null>(
+    null
+  );
+  const [directionsFormValue, setDirectionsFormValue] = useState({
+    origin: '',
+    destination: '',
+    travelMode: google.maps.TravelMode.DRIVING,
+  });
 
-    this.directionsCallback = this.directionsCallback.bind(this)
-    this.checkDriving = this.checkDriving.bind(this)
-    this.checkBicycling = this.checkBicycling.bind(this)
-    this.checkTransit = this.checkTransit.bind(this)
-    this.checkWalking = this.checkWalking.bind(this)
-    this.getOrigin = this.getOrigin.bind(this)
-    this.getDestination = this.getDestination.bind(this)
-    this.onClick = this.onClick.bind(this)
-    this.onMapClick = this.onMapClick.bind(this)
-  }
+  const originRef = useRef<HTMLInputElement | null>(null);
+  const destinationRef = useRef<HTMLInputElement | null>(null);
 
-  directionsCallback (response) {
-    console.log(response)
+  const containerStyle = useMemo(
+    () => ({
+      height: '400px',
+      width: '100%',
+    }),
+    []
+  );
 
-    if (response !== null) {
-      if (response.status === 'OK') {
-        this.setState(
-          () => ({
-            response
-          })
-        )
-      } else {
-        console.log('response: ', response)
+  const center = useMemo(
+    () => ({
+      lat: 0,
+      lng: -180,
+    }),
+    []
+  );
+
+  const directionsCallback = useCallback(
+    (
+      result: google.maps.DirectionsResult | null,
+      status: google.maps.DirectionsStatus
+    ) => {
+      if (result !== null) {
+        if (status === 'OK') {
+          setResponse(result);
+        } else {
+          console.log('response: ', result);
+        }
       }
+    },
+    []
+  );
+
+  const checkDriving = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
+    ({ target: { checked } }) => {
+      checked &&
+        setDirectionsFormValue((currentValue) => ({
+          ...currentValue,
+          travelMode: google.maps.TravelMode.DRIVING,
+        }));
+    },
+    []
+  );
+
+  const checkBicycling = useCallback<
+    React.ChangeEventHandler<HTMLInputElement>
+  >(({ target: { checked } }) => {
+    checked &&
+      setDirectionsFormValue((currentValue) => ({
+        ...currentValue,
+        travelMode: google.maps.TravelMode.BICYCLING,
+      }));
+  }, []);
+
+  const checkTransit = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
+    ({ target: { checked } }) => {
+      checked &&
+        setDirectionsFormValue((currentValue) => ({
+          ...currentValue,
+          travelMode: google.maps.TravelMode.TRANSIT,
+        }));
+    },
+    []
+  );
+
+  const checkWalking = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
+    ({ target: { checked } }) => {
+      checked &&
+        setDirectionsFormValue((currentValue) => ({
+          ...currentValue,
+          travelMode: google.maps.TravelMode.WALKING,
+        }));
+    },
+    []
+  );
+
+  const onClick = useCallback<
+    React.MouseEventHandler<HTMLButtonElement>
+  >(() => {
+    if (
+      originRef.current &&
+      originRef.current.value !== '' &&
+      destinationRef.current &&
+      destinationRef.current.value !== ''
+    ) {
+      setDirectionsFormValue((currentValue) => ({
+        ...currentValue,
+        origin: originRef.current?.value ?? '',
+        destination: destinationRef.current?.value ?? '',
+      }));
     }
-  }
+  }, [originRef.current?.value, destinationRef.current?.value]);
 
-  checkDriving ({ target: { checked } }) {
-    checked &&
-      this.setState(
-        () => ({
-          travelMode: 'DRIVING'
-        })
-      )
-  }
+  const onMapClick = useCallback((e: google.maps.MapMouseEvent) => {
+    console.log('onClick args: ', e);
+  }, []);
 
-  checkBicycling ({ target: { checked } }) {
-    checked &&
-      this.setState(
-        () => ({
-          travelMode: 'BICYCLING'
-        })
-      )
-  }
+  const directionsServiceOptions =
+    useMemo<google.maps.DirectionsRequest>(() => {
+      return {
+        destination: directionsFormValue.destination,
+        origin: directionsFormValue.origin,
+        travelMode: directionsFormValue.travelMode,
+      };
+    }, [
+      directionsFormValue.origin,
+      directionsFormValue.destination,
+      directionsFormValue.travelMode,
+    ]);
 
-  checkTransit ({ target: { checked } }) {
-    checked &&
-      this.setState(
-        () => ({
-          travelMode: 'TRANSIT'
-        })
-      )
-  }
+  const directionsResult = useMemo(() => {
+    return {
+      directions: response,
+    };
+  }, [response]);
 
-  checkWalking ({ target: { checked } }) {
-    checked &&
-      this.setState(
-        () => ({
-          travelMode: 'WALKING'
-        })
-      )
-  }
+  const directionServiceOnLoad = useCallback(
+    (directionsService: google.maps.DirectionsService) => {
+      console.log(
+        'DirectionsService onLoad directionsService: ',
+        directionsService
+      );
+    },
+    []
+  );
 
-  getOrigin (ref) {
-    this.origin = ref
-  }
+  const directionServiceOnUnmount = useCallback(
+    (directionsService: google.maps.DirectionsService) => {
+      console.log(
+        'DirectionsService onUnmount directionsService: ',
+        directionsService
+      );
+    },
+    []
+  );
 
-  getDestination (ref) {
-    this.destination = ref
-  }
-
-  onClick () {
-    if (this.origin.value !== '' && this.destination.value !== '') {
-      this.setState(
-        () => ({
-          origin: this.origin.value,
-          destination: this.destination.value
-        })
-      )
-    }
-  }
-
-  onMapClick (...args) {
-    console.log('onClick args: ', args)
-  }
-
-  render () {
-    return (
-      <div className='map'>
-        <div className='map-settings'>
-          <hr className='mt-0 mb-3' />
-
-          <div className='row'>
-            <div className='col-md-6 col-lg-4'>
-              <div className='form-group'>
-                <label htmlFor='ORIGIN'>Origin</label>
-                <br />
-                <input id='ORIGIN' className='form-control' type='text' ref={this.getOrigin} />
-              </div>
-            </div>
-
-            <div className='col-md-6 col-lg-4'>
-              <div className='form-group'>
-                <label htmlFor='DESTINATION'>Destination</label>
-                <br />
-                <input id='DESTINATION' className='form-control' type='text' ref={this.getDestination} />
-              </div>
+  return (
+    <div className="map">
+      <div className="map-settings">
+        <hr className="mt-0 mb-3" />
+        <div className="row">
+          <div className="col-md-6 col-lg-4">
+            <div className="form-group">
+              <label htmlFor="ORIGIN">Origin</label>
+              <br />
+              <input
+                id="ORIGIN"
+                className="form-control"
+                type="text"
+                ref={originRef}
+              />
             </div>
           </div>
-
-          <div className='d-flex flex-wrap'>
-            <div className='form-group custom-control custom-radio mr-4'>
+          <div className="col-md-6 col-lg-4">
+            <div className="form-group">
+              <label htmlFor="DESTINATION">Destination</label>
+              <br />
               <input
-                id='DRIVING'
-                className='custom-control-input'
-                name='travelMode'
-                type='radio'
-                checked={this.state.travelMode === 'DRIVING'}
-                onChange={this.checkDriving}
+                id="DESTINATION"
+                className="form-control"
+                type="text"
+                ref={destinationRef}
               />
-              <label className='custom-control-label' htmlFor='DRIVING'>Driving</label>
-            </div>
-
-            <div className='form-group custom-control custom-radio mr-4'>
-              <input
-                id='BICYCLING'
-                className='custom-control-input'
-                name='travelMode'
-                type='radio'
-                checked={this.state.travelMode === 'BICYCLING'}
-                onChange={this.checkBicycling}
-              />
-              <label className='custom-control-label' htmlFor='BICYCLING'>Bicycling</label>
-            </div>
-
-            <div className='form-group custom-control custom-radio mr-4'>
-              <input
-                id='TRANSIT'
-                className='custom-control-input'
-                name='travelMode'
-                type='radio'
-                checked={this.state.travelMode === 'TRANSIT'}
-                onChange={this.checkTransit}
-              />
-              <label className='custom-control-label' htmlFor='TRANSIT'>Transit</label>
-            </div>
-
-            <div className='form-group custom-control custom-radio mr-4'>
-              <input
-                id='WALKING'
-                className='custom-control-input'
-                name='travelMode'
-                type='radio'
-                checked={this.state.travelMode === 'WALKING'}
-                onChange={this.checkWalking}
-              />
-              <label className='custom-control-label' htmlFor='WALKING'>Walking</label>
             </div>
           </div>
-
-          <button className='btn btn-primary' type='button' onClick={this.onClick}>
-            Build Route
-          </button>
         </div>
-
-        <div className='map-container'>
-          <GoogleMap
-            // required
-            id='direction-example'
-            // required
-            mapContainerStyle={{
-              height: '400px',
-              width: '100%'
-            }}
-            // required
-            zoom={2}
-            // required
-            center={{
-              lat: 0,
-              lng: -180
-            }}
-            // optional
-            onClick={this.onMapClick}
-            // optional
-            onLoad={map => {
-              console.log('DirectionsRenderer onLoad map: ', map)
-            }}
-            // optional
-            onUnmount={map => {
-              console.log('DirectionsRenderer onUnmount map: ', map)
-            }}
-          >
-            {
-              (
-                this.state.destination !== '' &&
-                this.state.origin !== ''
-              ) && (
-                <DirectionsService
-                  // required
-                  options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-                    destination: this.state.destination,
-                    origin: this.state.origin,
-                    travelMode: this.state.travelMode
-                  }}
-                  // required
-                  callback={this.directionsCallback}
-                  // optional
-                  onLoad={directionsService => {
-                    console.log('DirectionsService onLoad directionsService: ', directionsService)
-                  }}
-                  // optional
-                  onUnmount={directionsService => {
-                    console.log('DirectionsService onUnmount directionsService: ', directionsService)
-                  }}
-                />
-              )
-            }
-
-            {
-              this.state.response !== null && (
-                <DirectionsRenderer
-                  // required
-                  options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-                    directions: this.state.response
-                  }}
-                  // optional
-                  onLoad={directionsRenderer => {
-                    console.log('DirectionsRenderer onLoad directionsRenderer: ', directionsRenderer)
-                  }}
-                  // optional
-                  onUnmount={directionsRenderer => {
-                    console.log('DirectionsRenderer onUnmount directionsRenderer: ', directionsRenderer)
-                  }}
-                />
-              )
-            }
-          </GoogleMap>
+        <div className="d-flex flex-wrap">
+          <div className="form-group custom-control custom-radio mr-4">
+            <input
+              id="DRIVING"
+              className="custom-control-input"
+              name="travelMode"
+              type="radio"
+              checked={
+                directionsFormValue.travelMode ===
+                google.maps.TravelMode.DRIVING
+              }
+              onChange={checkDriving}
+            />
+            <label className="custom-control-label" htmlFor="DRIVING">
+              Driving
+            </label>
+          </div>
+          <div className="form-group custom-control custom-radio mr-4">
+            <input
+              id="BICYCLING"
+              className="custom-control-input"
+              name="travelMode"
+              type="radio"
+              checked={
+                directionsFormValue.travelMode ===
+                google.maps.TravelMode.BICYCLING
+              }
+              onChange={checkBicycling}
+            />
+            <label className="custom-control-label" htmlFor="BICYCLING">
+              Bicycling
+            </label>
+          </div>
+          <div className="form-group custom-control custom-radio mr-4">
+            <input
+              id="TRANSIT"
+              className="custom-control-input"
+              name="travelMode"
+              type="radio"
+              checked={
+                directionsFormValue.travelMode ===
+                google.maps.TravelMode.TRANSIT
+              }
+              onChange={checkTransit}
+            />
+            <label className="custom-control-label" htmlFor="TRANSIT">
+              Transit
+            </label>
+          </div>
+          <div className="form-group custom-control custom-radio mr-4">
+            <input
+              id="WALKING"
+              className="custom-control-input"
+              name="travelMode"
+              type="radio"
+              checked={
+                directionsFormValue.travelMode ===
+                google.maps.TravelMode.WALKING
+              }
+              onChange={checkWalking}
+            />
+            <label className="custom-control-label" htmlFor="WALKING">
+              Walking
+            </label>
+          </div>
         </div>
+        <button className="btn btn-primary" type="button" onClick={onClick}>
+          Build Route
+        </button>
       </div>
-    )
-  }
+
+      <div className="map-container">
+        <GoogleMap
+          // required
+          id="direction-example"
+          // required
+          mapContainerStyle={containerStyle}
+          // required
+          zoom={2}
+          // required
+          center={center}
+          // optional
+          onClick={onMapClick}
+        >
+          {directionsFormValue.destination !== '' &&
+            directionsFormValue.origin !== '' && (
+              <DirectionsService
+                // required
+                options={directionsServiceOptions}
+                // required
+                callback={directionsCallback}
+                // optional
+                onLoad={directionServiceOnLoad}
+                // optional
+                onUnmount={directionServiceOnUnmount}
+              />
+            )}
+
+          {directionsResult.directions && (
+            <DirectionsRenderer
+              // required
+              options={directionsResult}
+            />
+          )}
+        </GoogleMap>
+      </div>
+    </div>
+  );
 }
 
 <ScriptLoaded>
