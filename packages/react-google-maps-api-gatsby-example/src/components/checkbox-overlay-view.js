@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleOverlayView } from '../actions/app'
@@ -13,7 +14,8 @@ function selector(state) {
 
 function CheckboxOverlayView() {
   const dispatch = useDispatch()
-  const onChange = React.useCallback(
+
+  const onChange = useCallback(
     ({ target: { checked } }) => {
       dispatch(
         toggleOverlayView({
@@ -23,7 +25,9 @@ function CheckboxOverlayView() {
     },
     [dispatch]
   )
+
   const value = useSelector(selector)
+
   return (
     <div className='custom-control custom-checkbox'>
       <input
@@ -41,4 +45,4 @@ function CheckboxOverlayView() {
   )
 }
 
-export default React.memo(CheckboxOverlayView)
+export default memo(CheckboxOverlayView)

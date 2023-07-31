@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { toggleBicycling } from '../actions/app'
@@ -41,4 +42,4 @@ function CheckboxBicycling() {
   )
 }
 
-export default React.memo(CheckboxBicycling)
+export default memo(CheckboxBicycling)

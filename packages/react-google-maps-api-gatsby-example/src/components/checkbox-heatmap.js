@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleHeatmap } from '../actions/app'
@@ -11,7 +12,8 @@ function selector(state) {
 
 function CheckboxHeatmap() {
   const dispatch = useDispatch()
-  const onChange = React.useCallback(
+
+  const onChange = useCallback(
     ({ target: { checked } }) => {
       dispatch(
         toggleHeatmap({
@@ -21,7 +23,9 @@ function CheckboxHeatmap() {
     },
     [dispatch]
   )
+
   const value = useSelector(selector)
+
   return (
     <div className='custom-control custom-checkbox'>
       <input
@@ -39,4 +43,4 @@ function CheckboxHeatmap() {
   )
 }
 
-export default React.memo(CheckboxHeatmap)
+export default memo(CheckboxHeatmap)

@@ -1185,20 +1185,20 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.1.tgz#728ecd95ab207aab8a9a4e421f0422db329232be"
   integrity sha512-HnUhk1Sy9IuKrxEMdIRCxpIqPw6BFsbYSEUO9p/hNw5sMld/+3OLMWQP80F8/db9qsv3qUjs7ZR5bS/R+iinXw==
 
-"@react-google-maps/infobox@2.19.1":
-  version "2.19.1"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.19.1.tgz#1a450506a3055d5e83ae105d454b2b8100f6021c"
-  integrity sha512-amdclymXFGxM/qQj9LjZ4kysDs3LKJnL2NeJfsexhrQulKadEChmNQ2SUwtX0MfvyBdB79QaKcr7wjaLcvPONQ==
+"@react-google-maps/infobox@2.19.2":
+  version "2.19.2"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.19.2.tgz#b6bda962a4fa1074fdd3dfd63bc4c7d68b1dd745"
+  integrity sha512-6wvBqeJsQ/eFSvoxg+9VoncQvNoVCdmxzxRpLvmjPD+nNC6mHM0vJH1xSqaKijkMrfLJT0nfkTGpovrF896jwg==
 
-"@react-google-maps/marker-clusterer@2.19.1":
-  version "2.19.1"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.19.1.tgz#c5fdf06fdaa323ec11aaa1433daf143b942ba36e"
-  integrity sha512-zaW4UBiA6VkIegFaHcv0RNIV9ToAh6SfcBiZygvkhhT0hlHRYuB8S25pIKWJ15zYucmZwAPF1QVKdUhm9HsUDQ==
+"@react-google-maps/marker-clusterer@2.19.2":
+  version "2.19.2"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.19.2.tgz#24d9fb9aa555bb063ba5fe82f80fcd7d48662184"
+  integrity sha512-x9ibmsP0ZVqzyCo1Pitbw+4b6iEXRw/r1TCy3vOUR3eKrzWLnHYZMR325BkZW2r8fnuWE/V3Fp4QZOP9qYORCw==
 
-"@rollup/plugin-commonjs@25.0.2":
-  version "25.0.2"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-25.0.2.tgz#7ed37d00a12fc7fdd3aadba5fa0de52f2372bbbb"
-  integrity sha512-NGTwaJxIO0klMs+WSFFtBP7b9TdTJ3K76HZkewT8/+yHzMiUGVQgaPtLQxNVYIgT5F7lxkEyVID+yS3K7bhCow==
+"@rollup/plugin-commonjs@25.0.3":
+  version "25.0.3"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-25.0.3.tgz#eb5217ebae43d63a172b516655be270ed258bdcc"
+  integrity sha512-uBdtWr/H3BVcgm97MUdq2oJmqBR23ny1hOrWe2PKo9FTbjsGqg32jfasJUKYAI5ouqacjRnj65mBB/S79F+GQA==
   dependencies:
     "@rollup/pluginutils" "^5.0.1"
     commondir "^1.0.1"
@@ -1413,10 +1413,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/google.maps@3.53.4":
-  version "3.53.4"
-  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.53.4.tgz#741442764ebaef1a6705f3ab2c047ffeba333020"
-  integrity sha512-IiDAYTONQEKCBssPtoM0XqWF8YIIk2leba4NOf9qVQ/d8l5gLuS3QT87TrX6/u8rMonQAXC9KEDmM4q7sT6MWg==
+"@types/google.maps@3.53.5":
+  version "3.53.5"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.53.5.tgz#0f3010ab4eabe46721f3604462196975b640aab9"
+  integrity sha512-HoRq4Te8J6krH7hj+TfdYepqegoKZCj3kkaK5gf+ySFSHLvyqYkDvkrtbcVJXQ6QBphQ0h1TF7p4J6sOh4r/zg==
 
 "@types/graceful-fs@^4.1.3":
   version "4.1.5"
@@ -5281,10 +5281,10 @@ react-docgen-typescript@2.2.2:
   resolved "https://registry.yarnpkg.com/react-docgen-typescript/-/react-docgen-typescript-2.2.2.tgz#4611055e569edc071204aadb20e1c93e1ab1659c"
   integrity sha512-tvg2ZtOpOi6QDwsb3GZhOjDkkX0h8Z2gipvTg6OVMUyoYoURhEiRNePT8NZItTVCDh39JJHnLdfCOkzoLbFnTg==
 
-react-docgen@6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/react-docgen/-/react-docgen-6.0.1.tgz#828b7094830cbdb4b036d554185e5d951ea13da0"
-  integrity sha512-K+EHJrADKJYpmojACrebABRb5e6RvW8cSeJ/0950Km5YnrSglebHeMm/uGSv/DpBvsZOsMGVQoYb8XjCA3r0NQ==
+react-docgen@6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/react-docgen/-/react-docgen-6.0.2.tgz#6a0508a91c5e83d9f79c407aa24250d8f0aefa42"
+  integrity sha512-RCLzx3natZtPdWRAYoh++XDpqMYLlKl1VmPzWeqv5KK6nrCWbGWvgpeWjVrjkm/gYq5kZYCCekZ5luGMLqONnw==
   dependencies:
     "@babel/core" "^7.18.9"
     "@babel/traverse" "^7.18.9"

@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
@@ -30,7 +31,7 @@ function Main({ title, children }) {
   )
 }
 
-const MainMemo = React.memo(Main)
+const MainMemo = memo(Main)
 
 Main.propTypes = {
   title: PropTypes.string.isRequired,
@@ -38,7 +39,7 @@ Main.propTypes = {
 }
 
 function Layout({ children }) {
-  const render = React.useCallback(
+  const render = useCallback(
     (data) => {
       return (
         <MainMemo title={data.site.siteMetadata.title}>{children}</MainMemo>
@@ -67,4 +68,4 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default React.memo(Layout)
+export default memo(Layout)

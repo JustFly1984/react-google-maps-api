@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import ExampleGround from '../examples/example-ground'
@@ -14,4 +15,4 @@ function SectionGround() {
   return ground ? <ExampleGround styles={shapeExampleStyles} /> : <></>
 }
 
-export default React.memo(SectionGround)
+export default memo(SectionGround)

@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleDrawing } from '../actions/app'
@@ -11,7 +12,7 @@ function selector(state) {
 
 function CheckboxDrawing() {
   const dispatch = useDispatch()
-  const onChange = React.useCallback(
+  const onChange = useCallback(
     ({ target: { checked } }) => {
       dispatch(
         toggleDrawing({
@@ -39,4 +40,4 @@ function CheckboxDrawing() {
   )
 }
 
-export default React.memo(CheckboxDrawing)
+export default memo(CheckboxDrawing)

@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import ExampleDrawing from '../examples/example-drawing'
@@ -14,4 +15,4 @@ function SectionDrawing() {
   return drawing ? <ExampleDrawing styles={shapeExampleStyles} /> : <></>
 }
 
-export default React.memo(SectionDrawing)
+export default memo(SectionDrawing)

@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-extraneous-import
 import { type CSSProperties, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap } from '@react-google-maps/api'
@@ -20,8 +21,8 @@ const options = {
   streetViewControl: false,
 }
 
-const onClick = (...args: any[]) => {
-  console.log('onClick args: ', args)
+const onClick = (e: google.maps.MapMouseEvent) => {
+  console.log('onClick args: ', e)
 }
 
 interface Props {

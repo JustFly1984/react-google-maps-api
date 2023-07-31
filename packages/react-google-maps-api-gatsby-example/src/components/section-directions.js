@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import ExampleDirections from '../examples/example-directions'
@@ -14,4 +15,4 @@ function SectionDirections() {
   return directions ? <ExampleDirections styles={shapeExampleStyles} /> : <></>
 }
 
-export default React.memo(SectionDirections)
+export default memo(SectionDirections)

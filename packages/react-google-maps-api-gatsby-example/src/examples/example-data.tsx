@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-extraneous-import
 import { type CSSProperties, memo, useMemo, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, Data } from '@react-google-maps/api'
@@ -13,12 +14,12 @@ const center: google.maps.LatLngLiteral = {
   lng: -118.76220703125,
 }
 
-const onClick = (...args: any[]) => {
+const onClick = (e: google.maps.MapMouseEvent) => {
   console.log(
     'onClick args: ',
-    args[0].latLng.lat(),
+    e.latLng?.lat(),
     ' : ',
-    args[0].latLng.lng()
+    e.latLng?.lng()
   )
 }
 

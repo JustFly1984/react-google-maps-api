@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-extraneous-import
 import { memo } from 'react'
 import info from '../img/info-circle-solid.svg'
 

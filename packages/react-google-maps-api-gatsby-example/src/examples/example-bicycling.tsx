@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-extraneous-import
 import { type CSSProperties, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, BicyclingLayer } from '@react-google-maps/api'
@@ -13,8 +14,8 @@ const center: google.maps.LatLngLiteral = {
   lng: -180,
 }
 
-function onClick(...args: any[]) {
-  console.log('onClick args: ', args)
+function onClick(e: google.maps.MapMouseEvent) {
+  console.log('onClick args: ', e)
 }
 
 function onBicyclingLayerLoad (bicyclingLayer: google.maps.BicyclingLayer) {

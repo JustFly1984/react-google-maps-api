@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-extraneous-import
 import { type CSSProperties, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, DrawingManager } from '@react-google-maps/api'

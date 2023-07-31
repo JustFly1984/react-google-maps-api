@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import ExampleOptions from '../examples/example-options'
@@ -14,4 +15,4 @@ function SectionOptions() {
   return options ? <ExampleOptions styles={shapeExampleStyles} /> : <></>
 }
 
-export default React.memo(SectionOptions)
+export default memo(SectionOptions)

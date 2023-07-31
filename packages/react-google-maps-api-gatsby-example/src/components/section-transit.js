@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import ExampleTransit from '../examples/example-transit'
@@ -14,4 +15,4 @@ function SectionTransit() {
   return transit ? <ExampleTransit styles={shapeExampleStyles} /> : <></>
 }
 
-export default React.memo(SectionTransit)
+export default memo(SectionTransit)

@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setGoogleMapsKey } from '../actions/app'
@@ -9,7 +10,8 @@ function selector(state) {
 
 function InputBoxApiKey() {
   const dispatch = useDispatch()
-  const onChange = React.useCallback(
+
+  const onChange = useCallback(
     ({ target: { value } }) => {
       dispatch(
         setGoogleMapsKey({
@@ -19,7 +21,9 @@ function InputBoxApiKey() {
     },
     [dispatch]
   )
+
   const value = useSelector(selector)
+
   return (
     <div className='form-group mb-2'>
       <label htmlFor='api-key'>Google API key:</label>
@@ -39,4 +43,4 @@ function InputBoxApiKey() {
   )
 }
 
-export default React.memo(InputBoxApiKey)
+export default memo(InputBoxApiKey)

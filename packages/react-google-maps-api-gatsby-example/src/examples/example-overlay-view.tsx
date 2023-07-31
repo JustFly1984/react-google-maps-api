@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-extraneous-import
 import { type CSSProperties, memo, useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, OverlayViewF, MarkerF, OVERLAY_MOUSE_TARGET, MARKER_LAYER,  } from '@react-google-maps/api'
@@ -55,12 +56,12 @@ function ExampleOverlayView({ styles }: Props): JSX.Element {
     })
   }, [])
 
-  const loadCallback = useCallback((e) => {
-    console.log('OverlayView onLoad: ', e)
+  const loadCallback = useCallback((overlayView: google.maps.OverlayView) => {
+    console.log('OverlayView onLoad: ', overlayView)
   }, [])
 
-  const unmountCallback = useCallback((e) => {
-    console.log('OverlayView onUnmount', e)
+  const unmountCallback = useCallback((overlayView: google.maps.OverlayView) => {
+    console.log('OverlayView onUnmount', overlayView)
   }, [])
 
   const setToMarkerLayerPane = useCallback(() => {

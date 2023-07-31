@@ -1,4 +1,5 @@
-import React, { memo } from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { toggleLoadScript } from '../actions/app'
@@ -15,7 +16,7 @@ function selector(state) {
 function ButtonLoadScript() {
   const dispatch = useDispatch()
 
-  const onClick = React.useCallback(() => {
+  const onClick = useCallback(() => {
     dispatch(toggleLoadScript())
   }, [dispatch])
 

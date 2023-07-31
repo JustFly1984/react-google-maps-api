@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-extraneous-import
 import { type CSSProperties, memo, useCallback, useMemo, useState, ChangeEventHandler } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -12,6 +13,7 @@ import {
   OVERLAY_MOUSE_TARGET
 } from '@react-google-maps/api'
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import pinIcon from '../assets/pin.svg'
 

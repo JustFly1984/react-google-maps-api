@@ -1,4 +1,5 @@
-import * as React from 'react'
+// eslint-disable-next-line node/no-extraneous-import
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import ExampleSearchBox from '../examples/example-search-box'
@@ -19,4 +20,4 @@ function SectionSearchBox() {
   )
 }
 
-export default React.memo(SectionSearchBox)
+export default memo(SectionSearchBox)
