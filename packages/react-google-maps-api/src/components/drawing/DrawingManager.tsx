@@ -94,8 +94,8 @@ function DrawingManagerFunctional({
   }, [instance, options])
 
   useEffect(() => {
-    if (drawingMode && instance !== null) {
-      instance.setDrawingMode(drawingMode)
+    if (instance !== null) {
+      instance.setDrawingMode(drawingMode ?? null)
     }
   }, [instance, drawingMode])
 
