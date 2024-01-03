@@ -113,6 +113,8 @@ export interface PolygonProps {
   onLoad?: ((polygon: google.maps.Polygon) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the polygon instance. */
   onUnmount?: ((polygon: google.maps.Polygon) => void) | undefined
+  /** This callback is called when the components editing is finished */
+  onEdit?: ((polygon: google.maps.Polygon) => void) | undefined
 }
 
 function PolygonFunctional({
@@ -135,6 +137,7 @@ function PolygonFunctional({
   onDrag,
   onLoad,
   onUnmount,
+  onEdit,
 }: PolygonProps): null {
   const map = useContext<google.maps.Map | null>(MapContext)
 
@@ -206,6 +209,18 @@ function PolygonFunctional({
       )
     }
   }, [onDblClick])
+
+  useEffect(() => {
+    if (instance) {
+      google.maps.event.addListener(instance.getPath(), 'insert_at', () => {
+        onEdit?.(instance)
+      });
+
+      google.maps.event.addListener(instance.getPath(), 'set_at', () => {
+        onEdit?.(instance)
+      });
+    }
+  }, [instance, onEdit])
 
   useEffect(() => {
     if (instance && onDragEnd) {
