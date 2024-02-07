@@ -272,15 +272,64 @@ function MarkerFunctional({
     }
   }, [instance, position])
 
-    useEffect(() => {
-      if (typeof visible !== 'undefined' && instance !== null) {
-        instance.setVisible(visible)
-      }
-    }, [instance, visible])
+  useEffect(() => {
+    if (typeof visible !== 'undefined' && instance !== null) {
+      instance.setVisible(visible)
+    }
+  }, [instance, visible])
 
   useEffect(() => {
     instance?.setAnimation(animation)
   }, [instance, animation])
+
+  useEffect(() => {
+    if (instance && clickable !== undefined) {
+      instance.setClickable(clickable)
+    }
+  }, [instance, clickable])
+
+  useEffect(() => {
+    if (instance && cursor !== undefined) {
+      instance.setCursor(cursor)
+    }
+  }, [instance, cursor])
+
+  useEffect(() => {
+    if (instance && icon !== undefined) {
+      instance.setIcon(icon)
+    }
+  }, [instance, icon])
+
+  useEffect(() => {
+    if (instance && label !== undefined) {
+      instance.setLabel(label)
+    }
+  }, [instance, label])
+
+  useEffect(() => {
+    if (instance && opacity !== undefined) {
+      instance.setOpacity(opacity)
+    }
+  }, [instance, opacity])
+
+  useEffect(() => {
+    if (instance && shape !== undefined) {
+      instance.setShape(shape)
+    }
+  }, [instance, shape])
+
+  useEffect(() => {
+    if (instance && title !== undefined) {
+      instance.setTitle(title)
+    }
+  }, [instance, title])
+
+  useEffect(() => {
+    if (instance && zIndex !== undefined) {
+      instance.setZIndex(zIndex)
+    }
+  }, [instance, zIndex])
+
 
   useEffect(() => {
     if (instance && onDblClick) {
