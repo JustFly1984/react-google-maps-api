@@ -6,6 +6,10 @@ If you want to ask question, please ask it in Github Discussions, [Spectrum.chat
 
 Please do not post unformatted code into issues, and please do not ask questions. Only real issues, PR's or feature requests are allowed. Minimal reproduction in codesandbox.io is required.
 
+## Help wanted
+As mentioned in [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/3300),
+the author of this project will **only accept issues with codesandbox reproduction and PR with solution** going forward.
+
 ## Please provide an explanation of the issue
 
 ## Your Environment
