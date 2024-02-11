@@ -1,7 +1,8 @@
-import type { ComponentStory, ComponentMeta } from '@storybook/react'
+// eslint-disable-next-line node/no-extraneous-import
+import type { StoryFn, Meta } from '@storybook/react'
 import { GoogleMap } from '.'
 
-export default {
+const exp: Meta<typeof GoogleMap> = {
   title: 'Example/GoogleMap',
   component: GoogleMap,
   args: {
@@ -15,16 +16,23 @@ export default {
       lng: -38.523,
     },
   },
-} as ComponentMeta<typeof GoogleMap>
+}
 
-const Template: ComponentStory<typeof GoogleMap> = (args) => (
+export default exp
+
+const Template: StoryFn<typeof GoogleMap> = (args) => (
   <GoogleMap {...args} />
 )
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const Default = Template.bind({})
 Default.args = {
   zoom: 8,
 }
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const Satellite = Template.bind({})
 Satellite.args = {
   zoom: 15,

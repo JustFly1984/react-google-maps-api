@@ -28,7 +28,9 @@ const output = (format) => {
 
 export default [
   {
-    plugins: [typescript(), nodeResolve(), commonjs()],
+    plugins: [typescript({
+      exclude: ["**/*.test.ts", "**/*.stories.tsx"]
+    }), nodeResolve(), commonjs()],
     external: ['react', 'react-dom', 'react/jsx-runtime'],
 
     input: 'src/index.ts',

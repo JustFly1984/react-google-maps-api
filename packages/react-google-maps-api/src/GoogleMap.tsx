@@ -1,4 +1,4 @@
-import { type CSSProperties, PureComponent, type ReactNode, useState, useRef, useEffect, memo } from 'react'
+import { type CSSProperties, PureComponent, type JSX, type ReactNode, useState, useRef, useEffect, memo } from 'react'
 
 import MapContext from './map-context'
 
@@ -362,23 +362,21 @@ function GoogleMapFunctional({
         if (onUnmount) {
           onUnmount(map)
         }
-
-
       }
     }
   }, [])
 
   return (
     <div
-        id={id}
-        ref={ref}
-        style={mapContainerStyle}
-        className={mapContainerClassName}
-      >
-        <MapContext.Provider value={map}>
-          {map !== null ? children : <></>}
-        </MapContext.Provider>
-      </div>
+      id={id}
+      ref={ref}
+      style={mapContainerStyle}
+      className={mapContainerClassName}
+    >
+      <MapContext.Provider value={map}>
+        {map !== null ? children : null}
+      </MapContext.Provider>
+    </div>
   )
 }
 
@@ -471,7 +469,7 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
         className={this.props.mapContainerClassName}
       >
         <MapContext.Provider value={this.state.map}>
-          {this.state.map !== null ? this.props.children : <></>}
+          {this.state.map !== null ? this.props.children : null}
         </MapContext.Provider>
       </div>
     )

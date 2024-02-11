@@ -1,4 +1,5 @@
-import type { ComponentStory, ComponentMeta } from '@storybook/react'
+// eslint-disable-next-line node/no-extraneous-import
+import type { StoryFn, Meta } from '@storybook/react'
 import { GoogleMap, MarkerF, GoogleMapsMarkerClusterer as gm } from '../..'
 import GoogleMarkerClusterer from './GoogleMarkerClusterer'
 
@@ -41,12 +42,14 @@ function createKey(location: google.maps.LatLngLiteral) {
   return location.lat + location.lng
 }
 
-export default {
+const exp: Meta<typeof GoogleMarkerClusterer> =  {
   title: 'Google Marker Clusterer',
   component: GoogleMarkerClusterer,
-} as ComponentMeta<typeof GoogleMarkerClusterer>
+}
 
-const Template: ComponentStory<typeof GoogleMarkerClusterer> = (args) => {
+export default exp
+
+const Template: StoryFn<typeof GoogleMarkerClusterer> = (args) => {
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
       <GoogleMarkerClusterer {...args}>
@@ -66,18 +69,27 @@ const Template: ComponentStory<typeof GoogleMarkerClusterer> = (args) => {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const Default = Template.bind({})
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const Grid = Template.bind({})
+
 Grid.args = {
   options: { algorithm: new GridAlgorithm({ maxDistance: 40000 }) },
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const Noop = Template.bind({})
 Noop.args = {
   options: { algorithm: new NoopAlgorithm({}) },
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignorex
 export const Render = Template.bind({})
 Render.args = {
   options: {

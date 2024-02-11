@@ -1,4 +1,5 @@
-import type { ComponentStory, ComponentMeta } from '@storybook/react'
+// eslint-disable-next-line node/no-extraneous-import
+import type { StoryFn, Meta } from '@storybook/react'
 import { GoogleMap, Marker } from '../..'
 import { MarkerClustererF } from './MarkerClusterer'
 
@@ -107,12 +108,14 @@ const markerClustererOptions: ClustererOptions = {
   styles: clusterIconStyles,
 }
 
-export default {
+const exp: Meta<typeof MarkerClustererF> = {
   title: 'Marker ClustererF',
   component: MarkerClustererF,
-} as ComponentMeta<typeof MarkerClustererF>
+}
 
-const Template: ComponentStory<typeof MarkerClustererF> = (args) => {
+export default exp
+
+const Template: StoryFn<typeof MarkerClustererF> = (args) => {
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
       <MarkerClustererF {...args} options={markerClustererOptions}>
@@ -132,4 +135,6 @@ const Template: ComponentStory<typeof MarkerClustererF> = (args) => {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const Default = Template.bind({})

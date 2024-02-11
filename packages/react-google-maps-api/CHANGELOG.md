@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.19.3 fixes to MarkerF functionality by Fabian Scherer
+
 ## 2.19.2 fix @react-google-maps/infobox boxStyle type
 
 ## 2.19.0 fix to MarkerF animation, update Typescript@5.1.6

@@ -1,4 +1,4 @@
-import { memo, ReactElement, useEffect } from 'react'
+import { memo, ReactElement, useEffect, type JSX } from 'react'
 
 import { DefaultLoadingElement } from './LoadScript'
 import { useLoadScript, UseLoadScriptOptions } from './useLoadScript'

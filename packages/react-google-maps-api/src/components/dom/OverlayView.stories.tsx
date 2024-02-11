@@ -1,4 +1,5 @@
-import type { ComponentStory, ComponentMeta } from '@storybook/react'
+// eslint-disable-next-line node/no-extraneous-import
+import type { StoryFn, Meta } from '@storybook/react'
 import GoogleMap from '../../GoogleMap'
 import { OverlayViewF, OVERLAY_LAYER } from './OverlayView'
 
@@ -16,10 +17,12 @@ function createKey(location: google.maps.LatLngLiteral) {
   return location.lat + location.lng
 }
 
-export default {
+const exp: Meta<typeof OverlayViewF> = {
   title: 'Overlay View',
   component: OverlayViewF,
-} as ComponentMeta<typeof OverlayViewF>
+}
+
+export default exp
 
 
 const getPixelPositionOffset = (width: number, height: number) => ({
@@ -27,12 +30,12 @@ const getPixelPositionOffset = (width: number, height: number) => ({
   y: -(height / 2),
 })
 
-const Template: ComponentStory<typeof OverlayViewF> = () => {
+const Template: StoryFn<typeof OverlayViewF> = () => {
   const newZealand = new google.maps.LatLngBounds({lat: -46.641, lng: 166.509}, {lat: -34.450, lng: 178.517})
 
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
-      {locations.map((location, index) => (
+      {locations.map((location, index): JSX.Element => {return (
         <OverlayViewF
           mapPaneName={OVERLAY_LAYER}
           getPixelPositionOffset={getPixelPositionOffset}
@@ -50,7 +53,7 @@ const Template: ComponentStory<typeof OverlayViewF> = () => {
             {index}
           </div>
         </OverlayViewF>
-      ))}
+      )})}
 
       <OverlayViewF
         mapPaneName={OVERLAY_LAYER}
@@ -72,4 +75,6 @@ const Template: ComponentStory<typeof OverlayViewF> = () => {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const Default = Template.bind({})
