@@ -67,6 +67,7 @@ export function makeLoadScriptUrl({
     params.push(`auth_referrer_policy=${authReferrerPolicy}`)
   }
 
+  params.push('loading=async')
   params.push('callback=initMap')
 
   return `https://maps.googleapis.com/maps/api/js?${params.join('&')}`
