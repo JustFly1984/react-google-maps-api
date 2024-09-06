@@ -60,10 +60,6 @@ const updaterMap = {
   },
 }
 
-interface PolygonState {
-  polygon: google.maps.Polygon | null
-}
-
 export interface PolygonProps {
   options?: google.maps.PolygonOptions | undefined
   /** If set to true, the user can drag this shape over the map. The geodesic property defines the mode of dragging. */
@@ -494,45 +490,36 @@ function PolygonFunctional({
 
 export const PolygonF = memo(PolygonFunctional)
 
-export class Polygon extends PureComponent<PolygonProps, PolygonState> {
+export class Polygon extends PureComponent<PolygonProps> {
   static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  override state: PolygonState = {
-    polygon: null,
-  }
-
-  setPolygonCallback = (): void => {
-    if (this.state.polygon !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.polygon)
-    }
-  }
+  polygon: google.maps.Polygon | undefined
 
   override componentDidMount(): void {
-    const polygon = new google.maps.Polygon({
-      ...(this.props.options || {}),
-      map: this.context,
-    })
+    const polygonOptions = this.props.options || {}
+
+    this.polygon = new google.maps.Polygon(polygonOptions)
+
+    this.polygon.setMap(this.context)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
       eventMap,
       prevProps: {},
       nextProps: this.props,
-      instance: polygon,
+      instance: this.polygon,
     })
 
-    this.setState(function setPolygon() {
-      return {
-        polygon,
-      }
-    }, this.setPolygonCallback)
+    if (this.props.onLoad) {
+      this.props.onLoad(this.polygon)
+    }
   }
 
   override componentDidUpdate(prevProps: PolygonProps): void {
-    if (this.state.polygon !== null) {
+    if (this.polygon) {
       unregisterEvents(this.registeredEvents)
 
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -540,20 +527,20 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
         eventMap,
         prevProps,
         nextProps: this.props,
-        instance: this.state.polygon,
+        instance: this.polygon,
       })
     }
   }
 
   override componentWillUnmount(): void {
-    if (this.state.polygon !== null) {
+    if (this.polygon) {
       if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.polygon)
+        this.props.onUnmount(this.polygon)
       }
 
       unregisterEvents(this.registeredEvents)
 
-      this.state.polygon && this.state.polygon.setMap(null)
+      this.polygon && this.polygon.setMap(null)
     }
   }
 
