@@ -17,7 +17,7 @@
     "@babel/core": "7.22.9"
   },
   "dependencies": {
-    "@babel/core": "7.22.9",
+    "@babel/core": "7.23.2",
     "@babel/node": "7.22.6",
     "@babel/preset-env": "7.22.9",
     "@babel/preset-react": "7.22.5",
@@ -25,8 +25,8 @@
     "@react-google-maps/api": "2.19.2",
     "@sentry/browser": "7.60.1",
     "cross-env": "7.0.3",
-    "gatsby": "5.11.0",
-    "gatsby-plugin-manifest": "5.11.0",
+    "gatsby": "5.12.6",
+    "gatsby-plugin-manifest": "5.12.1",
     "gatsby-plugin-purgecss": "6.2.1",
     "gatsby-plugin-react-helmet": "6.11.0",
     "gatsby-plugin-sitemap": "6.11.0",
@@ -41,7 +41,7 @@
     "redux-actions": "3.0.0",
     "redux-immutable": "4.0.0",
     "redux-thunk": "2.4.2",
-    "stylelint": "15.10.2",
+    "stylelint": "16.6.1",
     "stylelint-a11y": "1.2.3",
     "stylelint-config-css-modules": "4.3.0",
     "stylelint-config-recommended": "13.0.0",
