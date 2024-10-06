@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-import type { JSX } from 'react'
 
 import { render, cleanup } from "@testing-library/react"
 import GoogleMap from  "../../GoogleMap"
@@ -18,7 +17,7 @@ function onCircleLoad(circle: google.maps.Circle) {
   instance = circle
 }
 
-function getCircle(props: CircleProps): JSX.Element {
+function getCircle(props: CircleProps): React.JSX.Element {
   return <GoogleMap><Circle {...props} /></GoogleMap>
 }
 

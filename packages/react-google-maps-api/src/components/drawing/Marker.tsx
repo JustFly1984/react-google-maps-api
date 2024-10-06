@@ -219,7 +219,7 @@ function MarkerFunctional({
   onZindexChanged,
   onLoad,
   onUnmount
-}: MarkerProps): JSX.Element | null {
+}: MarkerProps): React.JSX.Element | null {
   const map = useContext<google.maps.Map | null>(MapContext)
 
   const [instance, setInstance] = useState<google.maps.Marker | null>(null)

@@ -24,7 +24,7 @@ export interface LoadScriptProps extends LoadScriptUrlOptions {
   preventGoogleFontsLoading?: boolean
 }
 
-export function DefaultLoadingElement(): JSX.Element {
+export function DefaultLoadingElement(): React.JSX.Element {
   return <div>{`Loading...`}</div>
 }
 

@@ -31,7 +31,7 @@ interface Props {
   }
 }
 
-function GroundOverlayC(): JSX.Element {
+function GroundOverlayC(): React.JSX.Element {
   return (
     <GroundOverlay
     url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
@@ -42,7 +42,7 @@ function GroundOverlayC(): JSX.Element {
 
 const GroundOverlayComponent = memo(GroundOverlayC)
 
-function ExampleGround({ styles }: Props): JSX.Element{
+function ExampleGround({ styles }: Props): React.JSX.Element{
   return (
     <div className='map'>
       <div className='map-container'>

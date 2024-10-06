@@ -122,7 +122,7 @@ export class DirectionsRenderer extends PureComponent<
     }
   }
 
-  override render(): JSX.Element {
+  override render(): React.JSX.Element {
     return <></>
   }
 }

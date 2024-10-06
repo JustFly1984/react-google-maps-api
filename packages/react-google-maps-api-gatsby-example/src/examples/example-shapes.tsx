@@ -143,7 +143,7 @@ interface Props {
   }
 }
 
-function ExampleShapes({ styles }: Props): JSX.Element {
+function ExampleShapes({ styles }: Props): React.JSX.Element {
   const [polylineVisible, setPolylineVisible] = useState(true)
   const [polylineOptions, setPolylineOptions] = useState(
     JSON.stringify(POLYLINE_OPTIONS)

@@ -33,7 +33,7 @@ interface Props {
   }
 }
 
-function ExampleOverlayView({ styles }: Props): JSX.Element {
+function ExampleOverlayView({ styles }: Props): React.JSX.Element {
   const [isShown, setIsShown] = useState(false)
 
   const changeIsShown = useCallback(() => {

@@ -24,7 +24,7 @@ interface Props {
   }
 }
 
-function ExampleTraffic({ styles }: Props): JSX.Element {
+function ExampleTraffic({ styles }: Props): React.JSX.Element {
   return (
     <div className='map'>
       <div className='map-container'>

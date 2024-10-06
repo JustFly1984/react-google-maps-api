@@ -10,7 +10,7 @@ import {
   DirectionsRenderer,
 } from '@react-google-maps/api';
 
-function Directions(): JSX.Element {
+function Directions(): React.JSX.Element {
   const [response, setResponse] = useState<google.maps.DirectionsResult | null>(
     null
   );

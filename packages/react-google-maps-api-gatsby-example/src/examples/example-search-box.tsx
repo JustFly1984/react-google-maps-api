@@ -40,7 +40,7 @@ interface Props {
   }
 }
 
-function ExampleSearchBox({ styles }: Props): JSX.Element{
+function ExampleSearchBox({ styles }: Props): React.JSX.Element{
   return (
     <div className='map'>
       <div className='map-container'>

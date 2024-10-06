@@ -27,7 +27,7 @@ interface Props {
   }
 }
 
-function ExampleHeatmap({ styles }: Props): JSX.Element{
+function ExampleHeatmap({ styles }: Props): React.JSX.Element{
   const data = useMemo(() => {
     return [
       new google.maps.LatLng(37.782, -122.447),

@@ -20,7 +20,7 @@ interface Props {
   }
 }
 
-function ExampleDrawing({ styles }: Props): JSX.Element {
+function ExampleDrawing({ styles }: Props): React.JSX.Element {
   return (
     <div className='map'>
       <div className='map-container'>

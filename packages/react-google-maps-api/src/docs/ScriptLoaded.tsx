@@ -9,7 +9,7 @@ interface ScriptLoadedProps {
   children: ReactChild | ReactChildren | Function
 }
 
-function SpanIntro(): JSX.Element {
+function SpanIntro(): React.JSX.Element {
   return (
     <span>
       <a href='#section-introduction'>Enter API Key</a> to see examples
@@ -50,7 +50,7 @@ class ScriptLoaded extends Component<ScriptLoadedProps, ScriptLoadedState> {
     window.clearInterval(this.interval)
   }
 
-  override render(): JSX.Element {
+  override render(): React.JSX.Element {
     if (!this.state.scriptLoaded) {
       return <SpanIntro />
     }

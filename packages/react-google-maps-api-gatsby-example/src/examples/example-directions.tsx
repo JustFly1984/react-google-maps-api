@@ -31,7 +31,7 @@ interface Props {
   }
 }
 
-function ExampleDirections({ styles }: Props): JSX.Element {
+function ExampleDirections({ styles }: Props): React.JSX.Element {
   const [response, setResponse] = useState<google.maps.DirectionsResult | null>(
     null
   )

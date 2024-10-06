@@ -33,7 +33,7 @@ interface Props {
   }
 }
 
-function ExampleTransit({ styles }: Props): JSX.Element {
+function ExampleTransit({ styles }: Props): React.JSX.Element {
   return (
     <div className='map'>
       <div className='map-container'>

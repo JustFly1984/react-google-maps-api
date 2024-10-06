@@ -18,7 +18,7 @@ const buttonStyle = {
   marginLeft: '8px',
 }
 
-const loadingElement: JSX.Element = <div>Loading...</div>
+const loadingElement: React.JSX.Element = <div>Loading...</div>
 
 interface DocsApiKeyInputState {
   key: string

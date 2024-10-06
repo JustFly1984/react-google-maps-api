@@ -111,7 +111,7 @@ class StandaloneSearchBox extends PureComponent<
     }
   }
 
-  override render(): JSX.Element {
+  override render(): React.JSX.Element {
     return <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
   }
 }

@@ -35,7 +35,7 @@ const Template: StoryFn<typeof OverlayViewF> = () => {
 
   return (
     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
-      {locations.map((location, index): JSX.Element => {return (
+      {locations.map((location, index): React.JSX.Element => {return (
         <OverlayViewF
           mapPaneName={OVERLAY_LAYER}
           getPixelPositionOffset={getPixelPositionOffset}
