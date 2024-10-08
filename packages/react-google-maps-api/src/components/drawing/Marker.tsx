@@ -11,6 +11,7 @@ import {
   type ReactNode,
   type ContextType,
   type ReactElement,
+  type JSX,
 } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
@@ -219,7 +220,7 @@ function MarkerFunctional({
   onZindexChanged,
   onLoad,
   onUnmount
-}: MarkerProps): React.JSX.Element | null {
+}: MarkerProps): JSX.Element | null {
   const map = useContext<google.maps.Map | null>(MapContext)
 
   const [instance, setInstance] = useState<google.maps.Marker | null>(null)

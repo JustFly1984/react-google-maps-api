@@ -1,5 +1,5 @@
 // eslint-disable-next-line node/no-extraneous-import
-import { type CSSProperties, memo } from 'react'
+import { type CSSProperties, type JSX, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, TrafficLayer } from '@react-google-maps/api'
 
@@ -24,7 +24,7 @@ interface Props {
   }
 }
 
-function ExampleTraffic({ styles }: Props): React.JSX.Element {
+function ExampleTraffic({ styles }: Props): JSX.Element {
   return (
     <div className='map'>
       <div className='map-container'>

@@ -1,4 +1,4 @@
-import { createRef, PureComponent, type ReactNode, type RefObject } from 'react'
+import { createRef, type JSX, PureComponent, type ReactNode, type RefObject } from 'react'
 import invariant from 'invariant'
 
 import { injectScript } from './utils/injectscript'
@@ -24,7 +24,7 @@ export interface LoadScriptProps extends LoadScriptUrlOptions {
   preventGoogleFontsLoading?: boolean
 }
 
-export function DefaultLoadingElement(): React.JSX.Element {
+export function DefaultLoadingElement(): JSX.Element {
   return <div>{`Loading...`}</div>
 }
 

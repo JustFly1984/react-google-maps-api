@@ -1,4 +1,4 @@
-import { Component, type ReactNode } from 'react'
+import { Component, type JSX, type ReactNode } from 'react'
 
 interface ScriptLoadedState {
   scriptLoaded: boolean
@@ -9,7 +9,7 @@ interface ScriptLoadedProps {
   children: ReactNode | ReactNode[] | Function
 }
 
-function SpanIntro(): React.JSX.Element {
+function SpanIntro(): JSX.Element {
   return (
     <span>
       <a href='#section-introduction'>Enter API Key</a> to see examples
@@ -50,7 +50,7 @@ class ScriptLoaded extends Component<ScriptLoadedProps, ScriptLoadedState> {
     window.clearInterval(this.interval)
   }
 
-  override render(): React.JSX.Element {
+  override render(): JSX.Element {
     if (!this.state.scriptLoaded) {
       return <SpanIntro />
     }

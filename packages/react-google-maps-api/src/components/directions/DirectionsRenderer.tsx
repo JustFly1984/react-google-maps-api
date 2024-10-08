@@ -1,4 +1,4 @@
-import { type ContextType, PureComponent } from 'react'
+import { type ContextType, type JSX, PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -122,7 +122,7 @@ export class DirectionsRenderer extends PureComponent<
     }
   }
 
-  override render(): React.JSX.Element {
+  override render(): JSX.Element {
     return <></>
   }
 }

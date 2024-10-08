@@ -1,4 +1,4 @@
-import { Children, type ContextType, createRef, PureComponent, type ReactNode, type RefObject } from 'react'
+import { Children, type ContextType, createRef, type JSX, PureComponent, type ReactNode, type RefObject } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -131,7 +131,7 @@ export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteS
     }
   }
 
-  override render(): React.JSX.Element {
+  override render(): JSX.Element {
     return <div ref={this.containerElement} className={this.props.className}>{Children.only(this.props.children)}</div>
   }
 }

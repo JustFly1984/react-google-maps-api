@@ -6,6 +6,7 @@ import {
 } from '@react-google-maps/api'
 import * as PropTypes from 'prop-types'
 import {
+  type JSX,
   memo,
   useCallback,
   useMemo,
@@ -31,7 +32,7 @@ interface Props {
   }
 }
 
-function ExampleDirections({ styles }: Props): React.JSX.Element {
+function ExampleDirections({ styles }: Props): JSX.Element {
   const [response, setResponse] = useState<google.maps.DirectionsResult | null>(
     null
   )

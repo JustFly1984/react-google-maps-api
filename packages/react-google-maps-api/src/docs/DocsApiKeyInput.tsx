@@ -1,4 +1,4 @@
-import { type ChangeEvent, Component, type FormEvent, type ReactNode } from 'react'
+import { type ChangeEvent, Component, type JSX, type FormEvent, type ReactNode } from 'react'
 import { setKey, getKey } from './docs-api-key'
 
 import LoadScript from '../LoadScript'
@@ -18,7 +18,7 @@ const buttonStyle = {
   marginLeft: '8px',
 }
 
-const loadingElement: React.JSX.Element = <div>Loading...</div>
+const loadingElement: JSX.Element = <div>Loading...</div>
 
 interface DocsApiKeyInputState {
   key: string

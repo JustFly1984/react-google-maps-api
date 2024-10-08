@@ -1,5 +1,5 @@
 // eslint-disable-next-line node/no-extraneous-import
-import { type CSSProperties, memo, useCallback, useState } from 'react'
+import { type CSSProperties, type JSX, memo, useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, OverlayViewF, MarkerF, OVERLAY_MOUSE_TARGET, MARKER_LAYER,  } from '@react-google-maps/api'
 
@@ -33,7 +33,7 @@ interface Props {
   }
 }
 
-function ExampleOverlayView({ styles }: Props): React.JSX.Element {
+function ExampleOverlayView({ styles }: Props): JSX.Element {
   const [isShown, setIsShown] = useState(false)
 
   const changeIsShown = useCallback(() => {

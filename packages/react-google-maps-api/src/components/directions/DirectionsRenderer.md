@@ -2,7 +2,7 @@
 
 ```jsx
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import React, { type JSX, memo, useCallback, useMemo, useRef, useState } from 'react';
 
 import {
   GoogleMap,
@@ -10,7 +10,7 @@ import {
   DirectionsRenderer,
 } from '@react-google-maps/api';
 
-function Directions(): React.JSX.Element {
+function Directions(): JSX.Element {
   const [response, setResponse] = useState<google.maps.DirectionsResult | null>(
     null
   );

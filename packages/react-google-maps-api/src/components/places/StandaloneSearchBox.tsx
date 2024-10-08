@@ -1,4 +1,4 @@
-import { Children, type ContextType, createRef, PureComponent, type ReactNode, type RefObject } from 'react'
+import { Children, type ContextType, createRef, type JSX, PureComponent, type ReactNode, type RefObject } from 'react'
 
 import invariant from 'invariant'
 
@@ -111,7 +111,7 @@ class StandaloneSearchBox extends PureComponent<
     }
   }
 
-  override render(): React.JSX.Element {
+  override render(): JSX.Element {
     return <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
   }
 }

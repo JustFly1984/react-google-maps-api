@@ -1,5 +1,5 @@
 // eslint-disable-next-line node/no-extraneous-import
-import { type CSSProperties, memo, useCallback, useMemo, useState, ChangeEventHandler } from 'react'
+import { type CSSProperties, type JSX, memo, useCallback, useMemo, useState, ChangeEventHandler } from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
@@ -143,7 +143,7 @@ interface Props {
   }
 }
 
-function ExampleShapes({ styles }: Props): React.JSX.Element {
+function ExampleShapes({ styles }: Props): JSX.Element {
   const [polylineVisible, setPolylineVisible] = useState(true)
   const [polylineOptions, setPolylineOptions] = useState(
     JSON.stringify(POLYLINE_OPTIONS)

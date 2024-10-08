@@ -1,5 +1,5 @@
 // eslint-disable-next-line node/no-extraneous-import
-import { type CSSProperties, memo } from 'react'
+import { type CSSProperties, type JSX, memo } from 'react'
 import PropTypes from 'prop-types'
 import { GoogleMap, GroundOverlay } from '@react-google-maps/api'
 
@@ -31,7 +31,7 @@ interface Props {
   }
 }
 
-function GroundOverlayC(): React.JSX.Element {
+function GroundOverlayC(): JSX.Element {
   return (
     <GroundOverlay
     url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
@@ -42,7 +42,7 @@ function GroundOverlayC(): React.JSX.Element {
 
 const GroundOverlayComponent = memo(GroundOverlayC)
 
-function ExampleGround({ styles }: Props): React.JSX.Element{
+function ExampleGround({ styles }: Props): JSX.Element{
   return (
     <div className='map'>
       <div className='map-container'>

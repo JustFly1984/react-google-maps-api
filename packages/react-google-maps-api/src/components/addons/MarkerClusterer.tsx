@@ -1,5 +1,6 @@
 import {
   type ContextType,
+  type JSX,
   PureComponent,
   useState,
   memo,
@@ -99,7 +100,7 @@ const defaultOptions = {}
 
 export interface MarkerClustererProps {
   // required
-  children: (markerClusterer: Clusterer) => React.JSX.Element
+  children: (markerClusterer: Clusterer) => JSX.Element
 
   options?: ClustererOptions | undefined
   /** Whether the position of a cluster marker should be the average position of all markers in the cluster. If set to false, the cluster marker is positioned at the location of the first marker added to the cluster. The default value is false. */
@@ -150,7 +151,7 @@ export interface MarkerClustererProps {
 
 function MarkerClustererFunctional(
   props: MarkerClustererProps
-): React.JSX.Element | null {
+): JSX.Element | null {
   const {
     children,
     options,
@@ -565,7 +566,7 @@ export class ClustererComponent extends PureComponent<MarkerClustererProps, Clus
     }
   }
 
-  override render(): React.JSX.Element | null {
+  override render(): JSX.Element | null {
     return this.state.markerClusterer !== null
       ? this.props.children(this.state.markerClusterer)
       : null

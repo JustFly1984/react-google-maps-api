@@ -1,5 +1,5 @@
 // eslint-disable-next-line node/no-extraneous-import
-import { type CSSProperties, memo, useMemo } from 'react'
+import { type CSSProperties, type JSX, memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
@@ -27,7 +27,7 @@ interface Props {
   }
 }
 
-function ExampleHeatmap({ styles }: Props): React.JSX.Element{
+function ExampleHeatmap({ styles }: Props): JSX.Element{
   const data = useMemo(() => {
     return [
       new google.maps.LatLng(37.782, -122.447),
