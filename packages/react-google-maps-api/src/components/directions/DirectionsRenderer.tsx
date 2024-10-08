@@ -1,4 +1,4 @@
-import { type ContextType, PureComponent } from 'react'
+import { type ContextType, type JSX, PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 

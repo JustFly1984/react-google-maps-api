@@ -6,6 +6,7 @@ import {
 } from '@react-google-maps/api'
 import * as PropTypes from 'prop-types'
 import {
+  type JSX,
   memo,
   useCallback,
   useMemo,

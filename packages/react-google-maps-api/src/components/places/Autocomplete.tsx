@@ -1,4 +1,4 @@
-import { Children, type ContextType, createRef, PureComponent, type ReactChild, type RefObject } from 'react'
+import { Children, type ContextType, createRef, type JSX, PureComponent, type ReactNode, type RefObject } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -43,7 +43,7 @@ interface AutocompleteState {
 
 export interface AutocompleteProps {
   // required
-  children: ReactChild
+  children: ReactNode
   /** The area in which to search for places. */
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
   /** The component restrictions. Component restrictions are used to restrict predictions to only those within the parent component. For example, the country. */

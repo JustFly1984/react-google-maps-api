@@ -11,6 +11,7 @@ import {
   type ReactNode,
   type ContextType,
   type ReactElement,
+  type JSX,
 } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'

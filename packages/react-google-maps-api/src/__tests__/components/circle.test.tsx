@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-import type { JSX } from 'react'
 
+import { type JSX } from "react"
 import { render, cleanup } from "@testing-library/react"
 import GoogleMap from  "../../GoogleMap"
 import Circle, { type CircleProps } from '../../components/drawing/Circle'

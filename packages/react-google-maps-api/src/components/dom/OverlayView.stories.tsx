@@ -1,5 +1,6 @@
 // eslint-disable-next-line node/no-extraneous-import
 import type { StoryFn, Meta } from '@storybook/react'
+import { type JSX } from "react"
 import GoogleMap from '../../GoogleMap'
 import { OverlayViewF, OVERLAY_LAYER } from './OverlayView'
 

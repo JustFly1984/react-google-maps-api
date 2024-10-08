@@ -1,5 +1,6 @@
 import {
   type ContextType,
+  type JSX,
   PureComponent,
   useState,
   memo,

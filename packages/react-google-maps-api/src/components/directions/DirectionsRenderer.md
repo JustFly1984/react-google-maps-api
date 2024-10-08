@@ -2,7 +2,7 @@
 
 ```jsx
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import React, { type JSX, memo, useCallback, useMemo, useRef, useState } from 'react';
 
 import {
   GoogleMap,

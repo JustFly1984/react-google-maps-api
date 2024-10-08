@@ -1,4 +1,4 @@
-import { Component, type ReactChild, type ReactChildren } from 'react'
+import { Component, type JSX, type ReactNode } from 'react'
 
 interface ScriptLoadedState {
   scriptLoaded: boolean
@@ -6,7 +6,7 @@ interface ScriptLoadedState {
 
 interface ScriptLoadedProps {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  children: ReactChild | ReactChildren | Function
+  children: ReactNode | ReactNode[] | Function
 }
 
 function SpanIntro(): JSX.Element {

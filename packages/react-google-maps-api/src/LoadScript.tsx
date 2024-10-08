@@ -1,4 +1,4 @@
-import { createRef, PureComponent, type ReactNode, type RefObject } from 'react'
+import { createRef, type JSX, PureComponent, type ReactNode, type RefObject } from 'react'
 import invariant from 'invariant'
 
 import { injectScript } from './utils/injectscript'

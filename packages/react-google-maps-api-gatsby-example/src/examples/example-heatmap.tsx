@@ -1,5 +1,5 @@
 // eslint-disable-next-line node/no-extraneous-import
-import { type CSSProperties, memo, useMemo } from 'react'
+import { type CSSProperties, type JSX, memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import {
   GoogleMap,
