@@ -30,7 +30,7 @@ const babelOptions = {
       '@babel/plugin-transform-typescript',
       {
         allowDeclareFields: true,
-      }
+      },
     ],
     '@babel/plugin-syntax-jsx',
     '@babel/plugin-transform-shorthand-properties',
@@ -84,21 +84,17 @@ const babelOptions = {
   ],
 }
 
-
 module.exports = {
   reactOptions: {
     fastRefresh: true,
   },
-  "stories": [
-    "../packages/react-google-maps-api/**/*.stories.mdx",
-    "../packages/react-google-maps-api/**/*.stories.@(js|jsx|ts|tsx)",
-    "../packages/react-google-maps-api-gatsby-example/**/*.stories.mdx",
-    "../packages/react-google-maps-api-gatsby-example/**/*.stories.@(js|jsx|ts|tsx)",
+  stories: [
+    '../packages/react-google-maps-api/**/*.stories.mdx',
+    '../packages/react-google-maps-api/**/*.stories.@(js|jsx|ts|tsx)',
+    '../packages/react-google-maps-api-gatsby-example/**/*.stories.mdx',
+    '../packages/react-google-maps-api-gatsby-example/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials"
-  ],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
   plugins: [
     require('postcss-flexbugs-fixes'),
     require('autoprefixer')({
@@ -122,9 +118,16 @@ module.exports = {
     },
   },
   webpackFinal: (config) => {
-    config.resolve.alias['@react-google-maps/api'] = require.resolve('../packages/react-google-maps-api/src/index.ts');
-    config.resolve.alias['@react-google-maps/infobox'] = require.resolve('../packages/react-google-maps-api-infobox/src/index.ts');
-    config.resolve.alias['@react-google-maps/marker-clusterer'] = require.resolve('../packages/react-google-maps-api-marker-clusterer/src/index.ts');
+    config.resolve.alias['@react-google-maps/api'] = require.resolve(
+      '../packages/react-google-maps-api/src/index.ts'
+    )
+    config.resolve.alias['@react-google-maps/infobox'] = require.resolve(
+      '../packages/react-google-maps-api-infobox/src/index.ts'
+    )
+    config.resolve.alias['@react-google-maps/marker-clusterer'] =
+      require.resolve(
+        '../packages/react-google-maps-api-marker-clusterer/src/index.ts'
+      )
 
     config.resolve.plugins = [
       ...(config.resolve.plugins || []),
@@ -198,7 +201,7 @@ module.exports = {
       test: /\.(stories|story)\.mdx$/,
       use: [
         {
-          // Need to add babel-loader as dependency: `yarn add -D babel-loader`
+          // Need to add babel-loader as dependency: `pnpm install -D babel-loader`
           loader: require.resolve('babel-loader'),
           // may or may not need this line depending on your app's setup
           options: babelOptions,
@@ -265,7 +268,6 @@ module.exports = {
 
     config.resolve.alias = {}
 
-    return config;
+    return config
   },
-
 }

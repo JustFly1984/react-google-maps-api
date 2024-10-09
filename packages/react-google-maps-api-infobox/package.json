@@ -43,12 +43,11 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup --config",
-    "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
-    "update": "yarn-check -u",
+    "clean": "rimraf ./package-lock.json ./pnpm-lock.yml ./node_modules/ && pnpm install",
     "lint": "pnpx eslint ./src/**/*.{ts,tsx}",
-    "pub": "yarn publish .",
+    "pub": "pnpm publish .",
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "28.0.0",
