@@ -1,0 +1,69 @@
+.card-body > .custom-control .custom-control-label {
+  font-weight: bold;
+}
+
+.custom-control-label::before {
+  background-color: #fff;
+  border: #adb5bd solid 1px;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+  border-color: #007bff;
+}
+
+.custom-control-input:focus~.custom-control-label::before {
+  box-shadow: 0 0 0 #fff, 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.header {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  text-align: center;
+}
+
+.logo {
+  height: 5rem;
+  margin-bottom: 0.5rem;
+  width: 5rem;
+}
+
+.flag {
+  border: 1px solid #eee;
+  height: 17px;
+  line-height: 0;
+  margin-right: 6px;
+  position: relative;
+  top: -2px;
+  width: 22px;
+}
+
+.btn-load {
+  padding: .375rem 1.25rem;
+}
+
+.map-settings {
+  margin-top: 1rem;
+}
+
+.map-container {
+  border-radius: 0.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.25rem;
+  overflow: hidden;
+}
+
+.icon {
+  position: relative;
+  top: -0.125rem;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+}
+
+.footer {
+  background-color: #e9ecef;
+  border-top: 1px solid #dee2e6;
+  margin-top: 4rem;
+  padding: 1.75rem 0 1.5rem 0;
+  text-align: center;
+}

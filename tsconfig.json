@@ -1,5 +1,4 @@
 {
-  "baseUrl": ".",
   "exclude": ["node_modules", "react-google-maps-api-gatsby-example"],
   "types": [
     "googlemaps",
