@@ -1,10 +1,20 @@
-import { Children, type ContextType, createRef, type JSX, PureComponent, type ReactNode, type RefObject } from 'react'
-
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
-
-import MapContext from '../../map-context'
-
+import {
+  type JSX,
+  Children,
+  createRef,
+  PureComponent,
+  type ReactNode,
+  type RefObject,
+  type ContextType,
+} from 'react'
 import invariant from 'invariant'
+
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
+
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onPlaceChanged: 'place_changed',
@@ -37,15 +47,18 @@ const updaterMap = {
   },
 }
 
-interface AutocompleteState {
+type AutocompleteState = {
   autocomplete: google.maps.places.Autocomplete | null
 }
 
-export interface AutocompleteProps {
+export type AutocompleteProps = {
   // required
   children: ReactNode
   /** The area in which to search for places. */
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
+  bounds?:
+    | google.maps.LatLngBounds
+    | google.maps.LatLngBoundsLiteral
+    | undefined
   /** The component restrictions. Component restrictions are used to restrict predictions to only those within the parent component. For example, the country. */
   restrictions?: google.maps.places.ComponentRestrictions | undefined
   /** Fields to be included for the Place in the details response when the details are successfully retrieved. For a list of fields see PlaceResult. Nested fields can be specified with dot-paths (for example, "geometry.location"). */
@@ -58,13 +71,18 @@ export interface AutocompleteProps {
   /** This callback is called when the autocomplete instance has loaded. It is called with the autocomplete instance. */
   onLoad?: ((autocomplete: google.maps.places.Autocomplete) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the autocomplete instance. */
-  onUnmount?: ((autocomplete: google.maps.places.Autocomplete) => void) | undefined
+  onUnmount?:
+    | ((autocomplete: google.maps.places.Autocomplete) => void)
+    | undefined
   className?: string | undefined
 }
 
-export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteState> {
+export class Autocomplete extends PureComponent<
+  AutocompleteProps,
+  AutocompleteState
+> {
   static defaultProps = {
-    className: ''
+    className: '',
   }
 
   static override contextType = MapContext
@@ -95,7 +113,10 @@ export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteS
     const input = this.containerElement.current?.querySelector('input')
 
     if (input) {
-      const autocomplete = new google.maps.places.Autocomplete(input, this.props.options)
+      const autocomplete = new google.maps.places.Autocomplete(
+        input,
+        this.props.options
+      )
 
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
@@ -132,7 +153,11 @@ export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteS
   }
 
   override render(): JSX.Element {
-    return <div ref={this.containerElement} className={this.props.className}>{Children.only(this.props.children)}</div>
+    return (
+      <div ref={this.containerElement} className={this.props.className}>
+        {Children.only(this.props.children)}
+      </div>
+    )
   }
 }
 

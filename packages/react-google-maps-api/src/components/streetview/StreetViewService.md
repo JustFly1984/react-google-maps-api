@@ -2,7 +2,6 @@
 
 Look at the console.log to see request results
 
-
 ```jsx
 const { GoogleMap, LoadScript } = require("../../");
 const ScriptLoaded = require("../../docs/ScriptLoaded").default;
@@ -17,7 +16,7 @@ const center = {
   lng: -122.254775
 };
 
-const onLoad = (streetViewService) => {
+function onLoad(streetViewService) {
   streetViewService.getPanorama({
     location: center, 
     radius: 50

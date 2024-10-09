@@ -12,20 +12,20 @@ import {
   type ReactPortal,
   type CSSProperties,
 } from 'react'
-import * as ReactDOM from 'react-dom'
 import invariant from 'invariant'
+import * as ReactDOM from 'react-dom'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
 import {
   getLayoutStyles,
   arePositionsEqual,
   getOffsetOverride,
-} from './dom-helper'
+} from './dom-helper.js'
 
-import { createOverlay } from './Overlay'
+import { createOverlay } from './Overlay.js'
 
-interface OverlayViewState {
+type OverlayViewState = {
   paneEl: Element | null
   containerStyle: CSSProperties
 }
@@ -49,7 +49,8 @@ function convertToLatLngBoundsString(
   latLngBoundsLike?:
     | google.maps.LatLngBounds
     | google.maps.LatLngBoundsLiteral
-    | null | undefined
+    | null
+    | undefined
 ) {
   if (!latLngBoundsLike) {
     return ''
@@ -67,7 +68,8 @@ function convertToLatLngBoundsString(
 }
 
 export type PaneNames = keyof google.maps.MapPanes
-export interface OverlayViewProps {
+
+export type OverlayViewProps = {
   children?: ReactNode | undefined
   // required
   mapPaneName: PaneNames
@@ -209,15 +211,28 @@ export class OverlayView extends PureComponent<
       this.props.position
     )
 
-    const { left, top, width, height } = this.state.containerStyle
-
-    if (!arePositionsEqual(layoutStyles, { left, top, width, height })) {
+    if (
+      !arePositionsEqual(layoutStyles, {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        left: this.state.containerStyle.left,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        top: this.state.containerStyle.top,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        width: this.state.containerStyle.width,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        height: this.state.containerStyle.height,
+      })
+    ) {
       this.setState({
         containerStyle: {
-          top: layoutStyles.top || 0,
-          left: layoutStyles.left || 0,
-          width: layoutStyles.width || 0,
-          height: layoutStyles.height || 0,
+          top: layoutStyles.top ?? 0,
+          left: layoutStyles.left ?? 0,
+          width: layoutStyles.width ?? 0,
+          height: layoutStyles.height ?? 0,
           position: 'absolute',
         },
       })

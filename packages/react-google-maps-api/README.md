@@ -5,14 +5,13 @@
 [![npm package](https://img.shields.io/npm/v/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![npm downloads](https://img.shields.io/npm/dt/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
-[![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/react-google-maps)
-[![DeepScan grade](https://deepscan.io/api/teams/6449/projects/8455/branches/101268/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=6449&pid=8455&bid=101268)
 
 @react-google-maps/api
 
 You can donate or became a sponsor of the project here: [https://opencollective.com/react-google-maps-api#category-CONTRIBUTE](https://opencollective.com/react-google-maps-api#category-CONTRIBUTE)
 
 > This library requires React v16.6 or later. To use the latest features (including hooks) requires React v16.8+. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)
+> Versions starting 12.20.0 should support React@19.
 
 This is complete re-write of the (sadly unmaintained) `react-google-maps` library. We thank [tomchentw](https://github.com/tomchentw/) for his great work that made possible.
 
@@ -22,44 +21,44 @@ Here are the main additions to react-google-maps that were the motivation behind
 
 ## Install @react-google-maps/api
 
-with NPM
+with PNPM
 
-```#!/bin/bash
-npm i -S @react-google-maps/api
+```shell
+pnpm install @react-google-maps/api
 ```
 
-or Yarn
+with NPM
 
-```#!/bin/bash
-yarn add @react-google-maps/api
+```shell
+npm i -S @react-google-maps/api
 ```
 
 ```jsx
 import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 
 const containerStyle = {
   width: '400px',
-  height: '400px'
-};
+  height: '400px',
+}
 
 const center = {
   lat: -3.745,
-  lng: -38.523
-};
+  lng: -38.523,
+}
 
 function MyComponent() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "YOUR_API_KEY"
+    googleMapsApiKey: 'YOUR_API_KEY',
   })
 
   const [map, setMap] = React.useState(null)
 
   const onLoad = React.useCallback(function callback(map) {
     // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+    const bounds = new window.google.maps.LatLngBounds(center)
+    map.fitBounds(bounds)
 
     setMap(map)
   }, [])
@@ -69,17 +68,19 @@ function MyComponent() {
   }, [])
 
   return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
-  ) : <></>
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={center}
+      zoom={10}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+    >
+      {/* Child components, such as markers, info windows, etc. */}
+      <></>
+    </GoogleMap>
+  ) : (
+    <></>
+  )
 }
 
 export default React.memo(MyComponent)
@@ -94,10 +95,10 @@ Before:
 ```jsx
 // before - don't do this!
 <GoogleMap
-  ref={map => {
-    const bounds = new window.google.maps.LatLngBounds();
+  ref={(map) => {
+    const bounds = new window.google.maps.LatLngBounds()
 
-    map.fitBounds(bounds);
+    map.fitBounds(bounds)
   }}
 />
 ```
@@ -106,11 +107,11 @@ After:
 
 ```jsx
 <GoogleMap
-  onLoad={map => {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
+  onLoad={(map) => {
+    const bounds = new window.google.maps.LatLngBounds()
+    map.fitBounds(bounds)
   }}
-  onUnmount={map => {
+  onUnmount={(map) => {
     // do your stuff before map is unmounted
   }}
 />
@@ -133,7 +134,6 @@ Examples can be found in two places:
 
 1. [Official docs](https://react-google-maps-api-docs.netlify.app/) (powered by [react-styleguidist](https://github.com/styleguidist/react-styleguidist).
 2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api-gatsby-example/src/examples) folder
-3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.app/)
 
 ## Advice
 
@@ -141,7 +141,7 @@ Examples can be found in two places:
 
 ## Community Help Resource
 
-You can join the community at [Spectrum.chat](https://spectrum.chat/react-google-maps) to ask questions and help others with your experience or join our [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_invite/enQtODc5ODU1NTY5MzQ4LTBiNTYzZmY1YmVjYzJhZThkMGU0YzUwZjJkNGJmYjk4YjQyYjZhMDk2YThlZGEzNDc0M2RhNjBmMWE4ZTJiMjQ)
+You can join our [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_invite/enQtODc5ODU1NTY5MzQ4LTBiNTYzZmY1YmVjYzJhZThkMGU0YzUwZjJkNGJmYjk4YjQyYjZhMDk2YThlZGEzNDc0M2RhNjBmMWE4ZTJiMjQ)
 
 ## Contribute
 
@@ -158,9 +158,3 @@ When working on a feature/fix, you're probably gonna want to test your changes. 
 Since 1.2.0 you can use onLoad and onMount props for each @react-google-maps/api component, ref does not contain API methods anymore.
 
 Since version 1.2.2 We added useGoogleMap hook, which is working only with React@16.8.1 and later versions.
-
-## Websites made with @react-google-maps-api
-
-[nycmesh.net](https://nycmesh.net) Network topography visualized on the map [(Github)](https://github.com/meshcenter/network-map)
-
-add your website by making PR!

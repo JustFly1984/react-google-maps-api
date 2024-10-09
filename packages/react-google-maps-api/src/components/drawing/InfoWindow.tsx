@@ -11,11 +11,15 @@ import {
   type ReactPortal,
   type ContextType,
 } from 'react'
-import { createPortal } from 'react-dom'
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
-
-import MapContext from '../../map-context'
 import invariant from 'invariant'
+import { createPortal } from 'react-dom'
+
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
+
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onCloseClick: 'closeclick',
@@ -26,7 +30,10 @@ const eventMap = {
 }
 
 const updaterMap = {
-  options(instance: google.maps.InfoWindow, options: google.maps.InfoWindowOptions): void {
+  options(
+    instance: google.maps.InfoWindow,
+    options: google.maps.InfoWindowOptions
+  ): void {
     instance.setOptions(options)
   },
   position(
@@ -40,11 +47,11 @@ const updaterMap = {
   },
 }
 
-interface InfoWindowState {
+type InfoWindowState = {
   infoWindow: google.maps.InfoWindow | null
 }
 
-export interface InfoWindowProps {
+export type InfoWindowProps = {
   children?: ReactNode | undefined
   /** Can be any MVCObject that exposes a LatLng position property and optionally a Point anchorPoint property for calculating the pixelOffset. The anchorPoint is the offset from the anchor's position to the tip of the InfoWindow. */
   anchor?: google.maps.MVCObject | undefined
@@ -81,17 +88,22 @@ function InfoWindowFunctional({
   onPositionChanged,
   onZindexChanged,
   onLoad,
-  onUnmount
+  onUnmount,
 }: InfoWindowProps): ReactPortal | null {
   const map = useContext<google.maps.Map | null>(MapContext)
 
   const [instance, setInstance] = useState<google.maps.InfoWindow | null>(null)
 
-  const [closeclickListener, setCloseClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [domreadyclickListener, setDomReadyClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [contentchangedclickListener, setContentChangedClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [positionchangedclickListener, setPositionChangedClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [zindexchangedclickListener, setZindexChangedClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [closeclickListener, setCloseClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [domreadyclickListener, setDomReadyClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [contentchangedclickListener, setContentChangedClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [positionchangedclickListener, setPositionChangedClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [zindexchangedclickListener, setZindexChangedClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
   const containerElementRef = useRef<HTMLDivElement | null>(null)
 
@@ -157,7 +169,11 @@ function InfoWindowFunctional({
       }
 
       setContentChangedClickListener(
-        google.maps.event.addListener(instance, 'content_changed', onContentChanged)
+        google.maps.event.addListener(
+          instance,
+          'content_changed',
+          onContentChanged
+        )
       )
     }
   }, [onContentChanged])
@@ -169,7 +185,11 @@ function InfoWindowFunctional({
       }
 
       setPositionChangedClickListener(
-        google.maps.event.addListener(instance, 'position_changed', onPositionChanged)
+        google.maps.event.addListener(
+          instance,
+          'position_changed',
+          onPositionChanged
+        )
       )
     }
   }, [onPositionChanged])
@@ -181,15 +201,17 @@ function InfoWindowFunctional({
       }
 
       setZindexChangedClickListener(
-        google.maps.event.addListener(instance, 'zindex_changed', onZindexChanged)
+        google.maps.event.addListener(
+          instance,
+          'zindex_changed',
+          onZindexChanged
+        )
       )
     }
   }, [onZindexChanged])
 
   useEffect(() => {
-    const infoWindow = new google.maps.InfoWindow({
-      ...(options || {}),
-    })
+    const infoWindow = new google.maps.InfoWindow(options)
 
     setInstance(infoWindow)
 
@@ -209,19 +231,31 @@ function InfoWindowFunctional({
 
     if (onContentChanged) {
       setContentChangedClickListener(
-        google.maps.event.addListener(infoWindow, 'content_changed', onContentChanged)
+        google.maps.event.addListener(
+          infoWindow,
+          'content_changed',
+          onContentChanged
+        )
       )
     }
 
     if (onPositionChanged) {
       setPositionChangedClickListener(
-        google.maps.event.addListener(infoWindow, 'position_changed', onPositionChanged)
+        google.maps.event.addListener(
+          infoWindow,
+          'position_changed',
+          onPositionChanged
+        )
       )
     }
 
     if (onZindexChanged) {
       setZindexChangedClickListener(
-        google.maps.event.addListener(infoWindow, 'zindex_changed', onZindexChanged)
+        google.maps.event.addListener(
+          infoWindow,
+          'zindex_changed',
+          onZindexChanged
+        )
       )
     }
 
@@ -279,16 +313,17 @@ function InfoWindowFunctional({
     }
   }, [])
 
-  return containerElementRef.current ? (
-    createPortal(Children.only(children), containerElementRef.current)
-  ) : (
-    null
-  )
+  return containerElementRef.current
+    ? createPortal(Children.only(children), containerElementRef.current)
+    : null
 }
 
 export const InfoWindowF = memo(InfoWindowFunctional)
 
-export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> {
+export class InfoWindow extends PureComponent<
+  InfoWindowProps,
+  InfoWindowState
+> {
   static override contextType = MapContext
 
   declare context: ContextType<typeof MapContext>
@@ -300,7 +335,10 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
     infoWindow: null,
   }
 
-  open = (infoWindow: google.maps.InfoWindow, anchor?: google.maps.MVCObject | undefined): void => {
+  open = (
+    infoWindow: google.maps.InfoWindow,
+    anchor?: google.maps.MVCObject | undefined
+  ): void => {
     if (anchor) {
       infoWindow.open(this.context, anchor)
     } else if (infoWindow.getPosition()) {
@@ -326,9 +364,7 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
   }
 
   override componentDidMount(): void {
-    const infoWindow = new google.maps.InfoWindow({
-      ...(this.props.options || {}),
-    })
+    const infoWindow = new google.maps.InfoWindow(this.props.options)
 
     this.containerElement = document.createElement('div')
 
@@ -374,11 +410,9 @@ export class InfoWindow extends PureComponent<InfoWindowProps, InfoWindowState> 
   }
 
   override render(): ReactPortal | null {
-    return this.containerElement ? (
-      createPortal(Children.only(this.props.children), this.containerElement)
-    ) : (
-      null
-    )
+    return this.containerElement
+      ? createPortal(Children.only(this.props.children), this.containerElement)
+      : null
   }
 }
 

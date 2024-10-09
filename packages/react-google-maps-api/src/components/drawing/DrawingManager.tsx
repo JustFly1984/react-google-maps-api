@@ -1,11 +1,21 @@
 /* globals google */
-import { type ContextType, memo, PureComponent, useContext, useEffect, useState } from 'react'
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 
 import invariant from 'invariant'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onCircleComplete: 'circlecomplete',
@@ -31,11 +41,11 @@ const updaterMap = {
   },
 }
 
-interface DrawingManagerState {
+type DrawingManagerState = {
   drawingManager: google.maps.drawing.DrawingManager | null
 }
 
-export interface DrawingManagerProps {
+export type DrawingManagerProps = {
   options?: google.maps.drawing.DrawingManagerOptions | undefined
   /** Changes the DrawingManager's drawing mode, which defines the type of overlay to be added on the map. Accepted values are 'marker', 'polygon', 'polyline', 'rectangle', 'circle', or null. A drawing mode of null means that the user can interact with the map as normal, and clicks do not draw anything. */
   drawingMode?: google.maps.drawing.OverlayType | null | undefined
@@ -44,7 +54,9 @@ export interface DrawingManagerProps {
   /** This event is fired when the user has finished drawing a marker. */
   onMarkerComplete?: ((marker: google.maps.Marker) => void) | undefined
   /** This event is fired when the user has finished drawing an overlay of any type. */
-  onOverlayComplete?: ((e: google.maps.drawing.OverlayCompleteEvent) => void) | undefined
+  onOverlayComplete?:
+    | ((e: google.maps.drawing.OverlayCompleteEvent) => void)
+    | undefined
   /** This event is fired when the user has finished drawing a polygon. */
   onPolygonComplete?: ((polygon: google.maps.Polygon) => void) | undefined
   /** This event is fired when the user has finished drawing a polyline. */
@@ -52,9 +64,13 @@ export interface DrawingManagerProps {
   /** This event is fired when the user has finished drawing a rectangle. */
   onRectangleComplete?: ((rectangle: google.maps.Rectangle) => void) | undefined
   /** This callback is called when the drawingManager instance has loaded. It is called with the drawingManager instance. */
-  onLoad?: ((drawingManager: google.maps.drawing.DrawingManager) => void) | undefined
+  onLoad?:
+    | ((drawingManager: google.maps.drawing.DrawingManager) => void)
+    | undefined
   /** This callback is called when the component unmounts. It is called with the drawingManager instance. */
-  onUnmount?: ((drawingManager: google.maps.drawing.DrawingManager) => void) | undefined
+  onUnmount?:
+    | ((drawingManager: google.maps.drawing.DrawingManager) => void)
+    | undefined
 }
 
 function DrawingManagerFunctional({
@@ -67,18 +83,25 @@ function DrawingManagerFunctional({
   onPolylineComplete,
   onRectangleComplete,
   onLoad,
-  onUnmount
+  onUnmount,
 }: DrawingManagerProps): null {
   const map = useContext<google.maps.Map | null>(MapContext)
 
-  const [instance, setInstance] = useState<google.maps.drawing.DrawingManager | null>(null)
+  const [instance, setInstance] =
+    useState<google.maps.drawing.DrawingManager | null>(null)
 
-  const [circlecompleteListener, setCircleCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [markercompleteListener, setMarkerCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [overlaycompleteListener, setOverlayCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [polygoncompleteListener, setPolygonCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [polylinecompleteListener, setPolylineCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [rectanglecompleteListener, setRectangleCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [circlecompleteListener, setCircleCompleteListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [markercompleteListener, setMarkerCompleteListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [overlaycompleteListener, setOverlayCompleteListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [polygoncompleteListener, setPolygonCompleteListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [polylinecompleteListener, setPolylineCompleteListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [rectanglecompleteListener, setRectangleCompleteListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
   // Order does matter
   useEffect(() => {
@@ -106,7 +129,11 @@ function DrawingManagerFunctional({
       }
 
       setCircleCompleteListener(
-        google.maps.event.addListener(instance, 'circlecomplete', onCircleComplete)
+        google.maps.event.addListener(
+          instance,
+          'circlecomplete',
+          onCircleComplete
+        )
       )
     }
   }, [instance, onCircleComplete])
@@ -118,7 +145,11 @@ function DrawingManagerFunctional({
       }
 
       setMarkerCompleteListener(
-        google.maps.event.addListener(instance, 'markercomplete', onMarkerComplete)
+        google.maps.event.addListener(
+          instance,
+          'markercomplete',
+          onMarkerComplete
+        )
       )
     }
   }, [instance, onMarkerComplete])
@@ -130,7 +161,11 @@ function DrawingManagerFunctional({
       }
 
       setOverlayCompleteListener(
-        google.maps.event.addListener(instance, 'overlaycomplete', onOverlayComplete)
+        google.maps.event.addListener(
+          instance,
+          'overlaycomplete',
+          onOverlayComplete
+        )
       )
     }
   }, [instance, onOverlayComplete])
@@ -142,7 +177,11 @@ function DrawingManagerFunctional({
       }
 
       setPolygonCompleteListener(
-        google.maps.event.addListener(instance, 'polygoncomplete', onPolygonComplete)
+        google.maps.event.addListener(
+          instance,
+          'polygoncomplete',
+          onPolygonComplete
+        )
       )
     }
   }, [instance, onPolygonComplete])
@@ -154,7 +193,11 @@ function DrawingManagerFunctional({
       }
 
       setPolylineCompleteListener(
-        google.maps.event.addListener(instance, 'polylinecomplete', onPolylineComplete)
+        google.maps.event.addListener(
+          instance,
+          'polylinecomplete',
+          onPolylineComplete
+        )
       )
     }
   }, [instance, onPolylineComplete])
@@ -166,7 +209,11 @@ function DrawingManagerFunctional({
       }
 
       setRectangleCompleteListener(
-        google.maps.event.addListener(instance, 'rectanglecomplete', onRectangleComplete)
+        google.maps.event.addListener(
+          instance,
+          'rectanglecomplete',
+          onRectangleComplete
+        )
       )
     }
   }, [instance, onRectangleComplete])
@@ -179,7 +226,7 @@ function DrawingManagerFunctional({
     )
 
     const drawingManager = new google.maps.drawing.DrawingManager({
-      ...(options || {}),
+      ...options,
       map,
     })
 
@@ -189,37 +236,61 @@ function DrawingManagerFunctional({
 
     if (onCircleComplete) {
       setCircleCompleteListener(
-        google.maps.event.addListener(drawingManager, 'circlecomplete', onCircleComplete)
+        google.maps.event.addListener(
+          drawingManager,
+          'circlecomplete',
+          onCircleComplete
+        )
       )
     }
 
     if (onMarkerComplete) {
       setMarkerCompleteListener(
-        google.maps.event.addListener(drawingManager, 'markercomplete', onMarkerComplete)
+        google.maps.event.addListener(
+          drawingManager,
+          'markercomplete',
+          onMarkerComplete
+        )
       )
     }
 
     if (onOverlayComplete) {
       setOverlayCompleteListener(
-        google.maps.event.addListener(drawingManager, 'overlaycomplete', onOverlayComplete)
+        google.maps.event.addListener(
+          drawingManager,
+          'overlaycomplete',
+          onOverlayComplete
+        )
       )
     }
 
     if (onPolygonComplete) {
       setPolygonCompleteListener(
-        google.maps.event.addListener(drawingManager, 'polygoncomplete', onPolygonComplete)
+        google.maps.event.addListener(
+          drawingManager,
+          'polygoncomplete',
+          onPolygonComplete
+        )
       )
     }
 
     if (onPolylineComplete) {
       setPolylineCompleteListener(
-        google.maps.event.addListener(drawingManager, 'polylinecomplete', onPolylineComplete)
+        google.maps.event.addListener(
+          drawingManager,
+          'polylinecomplete',
+          onPolylineComplete
+        )
       )
     }
 
     if (onRectangleComplete) {
       setRectangleCompleteListener(
-        google.maps.event.addListener(drawingManager, 'rectanglecomplete', onRectangleComplete)
+        google.maps.event.addListener(
+          drawingManager,
+          'rectanglecomplete',
+          onRectangleComplete
+        )
       )
     }
 
@@ -269,7 +340,10 @@ function DrawingManagerFunctional({
 
 export const DrawingManagerF = memo(DrawingManagerFunctional)
 
-export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingManagerState> {
+export class DrawingManager extends PureComponent<
+  DrawingManagerProps,
+  DrawingManagerState
+> {
   static override contextType = MapContext
 
   declare context: ContextType<typeof MapContext>
@@ -298,7 +372,7 @@ export class DrawingManager extends PureComponent<DrawingManagerProps, DrawingMa
 
   override componentDidMount(): void {
     const drawingManager = new google.maps.drawing.DrawingManager({
-      ...(this.props.options || {}),
+      ...this.props.options,
       map: this.context,
     })
 

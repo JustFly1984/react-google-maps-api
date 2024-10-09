@@ -1,7 +1,18 @@
-import { memo, type ContextType, PureComponent, useContext, useEffect, useState } from 'react'
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
-import MapContext from '../../map-context'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
+
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onBoundsChanged: 'bounds_changed',
@@ -34,7 +45,10 @@ const updaterMap = {
   map(instance: google.maps.Rectangle, map: google.maps.Map): void {
     instance.setMap(map)
   },
-  options(instance: google.maps.Rectangle, options: google.maps.RectangleOptions): void {
+  options(
+    instance: google.maps.Rectangle,
+    options: google.maps.RectangleOptions
+  ): void {
     instance.setOptions(options)
   },
   visible(instance: google.maps.Rectangle, visible: boolean): void {
@@ -42,14 +56,17 @@ const updaterMap = {
   },
 }
 
-interface RectangleState {
+type RectangleState = {
   rectangle: google.maps.Rectangle | null
 }
 
-export interface RectangleProps {
+export type RectangleProps = {
   options?: google.maps.RectangleOptions | undefined
   /** Sets the bounds of this rectangle. */
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
+  bounds?:
+    | google.maps.LatLngBounds
+    | google.maps.LatLngBoundsLiteral
+    | undefined
   /** If set to true, the user can drag this rectangle over the map. */
   draggable?: boolean | undefined
   /** If set to true, the user can edit this rectangle by dragging the control points shown at the corners and on each edge. */
@@ -113,18 +130,30 @@ function RectangleFunctional({
 
   const [instance, setInstance] = useState<google.maps.Rectangle | null>(null)
 
-  const [dblclickListener, setDblclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragendListener, setDragendListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragstartListener, setDragstartListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousedownListener, setMousedownListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousemoveListener, setMousemoveListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoutListener, setMouseoutListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoverListener, setMouseoverListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseupListener, setMouseupListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [rightClickListener, setRightClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragListener, setDragListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [boundsChangedListener, setBoundsChangedListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [dblclickListener, setDblclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragendListener, setDragendListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragstartListener, setDragstartListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousedownListener, setMousedownListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousemoveListener, setMousemoveListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoutListener, setMouseoutListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoverListener, setMouseoverListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseupListener, setMouseupListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [rightClickListener, setRightClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [clickListener, setClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragListener, setDragListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [boundsChangedListener, setBoundsChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
   // Order does matter
   useEffect(() => {
@@ -289,9 +318,7 @@ function RectangleFunctional({
         google.maps.event.removeListener(dragListener)
       }
 
-      setDragListener(
-        google.maps.event.addListener(instance, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(instance, 'drag', onDrag))
     }
   }, [onDrag])
 
@@ -302,14 +329,18 @@ function RectangleFunctional({
       }
 
       setBoundsChangedListener(
-        google.maps.event.addListener(instance, 'bounds_changed', onBoundsChanged)
+        google.maps.event.addListener(
+          instance,
+          'bounds_changed',
+          onBoundsChanged
+        )
       )
     }
   }, [onBoundsChanged])
 
   useEffect(() => {
     const rectangle = new google.maps.Rectangle({
-      ...(options || {}),
+      ...options,
       map,
     })
 
@@ -390,14 +421,16 @@ function RectangleFunctional({
     }
 
     if (onDrag) {
-      setDragListener(
-        google.maps.event.addListener(rectangle, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(rectangle, 'drag', onDrag))
     }
 
     if (onBoundsChanged) {
       setBoundsChangedListener(
-        google.maps.event.addListener(rectangle, 'bounds_changed', onBoundsChanged)
+        google.maps.event.addListener(
+          rectangle,
+          'bounds_changed',
+          onBoundsChanged
+        )
       )
     }
 
@@ -408,7 +441,6 @@ function RectangleFunctional({
     }
 
     return () => {
-
       if (dblclickListener !== null) {
         google.maps.event.removeListener(dblclickListener)
       }
@@ -489,7 +521,7 @@ export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
 
   override componentDidMount(): void {
     const rectangle = new google.maps.Rectangle({
-      ...(this.props.options || {}),
+      ...this.props.options,
       map: this.context,
     })
 

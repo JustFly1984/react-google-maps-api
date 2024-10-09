@@ -1,22 +1,34 @@
-import { type ContextType, PureComponent, useContext, useEffect, useState, memo } from 'react'
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
-interface TransitLayerState {
+type TransitLayerState = {
   transitLayer: google.maps.TransitLayer | null
 }
 
-export interface TransitLayerProps {
+export type TransitLayerProps = {
   /** This callback is called when the transitLayer instance has loaded. It is called with the transitLayer instance. */
   onLoad?: ((transitLayer: google.maps.TransitLayer) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the transitLayer instance. */
   onUnmount?: ((transitLayer: google.maps.TransitLayer) => void) | undefined
 }
 
-function TransitLayerFunctional({ onLoad, onUnmount }: TransitLayerProps): null {
+function TransitLayerFunctional({
+  onLoad,
+  onUnmount,
+}: TransitLayerProps): null {
   const map = useContext<google.maps.Map | null>(MapContext)
 
-  const [instance, setInstance] = useState<google.maps.TransitLayer | null>(null)
+  const [instance, setInstance] = useState<google.maps.TransitLayer | null>(
+    null
+  )
 
   // Order does matter
   useEffect(() => {
@@ -52,7 +64,10 @@ function TransitLayerFunctional({ onLoad, onUnmount }: TransitLayerProps): null 
 
 export const TransitLayerF = memo(TransitLayerFunctional)
 
-export class TransitLayer extends PureComponent<TransitLayerProps, TransitLayerState> {
+export class TransitLayer extends PureComponent<
+  TransitLayerProps,
+  TransitLayerState
+> {
   static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
@@ -62,7 +77,6 @@ export class TransitLayer extends PureComponent<TransitLayerProps, TransitLayerS
 
   setTransitLayerCallback = (): void => {
     if (this.state.transitLayer !== null) {
-
       this.state.transitLayer.setMap(this.context)
 
       if (this.props.onLoad) {

@@ -3,8 +3,8 @@ import invariant from 'invariant'
 
 export type Libraries = Library[]
 
-export interface LoadScriptUrlOptions {
-  googleMapsApiKey: string | ""
+export type LoadScriptUrlOptions = {
+  googleMapsApiKey: string | ''
   googleMapsClientId?: string | undefined
   version?: string | undefined
   language?: string | undefined
@@ -24,12 +24,13 @@ export function makeLoadScriptUrl({
   libraries,
   channel,
   mapIds,
-  authReferrerPolicy
+  authReferrerPolicy,
 }: LoadScriptUrlOptions): string {
   const params = []
 
   invariant(
-    (googleMapsApiKey && googleMapsClientId) || !(googleMapsApiKey && googleMapsClientId),
+    (googleMapsApiKey && googleMapsClientId) ||
+      !(googleMapsApiKey && googleMapsClientId),
     'You need to specify either googleMapsApiKey or googleMapsClientId for @react-google-maps/api load script to work. You cannot use both at the same time.'
   )
 

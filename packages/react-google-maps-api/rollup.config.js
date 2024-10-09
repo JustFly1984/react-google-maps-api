@@ -2,7 +2,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import dts from 'rollup-plugin-dts'
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 
 const output = (format) => {
   const base = {
@@ -13,7 +13,7 @@ const output = (format) => {
     globals: {
       react: 'React',
       'react-dom': 'ReactDOM',
-      'react/jsx-runtime': 'ReactJSXRuntime'
+      'react/jsx-runtime': 'ReactJSXRuntime',
     },
   }
 
@@ -28,9 +28,13 @@ const output = (format) => {
 
 export default [
   {
-    plugins: [typescript({
-      exclude: ["**/*.test.ts", "**/*.stories.tsx"]
-    }), nodeResolve(), commonjs()],
+    plugins: [
+      typescript({
+        exclude: ['**/*.test.ts', '**/*.stories.tsx'],
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
     external: ['react', 'react-dom', 'react/jsx-runtime'],
 
     input: 'src/index.ts',

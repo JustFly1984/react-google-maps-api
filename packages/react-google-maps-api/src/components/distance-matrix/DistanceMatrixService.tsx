@@ -2,11 +2,11 @@ import { PureComponent } from 'react'
 
 import invariant from 'invariant'
 
-interface DistanceMatrixServiceState {
+type DistanceMatrixServiceState = {
   distanceMatrixService: google.maps.DistanceMatrixService | null
 }
 
-export interface DistanceMatrixServiceProps {
+export type DistanceMatrixServiceProps = {
   // required for default functionality
   options: google.maps.DistanceMatrixRequest
 
@@ -20,9 +20,13 @@ export interface DistanceMatrixServiceProps {
     status: google.maps.DistanceMatrixStatus
   ) => void
   /** This callback is called when the distanceMatrixService instance has loaded. It is called with the distanceMatrixService instance. */
-  onLoad?: ((distanceMatrixService: google.maps.DistanceMatrixService) => void) | undefined
+  onLoad?:
+    | ((distanceMatrixService: google.maps.DistanceMatrixService) => void)
+    | undefined
   /** This callback is called when the component unmounts. It is called with the distanceMatrixService instance. */
-  onUnmount?: ((distanceMatrixService: google.maps.DistanceMatrixService) => void) | undefined
+  onUnmount?:
+    | ((distanceMatrixService: google.maps.DistanceMatrixService) => void)
+    | undefined
 }
 
 export class DistanceMatrixService extends PureComponent<
@@ -57,7 +61,10 @@ export class DistanceMatrixService extends PureComponent<
 
   override componentDidUpdate(): void {
     if (this.state.distanceMatrixService !== null) {
-      this.state.distanceMatrixService.getDistanceMatrix(this.props.options, this.props.callback)
+      this.state.distanceMatrixService.getDistanceMatrix(
+        this.props.options,
+        this.props.callback
+      )
     }
   }
 

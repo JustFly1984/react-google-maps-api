@@ -30,7 +30,7 @@ const onLoad = transitLayer => {
     center={center}
     onClick={onClick}
   >
-    <TransitLayer
+    <TransitLayerF
       onLoad={onLoad}
     />
   </GoogleMap>

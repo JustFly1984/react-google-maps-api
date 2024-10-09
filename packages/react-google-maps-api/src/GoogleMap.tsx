@@ -1,8 +1,20 @@
-import { type CSSProperties, PureComponent, type JSX, type ReactNode, useState, useRef, useEffect, memo } from 'react'
+import {
+  memo,
+  useRef,
+  useState,
+  type JSX,
+  useEffect,
+  PureComponent,
+  type ReactNode,
+  type CSSProperties,
+} from 'react'
 
-import MapContext from './map-context'
+import MapContext from './map-context.js'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from './utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from './utils/helper.js'
 
 const eventMap = {
   onDblClick: 'dblclick',
@@ -34,7 +46,10 @@ const updaterMap = {
       map.mapTypes.set(String(i), it)
     })
   },
-  center(map: google.maps.Map, center: google.maps.LatLng | google.maps.LatLngLiteral): void {
+  center(
+    map: google.maps.Map,
+    center: google.maps.LatLng | google.maps.LatLngLiteral
+  ): void {
     map.setCenter(center)
   },
   clickableIcons(map: google.maps.Map, clickable: boolean): void {
@@ -49,7 +64,10 @@ const updaterMap = {
   options(map: google.maps.Map, options: google.maps.MapOptions): void {
     map.setOptions(options)
   },
-  streetView(map: google.maps.Map, streetView: google.maps.StreetViewPanorama): void {
+  streetView(
+    map: google.maps.Map,
+    streetView: google.maps.StreetViewPanorama
+  ): void {
     map.setStreetView(streetView)
   },
   tilt(map: google.maps.Map, tilt: number): void {
@@ -60,11 +78,11 @@ const updaterMap = {
   },
 }
 
-export interface GoogleMapState {
+export type GoogleMapState = {
   map: google.maps.Map | null
 }
 
-export interface GoogleMapProps {
+export type GoogleMapProps = {
   children?: ReactNode | undefined
   id?: string | undefined
   mapContainerStyle?: CSSProperties | undefined
@@ -87,15 +105,15 @@ export interface GoogleMapProps {
   /** The initial Map zoom level. Required. Valid values: Integers between zero, and up to the supported maximum zoom level. */
   zoom?: number | undefined
   /** This event is fired when the user clicks on the map. An ApiMouseEvent with properties for the clicked location is returned unless a place icon was clicked, in which case an IconMouseEvent with a placeId is returned. IconMouseEvent and ApiMouseEvent are identical, except that IconMouseEvent has the placeId field. The event can always be treated as an ApiMouseEvent when the placeId is not important. The click event is not fired if a Marker or InfoWindow was clicked. */
-  onClick?:( (e: google.maps.MapMouseEvent) => void) | undefined
+  onClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the user double-clicks on the map. Note that the click event will also fire, right before this one. */
-  onDblClick?:( (e: google.maps.MapMouseEvent) => void) | undefined
+  onDblClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is repeatedly fired while the user drags the map. */
-  onDrag?:( () => void) | undefined
+  onDrag?: (() => void) | undefined
   /** This event is fired when the user stops dragging the map. */
-  onDragEnd?:( () => void) | undefined
+  onDragEnd?: (() => void) | undefined
   /** This event is fired when the user starts dragging the map. */
-  onDragStart?:( () => void) | undefined
+  onDragStart?: (() => void) | undefined
   /** This event is fired whenever the user's mouse moves over the map container. */
   onMouseMove?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the user's mouse exits the map container. */
@@ -109,7 +127,7 @@ export interface GoogleMapProps {
   /** This event is fired when the DOM contextmenu event is fired on the map container. */
   onRightClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the mapTypeId property changes. */
-  onMapTypeIdChanged?:( () => void) | undefined
+  onMapTypeIdChanged?: (() => void) | undefined
   /** This event is fired when the visible tiles have finished loading. */
   onTilesLoaded?: (() => void) | undefined
   /** This event is fired when the viewport bounds have changed. */
@@ -133,7 +151,6 @@ export interface GoogleMapProps {
   /** This callback is called when the component unmounts. It is called with the map instance. */
   onUnmount?: ((map: google.maps.Map) => void | Promise<void>) | undefined
 }
-
 
 // TODO: unfinished!
 function GoogleMapFunctional({
@@ -175,19 +192,31 @@ function GoogleMapFunctional({
   const ref = useRef<HTMLDivElement | null>(null)
 
   // const [extraMapTypesListener, setExtraMapTypesListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [centerChangedListener, setCenterChangedListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [centerChangedListener, setCenterChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
-  const [dblclickListener, setDblclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragendListener, setDragendListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragstartListener, setDragstartListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousedownListener, setMousedownListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousemoveListener, setMousemoveListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoutListener, setMouseoutListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoverListener, setMouseoverListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseupListener, setMouseupListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [rightclickListener, setRightclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragListener, setDragListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [dblclickListener, setDblclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragendListener, setDragendListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragstartListener, setDragstartListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousedownListener, setMousedownListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousemoveListener, setMousemoveListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoutListener, setMouseoutListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoverListener, setMouseoverListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseupListener, setMouseupListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [rightclickListener, setRightclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [clickListener, setClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragListener, setDragListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
   // Order does matter
   useEffect(() => {
@@ -316,9 +345,7 @@ function GoogleMapFunctional({
         google.maps.event.removeListener(clickListener)
       }
 
-      setClickListener(
-        google.maps.event.addListener(map, 'click', onClick)
-      )
+      setClickListener(google.maps.event.addListener(map, 'click', onClick))
     }
   }, [onClick])
 
@@ -328,9 +355,7 @@ function GoogleMapFunctional({
         google.maps.event.removeListener(dragListener)
       }
 
-      setDragListener(
-        google.maps.event.addListener(map, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(map, 'drag', onDrag))
     }
   }, [onDrag])
 
@@ -347,9 +372,8 @@ function GoogleMapFunctional({
   }, [onClick])
 
   useEffect(() => {
-    const map = ref.current === null
-      ? null
-    : new google.maps.Map(ref.current, options)
+    const map =
+      ref.current === null ? null : new google.maps.Map(ref.current, options)
 
     setMap(map)
 
@@ -456,7 +480,9 @@ export class GoogleMap extends PureComponent<GoogleMapProps, GoogleMapState> {
     }
   }
 
-  getRef: React.LegacyRef<HTMLDivElement> = (ref: HTMLDivElement | null): void => {
+  getRef: React.LegacyRef<HTMLDivElement> = (
+    ref: HTMLDivElement | null
+  ): void => {
     this.mapRef = ref
   }
 

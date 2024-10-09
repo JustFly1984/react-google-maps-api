@@ -1,8 +1,18 @@
-import { type ContextType, PureComponent, useContext, useState, useEffect, memo } from 'react'
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onClick: 'click',
@@ -33,10 +43,16 @@ const updaterMap = {
   ): void {
     instance.addGeoJson(geojson, options)
   },
-  contains(instance: google.maps.Data, feature: google.maps.Data.Feature): void {
+  contains(
+    instance: google.maps.Data,
+    feature: google.maps.Data.Feature
+  ): void {
     instance.contains(feature)
   },
-  foreach(instance: google.maps.Data, callback: (feature: google.maps.Data.Feature) => void): void {
+  foreach(
+    instance: google.maps.Data,
+    callback: (feature: google.maps.Data.Feature) => void
+  ): void {
     instance.forEach(callback)
   },
   loadgeojson(
@@ -57,10 +73,16 @@ const updaterMap = {
   remove(instance: google.maps.Data, feature: google.maps.Data.Feature): void {
     instance.remove(feature)
   },
-  revertstyle(instance: google.maps.Data, feature: google.maps.Data.Feature): void {
+  revertstyle(
+    instance: google.maps.Data,
+    feature: google.maps.Data.Feature
+  ): void {
     instance.revertStyle(feature)
   },
-  controlposition(instance: google.maps.Data, controlPosition: google.maps.ControlPosition): void {
+  controlposition(
+    instance: google.maps.Data,
+    controlPosition: google.maps.ControlPosition
+  ): void {
     instance.setControlPosition(controlPosition)
   },
   controls(instance: google.maps.Data, controls: string[] | null): void {
@@ -78,16 +100,19 @@ const updaterMap = {
   ): void {
     instance.setStyle(style)
   },
-  togeojson(instance: google.maps.Data, callback: (feature: object) => void): void {
+  togeojson(
+    instance: google.maps.Data,
+    callback: (feature: object) => void
+  ): void {
     instance.toGeoJson(callback)
   },
 }
 
-interface DataState {
+type DataState = {
   data: google.maps.Data | null
 }
 
-export interface DataProps {
+export type DataProps = {
   options?: google.maps.Data.DataOptions | undefined
   /**  This event is fired for a click on the geometry. */
   onClick?: ((e: google.maps.Data.MouseEvent) => void) | undefined
@@ -108,9 +133,13 @@ export interface DataProps {
   /**  This event is fired when a feature is added to the collection. */
   onAddFeature?: ((e: google.maps.Data.AddFeatureEvent) => void) | undefined
   /**  This event is fired when a feature is removed from the collection. */
-  onRemoveFeature?: ((e: google.maps.Data.RemoveFeatureEvent) => void) | undefined
+  onRemoveFeature?:
+    | ((e: google.maps.Data.RemoveFeatureEvent) => void)
+    | undefined
   /**  This event is fired when a feature's property is removed. */
-  onRemoveProperty?: ((e: google.maps.Data.RemovePropertyEvent) => void) | undefined
+  onRemoveProperty?:
+    | ((e: google.maps.Data.RemovePropertyEvent) => void)
+    | undefined
   /**  This event is fired when a feature's geometry is set. */
   onSetGeometry?: ((e: google.maps.Data.SetGeometryEvent) => void) | undefined
   /**  This event is fired when a feature's property is set. */
@@ -143,20 +172,33 @@ function DataFunctional({
 
   const [instance, setInstance] = useState<google.maps.Data | null>(null)
 
-  const [dblclickListener, setDblclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousedownListener, setMousedownListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousemoveListener, setMousemoveListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoutListener, setMouseoutListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoverListener, setMouseoverListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseupListener, setMouseupListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [rightclickListener, setRightclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [dblclickListener, setDblclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousedownListener, setMousedownListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousemoveListener, setMousemoveListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoutListener, setMouseoutListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoverListener, setMouseoverListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseupListener, setMouseupListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [rightclickListener, setRightclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [clickListener, setClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
-  const [addFeatureListener, setAddFeatureListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [removeFeatureListener, setRemoveFeatureListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [removePropertyListener, setRemovePropertyListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [setGeometryListener, setSetGeometryListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [setPropertyListener, setSetPropertyListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [addFeatureListener, setAddFeatureListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [removeFeatureListener, setRemoveFeatureListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [removePropertyListener, setRemovePropertyListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [setGeometryListener, setSetGeometryListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [setPropertyListener, setSetPropertyListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
   // Order does matter
   useEffect(() => {
@@ -280,7 +322,11 @@ function DataFunctional({
       }
 
       setRemoveFeatureListener(
-        google.maps.event.addListener(instance, 'removefeature', onRemoveFeature)
+        google.maps.event.addListener(
+          instance,
+          'removefeature',
+          onRemoveFeature
+        )
       )
     }
   }, [onRemoveFeature])
@@ -292,7 +338,11 @@ function DataFunctional({
       }
 
       setRemovePropertyListener(
-        google.maps.event.addListener(instance, 'removeproperty', onRemoveProperty)
+        google.maps.event.addListener(
+          instance,
+          'removeproperty',
+          onRemoveProperty
+        )
       )
     }
   }, [onRemoveProperty])
@@ -324,7 +374,7 @@ function DataFunctional({
   useEffect(() => {
     if (map !== null) {
       const data = new google.maps.Data({
-        ...(options || {}),
+        ...options,
         map,
       })
 
@@ -371,9 +421,7 @@ function DataFunctional({
       }
 
       if (onClick) {
-        setClickListener(
-          google.maps.event.addListener(data, 'click', onClick)
-        )
+        setClickListener(google.maps.event.addListener(data, 'click', onClick))
       }
 
       if (onAddFeature) {
@@ -390,7 +438,11 @@ function DataFunctional({
 
       if (onRemoveProperty) {
         setRemovePropertyListener(
-          google.maps.event.addListener(data, 'removeproperty', onRemoveProperty)
+          google.maps.event.addListener(
+            data,
+            'removeproperty',
+            onRemoveProperty
+          )
         )
       }
 
@@ -501,7 +553,7 @@ export class Data extends PureComponent<DataProps, DataState> {
   override componentDidMount(): void {
     if (this.context !== null) {
       const data = new google.maps.Data({
-        ...(this.props.options || {}),
+        ...this.props.options,
         map: this.context,
       })
 

@@ -52,7 +52,7 @@ const options = {
     zoom={2}
     center={center}
   >
-    <Polyline
+    <PolylineF
       onLoad={onLoad}
       path={path}
       options={options}
