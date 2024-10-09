@@ -44,7 +44,7 @@
   },
   "lint-staged": {
     "*.{ts|tsx}": [
-      "npx eslint --fix",
+      "pnpx eslint --fix",
       "tsc --noEmit --jsx react --esModuleInterop",
       "git add -A"
     ]

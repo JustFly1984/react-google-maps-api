@@ -46,7 +46,7 @@
     "build": "rollup --config",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
-    "lint": "npx eslint ./src/**/*.{ts,tsx}",
+    "lint": "pnpx eslint ./src/**/*.{ts,tsx}",
     "pub": "yarn publish .",
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
     "test": "jest",
