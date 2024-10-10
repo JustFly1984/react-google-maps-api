@@ -309,11 +309,11 @@ importers:
         specifier: 2.5.3
         version: 2.5.3
       '@react-google-maps/infobox':
-        specifier: 2.19.2
-        version: 2.19.2
+        specifier: 2.20.0
+        version: 2.20.0
       '@react-google-maps/marker-clusterer':
-        specifier: 2.19.2
-        version: 2.19.2
+        specifier: 2.20.0
+        version: 2.20.0
       '@types/google.maps':
         specifier: 3.58.1
         version: 3.58.1
@@ -2254,8 +2254,14 @@ packages:
   '@react-google-maps/infobox@2.19.2':
     resolution: {integrity: sha512-6wvBqeJsQ/eFSvoxg+9VoncQvNoVCdmxzxRpLvmjPD+nNC6mHM0vJH1xSqaKijkMrfLJT0nfkTGpovrF896jwg==}
 
+  '@react-google-maps/infobox@2.20.0':
+    resolution: {integrity: sha512-03PJHjohhaVLkX6+NHhlr8CIlvUxWaXhryqDjyaZ8iIqqix/nV8GFdz9O3m5OsjtxtNho09F/15j14yV0nuyLQ==}
+
   '@react-google-maps/marker-clusterer@2.19.2':
     resolution: {integrity: sha512-x9ibmsP0ZVqzyCo1Pitbw+4b6iEXRw/r1TCy3vOUR3eKrzWLnHYZMR325BkZW2r8fnuWE/V3Fp4QZOP9qYORCw==}
+
+  '@react-google-maps/marker-clusterer@2.20.0':
+    resolution: {integrity: sha512-tieX9Va5w1yP88vMgfH1pHTacDQ9TgDTjox3tLlisKDXRQWdjw+QeVVghhf5XqqIxXHgPdcGwBvKY6UP+SIvLw==}
 
   '@rollup/plugin-commonjs@28.0.0':
     resolution: {integrity: sha512-BJcu+a+Mpq476DMXG+hevgPSl56bkUoi88dKT8t3RyUp8kGuOh+2bU8Gs7zXDlu+fyZggnJ+iOBGrb/O1SorYg==}
@@ -12197,7 +12203,11 @@ snapshots:
 
   '@react-google-maps/infobox@2.19.2': {}
 
+  '@react-google-maps/infobox@2.20.0': {}
+
   '@react-google-maps/marker-clusterer@2.19.2': {}
+
+  '@react-google-maps/marker-clusterer@2.20.0': {}
 
   '@rollup/plugin-commonjs@28.0.0(rollup@4.24.0)':
     dependencies:
