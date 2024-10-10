@@ -1,7 +1,7 @@
 {
   "name": "@react-google-maps/api",
   "sideEffects": false,
-  "version": "2.19.3",
+  "version": "2.20.0",
   "description": "React.js Google Maps API integration",
   "type": "module",
   "license": "MIT",
@@ -92,8 +92,8 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "1.16.8",
     "@googlemaps/markerclusterer": "2.5.3",
-    "@react-google-maps/infobox": "2.19.2",
-    "@react-google-maps/marker-clusterer": "2.19.2",
+    "@react-google-maps/infobox": "2.20.0",
+    "@react-google-maps/marker-clusterer": "2.20.0",
     "@types/google.maps": "3.58.1",
     "invariant": "2.2.4"
   },
