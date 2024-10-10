@@ -215,6 +215,10 @@ function PolygonFunctional({
       google.maps.event.addListener(instance.getPath(), 'set_at', () => {
         onEdit?.(instance)
       });
+
+      google.maps.event.addListener(instance.getPath(), 'remove_at', () => {
+        onEdit?.(instance)
+      });
     }
   }, [instance, onEdit])
 
