@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type ComponentType } from "react";
+import React, { useCallback, useEffect, useState, type ComponentType } from "react";
 import { getClient } from "@sentry/react";
 
 function _ReactSentryErrorPage(): React.JSX.Element {
@@ -18,11 +18,15 @@ function _ReactSentryErrorPage(): React.JSX.Element {
     });
   }, []);
 
+  const onClick = useCallback(() => {
+    throw new Error(`This is a React SENTRY Browser Test! [${import.meta.env.DEV ? "DEV Mode" : "PROD Mode"}]`);
+  }, []);
+
   return (
     <>
       <h1>Sentry Test Page</h1>
 
-      {(sentryClientStatus.client_not_loaded || sentryClientStatus.dsn_missing || !sentryClientStatus.enabled) && (
+      {sentryClientStatus.client_not_loaded || sentryClientStatus.dsn_missing || !sentryClientStatus.enabled ? (
         <p style={{ color: "red" }}>
           <b>Sentry Config Error:</b>
           {sentryClientStatus.client_not_loaded ? "Client not loaded!" : ""}{" "}
@@ -30,16 +34,10 @@ function _ReactSentryErrorPage(): React.JSX.Element {
           {!sentryClientStatus.client_not_loaded && !sentryClientStatus.enabled ? "Client is not enabled! " : ""} Vite
           Mode: {import.meta.env.PROD ? "PROD" : "DEV"}
         </p>
-      )}
+      ) : null}
 
       <div>
-        <button
-          onClick={() => {
-            throw new Error(`This is a React SENTRY Browser Test! [${import.meta.env.DEV ? "DEV Mode" : "PROD Mode"}]`);
-          }}
-        >
-          Throw Javascript Error
-        </button>
+        <button onClick={onClick}>Throw Javascript Error</button>
       </div>
     </>
   );

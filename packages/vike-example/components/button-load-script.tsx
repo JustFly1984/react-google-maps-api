@@ -8,9 +8,8 @@ const id = "toggle-script";
 
 function selector(state: ReduxState) {
   return {
-    isApiKeyValid: state.get("app").get("googleMapsApiKey"), //In(["app", "googleMapsApiKey"] as const),
-    //.length >= 38,
-    checked: state.getIn(["app", "loadScriptChecked"]),
+    isApiKeyValid: state.googleMapsApiKey.length >= 38,
+    checked: state.loadScriptChecked,
   };
 }
 

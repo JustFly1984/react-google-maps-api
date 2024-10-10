@@ -1,7 +1,9 @@
-import { combineReducers } from 'redux-immutable'
+import app from "./app";
 
-import app from './app'
-
-export default combineReducers({
+const reducers = {
   app,
-})
+};
+
+export type ReduxState = typeof reducers;
+
+export default reducers;

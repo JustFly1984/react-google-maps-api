@@ -1,4 +1,3 @@
-import { fromJS } from "immutable";
 import { handleActions } from "redux-actions";
 
 import {
@@ -20,7 +19,7 @@ import {
   STANDALONE_SEARCH_BOX_TOGGLE,
 } from "../action-types";
 
-const initialState = fromJS({
+const initialState = {
   language: "en",
   loadScriptChecked: false,
   googleMapsApiKey: "",
@@ -37,9 +36,9 @@ const initialState = fromJS({
   options: false,
   overlayView: false,
   standaloneSearchBox: false,
-});
+};
 
-export type ReduxState = typeof initialState;
+export type AppState = typeof initialState;
 
 export type ChangeLanguagePayload = {
   language: string;
@@ -55,85 +54,104 @@ export type FusionTogglePayload = {
 
 export default handleActions(
   {
-    [CHANGE_LANGUAGE]: (state, { payload: { language } }: { payload: ChangeLanguagePayload }) => {
-      return state.merge({
+    [CHANGE_LANGUAGE]: (state: AppState, { payload: { language } }: { payload: ChangeLanguagePayload }): AppState => {
+      return {
+        ...state,
         language,
-      });
+      };
     },
-    [LOAD_SCRIPT_TOGGLE]: (state) => {
-      return state.merge({
-        loadScriptChecked: !state.get("loadScriptChecked"),
-      });
+    [LOAD_SCRIPT_TOGGLE]: (state: AppState): AppState => {
+      return {
+        ...state,
+        loadScriptChecked: !state.loadScriptChecked,
+      };
     },
-    [SET_GOOGLE_MAPS_API_KEY]: (state, { payload: { googleMapsApiKey } }: { payload: SetGoogleMapsApiKeyPayload }) => {
-      return state.merge({
+    [SET_GOOGLE_MAPS_API_KEY]: (
+      state: AppState,
+      { payload: { googleMapsApiKey } }: { payload: SetGoogleMapsApiKeyPayload },
+    ) => {
+      return {
+        ...state,
         googleMapsApiKey,
-      });
+      };
     },
-    [FUSION_TOGGLE]: (state, { payload: { fusion } }: { payload: FusionTogglePayload }) => {
-      return state.merge({
+    [FUSION_TOGGLE]: (state: AppState, { payload: { fusion } }: { payload: FusionTogglePayload }) => {
+      return {
+        ...state,
         fusion,
-      });
+      };
     },
-    [DATA_TOGGLE]: (state, { payload: { data } }) => {
-      return state.merge({
+    [DATA_TOGGLE]: (state: AppState, { payload: { data } }) => {
+      return {
+        ...state,
         data,
-      });
+      };
     },
-    [DIRECTIONS_TOGGLE]: (state, { payload: { directions } }) => {
-      return state.merge({
+    [DIRECTIONS_TOGGLE]: (state: AppState, { payload: { directions } }) => {
+      return {
+        ...state,
         directions,
-      });
+      };
     },
-    [HEATMAP_TOGGLE]: (state, { payload: { heatmap } }) => {
-      return state.merge({
+    [HEATMAP_TOGGLE]: (state: AppState, { payload: { heatmap } }) => {
+      return {
+        ...state,
         heatmap,
-      });
+      };
     },
-    [TRAFFIC_TOGGLE]: (state, { payload: { traffic } }) => {
-      return state.merge({
+    [TRAFFIC_TOGGLE]: (state: AppState, { payload: { traffic } }) => {
+      return {
+        ...state,
         traffic,
-      });
+      };
     },
-    [SHAPES_TOGGLE]: (state, { payload: { shapes } }) => {
-      return state.merge({
+    [SHAPES_TOGGLE]: (state: AppState, { payload: { shapes } }) => {
+      return {
+        ...state,
         shapes,
-      });
+      };
     },
-    [DRAWING_TOGGLE]: (state, { payload: { drawing } }) => {
-      return state.merge({
+    [DRAWING_TOGGLE]: (state: AppState, { payload: { drawing } }) => {
+      return {
+        ...state,
         drawing,
-      });
+      };
     },
-    [BICYCLING_TOGGLE]: (state, { payload: { bicycling } }) => {
-      return state.merge({
+    [BICYCLING_TOGGLE]: (state: AppState, { payload: { bicycling } }) => {
+      return {
+        ...state,
         bicycling,
-      });
+      };
     },
-    [TRANSIT_TOGGLE]: (state, { payload: { transit } }) => {
-      return state.merge({
+    [TRANSIT_TOGGLE]: (state: AppState, { payload: { transit } }) => {
+      return {
+        ...state,
         transit,
-      });
+      };
     },
-    [GROUND_TOGGLE]: (state, { payload: { ground } }) => {
-      return state.merge({
+    [GROUND_TOGGLE]: (state: AppState, { payload: { ground } }) => {
+      return {
+        ...state,
         ground,
-      });
+      };
     },
-    [OPTIONS_TOGGLE]: (state, { payload: { options } }) => {
-      return state.merge({
+    [OPTIONS_TOGGLE]: (state: AppState, { payload: { options } }) => {
+      return {
+        ...state,
         options,
-      });
+      };
     },
-    [OVERLAY_VIEW_TOGGLE]: (state, { payload: { overlayView } }) => {
-      return state.merge({
+    [OVERLAY_VIEW_TOGGLE]: (state: AppState, { payload: { overlayView } }) => {
+      return {
+        ...state,
         overlayView,
-      });
+      };
     },
-    [STANDALONE_SEARCH_BOX_TOGGLE]: (state, { payload: { standaloneSearchBox } }) => {
-      return state.merge({
+    [STANDALONE_SEARCH_BOX_TOGGLE]: (state: AppState, { payload: { standaloneSearchBox } }) => {
+      return {
+        ...state,
         standaloneSearchBox,
-      });
+      };
     },
   },
   initialState,

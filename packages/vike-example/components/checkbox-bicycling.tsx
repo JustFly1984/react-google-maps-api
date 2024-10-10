@@ -2,11 +2,12 @@ import React, { memo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toggleBicycling } from "../actions/app";
+import { ReduxState } from "../reducers/app";
 
 const id = "bicycling";
 
-function selector(state) {
-  return state.getIn(["app", "bicycling"]);
+function selector(state: ReduxState) {
+  return state.bicycling;
 }
 
 function CheckboxBicycling(): React.JSX.Element {
