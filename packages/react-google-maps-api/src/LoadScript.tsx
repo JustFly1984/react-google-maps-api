@@ -55,6 +55,16 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
       if (window.google && window.google.maps && !cleaningUp) {
         console.error('google api is already presented')
 
+        if (this.props.onLoad) {
+          this.props.onLoad()
+        }
+
+        this.setState(function setLoaded() {
+          return {
+            loaded: true,
+          }
+        })
+
         return
       }
 
