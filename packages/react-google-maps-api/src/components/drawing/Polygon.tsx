@@ -219,7 +219,7 @@ function PolygonFunctional({
   }, [instance, paths])
 
   useEffect(() => {
-    if (instance && onDblClick) {
+    if (instance && typeof onDblClick === 'function') {
       if (dblclickListener !== null) {
         google.maps.event.removeListener(dblclickListener)
       }
@@ -231,19 +231,25 @@ function PolygonFunctional({
   }, [onDblClick])
 
   useEffect(() => {
-    if (instance) {
-      google.maps.event.addListener(instance.getPath(), 'insert_at', () => {
-        onEdit?.(instance)
-      })
-
-      google.maps.event.addListener(instance.getPath(), 'set_at', () => {
-        onEdit?.(instance)
-      })
+    if (!instance) {
+      return
     }
+
+    google.maps.event.addListener(instance.getPath(), 'insert_at', () => {
+      onEdit?.(instance)
+    })
+
+    google.maps.event.addListener(instance.getPath(), 'set_at', () => {
+      onEdit?.(instance)
+    })
+
+    google.maps.event.addListener(instance.getPath(), 'remove_at', () => {
+      onEdit?.(instance)
+    })
   }, [instance, onEdit])
 
   useEffect(() => {
-    if (instance && onDragEnd) {
+    if (instance && typeof onDragEnd === 'function') {
       if (dragendListener !== null) {
         google.maps.event.removeListener(dragendListener)
       }
@@ -255,7 +261,7 @@ function PolygonFunctional({
   }, [onDragEnd])
 
   useEffect(() => {
-    if (instance && onDragStart) {
+    if (instance && typeof onDragStart === 'function') {
       if (dragstartListener !== null) {
         google.maps.event.removeListener(dragstartListener)
       }
@@ -267,7 +273,7 @@ function PolygonFunctional({
   }, [onDragStart])
 
   useEffect(() => {
-    if (instance && onMouseDown) {
+    if (instance && typeof onMouseDown === 'function') {
       if (mousedownListener !== null) {
         google.maps.event.removeListener(mousedownListener)
       }
@@ -279,7 +285,7 @@ function PolygonFunctional({
   }, [onMouseDown])
 
   useEffect(() => {
-    if (instance && onMouseMove) {
+    if (instance && typeof onMouseMove === 'function') {
       if (mousemoveListener !== null) {
         google.maps.event.removeListener(mousemoveListener)
       }
@@ -291,7 +297,7 @@ function PolygonFunctional({
   }, [onMouseMove])
 
   useEffect(() => {
-    if (instance && onMouseOut) {
+    if (instance && typeof onMouseOut === 'function') {
       if (mouseoutListener !== null) {
         google.maps.event.removeListener(mouseoutListener)
       }
@@ -303,7 +309,7 @@ function PolygonFunctional({
   }, [onMouseOut])
 
   useEffect(() => {
-    if (instance && onMouseOver) {
+    if (instance && typeof onMouseOver === 'function') {
       if (mouseoverListener !== null) {
         google.maps.event.removeListener(mouseoverListener)
       }
@@ -315,7 +321,7 @@ function PolygonFunctional({
   }, [onMouseOver])
 
   useEffect(() => {
-    if (instance && onMouseUp) {
+    if (instance && typeof onMouseUp === 'function') {
       if (mouseupListener !== null) {
         google.maps.event.removeListener(mouseupListener)
       }
@@ -327,7 +333,7 @@ function PolygonFunctional({
   }, [onMouseUp])
 
   useEffect(() => {
-    if (instance && onRightClick) {
+    if (instance && typeof onRightClick === 'function') {
       if (rightclickListener !== null) {
         google.maps.event.removeListener(rightclickListener)
       }
@@ -339,7 +345,7 @@ function PolygonFunctional({
   }, [onRightClick])
 
   useEffect(() => {
-    if (instance && onClick) {
+    if (instance && typeof onClick === 'function') {
       if (clickListener !== null) {
         google.maps.event.removeListener(clickListener)
       }
@@ -351,7 +357,7 @@ function PolygonFunctional({
   }, [onClick])
 
   useEffect(() => {
-    if (instance && onDrag) {
+    if (instance && typeof onDrag === 'function') {
       if (dragListener !== null) {
         google.maps.event.removeListener(dragListener)
       }
