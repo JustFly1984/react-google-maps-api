@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.25.7",
+    "@babel/plugin-transform-class-properties": "7.25.7",
     "@babel/plugin-proposal-decorators": "7.25.7",
     "@babel/plugin-proposal-export-default-from": "7.25.7",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
@@ -105,7 +106,7 @@
     "babel-plugin-polyfill-corejs3": "0.10.6",
     "babel-plugin-react-require": "4.0.3",
     "css-module-builder": "2.0.7",
-    "eslint": "8.56.0",
+    "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-config-standard": "17.1.0",
     "eslint-import-resolver-typescript": "3.6.3",

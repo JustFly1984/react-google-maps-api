@@ -1,5 +1,7 @@
 # Change Log
 
+## 2.20.3 added babel plugin for rollup"
+
 ## 2.20.1 Update Polygon onEdit to include remove_at listener by @JacobGalati
 
 ## 2.20.0 Update to support React@19 @memark, typescript 5.6.3, updated rollup. Docs build still failing. Added vite vike example, in progress. removed gatsby.js example

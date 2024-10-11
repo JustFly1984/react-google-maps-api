@@ -2,12 +2,13 @@ import React, { memo, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { toggleData } from "../actions/app";
+import { ReduxState } from "../reducers/index";
 
 const id = "data";
 
-function selector(state) {
+function selector(state: ReduxState) {
   return {
-    value: state.getIn(["app", "data"]),
+    value: state.app.data,
   };
 }
 

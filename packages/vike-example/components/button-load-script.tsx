@@ -2,14 +2,14 @@ import React, { memo, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { toggleLoadScript } from "../actions/app";
-import { ReduxState } from "../reducers/app";
+import { ReduxState } from "../reducers/index";
 
 const id = "toggle-script";
 
 function selector(state: ReduxState) {
   return {
-    isApiKeyValid: state.googleMapsApiKey.length >= 38,
-    checked: state.loadScriptChecked,
+    isApiKeyValid: state.app.googleMapsApiKey.length >= 38,
+    checked: state.app.loadScriptChecked,
   };
 }
 
