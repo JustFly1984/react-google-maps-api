@@ -3,6 +3,7 @@ import {
   useMemo,
   Children,
   useState,
+  type JSX,
   useEffect,
   useContext,
   cloneElement,
@@ -11,16 +12,17 @@ import {
   type ReactNode,
   type ContextType,
   type ReactElement,
-  type JSX,
 } from 'react'
+import type { Clusterer } from '@react-google-maps/marker-clusterer'
+import type { MarkerClusterer as GoogleClusterer } from '@googlemaps/markerclusterer'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
 
-import MapContext from '../../map-context'
-import type { HasMarkerAnchor } from '../../types'
-
-import  type{ Clusterer } from '@react-google-maps/marker-clusterer'
-import type { MarkerClusterer as GoogleClusterer} from '@googlemaps/markerclusterer'
+import MapContext from '../../map-context.js'
+import type { HasMarkerAnchor } from '../../types.js'
 
 const eventMap = {
   onAnimationChanged: 'animation_changed',
@@ -47,7 +49,10 @@ const eventMap = {
 }
 
 const updaterMap = {
-  animation(instance: google.maps.Marker, animation: google.maps.Animation): void {
+  animation(
+    instance: google.maps.Marker,
+    animation: google.maps.Animation
+  ): void {
     instance.setAnimation(animation)
   },
   clickable(instance: google.maps.Marker, clickable: boolean): void {
@@ -59,10 +64,16 @@ const updaterMap = {
   draggable(instance: google.maps.Marker, draggable: boolean): void {
     instance.setDraggable(draggable)
   },
-  icon(instance: google.maps.Marker, icon: string | google.maps.Icon | google.maps.Symbol): void {
+  icon(
+    instance: google.maps.Marker,
+    icon: string | google.maps.Icon | google.maps.Symbol
+  ): void {
     instance.setIcon(icon)
   },
-  label(instance: google.maps.Marker, label: string | google.maps.MarkerLabel): void {
+  label(
+    instance: google.maps.Marker,
+    label: string | google.maps.MarkerLabel
+  ): void {
     instance.setLabel(label)
   },
   map(instance: google.maps.Marker, map: google.maps.Map): void {
@@ -71,7 +82,10 @@ const updaterMap = {
   opacity(instance: google.maps.Marker, opacity: number): void {
     instance.setOpacity(opacity)
   },
-  options(instance: google.maps.Marker, options: google.maps.MarkerOptions): void {
+  options(
+    instance: google.maps.Marker,
+    options: google.maps.MarkerOptions
+  ): void {
     instance.setOptions(options)
   },
   position(
@@ -94,7 +108,7 @@ const updaterMap = {
   },
 }
 
-export interface MarkerProps {
+export type MarkerProps = {
   // required
   /** Marker position. */
   position: google.maps.LatLng | google.maps.LatLngLiteral
@@ -131,11 +145,11 @@ export interface MarkerProps {
   /** This event is fired when the marker icon was clicked. */
   onClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the marker's clickable property changes. */
-  onClickableChanged?: (() => void)  | undefined
+  onClickableChanged?: (() => void) | undefined
   /** This event is fired when the marker's cursor property changes. */
-  onCursorChanged?: (() => void)  | undefined
+  onCursorChanged?: (() => void) | undefined
   /** This event is fired when the marker's animation property changes. */
-  onAnimationChanged?: (() => void)  | undefined
+  onAnimationChanged?: (() => void) | undefined
   /** This event is fired when the marker icon was double clicked. */
   onDblClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is repeatedly fired while the user drags the marker. */
@@ -143,13 +157,13 @@ export interface MarkerProps {
   /** This event is fired when the user stops dragging the marker. */
   onDragEnd?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the marker's draggable property changes. */
-  onDraggableChanged?: (() => void)  | undefined
+  onDraggableChanged?: (() => void) | undefined
   /** This event is fired when the user starts dragging the marker. */
   onDragStart?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the marker's flat property changes. */
-  onFlatChanged?: (() => void)  | undefined
+  onFlatChanged?: (() => void) | undefined
   /** This event is fired when the marker icon property changes. */
-  onIconChanged?: (() => void)  | undefined
+  onIconChanged?: (() => void) | undefined
   /** This event is fired for a mousedown on the marker. */
   onMouseDown?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the mouse leaves the area of the marker icon. */
@@ -159,21 +173,21 @@ export interface MarkerProps {
   /** This event is fired for a mouseup on the marker. */
   onMouseUp?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the marker position property changes. */
-  onPositionChanged?: (() => void)  | undefined
+  onPositionChanged?: (() => void) | undefined
   /** This event is fired for a rightclick on the marker. */
   onRightClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
   /** This event is fired when the marker's shape property changes. */
-  onShapeChanged?: (() => void)  | undefined
+  onShapeChanged?: (() => void) | undefined
   /** This event is fired when the marker title property changes. */
-  onTitleChanged?: (() => void)  | undefined
+  onTitleChanged?: (() => void) | undefined
   /** This event is fired when the marker's visible property changes. */
-  onVisibleChanged?: (() => void)  | undefined
+  onVisibleChanged?: (() => void) | undefined
   /** This event is fired when the marker's zIndex property changes. */
-  onZindexChanged?: (() => void)  | undefined
+  onZindexChanged?: (() => void) | undefined
   /** This callback is called when the marker instance has loaded. It is called with the marker instance. */
-  onLoad?: ((marker: google.maps.Marker) => void)  | undefined
+  onLoad?: ((marker: google.maps.Marker) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the marker instance. */
-  onUnmount?: ((marker: google.maps.Marker) => void)  | undefined
+  onUnmount?: ((marker: google.maps.Marker) => void) | undefined
 }
 
 const defaultOptions = {}
@@ -219,34 +233,55 @@ function MarkerFunctional({
   onVisibleChanged,
   onZindexChanged,
   onLoad,
-  onUnmount
+  onUnmount,
 }: MarkerProps): JSX.Element | null {
   const map = useContext<google.maps.Map | null>(MapContext)
 
   const [instance, setInstance] = useState<google.maps.Marker | null>(null)
 
-  const [dblclickListener, setDblclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragendListener, setDragendListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragstartListener, setDragstartListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousedownListener, setMousedownListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoutListener, setMouseoutListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoverListener, setMouseoverListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseupListener, setMouseupListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [rightclickListener, setRightclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragListener, setDragListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [dblclickListener, setDblclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragendListener, setDragendListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragstartListener, setDragstartListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousedownListener, setMousedownListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoutListener, setMouseoutListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoverListener, setMouseoverListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseupListener, setMouseupListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [rightclickListener, setRightclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [clickListener, setClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragListener, setDragListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
-  const [clickableChangedListener, setClickableChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [cursorChangedListener, setCursorChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [animationChangedListener, setAnimationChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [draggableChangedListener, setDraggableChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [flatChangedListener, setFlatChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [iconChangedListener, setIconChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [positionChangedListener, setPositionChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [shapeChangedListener, setShapeChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [titleChangedListener, setTitleChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [visibleChangedListener, setVisibleChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [zIndexChangedListener, setZindexChangedListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [clickableChangedListener, setClickableChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [cursorChangedListener, setCursorChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [animationChangedListener, setAnimationChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [draggableChangedListener, setDraggableChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [flatChangedListener, setFlatChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [iconChangedListener, setIconChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [positionChangedListener, setPositionChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [shapeChangedListener, setShapeChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [titleChangedListener, setTitleChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [visibleChangedListener, setVisibleChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [zIndexChangedListener, setZindexChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
   // Order does matter
   useEffect(() => {
@@ -330,7 +365,6 @@ function MarkerFunctional({
       instance.setZIndex(zIndex)
     }
   }, [instance, zIndex])
-
 
   useEffect(() => {
     if (instance && onDblClick) {
@@ -446,9 +480,7 @@ function MarkerFunctional({
         google.maps.event.removeListener(dragListener)
       }
 
-      setDragListener(
-        google.maps.event.addListener(instance, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(instance, 'drag', onDrag))
     }
   }, [onDrag])
 
@@ -459,7 +491,11 @@ function MarkerFunctional({
       }
 
       setClickableChangedListener(
-        google.maps.event.addListener(instance, 'clickable_changed', onClickableChanged)
+        google.maps.event.addListener(
+          instance,
+          'clickable_changed',
+          onClickableChanged
+        )
       )
     }
   }, [onClickableChanged])
@@ -471,7 +507,11 @@ function MarkerFunctional({
       }
 
       setCursorChangedListener(
-        google.maps.event.addListener(instance, 'cursor_changed', onCursorChanged)
+        google.maps.event.addListener(
+          instance,
+          'cursor_changed',
+          onCursorChanged
+        )
       )
     }
   }, [onCursorChanged])
@@ -483,19 +523,27 @@ function MarkerFunctional({
       }
 
       setAnimationChangedListener(
-        google.maps.event.addListener(instance, 'animation_changed', onAnimationChanged)
+        google.maps.event.addListener(
+          instance,
+          'animation_changed',
+          onAnimationChanged
+        )
       )
     }
   }, [onAnimationChanged])
 
   useEffect(() => {
-    if(instance && onDraggableChanged) {
+    if (instance && onDraggableChanged) {
       if (draggableChangedListener !== null) {
         google.maps.event.removeListener(draggableChangedListener)
       }
 
       setDraggableChangedListener(
-        google.maps.event.addListener(instance, 'draggable_changed', onDraggableChanged)
+        google.maps.event.addListener(
+          instance,
+          'draggable_changed',
+          onDraggableChanged
+        )
       )
     }
   }, [onDraggableChanged])
@@ -531,7 +579,11 @@ function MarkerFunctional({
       }
 
       setPositionChangedListener(
-        google.maps.event.addListener(instance, 'position_changed', onPositionChanged)
+        google.maps.event.addListener(
+          instance,
+          'position_changed',
+          onPositionChanged
+        )
       )
     }
   }, [onPositionChanged])
@@ -567,7 +619,11 @@ function MarkerFunctional({
       }
 
       setVisibleChangedListener(
-        google.maps.event.addListener(instance, 'visible_changed', onVisibleChanged)
+        google.maps.event.addListener(
+          instance,
+          'visible_changed',
+          onVisibleChanged
+        )
       )
     }
   }, [onVisibleChanged])
@@ -579,7 +635,11 @@ function MarkerFunctional({
       }
 
       setZindexChangedListener(
-        google.maps.event.addListener(instance, 'zindex_changed', onZindexChanged)
+        google.maps.event.addListener(
+          instance,
+          'zindex_changed',
+          onZindexChanged
+        )
       )
     }
   }, [onZindexChanged])
@@ -692,20 +752,20 @@ function MarkerFunctional({
     }
 
     if (onClick) {
-      setClickListener(
-        google.maps.event.addListener(marker, 'click', onClick)
-      )
+      setClickListener(google.maps.event.addListener(marker, 'click', onClick))
     }
 
     if (onDrag) {
-      setDragListener(
-        google.maps.event.addListener(marker, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(marker, 'drag', onDrag))
     }
 
     if (onClickableChanged) {
       setClickableChangedListener(
-        google.maps.event.addListener(marker, 'clickable_changed', onClickableChanged)
+        google.maps.event.addListener(
+          marker,
+          'clickable_changed',
+          onClickableChanged
+        )
       )
     }
 
@@ -717,13 +777,21 @@ function MarkerFunctional({
 
     if (onAnimationChanged) {
       setAnimationChangedListener(
-        google.maps.event.addListener(marker, 'animation_changed', onAnimationChanged)
+        google.maps.event.addListener(
+          marker,
+          'animation_changed',
+          onAnimationChanged
+        )
       )
     }
 
     if (onDraggableChanged) {
       setDraggableChangedListener(
-        google.maps.event.addListener(marker, 'draggable_changed', onDraggableChanged)
+        google.maps.event.addListener(
+          marker,
+          'draggable_changed',
+          onDraggableChanged
+        )
       )
     }
 
@@ -741,7 +809,11 @@ function MarkerFunctional({
 
     if (onPositionChanged) {
       setPositionChangedListener(
-        google.maps.event.addListener(marker, 'position_changed', onPositionChanged)
+        google.maps.event.addListener(
+          marker,
+          'position_changed',
+          onPositionChanged
+        )
       )
     }
 
@@ -759,7 +831,11 @@ function MarkerFunctional({
 
     if (onVisibleChanged) {
       setVisibleChangedListener(
-        google.maps.event.addListener(marker, 'visible_changed', onVisibleChanged)
+        google.maps.event.addListener(
+          marker,
+          'visible_changed',
+          onVisibleChanged
+        )
       )
     }
 
@@ -866,16 +942,16 @@ function MarkerFunctional({
 
   const chx = useMemo<ReactNode | null>(() => {
     return children
-    ?  Children.map(children, child => {
-      if (!isValidElement<HasMarkerAnchor>(child)) {
-        return child
-      }
+      ? Children.map(children, (child) => {
+          if (!isValidElement<HasMarkerAnchor>(child)) {
+            return child
+          }
 
-      const elementChild: ReactElement<HasMarkerAnchor> = child
+          const elementChild: ReactElement<HasMarkerAnchor> = child
 
-      return cloneElement(elementChild, { anchor: instance })
-    })
-    : null
+          return cloneElement(elementChild, { anchor: instance })
+        })
+      : null
   }, [children, instance])
 
   return <>{chx}</> || null
@@ -891,7 +967,7 @@ export class Marker extends PureComponent<MarkerProps> {
 
   marker: google.maps.Marker | undefined
 
-  override componentDidMount(): void {
+  override async componentDidMount(): Promise<void> {
     const markerOptions = {
       ...(this.props.options || defaultOptions),
       ...(this.props.clusterer ? defaultOptions : { map: this.context }),
@@ -903,7 +979,10 @@ export class Marker extends PureComponent<MarkerProps> {
     this.marker = new google.maps.Marker(markerOptions)
 
     if (this.props.clusterer) {
-      this.props.clusterer.addMarker(this.marker, !!this.props.noClustererRedraw)
+      this.props.clusterer.addMarker(
+        this.marker,
+        !!this.props.noClustererRedraw
+      )
     } else {
       this.marker.setMap(this.context)
     }
@@ -936,35 +1015,38 @@ export class Marker extends PureComponent<MarkerProps> {
   }
 
   override componentWillUnmount(): void {
-    if (this.marker) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.marker)
-      }
+    if (!this.marker) {
+      return
+    }
 
-      unregisterEvents(this.registeredEvents)
+    if (this.props.onUnmount) {
+      this.props.onUnmount(this.marker)
+    }
 
-      if (this.props.clusterer) {
-        this.props.clusterer.removeMarker(this.marker, !!this.props.noClustererRedraw)
-      } else {
-        this.marker && this.marker.setMap(null)
-      }
+    unregisterEvents(this.registeredEvents)
+
+    if (this.props.clusterer) {
+      this.props.clusterer.removeMarker(
+        this.marker,
+        !!this.props.noClustererRedraw
+      )
+    } else if (this.marker) {
+      this.marker.setMap(null)
     }
   }
 
   override render(): ReactNode {
-    let children: ReactNode | null = null
+    const children: ReactNode | null = this.props.children
+      ? Children.map(this.props.children, (child) => {
+          if (!isValidElement<HasMarkerAnchor>(child)) {
+            return child
+          }
 
-    if (this.props.children) {
-      children = Children.map(this.props.children, child => {
-        if (!isValidElement<HasMarkerAnchor>(child)) {
-          return child
-        }
+          const elementChild: ReactElement<HasMarkerAnchor> = child
 
-        const elementChild: ReactElement<HasMarkerAnchor> = child
-
-        return cloneElement(elementChild, { anchor: this.marker })
-      })
-    }
+          return cloneElement(elementChild, { anchor: this.marker })
+        })
+      : null
 
     return children || null
   }

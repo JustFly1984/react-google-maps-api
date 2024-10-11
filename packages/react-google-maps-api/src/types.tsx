@@ -1,4 +1,4 @@
-export interface HasMarkerAnchor {
+export type HasMarkerAnchor = {
   anchor?: google.maps.Marker | null | undefined
 }
 

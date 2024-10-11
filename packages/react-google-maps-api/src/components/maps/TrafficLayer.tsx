@@ -1,21 +1,35 @@
-import { memo, PureComponent, useContext, useEffect, useState, type ContextType } from 'react'
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 
-import { applyUpdatersToPropsAndRegisterEvents, unregisterEvents } from '../../utils/helper'
-import MapContext from '../../map-context'
+import {
+  applyUpdatersToPropsAndRegisterEvents,
+  unregisterEvents,
+} from '../../utils/helper.js'
+
+import MapContext from '../../map-context.js'
 
 const eventMap = {}
 
 const updaterMap = {
-  options(instance: google.maps.TrafficLayer, options: google.maps.TrafficLayerOptions): void {
+  options(
+    instance: google.maps.TrafficLayer,
+    options: google.maps.TrafficLayerOptions
+  ): void {
     instance.setOptions(options)
   },
 }
 
-interface TrafficLayerState {
+type TrafficLayerState = {
   trafficLayer: google.maps.TrafficLayer | null
 }
 
-export interface TrafficLayerProps {
+export type TrafficLayerProps = {
   options?: google.maps.TrafficLayerOptions | undefined
   /** This callback is called when the trafficLayer instance has loaded. It is called with the trafficLayer instance. */
   onLoad?: ((trafficLayer: google.maps.TrafficLayer) => void) | undefined
@@ -23,10 +37,16 @@ export interface TrafficLayerProps {
   onUnmount?: ((trafficLayer: google.maps.TrafficLayer) => void) | undefined
 }
 
-function TrafficLayerFunctional({ options, onLoad, onUnmount }: TrafficLayerProps): null {
+function TrafficLayerFunctional({
+  options,
+  onLoad,
+  onUnmount,
+}: TrafficLayerProps): null {
   const map = useContext(MapContext)
 
-  const [instance, setInstance] = useState<google.maps.TrafficLayer | null>(null)
+  const [instance, setInstance] = useState<google.maps.TrafficLayer | null>(
+    null
+  )
 
   // Order does matter
   useEffect(() => {
@@ -37,14 +57,13 @@ function TrafficLayerFunctional({ options, onLoad, onUnmount }: TrafficLayerProp
 
   useEffect(() => {
     if (options && instance !== null) {
-
       instance.setOptions(options)
     }
   }, [instance, options])
 
   useEffect(() => {
     const trafficLayer = new google.maps.TrafficLayer({
-      ...(options || {}),
+      ...options,
       map,
     })
 
@@ -70,7 +89,10 @@ function TrafficLayerFunctional({ options, onLoad, onUnmount }: TrafficLayerProp
 
 export const TrafficLayerF = memo(TrafficLayerFunctional)
 
-export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerState> {
+export class TrafficLayer extends PureComponent<
+  TrafficLayerProps,
+  TrafficLayerState
+> {
   static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
@@ -88,7 +110,7 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
 
   override componentDidMount(): void {
     const trafficLayer = new google.maps.TrafficLayer({
-      ...(this.props.options || {}),
+      ...this.props.options,
       map: this.context,
     })
 
@@ -128,7 +150,6 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
       }
 
       unregisterEvents(this.registeredEvents)
-
 
       this.state.trafficLayer.setMap(null)
     }

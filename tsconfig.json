@@ -1,14 +1,21 @@
 {
-  "baseUrl": ".",
-  "exclude": ["node_modules"],
-  "types": ["googlemaps", "jest", "invariant", "react-dom", "eslint", "estree", "webpack"],
+  "exclude": ["node_modules", "react-google-maps-api-gatsby-example"],
+  "types": [
+    "googlemaps",
+    "jest",
+    "invariant",
+    "react-dom",
+    "eslint",
+    "estree",
+    "webpack"
+  ],
   "compilerOptions": {
-    "module": "esnext",
+    "module": "ES2022",
     "moduleResolution": "node",
-    "target": "es2015",
+    "target": "ES2022",
     "jsx": "react-jsx",
-    "lib": ["dom"],
-    "rootDir": "packages",
+    "lib": ["dom", "ES2022"],
+    "rootDir": "/",
     "declaration": true,
     "declarationDir": "dist",
     "noEmit": true,
@@ -35,7 +42,12 @@
     "pretty": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
-    "importsNotUsedAsValues": "error",
-    "ignoreDeprecations": "5.0"
+    "sourceMap": true,
+    "inlineSources": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noPropertyAccessFromIndexSignature": true,
+    "allowArbitraryExtensions": true,
+    "verbatimModuleSyntax": true
   }
 }

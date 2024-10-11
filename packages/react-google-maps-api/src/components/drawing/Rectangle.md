@@ -32,7 +32,7 @@ const onLoad = rectangle => {
     zoom={2.5}
     center={center}
   >
-    <Rectangle
+    <RectangleF
       onLoad={onLoad}
       bounds={bounds}
     />

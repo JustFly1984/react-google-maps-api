@@ -1,22 +1,34 @@
-import { memo, PureComponent, useContext, useEffect, useState, type ContextType } from 'react'
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
-interface BicyclingLayerState {
+type BicyclingLayerState = {
   bicyclingLayer: google.maps.BicyclingLayer | null
 }
 
-export interface BicyclingLayerProps {
+export type BicyclingLayerProps = {
   /** This callback is called when the bicyclingLayer instance has loaded. It is called with the bicyclingLayer instance. */
   onLoad?: ((bicyclingLayer: google.maps.BicyclingLayer) => void) | undefined
   /** This callback is called when the component unmounts. It is called with the bicyclingLayer instance. */
   onUnmount?: ((bicyclingLayer: google.maps.BicyclingLayer) => void) | undefined
 }
 
-function BicyclingLayerFunctional({ onLoad, onUnmount }: BicyclingLayerProps): null {
+function BicyclingLayerFunctional({
+  onLoad,
+  onUnmount,
+}: BicyclingLayerProps): null {
   const map = useContext<google.maps.Map | null>(MapContext)
 
-  const [instance, setInstance] = useState<google.maps.BicyclingLayer | null>(null)
+  const [instance, setInstance] = useState<google.maps.BicyclingLayer | null>(
+    null
+  )
 
   // Order does matter
   useEffect(() => {
@@ -52,7 +64,10 @@ function BicyclingLayerFunctional({ onLoad, onUnmount }: BicyclingLayerProps): n
 
 export const BicyclingLayerF = memo(BicyclingLayerFunctional)
 
-export class BicyclingLayer extends PureComponent<BicyclingLayerProps, BicyclingLayerState> {
+export class BicyclingLayer extends PureComponent<
+  BicyclingLayerProps,
+  BicyclingLayerState
+> {
   static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
@@ -82,7 +97,6 @@ export class BicyclingLayer extends PureComponent<BicyclingLayerProps, Bicycling
 
   setBicyclingLayerCallback = (): void => {
     if (this.state.bicyclingLayer !== null) {
-
       this.state.bicyclingLayer.setMap(this.context)
 
       if (this.props.onLoad) {

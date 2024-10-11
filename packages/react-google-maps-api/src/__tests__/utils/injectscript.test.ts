@@ -4,12 +4,11 @@
 
 import { injectScript } from '../../utils/injectscript'
 
-interface WindowWithGoogleMap extends Window {
-  initMap?: () => void;
+type WindowWithGoogleMap = Window & {
+  initMap?: () => void
 }
 
 describe('utils/injectScript', () => {
-
   describe('injectScript', () => {
     it('adds a script to the page with id and src attributes that correspond to the id and url properties', () => {
       const url = `http://localhost/script1.js`
@@ -18,10 +17,9 @@ describe('utils/injectScript', () => {
         url,
       })
 
-
       setTimeout(() => {
         const win: WindowWithGoogleMap = window
-        if(win.initMap) {
+        if (win.initMap) {
           win.initMap()
         }
       }, 0)
@@ -38,7 +36,7 @@ describe('utils/injectScript', () => {
 
       setTimeout(() => {
         const win: WindowWithGoogleMap = window
-        if(win.initMap) {
+        if (win.initMap) {
           win.initMap()
         }
       }, 0)
@@ -46,8 +44,7 @@ describe('utils/injectScript', () => {
       return injectScript({
         id,
         url,
-      })
-        .then(value => expect(value).toBeTruthy())
+      }).then((value) => expect(value).toBeTruthy())
     })
 
     describe('duplicate calls with matching id and url properties', () => {
@@ -65,15 +62,16 @@ describe('utils/injectScript', () => {
           url,
         })
 
-
         setTimeout(() => {
           const win: WindowWithGoogleMap = window
-          if(win.initMap) {
+          if (win.initMap) {
             win.initMap()
           }
         }, 0)
 
-        expect(document.querySelectorAll(`script[src="${url}"]`)).toHaveProperty('length', 1)
+        expect(
+          document.querySelectorAll(`script[src="${url}"]`)
+        ).toHaveProperty('length', 1)
         return value
       })
 
@@ -89,12 +87,12 @@ describe('utils/injectScript', () => {
 
         const value2 = injectScript({
           id,
-          url
+          url,
         })
 
         setTimeout(() => {
           const win: WindowWithGoogleMap = window
-          if(win.initMap) {
+          if (win.initMap) {
             initMapCalled = true
             win.initMap()
           }
@@ -105,7 +103,6 @@ describe('utils/injectScript', () => {
           return value1
         })
       })
-
     })
   })
 })

@@ -1,19 +1,12 @@
 import {
-  type ContextType,
-  type JSX,
-  PureComponent,
-  useState,
   memo,
-  useContext,
+  useState,
+  type JSX,
   useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
 } from 'react'
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents,
-} from '../../utils/helper'
-
-import MapContext from '../../map-context'
-
 import {
   Cluster,
   Clusterer,
@@ -21,6 +14,13 @@ import {
   type ClusterIconStyle,
   type ClustererOptions,
 } from '@react-google-maps/marker-clusterer'
+
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
+
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onClick: 'click',
@@ -92,13 +92,13 @@ const updaterMap = {
   },
 }
 
-interface ClustererState {
+type ClustererState = {
   markerClusterer: Clusterer | null
 }
 
 const defaultOptions = {}
 
-export interface MarkerClustererProps {
+export type MarkerClustererProps = {
   // required
   children: (markerClusterer: Clusterer) => JSX.Element
 
@@ -181,11 +181,16 @@ function MarkerClustererFunctional(
   const [instance, setInstance] = useState<Clusterer | null>(null)
   const map = useContext<google.maps.Map | null>(MapContext)
 
-  const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [clusteringBeginListener, setClusteringBeginListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [clusteringEndListener, setClusteringEndListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoutListener, setMouseoutListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoverListener, setMouseoverListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [clickListener, setClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [clusteringBeginListener, setClusteringBeginListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [clusteringEndListener, setClusteringEndListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoutListener, setMouseoutListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoverListener, setMouseoverListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
   useEffect(() => {
     if (instance && onMouseOut) {
@@ -502,7 +507,10 @@ function MarkerClustererFunctional(
 
 export const MarkerClustererF = memo(MarkerClustererFunctional)
 
-export class ClustererComponent extends PureComponent<MarkerClustererProps, ClustererState> {
+export class ClustererComponent extends PureComponent<
+  MarkerClustererProps,
+  ClustererState
+> {
   static override contextType = MapContext
   declare context: ContextType<typeof MapContext>
 
@@ -520,7 +528,11 @@ export class ClustererComponent extends PureComponent<MarkerClustererProps, Clus
 
   override componentDidMount(): void {
     if (this.context) {
-      const markerClusterer = new Clusterer(this.context, [], this.props.options)
+      const markerClusterer = new Clusterer(
+        this.context,
+        [],
+        this.props.options
+      )
 
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,

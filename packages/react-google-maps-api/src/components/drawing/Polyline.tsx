@@ -1,8 +1,18 @@
-import { type ContextType, PureComponent, useState, useContext, useEffect, memo } from 'react'
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onClick: 'click',
@@ -28,7 +38,10 @@ const updaterMap = {
   map(instance: google.maps.Polyline, map: google.maps.Map): void {
     instance.setMap(map)
   },
-  options(instance: google.maps.Polyline, options: google.maps.PolylineOptions): void {
+  options(
+    instance: google.maps.Polyline,
+    options: google.maps.PolylineOptions
+  ): void {
     instance.setOptions(options)
   },
   path(
@@ -45,11 +58,11 @@ const updaterMap = {
   },
 }
 
-interface PolylineState {
+type PolylineState = {
   polyline: google.maps.Polyline | null
 }
 
-export interface PolylineProps {
+export type PolylineProps = {
   options?: google.maps.PolylineOptions | undefined
   /** If set to true, the user can drag this shape over the map. The geodesic property defines the mode of dragging. */
   draggable?: boolean | undefined
@@ -117,17 +130,28 @@ function PolylineFunctional({
 
   const [instance, setInstance] = useState<google.maps.Polyline | null>(null)
 
-  const [dblclickListener, setDblclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragendListener, setDragendListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragstartListener, setDragstartListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousedownListener, setMousedownListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousemoveListener, setMousemoveListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoutListener, setMouseoutListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoverListener, setMouseoverListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseupListener, setMouseupListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [rightclickListener, setRightclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragListener, setDragListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [dblclickListener, setDblclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragendListener, setDragendListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragstartListener, setDragstartListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousedownListener, setMousedownListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousemoveListener, setMousemoveListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoutListener, setMouseoutListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoverListener, setMouseoverListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseupListener, setMouseupListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [rightclickListener, setRightclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [clickListener, setClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragListener, setDragListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
   // Order does matter
   useEffect(() => {
@@ -154,11 +178,11 @@ function PolylineFunctional({
     }
   }, [instance, editable])
 
-    useEffect(() => {
-      if (typeof visible !== 'undefined' && instance !== null) {
-        instance.setVisible(visible)
-      }
-    }, [instance, visible])
+  useEffect(() => {
+    if (typeof visible !== 'undefined' && instance !== null) {
+      instance.setVisible(visible)
+    }
+  }, [instance, visible])
 
   useEffect(() => {
     if (typeof path !== 'undefined' && instance !== null) {
@@ -292,9 +316,7 @@ function PolylineFunctional({
         google.maps.event.removeListener(dragListener)
       }
 
-      setDragListener(
-        google.maps.event.addListener(instance, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(instance, 'drag', onDrag))
     }
   }, [onDrag])
 
@@ -381,9 +403,7 @@ function PolylineFunctional({
     }
 
     if (onDrag) {
-      setDragListener(
-        google.maps.event.addListener(polyline, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(polyline, 'drag', onDrag))
     }
 
     setInstance(polyline)
@@ -393,7 +413,6 @@ function PolylineFunctional({
     }
 
     return () => {
-
       if (dblclickListener !== null) {
         google.maps.event.removeListener(dblclickListener)
       }
@@ -465,7 +484,7 @@ export class Polyline extends PureComponent<PolylineProps, PolylineState> {
 
   override componentDidMount(): void {
     const polyline = new google.maps.Polyline({
-      ...(this.props.options || {}),
+      ...this.props.options,
       map: this.context,
     })
 
@@ -499,15 +518,17 @@ export class Polyline extends PureComponent<PolylineProps, PolylineState> {
   }
 
   override componentWillUnmount(): void {
-    if (this.state.polyline !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.polyline)
-      }
-
-      unregisterEvents(this.registeredEvents)
-
-      this.state.polyline.setMap(null)
+    if (this.state.polyline === null) {
+      return
     }
+
+    if (this.props.onUnmount) {
+      this.props.onUnmount(this.state.polyline)
+    }
+
+    unregisterEvents(this.registeredEvents)
+
+    this.state.polyline.setMap(null)
   }
 
   override render(): null {

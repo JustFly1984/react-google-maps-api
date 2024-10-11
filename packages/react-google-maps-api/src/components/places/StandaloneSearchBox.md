@@ -18,9 +18,11 @@ const center = {
   lng: -115.234
 };
 
-const onLoad = ref => this.searchBox = ref;
+function onLoad(ref) { return this.searchBox = ref; }
 
-const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
+function onPlacesChanged() { 
+  console.log(this.searchBox.getPlaces());
+}
 
 <ScriptLoaded>
   <GoogleMap

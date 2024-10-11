@@ -1,8 +1,11 @@
-import { type ContextType, type JSX, PureComponent } from 'react'
+import { type ContextType, PureComponent } from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onDirectionsChanged: 'directions_changed',
@@ -27,16 +30,19 @@ const updaterMap = {
   panel(instance: google.maps.DirectionsRenderer, panel: HTMLElement): void {
     instance.setPanel(panel)
   },
-  routeIndex(instance: google.maps.DirectionsRenderer, routeIndex: number): void {
+  routeIndex(
+    instance: google.maps.DirectionsRenderer,
+    routeIndex: number
+  ): void {
     instance.setRouteIndex(routeIndex)
   },
 }
 
-interface DirectionsRendererState {
+type DirectionsRendererState = {
   directionsRenderer: google.maps.DirectionsRenderer | null
 }
 
-export interface DirectionsRendererProps {
+export type DirectionsRendererProps = {
   options?: google.maps.DirectionsRendererOptions | undefined
   /** The directions to display on the map and/or in a <div> panel, retrieved as a DirectionsResult object from DirectionsService. */
   directions?: google.maps.DirectionsResult | undefined
@@ -47,9 +53,13 @@ export interface DirectionsRendererProps {
   /** This event is fired when the rendered directions change, either when a new DirectionsResult is set or when the user finishes dragging a change to the directions path. */
   onDirectionsChanged?: (() => void) | undefined
   /** This callback is called when the directionsRenderer instance has loaded. It is called with the directionsRenderer instance. */
-  onLoad?: ((directionsRenderer: google.maps.DirectionsRenderer) => void) | undefined
+  onLoad?:
+    | ((directionsRenderer: google.maps.DirectionsRenderer) => void)
+    | undefined
   /** This callback is called when the component unmounts. It is called with the directionsRenderer instance. */
-  onUnmount?: ((directionsRenderer: google.maps.DirectionsRenderer) => void) | undefined
+  onUnmount?:
+    | ((directionsRenderer: google.maps.DirectionsRenderer) => void)
+    | undefined
 }
 
 export class DirectionsRenderer extends PureComponent<
@@ -77,7 +87,9 @@ export class DirectionsRenderer extends PureComponent<
   }
 
   override componentDidMount(): void {
-    const directionsRenderer = new google.maps.DirectionsRenderer(this.props.options)
+    const directionsRenderer = new google.maps.DirectionsRenderer(
+      this.props.options
+    )
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,
@@ -122,8 +134,8 @@ export class DirectionsRenderer extends PureComponent<
     }
   }
 
-  override render(): JSX.Element {
-    return <></>
+  override render(): null {
+    return null
   }
 }
 

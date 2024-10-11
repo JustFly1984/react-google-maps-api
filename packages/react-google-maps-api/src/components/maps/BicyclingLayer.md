@@ -30,7 +30,7 @@ const onLoad = bicyclingLayer => {
     center={center}
     onClick={onClick}
   >
-    <BicyclingLayer
+    <BicyclingLayerF
       onLoad={onLoad}
     />
   </GoogleMap>

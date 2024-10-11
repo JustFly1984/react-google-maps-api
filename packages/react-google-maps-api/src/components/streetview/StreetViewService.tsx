@@ -1,15 +1,19 @@
 import { PureComponent } from 'react'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
-export interface StreetViewServiceProps {
+export type StreetViewServiceProps = {
   /** This callback is called when the streetViewService instance has loaded. It is called with the streetViewService instance. */
-  onLoad?: ((streetViewService: google.maps.StreetViewService | null) => void) | undefined
+  onLoad?:
+    | ((streetViewService: google.maps.StreetViewService | null) => void)
+    | undefined
   /** This callback is called when the component unmounts. It is called with the streetViewService instance. */
-  onUnmount?: ((streetViewService: google.maps.StreetViewService | null) => void) | undefined
+  onUnmount?:
+    | ((streetViewService: google.maps.StreetViewService | null) => void)
+    | undefined
 }
 
-interface StreetViewServiceState {
+type StreetViewServiceState = {
   streetViewService: google.maps.StreetViewService | null
 }
 

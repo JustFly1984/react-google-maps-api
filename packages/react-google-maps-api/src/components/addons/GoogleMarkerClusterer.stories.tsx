@@ -71,11 +71,11 @@ const Template: StoryFn<typeof GoogleMarkerClusterer> = (args) => {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export const Default = Template.bind({})
+export const Default: AnnotatedStoryFn<ReactRenderer, GoogleMarkerClustererProps> = Template.bind({})
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export const Grid = Template.bind({})
+export const Grid: AnnotatedStoryFn<ReactRenderer, GoogleMarkerClustererProps> = Template.bind({})
 
 Grid.args = {
   options: { algorithm: new GridAlgorithm({ maxDistance: 40000 }) },
@@ -83,14 +83,14 @@ Grid.args = {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export const Noop = Template.bind({})
+export const Noop: AnnotatedStoryFn<ReactRenderer, GoogleMarkerClustererProps> = Template.bind({})
 Noop.args = {
   options: { algorithm: new NoopAlgorithm({}) },
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignorex
-export const Render = Template.bind({})
+export const Render: AnnotatedStoryFn<ReactRenderer, GoogleMarkerClustererProps> = Template.bind({})
 Render.args = {
   options: {
     renderer: {

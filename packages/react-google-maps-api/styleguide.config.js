@@ -1,45 +1,58 @@
-const path = require("path")
+import { basename } from 'node:path'
+import { withCustomConfig } from 'react-docgen-typescript'
 
-module.exports = {
-  ignore: ["**/*.js", "**/*.ts", "**/*.stories.tsx"],
-  propsParser: require("react-docgen-typescript").withCustomConfig('./tsconfig.json').parse,
-  getComponentPathLine(componentPath) {
-    const name = path.basename(componentPath, ".tsx")
-    return `import { ${name} } from '@react-google-maps/api';`
+export const ignore = ['**/*.js', '**/*.ts', '**/*.stories.tsx']
+
+export const propsParser = withCustomConfig('./tsconfig.json', {
+  savePropValueAsString: true, // Optional config: adjust as needed
+}).parse
+
+export function getComponentPathLine(componentPath) {
+  const name = basename(componentPath, '.tsx')
+  return `import { ${name} } from '@react-google-maps/api';`
+}
+
+export const usageMode = 'expand'
+
+export const webpackConfig = {
+  module: {
+    rules: [
+      {
+        // Transpile TypeScript and TSX files using ts-loader
+        test: /\.(ts|tsx)$/,
+        loader: 'ts-loader',
+      },
+    ],
   },
-  usageMode: "expand",
-  webpackConfig: {
-    module: {
-      rules: [
-        {
-          test: /\.ts|\.tsx$/,
-          loader: "ts-loader"
-        }
-      ]
-    },
-    resolve: {
-      extensions: [".ts", ".tsx", ".js"]
-    }
+  // Resolve these file extensions
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
   },
-  sections: [
-    {
-      name: "Introduction",
-      content: "src/docs/introduction.md"
-    },
-    {
-      name: "Getting Started",
-      content: "src/docs/getting-started.md"
-    },
-    {
-      name: "Components",
-      components: [
-        "src/useJsApiLoader.tsx",
-        "src/LoadScript.tsx",
-        "src/LoadScriptNext.tsx",
-        "src/useLoadScript.tsx",
-        "src/GoogleMap.tsx",
-        "src/components/**/*.tsx"
-      ]
-    }
-  ]
+}
+
+export const sections = [
+  {
+    name: 'Introduction',
+    content: 'src/docs/introduction.md', // Path to the introduction documentation
+  },
+  {
+    name: 'Getting Started',
+    content: 'src/docs/getting-started.md', // Path to the getting-started documentation
+  },
+  {
+    name: 'Components',
+    // List of components and component files to document
+    components: [
+      'src/useJsApiLoader.tsx',
+      'src/LoadScript.tsx',
+      'src/LoadScriptNext.tsx',
+      'src/useLoadScript.tsx',
+      'src/GoogleMap.tsx',
+      'src/components/**/*.tsx',
+    ],
+  },
+]
+
+export const typescript = {
+  componentNameResolver: (filePath) => basename(filePath, '.tsx'),
 }

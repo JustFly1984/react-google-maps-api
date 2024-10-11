@@ -5,11 +5,8 @@
   "exclude": ["node_modules"],
   "types": ["googlemaps"],
   "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "node",
     "target": "es5",
     "jsx": "react",
-    "lib": ["dom", "es2017"],
     "rootDir": "src",
     "declaration": true,
     "declarationDir": "dist"

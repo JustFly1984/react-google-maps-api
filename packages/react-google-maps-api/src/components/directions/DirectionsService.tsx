@@ -1,11 +1,11 @@
 import { PureComponent } from 'react'
 import invariant from 'invariant'
 
-interface DirectionsServiceState {
+type DirectionsServiceState = {
   directionsService: google.maps.DirectionsService | null
 }
 
-export interface DirectionsServiceProps {
+export type DirectionsServiceProps = {
   // required for default functionality
   options: google.maps.DirectionsRequest
 
@@ -19,9 +19,13 @@ export interface DirectionsServiceProps {
     status: google.maps.DirectionsStatus
   ) => void
   /** This callback is called when the directionsService instance has loaded. It is called with the directionsService instance. */
-  onLoad?: ((directionsService: google.maps.DirectionsService) => void) | undefined
+  onLoad?:
+    | ((directionsService: google.maps.DirectionsService) => void)
+    | undefined
   /** This callback is called when the component unmounts. It is called with the directionsService instance. */
-  onUnmount?: ((directionsService: google.maps.DirectionsService) => void) | undefined
+  onUnmount?:
+    | ((directionsService: google.maps.DirectionsService) => void)
+    | undefined
 }
 
 export class DirectionsService extends PureComponent<
@@ -56,7 +60,10 @@ export class DirectionsService extends PureComponent<
 
   override componentDidUpdate(): void {
     if (this.state.directionsService !== null) {
-      this.state.directionsService.route(this.props.options, this.props.callback)
+      this.state.directionsService.route(
+        this.props.options,
+        this.props.callback
+      )
     }
   }
 

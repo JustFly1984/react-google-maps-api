@@ -1,8 +1,11 @@
 import { type ContextType, PureComponent } from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onCloseClick: 'closeclick',
@@ -23,10 +26,16 @@ const updaterMap = {
   ): void {
     instance.registerPanoProvider(provider, options)
   },
-  links(instance: google.maps.StreetViewPanorama, links: google.maps.StreetViewLink[]): void {
+  links(
+    instance: google.maps.StreetViewPanorama,
+    links: google.maps.StreetViewLink[]
+  ): void {
     instance.setLinks(links)
   },
-  motionTracking(instance: google.maps.StreetViewPanorama, motionTracking: boolean): void {
+  motionTracking(
+    instance: google.maps.StreetViewPanorama,
+    motionTracking: boolean
+  ): void {
     instance.setMotionTracking(motionTracking)
   },
   options(
@@ -44,7 +53,10 @@ const updaterMap = {
   ): void {
     instance.setPosition(position)
   },
-  pov(instance: google.maps.StreetViewPanorama, pov: google.maps.StreetViewPov): void {
+  pov(
+    instance: google.maps.StreetViewPanorama,
+    pov: google.maps.StreetViewPov
+  ): void {
     instance.setPov(pov)
   },
   visible(instance: google.maps.StreetViewPanorama, visible: boolean): void {
@@ -55,11 +67,11 @@ const updaterMap = {
   },
 }
 
-interface StreetViewPanoramaState {
+type StreetViewPanoramaState = {
   streetViewPanorama: google.maps.StreetViewPanorama | null
 }
 
-export interface StreetViewPanoramaProps {
+export type StreetViewPanoramaProps = {
   options?: google.maps.StreetViewPanoramaOptions | undefined
   /** This event is fired when the close button is clicked. */
   onCloseclick?: ((event: google.maps.MapMouseEvent) => void) | undefined
@@ -78,9 +90,13 @@ export interface StreetViewPanoramaProps {
   /** This event is fired when the panorama's zoom level changes. */
   onZoomChange?: (() => void) | undefined
   /** This callback is called when the streetViewPanorama instance has loaded. It is called with the streetViewPanorama instance. */
-  onLoad?: ((streetViewPanorama: google.maps.StreetViewPanorama) => void) | undefined
+  onLoad?:
+    | ((streetViewPanorama: google.maps.StreetViewPanorama) => void)
+    | undefined
   /** This callback is called when the component unmounts. It is called with the streetViewPanorama instance. */
-  onUnmount?: ((streetViewPanorama: google.maps.StreetViewPanorama) => void) | undefined
+  onUnmount?:
+    | ((streetViewPanorama: google.maps.StreetViewPanorama) => void)
+    | undefined
 }
 
 export class StreetViewPanorama extends PureComponent<
@@ -104,7 +120,6 @@ export class StreetViewPanorama extends PureComponent<
   }
 
   override componentDidMount(): void {
-
     const streetViewPanorama = this.context?.getStreetView() ?? null
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({

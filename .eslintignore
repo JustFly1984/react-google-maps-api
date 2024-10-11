@@ -4,5 +4,6 @@ umd/
 dist/
 node_modules/
 types/
+vike-example/
 
 styleguide.config.js

@@ -1,9 +1,9 @@
-import { memo, ReactElement, useEffect, type JSX } from 'react'
+import { memo, type ReactElement, useEffect, type JSX } from 'react'
 
-import { DefaultLoadingElement } from './LoadScript'
-import { useLoadScript, UseLoadScriptOptions } from './useLoadScript'
+import { DefaultLoadingElement } from './LoadScript.js'
+import { useLoadScript, type UseLoadScriptOptions } from './useLoadScript.js'
 
-export interface LoadScriptNextProps extends UseLoadScriptOptions {
+export type LoadScriptNextProps = UseLoadScriptOptions & {
   loadingElement?: ReactElement | undefined
   onLoad?: (() => void) | undefined
   onError?: ((error: Error) => void) | undefined

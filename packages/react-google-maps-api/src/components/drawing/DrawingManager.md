@@ -14,11 +14,11 @@ const center = {
   lng: -115.234
 }
 
-const onLoad = drawingManager => {
+function onLoad(drawingManager) {
   console.log(drawingManager)
 }
 
-const onPolygonComplete = polygon => {
+function onPolygonComplete(polygon) {
   console.log(polygon)
 }
 

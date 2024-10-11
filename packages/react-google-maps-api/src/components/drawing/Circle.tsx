@@ -1,8 +1,18 @@
-import { type ContextType, PureComponent, memo, useContext, useState, useEffect } from 'react'
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onCenterChanged: 'center_changed',
@@ -33,7 +43,10 @@ const updaterMap = {
   map(instance: google.maps.Circle, map: google.maps.Map): void {
     instance.setMap(map)
   },
-  options(instance: google.maps.Circle, options: google.maps.CircleOptions): void {
+  options(
+    instance: google.maps.Circle,
+    options: google.maps.CircleOptions
+  ): void {
     instance.setOptions(options)
   },
   radius(instance: google.maps.Circle, radius: number): void {
@@ -44,11 +57,11 @@ const updaterMap = {
   },
 }
 
-interface CircleState {
+type CircleState = {
   circle: google.maps.Circle | null
 }
 
-export interface CircleProps {
+export type CircleProps = {
   options?: google.maps.CircleOptions | undefined
 
   /** sets the center of the circle */
@@ -124,19 +137,32 @@ function CircleFunctional({
 
   const [instance, setInstance] = useState<google.maps.Circle | null>(null)
 
-  const [dblclickListener, setDblclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragendListener, setDragendListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragstartListener, setDragstartListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousedownListener, setMousedownListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousemoveListener, setMousemoveListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoutListener, setMouseoutListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoverListener, setMouseoverListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseupListener, setMouseupListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [rightclickListener, setRightclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragListener, setDragListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [centerChangedListener, setCenterChangedListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [radiusChangedListener, setRadiusChangedListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [dblclickListener, setDblclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragendListener, setDragendListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragstartListener, setDragstartListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousedownListener, setMousedownListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousemoveListener, setMousemoveListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoutListener, setMouseoutListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoverListener, setMouseoverListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseupListener, setMouseupListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [rightclickListener, setRightclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [clickListener, setClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragListener, setDragListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [centerChangedListener, setCenterChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [radiusChangedListener, setRadiusChangedListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
   // Order does matter
   useEffect(() => {
@@ -163,11 +189,11 @@ function CircleFunctional({
     }
   }, [instance, editable])
 
-    useEffect(() => {
-      if (typeof visible !== 'undefined' && instance !== null) {
-        instance.setVisible(visible)
-      }
-    }, [instance, visible])
+  useEffect(() => {
+    if (typeof visible !== 'undefined' && instance !== null) {
+      instance.setVisible(visible)
+    }
+  }, [instance, visible])
 
   useEffect(() => {
     if (typeof radius === 'number' && instance !== null) {
@@ -307,9 +333,7 @@ function CircleFunctional({
         google.maps.event.removeListener(dragListener)
       }
 
-      setDragListener(
-        google.maps.event.addListener(instance, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(instance, 'drag', onDrag))
     }
   }, [onDrag])
 
@@ -320,7 +344,11 @@ function CircleFunctional({
       }
 
       setCenterChangedListener(
-        google.maps.event.addListener(instance, 'center_changed', onCenterChanged)
+        google.maps.event.addListener(
+          instance,
+          'center_changed',
+          onCenterChanged
+        )
       )
     }
   }, [onClick])
@@ -332,7 +360,11 @@ function CircleFunctional({
       }
 
       setRadiusChangedListener(
-        google.maps.event.addListener(instance, 'radius_changed', onRadiusChanged)
+        google.maps.event.addListener(
+          instance,
+          'radius_changed',
+          onRadiusChanged
+        )
       )
     }
   }, [onRadiusChanged])
@@ -422,15 +454,11 @@ function CircleFunctional({
     }
 
     if (onClick) {
-      setClickListener(
-        google.maps.event.addListener(circle, 'click', onClick)
-      )
+      setClickListener(google.maps.event.addListener(circle, 'click', onClick))
     }
 
     if (onDrag) {
-      setDragListener(
-        google.maps.event.addListener(circle, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(circle, 'drag', onDrag))
     }
 
     if (onCenterChanged) {
@@ -531,7 +559,7 @@ export class Circle extends PureComponent<CircleProps, CircleState> {
 
   override componentDidMount(): void {
     const circle = new google.maps.Circle({
-      ...(this.props.options || {}),
+      ...this.props.options,
       map: this.context,
     })
 

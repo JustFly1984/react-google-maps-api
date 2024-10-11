@@ -1,6 +1,6 @@
 // eslint-disable-next-line node/no-extraneous-import
 import type { StoryFn, Meta } from '@storybook/react'
-import { GoogleMap, Marker } from '../..'
+import { GoogleMap, MarkerF } from '../..'
 import { MarkerClustererF } from './MarkerClusterer'
 
 import type {
@@ -122,7 +122,7 @@ const Template: StoryFn<typeof MarkerClustererF> = (args) => {
         {(clusterer) => (
           <>
             {locations.map((location) => (
-              <Marker
+              <MarkerF
                 key={createKey(location)}
                 position={location}
                 clusterer={clusterer}
@@ -137,4 +137,4 @@ const Template: StoryFn<typeof MarkerClustererF> = (args) => {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export const Default = Template.bind({})
+export const Default: AnnotatedStoryFn<ReactRenderer, MarkerClustererProps> = Template.bind({})

@@ -1,19 +1,27 @@
-import { createRef, type JSX, PureComponent, type ReactNode, type RefObject } from 'react'
+import {
+  type JSX,
+  createRef,
+  PureComponent,
+  type ReactNode,
+  type RefObject,
+} from 'react'
 import invariant from 'invariant'
 
-import { injectScript } from './utils/injectscript'
-import { preventGoogleFonts } from './utils/prevent-google-fonts'
-
-import { isBrowser } from './utils/isbrowser'
-import { LoadScriptUrlOptions, makeLoadScriptUrl } from './utils/make-load-script-url'
+import {
+  makeLoadScriptUrl,
+  type LoadScriptUrlOptions,
+} from './utils/make-load-script-url.js'
+import { isBrowser } from './utils/isbrowser.js'
+import { injectScript } from './utils/injectscript.js'
+import { preventGoogleFonts } from './utils/prevent-google-fonts.js'
 
 let cleaningUp = false
 
-interface LoadScriptState {
+type LoadScriptState = {
   loaded: boolean
 }
 
-export interface LoadScriptProps extends LoadScriptUrlOptions {
+export type LoadScriptProps = LoadScriptUrlOptions & {
   children?: ReactNode | undefined
   id: string
   nonce?: string | undefined
@@ -138,7 +146,10 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
     Array.prototype.slice
       .call(document.getElementsByTagName('script'))
       .filter(function filter(script: HTMLScriptElement): boolean {
-        return typeof script.src === 'string' && script.src.includes('maps.googleapis')
+        return (
+          typeof script.src === 'string' &&
+          script.src.includes('maps.googleapis')
+        )
       })
       .forEach(function forEach(script: HTMLScriptElement): void {
         if (script.parentNode) {
@@ -150,7 +161,8 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
       .call(document.getElementsByTagName('link'))
       .filter(function filter(link: HTMLLinkElement): boolean {
         return (
-          link.href === 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans'
+          link.href ===
+          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans'
         )
       })
       .forEach(function forEach(link: HTMLLinkElement) {
@@ -180,7 +192,11 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
       preventGoogleFonts()
     }
 
-    invariant(!!this.props.id, 'LoadScript requires "id" prop to be a string: %s', this.props.id)
+    invariant(
+      !!this.props.id,
+      'LoadScript requires "id" prop to be a string: %s',
+      this.props.id
+    )
 
     const injectScriptOptions = {
       id: this.props.id,
@@ -202,15 +218,17 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
 
         return
       })
-      .catch(err => {
+      .catch((err) => {
         if (this.props.onError) {
           this.props.onError(err)
         }
 
         console.error(`
-          There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${this
-            .props.googleMapsApiKey || '-'}) or Client ID (${this.props.googleMapsClientId ||
-            '-'}) to <LoadScript />
+          There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${
+            this.props.googleMapsApiKey || '-'
+          }) or Client ID (${
+            this.props.googleMapsClientId || '-'
+          }) to <LoadScript />
           Otherwise it is a Network issue.
         `)
       })
