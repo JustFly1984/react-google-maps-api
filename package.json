@@ -34,7 +34,6 @@
     "prestart:gatsby": "yarn build:clusterer && yarn build:infobox && yarn build:api",
     "clean": "rimraf ./yarn.lock ./package-lock.json ./node_modules/ && yarn",
     "storybook": "start-storybook -p 6006",
-    "bootstrap": "lerna bootstrap",
     "build-storybook": "build-storybook"
   },
   "lint-staged": {
