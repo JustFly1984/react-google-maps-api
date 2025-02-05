@@ -118,7 +118,7 @@ export function useLoadScript({
     [id, url, nonce]
   )
 
-  const prevLibraries = useRef<undefined | string[]>()
+  const prevLibraries = useRef<undefined | string[]>(undefined)
 
   useEffect(
     function checkPerformance() {
