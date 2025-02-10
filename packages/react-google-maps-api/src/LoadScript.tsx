@@ -1,8 +1,4 @@
-import {
-  type JSX,
-  PureComponent,
-  type ReactNode,
-} from 'react'
+import { type JSX, PureComponent, type ReactNode } from 'react'
 import invariant from 'invariant'
 
 import {
@@ -232,14 +228,14 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
       })
   }
 
+  getRef = (el: HTMLDivElement | null): void => {
+    this.check = el
+  }
+
   override render(): ReactNode {
     return (
       <>
-        <div
-          ref={(el) => {
-            this.check = el
-          }}
-        />
+        <div ref={this.getRef} />
 
         {this.state.loaded
           ? this.props.children
