@@ -1,5 +1,7 @@
 # Change Log
 
+## 2.20.6 fixes to LoadScript
+
 ## 2.20.3 added babel plugin for rollup"
 
 ## 2.20.1 Update Polygon onEdit to include remove_at listener by @JacobGalati
