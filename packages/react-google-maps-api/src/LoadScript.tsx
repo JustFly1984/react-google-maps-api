@@ -1,10 +1,4 @@
-import {
-  type JSX,
-  createRef,
-  PureComponent,
-  type ReactNode,
-  type RefObject,
-} from 'react'
+import { type JSX, PureComponent, type ReactNode } from 'react'
 import invariant from 'invariant'
 
 import {
@@ -44,7 +38,7 @@ export const defaultLoadScriptProps = {
 class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
   public static defaultProps = defaultLoadScriptProps
 
-  check: RefObject<HTMLDivElement> = createRef()
+  check: HTMLDivElement | null = null
 
   override state = {
     loaded: false,
@@ -97,7 +91,7 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
       this.cleanup()
 
       const timeoutCallback = (): void => {
-        if (!this.check.current) {
+        if (!this.check) {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           delete window.google
@@ -234,10 +228,14 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
       })
   }
 
+  getRef = (el: HTMLDivElement | null): void => {
+    this.check = el
+  }
+
   override render(): ReactNode {
     return (
       <>
-        <div ref={this.check} />
+        <div ref={this.getRef} />
 
         {this.state.loaded
           ? this.props.children
