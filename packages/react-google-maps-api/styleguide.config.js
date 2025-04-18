@@ -1,36 +1,76 @@
-import { basename } from 'node:path'
-import { withCustomConfig } from 'react-docgen-typescript'
+const { basename } = require('node:path')
+const { withCustomConfig } = require('react-docgen-typescript')
+const path = require('path')
+const webpack = require('webpack')
 
-export const ignore = ['**/*.js', '**/*.ts', '**/*.stories.tsx']
+const ignore = ['**/*.stories.tsx', '**/*.test.ts', '**/*.test.tsx']
 
-export const propsParser = withCustomConfig('./tsconfig.json', {
-  savePropValueAsString: true, // Optional config: adjust as needed
+const propsParser = withCustomConfig('./tsconfig.json', {
+  savePropValueAsString: true,
 }).parse
 
-export function getComponentPathLine(componentPath) {
+function getComponentPathLine(componentPath) {
   const name = basename(componentPath, '.tsx')
   return `import { ${name} } from '@react-google-maps/api';`
 }
 
-export const usageMode = 'expand'
+const usageMode = 'expand'
 
-export const webpackConfig = {
+const webpackConfig = {
   module: {
     rules: [
       {
-        // Transpile TypeScript and TSX files using ts-loader
         test: /\.(ts|tsx)$/,
-        loader: 'ts-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+                ['@babel/preset-typescript', {
+                  allowDeclareFields: true
+                }]
+              ],
+            },
+          },
+        ],
+        exclude: /node_modules/,
       },
     ],
   },
-  // Resolve these file extensions
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      '@react-google-maps/api': path.resolve(__dirname, 'src'),
+      'react': path.resolve(__dirname, 'node_modules/react'),
+      'react-dom': path.resolve(__dirname, 'node_modules/react-dom')
+    },
+    mainFields: ['module', 'main'],
+    extensionAlias: {
+      '.js': ['.ts', '.tsx', '.js'],
+      '.mjs': ['.mts', '.mjs']
+    },
+    fallback: {
+      "process": require.resolve("process/browser")
+    }
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+      React: 'react',
+      ReactDOM: 'react-dom'
+    }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify({
+        ...process.env,
+        NODE_ENV: process.env.NODE_ENV || 'development'
+      })
+    })
+  ]
 }
 
-export const sections = [
+const sections = [
   {
     name: 'Introduction',
     content: 'src/docs/introduction.md', // Path to the introduction documentation
@@ -42,7 +82,7 @@ export const sections = [
   {
     name: 'Components',
     // List of components and component files to document
-    components: [
+    components: () => [
       'src/useJsApiLoader.tsx',
       'src/LoadScript.tsx',
       'src/LoadScriptNext.tsx',
@@ -53,6 +93,39 @@ export const sections = [
   },
 ]
 
-export const typescript = {
-  componentNameResolver: (filePath) => basename(filePath, '.tsx'),
+module.exports = {
+  title: 'React Google Maps API Documentation',
+  ignore,
+  propsParser,
+  getComponentPathLine,
+  usageMode,
+  webpackConfig,
+  sections,
+  skipComponentsWithoutExample: false,
+  resolver: require('react-docgen').resolver.findAllComponentDefinitions,
+  pagePerSection: true,
+  exampleMode: 'expand',
+  template: {
+    head: {
+      links: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap',
+        },
+      ],
+    },
+  },
+  require: [],
+  updateExample: (props) => {
+    if (!props || !props.settings) {
+      return props;
+    }
+    const { settings, lang } = props;
+    if (settings.file && typeof settings.file === 'string') {
+      const filepath = settings.file;
+      settings.static = true;
+      delete settings.file;
+    }
+    return props;
+  },
 }
