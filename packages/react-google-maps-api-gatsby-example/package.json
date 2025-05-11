@@ -21,7 +21,7 @@
     "@babel/node": "7.22.6",
     "@babel/preset-env": "7.22.9",
     "@babel/preset-react": "7.22.5",
-    "@babel/runtime": "7.22.6",
+    "@babel/runtime": "7.26.10",
     "@react-google-maps/api": "2.19.2",
     "@sentry/browser": "7.60.1",
     "cross-env": "7.0.3",
