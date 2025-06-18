@@ -16,6 +16,7 @@ export type UseLoadScriptOptions = LoadScriptUrlOptions & {
   id?: string | undefined
   nonce?: string | undefined
   preventGoogleFontsLoading?: boolean | undefined
+  apiUrl?: string
 }
 
 let previouslyLoadedUrl: string
@@ -33,6 +34,7 @@ export function useLoadScript({
   channel,
   mapIds,
   authReferrerPolicy,
+  apiUrl = "https://maps.googleapis.com",
 }: UseLoadScriptOptions): {
   isLoaded: boolean
   loadError: Error | undefined
@@ -80,6 +82,7 @@ export function useLoadScript({
     channel,
     mapIds,
     authReferrerPolicy,
+    apiUrl,
   })
 
   useEffect(

@@ -13,6 +13,7 @@ export type LoadScriptUrlOptions = {
   channel?: string | undefined
   mapIds?: string[] | undefined
   authReferrerPolicy?: 'origin' | undefined
+  apiUrl?: string
 }
 
 export function makeLoadScriptUrl({
@@ -25,6 +26,7 @@ export function makeLoadScriptUrl({
   channel,
   mapIds,
   authReferrerPolicy,
+  apiUrl = 'https://maps.googleapis.com',
 }: LoadScriptUrlOptions): string {
   const params = []
 
@@ -71,5 +73,5 @@ export function makeLoadScriptUrl({
   params.push('loading=async')
   params.push('callback=initMap')
 
-  return `https://maps.googleapis.com/maps/api/js?${params.join('&')}`
+  return `${apiUrl}/maps/api/js?${params.join('&')}`
 }
