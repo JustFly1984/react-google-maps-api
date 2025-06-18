@@ -1,5 +1,7 @@
 # Change Log
 
+## 2.20.7 fix to LoadScript - adding option to pass api url to loader. by default it uses `https://maps.googleapis.com` but you can pass any other url
+
 ## 2.20.6 fixes to LoadScript
 
 ## 2.20.3 added babel plugin for rollup"
