@@ -42,7 +42,7 @@ const onLoad = polygon => {
     zoom={5}
     center={center}
   >
-    <Polygon
+    <PolygonF
       onLoad={onLoad}
       paths={paths}
       options={options}

@@ -1,8 +1,19 @@
-import invariant from 'invariant';
-import { ContextType, memo, PureComponent, useContext, useEffect, useState } from 'react';
+import invariant from 'invariant'
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 
-import MapContext from '../../map-context';
-import { applyUpdatersToPropsAndRegisterEvents, unregisterEvents } from '../../utils/helper';
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
+
+import MapContext from '../../map-context.js'
 
 const eventMap = {}
 
@@ -32,11 +43,11 @@ const updaterMap = {
   },
 }
 
-interface HeatmapLayerState {
+type HeatmapLayerState = {
   heatmapLayer: google.maps.visualization.HeatmapLayer | null
 }
 
-export interface HeatmapLayerProps {
+export type HeatmapLayerProps = {
   // required
   /** The data points to display. Required. */
   data:
@@ -95,7 +106,7 @@ function HeatmapLayerFunctional({
 
   useEffect(() => {
     const heatmapLayer = new google.maps.visualization.HeatmapLayer({
-      ...(options || {}),
+      ...options,
       data,
       map,
     })
@@ -155,7 +166,7 @@ export class HeatmapLayer extends PureComponent<
     )
 
     const heatmapLayer = new google.maps.visualization.HeatmapLayer({
-      ...(this.props.options || {}),
+      ...this.props.options,
       data: this.props.data,
       map: this.context,
     })

@@ -1,9 +1,19 @@
 /* global google */
-import { type ContextType, PureComponent, useContext, useEffect, useState, memo } from 'react'
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onClick: 'click',
@@ -29,7 +39,10 @@ const updaterMap = {
   map(instance: google.maps.Polygon, map: google.maps.Map): void {
     instance.setMap(map)
   },
-  options(instance: google.maps.Polygon, options: google.maps.PolygonOptions): void {
+  options(
+    instance: google.maps.Polygon,
+    options: google.maps.PolygonOptions
+  ): void {
     instance.setOptions(options)
   },
   path(
@@ -60,7 +73,7 @@ const updaterMap = {
   },
 }
 
-export interface PolygonProps {
+export type PolygonProps = {
   options?: google.maps.PolygonOptions | undefined
   /** If set to true, the user can drag this shape over the map. The geodesic property defines the mode of dragging. */
   draggable?: boolean | undefined
@@ -139,17 +152,28 @@ function PolygonFunctional({
 
   const [instance, setInstance] = useState<google.maps.Polygon | null>(null)
 
-  const [dblclickListener, setDblclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragendListener, setDragendListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragstartListener, setDragstartListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousedownListener, setMousedownListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mousemoveListener, setMousemoveListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoutListener, setMouseoutListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseoverListener, setMouseoverListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [mouseupListener, setMouseupListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [rightclickListener, setRightclickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [clickListener, setClickListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [dragListener, setDragListener] = useState<google.maps.MapsEventListener | null>(null)
+  const [dblclickListener, setDblclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragendListener, setDragendListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragstartListener, setDragstartListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousedownListener, setMousedownListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mousemoveListener, setMousemoveListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoutListener, setMouseoutListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseoverListener, setMouseoverListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [mouseupListener, setMouseupListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [rightclickListener, setRightclickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [clickListener, setClickListener] =
+    useState<google.maps.MapsEventListener | null>(null)
+  const [dragListener, setDragListener] =
+    useState<google.maps.MapsEventListener | null>(null)
 
   // Order does matter
   useEffect(() => {
@@ -176,11 +200,11 @@ function PolygonFunctional({
     }
   }, [instance, editable])
 
-    useEffect(() => {
-      if (typeof visible !== 'undefined' && instance !== null) {
-        instance.setVisible(visible)
-      }
-    }, [instance, visible])
+  useEffect(() => {
+    if (typeof visible !== 'undefined' && instance !== null) {
+      instance.setVisible(visible)
+    }
+  }, [instance, visible])
 
   useEffect(() => {
     if (typeof path !== 'undefined' && instance !== null) {
@@ -195,7 +219,7 @@ function PolygonFunctional({
   }, [instance, paths])
 
   useEffect(() => {
-    if (instance && onDblClick) {
+    if (instance && typeof onDblClick === 'function') {
       if (dblclickListener !== null) {
         google.maps.event.removeListener(dblclickListener)
       }
@@ -207,23 +231,25 @@ function PolygonFunctional({
   }, [onDblClick])
 
   useEffect(() => {
-    if (instance) {
-      google.maps.event.addListener(instance.getPath(), 'insert_at', () => {
-        onEdit?.(instance)
-      });
-
-      google.maps.event.addListener(instance.getPath(), 'set_at', () => {
-        onEdit?.(instance)
-      });
-
-      google.maps.event.addListener(instance.getPath(), 'remove_at', () => {
-        onEdit?.(instance)
-      });
+    if (!instance) {
+      return
     }
+
+    google.maps.event.addListener(instance.getPath(), 'insert_at', () => {
+      onEdit?.(instance)
+    })
+
+    google.maps.event.addListener(instance.getPath(), 'set_at', () => {
+      onEdit?.(instance)
+    })
+
+    google.maps.event.addListener(instance.getPath(), 'remove_at', () => {
+      onEdit?.(instance)
+    })
   }, [instance, onEdit])
 
   useEffect(() => {
-    if (instance && onDragEnd) {
+    if (instance && typeof onDragEnd === 'function') {
       if (dragendListener !== null) {
         google.maps.event.removeListener(dragendListener)
       }
@@ -235,7 +261,7 @@ function PolygonFunctional({
   }, [onDragEnd])
 
   useEffect(() => {
-    if (instance && onDragStart) {
+    if (instance && typeof onDragStart === 'function') {
       if (dragstartListener !== null) {
         google.maps.event.removeListener(dragstartListener)
       }
@@ -247,7 +273,7 @@ function PolygonFunctional({
   }, [onDragStart])
 
   useEffect(() => {
-    if (instance && onMouseDown) {
+    if (instance && typeof onMouseDown === 'function') {
       if (mousedownListener !== null) {
         google.maps.event.removeListener(mousedownListener)
       }
@@ -259,7 +285,7 @@ function PolygonFunctional({
   }, [onMouseDown])
 
   useEffect(() => {
-    if (instance && onMouseMove) {
+    if (instance && typeof onMouseMove === 'function') {
       if (mousemoveListener !== null) {
         google.maps.event.removeListener(mousemoveListener)
       }
@@ -271,7 +297,7 @@ function PolygonFunctional({
   }, [onMouseMove])
 
   useEffect(() => {
-    if (instance && onMouseOut) {
+    if (instance && typeof onMouseOut === 'function') {
       if (mouseoutListener !== null) {
         google.maps.event.removeListener(mouseoutListener)
       }
@@ -283,7 +309,7 @@ function PolygonFunctional({
   }, [onMouseOut])
 
   useEffect(() => {
-    if (instance && onMouseOver) {
+    if (instance && typeof onMouseOver === 'function') {
       if (mouseoverListener !== null) {
         google.maps.event.removeListener(mouseoverListener)
       }
@@ -295,7 +321,7 @@ function PolygonFunctional({
   }, [onMouseOver])
 
   useEffect(() => {
-    if (instance && onMouseUp) {
+    if (instance && typeof onMouseUp === 'function') {
       if (mouseupListener !== null) {
         google.maps.event.removeListener(mouseupListener)
       }
@@ -307,7 +333,7 @@ function PolygonFunctional({
   }, [onMouseUp])
 
   useEffect(() => {
-    if (instance && onRightClick) {
+    if (instance && typeof onRightClick === 'function') {
       if (rightclickListener !== null) {
         google.maps.event.removeListener(rightclickListener)
       }
@@ -319,7 +345,7 @@ function PolygonFunctional({
   }, [onRightClick])
 
   useEffect(() => {
-    if (instance && onClick) {
+    if (instance && typeof onClick === 'function') {
       if (clickListener !== null) {
         google.maps.event.removeListener(clickListener)
       }
@@ -331,20 +357,18 @@ function PolygonFunctional({
   }, [onClick])
 
   useEffect(() => {
-    if (instance && onDrag) {
+    if (instance && typeof onDrag === 'function') {
       if (dragListener !== null) {
         google.maps.event.removeListener(dragListener)
       }
 
-      setDragListener(
-        google.maps.event.addListener(instance, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(instance, 'drag', onDrag))
     }
   }, [onDrag])
 
   useEffect(() => {
     const polygon = new google.maps.Polygon({
-      ...(options || {}),
+      ...options,
       map,
     })
 
@@ -423,15 +447,11 @@ function PolygonFunctional({
     }
 
     if (onClick) {
-      setClickListener(
-        google.maps.event.addListener(polygon, 'click', onClick)
-      )
+      setClickListener(google.maps.event.addListener(polygon, 'click', onClick))
     }
 
     if (onDrag) {
-      setDragListener(
-        google.maps.event.addListener(polygon, 'drag', onDrag)
-      )
+      setDragListener(google.maps.event.addListener(polygon, 'drag', onDrag))
     }
 
     setInstance(polygon)
@@ -544,7 +564,9 @@ export class Polygon extends PureComponent<PolygonProps> {
 
       unregisterEvents(this.registeredEvents)
 
-      this.polygon && this.polygon.setMap(null)
+      if (this.polygon) {
+        this.polygon.setMap(null)
+      }
     }
   }
 

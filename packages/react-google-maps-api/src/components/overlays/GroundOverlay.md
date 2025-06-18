@@ -28,7 +28,7 @@ const bounds = {
     zoom={13}
     center={center}
   >
-    <GroundOverlay
+    <GroundOverlayF
       key={'url'}
       url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
       bounds={bounds}

@@ -1,11 +1,11 @@
 import { Component, type JSX, type ReactNode } from 'react'
 
-interface ScriptLoadedState {
+type ScriptLoadedState = {
   scriptLoaded: boolean
 }
 
-interface ScriptLoadedProps {
-  // eslint-disable-next-line @typescript-eslint/ban-types
+type ScriptLoadedProps = {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   children: ReactNode | ReactNode[] | Function
 }
 
@@ -55,7 +55,9 @@ class ScriptLoaded extends Component<ScriptLoadedProps, ScriptLoadedState> {
       return <SpanIntro />
     }
 
-    return this.props.children instanceof Function ? this.props.children() : this.props.children
+    return this.props.children instanceof Function
+      ? this.props.children()
+      : this.props.children
   }
 }
 

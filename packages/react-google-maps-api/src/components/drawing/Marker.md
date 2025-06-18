@@ -30,7 +30,7 @@ const onLoad = marker => {
     zoom={2}
     center={center}
   >
-    <Marker
+    <MarkerF
       onLoad={onLoad}
       position={position}
     />
@@ -70,18 +70,19 @@ const centers = [{
     zoom={2}
     center={centers[0]}
   >
-    <Marker
+    <MarkerF
       icon={{
         path: google.maps.SymbolPath.CIRCLE,
         scale: 7,
       }}
       position={centers[0]}
     />
-    <Marker
+
+    <MarkerF
       icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
       position={centers[1]}
     />
-    <Marker
+    <MarkerF
       icon={{
         path:
           "M8 12l-4.7023 2.4721.898-5.236L.3916 5.5279l5.2574-.764L8 0l2.3511 4.764 5.2574.7639-3.8043 3.7082.898 5.236z",
@@ -118,7 +119,7 @@ const centers = [{
 
 /* Using a React component is not obligatory, you can use a simple function that returns a svg string 
    if you don't want to use renderToStaticMarkup and "react-dom/server" */
-const SvgCircleMarker = () => {
+function SvgCircleMarker() {
   /* Your component logic here */
   return (
     <svg viewBox="0 0 102 102">
@@ -141,7 +142,7 @@ const markerDataUri = `data:image/svg+xml,${markerSvgString}`;
     zoom={2}
     center={centers[0]}
   >
-    <Marker
+    <MarkerF
       icon={markerDataUri}
       position={centers[0]}
     />

@@ -1,21 +1,28 @@
-import { getOffsetOverride, getLayoutStyles } from './dom-helper'
+import { getOffsetOverride, getLayoutStyles } from './dom-helper.js'
 
 type fnPixelPositionOffset = (
   offsetWidth: number,
   offsetHeight: number
 ) => { x: number; y: number }
+
 export function createOverlay(
   container: HTMLElement,
   pane: keyof google.maps.MapPanes,
   position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined,
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined,
+  bounds?:
+    | google.maps.LatLngBounds
+    | google.maps.LatLngBoundsLiteral
+    | undefined,
   getPixelPositionOffset?: fnPixelPositionOffset | undefined
 ) {
   class Overlay extends google.maps.OverlayView {
     container: HTMLElement
     pane: keyof google.maps.MapPanes
     position: google.maps.LatLng | google.maps.LatLngLiteral | undefined
-    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
+    bounds:
+      | google.maps.LatLngBounds
+      | google.maps.LatLngBoundsLiteral
+      | undefined
 
     constructor(
       container: HTMLElement,
@@ -41,10 +48,10 @@ export function createOverlay(
         ...(this.container
           ? getOffsetOverride(this.container, getPixelPositionOffset)
           : {
-            x: 0,
-            y: 0,
-          }),
-        }
+              x: 0,
+              y: 0,
+            }),
+      }
 
       const layoutStyles = getLayoutStyles(
         projection,
@@ -58,7 +65,6 @@ export function createOverlay(
         // @ts-ignore
         this.container.style[key] = value
       }
-
     }
 
     override onRemove(): void {

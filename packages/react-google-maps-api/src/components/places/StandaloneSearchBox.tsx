@@ -1,10 +1,20 @@
-import { Children, type ContextType, createRef, type JSX, PureComponent, type ReactNode, type RefObject } from 'react'
-
+import {
+  Children,
+  type JSX,
+  createRef,
+  PureComponent,
+  type ReactNode,
+  type RefObject,
+  type ContextType,
+} from 'react'
 import invariant from 'invariant'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
 
-import MapContext from '../../map-context'
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onPlacesChanged: 'places_changed',
@@ -19,14 +29,17 @@ const updaterMap = {
   },
 }
 
-interface StandaloneSearchBoxState {
+type StandaloneSearchBoxState = {
   searchBox: google.maps.places.SearchBox | null
 }
 
-export interface StandaloneSearchBoxProps {
+export type StandaloneSearchBoxProps = {
   children?: ReactNode | undefined
   /** The area towards which to bias query predictions. Predictions are biased towards, but not restricted to, queries targeting these bounds. */
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
+  bounds?:
+    | google.maps.LatLngBounds
+    | google.maps.LatLngBoundsLiteral
+    | undefined
   options?: google.maps.places.SearchBoxOptions | undefined
   /** This event is fired when the user selects a query, getPlaces should be used to get new places. */
   onPlacesChanged?: (() => void) | undefined
@@ -64,11 +77,17 @@ class StandaloneSearchBox extends PureComponent<
       google.maps.places
     )
 
-    if (this.containerElement !== null && this.containerElement.current !== null) {
+    if (
+      this.containerElement !== null &&
+      this.containerElement.current !== null
+    ) {
       const input = this.containerElement.current.querySelector('input')
 
       if (input !== null) {
-        const searchBox = new google.maps.places.SearchBox(input, this.props.options)
+        const searchBox = new google.maps.places.SearchBox(
+          input,
+          this.props.options
+        )
 
         this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
           updaterMap,
@@ -112,7 +131,11 @@ class StandaloneSearchBox extends PureComponent<
   }
 
   override render(): JSX.Element {
-    return <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
+    return (
+      <div ref={this.containerElement}>
+        {Children.only(this.props.children)}
+      </div>
+    )
   }
 }
 

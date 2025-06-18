@@ -1,11 +1,20 @@
-import { type ContextType, PureComponent, memo, useMemo, useEffect, useContext } from 'react'
-
+import {
+  memo,
+  useMemo,
+  useEffect,
+  useContext,
+  PureComponent,
+  type ContextType,
+} from 'react'
 import invariant from 'invariant'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
 
-import MapContext from '../../map-context'
-import { noop } from '../../utils/noop'
+import { noop } from '../../utils/noop.js'
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onDblClick: 'dblclick',
@@ -18,11 +27,11 @@ const updaterMap = {
   },
 }
 
-interface GroundOverlayState {
+type GroundOverlayState = {
   groundOverlay: google.maps.GroundOverlay | null
 }
 
-export interface GroundOverlayProps {
+export type GroundOverlayProps = {
   options?: google.maps.GroundOverlayOptions | undefined
   /** The opacity of the overlay, expressed as a number between 0 and 1. Optional. Defaults to 1. */
   opacity?: number | undefined
@@ -41,58 +50,63 @@ export interface GroundOverlayProps {
   visible?: boolean
 }
 
-function GroundOverlayFunctional({ url, bounds, options, visible }: GroundOverlayProps) {
+function GroundOverlayFunctional({
+  url,
+  bounds,
+  options,
+  visible,
+}: GroundOverlayProps) {
   const map = useContext<google.maps.Map | null>(MapContext)
 
   const imageBounds = new google.maps.LatLngBounds(
     new google.maps.LatLng(bounds.south, bounds.west),
     new google.maps.LatLng(bounds.north, bounds.east)
-  );
+  )
 
   const groundOverlay = useMemo(() => {
-    const overlay = new google.maps.GroundOverlay(url, imageBounds, {
-      ...options
-    });
-    return overlay
-  }, []);
+    return new google.maps.GroundOverlay(url, imageBounds, options)
+  }, [])
 
   useEffect(() => {
     if (groundOverlay !== null) {
-      groundOverlay.setMap(map);
+      groundOverlay.setMap(map)
     }
   }, [map])
 
   useEffect(() => {
     if (typeof url !== 'undefined' && groundOverlay !== null) {
-      groundOverlay.set("url", url);
-      groundOverlay.setMap(map);
+      groundOverlay.set('url', url)
+      groundOverlay.setMap(map)
     }
-  }, [groundOverlay, url]);
+  }, [groundOverlay, url])
 
   useEffect(() => {
     if (typeof visible !== 'undefined' && groundOverlay !== null) {
-      groundOverlay.setOpacity(visible ? 1 : 0);
+      groundOverlay.setOpacity(visible ? 1 : 0)
     }
-  }, [groundOverlay, visible]);
+  }, [groundOverlay, visible])
 
   useEffect(() => {
     const newBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(bounds.south, bounds.west),
       new google.maps.LatLng(bounds.north, bounds.east)
-    );
+    )
 
     if (typeof bounds !== 'undefined' && groundOverlay !== null) {
-      groundOverlay.set("bounds", newBounds);
-      groundOverlay.setMap(map);
+      groundOverlay.set('bounds', newBounds)
+      groundOverlay.setMap(map)
     }
   }, [groundOverlay, bounds])
 
-  return null;
+  return null
 }
 
-export const GroundOverlayF = memo(GroundOverlayFunctional);
+export const GroundOverlayF = memo(GroundOverlayFunctional)
 
-export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverlayState> {
+export class GroundOverlay extends PureComponent<
+  GroundOverlayProps,
+  GroundOverlayState
+> {
   public static defaultProps = {
     onLoad: noop,
   }
@@ -118,10 +132,14 @@ export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverl
       `For GroundOverlay, url and bounds are passed in to constructor and are immutable after instantiated. This is the behavior of Google Maps JavaScript API v3 ( See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay) Hence, use the corresponding two props provided by \`react-google-maps-api\`, url and bounds. In some cases, you'll need the GroundOverlay component to reflect the changes of url and bounds. You can leverage the React's key property to remount the component. Typically, just \`key={url}\` would serve your need. See https://github.com/tomchentw/react-google-maps/issues/655`
     )
 
-    const groundOverlay = new google.maps.GroundOverlay(this.props.url, this.props.bounds, {
-      ...this.props.options,
-      map: this.context,
-    })
+    const groundOverlay = new google.maps.GroundOverlay(
+      this.props.url,
+      this.props.bounds,
+      {
+        ...this.props.options,
+        map: this.context,
+      }
+    )
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
       updaterMap,

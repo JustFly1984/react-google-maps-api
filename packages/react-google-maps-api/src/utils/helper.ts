@@ -1,7 +1,7 @@
 /* global google */
 /* eslint-disable filenames/match-regex */
-import { reduce } from './reduce'
-import { forEach } from './foreach'
+import { reduce } from './reduce.js'
+import { forEach } from './foreach.js'
 
 export function applyUpdaterToNextProps(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,7 +48,13 @@ export function registerEvents(
       onEventName: any
     ): google.maps.MapsEventListener[] {
       if (typeof props[onEventName] === 'function') {
-        acc.push(google.maps.event.addListener(instance, googleEventName, props[onEventName]))
+        acc.push(
+          google.maps.event.addListener(
+            instance,
+            googleEventName,
+            props[onEventName]
+          )
+        )
       }
 
       return acc
@@ -63,7 +69,9 @@ function unregisterEvent(registered: google.maps.MapsEventListener): void {
   google.maps.event.removeListener(registered)
 }
 
-export function unregisterEvents(events: google.maps.MapsEventListener[] = []): void {
+export function unregisterEvents(
+  events: google.maps.MapsEventListener[] = []
+): void {
   events.forEach(unregisterEvent)
 }
 

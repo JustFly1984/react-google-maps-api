@@ -1,6 +1,14 @@
-# Changelog
+# Change Log
 
-## 2.19.3 fixes to MarkerF functionality by Fabian Scherer
+## 2.20.6 fixes to LoadScript
+
+## 2.20.3 added babel plugin for rollup"
+
+## 2.20.1 Update Polygon onEdit to include remove_at listener by @JacobGalati
+
+## 2.20.0 Update to support React@19 @memark, typescript 5.6.3, updated rollup. Docs build still failing. Added vite vike example, in progress. removed gatsby.js example
+
+## 2.19.3 fixes to MarkerF functionality by @Fabian Scherer
 
 ## 2.19.2 fix @react-google-maps/infobox boxStyle type
 
@@ -80,7 +88,7 @@ TODO:
 
 ## 2.16.1 fix marker-clusterer markers stack css
 
-## 2.16.0 fix build, sorry 2.14.0 and 2.15.0 is broken due to rollup update issues.
+## 2.16.0 fix build, sorry 2.14.0 and 2.15.0 is broken due to rollup update issues
 
 ## 2.15.0 MarkerClustererF component
 
@@ -175,7 +183,7 @@ installed lerna
 
 ## 2.7.0 update typescript and dependencies
 
-## 2.6.0 "@googlemaps/markerclusterer": "1.0.8" GoogleMapsMarkerClusterer component, merged [https://github.com/JustFly1984/react-google-maps-api/pull/2895]( https://github.com/JustFly1984/react-google-maps-api/pull/2895) PR
+## 2.6.0 "@googlemaps/markerclusterer": "1.0.8" GoogleMapsMarkerClusterer component, merged [https://github.com/JustFly1984/react-google-maps-api/pull/2895](https://github.com/JustFly1984/react-google-maps-api/pull/2895) PR
 
 ## 2.5.0 useJsApiLoader before this patch sets loaded state after loader has loaded, even if the component has already unmounted. This should fixes it
 
@@ -193,13 +201,13 @@ installed lerna
 
 ## 2.0.1 React 17 support, Typescript 4.1.2
 
-## 1.14.0 update webpack to 5.2.0, React 17 support, @types/googlemaps@3.40.1, typescript@4.1.0-beta
+## 1.14.0 update webpack to 5.2.0, React 17 support, @types/googlemaps@3.40.1, <typescript@4.1.0-beta>
 
 ## 1.13.0 update webpack@5.0.0
 
 ## 1.12.0 added useJsApiLoader hook, based on @googlemaps/js-api-loader. New official way of loading googlemaps script
 
-## 1.11.0 updated  @types/googlemaps@3.40.0
+## 1.11.0 updated @types/googlemaps@3.40.0
 
 ## 1.10.0 updated typescript@4.0.2, merged fixes for OverlayView
 

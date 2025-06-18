@@ -3,7 +3,7 @@ import invariant from 'invariant'
 
 export type Libraries = Library[]
 
-export interface LoadScriptUrlOptions {
+export type LoadScriptUrlOptions = {
   googleMapsApiKey: string | ''
   googleMapsClientId?: string | undefined
   version?: string | undefined
@@ -13,7 +13,7 @@ export interface LoadScriptUrlOptions {
   channel?: string | undefined
   mapIds?: string[] | undefined
   authReferrerPolicy?: 'origin' | undefined
-  apiUrl?: string | undefined
+  apiUrl?: string
 }
 
 export function makeLoadScriptUrl({

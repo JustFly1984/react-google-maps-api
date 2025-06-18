@@ -1,7 +1,11 @@
 import { type ContextType, PureComponent } from 'react'
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
-import MapContext from '../../map-context'
+import {
+  unregisterEvents,
+  applyUpdatersToPropsAndRegisterEvents,
+} from '../../utils/helper.js'
+
+import MapContext from '../../map-context.js'
 
 const eventMap = {
   onClick: 'click',
@@ -10,7 +14,10 @@ const eventMap = {
 }
 
 const updaterMap = {
-  options(instance: google.maps.KmlLayer, options: google.maps.KmlLayerOptions): void {
+  options(
+    instance: google.maps.KmlLayer,
+    options: google.maps.KmlLayerOptions
+  ): void {
     instance.setOptions(options)
   },
   url(instance: google.maps.KmlLayer, url: string): void {
@@ -21,11 +28,11 @@ const updaterMap = {
   },
 }
 
-interface KmlLayerState {
+type KmlLayerState = {
   kmlLayer: google.maps.KmlLayer | null
 }
 
-export interface KmlLayerProps {
+export type KmlLayerProps = {
   options?: google.maps.KmlLayerOptions | undefined
   /** The URL of the KML document to display. */
   url?: string | undefined
@@ -106,7 +113,7 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     }
   }
 
-  override render():null {
+  override render(): null {
     return null
   }
 }

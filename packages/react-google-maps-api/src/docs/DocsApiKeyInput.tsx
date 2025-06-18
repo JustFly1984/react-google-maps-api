@@ -1,4 +1,10 @@
-import { type ChangeEvent, Component, type JSX, type FormEvent, type ReactNode } from 'react'
+import {
+  type JSX,
+  Component,
+  type FormEvent,
+  type ReactNode,
+  type ChangeEvent,
+} from 'react'
 import { setKey, getKey } from './docs-api-key'
 
 import LoadScript from '../LoadScript'
@@ -20,23 +26,27 @@ const buttonStyle = {
 
 const loadingElement: JSX.Element = <div>Loading...</div>
 
-interface DocsApiKeyInputState {
+type DocsApiKeyInputState = {
   key: string
   loadScript: boolean
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   constructor(props: {}) {
     super(props)
 
     const key = getKey()
 
-    this.state = key ? { key, loadScript: true } : { key: '', loadScript: false }
+    this.state = key
+      ? { key, loadScript: true }
+      : { key: '', loadScript: false }
   }
 
-  onInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>): void => {
+  onInputChange = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>): void => {
     this.setState(function setKey() {
       return {
         key: value,

@@ -2,21 +2,21 @@
 import { useEffect, useRef, useState } from 'react'
 import invariant from 'invariant'
 
-import { isBrowser } from './utils/isbrowser'
-import { injectScript } from './utils/injectscript'
-import { preventGoogleFonts } from './utils/prevent-google-fonts'
+import { isBrowser } from './utils/isbrowser.js'
+import { injectScript } from './utils/injectscript.js'
+import { preventGoogleFonts } from './utils/prevent-google-fonts.js'
 import {
   makeLoadScriptUrl,
-  LoadScriptUrlOptions,
-} from './utils/make-load-script-url'
+  type LoadScriptUrlOptions,
+} from './utils/make-load-script-url.js'
 
-import { defaultLoadScriptProps } from './LoadScript'
+import { defaultLoadScriptProps } from './LoadScript.js'
 
-export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
+export type UseLoadScriptOptions = LoadScriptUrlOptions & {
   id?: string | undefined
   nonce?: string | undefined
   preventGoogleFontsLoading?: boolean | undefined
-  apiUrl?: string | undefined
+  apiUrl?: string
 }
 
 let previouslyLoadedUrl: string
@@ -34,7 +34,7 @@ export function useLoadScript({
   channel,
   mapIds,
   authReferrerPolicy,
-  apiUrl,
+  apiUrl = "https://maps.googleapis.com",
 }: UseLoadScriptOptions): {
   isLoaded: boolean
   loadError: Error | undefined
@@ -121,7 +121,7 @@ export function useLoadScript({
     [id, url, nonce]
   )
 
-  const prevLibraries = useRef<undefined | string[]>()
+  const prevLibraries = useRef<undefined | string[]>(undefined)
 
   useEffect(
     function checkPerformance() {
