@@ -5,7 +5,10 @@ import invariant from 'invariant'
 import { isBrowser } from './utils/isbrowser'
 import { injectScript } from './utils/injectscript'
 import { preventGoogleFonts } from './utils/prevent-google-fonts'
-import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-script-url'
+import {
+  makeLoadScriptUrl,
+  LoadScriptUrlOptions,
+} from './utils/make-load-script-url'
 
 import { defaultLoadScriptProps } from './LoadScript'
 
@@ -13,6 +16,7 @@ export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
   id?: string | undefined
   nonce?: string | undefined
   preventGoogleFontsLoading?: boolean | undefined
+  apiUrl?: string | undefined
 }
 
 let previouslyLoadedUrl: string
@@ -30,6 +34,7 @@ export function useLoadScript({
   channel,
   mapIds,
   authReferrerPolicy,
+  apiUrl,
 }: UseLoadScriptOptions): {
   isLoaded: boolean
   loadError: Error | undefined
@@ -76,7 +81,8 @@ export function useLoadScript({
     libraries,
     channel,
     mapIds,
-    authReferrerPolicy
+    authReferrerPolicy,
+    apiUrl,
   })
 
   useEffect(
@@ -104,8 +110,9 @@ export function useLoadScript({
             setLoadError(err)
           }
           console.warn(`
-        There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${googleMapsApiKey ||
-          '-'}) or Client ID (${googleMapsClientId || '-'})
+        There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${
+          googleMapsApiKey || '-'
+        }) or Client ID (${googleMapsClientId || '-'})
         Otherwise it is a Network issue.
       `)
           console.error(err)
