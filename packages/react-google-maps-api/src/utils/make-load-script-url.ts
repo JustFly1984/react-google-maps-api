@@ -28,7 +28,7 @@ export function makeLoadScriptUrl({
   authReferrerPolicy,
   apiUrl = 'https://maps.googleapis.com',
 }: LoadScriptUrlOptions): string {
-  const params = []
+  const params: string[] = []
 
   invariant(
     (googleMapsApiKey && googleMapsClientId) ||
