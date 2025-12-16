@@ -26,7 +26,7 @@ export function makeLoadScriptUrl({
   mapIds,
   authReferrerPolicy
 }: LoadScriptUrlOptions): string {
-  const params = []
+  const params: string[] = []
 
   invariant(
     (googleMapsApiKey && googleMapsClientId) || !(googleMapsApiKey && googleMapsClientId),
