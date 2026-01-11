@@ -5,31 +5,27 @@ React hook based on new official way to load googlemaps script.
 It's the alternative variant of LoadScript and useLoadScript hook that tries to solve the problem of "google is not defined" error by removing the cleanup routines ([read more](https://github.com/JustFly1984/react-google-maps-api/pull/143)).
 
 ```js static
-import { useCallback } from 'react'
+import { useCallback, memo, type JSX, type ComponentType } from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 
 const options = {
   zoomControlOptions: {
-    position: google.maps.ControlPosition.RIGHT_CENTER // 'right-center' ,
-    // ...otherOptions
+    position: google.maps.ControlPosition.RIGHT_CENTER
   }
 }
 
-function MyComponent() {
+function MyComponentF(): JSX.Element {
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: "YOUR_API_KEY" // ,
-    // ...otherOptions
+    googleMapsApiKey: "YOUR_API_KEY"
   })
 
-  const renderMap = () => {
-    // wrapping to a function is useful in case you want to access `window.google`
-    // to eg. setup options or create latLng object, it won't be available otherwise
-    // feel free to render directly if you don't need that
-    const onLoad = useCallback(
-      function onLoad (mapInstance) {
+  const onLoad = useCallback(
+      (mapInstance) => {
         // do something with map Instance
-      }
-    )
+      }, []
+  )
+
+  const renderMap = useCallback(() => {
     return <GoogleMap
       options={options}
       onLoad={onLoad}
@@ -38,7 +34,7 @@ function MyComponent() {
         // ...Your map components
       }
     </GoogleMap>
-  }
+  }, [onLoad])
 
   if (loadError) {
     return <div>Map cannot be loaded right now, sorry.</div>
@@ -46,4 +42,6 @@ function MyComponent() {
 
   return isLoaded ? renderMap() : <Spinner />
 }
+
+export const MyComponent: ComponentType = memo(MyComponentF)
 ```

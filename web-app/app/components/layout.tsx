@@ -1,8 +1,10 @@
+import clsx from 'clsx';
 import { LogOut, Menu, User, X } from 'lucide-react';
-import { useState } from 'react';
+import { type JSX, ReactNode, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 
 import { useAuth } from '../contexts/auth.tsx';
+import { styles } from '../styles.ts';
 import { Logo } from './logo.tsx';
 
 const navigation = [
@@ -11,36 +13,127 @@ const navigation = [
   { name: 'Pricing', href: '/pricing' },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+const layoutClasses = clsx(styles.minHScreen, styles.flex, styles.flexCol);
+const headerClasses = clsx(styles.bgWhite, styles.borderB, styles.borderGray200);
+const logoContainerClasses = clsx(styles.flex, styles.itemsCenter, styles.gap8);
+const logoLinkClasses = clsx(styles.flex, styles.itemsCenter, styles.gap2);
+const logoBoxClasses = clsx(styles.block, styles.h8, styles.w8);
+const logoTextClasses = clsx(styles.fontBold, styles.textXl, styles.textGray900);
+const navDesktopClasses = clsx(styles.hidden, styles.mdFlex, styles.itemsCenter, styles.gap6);
+const navLinkClasses = clsx(styles.textSm, styles.fontMedium, styles.transitionColors);
+const navLinkActiveClasses = clsx(navLinkClasses, styles.textBlue600);
+const navLinkInactiveClasses = clsx(navLinkClasses, styles.textGray600, styles.hoverTextGray900);
+const userMenuClasses = clsx(styles.hidden, styles.mdFlex, styles.itemsCenter, styles.gap4);
+const userLinkClasses = clsx(
+  styles.flex,
+  styles.itemsCenter,
+  styles.gap2,
+  styles.textSm,
+  styles.fontMedium,
+  styles.textGray600,
+  styles.hoverTextGray900,
+);
+const signOutButtonClasses = clsx(
+  styles.flex,
+  styles.itemsCenter,
+  styles.gap2,
+  styles.textSm,
+  styles.fontMedium,
+  styles.textGray600,
+  styles.hoverTextGray900,
+);
+const mobileMenuButtonClasses = clsx(styles.mdHidden, styles.p2);
+const mobileMenuClasses = clsx(styles.mdHidden, styles.py4, styles.borderT);
+const mobileNavClasses = clsx(styles.flex, styles.flexCol, styles.gap4);
+const mobileNavLinkClasses = clsx(
+  styles.textSm,
+  styles.fontMedium,
+  styles.textGray600,
+  styles.hoverTextGray900,
+);
+const mobileUserLinkClasses = clsx(
+  styles.textSm,
+  styles.fontMedium,
+  styles.textGray600,
+  styles.hoverTextGray900,
+);
+const mobileSignOutButtonClasses = clsx(
+  styles.textSm,
+  styles.fontMedium,
+  styles.textGray600,
+  styles.hoverTextGray900,
+  styles.textLeft,
+);
+const mobileSignInLinkClasses = clsx(
+  styles.textSm,
+  styles.fontMedium,
+  styles.textGray600,
+  styles.hoverTextGray900,
+);
+const mobileSignUpLinkClasses = clsx(
+  styles.textSm,
+  styles.fontMedium,
+  styles.textBlue600,
+  styles.hoverTextBlue700,
+);
+const footerClasses = styles.footer;
+const footerContainerClasses = clsx(styles.containerMaxW7xl, styles.py12);
+const footerContentClasses = clsx(
+  styles.flex,
+  styles.flexCol,
+  styles.lgFlexRow,
+  styles.justifyBetween,
+  styles.itemsCenter,
+  styles.gap4,
+);
+const footerLogoClasses = clsx(styles.flex, styles.itemsCenter, styles.gap2);
+const footerLogoBoxClasses = clsx(styles.block, styles.h6, styles.w6);
+const footerTextClasses = clsx(styles.fontBold, styles.textWhite);
+
+export function Layout({ children }: { children: ReactNode }): JSX.Element {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const location = useLocation();
 
+  const handleSignOut = useCallback((): void => {
+    signOut();
+  }, [signOut]);
+
+  const toggleMobileMenu = useCallback((): void => {
+    setMobileMenuOpen((prev) => !prev);
+  }, []);
+
+  const closeMobileMenu = useCallback((): void => {
+    setMobileMenuOpen(false);
+  }, []);
+
+  const handleMobileSignOut = useCallback((): void => {
+    signOut();
+    setMobileMenuOpen(false);
+  }, [signOut]);
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-white border-b border-gray-200">
-        <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 justify-between items-center">
-            <div className="flex items-center gap-8">
-              <Link to="/" className="flex items-center gap-2">
-                <span className="block h-8 w-8">  
+    <div className={layoutClasses}>
+      <header className={headerClasses}>
+        <nav className={styles.containerMaxW7xl}>
+          <div className={styles.h16Flex}>
+            <div className={logoContainerClasses}>
+              <Link to="/" className={logoLinkClasses}>
+                <span className={logoBoxClasses}>
                   <Logo />
                 </span>
-
-                <span className="font-bold text-xl text-gray-900">
-                  React Google Maps
-                </span>
+                <span className={logoTextClasses}>React Google Maps</span>
               </Link>
-              <div className="hidden md:flex gap-6">
+              <div className={navDesktopClasses}>
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`text-sm font-medium transition-colors ${
+                    className={
                       location.pathname === item.href
-                        ? 'text-blue-600'
-                        : 'text-gray-600 hover:text-gray-900'
-                    }`}
+                        ? navLinkActiveClasses
+                        : navLinkInactiveClasses
+                    }
                   >
                     {item.name}
                   </Link>
@@ -48,57 +141,48 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-4">
+            <div className={userMenuClasses}>
               {user ? (
                 <>
-                  <Link
-                    to="/dashboard"
-                    className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900"
-                  >
-                    <User className="h-4 w-4" />
+                  <Link to="/dashboard" className={userLinkClasses}>
+                    <User className={styles.iconSm} />
                     Dashboard
                   </Link>
-                  <button
-                    onClick={() => signOut()}
-                    className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900"
-                  >
-                    <LogOut className="h-4 w-4" />
+                  <button onClick={handleSignOut} className={signOutButtonClasses}>
+                    <LogOut className={styles.iconSm} />
                     Sign Out
                   </button>
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="btn-secondary">
+                  <Link to="/login" className={styles.btnSecondary}>
                     Sign In
                   </Link>
-                  <Link to="/signup" className="btn-primary">
+                  <Link to="/signup" className={styles.btnPrimary}>
                     Get Started
                   </Link>
                 </>
               )}
             </div>
 
-            <button
-              className="md:hidden p-2"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
+            <button className={mobileMenuButtonClasses} onClick={toggleMobileMenu}>
               {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X className={styles.iconLg} />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className={styles.iconLg} />
               )}
             </button>
           </div>
 
           {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t">
-              <div className="flex flex-col gap-4">
+            <div className={mobileMenuClasses}>
+              <div className={mobileNavClasses}>
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="text-sm font-medium text-gray-600 hover:text-gray-900"
-                    onClick={() => setMobileMenuOpen(false)}
+                    className={mobileNavLinkClasses}
+                    onClick={closeMobileMenu}
                   >
                     {item.name}
                   </Link>
@@ -107,34 +191,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <>
                     <Link
                       to="/dashboard"
-                      className="text-sm font-medium text-gray-600 hover:text-gray-900"
-                      onClick={() => setMobileMenuOpen(false)}
+                      className={mobileUserLinkClasses}
+                      onClick={closeMobileMenu}
                     >
                       Dashboard
                     </Link>
-                    <button
-                      onClick={() => {
-                        signOut();
-                        setMobileMenuOpen(false);
-                      }}
-                      className="text-sm font-medium text-gray-600 hover:text-gray-900 text-left"
-                    >
+                    <button onClick={handleMobileSignOut} className={mobileSignOutButtonClasses}>
                       Sign Out
                     </button>
                   </>
                 ) : (
                   <>
-                    <Link
-                      to="/login"
-                      className="text-sm font-medium text-gray-600 hover:text-gray-900"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
+                    <Link to="/login" className={mobileSignInLinkClasses} onClick={closeMobileMenu}>
                       Sign In
                     </Link>
                     <Link
                       to="/signup"
-                      className="text-sm font-medium text-blue-600 hover:text-blue-700"
-                      onClick={() => setMobileMenuOpen(false)}
+                      className={mobileSignUpLinkClasses}
+                      onClick={closeMobileMenu}
                     >
                       Get Started
                     </Link>
@@ -146,18 +220,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </nav>
       </header>
 
-      <main className="flex-1">{children}</main>
+      <main className={styles.flex1}>{children}</main>
 
-      <footer className="bg-gray-900 text-gray-400">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <span className="block h-6 w-6">
-              <Logo />
+      <footer className={footerClasses}>
+        <div className={footerContainerClasses}>
+          <div className={footerContentClasses}>
+            <div className={footerLogoClasses}>
+              <span className={footerLogoBoxClasses}>
+                <Logo />
               </span>
-              <span className="font-bold text-white">React Google Maps API</span>
+              <span className={footerTextClasses}>React Google Maps API</span>
             </div>
-            <p className="text-sm">
+            <p className={styles.textSm}>
               © {new Date().getFullYear()} React Google Maps API. All rights reserved.
             </p>
           </div>

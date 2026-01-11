@@ -1,30 +1,18 @@
-import {
-  type ComponentType,
-  memo,
-  useEffect,
-  useRef,
-  type JSX,
-  type ReactNode,
-} from 'react'
-import invariant from 'invariant'
+import invariant from 'invariant';
+import { memo, useEffect, useRef, type ComponentType, type JSX, type ReactNode } from 'react';
 
 export type AutocompleteProps = {
-  children: ReactNode
-  bounds?:
-    | google.maps.LatLngBounds
-    | google.maps.LatLngBoundsLiteral
-    | undefined
-  restrictions?: google.maps.places.ComponentRestrictions | undefined
-  fields?: string[] | undefined
-  options?: google.maps.places.AutocompleteOptions | undefined
-  types?: string[] | undefined
-  onPlaceChanged?: (() => void) | undefined
-  onLoad?: ((autocomplete: google.maps.places.Autocomplete) => void) | undefined
-  onUnmount?:
-    | ((autocomplete: google.maps.places.Autocomplete) => void)
-    | undefined
-  className?: string
-}
+  children: ReactNode;
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined;
+  restrictions?: google.maps.places.ComponentRestrictions | undefined;
+  fields?: string[] | undefined;
+  options?: google.maps.places.AutocompleteOptions | undefined;
+  types?: string[] | undefined;
+  onPlaceChanged?: (() => void) | undefined;
+  onLoad?: ((autocomplete: google.maps.places.Autocomplete) => void) | undefined;
+  onUnmount?: ((autocomplete: google.maps.places.Autocomplete) => void) | undefined;
+  className?: string;
+};
 
 function AutocompleteFunctional({
   children,
@@ -38,121 +26,121 @@ function AutocompleteFunctional({
   onUnmount,
   className = '',
 }: AutocompleteProps): JSX.Element {
-  const containerElementRef = useRef<HTMLDivElement>(null)
-  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
-  const registeredEventsRef = useRef<google.maps.MapsEventListener[]>([])
+  const containerElementRef = useRef<HTMLDivElement>(null);
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const registeredEventsRef = useRef<google.maps.MapsEventListener[]>([]);
 
   useEffect(() => {
     invariant(
       !!google.maps.places,
       'You need to provide libraries={"places"} prop to <LoadScript /> component %s',
-      google.maps.places
-    )
+      google.maps.places,
+    );
 
-    const input = containerElementRef.current?.querySelector('input')
+    const input = containerElementRef.current?.querySelector('input');
 
     if (input) {
-      const autocomplete = new google.maps.places.Autocomplete(input, options)
-      autocompleteRef.current = autocomplete
+      const autocomplete = new google.maps.places.Autocomplete(input, options);
+      autocompleteRef.current = autocomplete;
 
       if (typeof bounds !== 'undefined') {
-        autocomplete.setBounds(bounds)
+        autocomplete.setBounds(bounds);
       }
 
       if (typeof restrictions !== 'undefined') {
-        autocomplete.setComponentRestrictions(restrictions)
+        autocomplete.setComponentRestrictions(restrictions);
       }
 
       if (typeof fields !== 'undefined') {
-        autocomplete.setFields(fields)
+        autocomplete.setFields(fields);
       }
 
       if (typeof types !== 'undefined') {
-        autocomplete.setTypes(types)
+        autocomplete.setTypes(types);
       }
 
-      // Register event listeners
-      const eventListeners: google.maps.MapsEventListener[] = []
+      const eventListeners: google.maps.MapsEventListener[] = [];
 
       if (onPlaceChanged) {
         eventListeners.push(
-          google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged)
-        )
+          google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged),
+        );
       }
 
-      registeredEventsRef.current = eventListeners
+      registeredEventsRef.current = eventListeners;
 
       if (onLoad) {
-        onLoad(autocomplete)
+        onLoad(autocomplete);
       }
     }
 
     return (): void => {
       if (autocompleteRef.current !== null) {
         if (onUnmount) {
-          onUnmount(autocompleteRef.current)
+          onUnmount(autocompleteRef.current);
         }
 
-        registeredEventsRef.current.forEach(event => event.remove())
-        registeredEventsRef.current = []
+        registeredEventsRef.current.forEach((event) => event.remove());
+        registeredEventsRef.current = [];
 
-        autocompleteRef.current = null
+        autocompleteRef.current = null;
       }
-    }
-  }, [])
+    };
+  }, []);
 
   useEffect(() => {
-    const autocomplete = autocompleteRef.current
+    const autocomplete = autocompleteRef.current;
 
     if (autocomplete !== null) {
       if (typeof bounds !== 'undefined') {
-        autocomplete.setBounds(bounds)
+        autocomplete.setBounds(bounds);
       }
 
       if (typeof restrictions !== 'undefined') {
-        autocomplete.setComponentRestrictions(restrictions)
+        autocomplete.setComponentRestrictions(restrictions);
       }
 
       if (typeof fields !== 'undefined') {
-        autocomplete.setFields(fields)
+        autocomplete.setFields(fields);
       }
 
       if (typeof types !== 'undefined') {
-        autocomplete.setTypes(types)
+        autocomplete.setTypes(types);
       }
 
       if (typeof options !== 'undefined') {
-        autocomplete.setOptions(options)
+        autocomplete.setOptions(options);
       }
     }
-  }, [bounds, restrictions, fields, types, options])
+  }, [bounds, restrictions, fields, types, options]);
 
   useEffect(() => {
-    const autocomplete = autocompleteRef.current
+    const autocomplete = autocompleteRef.current;
 
     if (autocomplete !== null) {
-      registeredEventsRef.current.forEach(event => event.remove())
-      registeredEventsRef.current = []
+      registeredEventsRef.current.forEach((event) => event.remove());
+      registeredEventsRef.current = [];
 
-      const eventListeners: google.maps.MapsEventListener[] = []
+      const eventListeners: google.maps.MapsEventListener[] = [];
 
       if (onPlaceChanged) {
         eventListeners.push(
-          google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged)
-        )
+          google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged),
+        );
       }
 
-      registeredEventsRef.current = eventListeners
+      registeredEventsRef.current = eventListeners;
     }
-  }, [onPlaceChanged])
+  }, [onPlaceChanged]);
 
   return (
     <div ref={containerElementRef} className={className}>
       {children}
     </div>
-  )
+  );
 }
 
-export const AutocompleteF: ComponentType<AutocompleteProps> = memo<AutocompleteProps>(AutocompleteFunctional)
+export const AutocompleteF: ComponentType<AutocompleteProps> =
+  memo<AutocompleteProps>(AutocompleteFunctional);
 
-export const Autocomplete = AutocompleteF
+export const Autocomplete = AutocompleteF;

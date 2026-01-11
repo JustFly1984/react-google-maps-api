@@ -1,14 +1,25 @@
+import clsx from 'clsx';
+import type { JSX } from 'react';
 import type { LinksFunction } from 'react-router';
-import {
-    Links,
-    Meta,
-    Outlet,
-    Scripts,
-    ScrollRestoration,
-} from 'react-router';
-import { Layout } from './components/layout';
-import { AuthProvider } from './contexts/auth';
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
+
+import { Layout } from './components/layout.tsx';
+import { AuthProvider } from './contexts/auth.tsx';
+import { styles } from './styles.ts';
 import './tailwind.css';
+
+const fallbackContainerClasses = clsx(
+  styles.minHScreen,
+  styles.flex,
+  styles.itemsCenter,
+  styles.justifyCenter,
+);
+const bodyClasses = clsx(
+  styles.minHScreen,
+  styles.bgGray50,
+  styles.textGray900,
+  styles.antialiased,
+);
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -23,15 +34,15 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export function HydrateFallback() {
+export function HydrateFallback(): JSX.Element {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
+    <div className={fallbackContainerClasses}>
+      <div className={styles.loadingSpinner} />
     </div>
   );
 }
 
-export default function App() {
+export default function App(): JSX.Element {
   return (
     <html lang="en">
       <head>
@@ -40,7 +51,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="min-h-screen bg-gray-50 text-gray-900 antialiased">
+
+      <body className={bodyClasses}>
         <AuthProvider>
           <Layout>
             <Outlet />

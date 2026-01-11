@@ -1,6 +1,9 @@
+import clsx from 'clsx';
 import { Copy } from 'lucide-react';
 import { useCallback, useEffect, useState, type JSX } from 'react';
 import { createHighlighter } from 'shiki';
+
+import { styles } from '../styles.ts';
 import './code-highlight.css';
 
 type Props = {
@@ -8,6 +11,36 @@ type Props = {
   language: string;
   theme?: string;
 };
+
+const fallbackCodeClasses = clsx(
+  styles.bgGray900,
+  'text-gray-100',
+  styles.p4,
+  styles.roundedLg,
+  styles.overflowXAuto,
+);
+const loadingContainerClasses = clsx(
+  styles.bgGray900,
+  'text-gray-100',
+  styles.p4,
+  styles.roundedLg,
+  styles.overflowXAuto,
+);
+const containerClasses = clsx(styles.relative, styles.group);
+const codeContainerClasses = clsx(styles.roundedLg, styles.overflowXAuto);
+const copyButtonClasses = clsx(
+  styles.absolute,
+  styles.top2,
+  styles.right2,
+  styles.p2,
+  styles.bgGray800,
+  'text-gray-300',
+  styles.roundedMd,
+  styles.opacity0,
+  styles.groupHoverOpacity100,
+  styles.transitionOpacity,
+  styles.hoverBgGray700,
+);
 
 export function CodeHighlight({ code, language, theme = 'github-dark' }: Props): JSX.Element {
   const [highlightedCode, setHighlightedCode] = useState<string>('');
@@ -39,10 +72,7 @@ export function CodeHighlight({ code, language, theme = 'github-dark' }: Props):
         setHighlightedCode(html);
       } catch (error: unknown) {
         console.error('Failed to highlight code:', error);
-        // Fallback to plain code
-        setHighlightedCode(
-          `<pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto"><code>${code}</code></pre>`,
-        );
+        setHighlightedCode(`<pre class="${fallbackCodeClasses}"><code>${code}</code></pre>`);
       } finally {
         if (mounted) {
           setLoading(false);
@@ -69,8 +99,8 @@ export function CodeHighlight({ code, language, theme = 'github-dark' }: Props):
 
   if (loading) {
     return (
-      <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-        <pre className="text-sm">
+      <div className={loadingContainerClasses}>
+        <pre className={styles.textSm}>
           <code>{code}</code>
         </pre>
       </div>
@@ -78,17 +108,14 @@ export function CodeHighlight({ code, language, theme = 'github-dark' }: Props):
   }
 
   return (
-    <div className="relative group">
-      <div
-        className="rounded-lg overflow-x-auto"
-        dangerouslySetInnerHTML={{ __html: highlightedCode }}
-      />
+    <div className={containerClasses}>
+      <div className={codeContainerClasses} dangerouslySetInnerHTML={{ __html: highlightedCode }} />
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 p-2 bg-gray-800 text-gray-300 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gray-700"
+        className={copyButtonClasses}
         title={copied ? 'Copied!' : 'Copy code'}
       >
-        <Copy className="h-4 w-4" />
+        <Copy className={styles.iconSm} />
       </button>
     </div>
   );

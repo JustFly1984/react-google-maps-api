@@ -1,18 +1,45 @@
-import { type PagesFunction, Response } from '@cloudflare/workers-types';
+import type { EventContext } from '@cloudflare/workers-types';
 import * as v from 'valibot';
+
 import { SignupSchema } from '../../../shared/schemas.ts';
 import type { Env } from '../types.ts';
-import { corsHeaders, createToken, generateId, hashPassword } from '../utils.ts';
 
+import {
+  checkRateLimit,
+  corsHeaders,
+  createAuthCookie,
+  createToken,
+  generateId,
+  getClientIP,
+  hashPassword,
+  RATE_LIMITS,
+  rateLimitResponse,
+} from '../utils.ts';
 
-export const onRequestOptions: PagesFunction<Env> = async (context) => {
+export async function onRequestOptions(
+  context: EventContext<Env, any, Record<string, unknown>>,
+): Promise<Response> {
   return new Response(null, {
-    headers: corsHeaders(context.env.APP_URL || '*'),
+    headers: corsHeaders(context.env.APP_URL),
   });
-};
+}
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
-  const headers = corsHeaders(context.env.APP_URL || '*');
+export async function onRequestPost(
+  context: EventContext<Env, any, Record<string, unknown>>,
+): Promise<Response> {
+  const headers = corsHeaders(context.env.APP_URL);
+  const clientIP = getClientIP(context.request);
+
+  const rateLimit = await checkRateLimit(
+    context.env.RATE_LIMIT,
+    clientIP,
+    'signup',
+    RATE_LIMITS.signup,
+  );
+
+  if (!rateLimit.allowed) {
+    return rateLimitResponse(rateLimit.resetAt, context.env.APP_URL);
+  }
 
   try {
     const body = await context.request.json();
@@ -24,9 +51,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     const { email, password, fullName } = result.output;
 
-    const existing = await context.env.DB.prepare(
-      'SELECT id FROM users WHERE email = ?'
-    )
+    const existing = await context.env.DB.prepare('SELECT id FROM users WHERE email = ?')
       .bind(email.toLowerCase())
       .first();
 
@@ -41,26 +66,34 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const now = new Date().toISOString();
 
     await context.env.DB.prepare(
-      'INSERT INTO users (id, email, password_hash, full_name, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)'
+      'INSERT INTO users (id, email, password_hash, full_name, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)',
     )
       .bind(id, email.toLowerCase(), passwordHash, fullName || null, now, now)
       .run();
 
     const token = await createToken(
       { userId: id, email: email.toLowerCase() },
-      context.env.JWT_SECRET
+      context.env.JWT_SECRET,
     );
 
-    return Response.json({
-      token,
-      user: {
-        id,
-        email: email.toLowerCase(),
-        fullName: fullName || null,
+    return Response.json(
+      {
+        user: {
+          id,
+          email: email.toLowerCase(),
+          fullName: fullName || null,
+        },
       },
-    }, { headers });
+      {
+        headers: {
+          ...headers,
+          'Set-Cookie': createAuthCookie(token),
+        },
+      },
+    );
   } catch (error: unknown) {
     console.error('Signup error:', error);
+
     return Response.json({ error: 'Signup failed' }, { status: 500, headers });
   }
-};
+}

@@ -1,43 +1,40 @@
+import invariant from 'invariant';
 import {
-  type JSX,
+  memo,
   useEffect,
   useRef,
   useState,
   type ComponentType,
-  memo,
+  type JSX,
   type ReactNode,
-} from 'react'
-import invariant from 'invariant'
+} from 'react';
 
-import {
-  makeLoadScriptUrl,
-  type LoadScriptUrlOptions,
-} from './utils/make-load-script-url.js'
-import { isBrowser } from './utils/isbrowser.js'
-import { injectScript } from './utils/injectscript.js'
-import { preventGoogleFonts } from './utils/prevent-google-fonts.js'
+import { injectScript } from './utils/injectscript.js';
+import { isBrowser } from './utils/isbrowser.js';
+import { makeLoadScriptUrl, type LoadScriptUrlOptions } from './utils/make-load-script-url.js';
+import { preventGoogleFonts } from './utils/prevent-google-fonts.js';
 
-let cleaningUp = false
+let cleaningUp = false;
 
 export type LoadScriptProps = LoadScriptUrlOptions & {
-  children?: ReactNode | undefined
-  id: string
-  nonce?: string | undefined
-  loadingElement?: ReactNode
-  onLoad?: () => void
-  onError?: (error: Error) => void
-  onUnmount?: () => void
-  preventGoogleFontsLoading?: boolean
-}
+  children?: ReactNode | undefined;
+  id: string;
+  nonce?: string | undefined;
+  loadingElement?: ReactNode;
+  onLoad?: () => void;
+  onError?: (error: Error) => void;
+  onUnmount?: () => void;
+  preventGoogleFontsLoading?: boolean;
+};
 
 export function DefaultLoadingElement(): JSX.Element {
-  return <div>{`Loading...`}</div>
+  return <div>{`Loading...`}</div>;
 }
 
 export const defaultLoadScriptProps = {
   id: 'script-loader',
   version: 'weekly',
-}
+};
 
 function LoadScriptFunctional({
   children,
@@ -50,138 +47,135 @@ function LoadScriptFunctional({
   preventGoogleFontsLoading,
   ...restProps
 }: LoadScriptProps): JSX.Element {
-  const [loaded, setLoaded] = useState(false)
-  const checkRef = useRef<HTMLDivElement | null>(null)
-  const previousLanguageRef = useRef<string | undefined>(undefined)
-  const previousLibrariesRef = useRef<string[] | undefined>(undefined)
+  const [loaded, setLoaded] = useState(false);
+  const checkRef = useRef<HTMLDivElement | null>(null);
+  const previousLanguageRef = useRef<string | undefined>(undefined);
+  const previousLibrariesRef = useRef<string[] | undefined>(undefined);
 
   const cleanupCallback = (): void => {
     // @ts-ignore
-    delete window.google.maps
+    delete window.google.maps;
 
-    injectScriptFunction()
-  }
+    injectScriptFunction();
+  };
 
-  // Mount effect
   useEffect(() => {
     if (isBrowser) {
       if (window.google && window.google.maps && !cleaningUp) {
-        console.error('google api is already presented')
-        return
+        console.error('google api is already presented');
+        return;
       }
 
       isCleaningUp()
         .then(injectScriptFunction)
         .catch(function error(err) {
-          console.error('Error at injecting script after cleaning up: ', err)
-        })
+          console.error('Error at injecting script after cleaning up: ', err);
+        });
     }
-  }, [])
+  }, []);
 
-  // Update effect for language change
   useEffect(() => {
-    const currentLanguage = restProps.language
-    const currentLibraries = restProps.libraries
+    const currentLanguage = restProps.language;
+    const currentLibraries = restProps.libraries;
 
-    // Check if libraries changed
-    if (previousLibrariesRef.current !== undefined && currentLibraries !== previousLibrariesRef.current) {
+    if (
+      previousLibrariesRef.current !== undefined &&
+      currentLibraries !== previousLibrariesRef.current
+    ) {
       console.warn(
-        'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables'
-      )
+        'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables',
+      );
     }
 
-    // Handle language change
-    if (isBrowser && previousLanguageRef.current !== undefined && currentLanguage !== previousLanguageRef.current) {
-      cleanup()
-      setLoaded(false)
-      cleanupCallback()
+    if (
+      isBrowser &&
+      previousLanguageRef.current !== undefined &&
+      currentLanguage !== previousLanguageRef.current
+    ) {
+      cleanup();
+      setLoaded(false);
+      cleanupCallback();
     }
 
-    // Update refs
-    previousLanguageRef.current = currentLanguage
-    previousLibrariesRef.current = currentLibraries
-  }, [restProps.language, restProps.libraries])
+    previousLanguageRef.current = currentLanguage;
+    previousLibrariesRef.current = currentLibraries;
+  }, [restProps.language, restProps.libraries]);
 
-  // Unmount effect
   useEffect(() => {
     return (): void => {
       if (isBrowser) {
-        cleanup()
+        cleanup();
 
         const timeoutCallback = (): void => {
           if (!checkRef.current) {
             // @ts-ignore
-            delete window.google
-            cleaningUp = false
+            delete window.google;
+            cleaningUp = false;
           }
-        }
+        };
 
-        window.setTimeout(timeoutCallback, 1)
+        window.setTimeout(timeoutCallback, 1);
 
         if (onUnmount) {
-          onUnmount()
+          onUnmount();
         }
       }
-    }
-  }, [])
+    };
+  }, []);
 
   const isCleaningUp = async (): Promise<void> => {
     function promiseCallback(resolve: () => void): void {
       if (!cleaningUp) {
-        resolve()
+        resolve();
       } else {
         if (isBrowser) {
           const timer = window.setInterval(function interval() {
             if (!cleaningUp) {
-              window.clearInterval(timer)
+              window.clearInterval(timer);
 
-              resolve()
+              resolve();
             }
-          }, 1)
+          }, 1);
         }
       }
 
-      return
+      return;
     }
 
-    return new Promise(promiseCallback)
-  }
+    return new Promise(promiseCallback);
+  };
 
   const cleanup = (): void => {
-    cleaningUp = true
-    const script = document.getElementById(id)
+    cleaningUp = true;
+    const script = document.getElementById(id);
 
     if (script && script.parentNode) {
-      script.parentNode.removeChild(script)
+      script.parentNode.removeChild(script);
     }
 
     Array.prototype.slice
       .call(document.getElementsByTagName('script'))
       .filter(function filter(script: HTMLScriptElement): boolean {
-        return (
-          typeof script.src === 'string' &&
-          script.src.includes('maps.googleapis')
-        )
+        return typeof script.src === 'string' && script.src.includes('maps.googleapis');
       })
       .forEach(function forEach(script: HTMLScriptElement): void {
         if (script.parentNode) {
-          script.parentNode.removeChild(script)
+          script.parentNode.removeChild(script);
         }
-      })
+      });
 
     Array.prototype.slice
       .call(document.getElementsByTagName('link'))
       .filter(function filter(link: HTMLLinkElement): boolean {
         return (
-          link.href ===
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans'
-        )
+          link.href === 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans'
+        );
       })
       .forEach(function forEach(link: HTMLLinkElement) {
         if (link.parentNode) {
-          link.parentNode.removeChild(link)
+          link.parentNode.removeChild(link);
         }
-      })
+      });
 
     Array.prototype.slice
       .call(document.getElementsByTagName('style'))
@@ -190,69 +184,62 @@ function LoadScriptFunctional({
           typeof style.innerText !== 'undefined' &&
           style.innerText.length > 0 &&
           style.innerText.includes('.gm-')
-        )
+        );
       })
       .forEach(function forEach(style: HTMLStyleElement) {
         if (style.parentNode) {
-          style.parentNode.removeChild(style)
+          style.parentNode.removeChild(style);
         }
-      })
-  }
+      });
+  };
 
   const injectScriptFunction = (): void => {
     if (preventGoogleFontsLoading) {
-      preventGoogleFonts()
+      preventGoogleFonts();
     }
 
-    invariant(
-      !!id,
-      'LoadScript requires "id" prop to be a string: %s',
-      id
-    )
+    invariant(!!id, 'LoadScript requires "id" prop to be a string: %s', id);
 
     const injectScriptOptions = {
       id,
       nonce,
       url: makeLoadScriptUrl(restProps),
-    }
+    };
 
     injectScript(injectScriptOptions)
       .then(() => {
         if (onLoad) {
-          onLoad()
+          onLoad();
         }
 
-        setLoaded(true)
+        setLoaded(true);
 
-        return
+        return;
       })
       .catch((err) => {
         if (onError) {
-          onError(err)
+          onError(err);
         }
 
         console.error(`
           There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${
             restProps.googleMapsApiKey || '-'
-          }) or Client ID (${
-            restProps.googleMapsClientId || '-'
-          }) to <LoadScript />
+          }) or Client ID (${restProps.googleMapsClientId || '-'}) to <LoadScript />
           Otherwise it is a Network issue.
-        `)
-      })
-  }
+        `);
+      });
+  };
 
   return (
     <>
       <div ref={checkRef} />
 
-      {loaded
-        ? children
-        : loadingElement || <DefaultLoadingElement />}
+      {loaded ? children : loadingElement || <DefaultLoadingElement />}
     </>
-  )
+  );
 }
 
-export const LoadScriptF: ComponentType<LoadScriptProps> = memo<LoadScriptProps>(LoadScriptFunctional)
+export const LoadScriptF: ComponentType<LoadScriptProps> =
+  memo<LoadScriptProps>(LoadScriptFunctional);
 
-export const LoadScript = LoadScriptF
+export const LoadScript = LoadScriptF;

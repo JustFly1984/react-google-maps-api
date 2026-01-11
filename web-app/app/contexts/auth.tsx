@@ -1,77 +1,70 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
 import * as v from 'valibot';
-import { AuthResponseSchema, UserResponseSchema } from '../../shared/schemas';
+import { UserResponseSchema } from '../../shared/schemas';
 
-export interface User {
+export type User = {
   id: string;
   email: string;
   fullName: string | null;
-}
+};
 
-interface AuthContextType {
+type AuthContextType = {
   user: User | null;
-  token: string | null;
   loading: boolean;
   signUp: (email: string, password: string, fullName: string) => Promise<{ error: Error | null }>;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
-}
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const TOKEN_KEY = 'auth_token';
-const USER_KEY = 'auth_user';
+const UserLoginResponseSchema = v.object({ user: UserResponseSchema });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(null);
+
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem(TOKEN_KEY);
-    const storedUser = localStorage.getItem(USER_KEY);
-
-    if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
-      validateToken(storedToken);
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  const validateToken = async (authToken: string) => {
+  const validateSession = useCallback(async () => {
     try {
       const response = await fetch('/api/auth/me', {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
+        credentials: 'include',
       });
 
       if (response.ok) {
         const data = await response.json();
-        const result = v.safeParse(v.object({ user: UserResponseSchema }), data);
+
+        const result = v.safeParse(UserLoginResponseSchema, data);
+
         if (result.success) {
           setUser(result.output.user);
-          localStorage.setItem(USER_KEY, JSON.stringify(result.output.user));
+        } else {
+          setUser(null);
         }
       } else {
-        localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(USER_KEY);
-        setToken(null);
         setUser(null);
       }
     } catch {
-      console.error('Token validation failed');
+      console.error('Session validation failed');
+      setUser(null);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const signUp = async (email: string, password: string, fullName: string) => {
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      setLoading(false);
+    } else {
+      validateSession();
+    }
+  }, [validateSession]);
+
+  const signUp = useCallback(async (email: string, password: string, fullName: string) => {
     try {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -84,27 +77,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       const data = await response.json();
-      const result = v.safeParse(AuthResponseSchema, data);
-      
+      const result = v.safeParse(UserLoginResponseSchema, data);
+
       if (!result.success) {
         return { error: new Error('Invalid response from server') };
       }
 
-      setToken(result.output.token);
       setUser(result.output.user);
-      localStorage.setItem(TOKEN_KEY, result.output.token);
-      localStorage.setItem(USER_KEY, JSON.stringify(result.output.user));
 
       return { error: null };
     } catch (err) {
       return { error: err as Error };
     }
-  };
+  }, []);
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = useCallback(async (email: string, password: string) => {
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -117,32 +108,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       const data = await response.json();
-      const result = v.safeParse(AuthResponseSchema, data);
-      
+      const result = v.safeParse(UserLoginResponseSchema, data);
+
       if (!result.success) {
         return { error: new Error('Invalid response from server') };
       }
 
-      setToken(result.output.token);
       setUser(result.output.user);
-      localStorage.setItem(TOKEN_KEY, result.output.token);
-      localStorage.setItem(USER_KEY, JSON.stringify(result.output.user));
 
       return { error: null };
-    } catch (err) {
+    } catch (err: unknown) {
       return { error: err as Error };
     }
-  };
+  }, []);
 
-  const signOut = async () => {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
-    setToken(null);
-    setUser(null);
-  };
+  const signOut = useCallback(async () => {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+    } catch {
+      console.error('Logout failed');
+    } finally {
+      setUser(null);
+    }
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

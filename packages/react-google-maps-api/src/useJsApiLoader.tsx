@@ -1,22 +1,19 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Loader } from '@googlemaps/js-api-loader'
+import { Loader, type Library } from '@googlemaps/js-api-loader';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { isBrowser } from './utils/isbrowser.js'
-import { preventGoogleFonts } from './utils/prevent-google-fonts.js'
-import type {
-  LoadScriptUrlOptions,
-  Libraries,
-} from './utils/make-load-script-url.js'
+import { isBrowser } from './utils/isbrowser.js';
+import type { Libraries, LoadScriptUrlOptions } from './utils/make-load-script-url.js';
+import { preventGoogleFonts } from './utils/prevent-google-fonts.js';
 
-import { defaultLoadScriptProps } from './LoadScript.js'
+import { defaultLoadScriptProps } from './LoadScript.js';
 
 export type UseLoadScriptOptions = LoadScriptUrlOptions & {
-  id?: string | undefined
-  nonce?: string | undefined
-  preventGoogleFontsLoading?: boolean | undefined
-}
+  id?: string | undefined;
+  nonce?: string | undefined;
+  preventGoogleFontsLoading?: boolean | undefined;
+};
 
-const defaultLibraries: Libraries = ['maps']
+const defaultLibraries: Libraries = ['maps'];
 
 export function useJsApiLoader({
   id = defaultLoadScriptProps.id,
@@ -32,19 +29,19 @@ export function useJsApiLoader({
   mapIds,
   authReferrerPolicy,
 }: UseLoadScriptOptions): {
-  isLoaded: boolean
-  loadError: Error | undefined
+  isLoaded: boolean;
+  loadError: Error | undefined;
 } {
-  const mountedRef = useRef(false)
-  const [isLoaded, setLoaded] = useState(false)
-  const [loadError, setLoadError] = useState<Error | undefined>(undefined)
+  const mountedRef = useRef(false);
+  const [isLoaded, setLoaded] = useState(false);
+  const [loadError, setLoadError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
-    mountedRef.current = true
+    mountedRef.current = true;
     return (): void => {
-      mountedRef.current = false
-    }
-  }, [])
+      mountedRef.current = false;
+    };
+  }, []);
 
   const loader = useMemo(() => {
     return new Loader({
@@ -57,7 +54,7 @@ export function useJsApiLoader({
       mapIds: mapIds || [],
       nonce: nonce || '',
       authReferrerPolicy: authReferrerPolicy || 'origin',
-    })
+    });
   }, [
     id,
     googleMapsApiKey,
@@ -68,43 +65,46 @@ export function useJsApiLoader({
     mapIds,
     nonce,
     authReferrerPolicy,
-  ])
+  ]);
 
   useEffect(() => {
     if (isLoaded) {
-      return
+      return;
     }
 
-    loader
-      .load()
+    void Promise.all(
+      libraries.map((library: Library) => {
+        loader.importLibrary(library);
+      }),
+    )
       .then(() => {
         if (mountedRef.current) {
-          setLoaded(true)
+          setLoaded(true);
         }
 
-        return
+        return;
       })
-      .catch((error) => {
-        setLoadError(error)
-      })
-  }, [])
+      .catch((error: unknown) => {
+        setLoadError(error as Error);
+      });
+  }, []);
 
   useEffect(() => {
     if (isBrowser && preventGoogleFontsLoading) {
-      preventGoogleFonts()
+      preventGoogleFonts();
     }
-  }, [preventGoogleFontsLoading])
+  }, [preventGoogleFontsLoading]);
 
-  const prevLibraries = useRef<undefined | Libraries>()
+  const prevLibraries = useRef<undefined | Libraries>();
 
   useEffect(() => {
     if (prevLibraries.current && libraries !== prevLibraries.current) {
       console.warn(
-        'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables'
-      )
+        'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables',
+      );
     }
-    prevLibraries.current = libraries
-  }, [libraries])
+    prevLibraries.current = libraries;
+  }, [libraries]);
 
-  return { isLoaded, loadError }
+  return { isLoaded, loadError };
 }

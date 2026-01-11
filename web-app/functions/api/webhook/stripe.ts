@@ -1,10 +1,10 @@
-import { type PagesFunction, Response } from '@cloudflare/workers-types';
+import type { EventContext } from '@cloudflare/workers-types';
 import Stripe from 'stripe';
 
 import type { Env } from '../types.ts';
 import { calculateExpiryDate, generateId, generateSerialNumber } from '../utils.ts';
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
+export async function onRequestPost(context: EventContext<Env, any, Record<string, unknown>>) {
   try {
     const stripe = new Stripe(context.env.STRIPE_SECRET_KEY, {
       apiVersion: '2025-12-15.clover',
@@ -20,11 +20,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     let event: Stripe.Event;
 
     try {
-      event = stripe.webhooks.constructEvent(
-        body,
-        signature,
-        context.env.STRIPE_WEBHOOK_SECRET
-      );
+      event = stripe.webhooks.constructEvent(body, signature, context.env.STRIPE_WEBHOOK_SECRET);
     } catch (err) {
       console.error('Webhook signature verification failed:', err);
       return Response.json({ error: 'Invalid signature' }, { status: 400 });
@@ -42,9 +38,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
           const now = new Date().toISOString();
 
           await context.env.DB.prepare(
-            `INSERT INTO licenses 
-            (id, user_id, serial_number, expiry_date, is_active, stripe_subscription_id, stripe_customer_id, stripe_session_id, created_at, updated_at) 
-            VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?, ?)`
+            `INSERT INTO licenses
+            (id, user_id, serial_number, expiry_date, is_active, stripe_subscription_id, stripe_customer_id, stripe_session_id, created_at, updated_at)
+            VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?, ?)`,
           )
             .bind(
               id,
@@ -55,7 +51,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
               session.customer as string,
               session.id,
               now,
-              now
+              now,
             )
             .run();
 
@@ -70,10 +66,11 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         const now = new Date().toISOString();
 
         await context.env.DB.prepare(
-          'UPDATE licenses SET is_active = ?, updated_at = ? WHERE stripe_subscription_id = ?'
+          'UPDATE licenses SET is_active = ?, updated_at = ? WHERE stripe_subscription_id = ?',
         )
           .bind(isActive, now, subscription.id)
           .run();
+
         break;
       }
 
@@ -82,24 +79,26 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         const now = new Date().toISOString();
 
         await context.env.DB.prepare(
-          'UPDATE licenses SET is_active = 0, updated_at = ? WHERE stripe_subscription_id = ?'
+          'UPDATE licenses SET is_active = 0, updated_at = ? WHERE stripe_subscription_id = ?',
         )
           .bind(now, subscription.id)
           .run();
+
         break;
       }
 
       case 'invoice.payment_succeeded': {
         const invoice = event.data.object;
-        const subscriptionId = (invoice as { subscription?: string | { id: string } | null }).subscription;
+        const subscriptionDetails = invoice.parent?.subscription_details;
+        const subscriptionId = subscriptionDetails?.subscription;
         const subId = typeof subscriptionId === 'string' ? subscriptionId : subscriptionId?.id;
-        
-        if (subId && invoice.billing_reason === 'subscription_cycle') {
+
+        if (typeof subId === 'string' && invoice.billing_reason === 'subscription_cycle') {
           const newExpiryDate = calculateExpiryDate();
           const now = new Date().toISOString();
 
           await context.env.DB.prepare(
-            'UPDATE licenses SET expiry_date = ?, updated_at = ? WHERE stripe_subscription_id = ?'
+            'UPDATE licenses SET expiry_date = ?, updated_at = ? WHERE stripe_subscription_id = ?',
           )
             .bind(newExpiryDate, now, subId)
             .run();
@@ -112,8 +111,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     return Response.json({ received: true });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Webhook error:', error);
+
     return Response.json({ error: 'Webhook handler failed' }, { status: 500 });
   }
-};
+}

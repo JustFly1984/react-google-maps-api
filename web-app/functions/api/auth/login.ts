@@ -1,17 +1,38 @@
-import { type PagesFunction, Response } from '@cloudflare/workers-types';
+import type { EventContext } from '@cloudflare/workers-types';
 import * as v from 'valibot';
 import { LoginSchema } from '../../../shared/schemas.ts';
 import type { Env, User } from '../types.ts';
-import { corsHeaders, createToken, verifyPassword } from '../utils.ts';
+import {
+  checkRateLimit,
+  corsHeaders,
+  createAuthCookie,
+  createToken,
+  getClientIP,
+  RATE_LIMITS,
+  rateLimitResponse,
+  verifyPassword,
+} from '../utils.ts';
 
-export const onRequestOptions: PagesFunction<Env> = async (context) => {
+export async function onRequestOptions(context: EventContext<Env, any, Record<string, unknown>>) {
   return new Response(null, {
-    headers: corsHeaders(context.env.APP_URL || '*'),
+    headers: corsHeaders(context.env.APP_URL),
   });
-};
+}
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
-  const headers = corsHeaders(context.env.APP_URL || '*');
+export async function onRequestPost(context: EventContext<Env, any, Record<string, unknown>>) {
+  const headers = corsHeaders(context.env.APP_URL);
+  const clientIP = getClientIP(context.request);
+
+  const rateLimit = await checkRateLimit(
+    context.env.RATE_LIMIT,
+    clientIP,
+    'login',
+    RATE_LIMITS.login,
+  );
+
+  if (!rateLimit.allowed) {
+    return rateLimitResponse(rateLimit.resetAt, context.env.APP_URL);
+  }
 
   try {
     const body = await context.request.json();
@@ -23,9 +44,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     const { email, password } = result.output;
 
-    const user = await context.env.DB.prepare(
-      'SELECT * FROM users WHERE email = ?'
-    )
+    const user = await context.env.DB.prepare('SELECT * FROM users WHERE email = ?')
       .bind(email.toLowerCase())
       .first<User>();
 
@@ -39,21 +58,25 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       return Response.json({ error: 'Invalid email or password' }, { status: 401, headers });
     }
 
-    const token = await createToken(
-      { userId: user.id, email: user.email },
-      context.env.JWT_SECRET
-    );
+    const token = await createToken({ userId: user.id, email: user.email }, context.env.JWT_SECRET);
 
-    return Response.json({
-      token,
-      user: {
-        id: user.id,
-        email: user.email,
-        fullName: user.full_name,
+    return Response.json(
+      {
+        user: {
+          id: user.id,
+          email: user.email,
+          fullName: user.full_name,
+        },
       },
-    }, { headers });
-  } catch (error) {
+      {
+        headers: {
+          ...headers,
+          'Set-Cookie': createAuthCookie(token),
+        },
+      },
+    );
+  } catch (error: unknown) {
     console.error('Login error:', error);
     return Response.json({ error: 'Login failed' }, { status: 500, headers });
   }
-};
+}

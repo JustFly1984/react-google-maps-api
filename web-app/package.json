@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "start": "concurrently 'bun dev' 'bun dev:api'",
     "dev": "vite",
+    "dev:api": "mkdir -p build/client && wrangler pages dev ./build/client --port 8788 --local",
     "build": "vite build",
     "deploy": "vite build && wrangler deploy",
     "typegen": "wrangler types",
@@ -13,9 +15,10 @@
     "lint": "bunx oxlint app/**/*.{ts,tsx} functions/**/*.ts shared/**/*.ts --fix"
   },
   "dependencies": {
-    "@react-router/node": "^7.12.0",
+    "@react-router/node": "7.12.0",
     "@stripe/stripe-js": "8.6.1",
     "clsx": "2.1.1",
+    "concurrently": "^9.2.1",
     "hono": "4.11.3",
     "hono-react-router-adapter": "0.6.5",
     "isbot": "^5",
@@ -33,7 +36,7 @@
     "@cloudflare/workers-types": "4.20260111.0",
     "@hono/vite-dev-server": "0.24.0",
     "@react-router/dev": "7.12.0",
-    "@tailwindcss/vite": "^4.1.18",
+    "@tailwindcss/vite": "4.1.18",
     "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.2",

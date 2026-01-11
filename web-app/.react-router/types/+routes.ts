@@ -28,6 +28,12 @@ type Pages = {
   "/signup": {
     params: {};
   };
+  "/forgot-password": {
+    params: {};
+  };
+  "/reset-password": {
+    params: {};
+  };
   "/dashboard": {
     params: {};
   };
@@ -39,7 +45,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/docs/:section?" | "/pricing" | "/login" | "/signup" | "/dashboard" | "/checkout/success";
+    page: "/" | "/docs/:section?" | "/pricing" | "/login" | "/signup" | "/forgot-password" | "/reset-password" | "/dashboard" | "/checkout/success";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -61,6 +67,14 @@ type RouteFiles = {
     id: "routes/signup";
     page: "/signup";
   };
+  "routes/forgot-password.tsx": {
+    id: "routes/forgot-password";
+    page: "/forgot-password";
+  };
+  "routes/reset-password.tsx": {
+    id: "routes/reset-password";
+    page: "/reset-password";
+  };
   "routes/dashboard.tsx": {
     id: "routes/dashboard";
     page: "/dashboard";
@@ -78,6 +92,8 @@ type RouteModules = {
   "routes/pricing": typeof import("./app/routes/pricing.tsx");
   "routes/login": typeof import("./app/routes/login.tsx");
   "routes/signup": typeof import("./app/routes/signup.tsx");
+  "routes/forgot-password": typeof import("./app/routes/forgot-password.tsx");
+  "routes/reset-password": typeof import("./app/routes/reset-password.tsx");
   "routes/dashboard": typeof import("./app/routes/dashboard.tsx");
   "routes/checkout-success": typeof import("./app/routes/checkout-success.tsx");
 };

@@ -2,6 +2,11 @@ name = "react-google-maps-api"
 compatibility_date = "2026-01-01"
 pages_build_output_dir = "./build/client"
 
+[assets]
+directory = "./build/client"
+not_found_handling = "single-page-application"
+run_worker_first = ["/api/*"]
+
 [vars]
 APP_URL = "https://react-google-maps-api.ospm.app"
 
@@ -10,10 +15,19 @@ binding = "DB"
 database_name = "react-google-maps-api-db"
 database_id = "YOUR_DATABASE_ID"
 
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "YOUR_KV_NAMESPACE_ID"
+
+[[kv_namespaces]]
+binding = "PASSWORD_RESET"
+id = "YOUR_PASSWORD_RESET_KV_ID"
+
 # Secrets (set via `wrangler secret put <SECRET_NAME>`):
 # - JWT_SECRET
 # - STRIPE_SECRET_KEY
 # - STRIPE_WEBHOOK_SECRET
+# - RESEND_API_KEY
 
 # Production domain: react-google-maps-api.ospm.app
 # Local dev domain: local-react-google-maps-api.ospm.app

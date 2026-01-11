@@ -1,28 +1,51 @@
-import { type PagesFunction, Response } from '@cloudflare/workers-types';
+import type { EventContext } from '@cloudflare/workers-types';
 import Stripe from 'stripe';
 import * as v from 'valibot';
 
 import { CheckoutSchema } from '../../shared/schemas.ts';
 import type { Env } from './types.ts';
-import { corsHeaders, verifyToken } from './utils.ts';
+import {
+  checkRateLimit,
+  corsHeaders,
+  getClientIP,
+  getTokenFromCookie,
+  RATE_LIMITS,
+  rateLimitResponse,
+  verifyToken,
+} from './utils.ts';
 
-export const onRequestOptions: PagesFunction<Env> = async (context) => {
+export async function onRequestOptions(
+  context: EventContext<Env, any, Record<string, unknown>>,
+): Promise<Response> {
   return new Response(null, {
-    headers: corsHeaders(context.env.APP_URL || '*'),
+    headers: corsHeaders(context.env.APP_URL),
   });
-};
+}
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
-  const headers = corsHeaders(context.env.APP_URL || '*');
+export async function onRequestPost(
+  context: EventContext<Env, any, Record<string, unknown>>,
+): Promise<Response> {
+  const headers = corsHeaders(context.env.APP_URL);
+  const clientIP = getClientIP(context.request);
+
+  const rateLimit = await checkRateLimit(
+    context.env.RATE_LIMIT,
+    clientIP,
+    'checkout',
+    RATE_LIMITS.checkout,
+  );
+
+  if (!rateLimit.allowed) {
+    return rateLimitResponse(rateLimit.resetAt, context.env.APP_URL);
+  }
 
   try {
-    const authHeader = context.request.headers.get('Authorization');
+    const token = getTokenFromCookie(context.request);
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (!token) {
       return Response.json({ error: 'Unauthorized' }, { status: 401, headers });
     }
 
-    const token = authHeader.substring(7);
     const payload = await verifyToken(token, context.env.JWT_SECRET);
 
     if (!payload) {
@@ -30,6 +53,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     const body = await context.request.json();
+
     const result = v.safeParse(CheckoutSchema, body);
 
     if (!result.success) {
@@ -69,8 +93,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     });
 
     return Response.json({ sessionId: session.id }, { headers });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Checkout error:', error);
+
     return Response.json({ error: 'Failed to create checkout session' }, { status: 500, headers });
   }
-};
+}

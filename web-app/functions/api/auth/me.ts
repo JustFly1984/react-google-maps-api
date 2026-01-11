@@ -1,33 +1,49 @@
-import { type PagesFunction, Response } from '@cloudflare/workers-types';
+import type { EventContext } from '@cloudflare/workers-types';
 import type { Env, User } from '../types.ts';
-import { corsHeaders, verifyToken } from '../utils.ts';
+import {
+  checkRateLimit,
+  corsHeaders,
+  getClientIP,
+  getTokenFromCookie,
+  RATE_LIMITS,
+  rateLimitResponse,
+  verifyToken,
+} from '../utils.ts';
 
-export const onRequestOptions: PagesFunction<Env> = async (context) => {
+export async function onRequestOptions(
+  context: EventContext<Env, any, Record<string, unknown>>,
+): Promise<Response> {
   return new Response(null, {
-    headers: corsHeaders(context.env.APP_URL || '*'),
+    headers: corsHeaders(context.env.APP_URL),
   });
-};
+}
 
-export const onRequestGet: PagesFunction<Env> = async (context) => {
-  const headers = corsHeaders(context.env.APP_URL || '*');
+export async function onRequestGet(
+  context: EventContext<Env, any, Record<string, unknown>>,
+): Promise<Response> {
+  const headers = corsHeaders(context.env.APP_URL);
+  const clientIP = getClientIP(context.request);
+
+  const rateLimit = await checkRateLimit(context.env.RATE_LIMIT, clientIP, 'api', RATE_LIMITS.api);
+
+  if (!rateLimit.allowed) {
+    return rateLimitResponse(rateLimit.resetAt, context.env.APP_URL);
+  }
 
   try {
-    const authHeader = context.request.headers.get('Authorization');
+    const token = getTokenFromCookie(context.request);
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (token === null) {
       return Response.json({ error: 'Unauthorized' }, { status: 401, headers });
     }
 
-    const token = authHeader.substring(7);
     const payload = await verifyToken(token, context.env.JWT_SECRET);
 
-    if (!payload) {
+    if (payload === null) {
       return Response.json({ error: 'Invalid or expired token' }, { status: 401, headers });
     }
 
-    const user = await context.env.DB.prepare(
-      'SELECT id, email, full_name FROM users WHERE id = ?'
-    )
+    const user = await context.env.DB.prepare('SELECT id, email, full_name FROM users WHERE id = ?')
       .bind(payload.userId)
       .first<User>();
 
@@ -35,15 +51,19 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       return Response.json({ error: 'User not found' }, { status: 404, headers });
     }
 
-    return Response.json({
-      user: {
-        id: user.id,
-        email: user.email,
-        fullName: user.full_name,
+    return Response.json(
+      {
+        user: {
+          id: user.id,
+          email: user.email,
+          fullName: user.full_name,
+        },
       },
-    }, { headers });
-  } catch (error) {
+      { headers },
+    );
+  } catch (error: unknown) {
     console.error('Get user error:', error);
+
     return Response.json({ error: 'Failed to get user' }, { status: 500, headers });
   }
-};
+}

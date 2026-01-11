@@ -1,32 +1,115 @@
-import { loadStripe } from '@stripe/stripe-js';
+import clsx from 'clsx';
 import { Calendar, Check, Copy, Key, ShoppingCart } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { type JSX, useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import * as v from 'valibot';
-import { CheckoutResponseSchema, LicensesResponseSchema } from '../../shared/schemas';
-import { useAuth } from '../contexts/auth';
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
+import { CheckoutResponseSchema, LicensesResponseSchema } from '../../shared/schemas.ts';
+import { useAuth } from '../contexts/auth.tsx';
+import { styles } from '../styles.ts';
+
 const YEARLY_LICENSE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID || '';
 
-interface License {
+type License = {
   id: string;
   serialNumber: string;
   purchaseDate: string;
   expiryDate: string;
   isActive: boolean;
-}
+};
 
-export default function DashboardPage() {
+const loadingContainerClasses = clsx(
+  styles.minH80vh,
+  styles.flex,
+  styles.itemsCenter,
+  styles.justifyCenter,
+);
+const spinnerClasses = clsx(
+  styles.animateSpin,
+  styles.roundedFull,
+  styles.h12,
+  styles.w12,
+  styles.borderB2,
+  styles.borderBlue600,
+);
+const containerClasses = clsx(
+  styles.container,
+  styles.maxW7xl,
+  styles.px4,
+  styles.smPx6,
+  styles.lgPx8,
+);
+const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textDark);
+const subtitleClasses = clsx(styles.mt2, styles.textGray600);
+const gridClasses = clsx(styles.grid, styles.gridCols1, styles.lgGridCols3, styles.gap8);
+const cardHeaderClasses = clsx(styles.p6, styles.borderB, styles.borderGray200);
+const cardTitleClasses = clsx(styles.textLg, styles.fontSemibold, styles.textDark);
+const loadingSpinnerClasses = clsx(styles.flex, styles.justifyCenter, styles.py8);
+const smallSpinnerClasses = clsx(
+  styles.animateSpin,
+  styles.roundedFull,
+  styles.h8,
+  styles.w8,
+  styles.borderB2,
+  styles.borderBlue600,
+);
+const emptyStateClasses = clsx(styles.textCenter, styles.py8);
+const iconClasses = clsx(styles.mxAuto, styles.h12, styles.w12, styles.textGray400);
+const emptyTitleClasses = clsx(styles.mt4, styles.textLg, styles.fontMedium, styles.textDark);
+const emptyTextClasses = clsx(styles.mt2, styles.textGray);
+const purchaseButtonClasses = clsx(styles.mt6, styles.btnPrimary);
+const cartIconClasses = clsx(styles.mr2, styles.h4, styles.w4);
+const licenseCardClasses = clsx(styles.p4, styles.border, styles.borderGray200, styles.roundedLg);
+const licenseHeaderClasses = clsx(styles.flex, styles.itemsStart, styles.justifyBetween);
+const licenseInfoClasses = clsx(styles.flex, styles.itemsCenter, styles.gap2);
+const keyIconClasses = clsx(styles.h5, styles.w5, styles.textBlue600);
+const serialNumberClasses = clsx(styles.fontMono, styles.fontMedium);
+const copyButtonClasses = clsx(styles.p1, styles.hoverBgGray100, styles.rounded);
+const checkIconClasses = clsx(styles.h4, styles.w4, styles.textGreen600);
+const copyIconClasses = clsx(styles.h4, styles.w4, styles.textGray400);
+const licenseMetaClasses = clsx(
+  styles.mt2,
+  styles.flex,
+  styles.itemsCenter,
+  styles.gap4,
+  styles.textSm,
+  styles.textGray,
+);
+const calendarClasses = clsx(
+  styles.flex,
+  styles.itemsCenter,
+  styles.gap2,
+  styles.textSm,
+  styles.textGray600,
+);
+const calendarIconClasses = clsx(styles.h4, styles.w4);
+const sidebarCardClasses = clsx(styles.card, styles.p6);
+const sidebarTitleClasses = clsx(styles.fontSemibold, styles.textDark, styles.mb4);
+const licenseBadgeClasses = clsx(
+  styles.px2,
+  styles.py1,
+  styles.textXs,
+  styles.fontMedium,
+  styles.roundedLg,
+);
+const licenseBadgeActiveClasses = clsx(licenseBadgeClasses, styles.bgGreen100, styles.textGreen700);
+const licenseBadgeInactiveClasses = clsx(licenseBadgeClasses, styles.bgRed100, styles.textRed700);
+const sidebarButtonClasses = clsx(styles.wFull, styles.btnPrimary);
+const docsLinkClasses = clsx(styles.wFull, styles.btnSecondary, styles.block, styles.textCenter);
+const purchaseIconClasses = clsx(styles.mr2, styles.h4, styles.w4);
+
+export default function DashboardPage(): JSX.Element {
   const { user, loading: authLoading } = useAuth();
+
   const navigate = useNavigate();
+
   const [licenses, setLicenses] = useState<License[]>([]);
   const [loading, setLoading] = useState(true);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!authLoading && !user) {
+    if (!authLoading && user === null) {
       navigate('/login');
     }
   }, [user, authLoading, navigate]);
@@ -39,153 +122,145 @@ export default function DashboardPage() {
 
   const fetchLicenses = async () => {
     try {
-      const token = localStorage.getItem('auth_token');
       const response = await fetch('/api/licenses', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        credentials: 'include',
       });
 
       if (response.ok) {
         const data = await response.json();
+
         const result = v.safeParse(LicensesResponseSchema, data);
+
         if (result.success) {
           setLicenses(result.output.licenses);
         }
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error fetching licenses:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handlePurchase = async () => {
-    if (!user) return;
+  const handlePurchase = useCallback(async () => {
+    if (user === null) {
+      return;
+    }
+
     setPurchaseLoading(true);
 
     try {
-      const token = localStorage.getItem('auth_token');
       const response = await fetch('/api/checkout', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ priceId: YEARLY_LICENSE_PRICE_ID }),
       });
 
       const data = await response.json();
+
       const result = v.safeParse(CheckoutResponseSchema, data);
 
       if (result.success) {
-        const stripe = await stripePromise;
-        if (stripe) {
-          await stripe.redirectToCheckout({ sessionId: result.output.sessionId });
-        }
+        window.location.href = `https://checkout.stripe.com/pay/${result.output.sessionId}`;
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error creating checkout session:', error);
     } finally {
       setPurchaseLoading(false);
     }
-  };
+  }, [user]);
 
-  const copyToClipboard = (text: string) => {
+  const copyToClipboard = useCallback((text: string): void => {
     navigator.clipboard.writeText(text);
+
     setCopied(text);
-    setTimeout(() => setCopied(null), 2000);
-  };
+
+    window.setTimeout((): void => {
+      setCopied(null);
+    }, 2000);
+  }, []);
 
   if (authLoading || !user) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
+      <div className={loadingContainerClasses}>
+        <div className={spinnerClasses} />
       </div>
     );
   }
 
   return (
-    <div className="py-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="mt-2 text-gray-600">
-            Welcome back, {user.fullName || user.email}!
-          </p>
+    <div className={styles.py12}>
+      <div className={containerClasses}>
+        <div className={styles.mb8}>
+          <h1 className={titleClasses}>Dashboard</h1>
+          <p className={subtitleClasses}>Welcome back, {user.fullName || user.email}!</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <div className="card">
-              <div className="p-6 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900">
-                  Your Licenses
-                </h2>
+        <div className={gridClasses}>
+          <div className={styles.lgColSpan2}>
+            <div className={styles.card}>
+              <div className={cardHeaderClasses}>
+                <h2 className={cardTitleClasses}>Your Licenses</h2>
               </div>
-              <div className="p-6">
+              <div className={styles.p6}>
                 {loading ? (
-                  <div className="flex justify-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
+                  <div className={loadingSpinnerClasses}>
+                    <div className={smallSpinnerClasses} />
                   </div>
                 ) : licenses.length === 0 ? (
-                  <div className="text-center py-8">
-                    <Key className="mx-auto h-12 w-12 text-gray-400" />
-                    <h3 className="mt-4 text-lg font-medium text-gray-900">
-                      No licenses yet
-                    </h3>
-                    <p className="mt-2 text-gray-600">
-                      Purchase a commercial license to use React Google Maps API
-                      in your projects.
+                  <div className={emptyStateClasses}>
+                    <Key className={iconClasses} />
+                    <h3 className={emptyTitleClasses}>No licenses yet</h3>
+                    <p className={emptyTextClasses}>
+                      Purchase a commercial license to use React Google Maps API in your projects.
                     </p>
                     <button
+                      type="button"
                       onClick={handlePurchase}
                       disabled={purchaseLoading}
-                      className="mt-6 btn-primary"
+                      className={purchaseButtonClasses}
                     >
-                      <ShoppingCart className="mr-2 h-4 w-4" />
+                      <ShoppingCart className={cartIconClasses} />
                       {purchaseLoading ? 'Processing...' : 'Purchase License'}
                     </button>
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className={styles.spaceY4}>
                     {licenses.map((license) => (
-                      <div
-                        key={license.id}
-                        className="p-4 border border-gray-200 rounded-lg"
-                      >
-                        <div className="flex items-start justify-between">
+                      <div key={license.id} className={licenseCardClasses}>
+                        <div className={licenseHeaderClasses}>
                           <div>
-                            <div className="flex items-center gap-2">
-                              <Key className="h-5 w-5 text-blue-600" />
-                              <span className="font-mono font-medium">
-                                {license.serialNumber}
-                              </span>
+                            <div className={licenseInfoClasses}>
+                              <Key className={keyIconClasses} />
+                              <span className={serialNumberClasses}>{license.serialNumber}</span>
                               <button
+                                type="button"
                                 onClick={() => copyToClipboard(license.serialNumber)}
-                                className="p-1 hover:bg-gray-100 rounded"
+                                className={copyButtonClasses}
                               >
                                 {copied === license.serialNumber ? (
-                                  <Check className="h-4 w-4 text-green-600" />
+                                  <Check className={checkIconClasses} />
                                 ) : (
-                                  <Copy className="h-4 w-4 text-gray-400" />
+                                  <Copy className={copyIconClasses} />
                                 )}
                               </button>
                             </div>
-                            <div className="mt-2 flex items-center gap-4 text-sm text-gray-600">
-                              <span className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4" />
-                                Expires:{' '}
-                                {new Date(license.expiryDate).toLocaleDateString()}
+                            <div className={licenseMetaClasses}>
+                              <span className={calendarClasses}>
+                                <Calendar className={calendarIconClasses} />
+                                Expires: {new Date(license.expiryDate).toLocaleDateString()}
                               </span>
                             </div>
                           </div>
                           <span
-                            className={`px-2 py-1 text-xs font-medium rounded-full ${
+                            className={
                               license.isActive
-                                ? 'bg-green-100 text-green-700'
-                                : 'bg-red-100 text-red-700'
-                            }`}
+                                ? licenseBadgeActiveClasses
+                                : licenseBadgeInactiveClasses
+                            }
                           >
                             {license.isActive ? 'Active' : 'Inactive'}
                           </span>
@@ -199,18 +274,19 @@ export default function DashboardPage() {
           </div>
 
           <div>
-            <div className="card p-6">
-              <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
-              <div className="space-y-3">
+            <div className={sidebarCardClasses}>
+              <h3 className={sidebarTitleClasses}>Quick Actions</h3>
+              <div className={styles.spaceY3}>
                 <button
+                  type="button"
                   onClick={handlePurchase}
                   disabled={purchaseLoading}
-                  className="w-full btn-primary"
+                  className={sidebarButtonClasses}
                 >
-                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  <ShoppingCart className={purchaseIconClasses} />
                   {purchaseLoading ? 'Processing...' : 'Purchase License'}
                 </button>
-                <Link to="/docs" className="w-full btn-secondary block text-center">
+                <Link to="/docs" className={docsLinkClasses}>
                   View Documentation
                 </Link>
               </div>

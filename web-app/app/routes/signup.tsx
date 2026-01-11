@@ -1,10 +1,21 @@
-import { useState } from 'react';
+import clsx from 'clsx';
+import { useCallback, useState, type ChangeEvent, type JSX } from 'react';
 import { Link, useNavigate } from 'react-router';
 import * as v from 'valibot';
-import { SignupSchema } from '../../shared/schemas';
-import { useAuth } from '../contexts/auth';
 
-export default function SignUpPage() {
+import { SignupSchema } from '../../shared/schemas.ts';
+import { useAuth } from '../contexts/auth.tsx';
+import { styles } from '../styles.ts';
+
+const headerClasses = clsx(styles.textCenter, styles.mb8);
+const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textGray900);
+const subtitleClasses = clsx(styles.mt2, styles.textGray600);
+const cardClasses = clsx(styles.card, styles.p8);
+const buttonClasses = clsx(styles.wFull, styles.btnPrimary, styles.py3);
+const footerClasses = clsx(styles.mt6, styles.textCenter, styles.textSm, styles.textGray600);
+const linkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styles.fontMedium);
+
+export default function SignUpPage(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,91 +25,104 @@ export default function SignUpPage() {
   const { signUp } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
+  const handleFullNameChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
+    setFullName(e.target.value);
+  }, []);
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
+  const handleEmailChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
+    setEmail(e.target.value);
+  }, []);
 
-    const result = v.safeParse(SignupSchema, { email, password, fullName });
-    if (!result.success) {
-      setError(result.issues[0].message);
-      return;
-    }
+  const handlePasswordChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
+    setPassword(e.target.value);
+  }, []);
 
-    setLoading(true);
+  const handleConfirmPasswordChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
+    setConfirmPassword(e.target.value);
+  }, []);
 
-    const { error: signUpError } = await signUp(email, password, fullName);
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      setError(null);
 
-    if (signUpError) {
-      setError(signUpError.message);
-      setLoading(false);
-      return;
-    }
+      if (password !== confirmPassword) {
+        setError('Passwords do not match');
+        return;
+      }
 
-    navigate('/dashboard');
-  };
+      const result = v.safeParse(SignupSchema, { email, password, fullName });
+      if (!result.success) {
+        setError(result.issues[0].message);
+        return;
+      }
+
+      setLoading(true);
+
+      const { error: signUpError } = await signUp(email, password, fullName);
+
+      if (signUpError) {
+        setError(signUpError.message);
+        setLoading(false);
+        return;
+      }
+
+      navigate('/dashboard');
+    },
+    [email, password, confirmPassword, fullName, navigate, signUp],
+  );
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Create Account</h1>
-          <p className="mt-2 text-gray-600">
-            Get started with React Google Maps API today.
-          </p>
+    <div className={styles.pageContainer}>
+      <div className={styles.pageMaxW}>
+        <div className={headerClasses}>
+          <h1 className={titleClasses}>Create Account</h1>
+          <p className={subtitleClasses}>Get started with React Google Maps API today.</p>
         </div>
 
-        <div className="card p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {error && (
-              <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
-                {error}
-              </div>
-            )}
+        <div className={cardClasses}>
+          <form onSubmit={handleSubmit} className={styles.spaceY6}>
+            {error && <div className={styles.formError}>{error}</div>}
 
             <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="fullName" className={styles.label}>
                 Full Name
               </label>
               <input
                 id="fullName"
                 type="text"
                 value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                className="input"
+                onChange={handleFullNameChange}
+                className={styles.input}
                 placeholder="John Doe"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className={styles.label}>
                 Email
               </label>
               <input
                 id="email"
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="input"
+                onChange={handleEmailChange}
+                className={styles.input}
                 placeholder="you@example.com"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="password" className={styles.label}>
                 Password
               </label>
               <input
                 id="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="input"
+                onChange={handlePasswordChange}
+                className={styles.input}
                 placeholder="••••••••"
                 required
                 minLength={6}
@@ -106,32 +130,28 @@ export default function SignUpPage() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="confirmPassword" className={styles.label}>
                 Confirm Password
               </label>
               <input
                 id="confirmPassword"
                 type="password"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="input"
+                onChange={handleConfirmPasswordChange}
+                className={styles.input}
                 placeholder="••••••••"
                 required
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full btn-primary py-3"
-            >
+            <button type="submit" disabled={loading} className={buttonClasses}>
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-gray-600">
+          <p className={footerClasses}>
             Already have an account?{' '}
-            <Link to="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+            <Link to="/login" className={linkClasses}>
               Sign in
             </Link>
           </p>

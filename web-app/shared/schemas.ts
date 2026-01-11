@@ -11,6 +11,14 @@ export const LoginSchema = v.object({
   password: v.pipe(v.string(), v.minLength(1)),
 });
 
+export const ForgotPasswordSchema = v.object({
+  email: v.pipe(v.string(), v.email()),
+});
+
+export const ResetPasswordSchema = v.object({
+  password: v.pipe(v.string(), v.minLength(6)),
+});
+
 export const CheckoutSchema = v.object({
   priceId: v.pipe(v.string(), v.minLength(1)),
 });

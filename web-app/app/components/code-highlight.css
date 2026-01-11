@@ -1,13 +1,13 @@
 /* Code highlighting styles */
 .shiki {
-  padding: 1rem !important;
+  padding: 1rem;
   border-radius: 0.5rem;
   overflow-x: auto;
 }
 
 .shiki pre {
-  margin: 0 !important;
-  padding: 1rem !important;
+  margin: 0;
+  padding: 1rem;
 }
 
 .shiki code {
@@ -16,7 +16,6 @@
   line-height: 1.5;
 }
 
-/* Line numbers styling */
 .line-number {
   color: #6b7280;
   user-select: none;

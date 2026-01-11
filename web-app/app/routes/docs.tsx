@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {
   Book,
   Box,
@@ -10,9 +11,11 @@ import {
   Search,
   StretchHorizontal,
 } from 'lucide-react';
+import type { JSX } from 'react';
 import { Link, useParams } from 'react-router';
 
 import { CodeHighlight } from '../components/code-highlight.tsx';
+import { styles } from '../styles.ts';
 
 type Section = {
   id: string;
@@ -1239,38 +1242,91 @@ function MapWithInfoBox() {
   },
 };
 
-export default function DocsPage() {
+const pageClasses = styles.py12;
+const containerClasses = clsx(
+  styles.container,
+  styles.maxW7xl,
+  styles.px4,
+  styles.smPx6,
+  styles.lgPx8,
+);
+const layoutClasses = clsx(styles.flex, styles.flexCol, styles.lgFlexRow, styles.gap8);
+const sidebarClasses = clsx(styles.lgW72, styles.shrink0);
+const navClasses = clsx(styles.card, styles.p4, styles.sticky, styles.top4);
+const navTitleClasses = clsx(styles.fontSemibold, styles.textDark, styles.mb4);
+const navItemClasses = clsx(
+  styles.flex,
+  styles.itemsCenter,
+  styles.gap2,
+  styles.px3,
+  styles.py2,
+  styles.textSm,
+  styles.fontMedium,
+  styles.textDark,
+);
+const navIconClasses = clsx(styles.h4, styles.w4);
+const navChildrenClasses = clsx(styles.ml6, styles.spaceY1);
+const navChildLinkClasses = clsx(
+  styles.block,
+  styles.px3,
+  styles.py1_5,
+  styles.rounded,
+  styles.textSm,
+  styles.transitionColors,
+);
+const mainClasses = clsx(styles.flex1, styles.minW0);
+const contentCardClasses = clsx(styles.card, styles.p8);
+const contentTitleClasses = clsx(styles.text3xl, styles.fontBold, styles.textDark, styles.mb4);
+const contentClasses = clsx(styles.prose, styles.proseGray, styles.maxWNone, styles.mb6);
+const contentParagraphClasses = clsx(styles.textGray, styles.mb4);
+const codeTitleClasses = clsx(styles.textLg, styles.fontSemibold, styles.textDark, styles.mb4);
+const propsTitleClasses = clsx(styles.textLg, styles.fontSemibold, styles.textDark, styles.mb4);
+const tableClasses = clsx(styles.wFull, styles.textSm);
+const tableHeaderClasses = clsx(styles.borderB, styles.borderGray200);
+const tableHeaderCellClasses = clsx(
+  styles.textLeft,
+  styles.py3,
+  styles.px4,
+  styles.fontSemibold,
+  styles.textGray900,
+);
+const tableRowClasses = clsx(styles.borderB, styles.borderGray100);
+const tableCellClasses = clsx(styles.py3, styles.px4);
+const codeClasses = clsx(
+  styles.textBlue600,
+  styles.bgBlue50,
+  styles.px1,
+  styles.py0_5,
+  styles.rounded,
+  styles.fontMono,
+  styles.textSm,
+);
+
+export default function DocsPage(): JSX.Element {
   const { section } = useParams();
   const currentSection = section || 'getting-started';
   const currentContent = content[currentSection] ?? content['getting-started']!;
 
   return (
-    <div className="py-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          <aside className="lg:w-72 shrink-0">
-            <nav className="card p-4 sticky top-4">
-              <h2 className="font-semibold text-gray-900 mb-4">Documentation</h2>
-              <ul className="space-y-1">
+    <div className={pageClasses}>
+      <div className={containerClasses}>
+        <div className={layoutClasses}>
+          <aside className={sidebarClasses}>
+            <nav className={navClasses}>
+              <h2 className={navTitleClasses}>Documentation</h2>
+              <ul className={styles.spaceY1}>
                 {sections.map((item) => (
                   <li key={item.id}>
                     {item.children ? (
                       <div>
-                        <div className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-900">
-                          <item.icon className="h-4 w-4" />
+                        <div className={navItemClasses}>
+                          <item.icon className={navIconClasses} />
                           {item.name}
                         </div>
-                        <ul className="ml-6 space-y-1">
+                        <ul className={navChildrenClasses}>
                           {item.children.map((child) => (
                             <li key={child.id}>
-                              <Link
-                                to={`/docs/${child.id}`}
-                                className={`block px-3 py-1.5 rounded text-sm transition-colors ${
-                                  currentSection === child.id
-                                    ? 'bg-blue-50 text-blue-700 font-medium'
-                                    : 'text-gray-600 hover:bg-gray-50'
-                                }`}
-                              >
+                              <Link to={`/docs/${child.id}`} className={navChildLinkClasses}>
                                 {child.name}
                               </Link>
                             </li>
@@ -1278,15 +1334,8 @@ export default function DocsPage() {
                         </ul>
                       </div>
                     ) : (
-                      <Link
-                        to={`/docs/${item.id}`}
-                        className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                          currentSection === item.id
-                            ? 'bg-blue-50 text-blue-700 font-medium'
-                            : 'text-gray-600 hover:bg-gray-50'
-                        }`}
-                      >
-                        <item.icon className="h-4 w-4" />
+                      <Link to={`/docs/${item.id}`} className={navItemClasses}>
+                        <item.icon className={styles.iconSm} />
                         {item.name}
                       </Link>
                     )}
@@ -1296,15 +1345,15 @@ export default function DocsPage() {
             </nav>
           </aside>
 
-          <main className="flex-1 min-w-0">
-            <div className="card p-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">{currentContent.title}</h1>
-              <div className="prose prose-gray max-w-none mb-6">
+          <main className={mainClasses}>
+            <div className={contentCardClasses}>
+              <h1 className={contentTitleClasses}>{currentContent.title}</h1>
+              <div className={contentClasses}>
                 {currentContent.content.split('\n\n').map((paragraph, i) => (
-                  <p key={i} className="text-gray-600 mb-4">
+                  <p key={i} className={contentParagraphClasses}>
                     {paragraph.split('**').map((part, j) =>
                       j % 2 === 1 ? (
-                        <strong key={j} className="text-gray-900">
+                        <strong key={j} className={styles.textDark}>
                           {part}
                         </strong>
                       ) : (
@@ -1316,41 +1365,35 @@ export default function DocsPage() {
               </div>
 
               {currentContent.code ? (
-                <div className="mb-8">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Example</h3>
+                <div className={styles.mb8}>
+                  <h3 className={codeTitleClasses}>Example</h3>
                   <CodeHighlight code={currentContent.code} language="tsx" />
                 </div>
               ) : null}
 
               {currentContent.props && currentContent.props.length > 0 ? (
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Props</h3>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
+                  <h3 className={propsTitleClasses}>Props</h3>
+                  <div className={styles.overflowXAuto}>
+                    <table className={tableClasses}>
                       <thead>
-                        <tr className="border-b border-gray-200">
-                          <th className="text-left py-3 px-4 font-semibold text-gray-900">Prop</th>
-                          <th className="text-left py-3 px-4 font-semibold text-gray-900">Type</th>
-                          <th className="text-left py-3 px-4 font-semibold text-gray-900">
-                            Description
-                          </th>
+                        <tr className={tableHeaderClasses}>
+                          <th className={tableHeaderCellClasses}>Prop</th>
+                          <th className={tableHeaderCellClasses}>Type</th>
+                          <th className={tableHeaderCellClasses}>Description</th>
                         </tr>
                       </thead>
 
                       <tbody>
                         {currentContent.props.map((prop) => (
-                          <tr key={prop.name} className="border-b border-gray-100">
-                            <td className="py-3 px-4">
-                              <code className="text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded text-xs">
-                                {prop.name}
-                              </code>
+                          <tr key={prop.name} className={tableRowClasses}>
+                            <td className={tableCellClasses}>
+                              <code className={codeClasses}>{prop.name}</code>
                             </td>
-                            <td className="py-3 px-4">
-                              <code className="text-gray-600 bg-gray-100 px-1.5 py-0.5 rounded text-xs">
-                                {prop.type}
-                              </code>
+                            <td className={tableCellClasses}>
+                              <code className={codeClasses}>{prop.type}</code>
                             </td>
-                            <td className="py-3 px-4 text-gray-600">{prop.description}</td>
+                            <td className={tableCellClasses}>{prop.description}</td>
                           </tr>
                         ))}
                       </tbody>

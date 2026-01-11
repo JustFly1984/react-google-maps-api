@@ -1,60 +1,49 @@
-import {
-  memo,
-  useState,
-  useEffect,
-  useContext,
-  type ComponentType,
-} from 'react'
+import { memo, useContext, useEffect, useState, type ComponentType } from 'react';
 
-import { MapContext } from '../../map-context.js'
+import { MapContext } from '../../map-context.js';
 
 export type TransitLayerProps = {
-  onLoad?: ((transitLayer: google.maps.TransitLayer) => void) | undefined
-  onUnmount?: ((transitLayer: google.maps.TransitLayer) => void) | undefined
-}
+  onLoad?: ((transitLayer: google.maps.TransitLayer) => void) | undefined;
+  onUnmount?: ((transitLayer: google.maps.TransitLayer) => void) | undefined;
+};
 
-function TransitLayerFunctional({
-  onLoad,
-  onUnmount,
-}: TransitLayerProps): null {
-  const map = useContext<google.maps.Map | null>(MapContext)
+function TransitLayerFunctional({ onLoad, onUnmount }: TransitLayerProps): null {
+  const map = useContext<google.maps.Map | null>(MapContext);
 
-  const [instance, setInstance] = useState<google.maps.TransitLayer | null>(
-    null
-  )
+  const [instance, setInstance] = useState<google.maps.TransitLayer | null>(null);
 
-  // Order does matter
   useEffect(() => {
     if (instance !== null) {
-      instance.setMap(map)
+      instance.setMap(map);
     }
-  }, [map])
+  }, [map]);
 
   useEffect(() => {
-    const transitLayer = new google.maps.TransitLayer()
+    const transitLayer = new google.maps.TransitLayer();
 
-    setInstance(transitLayer)
+    setInstance(transitLayer);
 
-    transitLayer.setMap(map)
+    transitLayer.setMap(map);
 
     if (onLoad) {
-      onLoad(transitLayer)
+      onLoad(transitLayer);
     }
 
     return () => {
       if (instance !== null) {
         if (onUnmount) {
-          onUnmount(instance)
+          onUnmount(instance);
         }
 
-        instance.setMap(null)
+        instance.setMap(null);
       }
-    }
-  }, [])
+    };
+  }, []);
 
-  return null
+  return null;
 }
 
-export const TransitLayerF: ComponentType<TransitLayerProps> = memo<TransitLayerProps>(TransitLayerFunctional)
+export const TransitLayerF: ComponentType<TransitLayerProps> =
+  memo<TransitLayerProps>(TransitLayerFunctional);
 
-export const TransitLayer = TransitLayerF
+export const TransitLayer = TransitLayerF;

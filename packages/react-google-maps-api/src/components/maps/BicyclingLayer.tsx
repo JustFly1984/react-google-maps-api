@@ -1,62 +1,49 @@
-import {
-  memo,
-  useState,
-  useEffect,
-  useContext,
-  type ComponentType,
-} from 'react'
+import { memo, useContext, useEffect, useState, type ComponentType } from 'react';
 
-import { MapContext } from '../../map-context.js'
+import { MapContext } from '../../map-context.js';
 
 export type BicyclingLayerProps = {
-  /** This callback is called when the bicyclingLayer instance has loaded. It is called with the bicyclingLayer instance. */
-  onLoad?: ((bicyclingLayer: google.maps.BicyclingLayer) => void) | undefined
-  /** This callback is called when the component unmounts. It is called with the bicyclingLayer instance. */
-  onUnmount?: ((bicyclingLayer: google.maps.BicyclingLayer) => void) | undefined
-}
+  onLoad?: ((bicyclingLayer: google.maps.BicyclingLayer) => void) | undefined;
+  onUnmount?: ((bicyclingLayer: google.maps.BicyclingLayer) => void) | undefined;
+};
 
-function BicyclingLayerFunctional({
-  onLoad,
-  onUnmount,
-}: BicyclingLayerProps): null {
-  const map = useContext<google.maps.Map | null>(MapContext)
+function BicyclingLayerFunctional({ onLoad, onUnmount }: BicyclingLayerProps): null {
+  const map = useContext<google.maps.Map | null>(MapContext);
 
-  const [instance, setInstance] = useState<google.maps.BicyclingLayer | null>(
-    null
-  )
+  const [instance, setInstance] = useState<google.maps.BicyclingLayer | null>(null);
 
-  // Order does matter
   useEffect(() => {
     if (instance !== null) {
-      instance.setMap(map)
+      instance.setMap(map);
     }
-  }, [map])
+  }, [map]);
 
   useEffect(() => {
-    const bicyclingLayer = new google.maps.BicyclingLayer()
+    const bicyclingLayer = new google.maps.BicyclingLayer();
 
-    setInstance(bicyclingLayer)
+    setInstance(bicyclingLayer);
 
-    bicyclingLayer.setMap(map)
+    bicyclingLayer.setMap(map);
 
     if (onLoad) {
-      onLoad(bicyclingLayer)
+      onLoad(bicyclingLayer);
     }
 
     return () => {
       if (bicyclingLayer !== null) {
         if (onUnmount) {
-          onUnmount(bicyclingLayer)
+          onUnmount(bicyclingLayer);
         }
 
-        bicyclingLayer.setMap(null)
+        bicyclingLayer.setMap(null);
       }
-    }
-  }, [])
+    };
+  }, []);
 
-  return null
+  return null;
 }
 
-export const BicyclingLayerF: ComponentType<BicyclingLayerProps> = memo<BicyclingLayerProps>(BicyclingLayerFunctional)
+export const BicyclingLayerF: ComponentType<BicyclingLayerProps> =
+  memo<BicyclingLayerProps>(BicyclingLayerFunctional);
 
-export const BicyclingLayer = BicyclingLayerF
+export const BicyclingLayer = BicyclingLayerF;
