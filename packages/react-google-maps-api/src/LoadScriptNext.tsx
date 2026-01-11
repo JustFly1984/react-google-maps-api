@@ -1,4 +1,4 @@
-import { memo, type ReactElement, useEffect, type JSX } from 'react'
+import { memo, type ReactElement, useEffect, type JSX, type ComponentType } from 'react'
 
 import { DefaultLoadingElement } from './LoadScript.js'
 import { useLoadScript, type UseLoadScriptOptions } from './useLoadScript.js'
@@ -13,7 +13,7 @@ export type LoadScriptNextProps = UseLoadScriptOptions & {
 
 const defaultLoadingElement = <DefaultLoadingElement />
 
-function LoadScriptNext({
+function LoadScriptNextFunctional({
   loadingElement,
   onLoad,
   onError,
@@ -55,4 +55,6 @@ function LoadScriptNext({
   return isLoaded ? children : loadingElement || defaultLoadingElement
 }
 
-export default memo(LoadScriptNext)
+export const LoadScriptNextF: ComponentType<LoadScriptNextProps> = memo<LoadScriptNextProps>(LoadScriptNextFunctional)
+
+export const LoadScriptNext = LoadScriptNextF

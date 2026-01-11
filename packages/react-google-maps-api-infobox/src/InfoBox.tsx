@@ -1,5 +1,4 @@
 /* global google */
-/* eslint-disable filenames/match-regex */
 import type { InfoBoxOptions } from './types'
 
 // This handler prevents an event in the InfoBox from being passed on to the map.
@@ -260,7 +259,6 @@ export class InfoBox {
 
   panBox(disablePan?: boolean | undefined): void {
     if (this.div && !disablePan) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const map: google.maps.Map | google.maps.StreetViewPanorama | null | undefined = this.getMap()
 
@@ -277,10 +275,8 @@ export class InfoBox {
         }
 
         const mapDiv = map.getDiv()
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const mapWidth = mapDiv.offsetWidth
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const mapHeight = mapDiv.offsetHeight
         const iwOffsetX = this.pixelOffset.width
@@ -290,7 +286,6 @@ export class InfoBox {
         const padX = this.infoBoxClearance.width
         const padY = this.infoBoxClearance.height
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const projection: google.maps.MapCanvasProjection = this.getProjection()
         const pixPosition = projection.fromLatLngToContainerPixel(this.position)
@@ -339,7 +334,7 @@ export class InfoBox {
       for (const i in boxStyle) {
 
         if (Object.prototype.hasOwnProperty.call(boxStyle, i)) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
           // @ts-ignore
           this.div.style[i] = boxStyle[i]
         }
@@ -354,7 +349,6 @@ export class InfoBox {
         // See http://www.quirksmode.org/css/opacity.html
         const opacity = parseFloat(this.div.style.opacity || '')
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.div.style.msFilter =
           '"progid:DXImageTransform.Microsoft.Alpha(Opacity=' + opacity * 100 + ')"'
@@ -395,11 +389,9 @@ export class InfoBox {
         bw.right = parseInt(computedStyle.borderRightWidth || '', 10) || 0
       }
     } else if (
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       document.documentElement.currentStyle // MSIE
     ) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const currentStyle = this.div.currentStyle
 
@@ -426,7 +418,6 @@ export class InfoBox {
     this.createInfoBoxDiv()
 
     if (this.div) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const projection: google.maps.MapCanvasProjection = this.getProjection()
 
@@ -627,7 +618,6 @@ export class InfoBox {
     anchor?: google.maps.MVCObject | undefined
   ): void {
     if (anchor) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this.position = anchor.getPosition()
 
@@ -635,7 +625,7 @@ export class InfoBox {
         anchor,
         'position_changed',
         () => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
           // @ts-ignore
           const position = anchor.getPosition()
 
@@ -647,7 +637,7 @@ export class InfoBox {
         anchor,
         'map_changed',
         () => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
           // @ts-ignore
           this.setMap(anchor.map)
         }
@@ -693,8 +683,6 @@ export class InfoBox {
 
       this.contextListener = null
     }
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.setMap(null)
   }
@@ -703,7 +691,7 @@ export class InfoBox {
     return function applyExtend(this: A, object: typeof google.maps.OverlayView): A {
       for (const property in object.prototype) {
         if (!Object.prototype.hasOwnProperty.call(this, property)) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
           // @ts-ignore
           this.prototype[property] = object.prototype[property  as keyof google.maps.OverlayView]
         }

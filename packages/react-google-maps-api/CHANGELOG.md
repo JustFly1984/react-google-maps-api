@@ -1,5 +1,10 @@
 # Change Log
 
+## 3.0.0 Changed to Commercial license
+
+- Removed class based components. - Removed lerna, eslint, storybook.
+- Added new documentation.
+
 ## 2.20.7 fix to LoadScript - adding option to pass api url to loader. by default it uses `https://maps.googleapis.com` but you can pass any other url
 
 ## 2.20.6 fixes to LoadScript

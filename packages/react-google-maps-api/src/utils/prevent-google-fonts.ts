@@ -11,50 +11,38 @@ function isGoogleFontStyle(element: Node): boolean {
   }
   // font style elements
   if (
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.tagName.toLowerCase() === 'style' &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.styleSheet &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.styleSheet.cssText &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.styleSheet.cssText.replace('\r\n', '').indexOf('.gm-style') === 0
   ) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.styleSheet.cssText = ''
     return true
   }
   // font style elements for other browsers
   if (
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.tagName.toLowerCase() === 'style' &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.innerHTML &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.innerHTML.replace('\r\n', '').indexOf('.gm-style') === 0
   ) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.innerHTML = ''
     return true
   }
   // when google tries to add empty style
   if (
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     element.tagName.toLowerCase() === 'style' &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     !element.styleSheet &&
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     !element.innerHTML
   ) {

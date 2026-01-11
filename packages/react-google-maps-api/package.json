@@ -1,21 +1,14 @@
 {
   "name": "@react-google-maps/api",
   "sideEffects": false,
-  "version": "2.20.8",
+  "version": "3.0.0",
   "description": "React.js Google Maps API integration",
-  "license": "MIT",
+  "license": "Commercial",
   "author": {
     "name": "Alexey Lyakhov",
     "email": "justfly1984@gmail.com",
     "url": "https://github.com/JustFly1984"
   },
-  "contributors": [
-    "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)",
-    "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)",
-    "Ivan Konev <ivankonev@gmail.com> (https://github.com/ivankonev)",
-    "Daniel K. <klenicak@gmail.com> (https://github.com/fredyc)",
-    "Kevin Brown <kevin.brown@exogee.com> (https://github.com/thekevinbrown)"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/JustFly1984/react-google-maps-api.git",
@@ -73,26 +66,19 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup --config",
-    "clean": "rimraf ./package-lock.json ./pnpm-lock.yml ./node_modules/ && pnpm install",
-    "lint": "pnpx eslint ./src/**/*.{ts,tsx} --fix",
-    "docs:dev": "pnpm exec styleguidist server --config ./styleguide.config.js --verbose",
-    "docs:build": "pnpm exec styleguidist build --config ./styleguide.config.js --verbose",
+    "clean": "rimraf ./package-lock.json ./bun.lockb ./node_modules/ && bun install",
+    "lint": "bunx oxlint ./src/**/*.{ts,tsx} --fix",
+    "format": "bunx oxfmt ./src/**/*.{ts,tsx} --write",
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
-    "test": "jest",
-    "pub": "pnpm publish .",
-    "pub:next": "pnpm publish . --tag next",
-    "prepublishOnly": "pnpm run build"
-  },
-  "resolutions": {
-    "@types/node": "22.7.5",
-    "@types/react": "18.3.11",
-    "@types/react-dom": "18.3.0"
+    "pub": "npm publish .",
+    "pub:next": "bun publish . --tag next",
+    "prepublishOnly": "bun run build"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "1.16.8",
     "@googlemaps/markerclusterer": "2.5.3",
-    "@react-google-maps/infobox": "2.20.0",
-    "@react-google-maps/marker-clusterer": "2.20.0",
+    "@react-google-maps/infobox": "3.0.0",
+    "@react-google-maps/marker-clusterer": "3.0.0",
     "@types/google.maps": "3.58.1",
     "invariant": "2.2.4"
   },
@@ -127,21 +113,12 @@
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.0",
     "@testing-library/react": "16.0.1",
-    "babel-loader": "9.2.1",
-    "css-loader": "^7.1.2",
-    "jest": "29.7.0",
-    "jest-cli": "29.7.0",
-    "process": "^0.11.10",
-    "react-docgen-typescript": "^2.2.2",
-    "react-styleguidist": "^13.1.4",
+    "oxlint": "1.38.0",
+    "oxfmt": "0.23.0",
     "rimraf": "6.0.1",
     "rollup": "4.24.0",
     "rollup-plugin-dts": "6.1.1",
-    "style-loader": "^4.0.0",
-    "ts-loader": "9.5.1",
-    "tslib": "2.7.0",
-    "webpack": "5.95.0",
-    "webpack-cli": "^6.0.1"
+    "tslib": "2.7.0"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
 }

@@ -21,10 +21,10 @@ Here are the main additions to react-google-maps that were the motivation behind
 
 ## Install @react-google-maps/api
 
-with PNPM
+with Bun
 
 ```shell
-pnpm install @react-google-maps/api
+bun install @react-google-maps/api
 ```
 
 with NPM

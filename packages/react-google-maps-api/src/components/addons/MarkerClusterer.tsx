@@ -4,8 +4,7 @@ import {
   type JSX,
   useEffect,
   useContext,
-  PureComponent,
-  type ContextType,
+  type ComponentType,
 } from 'react'
 import {
   Cluster,
@@ -15,12 +14,7 @@ import {
   type ClustererOptions,
 } from '@react-google-maps/marker-clusterer'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents,
-} from '../../utils/helper.js'
-
-import MapContext from '../../map-context.js'
+import { MapContext } from '../../map-context.js'
 
 const eventMap = {
   onClick: 'click',
@@ -90,10 +84,6 @@ const updaterMap = {
   zoomOnClick(instance: Clusterer, zoomOnClick: boolean): void {
     instance.setZoomOnClick(zoomOnClick)
   },
-}
-
-type ClustererState = {
-  markerClusterer: Clusterer | null
 }
 
 const defaultOptions = {}
@@ -505,84 +495,6 @@ function MarkerClustererFunctional(
   return instance !== null ? children(instance) || null : null
 }
 
-export const MarkerClustererF = memo(MarkerClustererFunctional)
+export const MarkerClustererF: ComponentType<MarkerClustererProps> = memo<MarkerClustererProps>(MarkerClustererFunctional)
 
-export class ClustererComponent extends PureComponent<
-  MarkerClustererProps,
-  ClustererState
-> {
-  static override contextType = MapContext
-  declare context: ContextType<typeof MapContext>
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  override state: ClustererState = {
-    markerClusterer: null,
-  }
-
-  setClustererCallback = (): void => {
-    if (this.state.markerClusterer !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.markerClusterer)
-    }
-  }
-
-  override componentDidMount(): void {
-    if (this.context) {
-      const markerClusterer = new Clusterer(
-        this.context,
-        [],
-        this.props.options
-      )
-
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: markerClusterer,
-      })
-
-      this.setState((): ClustererState => {
-        return {
-          markerClusterer,
-        }
-      }, this.setClustererCallback)
-    }
-  }
-
-  override componentDidUpdate(prevProps: MarkerClustererProps): void {
-    if (this.state.markerClusterer) {
-      unregisterEvents(this.registeredEvents)
-
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.markerClusterer,
-      })
-    }
-  }
-
-  override componentWillUnmount(): void {
-    if (this.state.markerClusterer !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.markerClusterer)
-      }
-
-      unregisterEvents(this.registeredEvents)
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.state.markerClusterer.setMap(null)
-    }
-  }
-
-  override render(): JSX.Element | null {
-    return this.state.markerClusterer !== null
-      ? this.props.children(this.state.markerClusterer)
-      : null
-  }
-}
-
-export default ClustererComponent
+export const MarkerClusterer = MarkerClustererF

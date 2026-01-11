@@ -1,4 +1,12 @@
-import { type JSX, PureComponent, type ReactNode } from 'react'
+import {
+  type JSX,
+  useEffect,
+  useRef,
+  useState,
+  type ComponentType,
+  memo,
+  type ReactNode,
+} from 'react'
 import invariant from 'invariant'
 
 import {
@@ -10,10 +18,6 @@ import { injectScript } from './utils/injectscript.js'
 import { preventGoogleFonts } from './utils/prevent-google-fonts.js'
 
 let cleaningUp = false
-
-type LoadScriptState = {
-  loaded: boolean
-}
 
 export type LoadScriptProps = LoadScriptUrlOptions & {
   children?: ReactNode | undefined
@@ -35,79 +39,93 @@ export const defaultLoadScriptProps = {
   version: 'weekly',
 }
 
-class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
-  public static defaultProps = defaultLoadScriptProps
+function LoadScriptFunctional({
+  children,
+  id,
+  nonce,
+  loadingElement,
+  onLoad,
+  onError,
+  onUnmount,
+  preventGoogleFontsLoading,
+  ...restProps
+}: LoadScriptProps): JSX.Element {
+  const [loaded, setLoaded] = useState(false)
+  const checkRef = useRef<HTMLDivElement | null>(null)
+  const previousLanguageRef = useRef<string | undefined>(undefined)
+  const previousLibrariesRef = useRef<string[] | undefined>(undefined)
 
-  check: HTMLDivElement | null = null
-
-  override state = {
-    loaded: false,
-  }
-
-  cleanupCallback = (): void => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  const cleanupCallback = (): void => {
     // @ts-ignore
     delete window.google.maps
 
-    this.injectScript()
+    injectScriptFunction()
   }
 
-  override componentDidMount(): void {
+  // Mount effect
+  useEffect(() => {
     if (isBrowser) {
       if (window.google && window.google.maps && !cleaningUp) {
         console.error('google api is already presented')
-
         return
       }
 
-      this.isCleaningUp()
-        .then(this.injectScript)
+      isCleaningUp()
+        .then(injectScriptFunction)
         .catch(function error(err) {
           console.error('Error at injecting script after cleaning up: ', err)
         })
     }
-  }
+  }, [])
 
-  override componentDidUpdate(prevProps: LoadScriptProps): void {
-    if (this.props.libraries !== prevProps.libraries) {
+  // Update effect for language change
+  useEffect(() => {
+    const currentLanguage = restProps.language
+    const currentLibraries = restProps.libraries
+
+    // Check if libraries changed
+    if (previousLibrariesRef.current !== undefined && currentLibraries !== previousLibrariesRef.current) {
       console.warn(
         'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables'
       )
     }
 
-    if (isBrowser && prevProps.language !== this.props.language) {
-      this.cleanup()
-      // TODO: refactor to use gDSFP maybe... wait for hooks refactoring.
-      this.setState(function setLoaded() {
-        return {
-          loaded: false,
-        }
-      }, this.cleanupCallback)
+    // Handle language change
+    if (isBrowser && previousLanguageRef.current !== undefined && currentLanguage !== previousLanguageRef.current) {
+      cleanup()
+      setLoaded(false)
+      cleanupCallback()
     }
-  }
 
-  override componentWillUnmount(): void {
-    if (isBrowser) {
-      this.cleanup()
+    // Update refs
+    previousLanguageRef.current = currentLanguage
+    previousLibrariesRef.current = currentLibraries
+  }, [restProps.language, restProps.libraries])
 
-      const timeoutCallback = (): void => {
-        if (!this.check) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          delete window.google
-          cleaningUp = false
+  // Unmount effect
+  useEffect(() => {
+    return (): void => {
+      if (isBrowser) {
+        cleanup()
+
+        const timeoutCallback = (): void => {
+          if (!checkRef.current) {
+            // @ts-ignore
+            delete window.google
+            cleaningUp = false
+          }
+        }
+
+        window.setTimeout(timeoutCallback, 1)
+
+        if (onUnmount) {
+          onUnmount()
         }
       }
-
-      window.setTimeout(timeoutCallback, 1)
-
-      if (this.props.onUnmount) {
-        this.props.onUnmount()
-      }
     }
-  }
+  }, [])
 
-  isCleaningUp = async (): Promise<void> => {
+  const isCleaningUp = async (): Promise<void> => {
     function promiseCallback(resolve: () => void): void {
       if (!cleaningUp) {
         resolve()
@@ -129,9 +147,9 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
     return new Promise(promiseCallback)
   }
 
-  cleanup = (): void => {
+  const cleanup = (): void => {
     cleaningUp = true
-    const script = document.getElementById(this.props.id)
+    const script = document.getElementById(id)
 
     if (script && script.parentNode) {
       script.parentNode.removeChild(script)
@@ -169,7 +187,7 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
       .call(document.getElementsByTagName('style'))
       .filter(function filter(style: HTMLStyleElement): boolean {
         return (
-          style.innerText !== undefined &&
+          typeof style.innerText !== 'undefined' &&
           style.innerText.length > 0 &&
           style.innerText.includes('.gm-')
         )
@@ -181,68 +199,60 @@ class LoadScript extends PureComponent<LoadScriptProps, LoadScriptState> {
       })
   }
 
-  injectScript = (): void => {
-    if (this.props.preventGoogleFontsLoading) {
+  const injectScriptFunction = (): void => {
+    if (preventGoogleFontsLoading) {
       preventGoogleFonts()
     }
 
     invariant(
-      !!this.props.id,
+      !!id,
       'LoadScript requires "id" prop to be a string: %s',
-      this.props.id
+      id
     )
 
     const injectScriptOptions = {
-      id: this.props.id,
-      nonce: this.props.nonce,
-      url: makeLoadScriptUrl(this.props),
+      id,
+      nonce,
+      url: makeLoadScriptUrl(restProps),
     }
 
     injectScript(injectScriptOptions)
       .then(() => {
-        if (this.props.onLoad) {
-          this.props.onLoad()
+        if (onLoad) {
+          onLoad()
         }
 
-        this.setState(function setLoaded() {
-          return {
-            loaded: true,
-          }
-        })
+        setLoaded(true)
 
         return
       })
       .catch((err) => {
-        if (this.props.onError) {
-          this.props.onError(err)
+        if (onError) {
+          onError(err)
         }
 
         console.error(`
           There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${
-            this.props.googleMapsApiKey || '-'
+            restProps.googleMapsApiKey || '-'
           }) or Client ID (${
-            this.props.googleMapsClientId || '-'
+            restProps.googleMapsClientId || '-'
           }) to <LoadScript />
           Otherwise it is a Network issue.
         `)
       })
   }
 
-  getRef = (el: HTMLDivElement | null): void => {
-    this.check = el
-  }
+  return (
+    <>
+      <div ref={checkRef} />
 
-  override render(): ReactNode {
-    return (
-      <>
-        <div ref={this.getRef} />
-
-        {this.state.loaded
-          ? this.props.children
-          : this.props.loadingElement || <DefaultLoadingElement />}
-      </>
-    )
-  }
+      {loaded
+        ? children
+        : loadingElement || <DefaultLoadingElement />}
+    </>
+  )
 }
 
-export default LoadScript
+export const LoadScriptF: ComponentType<LoadScriptProps> = memo<LoadScriptProps>(LoadScriptFunctional)
+
+export const LoadScript = LoadScriptF

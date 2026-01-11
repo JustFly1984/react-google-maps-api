@@ -1,4 +1,3 @@
-/* eslint-disable filenames/match-regex */
 import { useEffect, useRef, useState } from 'react'
 import invariant from 'invariant'
 

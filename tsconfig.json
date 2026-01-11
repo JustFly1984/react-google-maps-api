@@ -2,12 +2,9 @@
   "exclude": ["node_modules", "react-google-maps-api-gatsby-example"],
   "types": [
     "googlemaps",
-    "jest",
     "invariant",
     "react-dom",
-    "eslint",
-    "estree",
-    "webpack"
+    "estree"
   ],
   "compilerOptions": {
     "module": "ES2022",
@@ -29,6 +26,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitThis": true,
     "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": false,
     "resolveJsonModule": true,

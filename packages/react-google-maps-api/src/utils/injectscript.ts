@@ -14,7 +14,6 @@ export function injectScript({
   url,
   id,
   nonce,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }: InjectScriptArg): Promise<any> {
   if (!isBrowser) {
     return Promise.reject(new Error('document is undefined'))

@@ -1,46 +1,12 @@
-import { type ContextType, PureComponent } from 'react'
-
 import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents,
-} from '../../utils/helper.js'
+  type ComponentType,
+  memo,
+  useEffect,
+  useRef,
+  useContext,
+} from 'react'
 
-import MapContext from '../../map-context.js'
-
-const eventMap = {
-  onDirectionsChanged: 'directions_changed',
-}
-
-const updaterMap = {
-  directions(
-    instance: google.maps.DirectionsRenderer,
-    directions: google.maps.DirectionsResult
-  ): void {
-    instance.setDirections(directions)
-  },
-  map(instance: google.maps.DirectionsRenderer, map: google.maps.Map): void {
-    instance.setMap(map)
-  },
-  options(
-    instance: google.maps.DirectionsRenderer,
-    options: google.maps.DirectionsRendererOptions
-  ): void {
-    instance.setOptions(options)
-  },
-  panel(instance: google.maps.DirectionsRenderer, panel: HTMLElement): void {
-    instance.setPanel(panel)
-  },
-  routeIndex(
-    instance: google.maps.DirectionsRenderer,
-    routeIndex: number
-  ): void {
-    instance.setRouteIndex(routeIndex)
-  },
-}
-
-type DirectionsRendererState = {
-  directionsRenderer: google.maps.DirectionsRenderer | null
-}
+import { MapContext } from '../../map-context.js'
 
 export type DirectionsRendererProps = {
   options?: google.maps.DirectionsRendererOptions | undefined
@@ -62,81 +28,94 @@ export type DirectionsRendererProps = {
     | undefined
 }
 
-export class DirectionsRenderer extends PureComponent<
-  DirectionsRendererProps,
-  DirectionsRendererState
-> {
-  static override contextType = MapContext
+function DirectionsRendererFunctional({
+  options,
+  directions,
+  panel,
+  routeIndex,
+  onDirectionsChanged,
+  onLoad,
+  onUnmount,
+}: DirectionsRendererProps): null {
+  const map = useContext(MapContext)
+  const directionsRendererRef = useRef<google.maps.DirectionsRenderer | null>(null)
+  const registeredEventsRef = useRef<google.maps.MapsEventListener[]>([])
 
-  declare context: ContextType<typeof MapContext>
+  useEffect(() => {
+    const directionsRenderer = new google.maps.DirectionsRenderer(options)
 
-  registeredEvents: google.maps.MapsEventListener[] = []
+    directionsRendererRef.current = directionsRenderer
 
-  override state: DirectionsRendererState = {
-    directionsRenderer: null,
-  }
+    return (): void => {
+      if (directionsRendererRef.current !== null) {
+        if (onUnmount) {
+          onUnmount(directionsRendererRef.current)
+        }
 
-  setDirectionsRendererCallback = (): void => {
-    if (this.state.directionsRenderer !== null) {
-      this.state.directionsRenderer.setMap(this.context)
+        registeredEventsRef.current.forEach(event => event.remove())
+        registeredEventsRef.current = []
 
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.directionsRenderer)
+        if (directionsRendererRef.current) {
+          directionsRendererRef.current.setMap(null)
+        }
+
+        directionsRendererRef.current = null
       }
     }
-  }
+  }, [])
 
-  override componentDidMount(): void {
-    const directionsRenderer = new google.maps.DirectionsRenderer(
-      this.props.options
-    )
+  useEffect(() => {
+    const directionsRenderer = directionsRendererRef.current
 
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps: {},
-      nextProps: this.props,
-      instance: directionsRenderer,
-    })
+    if (directionsRenderer !== null) {
+      registeredEventsRef.current.forEach(event => event.remove())
+      registeredEventsRef.current = []
 
-    this.setState(function setDirectionsRenderer() {
-      return {
-        directionsRenderer,
-      }
-    }, this.setDirectionsRendererCallback)
-  }
+      const eventListeners: google.maps.MapsEventListener[] = []
 
-  override componentDidUpdate(prevProps: DirectionsRendererProps): void {
-    if (this.state.directionsRenderer !== null) {
-      unregisterEvents(this.registeredEvents)
-
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.directionsRenderer,
-      })
-    }
-  }
-
-  override componentWillUnmount(): void {
-    if (this.state.directionsRenderer !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.directionsRenderer)
+      if (onDirectionsChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(
+            directionsRenderer,
+            'directions_changed',
+            onDirectionsChanged
+          )
+        )
       }
 
-      unregisterEvents(this.registeredEvents)
+      registeredEventsRef.current = eventListeners
 
-      if (this.state.directionsRenderer) {
-        this.state.directionsRenderer.setMap(null)
+      if (typeof directions !== 'undefined') {
+        directionsRenderer.setDirections(directions)
+      }
+
+      if (typeof panel !== 'undefined') {
+        directionsRenderer.setPanel(panel)
+      }
+
+      if (typeof routeIndex !== 'undefined') {
+        directionsRenderer.setRouteIndex(routeIndex)
+      }
+
+      if (typeof options !== 'undefined') {
+        directionsRenderer.setOptions(options)
       }
     }
-  }
+  }, [directions, panel, routeIndex, options, onDirectionsChanged])
 
-  override render(): null {
-    return null
-  }
+  useEffect(() => {
+    if (directionsRendererRef.current !== null) {
+      directionsRendererRef.current.setMap(map)
+
+      if (onLoad) {
+        onLoad(directionsRendererRef.current)
+      }
+    }
+  }, [map, onLoad])
+
+  return null
 }
 
-export default DirectionsRenderer
+export const DirectionsRendererF: ComponentType<DirectionsRendererProps> = memo<DirectionsRendererProps>(DirectionsRendererFunctional)
+
+export const DirectionsRenderer = DirectionsRendererF

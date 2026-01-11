@@ -1,9 +1,10 @@
-import { PureComponent } from 'react'
+import {
+  type ComponentType,
+  memo,
+  useEffect,
+  useRef,
+} from 'react'
 import invariant from 'invariant'
-
-type DirectionsServiceState = {
-  directionsService: google.maps.DirectionsService | null
-}
 
 export type DirectionsServiceProps = {
   // required for default functionality
@@ -28,56 +29,48 @@ export type DirectionsServiceProps = {
     | undefined
 }
 
-export class DirectionsService extends PureComponent<
-  DirectionsServiceProps,
-  DirectionsServiceState
-> {
-  override state: DirectionsServiceState = {
-    directionsService: null,
-  }
+function DirectionsServiceFunctional({
+  options,
+  callback,
+  onLoad,
+  onUnmount,
+}: DirectionsServiceProps): null {
+  const directionsServiceRef = useRef<google.maps.DirectionsService | null>(null)
 
-  setDirectionsServiceCallback = (): void => {
-    if (this.state.directionsService !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.directionsService)
-    }
-  }
-
-  override componentDidMount(): void {
+  useEffect(() => {
     invariant(
-      !!this.props.options,
+      !!options,
       'DirectionsService expected options object as parameter, but got %s',
-      this.props.options
+      options
     )
 
     const directionsService = new google.maps.DirectionsService()
+    directionsServiceRef.current = directionsService
 
-    this.setState(function setDirectionsService() {
-      return {
-        directionsService,
-      }
-    }, this.setDirectionsServiceCallback)
-  }
-
-  override componentDidUpdate(): void {
-    if (this.state.directionsService !== null) {
-      this.state.directionsService.route(
-        this.props.options,
-        this.props.callback
-      )
+    if (onLoad) {
+      onLoad(directionsService)
     }
-  }
 
-  override componentWillUnmount(): void {
-    if (this.state.directionsService !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.directionsService)
+    return (): void => {
+      if (directionsServiceRef.current !== null) {
+        if (onUnmount) {
+          onUnmount(directionsServiceRef.current)
+        }
+
+        directionsServiceRef.current = null
       }
     }
-  }
+  }, [])
 
-  override render(): null {
-    return null
-  }
+  useEffect(() => {
+    if (directionsServiceRef.current !== null) {
+      directionsServiceRef.current.route(options, callback)
+    }
+  }, [options, callback])
+
+  return null
 }
 
-export default DirectionsService
+export const DirectionsServiceF: ComponentType<DirectionsServiceProps> = memo<DirectionsServiceProps>(DirectionsServiceFunctional)
+
+export const DirectionsService = DirectionsServiceF

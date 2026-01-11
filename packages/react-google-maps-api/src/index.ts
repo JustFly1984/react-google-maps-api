@@ -1,9 +1,9 @@
-export { default as GoogleMap, type GoogleMapProps } from './GoogleMap.js'
+export { GoogleMap, type GoogleMapProps } from './GoogleMap.js'
 
-export { default as LoadScript, type LoadScriptProps } from './LoadScript.js'
+export { LoadScript, type LoadScriptProps } from './LoadScript.js'
 
 export {
-  default as LoadScriptNext,
+  LoadScriptNext,
   type LoadScriptNextProps,
 } from './LoadScriptNext.js'
 
@@ -12,95 +12,95 @@ export { useLoadScript } from './useLoadScript.js'
 export { useJsApiLoader } from './useJsApiLoader.js'
 
 export {
-  default as TrafficLayer,
+  TrafficLayer,
   TrafficLayerF,
   type TrafficLayerProps,
 } from './components/maps/TrafficLayer.js'
 
 export {
-  default as BicyclingLayer,
+  BicyclingLayer,
   BicyclingLayerF,
   type BicyclingLayerProps,
 } from './components/maps/BicyclingLayer.js'
 
 export {
-  default as TransitLayer,
+  TransitLayer,
   TransitLayerF,
   type TransitLayerProps,
 } from './components/maps/TransitLayer.js'
 
 export {
-  default as DrawingManager,
+  DrawingManager,
   DrawingManagerF,
   type DrawingManagerProps,
 } from './components/drawing/DrawingManager.js'
 
 export {
-  default as Marker,
+  Marker,
   MarkerF,
   type MarkerProps,
 } from './components/drawing/Marker.js'
 
 export {
-  default as MarkerClusterer,
+  MarkerClusterer,
   MarkerClustererF,
   type MarkerClustererProps,
 } from './components/addons/MarkerClusterer.js'
 
 export {
-  default as InfoBox,
+  InfoBox,
   InfoBoxF,
   type InfoBoxProps,
 } from './components/addons/InfoBox.js'
 
 export {
-  default as GoogleMarkerClusterer,
+  GoogleMarkerClusterer,
   type GoogleMarkerClustererProps,
 } from './components/addons/GoogleMarkerClusterer.js'
 
 export {
-  default as InfoWindow,
+  InfoWindow,
   InfoWindowF,
   type InfoWindowProps,
 } from './components/drawing/InfoWindow.js'
 
 export {
-  default as Polyline,
+  Polyline,
   PolylineF,
   type PolylineProps,
 } from './components/drawing/Polyline.js'
 
 export {
-  default as Polygon,
+  Polygon,
   PolygonF,
   type PolygonProps,
 } from './components/drawing/Polygon.js'
 
 export {
-  default as Rectangle,
+  Rectangle,
   RectangleF,
   type RectangleProps,
 } from './components/drawing/Rectangle.js'
 
 export {
-  default as Circle,
+  Circle,
   CircleF,
   type CircleProps,
 } from './components/drawing/Circle.js'
 
 export {
-  default as Data,
+  Data,
   DataF,
   type DataProps,
 } from './components/drawing/Data.js'
 
 export {
-  default as KmlLayer,
+  KmlLayer,
   type KmlLayerProps,
 } from './components/kml/KmlLayer.js'
 
 export {
-  default as OverlayView,
+  OverlayView,
   OverlayViewF,
   type OverlayViewProps,
   FLOAT_PANE,
@@ -111,54 +111,54 @@ export {
 } from './components/dom/OverlayView.js'
 
 export {
-  default as GroundOverlay,
+  GroundOverlay,
   GroundOverlayF,
   type GroundOverlayProps,
 } from './components/overlays/GroundOverlay.js'
 
 export {
-  default as HeatmapLayer,
+  HeatmapLayer,
   HeatmapLayerF,
   type HeatmapLayerProps,
 } from './components/heatmap/HeatmapLayer.js'
 
 export {
-  default as StreetViewPanorama,
+  StreetViewPanorama,
   type StreetViewPanoramaProps,
 } from './components/streetview/StreetViewPanorama.js'
 
 export {
-  default as StreetViewService,
+  StreetViewService,
   type StreetViewServiceProps,
 } from './components/streetview/StreetViewService.js'
 
 export {
-  default as DirectionsService,
+  DirectionsService,
   type DirectionsServiceProps,
 } from './components/directions/DirectionsService.js'
 
 export {
-  default as DirectionsRenderer,
+  DirectionsRenderer,
   type DirectionsRendererProps,
 } from './components/directions/DirectionsRenderer.js'
 
 export {
-  default as DistanceMatrixService,
+  DistanceMatrixService,
   type DistanceMatrixServiceProps,
 } from './components/distance-matrix/DistanceMatrixService.js'
 
 export {
-  default as StandaloneSearchBox,
+  StandaloneSearchBox,
   type StandaloneSearchBoxProps,
 } from './components/places/StandaloneSearchBox.js'
 
 export {
-  default as Autocomplete,
+  Autocomplete,
   type AutocompleteProps,
 } from './components/places/Autocomplete.js'
 
 export { type Libraries } from './utils/make-load-script-url.js'
 
-export { default as MapContext, useGoogleMap } from './map-context.js'
+export { MapContext, useGoogleMap } from './map-context.js'
 
 export * as GoogleMapsMarkerClusterer from '@googlemaps/markerclusterer'

@@ -3,64 +3,10 @@ import {
   useState,
   useEffect,
   useContext,
-  PureComponent,
-  type ContextType,
+  type ComponentType,
 } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents,
-} from '../../utils/helper.js'
-
-import MapContext from '../../map-context.js'
-
-const eventMap = {
-  onClick: 'click',
-  onDblClick: 'dblclick',
-  onDrag: 'drag',
-  onDragEnd: 'dragend',
-  onDragStart: 'dragstart',
-  onMouseDown: 'mousedown',
-  onMouseMove: 'mousemove',
-  onMouseOut: 'mouseout',
-  onMouseOver: 'mouseover',
-  onMouseUp: 'mouseup',
-  onRightClick: 'rightclick',
-}
-
-const updaterMap = {
-  draggable(instance: google.maps.Polyline, draggable: boolean): void {
-    instance.setDraggable(draggable)
-  },
-  editable(instance: google.maps.Polyline, editable: boolean): void {
-    instance.setEditable(editable)
-  },
-  map(instance: google.maps.Polyline, map: google.maps.Map): void {
-    instance.setMap(map)
-  },
-  options(
-    instance: google.maps.Polyline,
-    options: google.maps.PolylineOptions
-  ): void {
-    instance.setOptions(options)
-  },
-  path(
-    instance: google.maps.Polyline,
-    path:
-      | google.maps.MVCArray<google.maps.LatLng>
-      | google.maps.LatLng[]
-      | google.maps.LatLngLiteral[]
-  ): void {
-    instance.setPath(path)
-  },
-  visible(instance: google.maps.Polyline, visible: boolean): void {
-    instance.setVisible(visible)
-  },
-}
-
-type PolylineState = {
-  polyline: google.maps.Polyline | null
-}
+import { MapContext } from '../../map-context.js'
 
 export type PolylineProps = {
   options?: google.maps.PolylineOptions | undefined
@@ -464,76 +410,6 @@ function PolylineFunctional({
   return null
 }
 
-export const PolylineF = memo(PolylineFunctional)
+export const PolylineF: ComponentType<PolylineProps> = memo<PolylineProps>(PolylineFunctional)
 
-export class Polyline extends PureComponent<PolylineProps, PolylineState> {
-  static override contextType = MapContext
-  declare context: ContextType<typeof MapContext>
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  override state: PolylineState = {
-    polyline: null,
-  }
-
-  setPolylineCallback = (): void => {
-    if (this.state.polyline !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.polyline)
-    }
-  }
-
-  override componentDidMount(): void {
-    const polyline = new google.maps.Polyline({
-      ...this.props.options,
-      map: this.context,
-    })
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps: {},
-      nextProps: this.props,
-      instance: polyline,
-    })
-
-    this.setState(function setPolyline() {
-      return {
-        polyline,
-      }
-    }, this.setPolylineCallback)
-  }
-
-  override componentDidUpdate(prevProps: PolylineProps): void {
-    if (this.state.polyline !== null) {
-      unregisterEvents(this.registeredEvents)
-
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.polyline,
-      })
-    }
-  }
-
-  override componentWillUnmount(): void {
-    if (this.state.polyline === null) {
-      return
-    }
-
-    if (this.props.onUnmount) {
-      this.props.onUnmount(this.state.polyline)
-    }
-
-    unregisterEvents(this.registeredEvents)
-
-    this.state.polyline.setMap(null)
-  }
-
-  override render(): null {
-    return null
-  }
-}
-
-export default Polyline
+export const Polyline = PolylineF

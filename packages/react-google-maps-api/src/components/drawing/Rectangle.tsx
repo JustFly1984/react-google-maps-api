@@ -3,62 +3,10 @@ import {
   useState,
   useEffect,
   useContext,
-  PureComponent,
-  type ContextType,
+  type ComponentType,
 } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents,
-} from '../../utils/helper.js'
-
-import MapContext from '../../map-context.js'
-
-const eventMap = {
-  onBoundsChanged: 'bounds_changed',
-  onClick: 'click',
-  onDblClick: 'dblclick',
-  onDrag: 'drag',
-  onDragEnd: 'dragend',
-  onDragStart: 'dragstart',
-  onMouseDown: 'mousedown',
-  onMouseMove: 'mousemove',
-  onMouseOut: 'mouseout',
-  onMouseOver: 'mouseover',
-  onMouseUp: 'mouseup',
-  onRightClick: 'rightclick',
-}
-
-const updaterMap = {
-  bounds(
-    instance: google.maps.Rectangle,
-    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
-  ): void {
-    instance.setBounds(bounds)
-  },
-  draggable(instance: google.maps.Rectangle, draggable: boolean): void {
-    instance.setDraggable(draggable)
-  },
-  editable(instance: google.maps.Rectangle, editable: boolean): void {
-    instance.setEditable(editable)
-  },
-  map(instance: google.maps.Rectangle, map: google.maps.Map): void {
-    instance.setMap(map)
-  },
-  options(
-    instance: google.maps.Rectangle,
-    options: google.maps.RectangleOptions
-  ): void {
-    instance.setOptions(options)
-  },
-  visible(instance: google.maps.Rectangle, visible: boolean): void {
-    instance.setVisible(visible)
-  },
-}
-
-type RectangleState = {
-  rectangle: google.maps.Rectangle | null
-}
+import { MapContext } from '../../map-context.js'
 
 export type RectangleProps = {
   options?: google.maps.RectangleOptions | undefined
@@ -500,75 +448,6 @@ function RectangleFunctional({
   return null
 }
 
-export const RectangleF = memo(RectangleFunctional)
+export const RectangleF: ComponentType<RectangleProps> = memo<RectangleProps>(RectangleFunctional)
 
-export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
-  static override contextType = MapContext
-
-  declare context: ContextType<typeof MapContext>
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  override state: RectangleState = {
-    rectangle: null,
-  }
-
-  setRectangleCallback = (): void => {
-    if (this.state.rectangle !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.rectangle)
-    }
-  }
-
-  override componentDidMount(): void {
-    const rectangle = new google.maps.Rectangle({
-      ...this.props.options,
-      map: this.context,
-    })
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps: {},
-      nextProps: this.props,
-      instance: rectangle,
-    })
-
-    this.setState(function setRectangle() {
-      return {
-        rectangle,
-      }
-    }, this.setRectangleCallback)
-  }
-
-  override componentDidUpdate(prevProps: RectangleProps): void {
-    if (this.state.rectangle !== null) {
-      unregisterEvents(this.registeredEvents)
-
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.rectangle,
-      })
-    }
-  }
-
-  override componentWillUnmount(): void {
-    if (this.state.rectangle !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.rectangle)
-      }
-
-      unregisterEvents(this.registeredEvents)
-
-      this.state.rectangle.setMap(null)
-    }
-  }
-
-  override render(): null {
-    return null
-  }
-}
-
-export default Rectangle
+export const Rectangle = RectangleF

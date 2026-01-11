@@ -31,21 +31,17 @@ Join our [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_i
 - Google Maps API Key from [Google Cloud Console](https://console.cloud.google.com)
 - git
 - node
-- pnpm
+- bun
 
 ### To develop locally
 
-Fork original repo at <https://github.com/JustFly1984/react-google-maps-api>. Clone your fork to local directory of your choice, install dependencies, set up your API Key, and start storybook server. Following commands should do the job:
+Fork original repo at <https://github.com/JustFly1984/react-google-maps-api>. Clone your fork to local directory of your choice, install dependencies, set up your API Key
 
 - `git clone https://github.com/YOUR_USER_NAME/react-google-maps-api.git` - clone your fork
-  `
 - `cd react-google-maps-api` - move to newly created folder
-- `cp .storybook/example.maps.config.ts .storybook/maps.config.ts` - create file with API Key
-- `pnpm install` - install dependencies
-- `pnpm run bootstrap` - setup workspace
-- `pnpm run storybook` - run storybook server
 
-Any changes you make to src folders of contained packages should reflect on the storybook server.
+- `bun install` - install dependencies
+- `bun run bootstrap` - setup workspace
 
 ### To contribute
 

@@ -1,5 +1,4 @@
 /* global google */
-/* eslint-disable filenames/match-regex */
 import { Cluster } from './Cluster'
 import type { ClusterIcon } from './ClusterIcon'
 
@@ -145,25 +144,25 @@ export class Clusterer implements google.maps.OverlayView {
 
     this.zoomOnClick = true
 
-    if (optOptions.zoomOnClick !== undefined) {
+    if (typeof optOptions.zoomOnClick !== 'undefined') {
       this.zoomOnClick = optOptions.zoomOnClick
     }
 
     this.averageCenter = false
 
-    if (optOptions.averageCenter !== undefined) {
+    if (typeof optOptions.averageCenter !== 'undefined') {
       this.averageCenter = optOptions.averageCenter
     }
 
     this.ignoreHidden = false
 
-    if (optOptions.ignoreHidden !== undefined) {
+    if (typeof optOptions.ignoreHidden !== 'undefined') {
       this.ignoreHidden = optOptions.ignoreHidden
     }
 
     this.enableRetinaIcons = false
 
-    if (optOptions.enableRetinaIcons !== undefined) {
+    if (typeof optOptions.enableRetinaIcons !== 'undefined') {
       this.enableRetinaIcons = optOptions.enableRetinaIcons
     }
     this.imagePath = optOptions.imagePath || IMAGE_PATH
@@ -744,7 +743,6 @@ export class Clusterer implements google.maps.OverlayView {
       if (this.timerRefStatic !== null) {
         window.clearTimeout(this.timerRefStatic)
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         delete this.timerRefStatic
       }
@@ -810,10 +808,8 @@ export class Clusterer implements google.maps.OverlayView {
     return function applyExtend(this: A, object: typeof google.maps.OverlayView): A {
       for (const property in object.prototype) {
 
-        // eslint-disable-next-line @typescript-eslint/ban-types
         const prop = property as keyof google.maps.OverlayView & (string & {})
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.prototype[prop] = object.prototype[prop]
       }

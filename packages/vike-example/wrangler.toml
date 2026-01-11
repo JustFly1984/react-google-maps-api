@@ -1,4 +1,0 @@
-name = "react-google-maps-api-docs"
-compatibility_date = "2024-09-29"
-pages_build_output_dir = "./dist/cloudflare"
-compatibility_flags = [ "nodejs_compat" ]

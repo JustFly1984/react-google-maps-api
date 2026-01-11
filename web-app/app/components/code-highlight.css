@@ -1,0 +1,30 @@
+/* Code highlighting styles */
+.shiki {
+  padding: 1rem !important;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.shiki pre {
+  margin: 0 !important;
+  padding: 1rem !important;
+}
+
+.shiki code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Line numbers styling */
+.line-number {
+  color: #6b7280;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  display: inline-block;
+  width: 2.5rem;
+  text-align: right;
+  margin-right: 0.5rem;
+}

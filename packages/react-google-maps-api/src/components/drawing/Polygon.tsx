@@ -4,74 +4,10 @@ import {
   useState,
   useEffect,
   useContext,
-  PureComponent,
-  type ContextType,
+  type ComponentType,
 } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents,
-} from '../../utils/helper.js'
-
-import MapContext from '../../map-context.js'
-
-const eventMap = {
-  onClick: 'click',
-  onDblClick: 'dblclick',
-  onDrag: 'drag',
-  onDragEnd: 'dragend',
-  onDragStart: 'dragstart',
-  onMouseDown: 'mousedown',
-  onMouseMove: 'mousemove',
-  onMouseOut: 'mouseout',
-  onMouseOver: 'mouseover',
-  onMouseUp: 'mouseup',
-  onRightClick: 'rightclick',
-}
-
-const updaterMap = {
-  draggable(instance: google.maps.Polygon, draggable: boolean): void {
-    instance.setDraggable(draggable)
-  },
-  editable(instance: google.maps.Polygon, editable: boolean): void {
-    instance.setEditable(editable)
-  },
-  map(instance: google.maps.Polygon, map: google.maps.Map): void {
-    instance.setMap(map)
-  },
-  options(
-    instance: google.maps.Polygon,
-    options: google.maps.PolygonOptions
-  ): void {
-    instance.setOptions(options)
-  },
-  path(
-    instance: google.maps.Polygon,
-    path:
-      | google.maps.MVCArray<google.maps.LatLng>
-      | google.maps.LatLng[]
-      | google.maps.LatLngLiteral[]
-  ): void {
-    instance.setPath(path)
-  },
-
-  paths(
-    instance: google.maps.Polygon,
-    paths:
-      | google.maps.MVCArray<google.maps.LatLng>
-      | google.maps.MVCArray<google.maps.MVCArray<google.maps.LatLng>>
-      | google.maps.LatLng[]
-      | google.maps.LatLng[][]
-      | google.maps.LatLngLiteral[]
-      | google.maps.LatLngLiteral[][]
-  ): void {
-    instance.setPaths(paths)
-  },
-
-  visible(instance: google.maps.Polygon, visible: boolean): void {
-    instance.setVisible(visible)
-  },
-}
+import { MapContext } from '../../map-context.js'
 
 export type PolygonProps = {
   options?: google.maps.PolygonOptions | undefined
@@ -512,67 +448,6 @@ function PolygonFunctional({
   return null
 }
 
-export const PolygonF = memo(PolygonFunctional)
+export const PolygonF: ComponentType<PolygonProps> = memo<PolygonProps>(PolygonFunctional)
 
-export class Polygon extends PureComponent<PolygonProps> {
-  static override contextType = MapContext
-  declare context: ContextType<typeof MapContext>
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  polygon: google.maps.Polygon | undefined
-
-  override componentDidMount(): void {
-    const polygonOptions = this.props.options || {}
-
-    this.polygon = new google.maps.Polygon(polygonOptions)
-
-    this.polygon.setMap(this.context)
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps: {},
-      nextProps: this.props,
-      instance: this.polygon,
-    })
-
-    if (this.props.onLoad) {
-      this.props.onLoad(this.polygon)
-    }
-  }
-
-  override componentDidUpdate(prevProps: PolygonProps): void {
-    if (this.polygon) {
-      unregisterEvents(this.registeredEvents)
-
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.polygon,
-      })
-    }
-  }
-
-  override componentWillUnmount(): void {
-    if (this.polygon) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.polygon)
-      }
-
-      unregisterEvents(this.registeredEvents)
-
-      if (this.polygon) {
-        this.polygon.setMap(null)
-      }
-    }
-  }
-
-  override render(): null {
-    return null
-  }
-}
-
-export default Polygon
+export const Polygon = PolygonF

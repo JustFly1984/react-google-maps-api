@@ -5,12 +5,9 @@
   "exclude": ["node_modules"],
   "types": [
     "googlemaps",
-    "jest",
     "invariant",
     "react-dom",
-    "eslint",
     "estree",
-    "webpack"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",

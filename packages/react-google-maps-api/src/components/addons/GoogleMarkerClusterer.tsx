@@ -1,4 +1,4 @@
-import { useState, useEffect, memo, type ReactElement } from 'react'
+import { useState, useEffect, memo, type ReactElement, type ComponentType } from 'react'
 import {
   MarkerClusterer,
   type MarkerClustererOptions,
@@ -12,22 +12,7 @@ export type MarkerClustererOptionsSubset = Omit<
 >
 
 export type GoogleMarkerClustererProps = {
-  /** Render prop that exposes marker clusterer to children components
-   *
-   * The callback function should return a list of Marker components.
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: (markerClusterer: MarkerClusterer) => ReactElement<any, any>
-  /** Subset of {@link MarkerClustererOptions} options
-   *
-   * ```
-   * {
-   *   algorithm?: Algorithm;
-   *   renderer?: Renderer;
-   *   onClusterClick?: onClusterClickHandler;
-   * }
-   * ```
-   */
   options: MarkerClustererOptionsSubset
 }
 
@@ -50,11 +35,7 @@ export function useGoogleMarkerClusterer(
   return markerClusterer
 }
 
-/** Wrapper around [@googlemaps/markerclusterer](https://github.com/googlemaps/js-markerclusterer)
- *
- * Accepts {@link  MarkerClustererOptionsSubset} which is a subset of  {@link MarkerClustererOptions}
- */
-function GoogleMarkerClusterer({
+function GoogleMarkerClustererFunctional({
   children,
   options,
 }: GoogleMarkerClustererProps) {
@@ -63,4 +44,6 @@ function GoogleMarkerClusterer({
   return markerClusterer !== null ? children(markerClusterer) : null
 }
 
-export default memo(GoogleMarkerClusterer)
+export const GoogleMarkerClustererF: ComponentType<GoogleMarkerClustererProps> = memo<GoogleMarkerClustererProps>(GoogleMarkerClustererFunctional)
+
+export const GoogleMarkerClusterer = GoogleMarkerClustererF

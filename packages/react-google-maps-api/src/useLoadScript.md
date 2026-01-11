@@ -1,4 +1,4 @@
-# Requires React 16.8+
+# Requires React 19+
 
 Underlying React hook that can be used for a fine-grained approach instead of opinionated [LoadScriptNext](#loadscriptnext).
 

@@ -20,8 +20,6 @@ node --version
 
 react version
 
-webpack version
-
 @babel version
 
 @react-google-maps/api version

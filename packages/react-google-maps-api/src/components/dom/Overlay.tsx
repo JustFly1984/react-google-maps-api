@@ -61,7 +61,6 @@ export function createOverlay(
       )
 
       for (const [key, value] of Object.entries(layoutStyles)) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.container.style[key] = value
       }

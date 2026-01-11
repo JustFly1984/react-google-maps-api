@@ -1,5 +1,4 @@
 /* global google */
-/* eslint-disable filenames/match-regex */
 import type { Cluster } from './Cluster'
 
 import type { ClusterIconStyle, ClusterIconInfo } from './types'

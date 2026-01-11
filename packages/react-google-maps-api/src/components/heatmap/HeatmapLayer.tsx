@@ -4,52 +4,12 @@ import {
   useState,
   useEffect,
   useContext,
-  PureComponent,
-  type ContextType,
+  type ComponentType,
 } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents,
-} from '../../utils/helper.js'
-
-import MapContext from '../../map-context.js'
-
-const eventMap = {}
-
-const updaterMap = {
-  data(
-    instance: google.maps.visualization.HeatmapLayer,
-    data:
-      | google.maps.MVCArray<
-          google.maps.LatLng | google.maps.visualization.WeightedLocation
-        >
-      | google.maps.LatLng[]
-      | google.maps.visualization.WeightedLocation[]
-  ): void {
-    instance.setData(data)
-  },
-  map(
-    instance: google.maps.visualization.HeatmapLayer,
-    map: google.maps.Map
-  ): void {
-    instance.setMap(map)
-  },
-  options(
-    instance: google.maps.visualization.HeatmapLayer,
-    options: google.maps.visualization.HeatmapLayerOptions
-  ): void {
-    instance.setOptions(options)
-  },
-}
-
-type HeatmapLayerState = {
-  heatmapLayer: google.maps.visualization.HeatmapLayer | null
-}
+import { MapContext } from '../../map-context.js'
 
 export type HeatmapLayerProps = {
-  // required
-  /** The data points to display. Required. */
   data:
     | google.maps.MVCArray<
         google.maps.LatLng | google.maps.visualization.WeightedLocation
@@ -57,11 +17,9 @@ export type HeatmapLayerProps = {
     | google.maps.LatLng[]
     | google.maps.visualization.WeightedLocation[]
   options?: google.maps.visualization.HeatmapLayerOptions | undefined
-  /** This callback is called when the heatmapLayer instance has loaded. It is called with the heatmapLayer instance. */
   onLoad?:
     | ((heatmapLayer: google.maps.visualization.HeatmapLayer) => void)
     | undefined
-  /** This callback is called when the component unmounts. It is called with the heatmapLayer instance. */
   onUnmount?:
     | ((heatmapLayer: google.maps.visualization.HeatmapLayer) => void)
     | undefined
@@ -131,88 +89,6 @@ function HeatmapLayerFunctional({
   return null
 }
 
-export const HeatmapLayerF = memo(HeatmapLayerFunctional)
+export const HeatmapLayerF: ComponentType<HeatmapLayerProps> = memo<HeatmapLayerProps>(HeatmapLayerFunctional)
 
-export class HeatmapLayer extends PureComponent<
-  HeatmapLayerProps,
-  HeatmapLayerState
-> {
-  static override contextType = MapContext
-  declare context: ContextType<typeof MapContext>
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  override state: HeatmapLayerState = {
-    heatmapLayer: null,
-  }
-
-  setHeatmapLayerCallback = (): void => {
-    if (this.state.heatmapLayer !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.heatmapLayer)
-    }
-  }
-
-  override componentDidMount(): void {
-    invariant(
-      !!google.maps.visualization,
-      'Did you include prop libraries={["visualization"]} to <LoadScript />? %s',
-      google.maps.visualization
-    )
-
-    invariant(
-      !!this.props.data,
-      'data property is required in HeatmapLayer %s',
-      this.props.data
-    )
-
-    const heatmapLayer = new google.maps.visualization.HeatmapLayer({
-      ...this.props.options,
-      data: this.props.data,
-      map: this.context,
-    })
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps: {},
-      nextProps: this.props,
-      instance: heatmapLayer,
-    })
-
-    this.setState(function setHeatmapLayer() {
-      return {
-        heatmapLayer,
-      }
-    }, this.setHeatmapLayerCallback)
-  }
-
-  override componentDidUpdate(prevProps: HeatmapLayerProps): void {
-    unregisterEvents(this.registeredEvents)
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.heatmapLayer,
-    })
-  }
-
-  override componentWillUnmount(): void {
-    if (this.state.heatmapLayer !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.heatmapLayer)
-      }
-
-      unregisterEvents(this.registeredEvents)
-
-      this.state.heatmapLayer.setMap(null)
-    }
-  }
-
-  override render(): null {
-    return null
-  }
-}
-
-export default HeatmapLayer
+export const HeatmapLayer = HeatmapLayerF

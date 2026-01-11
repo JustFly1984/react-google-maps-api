@@ -35,14 +35,14 @@ export function useJsApiLoader({
   isLoaded: boolean
   loadError: Error | undefined
 } {
-  const isMounted = useRef(false)
+  const mountedRef = useRef(false)
   const [isLoaded, setLoaded] = useState(false)
   const [loadError, setLoadError] = useState<Error | undefined>(undefined)
 
-  useEffect(function trackMountedState() {
-    isMounted.current = true
+  useEffect(() => {
+    mountedRef.current = true
     return (): void => {
-      isMounted.current = false
+      mountedRef.current = false
     }
   }, [])
 
@@ -70,23 +70,23 @@ export function useJsApiLoader({
     authReferrerPolicy,
   ])
 
-  useEffect(function effect() {
+  useEffect(() => {
     if (isLoaded) {
       return
-    } else {
-      loader
-        .load()
-        .then(() => {
-          if (isMounted.current) {
-            setLoaded(true)
-          }
-
-          return
-        })
-        .catch((error) => {
-          setLoadError(error)
-        })
     }
+
+    loader
+      .load()
+      .then(() => {
+        if (mountedRef.current) {
+          setLoaded(true)
+        }
+
+        return
+      })
+      .catch((error) => {
+        setLoadError(error)
+      })
   }, [])
 
   useEffect(() => {

@@ -4,46 +4,12 @@ import {
   useState,
   useEffect,
   useContext,
-  PureComponent,
-  type ContextType,
+  type ComponentType,
 } from 'react'
 
 import invariant from 'invariant'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents,
-} from '../../utils/helper.js'
-
-import MapContext from '../../map-context.js'
-
-const eventMap = {
-  onCircleComplete: 'circlecomplete',
-  onMarkerComplete: 'markercomplete',
-  onOverlayComplete: 'overlaycomplete',
-  onPolygonComplete: 'polygoncomplete',
-  onPolylineComplete: 'polylinecomplete',
-  onRectangleComplete: 'rectanglecomplete',
-}
-
-const updaterMap = {
-  drawingMode(
-    instance: google.maps.drawing.DrawingManager,
-    drawingMode: google.maps.drawing.OverlayType | null
-  ): void {
-    instance.setDrawingMode(drawingMode)
-  },
-  options(
-    instance: google.maps.drawing.DrawingManager,
-    options: google.maps.drawing.DrawingManagerOptions
-  ): void {
-    instance.setOptions(options)
-  },
-}
-
-type DrawingManagerState = {
-  drawingManager: google.maps.drawing.DrawingManager | null
-}
+import { MapContext } from '../../map-context.js'
 
 export type DrawingManagerProps = {
   options?: google.maps.drawing.DrawingManagerOptions | undefined
@@ -338,88 +304,6 @@ function DrawingManagerFunctional({
   return null
 }
 
-export const DrawingManagerF = memo(DrawingManagerFunctional)
+export const DrawingManagerF: ComponentType<DrawingManagerProps> = memo<DrawingManagerProps>(DrawingManagerFunctional)
 
-export class DrawingManager extends PureComponent<
-  DrawingManagerProps,
-  DrawingManagerState
-> {
-  static override contextType = MapContext
-
-  declare context: ContextType<typeof MapContext>
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  override state: DrawingManagerState = {
-    drawingManager: null,
-  }
-
-  constructor(props: DrawingManagerProps) {
-    super(props)
-
-    invariant(
-      !!google.maps.drawing,
-      `Did you include prop libraries={['drawing']} in the URL? %s`,
-      google.maps.drawing
-    )
-  }
-
-  setDrawingManagerCallback = (): void => {
-    if (this.state.drawingManager !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.drawingManager)
-    }
-  }
-
-  override componentDidMount(): void {
-    const drawingManager = new google.maps.drawing.DrawingManager({
-      ...this.props.options,
-      map: this.context,
-    })
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps: {},
-      nextProps: this.props,
-      instance: drawingManager,
-    })
-
-    this.setState(function setDrawingManager() {
-      return {
-        drawingManager,
-      }
-    }, this.setDrawingManagerCallback)
-  }
-
-  override componentDidUpdate(prevProps: DrawingManagerProps): void {
-    if (this.state.drawingManager !== null) {
-      unregisterEvents(this.registeredEvents)
-
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.drawingManager,
-      })
-    }
-  }
-
-  override componentWillUnmount(): void {
-    if (this.state.drawingManager !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.drawingManager)
-      }
-
-      unregisterEvents(this.registeredEvents)
-
-      this.state.drawingManager.setMap(null)
-    }
-  }
-
-  override render(): null {
-    return null
-  }
-}
-
-export default DrawingManager
+export const DrawingManager = DrawingManagerF

@@ -3,63 +3,10 @@ import {
   useState,
   useEffect,
   useContext,
-  PureComponent,
-  type ContextType,
+  type ComponentType,
 } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents,
-} from '../../utils/helper.js'
-
-import MapContext from '../../map-context.js'
-
-const eventMap = {
-  onCenterChanged: 'center_changed',
-  onRadiusChanged: 'radius_changed',
-  onClick: 'click',
-  onDblClick: 'dblclick',
-  onDrag: 'drag',
-  onDragEnd: 'dragend',
-  onDragStart: 'dragstart',
-  onMouseDown: 'mousedown',
-  onMouseMove: 'mousemove',
-  onMouseOut: 'mouseout',
-  onMouseOver: 'mouseover',
-  onMouseUp: 'mouseup',
-  onRightClick: 'rightclick',
-}
-
-const updaterMap = {
-  center(instance: google.maps.Circle, center: google.maps.LatLng): void {
-    instance.setCenter(center)
-  },
-  draggable(instance: google.maps.Circle, draggable: boolean): void {
-    instance.setDraggable(draggable)
-  },
-  editable(instance: google.maps.Circle, editable: boolean): void {
-    instance.setEditable(editable)
-  },
-  map(instance: google.maps.Circle, map: google.maps.Map): void {
-    instance.setMap(map)
-  },
-  options(
-    instance: google.maps.Circle,
-    options: google.maps.CircleOptions
-  ): void {
-    instance.setOptions(options)
-  },
-  radius(instance: google.maps.Circle, radius: number): void {
-    instance.setRadius(radius)
-  },
-  visible(instance: google.maps.Circle, visible: boolean): void {
-    instance.setVisible(visible)
-  },
-}
-
-type CircleState = {
-  circle: google.maps.Circle | null
-}
+import { MapContext } from '../../map-context.js'
 
 export type CircleProps = {
   options?: google.maps.CircleOptions | undefined
@@ -539,74 +486,6 @@ function CircleFunctional({
   return null
 }
 
-export const CircleF = memo(CircleFunctional)
+export const CircleF: ComponentType<CircleProps> = memo<CircleProps>(CircleFunctional)
 
-export class Circle extends PureComponent<CircleProps, CircleState> {
-  static override contextType = MapContext
-  declare context: ContextType<typeof MapContext>
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  override state: CircleState = {
-    circle: null,
-  }
-
-  setCircleCallback = (): void => {
-    if (this.state.circle !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.circle)
-    }
-  }
-
-  override componentDidMount(): void {
-    const circle = new google.maps.Circle({
-      ...this.props.options,
-      map: this.context,
-    })
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps: {},
-      nextProps: this.props,
-      instance: circle,
-    })
-
-    this.setState(function setCircle() {
-      return {
-        circle,
-      }
-    }, this.setCircleCallback)
-  }
-
-  override componentDidUpdate(prevProps: CircleProps): void {
-    if (this.state.circle !== null) {
-      unregisterEvents(this.registeredEvents)
-
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.circle,
-      })
-    }
-  }
-
-  override componentWillUnmount(): void {
-    if (this.state.circle !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.circle)
-      }
-
-      unregisterEvents(this.registeredEvents)
-
-      this.state.circle?.setMap(null)
-    }
-  }
-
-  override render(): null {
-    return null
-  }
-}
-
-export default Circle
+export const Circle = CircleF
