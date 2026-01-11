@@ -30,7 +30,7 @@ const spinnerClasses = clsx(
   styles.h12,
   styles.w12,
   styles.borderB2,
-  styles.borderBlue600,
+  styles.borderAccent,
 );
 const containerClasses = clsx(
   styles.container,
@@ -39,11 +39,17 @@ const containerClasses = clsx(
   styles.smPx6,
   styles.lgPx8,
 );
-const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textDark);
-const subtitleClasses = clsx(styles.mt2, styles.textGray600);
-const gridClasses = clsx(styles.grid, styles.gridCols1, styles.lgGridCols3, styles.gap8);
-const cardHeaderClasses = clsx(styles.p6, styles.borderB, styles.borderGray200);
-const cardTitleClasses = clsx(styles.textLg, styles.fontSemibold, styles.textDark);
+const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textThemePrimary);
+const subtitleClasses = clsx(styles.mt2, styles.textThemeSecondary);
+const gridClasses = clsx(
+  styles.grid,
+  styles.gridCols1,
+  styles.mdGridCols2,
+  styles.lgGridCols3,
+  styles.gap8,
+);
+const cardHeaderClasses = clsx(styles.p6, styles.borderB, styles.borderTheme);
+const cardTitleClasses = clsx(styles.textLg, styles.fontSemibold, styles.textThemePrimary);
 const loadingSpinnerClasses = clsx(styles.flex, styles.justifyCenter, styles.py8);
 const smallSpinnerClasses = clsx(
   styles.animateSpin,
@@ -51,40 +57,45 @@ const smallSpinnerClasses = clsx(
   styles.h8,
   styles.w8,
   styles.borderB2,
-  styles.borderBlue600,
+  styles.borderAccent,
 );
 const emptyStateClasses = clsx(styles.textCenter, styles.py8);
-const iconClasses = clsx(styles.mxAuto, styles.h12, styles.w12, styles.textGray400);
-const emptyTitleClasses = clsx(styles.mt4, styles.textLg, styles.fontMedium, styles.textDark);
-const emptyTextClasses = clsx(styles.mt2, styles.textGray);
+const iconClasses = clsx(styles.mxAuto, styles.h12, styles.w12, styles.textThemeTertiary);
+const emptyTitleClasses = clsx(
+  styles.mt4,
+  styles.textLg,
+  styles.fontMedium,
+  styles.textThemePrimary,
+);
+const emptyTextClasses = clsx(styles.mt2, styles.textThemeSecondary);
 const purchaseButtonClasses = clsx(styles.mt6, styles.btnPrimary);
 const cartIconClasses = clsx(styles.mr2, styles.h4, styles.w4);
-const licenseCardClasses = clsx(styles.p4, styles.border, styles.borderGray200, styles.roundedLg);
+const licenseCardClasses = clsx(styles.p4, styles.border, styles.borderTheme, styles.roundedLg);
 const licenseHeaderClasses = clsx(styles.flex, styles.itemsStart, styles.justifyBetween);
 const licenseInfoClasses = clsx(styles.flex, styles.itemsCenter, styles.gap2);
-const keyIconClasses = clsx(styles.h5, styles.w5, styles.textBlue600);
+const keyIconClasses = clsx(styles.h5, styles.w5, styles.textThemeAccent);
 const serialNumberClasses = clsx(styles.fontMono, styles.fontMedium);
 const copyButtonClasses = clsx(styles.p1, styles.hoverBgGray100, styles.rounded);
-const checkIconClasses = clsx(styles.h4, styles.w4, styles.textGreen600);
-const copyIconClasses = clsx(styles.h4, styles.w4, styles.textGray400);
+const checkIconClasses = clsx(styles.h4, styles.w4, styles.textSuccess);
+const copyIconClasses = clsx(styles.h4, styles.w4, styles.textThemeTertiary);
 const licenseMetaClasses = clsx(
   styles.mt2,
   styles.flex,
   styles.itemsCenter,
   styles.gap4,
   styles.textSm,
-  styles.textGray,
+  styles.textThemeSecondary,
 );
 const calendarClasses = clsx(
   styles.flex,
   styles.itemsCenter,
   styles.gap2,
   styles.textSm,
-  styles.textGray600,
+  styles.textThemeSecondary,
 );
 const calendarIconClasses = clsx(styles.h4, styles.w4);
 const sidebarCardClasses = clsx(styles.card, styles.p6);
-const sidebarTitleClasses = clsx(styles.fontSemibold, styles.textDark, styles.mb4);
+const sidebarTitleClasses = clsx(styles.fontSemibold, styles.textThemePrimary, styles.mb4);
 const licenseBadgeClasses = clsx(
   styles.px2,
   styles.py1,
@@ -92,8 +103,8 @@ const licenseBadgeClasses = clsx(
   styles.fontMedium,
   styles.roundedLg,
 );
-const licenseBadgeActiveClasses = clsx(licenseBadgeClasses, styles.bgGreen100, styles.textGreen700);
-const licenseBadgeInactiveClasses = clsx(licenseBadgeClasses, styles.bgRed100, styles.textRed700);
+const licenseBadgeActiveClasses = clsx(licenseBadgeClasses, styles.badgeSuccess);
+const licenseBadgeInactiveClasses = clsx(licenseBadgeClasses, styles.badgeError);
 const sidebarButtonClasses = clsx(styles.wFull, styles.btnPrimary);
 const docsLinkClasses = clsx(styles.wFull, styles.btnSecondary, styles.block, styles.textCenter);
 const purchaseIconClasses = clsx(styles.mr2, styles.h4, styles.w4);

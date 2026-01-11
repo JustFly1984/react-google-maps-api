@@ -5,6 +5,7 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 
 import { Layout } from './components/layout.tsx';
 import { AuthProvider } from './contexts/auth.tsx';
+import { ThemeProvider } from './contexts/theme.tsx';
 import { styles } from './styles.ts';
 import './tailwind.css';
 
@@ -14,12 +15,7 @@ const fallbackContainerClasses = clsx(
   styles.itemsCenter,
   styles.justifyCenter,
 );
-const bodyClasses = clsx(
-  styles.minHScreen,
-  styles.bgGray50,
-  styles.textGray900,
-  styles.antialiased,
-);
+const bodyClasses = clsx(styles.minHScreen, styles.antialiased);
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -44,7 +40,7 @@ export function HydrateFallback(): JSX.Element {
 
 export default function App(): JSX.Element {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,11 +49,13 @@ export default function App(): JSX.Element {
       </head>
 
       <body className={bodyClasses}>
-        <AuthProvider>
-          <Layout>
-            <Outlet />
-          </Layout>
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <Layout>
+              <Outlet />
+            </Layout>
+          </AuthProvider>
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

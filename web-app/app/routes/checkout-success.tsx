@@ -18,13 +18,18 @@ type License = {
 
 const containerClasses = clsx(styles.pageMaxW, styles.textCenter);
 const successIconClasses = clsx(styles.iconXl, styles.textGreen600);
-const successTitleClasses = clsx(styles.text2xl, styles.fontBold, styles.textGray900, styles.mb2);
-const successTextClasses = clsx(styles.textGray600, styles.mb6);
+const successTitleClasses = clsx(
+  styles.text2xl,
+  styles.fontBold,
+  styles.textThemePrimary,
+  styles.mb2,
+);
+const successTextClasses = clsx(styles.textThemeSecondary, styles.mb6);
 const licenseKeyContainerClasses = clsx(
   styles.flex,
   styles.itemsCenter,
   styles.gap2,
-  styles.bgGray50,
+  styles.bgThemeTertiary,
   styles.p3,
   styles.roundedLg,
 );
@@ -40,9 +45,9 @@ const copyButtonClasses = clsx(
   styles.rounded,
   styles.transitionColors,
 );
-const copyIconClasses = clsx(styles.iconSm, styles.textGray500);
+const copyIconClasses = clsx(styles.iconSm, styles.textThemeTertiary);
 const licenseCodeClasses = clsx(styles.flex1, styles.fontMono, styles.textSm, styles.fontMedium);
-const licenseValidityClasses = clsx(styles.textXs, styles.textGray500, styles.mt2);
+const licenseValidityClasses = clsx(styles.textXs, styles.textThemeTertiary, styles.mt2);
 const successIconContainerClasses = clsx(
   styles.inlineFlex,
   styles.itemsCenter,
@@ -59,7 +64,7 @@ const licenseHeaderClasses = clsx(
   styles.itemsCenter,
   styles.gap2,
   styles.textSm,
-  styles.textGray600,
+  styles.textThemeSecondary,
   styles.mb2,
 );
 const actionsContainerClasses = clsx(

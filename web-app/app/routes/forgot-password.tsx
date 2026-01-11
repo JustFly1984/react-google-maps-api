@@ -10,16 +10,29 @@ import { styles } from '../styles.ts';
 const pageContainerClasses = styles.pageContainer;
 const pageMaxWClasses = styles.pageMaxW;
 const successContainerClasses = clsx(styles.card, styles.p8, styles.textCenter);
-const successIconClasses = clsx(styles.iconXl, styles.textGreen600);
-const successTitleClasses = clsx(styles.text2xl, styles.fontBold, styles.textGray900, styles.mb2);
-const successTextClasses = clsx(styles.textGray600, styles.mb6);
-const successLinkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styles.fontMedium);
+const successIconClasses = clsx(styles.iconXl, styles.textSuccess);
+const successTitleClasses = clsx(
+  styles.text2xl,
+  styles.fontBold,
+  styles.textThemePrimary,
+  styles.mb2,
+);
+const successTextClasses = clsx(styles.textThemeSecondary, styles.mb6);
+const successLinkClasses = clsx(
+  styles.textThemeAccent,
+  styles.hoverTextAccentHover,
+  styles.fontMedium,
+);
 const headerClasses = clsx(styles.textCenter, styles.mb8);
-const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textGray900);
-const subtitleClasses = clsx(styles.mt2, styles.textGray600);
+const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textThemePrimary);
+const subtitleClasses = clsx(styles.mt2, styles.textThemeSecondary);
 const cardClasses = clsx(styles.card, styles.p8);
-const footerClasses = clsx(styles.mt6, styles.textCenter, styles.textSm, styles.textGray600);
-const footerLinkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styles.fontMedium);
+const footerClasses = clsx(styles.mt6, styles.textCenter, styles.textSm, styles.textThemeSecondary);
+const footerLinkClasses = clsx(
+  styles.textThemeAccent,
+  styles.hoverTextAccentHover,
+  styles.fontMedium,
+);
 const buttonClasses = clsx(styles.wFull, styles.btnPrimary, styles.py3);
 
 export default function ForgotPasswordPage(): JSX.Element {

@@ -12,6 +12,13 @@ export const styles = {
   absolute: 'absolute',
   inlineBlock: 'inline-block',
   inlineFlex: 'inline-flex',
+  flexRow: 'flex-row',
+
+  // Display
+  hidden: 'hidden',
+  lgHidden: 'lg:hidden',
+  lgFlex: 'lg:flex',
+  mdW64: 'md:w-64',
 
   // Grid
   grid: 'grid',
@@ -19,6 +26,7 @@ export const styles = {
   gridCols2: 'grid-cols-2',
   gridCols3: 'grid-cols-3',
   gridCols4: 'grid-cols-4',
+  mdGridCols2: 'md:grid-cols-2',
   mdGridCols3: 'md:grid-cols-3',
   lgGridCols3: 'lg:grid-cols-3',
   lgColSpan2: 'lg:col-span-2',
@@ -158,13 +166,14 @@ export const styles = {
 
   // Max Width
   maxWNone: 'max-w-none',
-  maxWMd: 'max-w-md',
-  maxWLg: 'max-w-lg',
+  maxWFull: 'max-w-full',
   maxW2xl: 'max-w-2xl',
+  maxW4xl: 'max-w-4xl',
+  maxW5xl: 'max-w-5xl',
+  maxW6xl: 'max-w-6xl',
   maxW7xl: 'max-w-7xl',
-
-  // States
-  hidden: 'hidden',
+  maxWLg: 'max-w-lg',
+  mdMaxW2xl: 'md:max-w-2xl',
   block: 'block',
   opacity0: 'opacity-0',
   opacity50: 'opacity-50',
@@ -298,44 +307,45 @@ export const styles = {
   main: 'flex-1',
 
   // Custom combinations - Hero
-  heroSection: 'relative overflow-hidden bg-linear-to-b from-blue-50 to-white py-20 sm:py-32',
+  heroSection: 'relative overflow-hidden hero-gradient py-20 sm:py-32',
 
   // Custom combinations - Cards
-  featureCard: 'bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow',
-  pricingCard: 'bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow',
-  testimonialCard: 'bg-gray-50 p-6 rounded-lg border border-gray-200',
+  featureCard: 'bg-theme-surface p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow',
+  pricingCard:
+    'bg-theme-surface rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow border border-theme',
+  testimonialCard: 'bg-theme-tertiary p-6 rounded-lg border border-theme',
 
   // Documentation specific
   docContainer: 'max-w-4xl mx-auto px-4 py-8',
-  docHeader: 'mb-8 pb-4 border-b',
+  docHeader: 'mb-8 pb-4 border-b border-theme',
   docSection: 'mb-12',
-  docTitle: 'text-3xl font-bold text-gray-900 mb-4',
-  docSubtitle: 'text-xl text-gray-600 mb-6',
+  docTitle: 'text-3xl font-bold text-theme-primary mb-4',
+  docSubtitle: 'text-xl text-theme-secondary mb-6',
 
   // Dashboard specific
   dashboardGrid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6',
-  dashboardCard: 'bg-white p-6 rounded-lg shadow-md',
+  dashboardCard: 'bg-theme-surface p-6 rounded-lg shadow-md border border-theme',
   dashboardHeader: 'flex items-center justify-between mb-6',
 
   // Form specific
-  formContainer: 'max-w-md mx-auto bg-white p-8 rounded-lg shadow-md',
-  formTitle: 'text-2xl font-bold text-center mb-6',
-  formError: 'p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm',
-  formSuccess: 'text-green-600 text-sm mt-1',
+  formContainer: 'max-w-md mx-auto bg-theme-surface p-8 rounded-lg shadow-md border border-theme',
+  formTitle: 'text-2xl font-bold text-center mb-6 text-theme-primary',
+  formError: 'p-4 badge-error rounded-lg text-sm',
+  formSuccess: 'text-success text-sm mt-1',
 
   // Loading states
-  loadingSpinner: 'animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600',
+  loadingSpinner: 'animate-spin rounded-full h-12 w-12 border-b-2 border-accent',
   loadingContainer: 'flex items-center justify-center py-8',
 
   // Modal
   modalOverlay: 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50',
-  modalContent: 'bg-white rounded-lg p-6 max-w-md w-full mx-4',
+  modalContent: 'bg-theme-surface rounded-lg p-6 max-w-md w-full mx-4 border border-theme',
 
   // Table
   table: 'w-full border-collapse',
-  tableHeader: 'bg-gray-50 border-b',
-  tableCell: 'px-4 py-2 border-b',
-  tableRow: 'hover:bg-gray-50',
+  tableHeader: 'bg-theme-tertiary border-b border-theme',
+  tableCell: 'px-4 py-2 border-b border-theme',
+  tableRow: 'hover:bg-theme-tertiary',
 
   // Badge
   badge: 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
@@ -373,6 +383,28 @@ export const styles = {
   borderGray300: 'border-gray-300',
   hoverTextGray700: 'hover:text-gray-700',
   px1: 'px-1',
+
+  // Theme-aware classes
+  textThemePrimary: 'text-theme-primary',
+  textThemeSecondary: 'text-theme-secondary',
+  textThemeTertiary: 'text-theme-tertiary',
+  textThemeInverse: 'text-theme-inverse',
+  textThemeAccent: 'text-theme-accent',
+  bgThemeSurface: 'bg-theme-surface',
+  bgThemeSecondary: 'bg-theme-secondary',
+  bgThemeTertiary: 'bg-theme-tertiary',
+  borderTheme: 'border-theme',
+  borderThemeSecondary: 'border-theme-secondary',
+  borderAccent: 'border-accent',
+  textSuccess: 'text-success',
+  hoverTextAccentHover: 'hover:text-accent-hover',
+  heroGradient: 'hero-gradient',
+  codeBlockTheme: 'code-block',
+  badgeSuccess: 'badge-success',
+  badgeError: 'badge-error',
+  headerTheme: 'header',
+  themeToggle: 'theme-toggle',
+  navLinkTheme: 'nav-link',
 } as const;
 
 export type Styles = typeof styles;

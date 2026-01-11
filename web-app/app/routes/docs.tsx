@@ -1242,7 +1242,6 @@ function MapWithInfoBox() {
   },
 };
 
-const pageClasses = styles.py12;
 const containerClasses = clsx(
   styles.container,
   styles.maxW7xl,
@@ -1251,9 +1250,9 @@ const containerClasses = clsx(
   styles.lgPx8,
 );
 const layoutClasses = clsx(styles.flex, styles.flexCol, styles.lgFlexRow, styles.gap8);
-const sidebarClasses = clsx(styles.lgW72, styles.shrink0);
+const sidebarClasses = clsx(styles.lgW72, styles.mdW64, styles.shrink0);
 const navClasses = clsx(styles.card, styles.p4, styles.sticky, styles.top4);
-const navTitleClasses = clsx(styles.fontSemibold, styles.textDark, styles.mb4);
+const navTitleClasses = clsx(styles.fontSemibold, styles.textThemePrimary, styles.mb4);
 const navItemClasses = clsx(
   styles.flex,
   styles.itemsCenter,
@@ -1262,7 +1261,7 @@ const navItemClasses = clsx(
   styles.py2,
   styles.textSm,
   styles.fontMedium,
-  styles.textDark,
+  styles.textThemePrimary,
 );
 const navIconClasses = clsx(styles.h4, styles.w4);
 const navChildrenClasses = clsx(styles.ml6, styles.spaceY1);
@@ -1276,21 +1275,36 @@ const navChildLinkClasses = clsx(
 );
 const mainClasses = clsx(styles.flex1, styles.minW0);
 const contentCardClasses = clsx(styles.card, styles.p8);
-const contentTitleClasses = clsx(styles.text3xl, styles.fontBold, styles.textDark, styles.mb4);
+const contentTitleClasses = clsx(
+  styles.text3xl,
+  styles.fontBold,
+  styles.textThemePrimary,
+  styles.mb4,
+);
 const contentClasses = clsx(styles.prose, styles.proseGray, styles.maxWNone, styles.mb6);
-const contentParagraphClasses = clsx(styles.textGray, styles.mb4);
-const codeTitleClasses = clsx(styles.textLg, styles.fontSemibold, styles.textDark, styles.mb4);
-const propsTitleClasses = clsx(styles.textLg, styles.fontSemibold, styles.textDark, styles.mb4);
+const contentParagraphClasses = clsx(styles.textThemeSecondary, styles.mb4);
+const codeTitleClasses = clsx(
+  styles.textLg,
+  styles.fontSemibold,
+  styles.textThemePrimary,
+  styles.mb4,
+);
+const propsTitleClasses = clsx(
+  styles.textLg,
+  styles.fontSemibold,
+  styles.textThemePrimary,
+  styles.mb4,
+);
 const tableClasses = clsx(styles.wFull, styles.textSm);
-const tableHeaderClasses = clsx(styles.borderB, styles.borderGray200);
+const tableHeaderClasses = clsx(styles.borderB, styles.borderTheme);
 const tableHeaderCellClasses = clsx(
   styles.textLeft,
   styles.py3,
   styles.px4,
   styles.fontSemibold,
-  styles.textGray900,
+  styles.textThemePrimary,
 );
-const tableRowClasses = clsx(styles.borderB, styles.borderGray100);
+const tableRowClasses = clsx(styles.borderB, styles.borderTheme);
 const tableCellClasses = clsx(styles.py3, styles.px4);
 const codeClasses = clsx(
   styles.textBlue600,
@@ -1308,7 +1322,7 @@ export default function DocsPage(): JSX.Element {
   const currentContent = content[currentSection] ?? content['getting-started']!;
 
   return (
-    <div className={pageClasses}>
+    <div className={styles.py12}>
       <div className={containerClasses}>
         <div className={layoutClasses}>
           <aside className={sidebarClasses}>
@@ -1353,7 +1367,7 @@ export default function DocsPage(): JSX.Element {
                   <p key={i} className={contentParagraphClasses}>
                     {paragraph.split('**').map((part, j) =>
                       j % 2 === 1 ? (
-                        <strong key={j} className={styles.textDark}>
+                        <strong key={j} className={styles.textThemePrimary}>
                           {part}
                         </strong>
                       ) : (

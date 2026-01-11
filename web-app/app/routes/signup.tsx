@@ -8,11 +8,11 @@ import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 
 const headerClasses = clsx(styles.textCenter, styles.mb8);
-const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textGray900);
-const subtitleClasses = clsx(styles.mt2, styles.textGray600);
+const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textThemePrimary);
+const subtitleClasses = clsx(styles.mt2, styles.textThemeSecondary);
 const cardClasses = clsx(styles.card, styles.p8);
 const buttonClasses = clsx(styles.wFull, styles.btnPrimary, styles.py3);
-const footerClasses = clsx(styles.mt6, styles.textCenter, styles.textSm, styles.textGray600);
+const footerClasses = clsx(styles.mt6, styles.textCenter, styles.textSm, styles.textThemeSecondary);
 const linkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styles.fontMedium);
 
 export default function SignUpPage(): JSX.Element {

@@ -9,12 +9,17 @@ import { styles } from '../styles.ts';
 
 const successContainerClasses = clsx(styles.card, styles.p8, styles.textCenter);
 const successIconClasses = clsx(styles.iconXl, styles.textGreen600);
-const successTitleClasses = clsx(styles.text2xl, styles.fontBold, styles.textGray900, styles.mb2);
-const successTextClasses = clsx(styles.textGray600, styles.mb6);
+const successTitleClasses = clsx(
+  styles.text2xl,
+  styles.fontBold,
+  styles.textThemePrimary,
+  styles.mb2,
+);
+const successTextClasses = clsx(styles.textThemeSecondary, styles.mb6);
 const successLinkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styles.fontMedium);
 const headerClasses = clsx(styles.textCenter, styles.mb8);
-const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textGray900);
-const subtitleClasses = clsx(styles.mt2, styles.textGray600);
+const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textThemePrimary);
+const subtitleClasses = clsx(styles.mt2, styles.textThemeSecondary);
 const cardClasses = clsx(styles.card, styles.p8);
 const buttonClasses = clsx(styles.wFull, styles.btnPrimary, styles.py3);
 

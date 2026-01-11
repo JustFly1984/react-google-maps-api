@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 import { Logo } from './logo.tsx';
+import { ThemeToggle } from './theme-toggle.tsx';
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -14,24 +15,22 @@ const navigation = [
 ];
 
 const layoutClasses = clsx(styles.minHScreen, styles.flex, styles.flexCol);
-const headerClasses = clsx(styles.bgWhite, styles.borderB, styles.borderGray200);
 const logoContainerClasses = clsx(styles.flex, styles.itemsCenter, styles.gap8);
 const logoLinkClasses = clsx(styles.flex, styles.itemsCenter, styles.gap2);
 const logoBoxClasses = clsx(styles.block, styles.h8, styles.w8);
-const logoTextClasses = clsx(styles.fontBold, styles.textXl, styles.textGray900);
+const logoTextClasses = clsx(styles.fontBold, styles.textXl, styles.textThemePrimary);
 const navDesktopClasses = clsx(styles.hidden, styles.mdFlex, styles.itemsCenter, styles.gap6);
 const navLinkClasses = clsx(styles.textSm, styles.fontMedium, styles.transitionColors);
-const navLinkActiveClasses = clsx(navLinkClasses, styles.textBlue600);
-const navLinkInactiveClasses = clsx(navLinkClasses, styles.textGray600, styles.hoverTextGray900);
-const userMenuClasses = clsx(styles.hidden, styles.mdFlex, styles.itemsCenter, styles.gap4);
+const navLinkActiveClasses = clsx(navLinkClasses, styles.textThemeAccent);
+const navLinkInactiveClasses = clsx(navLinkClasses, styles.textThemeSecondary);
+const userMenuClasses = clsx(styles.hidden, styles.lgFlex, styles.itemsCenter, styles.gap4);
 const userLinkClasses = clsx(
   styles.flex,
   styles.itemsCenter,
   styles.gap2,
   styles.textSm,
   styles.fontMedium,
-  styles.textGray600,
-  styles.hoverTextGray900,
+  styles.textThemeSecondary,
 );
 const signOutButtonClasses = clsx(
   styles.flex,
@@ -39,44 +38,21 @@ const signOutButtonClasses = clsx(
   styles.gap2,
   styles.textSm,
   styles.fontMedium,
-  styles.textGray600,
-  styles.hoverTextGray900,
+  styles.textThemeSecondary,
 );
-const mobileMenuButtonClasses = clsx(styles.mdHidden, styles.p2);
-const mobileMenuClasses = clsx(styles.mdHidden, styles.py4, styles.borderT);
+const mobileMenuButtonClasses = clsx(styles.lgHidden, styles.p2);
+const mobileMenuClasses = clsx(styles.lgHidden, styles.py4, styles.borderT, styles.px4);
 const mobileNavClasses = clsx(styles.flex, styles.flexCol, styles.gap4);
-const mobileNavLinkClasses = clsx(
-  styles.textSm,
-  styles.fontMedium,
-  styles.textGray600,
-  styles.hoverTextGray900,
-);
-const mobileUserLinkClasses = clsx(
-  styles.textSm,
-  styles.fontMedium,
-  styles.textGray600,
-  styles.hoverTextGray900,
-);
+const mobileNavLinkClasses = clsx(styles.textSm, styles.fontMedium, styles.textThemeSecondary);
+const mobileUserLinkClasses = clsx(styles.textSm, styles.fontMedium, styles.textThemeSecondary);
 const mobileSignOutButtonClasses = clsx(
   styles.textSm,
   styles.fontMedium,
-  styles.textGray600,
-  styles.hoverTextGray900,
+  styles.textThemeSecondary,
   styles.textLeft,
 );
-const mobileSignInLinkClasses = clsx(
-  styles.textSm,
-  styles.fontMedium,
-  styles.textGray600,
-  styles.hoverTextGray900,
-);
-const mobileSignUpLinkClasses = clsx(
-  styles.textSm,
-  styles.fontMedium,
-  styles.textBlue600,
-  styles.hoverTextBlue700,
-);
-const footerClasses = styles.footer;
+const mobileSignInLinkClasses = clsx(styles.textSm, styles.fontMedium, styles.textThemeSecondary);
+const mobileSignUpLinkClasses = clsx(styles.textSm, styles.fontMedium, styles.textThemeAccent);
 const footerContainerClasses = clsx(styles.containerMaxW7xl, styles.py12);
 const footerContentClasses = clsx(
   styles.flex,
@@ -88,7 +64,7 @@ const footerContentClasses = clsx(
 );
 const footerLogoClasses = clsx(styles.flex, styles.itemsCenter, styles.gap2);
 const footerLogoBoxClasses = clsx(styles.block, styles.h6, styles.w6);
-const footerTextClasses = clsx(styles.fontBold, styles.textWhite);
+const footerTextClasses = clsx(styles.fontBold, styles.textThemeInverse);
 
 export function Layout({ children }: { children: ReactNode }): JSX.Element {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -114,7 +90,7 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
 
   return (
     <div className={layoutClasses}>
-      <header className={headerClasses}>
+      <header className={'header'}>
         <nav className={styles.containerMaxW7xl}>
           <div className={styles.h16Flex}>
             <div className={logoContainerClasses}>
@@ -142,7 +118,9 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
             </div>
 
             <div className={userMenuClasses}>
-              {user ? (
+              <ThemeToggle />
+
+              {user !== null ? (
                 <>
                   <Link to="/dashboard" className={userLinkClasses}>
                     <User className={styles.iconSm} />
@@ -174,7 +152,7 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
             </button>
           </div>
 
-          {mobileMenuOpen && (
+          {mobileMenuOpen ? (
             <div className={mobileMenuClasses}>
               <div className={mobileNavClasses}>
                 {navigation.map((item) => (
@@ -187,7 +165,8 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
                     {item.name}
                   </Link>
                 ))}
-                {user ? (
+
+                {user !== null ? (
                   <>
                     <Link
                       to="/dashboard"
@@ -216,13 +195,13 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
                 )}
               </div>
             </div>
-          )}
+          ) : null}
         </nav>
       </header>
 
       <main className={styles.flex1}>{children}</main>
 
-      <footer className={footerClasses}>
+      <footer className={'footer'}>
         <div className={footerContainerClasses}>
           <div className={footerContentClasses}>
             <div className={footerLogoClasses}>

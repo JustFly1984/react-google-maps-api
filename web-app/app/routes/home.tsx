@@ -39,10 +39,10 @@ const heroBadgeClasses = clsx(
 const heroTitleClasses = clsx(
   styles.text4xl,
   styles.fontBold,
-  styles.textGray900,
+  styles.textThemePrimary,
   styles.trackingTight,
 );
-const heroSubtitleClasses = clsx(styles.mt6, styles.textXl, styles.textGray600);
+const heroSubtitleClasses = clsx(styles.mt6, styles.textXl, styles.textThemeSecondary);
 const heroActionsClasses = clsx(
   styles.mt10,
   styles.flex,
@@ -54,28 +54,34 @@ const heroActionsClasses = clsx(
 const getStartedButtonClasses = clsx(styles.btnPrimary, styles.textBase, styles.px8, styles.py3);
 const pricingButtonClasses = clsx(styles.btnSecondary, styles.textBase, styles.px8, styles.py3);
 const arrowIconClasses = clsx(styles.ml2, styles.iconMd);
-const featuresSectionClasses = clsx(styles.py20, styles.bgWhite);
+const featuresSectionClasses = clsx(styles.py20, styles.bgThemeSurface);
 const heroContainerClasses = styles.containerMaxW7xl;
 const featuresContainerClasses = styles.containerMaxW7xl;
 const featuresHeaderClasses = clsx(styles.textCenter, styles.mb16);
-const featuresTitleClasses = clsx(styles.text3xl, styles.fontBold, styles.textGray900);
+const featuresTitleClasses = clsx(styles.text3xl, styles.fontBold, styles.textThemePrimary);
 const featuresSubtitleClasses = clsx(
   styles.mt4,
   styles.textCenter,
   styles.textXl,
-  styles.textGray600,
+  styles.textThemeSecondary,
 );
 const featuresGridClasses = clsx(
   styles.mt12,
   styles.grid,
   styles.gridCols1,
+  styles.mdGridCols2,
   styles.gap8,
   styles.lgGridCols3,
 );
 const featureCardClasses = clsx(styles.p6);
 const featureIconClasses = clsx(styles.h12, styles.w12, styles.textBlue600);
-const featureNameClasses = clsx(styles.textLg, styles.fontSemibold, styles.textGray900, styles.mb2);
-const featureDescClasses = styles.textGray600;
+const featureNameClasses = clsx(
+  styles.textLg,
+  styles.fontSemibold,
+  styles.textThemePrimary,
+  styles.mb2,
+);
+const featureDescClasses = styles.textThemeSecondary;
 const featureIconContainerClasses = clsx(
   styles.inlineFlex,
   styles.itemsCenter,
@@ -87,12 +93,12 @@ const featureIconContainerClasses = clsx(
   styles.textBlue600,
   styles.mb4,
 );
-const ctaSectionClasses = clsx(styles.py24, styles.bgWhite);
+const ctaSectionClasses = clsx(styles.py24, styles.bgThemeSurface);
 const ctaCardClasses = clsx(styles.card, styles.p8, styles.mdP12, styles.textCenter);
-const ctaTitleClasses = clsx(styles.text3xl, styles.fontBold, styles.textGray900, styles.mb4);
+const ctaTitleClasses = clsx(styles.text3xl, styles.fontBold, styles.textThemePrimary, styles.mb4);
 const ctaDescClasses = clsx(
   styles.textLg,
-  styles.textGray600,
+  styles.textThemeSecondary,
   styles.mb8,
   styles.maxW2xl,
   styles.mxAuto,
