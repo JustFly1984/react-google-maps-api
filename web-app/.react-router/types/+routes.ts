@@ -40,125 +40,276 @@ type Pages = {
   "/checkout/success": {
     params: {};
   };
-  "/:lang": {
-    params: {
-      "lang": string;
-    };
+  "/es": {
+    params: {};
   };
-  "/:lang/docs/:section?": {
+  "/es/docs/:section?": {
     params: {
-      "lang": string;
       "section"?: string;
     };
   };
-  "/:lang/pricing": {
+  "/es/pricing": {
+    params: {};
+  };
+  "/es/login": {
+    params: {};
+  };
+  "/es/signup": {
+    params: {};
+  };
+  "/es/forgot-password": {
+    params: {};
+  };
+  "/es/reset-password": {
+    params: {};
+  };
+  "/es/dashboard": {
+    params: {};
+  };
+  "/es/checkout/success": {
+    params: {};
+  };
+  "/de": {
+    params: {};
+  };
+  "/de/docs/:section?": {
     params: {
-      "lang": string;
+      "section"?: string;
     };
   };
-  "/:lang/login": {
+  "/de/pricing": {
+    params: {};
+  };
+  "/de/login": {
+    params: {};
+  };
+  "/de/signup": {
+    params: {};
+  };
+  "/de/forgot-password": {
+    params: {};
+  };
+  "/de/reset-password": {
+    params: {};
+  };
+  "/de/dashboard": {
+    params: {};
+  };
+  "/de/checkout/success": {
+    params: {};
+  };
+  "/fr": {
+    params: {};
+  };
+  "/fr/docs/:section?": {
     params: {
-      "lang": string;
+      "section"?: string;
     };
   };
-  "/:lang/signup": {
+  "/fr/pricing": {
+    params: {};
+  };
+  "/fr/login": {
+    params: {};
+  };
+  "/fr/signup": {
+    params: {};
+  };
+  "/fr/forgot-password": {
+    params: {};
+  };
+  "/fr/reset-password": {
+    params: {};
+  };
+  "/fr/dashboard": {
+    params: {};
+  };
+  "/fr/checkout/success": {
+    params: {};
+  };
+  "/ru": {
+    params: {};
+  };
+  "/ru/docs/:section?": {
     params: {
-      "lang": string;
+      "section"?: string;
     };
   };
-  "/:lang/forgot-password": {
-    params: {
-      "lang": string;
-    };
+  "/ru/pricing": {
+    params: {};
   };
-  "/:lang/reset-password": {
-    params: {
-      "lang": string;
-    };
+  "/ru/login": {
+    params: {};
   };
-  "/:lang/dashboard": {
-    params: {
-      "lang": string;
-    };
+  "/ru/signup": {
+    params: {};
   };
-  "/:lang/checkout/success": {
-    params: {
-      "lang": string;
-    };
+  "/ru/forgot-password": {
+    params: {};
+  };
+  "/ru/reset-password": {
+    params: {};
+  };
+  "/ru/dashboard": {
+    params: {};
+  };
+  "/ru/checkout/success": {
+    params: {};
   };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/docs/:section?" | "/pricing" | "/login" | "/signup" | "/forgot-password" | "/reset-password" | "/dashboard" | "/checkout/success" | "/:lang" | "/:lang/docs/:section?" | "/:lang/pricing" | "/:lang/login" | "/:lang/signup" | "/:lang/forgot-password" | "/:lang/reset-password" | "/:lang/dashboard" | "/:lang/checkout/success";
+    page: "/" | "/docs/:section?" | "/pricing" | "/login" | "/signup" | "/forgot-password" | "/reset-password" | "/dashboard" | "/checkout/success" | "/es" | "/es/docs/:section?" | "/es/pricing" | "/es/login" | "/es/signup" | "/es/forgot-password" | "/es/reset-password" | "/es/dashboard" | "/es/checkout/success" | "/de" | "/de/docs/:section?" | "/de/pricing" | "/de/login" | "/de/signup" | "/de/forgot-password" | "/de/reset-password" | "/de/dashboard" | "/de/checkout/success" | "/fr" | "/fr/docs/:section?" | "/fr/pricing" | "/fr/login" | "/fr/signup" | "/fr/forgot-password" | "/fr/reset-password" | "/fr/dashboard" | "/fr/checkout/success" | "/ru" | "/ru/docs/:section?" | "/ru/pricing" | "/ru/login" | "/ru/signup" | "/ru/forgot-password" | "/ru/reset-password" | "/ru/dashboard" | "/ru/checkout/success";
   };
   "routes/home.tsx": {
     id: "routes/home";
     page: "/";
   } | {
-    id: "routes/home-localized";
-    page: "/:lang";
+    id: "routes/home-es";
+    page: "/es";
+  } | {
+    id: "routes/home-de";
+    page: "/de";
+  } | {
+    id: "routes/home-fr";
+    page: "/fr";
+  } | {
+    id: "routes/home-ru";
+    page: "/ru";
   };
   "routes/docs.tsx": {
     id: "routes/docs";
     page: "/docs/:section?";
   } | {
-    id: "routes/docs-localized";
-    page: "/:lang/docs/:section?";
+    id: "routes/docs-es";
+    page: "/es/docs/:section?";
+  } | {
+    id: "routes/docs-de";
+    page: "/de/docs/:section?";
+  } | {
+    id: "routes/docs-fr";
+    page: "/fr/docs/:section?";
+  } | {
+    id: "routes/docs-ru";
+    page: "/ru/docs/:section?";
   };
   "routes/pricing.tsx": {
     id: "routes/pricing";
     page: "/pricing";
   } | {
-    id: "routes/pricing-localized";
-    page: "/:lang/pricing";
+    id: "routes/pricing-es";
+    page: "/es/pricing";
+  } | {
+    id: "routes/pricing-de";
+    page: "/de/pricing";
+  } | {
+    id: "routes/pricing-fr";
+    page: "/fr/pricing";
+  } | {
+    id: "routes/pricing-ru";
+    page: "/ru/pricing";
   };
   "routes/login.tsx": {
     id: "routes/login";
     page: "/login";
   } | {
-    id: "routes/login-localized";
-    page: "/:lang/login";
+    id: "routes/login-es";
+    page: "/es/login";
+  } | {
+    id: "routes/login-de";
+    page: "/de/login";
+  } | {
+    id: "routes/login-fr";
+    page: "/fr/login";
+  } | {
+    id: "routes/login-ru";
+    page: "/ru/login";
   };
   "routes/signup.tsx": {
     id: "routes/signup";
     page: "/signup";
   } | {
-    id: "routes/signup-localized";
-    page: "/:lang/signup";
+    id: "routes/signup-es";
+    page: "/es/signup";
+  } | {
+    id: "routes/signup-de";
+    page: "/de/signup";
+  } | {
+    id: "routes/signup-fr";
+    page: "/fr/signup";
+  } | {
+    id: "routes/signup-ru";
+    page: "/ru/signup";
   };
   "routes/forgot-password.tsx": {
     id: "routes/forgot-password";
     page: "/forgot-password";
   } | {
-    id: "routes/forgot-password-localized";
-    page: "/:lang/forgot-password";
+    id: "routes/forgot-password-es";
+    page: "/es/forgot-password";
+  } | {
+    id: "routes/forgot-password-de";
+    page: "/de/forgot-password";
+  } | {
+    id: "routes/forgot-password-fr";
+    page: "/fr/forgot-password";
+  } | {
+    id: "routes/forgot-password-ru";
+    page: "/ru/forgot-password";
   };
   "routes/reset-password.tsx": {
     id: "routes/reset-password";
     page: "/reset-password";
   } | {
-    id: "routes/reset-password-localized";
-    page: "/:lang/reset-password";
+    id: "routes/reset-password-es";
+    page: "/es/reset-password";
+  } | {
+    id: "routes/reset-password-de";
+    page: "/de/reset-password";
+  } | {
+    id: "routes/reset-password-fr";
+    page: "/fr/reset-password";
+  } | {
+    id: "routes/reset-password-ru";
+    page: "/ru/reset-password";
   };
   "routes/dashboard.tsx": {
     id: "routes/dashboard";
     page: "/dashboard";
   } | {
-    id: "routes/dashboard-localized";
-    page: "/:lang/dashboard";
+    id: "routes/dashboard-es";
+    page: "/es/dashboard";
+  } | {
+    id: "routes/dashboard-de";
+    page: "/de/dashboard";
+  } | {
+    id: "routes/dashboard-fr";
+    page: "/fr/dashboard";
+  } | {
+    id: "routes/dashboard-ru";
+    page: "/ru/dashboard";
   };
   "routes/checkout-success.tsx": {
     id: "routes/checkout-success";
     page: "/checkout/success";
   } | {
-    id: "routes/checkout-success-localized";
-    page: "/:lang/checkout/success";
+    id: "routes/checkout-success-es";
+    page: "/es/checkout/success";
+  } | {
+    id: "routes/checkout-success-de";
+    page: "/de/checkout/success";
+  } | {
+    id: "routes/checkout-success-fr";
+    page: "/fr/checkout/success";
+  } | {
+    id: "routes/checkout-success-ru";
+    page: "/ru/checkout/success";
   };
   "routes/locale-layout.tsx": {
     id: "routes/locale-layout";
-    page: "/:lang" | "/:lang/docs/:section?" | "/:lang/pricing" | "/:lang/login" | "/:lang/signup" | "/:lang/forgot-password" | "/:lang/reset-password" | "/:lang/dashboard" | "/:lang/checkout/success";
+    page: "/es" | "/es/docs/:section?" | "/es/pricing" | "/es/login" | "/es/signup" | "/es/forgot-password" | "/es/reset-password" | "/es/dashboard" | "/es/checkout/success" | "/de" | "/de/docs/:section?" | "/de/pricing" | "/de/login" | "/de/signup" | "/de/forgot-password" | "/de/reset-password" | "/de/dashboard" | "/de/checkout/success" | "/fr" | "/fr/docs/:section?" | "/fr/pricing" | "/fr/login" | "/fr/signup" | "/fr/forgot-password" | "/fr/reset-password" | "/fr/dashboard" | "/fr/checkout/success" | "/ru" | "/ru/docs/:section?" | "/ru/pricing" | "/ru/login" | "/ru/signup" | "/ru/forgot-password" | "/ru/reset-password" | "/ru/dashboard" | "/ru/checkout/success";
   };
 };
 
@@ -174,13 +325,40 @@ type RouteModules = {
   "routes/dashboard": typeof import("./app/routes/dashboard.tsx");
   "routes/checkout-success": typeof import("./app/routes/checkout-success.tsx");
   "routes/locale-layout": typeof import("./app/routes/locale-layout.tsx");
-  "routes/home-localized": typeof import("./app/routes/home.tsx");
-  "routes/docs-localized": typeof import("./app/routes/docs.tsx");
-  "routes/pricing-localized": typeof import("./app/routes/pricing.tsx");
-  "routes/login-localized": typeof import("./app/routes/login.tsx");
-  "routes/signup-localized": typeof import("./app/routes/signup.tsx");
-  "routes/forgot-password-localized": typeof import("./app/routes/forgot-password.tsx");
-  "routes/reset-password-localized": typeof import("./app/routes/reset-password.tsx");
-  "routes/dashboard-localized": typeof import("./app/routes/dashboard.tsx");
-  "routes/checkout-success-localized": typeof import("./app/routes/checkout-success.tsx");
+  "routes/home-es": typeof import("./app/routes/home.tsx");
+  "routes/docs-es": typeof import("./app/routes/docs.tsx");
+  "routes/pricing-es": typeof import("./app/routes/pricing.tsx");
+  "routes/login-es": typeof import("./app/routes/login.tsx");
+  "routes/signup-es": typeof import("./app/routes/signup.tsx");
+  "routes/forgot-password-es": typeof import("./app/routes/forgot-password.tsx");
+  "routes/reset-password-es": typeof import("./app/routes/reset-password.tsx");
+  "routes/dashboard-es": typeof import("./app/routes/dashboard.tsx");
+  "routes/checkout-success-es": typeof import("./app/routes/checkout-success.tsx");
+  "routes/home-de": typeof import("./app/routes/home.tsx");
+  "routes/docs-de": typeof import("./app/routes/docs.tsx");
+  "routes/pricing-de": typeof import("./app/routes/pricing.tsx");
+  "routes/login-de": typeof import("./app/routes/login.tsx");
+  "routes/signup-de": typeof import("./app/routes/signup.tsx");
+  "routes/forgot-password-de": typeof import("./app/routes/forgot-password.tsx");
+  "routes/reset-password-de": typeof import("./app/routes/reset-password.tsx");
+  "routes/dashboard-de": typeof import("./app/routes/dashboard.tsx");
+  "routes/checkout-success-de": typeof import("./app/routes/checkout-success.tsx");
+  "routes/home-fr": typeof import("./app/routes/home.tsx");
+  "routes/docs-fr": typeof import("./app/routes/docs.tsx");
+  "routes/pricing-fr": typeof import("./app/routes/pricing.tsx");
+  "routes/login-fr": typeof import("./app/routes/login.tsx");
+  "routes/signup-fr": typeof import("./app/routes/signup.tsx");
+  "routes/forgot-password-fr": typeof import("./app/routes/forgot-password.tsx");
+  "routes/reset-password-fr": typeof import("./app/routes/reset-password.tsx");
+  "routes/dashboard-fr": typeof import("./app/routes/dashboard.tsx");
+  "routes/checkout-success-fr": typeof import("./app/routes/checkout-success.tsx");
+  "routes/home-ru": typeof import("./app/routes/home.tsx");
+  "routes/docs-ru": typeof import("./app/routes/docs.tsx");
+  "routes/pricing-ru": typeof import("./app/routes/pricing.tsx");
+  "routes/login-ru": typeof import("./app/routes/login.tsx");
+  "routes/signup-ru": typeof import("./app/routes/signup.tsx");
+  "routes/forgot-password-ru": typeof import("./app/routes/forgot-password.tsx");
+  "routes/reset-password-ru": typeof import("./app/routes/reset-password.tsx");
+  "routes/dashboard-ru": typeof import("./app/routes/dashboard.tsx");
+  "routes/checkout-success-ru": typeof import("./app/routes/checkout-success.tsx");
 };

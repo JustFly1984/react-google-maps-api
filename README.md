@@ -51,9 +51,9 @@ bun add @react-google-maps/api
 
 ```tsx
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback, useState, type JSX } from 'react';
 
-function Map() {
+function Map(): JSX.Element {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'YOUR_API_KEY',
   });

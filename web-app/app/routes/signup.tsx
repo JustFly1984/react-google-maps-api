@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useCallback, useState, type ChangeEvent, type JSX } from 'react';
+import { useCallback, useRef, useState, type ChangeEvent, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
@@ -7,8 +7,13 @@ import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { SignupSchema } from '../../shared/schemas.ts';
-import { useAuth } from '../contexts/auth.tsx';
+
 import { styles } from '../styles.ts';
+
+import { UserResponseSchema } from '../../shared/schemas.ts';
+import { useAuth } from '../contexts/auth.tsx';
+
+const UserLoginResponseSchema = v.object({ user: UserResponseSchema });
 
 const headerClasses = clsx(styles.textCenter, styles.mb8);
 const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textThemePrimary);
@@ -19,15 +24,64 @@ const footerClasses = clsx(styles.mt6, styles.textCenter, styles.textSm, styles.
 const linkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styles.fontMedium);
 
 export default function SignUpPage(): JSX.Element {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { setUser } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const { signUp } = useAuth();
   const navigate = useNavigate();
+
+  const isSigningUpRef = useRef(false);
+
+  const signUp = useCallback(
+    async (email: string, password: string, fullName: string): Promise<string | undefined> => {
+      if (loading) {
+        return;
+      }
+
+      try {
+        isSigningUpRef.current = true;
+
+        setLoading(true);
+
+        const response = await fetch('/api/auth/signup', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password, fullName }),
+        });
+
+        if (!response.ok) {
+          const data = await response.json();
+
+          return data.error ?? 'Sign up failed';
+        }
+
+        const data = await response.json();
+
+        const result = v.safeParse(UserLoginResponseSchema, data);
+
+        if (!result.success) {
+          return 'Invalid response from server';
+        }
+
+        setUser(result.output.user);
+
+        return;
+      } catch (err: unknown) {
+        return err instanceof Error ? err.message : JSON.stringify(err);
+      } finally {
+        isSigningUpRef.current = false;
+        setLoading(false);
+      }
+    },
+    [setUser],
+  );
 
   const handleFullNameChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
     setFullName(e.target.value);
@@ -48,32 +102,38 @@ export default function SignUpPage(): JSX.Element {
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
+
       setError(null);
 
       if (password !== confirmPassword) {
         setError(t('auth.signup.passwordsDoNotMatch'));
+
         return;
       }
 
       const result = v.safeParse(SignupSchema, { email, password, fullName });
+
       if (!result.success) {
         setError(result.issues[0].message);
+
         return;
       }
 
       setLoading(true);
 
-      const { error: signUpError } = await signUp(email, password, fullName);
+      const signUpError = await signUp(email, password, fullName);
 
-      if (signUpError) {
-        setError(signUpError.message);
+      if (typeof signUpError !== 'undefined') {
+        setError(signUpError);
+
         setLoading(false);
+
         return;
       }
 
-      navigate('/dashboard');
+      navigate(i18n.language === 'en' ? '/dashboard' : `/${i18n.language}/dashboard`);
     },
-    [email, password, confirmPassword, fullName, navigate, signUp],
+    [email, password, confirmPassword, fullName, navigate, signUp, i18n.language],
   );
 
   return (

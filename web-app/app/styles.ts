@@ -59,6 +59,7 @@ export const styles = {
 
   // Spacing - Margin
   m4: 'm-4',
+  mt1: 'mt-1',
   mt2: 'mt-2',
   mt4: 'mt-4',
   mt6: 'mt-6',
@@ -189,6 +190,7 @@ export const styles = {
   w8: 'w-8',
   w12: 'w-12',
   w16: 'w-16',
+  w48: 'w-48',
   wFull: 'w-full',
   lgW72: 'lg:w-72',
   minW200: 'min-w-[200px]',
@@ -277,6 +279,7 @@ export const styles = {
   top0: 'top-0',
   top2: 'top-2',
   top4: 'top-4',
+  topFull: 'top-full',
   right0: 'right-0',
   right2: 'right-2',
   left0: 'left-0',

@@ -1,0 +1,203 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "documentation": "Documentación",
+    "pricing": "Precios"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "close": "Cerrar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "active": "Activo",
+    "dashboard": "Ir al Panel",
+    "viewDocs": "Ver Documentación",
+    "validUntil": "Válido hasta"
+  },
+  "docs": {
+    "examples": {
+      "title": "Ejemplo",
+      "props": "Props"
+    },
+    "autocomplete": {
+      "searchPlace": "Buscar un lugar"
+    },
+    "searchBox": {
+      "search": "Buscar..."
+    },
+    "navigation": {
+      "title": "Documentación",
+      "sections": {
+        "gettingStarted": "Primeros Pasos",
+        "loading": "Cargando la API",
+        "googleMap": "GoogleMap",
+        "components": "Componentes",
+        "marker": "Marker",
+        "infoWindow": "InfoWindow",
+        "polyline": "Polyline",
+        "polygon": "Polygon",
+        "rectangle": "Rectangle",
+        "circle": "Circle",
+        "drawingManager": "DrawingManager",
+        "trafficLayer": "TrafficLayer",
+        "bicyclingLayer": "BicyclingLayer",
+        "transitLayer": "TransitLayer",
+        "heatmapLayer": "HeatmapLayer",
+        "kmlLayer": "KmlLayer",
+        "directions": "Directions",
+        "distanceMatrix": "DistanceMatrix",
+        "autocomplete": "Autocomplete",
+        "searchBox": "SearchBox",
+        "overlayView": "OverlayView",
+        "groundOverlay": "GroundOverlay",
+        "streetViewPanorama": "StreetViewPanorama",
+        "streetViewService": "StreetViewService",
+        "markerClusterer": "MarkerClusterer",
+        "infoBox": "InfoBox"
+      },
+      "sectionNames": {
+        "drawing": "Dibujo",
+        "layers": "Capas",
+        "services": "Servicios",
+        "places": "Lugares",
+        "overlays": "Superposiciones",
+        "streetView": "Street View",
+        "addons": "Complementos"
+      }
+    },
+    "content": {
+      "gettingStarted": {
+        "title": "Primeros Pasos",
+        "content": "React Google Maps API proporciona una forma sencilla y declarativa de integrar Google Maps en tus aplicaciones React."
+      },
+      "loading": {
+        "title": "Cargando la API",
+        "content": "Puedes cargar la API de Google Maps usando el hook useJsApiLoader o el componente LoadScript."
+      },
+      "googleMap": {
+        "title": "GoogleMap",
+        "content": "El componente GoogleMap es el componente principal que representa un mapa de Google."
+      }
+    },
+    "props": {
+      "googleMapsApiKey": "Tu clave de API de Google Maps",
+      "arrayOfLibraries": "Array de bibliotecas a cargar: places, drawing, geometry, visualization",
+      "language": "Idioma para la interfaz del mapa",
+      "region": "Sesgo de región para geocodificación",
+      "version": "Versión de la API (predeterminado: weekly)",
+      "mapIds": "IDs de mapa para estilo de mapa basado en la nube",
+      "inputElement": "Elemento de entrada",
+      "countryRestrictions": "Restricciones de país",
+      "placeTypes": "Tipos de lugares a devolver",
+      "dataFields": "Campos de datos de lugares a obtener",
+      "mapContainerStyle": "Estilos CSS para el contenedor del mapa",
+      "mapContainerClassName": "Nombre de clase CSS para el contenedor del mapa",
+      "initialCenterPosition": "Posición inicial del centro del mapa",
+      "initialZoomLevel": "Nivel de zoom inicial",
+      "mapOptionsObject": "Objeto de opciones del mapa",
+      "mapClickHandler": "Manejador de clics en el mapa",
+      "mapDragHandler": "Manejador de arrastre del mapa",
+      "zoomChangeHandler": "Manejador de cambios de zoom",
+      "calledWhenMapIsLoaded": "Llamado cuando el mapa está cargado",
+      "calledWhenMapIsUnmounted": "Llamado cuando el mapa es desmontado"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "React Google Maps API",
+      "title": "Componentes React para Google Maps",
+      "subtitle": "Una forma sencilla y declarativa de integrar Google Maps en tus aplicaciones React.",
+      "getStarted": "Comenzar",
+      "viewPricing": "Ver Precios"
+    },
+    "features": {
+      "title": "Características Principales",
+      "subtitle": "Todo lo que necesitas para crear aplicaciones de mapas increíbles"
+    },
+    "cta": {
+      "title": "¿Listo para construir algo increíble?",
+      "subtitle": "Comienza a usar React Google Maps API hoy mismo",
+      "getStarted": "Comenzar Gratis",
+      "viewPricing": "Ver Planes"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Iniciar Sesión",
+      "subtitle": "Bienvenido de nuevo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "rememberMe": "Recordarme",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "noAccount": "¿No tienes una cuenta?",
+      "signUp": "Regístrate",
+      "submit": "Iniciar Sesión",
+      "error": "Error al iniciar sesión"
+    },
+    "signUp": {
+      "title": "Crear Cuenta",
+      "subtitle": "Únete a nosotros hoy",
+      "fullName": "Nombre completo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "agreeTerms": "Acepto los términos y condiciones",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "signIn": "Iniciar sesión",
+      "submit": "Crear Cuenta",
+      "error": "Error al crear cuenta"
+    },
+    "forgotPassword": {
+      "title": "¿Olvidaste tu contraseña?",
+      "subtitle": "Te enviaremos un correo para restablecer tu contraseña",
+      "email": "Correo electrónico",
+      "submit": "Enviar correo de restablecimiento",
+      "backToLogin": "Volver al inicio de sesión",
+      "error": "Error al enviar correo"
+    },
+    "resetPassword": {
+      "title": "Restablecer Contraseña",
+      "subtitle": "Ingresa tu nueva contraseña",
+      "password": "Nueva contraseña",
+      "confirmPassword": "Confirmar nueva contraseña",
+      "submit": "Restablecer contraseña",
+      "error": "Error al restablecer contraseña"
+    }
+  },
+  "pricing": {
+    "title": "Precios",
+    "subtitle": "Elige el plan perfecto para ti",
+    "license": {
+      "title": "Licencia Desarrollador",
+      "description": "Acceso completo a todos los componentes y actualizaciones",
+      "price": "$99",
+      "period": "por año",
+      "getStarted": "Comenzar"
+    }
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "welcome": "Bienvenido",
+    "licenses": "Licencias",
+    "noLicenses": "No tienes licencias activas",
+    "getLicense": "Obtener Licencia"
+  },
+  "checkout": {
+    "success": {
+      "title": "¡Pago Exitoso!",
+      "subtitle": "Tu licencia ha sido activada exitosamente",
+      "licenseDetails": "Detalles de la Licencia",
+      "thankYou": "Gracias por tu compra",
+      "backToDashboard": "Volver al Panel"
+    }
+  }
+}

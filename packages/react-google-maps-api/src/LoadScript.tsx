@@ -125,11 +125,9 @@ function LoadScriptFunctional({
 
   const isCleaningUp = async (): Promise<void> => {
     function promiseCallback(resolve: () => void): void {
-      if (!cleaningUp) {
-        resolve();
-      } else {
+      if (cleaningUp) {
         if (isBrowser) {
-          const timer = window.setInterval(function interval() {
+          const timer = window.setInterval((): void => {
             if (!cleaningUp) {
               window.clearInterval(timer);
 
@@ -137,6 +135,8 @@ function LoadScriptFunctional({
             }
           }, 1);
         }
+      } else {
+        resolve();
       }
 
       return;
@@ -149,7 +149,7 @@ function LoadScriptFunctional({
     cleaningUp = true;
     const script = document.getElementById(id);
 
-    if (script && script.parentNode) {
+    if (script !== null && script.parentNode !== null) {
       script.parentNode.removeChild(script);
     }
 

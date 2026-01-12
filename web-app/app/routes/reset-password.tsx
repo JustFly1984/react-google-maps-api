@@ -27,7 +27,7 @@ const cardClasses = clsx(styles.card, styles.p8);
 const buttonClasses = clsx(styles.wFull, styles.btnPrimary, styles.py3);
 
 export default function ResetPasswordPage(): JSX.Element {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const [password, setPassword] = useState('');
@@ -80,14 +80,17 @@ export default function ResetPasswordPage(): JSX.Element {
         }
 
         setSuccess(true);
-        setTimeout(() => navigate('/login'), 3000);
+
+        window.setTimeout(() => {
+          return navigate(i18n.language === 'en' ? '/login' : `/${i18n.language}/login`);
+        }, 3000);
       } catch {
         setError(t('auth.resetPassword.error'));
       } finally {
         setLoading(false);
       }
     },
-    [password, confirmPassword],
+    [password, confirmPassword, i18n.language],
   );
 
   if (success) {

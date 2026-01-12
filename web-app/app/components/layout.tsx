@@ -2,11 +2,12 @@ import clsx from 'clsx';
 import { LogOut, Menu, User, X } from 'lucide-react';
 import { type JSX, ReactNode, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation } from 'react-router';
 
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 import { LocaleLink } from '../utils/locale-link.tsx';
+import { LanguageSelector } from './language-selector.tsx';
 import { Logo } from './logo.tsx';
 import { ThemeToggle } from './theme-toggle.tsx';
 export const navigation = [
@@ -32,16 +33,6 @@ const navLinkActiveClasses = clsx(navLinkClasses, styles.textThemeAccent);
 const navLinkInactiveClasses = clsx(navLinkClasses, styles.textThemeSecondary);
 const userMenuClasses = clsx(styles.hidden, styles.lgFlex, styles.itemsCenter, styles.gap4);
 const headerControlsClasses = clsx(styles.flex, styles.itemsCenter, styles.gap2);
-const languageButtonBaseClasses = clsx(
-  styles.px2,
-  styles.py1,
-  styles.roundedLg,
-  styles.textSm,
-  styles.border,
-  styles.transitionColors,
-);
-const languageButtonActiveClasses = clsx(languageButtonBaseClasses, styles.borderAccent);
-const languageButtonInactiveClasses = clsx(languageButtonBaseClasses, 'border-theme-secondary');
 const userLinkClasses = clsx(
   styles.flex,
   styles.itemsCenter,
@@ -88,18 +79,7 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const location = useLocation();
-  const { t, i18n } = useTranslation();
-
-  const navigate = useNavigate();
-
-  const setLanguage = useCallback(
-    (lng: string): void => {
-      const currentPath = location.pathname;
-      const pathWithoutLocale = currentPath.replace(/^\/(en|ru)/, '') || '/';
-      navigate(`/${lng}${pathWithoutLocale}`);
-    },
-    [location.pathname, navigate],
-  );
+  const { t } = useTranslation();
 
   const handleSignOut = useCallback((): void => {
     signOut();
@@ -117,16 +97,6 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
     signOut();
     setMobileMenuOpen(false);
   }, [signOut]);
-
-  const onEnClick = useCallback(() => {
-    console.info('setLanguage', 'en');
-    return setLanguage('en');
-  }, [setLanguage]);
-
-  const onRuClick = useCallback(() => {
-    console.info('setLanguage', 'ru');
-    return setLanguage('ru');
-  }, [setLanguage]);
 
   return (
     <div className={layoutClasses}>
@@ -158,30 +128,8 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
             </div>
 
             <div className={headerControlsClasses}>
-              <ThemeToggle />
-
-              <button
-                type="button"
-                onClick={onEnClick}
-                className={
-                  i18n.language === 'en'
-                    ? languageButtonActiveClasses
-                    : languageButtonInactiveClasses
-                }
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                onClick={onRuClick}
-                className={
-                  i18n.language === 'ru'
-                    ? languageButtonActiveClasses
-                    : languageButtonInactiveClasses
-                }
-              >
-                RU
-              </button>
+                <ThemeToggle />
+                <LanguageSelector />
 
               <div className={userMenuClasses}>
                 {user !== null ? (

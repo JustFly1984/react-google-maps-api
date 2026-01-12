@@ -22,7 +22,34 @@ type Matches = [{
   id: "routes/locale-layout";
   module: typeof import("../locale-layout.js");
 }, {
-  id: "routes/signup-localized";
+  id: "routes/signup-es";
+  module: typeof import("../signup.js");
+}] | [{
+  id: "root";
+  module: typeof import("../../root.js");
+}, {
+  id: "routes/locale-layout";
+  module: typeof import("../locale-layout.js");
+}, {
+  id: "routes/signup-de";
+  module: typeof import("../signup.js");
+}] | [{
+  id: "root";
+  module: typeof import("../../root.js");
+}, {
+  id: "routes/locale-layout";
+  module: typeof import("../locale-layout.js");
+}, {
+  id: "routes/signup-fr";
+  module: typeof import("../signup.js");
+}] | [{
+  id: "root";
+  module: typeof import("../../root.js");
+}, {
+  id: "routes/locale-layout";
+  module: typeof import("../locale-layout.js");
+}, {
+  id: "routes/signup-ru";
   module: typeof import("../signup.js");
 }];
 

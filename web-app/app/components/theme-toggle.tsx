@@ -6,12 +6,9 @@ import { useTheme } from '../contexts/theme.tsx';
 function ThemeToggleF(): JSX.Element {
   const { theme, toggleTheme } = useTheme();
 
-  console.info('ThemeToggle', theme);
-
   const onClick = useCallback(() => {
-    console.log('ThemeToggle clicked');
     toggleTheme();
-  }, []);
+  }, [toggleTheme]);
 
   return (
     <button

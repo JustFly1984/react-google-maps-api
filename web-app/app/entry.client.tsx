@@ -7,6 +7,7 @@ import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { HydratedRouter } from 'react-router/dom';
 import { getInitialNamespaces } from 'remix-i18next/client';
 
+import { AuthProvider } from './contexts/auth.tsx';
 import { ThemeProvider } from './contexts/theme.tsx';
 import i18n from './i18n.ts';
 
@@ -51,16 +52,26 @@ async function hydrate(): Promise<void> {
     );
 
     startTransition(async (): Promise<void> => {
-      hydrateRoot(
-        document,
-        <StrictMode>
-          <I18nextProvider i18n={i18next}>
-            <ThemeProvider>
-              <HydratedRouter />
-            </ThemeProvider>
-          </I18nextProvider>
-        </StrictMode>,
-      );
+      console.info('Starting React hydration...');
+
+      try {
+        hydrateRoot(
+          document,
+          <StrictMode>
+            <I18nextProvider i18n={i18next}>
+              <ThemeProvider>
+                <AuthProvider>
+                  <HydratedRouter />
+                </AuthProvider>
+              </ThemeProvider>
+            </I18nextProvider>
+          </StrictMode>,
+        );
+        console.info('React hydration completed successfully');
+      } catch (hydrationError: unknown) {
+        console.error('React hydration failed:', hydrationError);
+        throw hydrationError;
+      }
     });
   } catch (error: unknown) {
     console.error('hydrate() failed', error);

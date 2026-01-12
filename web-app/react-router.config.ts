@@ -39,9 +39,11 @@ const routes = [
   '/checkout/success',
 ];
 
-const locales = ['en', 'ru'];
+const locales = ['ru', 'es', 'de', 'fr'];
 
-const localizedRoutes = locales.flatMap((locale) => routes.map((route) => `/${locale}${route}`));
+const localizedRoutes = locales.flatMap((locale) => {
+  return routes.map((route) => `/${locale}${route}`);
+});
 
 export default {
   ssr: false,

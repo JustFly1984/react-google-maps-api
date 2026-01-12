@@ -1,4 +1,6 @@
-export function Logo() {
+import { JSX } from 'react';
+
+export function Logo(): JSX.Element {
   return (
     <svg viewBox="0 0 96 96">
       <style type="text/css">

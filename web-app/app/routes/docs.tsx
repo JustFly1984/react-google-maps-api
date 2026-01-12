@@ -226,11 +226,11 @@ bun add @react-google-maps/api`,
         content: t('docs.content.loading.content'),
         code: `// Using useJsApiLoader (Recommended)
 import { useJsApiLoader, GoogleMap } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
 const libraries = ['places', 'drawing'];
 
-function MyMap() {
+function MyMap(): JSX.Element {
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: 'YOUR_API_KEY',
     libraries,
@@ -253,11 +253,11 @@ function MyMap() {
 
 // Using LoadScript Component
 import { LoadScript, GoogleMap } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-const libraries = ['places'];
+const libraries = ['places'] as const;
 
-function MyMap() {
+function MyMap(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
 
@@ -292,9 +292,9 @@ function MyMap() {
         title: t('docs.content.googleMap.title'),
         content: t('docs.content.googleMap.content'),
         code: `import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, type JSX } from 'react';
 
-function MyMap() {
+function MyMap(): JSX.Element {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'YOUR_API_KEY',
   });
@@ -308,7 +308,7 @@ function MyMap() {
     mapTypeControl: false,
   }), []);
 
-  const onLoad = useCallback((map) => {
+  const onLoad = useCallback((map: google.maps.Map): void => {
     setMap(map);
     // Fit bounds, add listeners, etc.
   }, []);
@@ -387,9 +387,9 @@ function MyMap() {
         title: t('docs.content.marker.title'),
         content: t('docs.content.marker.content'),
         code: `import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, type JSX } from 'react';
 
-function MapWithMarkers() {
+function MapWithMarkers(): JSX.Element {
   const [selected, setSelected] = useState(null);
 
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
@@ -483,9 +483,9 @@ function MapWithMarkers() {
         title: t('docs.content.infoWindow.title'),
         content: t('docs.content.infoWindow.content'),
         code: `import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, type JSX } from 'react';
 
-function MapWithInfoWindow() {
+function MapWithInfoWindow(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
 
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
@@ -544,9 +544,9 @@ function MapWithInfoWindow() {
         title: t('docs.content.polyline.title'),
         content: t('docs.content.polyline.content'),
         code: `import { GoogleMap, Polyline } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithPolyline() {
+function MapWithPolyline(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 39.8283, lng: -98.5795 }), []);
   const path = useMemo(() => [
@@ -611,9 +611,9 @@ function MapWithPolyline() {
         title: t('docs.content.polygon.title'),
         content: t('docs.content.polygon.content'),
         code: `import { GoogleMap, Polygon } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithPolygon() {
+function MapWithPolygon(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 24.886, lng: -70.268 }), []);
   const triangleCoords = useMemo(() => [
@@ -679,9 +679,9 @@ function MapWithPolygon() {
         title: t('docs.content.rectangle.title'),
         content: t('docs.content.rectangle.content'),
         code: `import { GoogleMap, Rectangle } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithRectangle() {
+function MapWithRectangle(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 44.5452, lng: -78.5389 }), []);
   const bounds = useMemo(() => ({
@@ -743,9 +743,9 @@ function MapWithRectangle() {
         title: t('docs.content.circle.title'),
         content: t('docs.content.circle.content'),
         code: `import { GoogleMap, Circle } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithCircle() {
+function MapWithCircle(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
   const options = useMemo(() => ({
@@ -803,9 +803,9 @@ function MapWithCircle() {
         title: t('docs.content.drawingManager.title'),
         content: t('docs.content.drawingManager.content'),
         code: `import { GoogleMap, DrawingManager } from '@react-google-maps/api';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, type JSX } from 'react';
 
-function MapWithDrawing() {
+function MapWithDrawing(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
   const options = useMemo(() => ({
@@ -883,9 +883,9 @@ function MapWithDrawing() {
         title: t('docs.content.trafficLayer.title'),
         content: t('docs.content.trafficLayer.content'),
         code: `import { GoogleMap, TrafficLayer } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithTraffic() {
+function MapWithTraffic(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
 
@@ -916,9 +916,9 @@ function MapWithTraffic() {
         title: t('docs.content.bicyclingLayer.title'),
         content: t('docs.content.bicyclingLayer.content'),
         code: `import { GoogleMap, BicyclingLayer } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithBicycling() {
+function MapWithBicycling(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
 
@@ -949,9 +949,9 @@ function MapWithBicycling() {
         title: t('docs.content.transitLayer.title'),
         content: t('docs.content.transitLayer.content'),
         code: `import { GoogleMap, TransitLayer } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithTransit() {
+function MapWithTransit(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
 
@@ -982,9 +982,9 @@ function MapWithTransit() {
         title: t('docs.content.heatmapLayer.title'),
         content: t('docs.content.heatmapLayer.content'),
         code: `import { GoogleMap, HeatmapLayer } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithHeatmap() {
+function MapWithHeatmap(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
   const data = useMemo(() => [
@@ -1033,9 +1033,9 @@ function MapWithHeatmap() {
         title: t('docs.content.kmlLayer.title'),
         content: t('docs.content.kmlLayer.content'),
         code: `import { GoogleMap, KmlLayer } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithKml() {
+function MapWithKml(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
   const options = useMemo(() => ({
@@ -1078,9 +1078,9 @@ function MapWithKml() {
         title: t('docs.content.directions.title'),
         content: t('docs.content.directions.content'),
         code: `import { GoogleMap, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, type JSX } from 'react';
 
-function MapWithDirections() {
+function MapWithDirections(): JSX.Element {
   const [directions, setDirections] = useState(null);
 
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
@@ -1145,8 +1145,9 @@ function MapWithDirections() {
         title: t('docs.content.distanceMatrix.title'),
         content: t('docs.content.distanceMatrix.content'),
         code: `import { DistanceMatrixService } from '@react-google-maps/api';
+import { useCallback, type JSX } from 'react';
 
-function DistanceCalculator() {
+function DistanceCalculator(): JSX.Element {
   const onLoad = useCallback((service) => {
     service.getDistanceMatrix({
       origins: ['New York, NY', 'Boston, MA'],
@@ -1183,9 +1184,9 @@ function DistanceCalculator() {
         title: t('docs.content.autocomplete.title'),
         content: t('docs.content.autocomplete.content'),
         code: `import { Autocomplete } from '@react-google-maps/api';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, type JSX } from 'react';
 
-function PlaceAutocomplete() {
+function PlaceAutocomplete(): JSX.Element {
   const [autocomplete, setAutocomplete] = useState(null);
 
   const restrictions = useMemo(() => ({ country: 'us' }), []);
@@ -1244,9 +1245,9 @@ function PlaceAutocomplete() {
         title: t('docs.content.searchBox.title'),
         content: t('docs.content.searchBox.content'),
         code: `import { StandaloneSearchBox } from '@react-google-maps/api';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, type JSX } from 'react';
 
-function SearchBox() {
+function SearchBox(): JSX.Element {
   const [searchBox, setSearchBox] = useState(null);
 
   const onLoad = useCallback((ref) => {
@@ -1300,9 +1301,9 @@ function SearchBox() {
         title: t('docs.content.overlayView.title'),
         content: t('docs.content.overlayView.content'),
         code: `import { GoogleMap, OverlayView, OVERLAY_MOUSE_TARGET } from '@react-google-maps/api';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, type JSX } from 'react';
 
-function MapWithCustomOverlay() {
+function MapWithCustomOverlay(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const position = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
 
@@ -1363,9 +1364,9 @@ function MapWithCustomOverlay() {
         title: t('docs.content.groundOverlay.title'),
         content: t('docs.content.groundOverlay.content'),
         code: `import { GoogleMap, GroundOverlay } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithGroundOverlay() {
+function MapWithGroundOverlay(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 40.74, lng: -74.18 }), []);
   const bounds = useMemo(() => ({
@@ -1412,9 +1413,9 @@ function MapWithGroundOverlay() {
         title: t('docs.content.streetViewPanorama.title'),
         content: t('docs.content.streetViewPanorama.content'),
         code: `import { GoogleMap, StreetViewPanorama } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithStreetView() {
+function MapWithStreetView(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const position = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
   const options = useMemo(() => ({
@@ -1464,8 +1465,9 @@ function MapWithStreetView() {
         title: t('docs.content.streetViewService.title'),
         content: t('docs.content.streetViewService.content'),
         code: `import { StreetViewService } from '@react-google-maps/api';
+import { useCallback, type JSX } from 'react';
 
-function StreetViewChecker() {
+function StreetViewChecker(): JSX.Element {
   const onLoad = useCallback((service) => {
     service.getPanorama({
       location: { lat: 40.7128, lng: -74.006 },
@@ -1491,9 +1493,9 @@ function StreetViewChecker() {
         title: t('docs.content.markerClusterer.title'),
         content: t('docs.content.markerClusterer.content'),
         code: `import { GoogleMap, MarkerClusterer, Marker } from '@react-google-maps/api';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
-function MapWithClusters() {
+function MapWithClusters(): JSX.Element {
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
   const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
   const locations = useMemo(() => [
@@ -1555,9 +1557,9 @@ function MapWithClusters() {
         title: t('docs.content.infoBox.title'),
         content: t('docs.content.infoBox.content'),
         code: `import { GoogleMap, Marker, InfoBox } from '@react-google-maps/api';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, type JSX } from 'react';
 
-function MapWithInfoBox() {
+function MapWithInfoBox(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
 
   const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
@@ -1686,14 +1688,14 @@ function MapWithInfoBox() {
 
               {currentContent.code ? (
                 <div className={styles.mb8}>
-                  <h3 className={codeTitleClasses}>{t('docs.props.examples.title')}</h3>
+                  <h3 className={codeTitleClasses}>{t('docs.examples.title')}</h3>
                   <CodeHighlight code={currentContent.code} language="tsx" />
                 </div>
               ) : null}
 
               {currentContent.props && currentContent.props.length > 0 ? (
                 <div>
-                  <h3 className={propsTitleClasses}>{t('docs.props.examples.props')}</h3>
+                  <h3 className={propsTitleClasses}>{t('docs.examples.props')}</h3>
                   <div className={styles.overflowXAuto}>
                     <table className={tableClasses}>
                       <thead>

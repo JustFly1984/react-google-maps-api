@@ -1,6 +1,14 @@
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
 import * as v from 'valibot';
-import { UserResponseSchema } from '../../shared/schemas';
+import { UserResponseSchema } from '../../shared/schemas.ts';
 
 export type User = {
   id: string;
@@ -11,8 +19,7 @@ export type User = {
 type AuthContextType = {
   user: User | null;
   loading: boolean;
-  signUp: (email: string, password: string, fullName: string) => Promise<{ error: Error | null }>;
-  signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
+  setUser: (user: User | null) => void;
   signOut: () => Promise<void>;
 };
 
@@ -25,8 +32,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const [loading, setLoading] = useState(true);
 
-  const validateSession = useCallback(async () => {
+  const validateSession = useCallback(async (): Promise<void> => {
     try {
+      console.info('Validating session');
+
       const response = await fetch('/api/auth/me', {
         credentials: 'include',
       });
@@ -37,11 +46,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const result = v.safeParse(UserLoginResponseSchema, data);
 
         if (result.success) {
+          console.info('Session validated successfully');
           setUser(result.output.user);
         } else {
+          console.info('Session validated failed');
           setUser(null);
         }
       } else {
+        console.info('Session response not ok');
         setUser(null);
       }
     } catch {
@@ -55,74 +67,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined') {
       setLoading(false);
-    } else {
-      void validateSession();
+      return;
     }
+
+    void validateSession();
   }, [validateSession]);
 
-  const signUp = useCallback(async (email: string, password: string, fullName: string) => {
-    try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password, fullName }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        return { error: new Error(data.error || 'Sign up failed') };
-      }
-
-      const data = await response.json();
-      const result = v.safeParse(UserLoginResponseSchema, data);
-
-      if (!result.success) {
-        return { error: new Error('Invalid response from server') };
-      }
-
-      setUser(result.output.user);
-
-      return { error: null };
-    } catch (err) {
-      return { error: err as Error };
-    }
-  }, []);
-
-  const signIn = useCallback(async (email: string, password: string) => {
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        return { error: new Error(data.error || 'Sign in failed') };
-      }
-
-      const data = await response.json();
-      const result = v.safeParse(UserLoginResponseSchema, data);
-
-      if (!result.success) {
-        return { error: new Error('Invalid response from server') };
-      }
-
-      setUser(result.output.user);
-
-      return { error: null };
-    } catch (err: unknown) {
-      return { error: err as Error };
-    }
-  }, []);
-
-  const signOut = useCallback(async () => {
+  const signOut = useCallback(async (): Promise<void> => {
     try {
       await fetch('/api/auth/logout', {
         method: 'POST',
@@ -135,17 +86,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = useMemo(() => {
+    return { user, loading, setUser, signOut };
+  }, [user, loading, setUser, signOut]);
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export function useAuth() {
+export function useAuth(): AuthContextType {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+
+  if (typeof context === 'undefined') {
     throw new Error('useAuth must be used within an AuthProvider');
   }
+
   return context;
 }

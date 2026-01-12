@@ -10,6 +10,7 @@
     "build": "vite build",
     "deploy": "vite build && wrangler deploy",
     "typegen": "wrangler types",
+    "tc": "tsc --project ./tsconfig.json --noEmit",
     "db:migrate:local": "wrangler d1 execute react-google-maps-db --local --file=./schema.sql",
     "db:migrate": "wrangler d1 execute react-google-maps-db --remote --file=./schema.sql",
     "lint": "bunx oxlint app/**/*.{ts,tsx} functions/**/*.ts shared/**/*.ts --fix"

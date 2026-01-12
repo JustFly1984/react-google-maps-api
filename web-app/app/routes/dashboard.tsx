@@ -113,7 +113,7 @@ const docsLinkClasses = clsx(styles.wFull, styles.btnSecondary, styles.block, st
 const purchaseIconClasses = clsx(styles.mr2, styles.h4, styles.w4);
 
 export default function DashboardPage(): JSX.Element {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { user, loading: authLoading } = useAuth();
 
   const navigate = useNavigate();
@@ -125,9 +125,9 @@ export default function DashboardPage(): JSX.Element {
 
   useEffect(() => {
     if (!authLoading && user === null) {
-      navigate('/login');
+      navigate(i18n.language === 'en' ? '/login' : `/${i18n.language}/login`);
     }
-  }, [user, authLoading, navigate]);
+  }, [user, authLoading, navigate, i18n.language]);
 
   useEffect(() => {
     if (user) {

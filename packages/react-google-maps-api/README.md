@@ -43,9 +43,9 @@ bun add @react-google-maps/api
 
 ```tsx
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback, useState, type JSX } from 'react';
 
-function MyMap() {
+function MyMap(): JSX.Element {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'YOUR_API_KEY',
   });
@@ -94,10 +94,11 @@ function MyMap() {
 
 ```tsx
 import { useJsApiLoader } from '@react-google-maps/api';
+import { type JSX } from 'react';
 
 const libraries = ['places', 'drawing'];
 
-function App() {
+function App(): JSX.Element {
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: 'YOUR_API_KEY',
     libraries,
@@ -114,8 +115,9 @@ function App() {
 
 ```tsx
 import { LoadScript, GoogleMap } from '@react-google-maps/api';
+import { type JSX } from 'react'
 
-function App() {
+function App(): JSX.Element {
   return (
     <LoadScript googleMapsApiKey="YOUR_API_KEY" libraries={['places']}>
       <MyMap />
@@ -181,8 +183,9 @@ Access the map instance from child components:
 
 ```tsx
 import { useGoogleMap } from '@react-google-maps/api';
+import { type JSX } from 'react';
 
-function MapControls() {
+function MapControls(): JSX.Element {
   const map = useGoogleMap();
 
   const panTo = useCallback(() => {
@@ -197,9 +200,9 @@ function MapControls() {
 
 ```tsx
 import { GoogleMap, Marker, InfoWindow, useJsApiLoader } from '@react-google-maps/api';
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback, useState, type JSX } from 'react';
 
-function MapWithMarkers() {
+function MapWithMarkers(): JSX.Element {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'YOUR_API_KEY',
   });
@@ -241,9 +244,9 @@ function MapWithMarkers() {
 
 ```tsx
 import { GoogleMap, DirectionsService, DirectionsRenderer, useJsApiLoader } from '@react-google-maps/api';
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback, useState, type JSX } from 'react';
 
-function MapWithDirections() {
+function MapWithDirections(): JSX.Element {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'YOUR_API_KEY',
   });

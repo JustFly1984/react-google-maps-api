@@ -10,6 +10,7 @@ import { I18nextProvider, initReactI18next } from 'react-i18next';
 import type { AppLoadContext, EntryContext } from 'react-router';
 import { ServerRouter } from 'react-router';
 
+import { AuthProvider } from './contexts/auth.tsx';
 import { ThemeProvider } from './contexts/theme.tsx';
 import i18next from './i18n.server.ts';
 import i18n from './i18n.ts';
@@ -23,9 +24,13 @@ export default async function handleRequest(
   routerContext: EntryContext,
   _loadContext: AppLoadContext,
 ) {
+  console.info('SSR: Starting handleRequest for', request.url);
+
   const i18nextInstance = createInstance();
   const lng = await i18next.getLocale(request);
   const namespaces = i18next.getRouteNamespaces(routerContext);
+
+  console.info('SSR: Locale detected:', lng);
 
   await i18nextInstance
     .use(initReactI18next)
@@ -40,7 +45,7 @@ export default async function handleRequest(
       },
     });
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject): void => {
     let shellRendered = false;
     const userAgent = request.headers.get('user-agent');
 
@@ -50,11 +55,14 @@ export default async function handleRequest(
     const { pipe, abort } = renderToPipeableStream(
       <I18nextProvider i18n={i18nextInstance}>
         <ThemeProvider>
-          <ServerRouter context={routerContext} url={request.url} />
+          <AuthProvider>
+            <ServerRouter context={routerContext} url={request.url} />
+          </AuthProvider>
         </ThemeProvider>
       </I18nextProvider>,
       {
-        [readyOption]() {
+        [readyOption](): void {
+          console.info('SSR: Shell ready, piping response');
           shellRendered = true;
           const body = new PassThrough();
           const stream = createReadableStreamFromReadable(body);
@@ -70,10 +78,12 @@ export default async function handleRequest(
 
           pipe(body);
         },
-        onShellError(error: unknown) {
+        onShellError(error: unknown): void {
+          console.error('SSR: Shell error:', error);
           reject(error);
         },
-        onError(error: unknown) {
+        onError(error: unknown): void {
+          console.error('SSR: Render error:', error);
           responseStatusCode = 500;
           if (shellRendered) {
             console.error(error);
@@ -82,6 +92,6 @@ export default async function handleRequest(
       },
     );
 
-    setTimeout(abort, streamTimeout + 1000);
+    globalThis.setTimeout(abort, streamTimeout + 1000);
   });
 }

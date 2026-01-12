@@ -1,161 +1,161 @@
 /* global google */
-import type { InfoBoxOptions } from './types'
+import type { InfoBoxOptions } from './types';
 
 // This handler prevents an event in the InfoBox from being passed on to the map.
 function cancelHandler(event: Event) {
-  event.cancelBubble = true
+  event.cancelBubble = true;
 
   if (event.stopPropagation) {
-    event.stopPropagation()
+    event.stopPropagation();
   }
 }
 
 export class InfoBox {
-  content: string | Node
-  disableAutoPan: boolean
-  maxWidth: number
-  pixelOffset: google.maps.Size
-  position: google.maps.LatLng
-  zIndex: number | undefined | null
-  boxClass: string
-  boxStyle: Partial<CSSStyleDeclaration>
+  content: string | Node;
+  disableAutoPan: boolean;
+  maxWidth: number;
+  pixelOffset: google.maps.Size;
+  position: google.maps.LatLng;
+  zIndex: number | undefined | null;
+  boxClass: string;
+  boxStyle: Partial<CSSStyleDeclaration>;
 
-  closeBoxMargin: string
-  closeBoxURL: string
-  infoBoxClearance: google.maps.Size
-  isHidden: boolean
-  alignBottom: boolean
-  pane: keyof google.maps.MapPanes
-  enableEventPropagation: boolean
-  div: HTMLDivElement | null
-  closeListener: google.maps.MapsEventListener | null
-  moveListener: google.maps.MapsEventListener | null
-  mapListener: google.maps.MapsEventListener | null
-  contextListener: google.maps.MapsEventListener | null
-  eventListeners: google.maps.MapsEventListener[] | null
-  fixedWidthSet: boolean | null
+  closeBoxMargin: string;
+  closeBoxURL: string;
+  infoBoxClearance: google.maps.Size;
+  isHidden: boolean;
+  alignBottom: boolean;
+  pane: keyof google.maps.MapPanes;
+  enableEventPropagation: boolean;
+  div: HTMLDivElement | null;
+  closeListener: google.maps.MapsEventListener | null;
+  moveListener: google.maps.MapsEventListener | null;
+  mapListener: google.maps.MapsEventListener | null;
+  contextListener: google.maps.MapsEventListener | null;
+  eventListeners: google.maps.MapsEventListener[] | null;
+  fixedWidthSet: boolean | null;
 
   constructor(options: InfoBoxOptions = {}) {
-    this.getCloseClickHandler = this.getCloseClickHandler.bind(this)
-    this.closeClickHandler = this.closeClickHandler.bind(this)
-    this.createInfoBoxDiv = this.createInfoBoxDiv.bind(this)
-    this.addClickHandler = this.addClickHandler.bind(this)
-    this.getCloseBoxImg = this.getCloseBoxImg.bind(this)
-    this.getBoxWidths = this.getBoxWidths.bind(this)
-    this.setBoxStyle = this.setBoxStyle.bind(this)
-    this.setPosition = this.setPosition.bind(this)
-    this.getPosition = this.getPosition.bind(this)
-    this.setOptions = this.setOptions.bind(this)
-    this.setContent = this.setContent.bind(this)
-    this.setVisible = this.setVisible.bind(this)
-    this.getContent = this.getContent.bind(this)
-    this.getVisible = this.getVisible.bind(this)
-    this.setZIndex = this.setZIndex.bind(this)
-    this.getZIndex = this.getZIndex.bind(this)
-    this.onRemove = this.onRemove.bind(this)
-    this.panBox = this.panBox.bind(this)
-    this.extend = this.extend.bind(this)
-    this.close = this.close.bind(this)
-    this.draw = this.draw.bind(this)
-    this.show = this.show.bind(this)
-    this.hide = this.hide.bind(this)
-    this.open = this.open.bind(this)
+    this.getCloseClickHandler = this.getCloseClickHandler.bind(this);
+    this.closeClickHandler = this.closeClickHandler.bind(this);
+    this.createInfoBoxDiv = this.createInfoBoxDiv.bind(this);
+    this.addClickHandler = this.addClickHandler.bind(this);
+    this.getCloseBoxImg = this.getCloseBoxImg.bind(this);
+    this.getBoxWidths = this.getBoxWidths.bind(this);
+    this.setBoxStyle = this.setBoxStyle.bind(this);
+    this.setPosition = this.setPosition.bind(this);
+    this.getPosition = this.getPosition.bind(this);
+    this.setOptions = this.setOptions.bind(this);
+    this.setContent = this.setContent.bind(this);
+    this.setVisible = this.setVisible.bind(this);
+    this.getContent = this.getContent.bind(this);
+    this.getVisible = this.getVisible.bind(this);
+    this.setZIndex = this.setZIndex.bind(this);
+    this.getZIndex = this.getZIndex.bind(this);
+    this.onRemove = this.onRemove.bind(this);
+    this.panBox = this.panBox.bind(this);
+    this.extend = this.extend.bind(this);
+    this.close = this.close.bind(this);
+    this.draw = this.draw.bind(this);
+    this.show = this.show.bind(this);
+    this.hide = this.hide.bind(this);
+    this.open = this.open.bind(this);
 
-    this.extend(InfoBox, google.maps.OverlayView)
+    this.extend(InfoBox, google.maps.OverlayView);
 
     // Standard options (in common with google.maps.InfoWindow):
-    this.content = options.content || ''
-    this.disableAutoPan = options.disableAutoPan || false
-    this.maxWidth = options.maxWidth || 0
-    this.pixelOffset = options.pixelOffset || new google.maps.Size(0, 0)
-    this.position = options.position || new google.maps.LatLng(0, 0)
-    this.zIndex = options.zIndex || null
+    this.content = options.content || '';
+    this.disableAutoPan = options.disableAutoPan || false;
+    this.maxWidth = options.maxWidth || 0;
+    this.pixelOffset = options.pixelOffset || new google.maps.Size(0, 0);
+    this.position = options.position || new google.maps.LatLng(0, 0);
+    this.zIndex = options.zIndex || null;
 
     // Additional options (unique to InfoBox):
-    this.boxClass = options.boxClass || 'infoBox'
-    this.boxStyle = options.boxStyle || {} as Partial<CSSStyleDeclaration>
-    this.closeBoxMargin = options.closeBoxMargin || '2px'
-    this.closeBoxURL = options.closeBoxURL || 'http://www.google.com/intl/en_us/mapfiles/close.gif'
+    this.boxClass = options.boxClass || 'infoBox';
+    this.boxStyle = options.boxStyle || ({} as Partial<CSSStyleDeclaration>);
+    this.closeBoxMargin = options.closeBoxMargin || '2px';
+    this.closeBoxURL = options.closeBoxURL || 'http://www.google.com/intl/en_us/mapfiles/close.gif';
     if (options.closeBoxURL === '') {
-      this.closeBoxURL = ''
+      this.closeBoxURL = '';
     }
-    this.infoBoxClearance = options.infoBoxClearance || new google.maps.Size(1, 1)
+    this.infoBoxClearance = options.infoBoxClearance || new google.maps.Size(1, 1);
 
     if (typeof options.visible === 'undefined') {
       if (typeof options.isHidden === 'undefined') {
-        options.visible = true
+        options.visible = true;
       } else {
-        options.visible = !options.isHidden
+        options.visible = !options.isHidden;
       }
     }
 
-    this.isHidden = !options.visible
+    this.isHidden = !options.visible;
 
-    this.alignBottom = options.alignBottom || false
-    this.pane = options.pane || 'floatPane'
-    this.enableEventPropagation = options.enableEventPropagation || false
+    this.alignBottom = options.alignBottom || false;
+    this.pane = options.pane || 'floatPane';
+    this.enableEventPropagation = options.enableEventPropagation || false;
 
-    this.div = null
-    this.closeListener = null
-    this.moveListener = null
-    this.mapListener = null
-    this.contextListener = null
-    this.eventListeners = null
-    this.fixedWidthSet = null
+    this.div = null;
+    this.closeListener = null;
+    this.moveListener = null;
+    this.mapListener = null;
+    this.contextListener = null;
+    this.eventListeners = null;
+    this.fixedWidthSet = null;
   }
 
   createInfoBoxDiv(): void {
     // This handler ignores the current event in the InfoBox and conditionally prevents
     // the event from being passed on to the map. It is used for the contextmenu event.
     const ignoreHandler = (event: Event) => {
-      event.returnValue = false
+      event.returnValue = false;
 
       if (event.preventDefault) {
-        event.preventDefault()
+        event.preventDefault();
       }
 
       if (!this.enableEventPropagation) {
-        cancelHandler(event)
+        cancelHandler(event);
       }
-    }
+    };
 
     if (!this.div) {
-      this.div = document.createElement('div')
-      this.setBoxStyle()
+      this.div = document.createElement('div');
+      this.setBoxStyle();
 
       if (typeof this.content === 'string') {
-        this.div.innerHTML = this.getCloseBoxImg() + this.content
+        this.div.innerHTML = this.getCloseBoxImg() + this.content;
       } else {
-        this.div.innerHTML = this.getCloseBoxImg()
-        this.div.appendChild(this.content)
+        this.div.innerHTML = this.getCloseBoxImg();
+        this.div.appendChild(this.content);
       }
 
-      const panes = (this as unknown as google.maps.OverlayView).getPanes()
+      const panes = (this as unknown as google.maps.OverlayView).getPanes();
 
       if (panes !== null) {
-        panes[this.pane].appendChild(this.div) // Add the InfoBox div to the DOM
+        panes[this.pane].appendChild(this.div); // Add the InfoBox div to the DOM
       }
 
-      this.addClickHandler()
+      this.addClickHandler();
 
       if (this.div.style.width) {
-        this.fixedWidthSet = true
+        this.fixedWidthSet = true;
       } else {
         if (this.maxWidth !== 0 && this.div.offsetWidth > this.maxWidth) {
-          this.div.style.width = this.maxWidth + 'px'
-          this.fixedWidthSet = true
+          this.div.style.width = this.maxWidth + 'px';
+          this.fixedWidthSet = true;
         } else {
           // The following code is needed to overcome problems with MSIE
-          const bw = this.getBoxWidths()
-          this.div.style.width = this.div.offsetWidth - bw.left - bw.right + 'px'
-          this.fixedWidthSet = false
+          const bw = this.getBoxWidths();
+          this.div.style.width = this.div.offsetWidth - bw.left - bw.right + 'px';
+          this.fixedWidthSet = false;
         }
       }
 
-      this.panBox(this.disableAutoPan)
+      this.panBox(this.disableAutoPan);
 
       if (!this.enableEventPropagation) {
-        this.eventListeners = []
+        this.eventListeners = [];
 
         // Cancel event propagation.
         // Note: mousemove not included (to resolve Issue 152)
@@ -169,78 +169,65 @@ export class InfoBox {
           'touchstart',
           'touchend',
           'touchmove',
-        ]
+        ];
 
         for (const event of events) {
-          this.eventListeners.push(
-            google.maps.event.addListener(this.div, event, cancelHandler)
-          )
+          this.eventListeners.push(google.maps.event.addListener(this.div, event, cancelHandler));
         }
 
         // Workaround for Google bug that causes the cursor to change to a pointer
         // when the mouse moves over a marker underneath InfoBox.
         this.eventListeners.push(
-          google.maps.event.addListener(
-            this.div,
-            'mouseover',
-            () => {
-              if (this.div) {
-                this.div.style.cursor = 'default'
-              }
+          google.maps.event.addListener(this.div, 'mouseover', () => {
+            if (this.div) {
+              this.div.style.cursor = 'default';
             }
-          )
-        )
+          }),
+        );
       }
 
-      this.contextListener = google.maps.event.addListener(
-        this.div,
-        'contextmenu',
-        ignoreHandler
-      )
+      this.contextListener = google.maps.event.addListener(this.div, 'contextmenu', ignoreHandler);
 
       /**
        * This event is fired when the DIV containing the InfoBox's content is attached to the DOM.
        * @name InfoBox#domready
        * @event
        */
-      google.maps.event.trigger(this, 'domready')
+      google.maps.event.trigger(this, 'domready');
     }
   }
 
   getCloseBoxImg(): string {
-    let img = ''
+    let img = '';
 
     if (this.closeBoxURL !== '') {
-      img = '<img alt=""'
-      img += ' aria-hidden="true"'
-      img += " src='" + this.closeBoxURL + "'"
-      img += ' align=right' // Do this because Opera chokes on style='float: right;'
-      img += " style='"
-      img += ' position: relative;' // Required by MSIE
-      img += ' cursor: pointer;'
-      img += ' margin: ' + this.closeBoxMargin + ';'
-      img += "'>"
+      img = '<img alt=""';
+      img += ' aria-hidden="true"';
+      img += " src='" + this.closeBoxURL + "'";
+      img += ' align=right'; // Do this because Opera chokes on style='float: right;'
+      img += " style='";
+      img += ' position: relative;'; // Required by MSIE
+      img += ' cursor: pointer;';
+      img += ' margin: ' + this.closeBoxMargin + ';';
+      img += "'>";
     }
 
-    return img
+    return img;
   }
 
   addClickHandler(): void {
-    this.closeListener = this.div && this.div.firstChild && this.closeBoxURL !== ''
-      ? google.maps.event.addListener(
-        this.div.firstChild,
-        'click',
-        this.getCloseClickHandler()
-      )
-      : null;
+    this.closeListener =
+      this.div && this.div.firstChild && this.closeBoxURL !== ''
+        ? google.maps.event.addListener(this.div.firstChild, 'click', this.getCloseClickHandler())
+        : null;
   }
 
   closeClickHandler(event: Event): void {
     // 1.0.3 fix: Always prevent propagation of a close box click to the map:
-    event.cancelBubble = true
+    event.cancelBubble = true;
 
     if (event.stopPropagation) {
-      event.stopPropagation()
+      event.stopPropagation();
     }
 
     /**
@@ -248,73 +235,74 @@ export class InfoBox {
      * @name InfoBox#closeclick
      * @event
      */
-    google.maps.event.trigger(this, 'closeclick')
+    google.maps.event.trigger(this, 'closeclick');
 
-    this.close()
+    this.close();
   }
 
   getCloseClickHandler(): (event: Event) => void {
-    return this.closeClickHandler
+    return this.closeClickHandler;
   }
 
   panBox(disablePan?: boolean | undefined): void {
     if (this.div && !disablePan) {
-      // @ts-ignore
-      const map: google.maps.Map | google.maps.StreetViewPanorama | null | undefined = this.getMap()
+      const map: google.maps.Map | google.maps.StreetViewPanorama | null | undefined =
+        // @ts-ignore
+        this.getMap();
 
       // Only pan if attached to map, not panorama
       if (map instanceof google.maps.Map) {
-        let xOffset = 0
-        let yOffset = 0
+        let xOffset = 0;
+        let yOffset = 0;
 
-        const bounds = map.getBounds()
+        const bounds = map.getBounds();
         if (bounds && !bounds.contains(this.position)) {
           // Marker not in visible area of map, so set center
           // of map to the marker position first.
-          map.setCenter(this.position)
+          map.setCenter(this.position);
         }
 
-        const mapDiv = map.getDiv()
+        const mapDiv = map.getDiv();
         // @ts-ignore
-        const mapWidth = mapDiv.offsetWidth
+        const mapWidth = mapDiv.offsetWidth;
         // @ts-ignore
-        const mapHeight = mapDiv.offsetHeight
-        const iwOffsetX = this.pixelOffset.width
-        const iwOffsetY = this.pixelOffset.height
-        const iwWidth = this.div.offsetWidth
-        const iwHeight = this.div.offsetHeight
-        const padX = this.infoBoxClearance.width
-        const padY = this.infoBoxClearance.height
+        const mapHeight = mapDiv.offsetHeight;
+        const iwOffsetX = this.pixelOffset.width;
+        const iwOffsetY = this.pixelOffset.height;
+        const iwWidth = this.div.offsetWidth;
+        const iwHeight = this.div.offsetHeight;
+        const padX = this.infoBoxClearance.width;
+        const padY = this.infoBoxClearance.height;
 
         // @ts-ignore
-        const projection: google.maps.MapCanvasProjection = this.getProjection()
-        const pixPosition = projection.fromLatLngToContainerPixel(this.position)
+        const projection: google.maps.MapCanvasProjection = this.getProjection();
+        const pixPosition = projection.fromLatLngToContainerPixel(this.position);
 
         if (pixPosition !== null) {
           if (pixPosition.x < -iwOffsetX + padX) {
-            xOffset = pixPosition.x + iwOffsetX - padX
+            xOffset = pixPosition.x + iwOffsetX - padX;
           } else if (pixPosition.x + iwWidth + iwOffsetX + padX > mapWidth) {
-            xOffset = pixPosition.x + iwWidth + iwOffsetX + padX - mapWidth
+            xOffset = pixPosition.x + iwWidth + iwOffsetX + padX - mapWidth;
           }
 
           if (this.alignBottom) {
             if (pixPosition.y < -iwOffsetY + padY + iwHeight) {
-              yOffset = pixPosition.y + iwOffsetY - padY - iwHeight
+              yOffset = pixPosition.y + iwOffsetY - padY - iwHeight;
             } else if (pixPosition.y + iwOffsetY + padY > mapHeight) {
-              yOffset = pixPosition.y + iwOffsetY + padY - mapHeight
+              yOffset = pixPosition.y + iwOffsetY + padY - mapHeight;
             }
           } else {
             if (pixPosition.y < -iwOffsetY + padY) {
-              yOffset = pixPosition.y + iwOffsetY - padY
+              yOffset = pixPosition.y + iwOffsetY - padY;
             } else if (pixPosition.y + iwHeight + iwOffsetY + padY > mapHeight) {
-              yOffset = pixPosition.y + iwHeight + iwOffsetY + padY - mapHeight
+              yOffset = pixPosition.y + iwHeight + iwOffsetY + padY - mapHeight;
             }
           }
         }
 
         if (!(xOffset === 0 && yOffset === 0)) {
           // Move the map to the shifted center.
-          map.panBy(xOffset, yOffset)
+          map.panBy(xOffset, yOffset);
         }
       }
     }
@@ -323,120 +311,118 @@ export class InfoBox {
   setBoxStyle(): void {
     if (this.div) {
       // Apply style values from the style sheet defined in the boxClass parameter:
-      this.div.className = this.boxClass
+      this.div.className = this.boxClass;
 
       // Clear existing inline style values:
-      this.div.style.cssText = ''
+      this.div.style.cssText = '';
 
       // Apply style values defined in the boxStyle parameter:
-      const boxStyle: Partial<CSSStyleDeclaration> = this.boxStyle
+      const boxStyle: Partial<CSSStyleDeclaration> = this.boxStyle;
 
       for (const i in boxStyle) {
-
         if (Object.prototype.hasOwnProperty.call(boxStyle, i)) {
-
           // @ts-ignore
-          this.div.style[i] = boxStyle[i]
+          this.div.style[i] = boxStyle[i];
         }
       }
 
       // Fix for iOS disappearing InfoBox problem
       // See http://stackoverflow.com/questions/9229535/google-maps-markers-disappear-at-certain-zoom-level-only-on-iphone-ipad
-      this.div.style.webkitTransform = 'translateZ(0)'
+      this.div.style.webkitTransform = 'translateZ(0)';
 
       // Fix up opacity style for benefit of MSIE
       if (typeof this.div.style.opacity !== 'undefined' && this.div.style.opacity !== '') {
         // See http://www.quirksmode.org/css/opacity.html
-        const opacity = parseFloat(this.div.style.opacity || '')
+        const opacity = parseFloat(this.div.style.opacity || '');
 
         // @ts-ignore
         this.div.style.msFilter =
-          '"progid:DXImageTransform.Microsoft.Alpha(Opacity=' + opacity * 100 + ')"'
-        this.div.style.filter = 'alpha(opacity=' + opacity * 100 + ')'
+          '"progid:DXImageTransform.Microsoft.Alpha(Opacity=' + opacity * 100 + ')"';
+        this.div.style.filter = 'alpha(opacity=' + opacity * 100 + ')';
       }
 
       // Apply required styles
-      this.div.style.position = 'absolute'
-      this.div.style.visibility = 'hidden'
+      this.div.style.position = 'absolute';
+      this.div.style.visibility = 'hidden';
       if (this.zIndex !== null) {
-        this.div.style.zIndex = this.zIndex + ''
+        this.div.style.zIndex = this.zIndex + '';
       }
       if (!this.div.style.overflow) {
-        this.div.style.overflow = 'auto'
+        this.div.style.overflow = 'auto';
       }
     }
   }
 
   getBoxWidths(): { bottom: number; left: number; right: number; top: number } {
-    const bw = { top: 0, bottom: 0, left: 0, right: 0 }
+    const bw = { top: 0, bottom: 0, left: 0, right: 0 };
 
     if (!this.div) {
-      return bw
+      return bw;
     }
 
     if (document.defaultView) {
-      const ownerDocument = this.div.ownerDocument
+      const ownerDocument = this.div.ownerDocument;
       const computedStyle =
         ownerDocument && ownerDocument.defaultView
           ? ownerDocument.defaultView.getComputedStyle(this.div, '')
-          : null
+          : null;
 
       if (computedStyle) {
         // The computed styles are always in pixel units (good!)
-        bw.top = parseInt(computedStyle.borderTopWidth || '', 10) || 0
-        bw.bottom = parseInt(computedStyle.borderBottomWidth || '', 10) || 0
-        bw.left = parseInt(computedStyle.borderLeftWidth || '', 10) || 0
-        bw.right = parseInt(computedStyle.borderRightWidth || '', 10) || 0
+        bw.top = parseInt(computedStyle.borderTopWidth || '', 10) || 0;
+        bw.bottom = parseInt(computedStyle.borderBottomWidth || '', 10) || 0;
+        bw.left = parseInt(computedStyle.borderLeftWidth || '', 10) || 0;
+        bw.right = parseInt(computedStyle.borderRightWidth || '', 10) || 0;
       }
     } else if (
       // @ts-ignore
       document.documentElement.currentStyle // MSIE
     ) {
       // @ts-ignore
-      const currentStyle = this.div.currentStyle
+      const currentStyle = this.div.currentStyle;
 
       if (currentStyle) {
         // The current styles may not be in pixel units, but assume they are (bad!)
-        bw.top = parseInt(currentStyle.borderTopWidth || '', 10) || 0
-        bw.bottom = parseInt(currentStyle.borderBottomWidth || '', 10) || 0
-        bw.left = parseInt(currentStyle.borderLeftWidth || '', 10) || 0
-        bw.right = parseInt(currentStyle.borderRightWidth || '', 10) || 0
+        bw.top = parseInt(currentStyle.borderTopWidth || '', 10) || 0;
+        bw.bottom = parseInt(currentStyle.borderBottomWidth || '', 10) || 0;
+        bw.left = parseInt(currentStyle.borderLeftWidth || '', 10) || 0;
+        bw.right = parseInt(currentStyle.borderRightWidth || '', 10) || 0;
       }
     }
 
-    return bw
+    return bw;
   }
 
   onRemove(): void {
     if (this.div && this.div.parentNode) {
-      this.div.parentNode.removeChild(this.div)
-      this.div = null
+      this.div.parentNode.removeChild(this.div);
+      this.div = null;
     }
   }
 
   draw(): void {
-    this.createInfoBoxDiv()
+    this.createInfoBoxDiv();
 
     if (this.div) {
       // @ts-ignore
-      const projection: google.maps.MapCanvasProjection = this.getProjection()
+      const projection: google.maps.MapCanvasProjection = this.getProjection();
 
-      const pixPosition = projection.fromLatLngToDivPixel(this.position)
+      const pixPosition = projection.fromLatLngToDivPixel(this.position);
 
       if (pixPosition !== null) {
-        this.div.style.left = pixPosition.x + this.pixelOffset.width + 'px'
+        this.div.style.left = pixPosition.x + this.pixelOffset.width + 'px';
 
         if (this.alignBottom) {
-          this.div.style.bottom = -(pixPosition.y + this.pixelOffset.height) + 'px'
+          this.div.style.bottom = -(pixPosition.y + this.pixelOffset.height) + 'px';
         } else {
-          this.div.style.top = pixPosition.y + this.pixelOffset.height + 'px'
+          this.div.style.top = pixPosition.y + this.pixelOffset.height + 'px';
         }
       }
 
       if (this.isHidden) {
-        this.div.style.visibility = 'hidden'
+        this.div.style.visibility = 'hidden';
       } else {
-        this.div.style.visibility = 'visible'
+        this.div.style.visibility = 'visible';
       }
     }
   }
@@ -444,93 +430,93 @@ export class InfoBox {
   setOptions(options: InfoBoxOptions = {}): void {
     if (typeof options.boxClass !== 'undefined') {
       // Must be first
-      this.boxClass = options.boxClass
-      this.setBoxStyle()
+      this.boxClass = options.boxClass;
+      this.setBoxStyle();
     }
     if (typeof options.boxStyle !== 'undefined') {
       // Must be second
-      this.boxStyle = options.boxStyle
-      this.setBoxStyle()
+      this.boxStyle = options.boxStyle;
+      this.setBoxStyle();
     }
     if (typeof options.content !== 'undefined') {
-      this.setContent(options.content)
+      this.setContent(options.content);
     }
     if (typeof options.disableAutoPan !== 'undefined') {
-      this.disableAutoPan = options.disableAutoPan
+      this.disableAutoPan = options.disableAutoPan;
     }
     if (typeof options.maxWidth !== 'undefined') {
-      this.maxWidth = options.maxWidth
+      this.maxWidth = options.maxWidth;
     }
     if (typeof options.pixelOffset !== 'undefined') {
-      this.pixelOffset = options.pixelOffset
+      this.pixelOffset = options.pixelOffset;
     }
     if (typeof options.alignBottom !== 'undefined') {
-      this.alignBottom = options.alignBottom
+      this.alignBottom = options.alignBottom;
     }
     if (typeof options.position !== 'undefined') {
-      this.setPosition(options.position)
+      this.setPosition(options.position);
     }
     if (typeof options.zIndex !== 'undefined') {
-      this.setZIndex(options.zIndex)
+      this.setZIndex(options.zIndex);
     }
     if (typeof options.closeBoxMargin !== 'undefined') {
-      this.closeBoxMargin = options.closeBoxMargin
+      this.closeBoxMargin = options.closeBoxMargin;
     }
     if (typeof options.closeBoxURL !== 'undefined') {
-      this.closeBoxURL = options.closeBoxURL
+      this.closeBoxURL = options.closeBoxURL;
     }
     if (typeof options.infoBoxClearance !== 'undefined') {
-      this.infoBoxClearance = options.infoBoxClearance
+      this.infoBoxClearance = options.infoBoxClearance;
     }
     if (typeof options.isHidden !== 'undefined') {
-      this.isHidden = options.isHidden
+      this.isHidden = options.isHidden;
     }
     if (typeof options.visible !== 'undefined') {
-      this.isHidden = !options.visible
+      this.isHidden = !options.visible;
     }
     if (typeof options.enableEventPropagation !== 'undefined') {
-      this.enableEventPropagation = options.enableEventPropagation
+      this.enableEventPropagation = options.enableEventPropagation;
     }
 
     if (this.div) {
-      this.draw()
+      this.draw();
     }
   }
 
   setContent(content: string | Node): void {
-    this.content = content
+    this.content = content;
 
     if (this.div) {
       if (this.closeListener) {
-        google.maps.event.removeListener(this.closeListener)
-        this.closeListener = null
+        google.maps.event.removeListener(this.closeListener);
+        this.closeListener = null;
       }
 
       // Odd code required to make things work with MSIE.
       if (!this.fixedWidthSet) {
-        this.div.style.width = ''
+        this.div.style.width = '';
       }
 
       if (typeof content === 'string') {
-        this.div.innerHTML = this.getCloseBoxImg() + content
+        this.div.innerHTML = this.getCloseBoxImg() + content;
       } else {
-        this.div.innerHTML = this.getCloseBoxImg()
-        this.div.appendChild(content)
+        this.div.innerHTML = this.getCloseBoxImg();
+        this.div.appendChild(content);
       }
 
       // Perverse code required to make things work with MSIE.
       // (Ensures the close box does, in fact, float to the right.)
       if (!this.fixedWidthSet) {
-        this.div.style.width = this.div.offsetWidth + 'px'
+        this.div.style.width = this.div.offsetWidth + 'px';
         if (typeof content === 'string') {
-          this.div.innerHTML = this.getCloseBoxImg() + content
+          this.div.innerHTML = this.getCloseBoxImg() + content;
         } else {
-          this.div.innerHTML = this.getCloseBoxImg()
-          this.div.appendChild(content)
+          this.div.innerHTML = this.getCloseBoxImg();
+          this.div.appendChild(content);
         }
       }
 
-      this.addClickHandler()
+      this.addClickHandler();
     }
 
     /**
@@ -538,14 +524,14 @@ export class InfoBox {
      * @name InfoBox#content_changed
      * @event
      */
-    google.maps.event.trigger(this, 'content_changed')
+    google.maps.event.trigger(this, 'content_changed');
   }
 
   setPosition(latLng: google.maps.LatLng): void {
-    this.position = latLng
+    this.position = latLng;
 
     if (this.div) {
-      this.draw()
+      this.draw();
     }
 
     /**
@@ -553,22 +539,22 @@ export class InfoBox {
      * @name InfoBox#position_changed
      * @event
      */
-    google.maps.event.trigger(this, 'position_changed')
+    google.maps.event.trigger(this, 'position_changed');
   }
 
   setVisible(isVisible: boolean): void {
-    this.isHidden = !isVisible
+    this.isHidden = !isVisible;
 
     if (this.div) {
-      this.div.style.visibility = this.isHidden ? 'hidden' : 'visible'
+      this.div.style.visibility = this.isHidden ? 'hidden' : 'visible';
     }
   }
 
   setZIndex(index: number): void {
-    this.zIndex = index
+    this.zIndex = index;
 
     if (this.div) {
-      this.div.style.zIndex = index + ''
+      this.div.style.zIndex = index + '';
     }
 
     /**
@@ -576,128 +562,119 @@ export class InfoBox {
      * @name InfoBox#zindex_changed
      * @event
      */
-    google.maps.event.trigger(this, 'zindex_changed')
+    google.maps.event.trigger(this, 'zindex_changed');
   }
 
   getContent(): string | Node {
-    return this.content
+    return this.content;
   }
 
   getPosition(): google.maps.LatLng {
-    return this.position
+    return this.position;
   }
 
   getZIndex(): number | null | undefined {
-    return this.zIndex
+    return this.zIndex;
   }
 
   getVisible(): boolean {
-    const map: google.maps.Map | google.maps.StreetViewPanorama | null | undefined = (this as unknown as google.maps.OverlayView).getMap()
+    const map: google.maps.Map | google.maps.StreetViewPanorama | null | undefined = (
+      this as unknown as google.maps.OverlayView
+    ).getMap();
 
-    return typeof map === 'undefined' || map === null ? false : !this.isHidden
+    return typeof map === 'undefined' || map === null ? false : !this.isHidden;
   }
 
   show(): void {
-    this.isHidden = false
+    this.isHidden = false;
 
     if (this.div) {
-      this.div.style.visibility = 'visible'
+      this.div.style.visibility = 'visible';
     }
   }
 
   hide(): void {
-    this.isHidden = true
+    this.isHidden = true;
 
     if (this.div) {
-      this.div.style.visibility = 'hidden'
+      this.div.style.visibility = 'hidden';
     }
   }
 
   open(
     map: google.maps.Map | google.maps.StreetViewPanorama,
-    anchor?: google.maps.MVCObject | undefined
+    anchor?: google.maps.MVCObject | undefined,
   ): void {
     if (anchor) {
       // @ts-ignore
-      this.position = anchor.getPosition()
+      this.position = anchor.getPosition();
 
-      this.moveListener = google.maps.event.addListener(
-        anchor,
-        'position_changed',
-        () => {
+      this.moveListener = google.maps.event.addListener(anchor, 'position_changed', () => {
+        // @ts-ignore
+        const position = anchor.getPosition();
 
-          // @ts-ignore
-          const position = anchor.getPosition()
+        this.setPosition(position);
+      });
 
-          this.setPosition(position)
-        }
-      )
-
-      this.mapListener = google.maps.event.addListener(
-        anchor,
-        'map_changed',
-        () => {
-
-          // @ts-ignore
-          this.setMap(anchor.map)
-        }
-      )
+      this.mapListener = google.maps.event.addListener(anchor, 'map_changed', () => {
+        // @ts-ignore
+        this.setMap(anchor.map);
+      });
     }
 
-    (this as unknown as google.maps.OverlayView).setMap(map)
+    (this as unknown as google.maps.OverlayView).setMap(map);
 
     if (this.div) {
-      this.panBox()
+      this.panBox();
     }
   }
 
-  close() {
+  close(): void {
     if (this.closeListener) {
-      google.maps.event.removeListener(this.closeListener)
+      google.maps.event.removeListener(this.closeListener);
 
-      this.closeListener = null
+      this.closeListener = null;
     }
 
     if (this.eventListeners) {
       for (const eventListener of this.eventListeners) {
-        google.maps.event.removeListener(eventListener)
+        google.maps.event.removeListener(eventListener);
       }
 
-      this.eventListeners = null
+      this.eventListeners = null;
     }
 
     if (this.moveListener) {
-      google.maps.event.removeListener(this.moveListener)
+      google.maps.event.removeListener(this.moveListener);
 
-      this.moveListener = null
+      this.moveListener = null;
     }
 
     if (this.mapListener) {
-      google.maps.event.removeListener(this.mapListener)
+      google.maps.event.removeListener(this.mapListener);
 
-      this.mapListener = null
+      this.mapListener = null;
     }
 
     if (this.contextListener) {
-      google.maps.event.removeListener(this.contextListener)
+      google.maps.event.removeListener(this.contextListener);
 
-      this.contextListener = null
+      this.contextListener = null;
     }
     // @ts-ignore
-    this.setMap(null)
+    this.setMap(null);
   }
 
   extend<A extends typeof InfoBox>(obj1: A, obj2: typeof google.maps.OverlayView): A {
     return function applyExtend(this: A, object: typeof google.maps.OverlayView): A {
       for (const property in object.prototype) {
         if (!Object.prototype.hasOwnProperty.call(this, property)) {
-
           // @ts-ignore
-          this.prototype[property] = object.prototype[property  as keyof google.maps.OverlayView]
+          this.prototype[property] = object.prototype[property as keyof google.maps.OverlayView];
         }
       }
 
-      return this
-    }.apply(obj1, [obj2])
+      return this;
+    }.apply(obj1, [obj2]);
   }
 }

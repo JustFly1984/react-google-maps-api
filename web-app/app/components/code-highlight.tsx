@@ -47,10 +47,10 @@ export function CodeHighlight({ code, language, theme = 'github-dark' }: Props):
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     let mounted = true;
 
-    async function highlightCode() {
+    async function highlightCode(): Promise<void> {
       try {
         const highlighter = await createHighlighter({
           themes: [theme],
@@ -61,7 +61,9 @@ export function CodeHighlight({ code, language, theme = 'github-dark' }: Props):
 
         const lines = code.split('\n');
         const codeWithLines = lines
-          .map((line, i) => `${String(i + 1).padStart(2, ' ')}  ${line}`)
+          .map((line, i) => {
+            return `${String(i + 1).padStart(2, ' ')}  ${line}`;
+          })
           .join('\n');
 
         const html = highlighter.codeToHtml(codeWithLines, {
@@ -72,6 +74,7 @@ export function CodeHighlight({ code, language, theme = 'github-dark' }: Props):
         setHighlightedCode(html);
       } catch (error: unknown) {
         console.error('Failed to highlight code:', error);
+
         setHighlightedCode(`<pre class="${fallbackCodeClasses}"><code>${code}</code></pre>`);
       } finally {
         if (mounted) {
@@ -87,7 +90,7 @@ export function CodeHighlight({ code, language, theme = 'github-dark' }: Props):
     };
   }, [code, language, theme]);
 
-  const handleCopy = useCallback(async () => {
+  const handleCopy = useCallback(async (): Promise<void> => {
     try {
       await navigator.clipboard.writeText(code);
       setCopied(true);

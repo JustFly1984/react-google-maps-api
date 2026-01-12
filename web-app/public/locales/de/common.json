@@ -1,0 +1,203 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "documentation": "Dokumentation",
+    "pricing": "Preise"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "active": "Aktiv",
+    "dashboard": "Zum Dashboard",
+    "viewDocs": "Dokumentation ansehen",
+    "validUntil": "Gültig bis"
+  },
+  "docs": {
+    "examples": {
+      "title": "Beispiel",
+      "props": "Props"
+    },
+    "autocomplete": {
+      "searchPlace": "Ort suchen"
+    },
+    "searchBox": {
+      "search": "Suchen..."
+    },
+    "navigation": {
+      "title": "Dokumentation",
+      "sections": {
+        "gettingStarted": "Erste Schritte",
+        "loading": "API laden",
+        "googleMap": "GoogleMap",
+        "components": "Komponenten",
+        "marker": "Marker",
+        "infoWindow": "InfoWindow",
+        "polyline": "Polyline",
+        "polygon": "Polygon",
+        "rectangle": "Rectangle",
+        "circle": "Circle",
+        "drawingManager": "DrawingManager",
+        "trafficLayer": "TrafficLayer",
+        "bicyclingLayer": "BicyclingLayer",
+        "transitLayer": "TransitLayer",
+        "heatmapLayer": "HeatmapLayer",
+        "kmlLayer": "KmlLayer",
+        "directions": "Directions",
+        "distanceMatrix": "DistanceMatrix",
+        "autocomplete": "Autocomplete",
+        "searchBox": "SearchBox",
+        "overlayView": "OverlayView",
+        "groundOverlay": "GroundOverlay",
+        "streetViewPanorama": "StreetViewPanorama",
+        "streetViewService": "StreetViewService",
+        "markerClusterer": "MarkerClusterer",
+        "infoBox": "InfoBox"
+      },
+      "sectionNames": {
+        "drawing": "Zeichnen",
+        "layers": "Ebenen",
+        "services": "Dienste",
+        "places": "Orte",
+        "overlays": "Overlays",
+        "streetView": "Street View",
+        "addons": "Add-ons"
+      }
+    },
+    "content": {
+      "gettingStarted": {
+        "title": "Erste Schritte",
+        "content": "React Google Maps API bietet eine einfache und deklarative Möglichkeit, Google Maps in Ihre React-Anwendungen zu integrieren."
+      },
+      "loading": {
+        "title": "API laden",
+        "content": "Sie können die Google Maps API mit dem useJsApiLoader Hook oder der LoadScript Komponente laden."
+      },
+      "googleMap": {
+        "title": "GoogleMap",
+        "content": "Die GoogleMap Komponente ist die Hauptkomponente, die eine Google Maps Karte darstellt."
+      }
+    },
+    "props": {
+      "googleMapsApiKey": "Ihr Google Maps API Schlüssel",
+      "arrayOfLibraries": "Array zu ladender Bibliotheken: places, drawing, geometry, visualization",
+      "language": "Sprache für die Karten-Benutzeroberfläche",
+      "region": "Region Bias für Geocoding",
+      "version": "API Version (Standard: weekly)",
+      "mapIds": "Map IDs für Cloud-basierte Kartenstile",
+      "inputElement": "Input Element",
+      "countryRestrictions": "Ländereinschränkungen",
+      "placeTypes": "Ortstypen zur Rückgabe",
+      "dataFields": "Ortsdatenfelder zum Abrufen",
+      "mapContainerStyle": "CSS Stile für den Kartencontainer",
+      "mapContainerClassName": "CSS Klassenname für den Kartencontainer",
+      "initialCenterPosition": "Anfängliche Mittelposition",
+      "initialZoomLevel": "Anfänglicher Zoom-Level",
+      "mapOptionsObject": "Kartenoptionen Objekt",
+      "mapClickHandler": "Karten-Klick-Handler",
+      "mapDragHandler": "Karten-Zieh-Handler",
+      "zoomChangeHandler": "Zoom-Änderungs-Handler",
+      "calledWhenMapIsLoaded": "Wird aufgerufen, wenn die Karte geladen ist",
+      "calledWhenMapIsUnmounted": "Wird aufgerufen, wenn die Karte unmontiert wird"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "React Google Maps API",
+      "title": "React Komponenten für Google Maps",
+      "subtitle": "Eine einfache und deklarative Möglichkeit, Google Maps in Ihre React-Anwendungen zu integrieren.",
+      "getStarted": "Loslegen",
+      "viewPricing": "Preise ansehen"
+    },
+    "features": {
+      "title": "Hauptfunktionen",
+      "subtitle": "Alles, was Sie für die Erstellung erstaunlicher Kartenanwendungen benötigen"
+    },
+    "cta": {
+      "title": "Bereit, etwas Erstaunliches zu erstellen?",
+      "subtitle": "Beginnen Sie heute mit React Google Maps API",
+      "getStarted": "Kostenlos starten",
+      "viewPricing": "Pläne ansehen"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Anmelden",
+      "subtitle": "Willkommen zurück",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "rememberMe": "Angemeldet bleiben",
+      "forgotPassword": "Passwort vergessen?",
+      "noAccount": "Haben Sie kein Konto?",
+      "signUp": "Registrieren",
+      "submit": "Anmelden",
+      "error": "Fehler beim Anmelden"
+    },
+    "signUp": {
+      "title": "Konto erstellen",
+      "subtitle": "Treten Sie uns heute bei",
+      "fullName": "Vollständiger Name",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "agreeTerms": "Ich stimme den Geschäftsbedingungen zu",
+      "hasAccount": "Haben Sie bereits ein Konto?",
+      "signIn": "Anmelden",
+      "submit": "Konto erstellen",
+      "error": "Fehler beim Erstellen des Kontos"
+    },
+    "forgotPassword": {
+      "title": "Passwort vergessen?",
+      "subtitle": "Wir senden Ihnen eine E-Mail zum Zurücksetzen Ihres Passworts",
+      "email": "E-Mail",
+      "submit": "Passwort-Reset-E-Mail senden",
+      "backToLogin": "Zurück zur Anmeldung",
+      "error": "Fehler beim Senden der E-Mail"
+    },
+    "resetPassword": {
+      "title": "Passwort zurücksetzen",
+      "subtitle": "Geben Sie Ihr neues Passwort ein",
+      "password": "Neues Passwort",
+      "confirmPassword": "Neues Passwort bestätigen",
+      "submit": "Passwort zurücksetzen",
+      "error": "Fehler beim Zurücksetzen des Passworts"
+    }
+  },
+  "pricing": {
+    "title": "Preise",
+    "subtitle": "Wählen Sie den perfekten Plan für Sie",
+    "license": {
+      "title": "Entwickler-Lizenz",
+      "description": "Vollzugang zu allen Komponenten und Updates",
+      "price": "$99",
+      "period": "pro Jahr",
+      "getStarted": "Loslegen"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Willkommen",
+    "licenses": "Lizenzen",
+    "noLicenses": "Sie haben keine aktiven Lizenzen",
+    "getLicense": "Lizenz erwerben"
+  },
+  "checkout": {
+    "success": {
+      "title": "Zahlung erfolgreich!",
+      "subtitle": "Ihre Lizenz wurde erfolgreich aktiviert",
+      "licenseDetails": "Lizenzdetails",
+      "thankYou": "Vielen Dank für Ihren Kauf",
+      "backToDashboard": "Zurück zum Dashboard"
+    }
+  }
+}
