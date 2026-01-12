@@ -34,20 +34,20 @@ export async function onRequestGet(
     const token = getTokenFromCookie(context.request);
 
     if (token === null) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401, headers });
+      return Response.json({ error: 'Unauthorized' }, { status: 200, headers });
     }
 
     const payload = await verifyToken(token, context.env.JWT_SECRET);
 
     if (payload === null) {
-      return Response.json({ error: 'Invalid or expired token' }, { status: 401, headers });
+      return Response.json({ error: 'Invalid or expired token' }, { status: 200, headers });
     }
 
     const user = await context.env.DB.prepare('SELECT id, email, full_name FROM users WHERE id = ?')
       .bind(payload.userId)
       .first<User>();
 
-    if (!user) {
+    if (user === null) {
       return Response.json({ error: 'User not found' }, { status: 404, headers });
     }
 
