@@ -100,8 +100,8 @@ const tableHeaderCellClasses = clsx(
 const tableRowClasses = clsx(styles.borderB, styles.borderTheme);
 const tableCellClasses = clsx(styles.py3, styles.px4);
 const codeClasses = clsx(
-  styles.textBlue600,
-  styles.bgBlue50,
+  'text-theme-accent',
+  'bg-theme-accent-light',
   styles.px1,
   styles.py0_5,
   styles.rounded,

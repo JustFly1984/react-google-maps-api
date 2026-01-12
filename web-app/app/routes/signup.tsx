@@ -21,7 +21,7 @@ const subtitleClasses = clsx(styles.mt2, styles.textThemeSecondary);
 const cardClasses = clsx(styles.card, styles.p8);
 const buttonClasses = clsx(styles.wFull, styles.btnPrimary, styles.py3);
 const footerClasses = clsx(styles.mt6, styles.textCenter, styles.textSm, styles.textThemeSecondary);
-const linkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styles.fontMedium);
+const linkClasses = clsx('text-theme-link', styles.fontMedium);
 
 export default function SignUpPage(): JSX.Element {
   const { t, i18n } = useTranslation();
@@ -59,7 +59,7 @@ export default function SignUpPage(): JSX.Element {
         if (!response.ok) {
           const data = await response.json();
 
-          return data.error ?? 'Sign up failed';
+          return data.error ?? t('auth.signup.failed');
         }
 
         const data = await response.json();
@@ -67,7 +67,7 @@ export default function SignUpPage(): JSX.Element {
         const result = v.safeParse(UserLoginResponseSchema, data);
 
         if (!result.success) {
-          return 'Invalid response from server';
+          return t('auth.signup.invalidResponse');
         }
 
         setUser(result.output.user);
@@ -80,7 +80,7 @@ export default function SignUpPage(): JSX.Element {
         setLoading(false);
       }
     },
-    [setUser],
+    [setUser, t],
   );
 
   const handleFullNameChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {

@@ -31,8 +31,8 @@ const heroBadgeClasses = clsx(
   styles.px4,
   styles.py2,
   styles.roundedFull,
-  styles.bgBlue100,
-  styles.textBlue700,
+  'bg-theme-accent-light',
+  'text-theme-accent',
   styles.textSm,
   styles.fontMedium,
   styles.mb8,
@@ -40,10 +40,11 @@ const heroBadgeClasses = clsx(
 const heroTitleClasses = clsx(
   styles.text4xl,
   styles.fontBold,
-  styles.textThemePrimary,
+  'text-white',
   styles.trackingTight,
+  'hero-text-shadow',
 );
-const heroSubtitleClasses = clsx(styles.mt6, styles.textXl, styles.textThemeSecondary);
+const heroSubtitleClasses = clsx(styles.mt6, styles.textXl, 'text-gray-200', 'hero-text-shadow');
 const heroActionsClasses = clsx(
   styles.mt10,
   styles.flex,
@@ -75,7 +76,7 @@ const featuresGridClasses = clsx(
   styles.lgGridCols3,
 );
 const featureCardClasses = clsx(styles.p6);
-const featureIconClasses = clsx(styles.h12, styles.w12, styles.textBlue600);
+const featureIconClasses = clsx(styles.h12, styles.w12, 'text-theme-accent');
 const featureNameClasses = clsx(
   styles.textLg,
   styles.fontSemibold,
@@ -90,8 +91,8 @@ const featureIconContainerClasses = clsx(
   styles.w12,
   styles.h12,
   styles.roundedLg,
-  styles.bgBlue100,
-  styles.textBlue600,
+  'bg-theme-accent-light',
+  'text-theme-accent',
   styles.mb4,
 );
 const ctaSectionClasses = clsx(styles.py24, styles.bgThemeSurface);
@@ -124,7 +125,7 @@ export default function HomePage(): JSX.Element {
 
   return (
     <div>
-      <section className={styles.heroSection}>
+      <section className={clsx(styles.heroSection, 'hero-bg')}>
         <div className={heroContainerClasses}>
           <div className={styles.textCenter}>
             <div className={heroBadgeClasses}>

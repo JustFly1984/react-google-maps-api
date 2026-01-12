@@ -5,6 +5,16 @@
     "pricing": "Tarifs"
   },
   "common": {
+    "buttons": {
+      "signIn": "Se connecter",
+      "signUp": "Commencer",
+      "signOut": "Se déconnecter",
+      "dashboard": "Tableau de bord"
+    },
+    "footer": {
+      "copyright": "© {{year}} React Google Maps API. Tous droits réservés.",
+      "rememberPassword": "Vous vous souvenez de votre mot de passe ?"
+    },
     "loading": "Chargement...",
     "error": "Erreur",
     "success": "Succès",
@@ -21,7 +31,21 @@
     "active": "Actif",
     "dashboard": "Aller au tableau de bord",
     "viewDocs": "Voir la documentation",
-    "validUntil": "Valide jusqu'au"
+    "validUntil": "Valide jusqu'au",
+    "placeholders": {
+      "email": "vous@exemple.com",
+      "password": "••••••••",
+      "fullName": "Jean Dupont",
+      "search": "Rechercher...",
+      "searchPlace": "Rechercher un lieu"
+    },
+    "accessibility": {
+      "selectLanguage": "Sélectionner la langue",
+      "switchToLightMode": "Passer en mode clair",
+      "switchToDarkMode": "Passer en mode sombre",
+      "copyCode": "Copier le code",
+      "copied": "Copié !"
+    }
   },
   "docs": {
     "examples": {
@@ -120,8 +144,14 @@
       "viewPricing": "Voir les tarifs"
     },
     "features": {
-      "title": "Fonctionnalités Principales",
-      "subtitle": "Tout ce dont vous avez besoin pour créer des applications de cartes incroyables"
+      "title": "Pourquoi React Google Maps API ?",
+      "subtitle": "Tout ce dont vous avez besoin pour créer des applications de cartes professionnelles",
+      "easyIntegration": "Intégration Facile",
+      "easyIntegrationDescription": "Composants React prêts à l'emploi pour Google Maps avec support TypeScript complet.",
+      "highPerformance": "Haute Performance",
+      "highPerformanceDescription": "Optimisé pour la performance avec chargement différé et re-rendus efficaces.",
+      "commercialLicense": "Licence Commerciale",
+      "commercialLicenseDescription": "Licence annuelle abordable pour utilisation commerciale avec support prioritaire."
     },
     "cta": {
       "title": "Prêt à construire quelque chose d'incroyable ?",
@@ -131,17 +161,32 @@
     }
   },
   "auth": {
-    "signIn": {
+    "login": {
       "title": "Se connecter",
-      "subtitle": "Bon retour",
+      "subtitle": "Bon retour ! Veuillez vous connecter à votre compte.",
       "email": "E-mail",
       "password": "Mot de passe",
-      "rememberMe": "Se souvenir de moi",
       "forgotPassword": "Mot de passe oublié ?",
       "noAccount": "Vous n'avez pas de compte ?",
-      "signUp": "S'inscrire",
-      "submit": "Se connecter",
-      "error": "Erreur de connexion"
+      "signUpLink": "S'inscrire",
+      "signingIn": "Connexion...",
+      "validationError": "Veuillez entrer un email et un mot de passe valides",
+      "failed": "Échec de la connexion",
+      "invalidResponse": "Réponse invalide du serveur"
+    },
+    "signup": {
+      "title": "Créer un compte",
+      "subtitle": "Rejoignez-nous aujourd'hui ! Créez votre compte pour commencer.",
+      "fullName": "Nom complet",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "signInLink": "Se connecter",
+      "creatingAccount": "Création du compte...",
+      "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+      "failed": "Échec de l'inscription",
+      "invalidResponse": "Réponse invalide du serveur"
     },
     "signUp": {
       "title": "Créer un compte",
@@ -157,47 +202,97 @@
       "error": "Erreur lors de la création du compte"
     },
     "forgotPassword": {
-      "title": "Mot de passe oublié ?",
-      "subtitle": "Nous vous enverrons un e-mail pour réinitialiser votre mot de passe",
+      "title": "Réinitialiser le mot de passe",
+      "subtitle": "Entrez votre adresse e-mail et nous vous enverrons un lien de réinitialisation.",
       "email": "E-mail",
-      "submit": "Envoyer l'e-mail de réinitialisation",
+      "submit": "Envoyer le lien",
+      "sending": "Envoi...",
+      "successTitle": "Lien envoyé",
+      "successText": "Vérifiez votre e-mail pour le lien de réinitialisation.",
       "backToLogin": "Retour à la connexion",
-      "error": "Erreur lors de l'envoi de l'e-mail"
+      "validationError": "Veuillez entrer une adresse e-mail valide",
+      "sendError": "Échec de l'envoi de l'e-mail. Veuillez réessayer.",
+      "genericError": "Une erreur s'est produite"
     },
     "resetPassword": {
-      "title": "Réinitialiser le mot de passe",
-      "subtitle": "Entrez votre nouveau mot de passe",
-      "password": "Nouveau mot de passe",
-      "confirmPassword": "Confirmer le nouveau mot de passe",
-      "submit": "Réinitialiser le mot de passe",
-      "error": "Erreur lors de la réinitialisation du mot de passe"
+      "title": "Définir un nouveau mot de passe",
+      "subtitle": "Entrez votre nouveau mot de passe ci-dessous.",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Mettre à jour le mot de passe",
+      "resetting": "Réinitialisation...",
+      "successTitle": "Mot de passe mis à jour",
+      "successText": "Votre mot de passe a été mis à jour avec succès.",
+      "backToLogin": "Retour à la connexion",
+      "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+      "genericError": "Une erreur s'est produite",
+      "error": "Échec de la réinitialisation. Veuillez réessayer."
     }
   },
   "pricing": {
-    "title": "Tarifs",
-    "subtitle": "Choisissez le plan parfait pour vous",
+    "title": "Tarification simple et transparente",
+    "subtitle": "Obtenez une licence commerciale pour utiliser React Google Maps API dans vos applications de production.",
     "license": {
-      "title": "Licence Développeur",
-      "description": "Accès complet à tous les composants et mises à jour",
-      "price": "$99",
-      "period": "par an",
-      "getStarted": "Commencer"
+      "name": "Licence Commerciale",
+      "subtitle": "Parfait pour les applications en production",
+      "price": "$12",
+      "period": "/an",
+      "buttonText": "Acheter une licence",
+      "features": {
+        "fullAccess": "Accès complet à tous les composants",
+        "commercialUse": "Licence d'utilisation commerciale",
+        "prioritySupport": "Support par e-mail prioritaire",
+        "premiumExamples": "Accès aux exemples premium",
+        "oneYearUpdates": "Un an de mises à jour",
+        "unlimitedProjects": "Projets illimités"
+      },
+      "guarantee": "Garantie de remboursement de 30 jours"
+    },
+    "openSource": {
+      "title": "Utilisation Open Source",
+      "description": "React Google Maps API est gratuit pour les projets open source. Si vous créez quelque chose pour la communauté, vous pouvez l'utiliser sans licence."
     }
   },
   "dashboard": {
     "title": "Tableau de bord",
-    "welcome": "Bienvenue",
-    "licenses": "Licences",
-    "noLicenses": "Vous n'avez pas de licences actives",
-    "getLicense": "Obtenir une licence"
-  },
-  "checkout": {
-    "success": {
-      "title": "Paiement réussi !",
-      "subtitle": "Votre licence a été activée avec succès",
-      "licenseDetails": "Détails de la licence",
-      "thankYou": "Merci pour votre achat",
-      "backToDashboard": "Retour au tableau de bord"
+    "subtitle": "Gérez vos licences et paramètres de compte",
+    "licenses": {
+      "title": "Vos Licences",
+      "empty": {
+        "title": "Aucune licence trouvée",
+        "description": "Vous n'avez pas encore acheté de licence. Commencez par acheter une licence commerciale.",
+        "button": "Acheter une licence"
+      },
+      "serialNumber": "Numéro de série",
+      "purchaseDate": "Date d'achat",
+      "expiryDate": "Date d'expiration",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "copy": "Copier",
+      "copied": "Copié !"
+    },
+    "sidebar": {
+      "title": "Actions rapides",
+      "purchaseLicense": "Acheter une licence",
+      "viewDocs": "Voir la documentation",
+      "processing": "Traitement..."
     }
+  },
+  "checkoutSuccess": {
+    "title": "Paiement réussi !",
+    "subtitle": "Merci pour votre achat. Votre licence a été générée.",
+    "licenseKey": "Clé de licence",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "serialNumber": "Numéro de série",
+    "purchaseDate": "Date d'achat",
+    "expiryDate": "Date d'expiration",
+    "status": "Statut",
+    "active": "Active",
+    "dashboard": "Aller au tableau de bord",
+    "viewDocs": "Voir la documentation",
+    "validUntil": "Valide jusqu'au"
   }
 }

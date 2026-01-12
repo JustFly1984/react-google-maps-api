@@ -17,14 +17,9 @@ const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textThemePrima
 const subtitleClasses = clsx(styles.mt2, styles.textThemeSecondary);
 const cardClasses = clsx(styles.card, styles.p8);
 const buttonClasses = clsx(styles.wFull, styles.btnPrimary, styles.py3);
-const forgotPasswordClasses = clsx(
-  styles.textSm,
-  styles.textBlue600,
-  styles.hoverTextBlue700,
-  styles.fontMedium,
-);
+const forgotPasswordClasses = clsx(styles.textSm, 'text-theme-link', styles.fontMedium);
 const signUpContainerClasses = clsx(styles.mt4, styles.textCenter);
-const signUpLinkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styles.fontMedium);
+const signUpLinkClasses = clsx('text-theme-link', styles.fontMedium);
 const footerClasses = clsx(styles.mt4, styles.textCenter, styles.textSm, styles.textThemeSecondary);
 
 export default function LoginPage(): JSX.Element {
@@ -51,24 +46,24 @@ export default function LoginPage(): JSX.Element {
         if (!response.ok) {
           const data = await response.json();
 
-          return data.error || 'Sign in failed';
+          return data.error || t('auth.login.failed');
         }
 
         const data = await response.json();
         const result = v.safeParse(UserLoginResponseSchema, data);
 
         if (!result.success) {
-          return 'Invalid response from server';
+          return t('auth.login.invalidResponse');
         }
 
         setUser(result.output.user);
 
         return;
       } catch (err: unknown) {
-        return err instanceof Error ? err.message : 'Sign in failed';
+        return err instanceof Error ? err.message : t('auth.login.failed');
       }
     },
-    [],
+    [t],
   );
 
   const handleEmailChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {

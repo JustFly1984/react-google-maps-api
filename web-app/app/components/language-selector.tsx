@@ -12,6 +12,10 @@ const languages = [
   { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
   { code: 'fr', name: 'Français', flag: '🇫🇷' },
   { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+  { code: 'ja', name: '日本語', flag: '🇯🇵' },
+  { code: 'zh-CN', name: '简体中文', flag: '🇨🇳' },
+  { code: 'zh-TW', name: '繁體中文', flag: '🇹🇼' },
 ] as const;
 
 const selectorButtonClasses = clsx(
@@ -39,10 +43,9 @@ const dropdownClasses = clsx(
   styles.roundedLg,
   styles.border,
   styles.borderThemeSecondary,
-  styles.bgWhite,
+  'bg-theme-surface',
   styles.shadowLg,
   styles.zIndex50,
-  'dark:bg-gray-900',
 );
 
 const dropdownItemClasses = clsx(
@@ -61,7 +64,7 @@ const dropdownItemActiveClasses = clsx('bg-theme-accent', 'text-white');
 
 export function LanguageSelector(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -80,7 +83,8 @@ export function LanguageSelector(): JSX.Element {
 
       console.info('setLanguage currentPath', currentPath);
 
-      const pathWithoutLocale = currentPath.replace(/^\/(en|es|de|fr|ru)/, '') || '/';
+      const pathWithoutLocale =
+        currentPath.replace(/^\/(en|es|de|fr|ru|it|ja|zh-CN|zh-TW)/, '') || '/';
 
       console.info('setLanguage pathWithoutLocale', pathWithoutLocale);
 
@@ -137,7 +141,7 @@ export function LanguageSelector(): JSX.Element {
         type="button"
         onClick={open}
         className={selectorButtonClasses}
-        aria-label="Select language"
+        aria-label={t('common.accessibility.selectLanguage')}
         aria-expanded={isOpen}
         aria-haspopup="true"
       >

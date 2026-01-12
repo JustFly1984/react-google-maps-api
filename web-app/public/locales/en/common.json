@@ -46,6 +46,13 @@
       "fullName": "John Doe",
       "search": "Search...",
       "searchPlace": "Search for a place"
+    },
+    "accessibility": {
+      "selectLanguage": "Select language",
+      "switchToLightMode": "Switch to light mode",
+      "switchToDarkMode": "Switch to dark mode",
+      "copyCode": "Copy code",
+      "copied": "Copied!"
     }
   },
   "auth": {
@@ -58,7 +65,9 @@
       "noAccount": "Don't have an account?",
       "signUpLink": "Sign up",
       "signingIn": "Signing in...",
-      "validationError": "Please enter a valid email and password"
+      "validationError": "Please enter a valid email and password",
+      "failed": "Sign in failed",
+      "invalidResponse": "Invalid response from server"
     },
     "signup": {
       "title": "Create Account",
@@ -70,7 +79,9 @@
       "hasAccount": "Already have an account?",
       "signInLink": "Sign in",
       "creatingAccount": "Creating account...",
-      "passwordsDoNotMatch": "Passwords do not match"
+      "passwordsDoNotMatch": "Passwords do not match",
+      "failed": "Sign up failed",
+      "invalidResponse": "Invalid response from server"
     },
     "forgotPassword": {
       "title": "Reset Password",

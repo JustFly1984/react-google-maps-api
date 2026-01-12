@@ -2,7 +2,7 @@ import type { JSX, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, type LinkProps } from 'react-router';
 
-const SUPPORTED_LOCALES = ['en', 'ru', 'es', 'de', 'fr'] as const;
+const SUPPORTED_LOCALES = ['en', 'ru', 'es', 'de', 'fr', 'it', 'ja', 'zh-CN', 'zh-TW'] as const;
 type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 
 function isSupportedLocale(lang: string): lang is SupportedLocale {

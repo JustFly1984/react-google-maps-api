@@ -74,5 +74,69 @@ export default [
     route('ru/checkout/success', 'routes/checkout-success.tsx', {
       id: 'routes/checkout-success-ru',
     }),
+
+    route('it', 'routes/home.tsx', { id: 'routes/home-it' }),
+    route('it/docs/:section?', 'routes/docs.tsx', { id: 'routes/docs-it' }),
+    route('it/pricing', 'routes/pricing.tsx', { id: 'routes/pricing-it' }),
+    route('it/login', 'routes/login.tsx', { id: 'routes/login-it' }),
+    route('it/signup', 'routes/signup.tsx', { id: 'routes/signup-it' }),
+    route('it/forgot-password', 'routes/forgot-password.tsx', {
+      id: 'routes/forgot-password-it',
+    }),
+    route('it/reset-password', 'routes/reset-password.tsx', {
+      id: 'routes/reset-password-it',
+    }),
+    route('it/dashboard', 'routes/dashboard.tsx', { id: 'routes/dashboard-it' }),
+    route('it/checkout/success', 'routes/checkout-success.tsx', {
+      id: 'routes/checkout-success-it',
+    }),
+
+    route('ja', 'routes/home.tsx', { id: 'routes/home-ja' }),
+    route('ja/docs/:section?', 'routes/docs.tsx', { id: 'routes/docs-ja' }),
+    route('ja/pricing', 'routes/pricing.tsx', { id: 'routes/pricing-ja' }),
+    route('ja/login', 'routes/login.tsx', { id: 'routes/login-ja' }),
+    route('ja/signup', 'routes/signup.tsx', { id: 'routes/signup-ja' }),
+    route('ja/forgot-password', 'routes/forgot-password.tsx', {
+      id: 'routes/forgot-password-ja',
+    }),
+    route('ja/reset-password', 'routes/reset-password.tsx', {
+      id: 'routes/reset-password-ja',
+    }),
+    route('ja/dashboard', 'routes/dashboard.tsx', { id: 'routes/dashboard-ja' }),
+    route('ja/checkout/success', 'routes/checkout-success.tsx', {
+      id: 'routes/checkout-success-ja',
+    }),
+
+    route('zh-CN', 'routes/home.tsx', { id: 'routes/home-zh-CN' }),
+    route('zh-CN/docs/:section?', 'routes/docs.tsx', { id: 'routes/docs-zh-CN' }),
+    route('zh-CN/pricing', 'routes/pricing.tsx', { id: 'routes/pricing-zh-CN' }),
+    route('zh-CN/login', 'routes/login.tsx', { id: 'routes/login-zh-CN' }),
+    route('zh-CN/signup', 'routes/signup.tsx', { id: 'routes/signup-zh-CN' }),
+    route('zh-CN/forgot-password', 'routes/forgot-password.tsx', {
+      id: 'routes/forgot-password-zh-CN',
+    }),
+    route('zh-CN/reset-password', 'routes/reset-password.tsx', {
+      id: 'routes/reset-password-zh-CN',
+    }),
+    route('zh-CN/dashboard', 'routes/dashboard.tsx', { id: 'routes/dashboard-zh-CN' }),
+    route('zh-CN/checkout/success', 'routes/checkout-success.tsx', {
+      id: 'routes/checkout-success-zh-CN',
+    }),
+
+    route('zh-TW', 'routes/home.tsx', { id: 'routes/home-zh-TW' }),
+    route('zh-TW/docs/:section?', 'routes/docs.tsx', { id: 'routes/docs-zh-TW' }),
+    route('zh-TW/pricing', 'routes/pricing.tsx', { id: 'routes/pricing-zh-TW' }),
+    route('zh-TW/login', 'routes/login.tsx', { id: 'routes/login-zh-TW' }),
+    route('zh-TW/signup', 'routes/signup.tsx', { id: 'routes/signup-zh-TW' }),
+    route('zh-TW/forgot-password', 'routes/forgot-password.tsx', {
+      id: 'routes/forgot-password-zh-TW',
+    }),
+    route('zh-TW/reset-password', 'routes/reset-password.tsx', {
+      id: 'routes/reset-password-zh-TW',
+    }),
+    route('zh-TW/dashboard', 'routes/dashboard.tsx', { id: 'routes/dashboard-zh-TW' }),
+    route('zh-TW/checkout/success', 'routes/checkout-success.tsx', {
+      id: 'routes/checkout-success-zh-TW',
+    }),
   ]),
 ] as const satisfies RouteConfig;

@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Copy } from 'lucide-react';
 import { useCallback, useEffect, useState, type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { createHighlighter } from 'shiki';
 
 import { styles } from '../styles.ts';
@@ -43,6 +44,7 @@ const copyButtonClasses = clsx(
 );
 
 export function CodeHighlight({ code, language, theme = 'github-dark' }: Props): JSX.Element {
+  const { t } = useTranslation();
   const [highlightedCode, setHighlightedCode] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
@@ -116,7 +118,7 @@ export function CodeHighlight({ code, language, theme = 'github-dark' }: Props):
       <button
         onClick={handleCopy}
         className={copyButtonClasses}
-        title={copied ? 'Copied!' : 'Copy code'}
+        title={copied ? t('common.accessibility.copied') : t('common.accessibility.copyCode')}
       >
         <Copy className={styles.iconSm} />
       </button>

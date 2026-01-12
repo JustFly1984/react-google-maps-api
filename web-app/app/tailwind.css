@@ -165,6 +165,64 @@
     background: linear-gradient(to bottom, var(--color-accent-light), var(--color-surface-secondary));
   }
 
+  .hero-bg {
+    background-image: url('/images/bg-mobile.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(17, 24, 39, 0.7) 0%,
+      rgba(17, 24, 39, 0.5) 50%,
+      rgba(17, 24, 39, 0.7) 100%
+    );
+    z-index: 0;
+  }
+
+  .hero-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .hero-bg {
+      background-image: url('/images/bg-tablet.webp');
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hero-bg {
+      background-image: url('/images/bg-desktop.webp');
+    }
+  }
+
+  @supports not (background-image: url('/images/bg-mobile.webp')) {
+    .hero-bg {
+      background-image: url('/images/bg-mobile.png');
+    }
+    @media (min-width: 768px) {
+      .hero-bg {
+        background-image: url('/images/bg-tablet.png');
+      }
+    }
+    @media (min-width: 1280px) {
+      .hero-bg {
+        background-image: url('/images/bg-desktop.png');
+      }
+    }
+  }
+
   .code-block {
     @apply rounded-lg overflow-x-auto;
     background-color: var(--color-surface-inverse);
@@ -187,5 +245,24 @@
 
   .border-accent {
     border-color: var(--color-accent);
+  }
+
+  .text-theme-link {
+    color: var(--color-accent);
+  }
+  .text-theme-link:hover {
+    color: var(--color-accent-hover);
+  }
+
+  .bg-theme-accent-light {
+    background-color: var(--color-accent-light);
+  }
+
+  .text-theme-success {
+    color: var(--color-success);
+  }
+
+  .bg-theme-success-light {
+    background-color: var(--color-success-light);
   }
 }

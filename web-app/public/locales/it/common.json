@@ -1,0 +1,413 @@
+{
+  "home": {
+    "hero": {
+      "badge": "React Google Maps API",
+      "title": "Google Maps per React",
+      "subtitle": "La libreria React più popolare per Google Maps. Crea mappe belle e interattive con facilità usando la nostra libreria di componenti.",
+      "getStarted": "Inizia",
+      "viewPricing": "Vedi Prezzi"
+    },
+    "features": {
+      "title": "Perché React Google Maps API?",
+      "subtitle": "Tutto ciò di cui hai bisogno per creare applicazioni di mappe professionali",
+      "easyIntegration": "Integrazione Facile",
+      "easyIntegrationDescription": "Componenti React pronti all'uso per Google Maps con supporto TypeScript completo.",
+      "highPerformance": "Alte Prestazioni",
+      "highPerformanceDescription": "Ottimizzato per le prestazioni con caricamento lazy e re-render efficienti.",
+      "commercialLicense": "Licenza Commerciale",
+      "commercialLicenseDescription": "Licenza annuale accessibile per uso commerciale con supporto prioritario."
+    },
+    "cta": {
+      "title": "Pronto per iniziare?",
+      "subtitle": "Unisciti a migliaia di sviluppatori che usano React Google Maps API",
+      "getStarted": "Crea Account",
+      "viewPricing": "Vedi Prezzi"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "documentation": "Documentazione",
+    "pricing": "Prezzi"
+  },
+  "common": {
+    "buttons": {
+      "signIn": "Accedi",
+      "signUp": "Inizia",
+      "signOut": "Esci",
+      "dashboard": "Dashboard"
+    },
+    "footer": {
+      "copyright": "© {{year}} React Google Maps API. Tutti i diritti riservati.",
+      "rememberPassword": "Ricordi la password?"
+    },
+    "placeholders": {
+      "email": "tu@esempio.com",
+      "password": "••••••••",
+      "fullName": "Mario Rossi",
+      "search": "Cerca...",
+      "searchPlace": "Cerca un luogo"
+    },
+    "accessibility": {
+      "selectLanguage": "Seleziona lingua",
+      "switchToLightMode": "Passa alla modalità chiara",
+      "switchToDarkMode": "Passa alla modalità scura",
+      "copyCode": "Copia codice",
+      "copied": "Copiato!"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Accedi",
+      "subtitle": "Bentornato! Accedi al tuo account.",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Password dimenticata?",
+      "noAccount": "Non hai un account?",
+      "signUpLink": "Registrati",
+      "signingIn": "Accesso in corso...",
+      "validationError": "Inserisci email e password validi",
+      "failed": "Accesso fallito",
+      "invalidResponse": "Risposta non valida dal server"
+    },
+    "signup": {
+      "title": "Crea Account",
+      "subtitle": "Unisciti a noi oggi! Crea il tuo account per iniziare.",
+      "fullName": "Nome Completo",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Conferma Password",
+      "hasAccount": "Hai già un account?",
+      "signInLink": "Accedi",
+      "creatingAccount": "Creazione account...",
+      "passwordsDoNotMatch": "Le password non corrispondono",
+      "failed": "Registrazione fallita",
+      "invalidResponse": "Risposta non valida dal server"
+    },
+    "forgotPassword": {
+      "title": "Reimposta Password",
+      "subtitle": "Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la password.",
+      "email": "Email",
+      "submit": "Invia Link",
+      "sending": "Invio...",
+      "successTitle": "Link Inviato",
+      "successText": "Controlla la tua email per il link di reimpostazione.",
+      "backToLogin": "Torna al Login",
+      "validationError": "Inserisci un indirizzo email valido",
+      "sendError": "Invio email fallito. Riprova.",
+      "genericError": "Qualcosa è andato storto"
+    },
+    "resetPassword": {
+      "title": "Imposta Nuova Password",
+      "subtitle": "Inserisci la tua nuova password qui sotto.",
+      "newPassword": "Nuova Password",
+      "confirmPassword": "Conferma Password",
+      "submit": "Aggiorna Password",
+      "resetting": "Reimpostazione...",
+      "successTitle": "Password Aggiornata",
+      "successText": "La tua password è stata aggiornata con successo.",
+      "backToLogin": "Torna al Login",
+      "passwordsDoNotMatch": "Le password non corrispondono",
+      "genericError": "Qualcosa è andato storto",
+      "error": "Reimpostazione password fallita. Riprova."
+    }
+  },
+  "pricing": {
+    "title": "Prezzi Semplici e Trasparenti",
+    "subtitle": "Ottieni una licenza commerciale per usare React Google Maps API nelle tue applicazioni di produzione.",
+    "license": {
+      "name": "Licenza Commerciale",
+      "subtitle": "Perfetta per app in produzione",
+      "price": "$12",
+      "period": "/anno",
+      "buttonText": "Acquista Licenza",
+      "features": {
+        "fullAccess": "Accesso completo a tutti i componenti",
+        "commercialUse": "Licenza per uso commerciale",
+        "prioritySupport": "Supporto email prioritario",
+        "premiumExamples": "Accesso agli esempi premium",
+        "oneYearUpdates": "Un anno di aggiornamenti",
+        "unlimitedProjects": "Progetti illimitati"
+      },
+      "guarantee": "Garanzia di rimborso 30 giorni"
+    },
+    "openSource": {
+      "title": "Uso Open Source",
+      "description": "React Google Maps API è gratuito per progetti open source. Se stai costruendo qualcosa per la comunità, puoi usarlo senza licenza."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Gestisci le tue licenze e impostazioni account",
+    "licenses": {
+      "title": "Le Tue Licenze",
+      "empty": {
+        "title": "Nessuna licenza trovata",
+        "description": "Non hai ancora acquistato licenze. Inizia acquistando una licenza commerciale.",
+        "button": "Acquista Licenza"
+      },
+      "serialNumber": "Numero Seriale",
+      "purchaseDate": "Data Acquisto",
+      "expiryDate": "Data Scadenza",
+      "status": {
+        "active": "Attiva",
+        "inactive": "Inattiva"
+      },
+      "copy": "Copia",
+      "copied": "Copiato!"
+    },
+    "sidebar": {
+      "title": "Azioni Rapide",
+      "purchaseLicense": "Acquista Licenza",
+      "viewDocs": "Vedi Documentazione",
+      "processing": "Elaborazione..."
+    }
+  },
+  "checkoutSuccess": {
+    "title": "Pagamento Riuscito!",
+    "subtitle": "Grazie per l'acquisto. La tua licenza è stata generata.",
+    "licenseKey": "Chiave Licenza",
+    "copy": "Copia",
+    "copied": "Copiato!",
+    "serialNumber": "Numero Seriale",
+    "purchaseDate": "Data Acquisto",
+    "expiryDate": "Data Scadenza",
+    "status": "Stato",
+    "active": "Attiva",
+    "dashboard": "Vai alla Dashboard",
+    "viewDocs": "Vedi Documentazione",
+    "validUntil": "Valida fino al"
+  },
+  "docs": {
+    "examples": {
+      "title": "Esempio",
+      "props": "Props"
+    },
+    "autocomplete": {
+      "searchPlace": "Cerca un luogo"
+    },
+    "searchBox": {
+      "search": "Cerca..."
+    },
+    "props": {
+      "googleMapsApiKey": "La tua chiave API Google Maps",
+      "arrayOfLibraries": "Array di librerie da caricare: places, drawing, geometry, visualization",
+      "language": "Lingua per l'interfaccia della mappa",
+      "region": "Regione per la geocodifica",
+      "version": "Versione API (default: weekly)",
+      "mapIds": "ID mappa per stili basati su cloud",
+      "inputElement": "Elemento input",
+      "countryRestrictions": "Restrizioni paese",
+      "placeTypes": "Tipi di luoghi da restituire",
+      "dataFields": "Campi dati luoghi da recuperare",
+      "placeSelectionCallback": "Callback selezione luogo",
+      "loadCallback": "Callback caricamento",
+      "mapContainerStyle": "Oggetto stile per il contenitore mappa",
+      "mapContainerClassName": "Classe CSS per il contenitore mappa",
+      "initialCenterPosition": "Posizione centrale iniziale",
+      "initialZoomLevel": "Livello zoom iniziale (0-22)",
+      "mapOptionsObject": "Oggetto opzioni mappa",
+      "mapClickHandler": "Handler click mappa",
+      "mapDragHandler": "Handler trascinamento mappa",
+      "zoomChangeHandler": "Handler cambio zoom",
+      "calledWhenMapIsLoaded": "Chiamato quando la mappa è caricata",
+      "calledWhenMapIsUnmounted": "Chiamato quando la mappa è smontata",
+      "markerPosition": "Posizione marker (richiesta)",
+      "customMarkerIcon": "Icona marker personalizzata",
+      "markerLabel": "Etichetta marker",
+      "hoverTooltipText": "Testo tooltip hover",
+      "allowMarkerToBeDragged": "Permetti trascinamento marker",
+      "markerVisibility": "Visibilità marker",
+      "dropOrBounceAnimation": "Animazione DROP o BOUNCE",
+      "markerClustererInstance": "Istanza MarkerClusterer",
+      "clickHandler": "Handler click",
+      "dragEndHandler": "Handler fine trascinamento",
+      "positionRequiredIfNoAnchor": "Posizione (richiesta se nessun anchor)",
+      "anchorToAMarker": "Ancora a un marker",
+      "contentToDisplay": "Contenuto da mostrare",
+      "closeButtonClickHandler": "Handler click pulsante chiudi",
+      "arrayOfCoordinates": "Array di coordinate",
+      "polylineStylingOptions": "Opzioni stile polyline",
+      "allowPolylineToBeDragged": "Permetti trascinamento polyline",
+      "allowEditingVertices": "Permetti modifica vertici",
+      "arrayOfCoordinateArrays": "Array di array di coordinate",
+      "polygonStylingOptions": "Opzioni stile polygon",
+      "allowPolygonToBeDragged": "Permetti trascinamento polygon",
+      "rectangleBounds": "Limiti rettangolo (richiesti)",
+      "rectangleStylingOptions": "Opzioni stile rettangolo",
+      "allowRectangleToBeDragged": "Permetti trascinamento rettangolo",
+      "allowResizing": "Permetti ridimensionamento",
+      "circleCenter": "Centro cerchio (richiesto)",
+      "radiusInMeters": "Raggio in metri",
+      "circleStylingOptions": "Opzioni stile cerchio",
+      "allowCircleToBeDragged": "Permetti trascinamento cerchio",
+      "activeDrawingMode": "Modalità disegno attiva",
+      "drawingManagerOptions": "Opzioni drawing manager",
+      "markerDrawnCallback": "Callback marker disegnato",
+      "circleDrawnCallback": "Callback cerchio disegnato",
+      "polygonDrawnCallback": "Callback polygon disegnato",
+      "polylineDrawnCallback": "Callback polyline disegnata",
+      "rectangleDrawnCallback": "Callback rettangolo disegnato",
+      "unmountCallback": "Callback smontaggio",
+      "heatmapDataPoints": "Punti dati heatmap",
+      "heatmapStylingOptions": "Opzioni stile heatmap",
+      "kmlLayerUrl": "URL file KML",
+      "kmlLayerOptions": "Opzioni layer KML",
+      "groundOverlayUrl": "URL immagine overlay",
+      "groundOverlayBounds": "Limiti immagine overlay",
+      "groundOverlayOpacity": "Opacità overlay",
+      "infoBoxOptions": "Opzioni InfoBox",
+      "infoBoxPosition": "Posizione",
+      "infoBoxContentToDisplay": "Contenuto da mostrare",
+      "infoBoxCloseCallback": "Callback chiusura",
+      "infoBoxLoadCallback": "Callback caricamento"
+    },
+    "content": {
+      "gettingStarted": {
+        "title": "Per Iniziare",
+        "content": "React Google Maps API fornisce un set completo di componenti React per Google Maps JavaScript API.\n\nQuesta libreria ti permette di creare dichiarativamente mappe, marker, overlay e altro usando pattern React familiari.\n\n**Installazione**"
+      },
+      "loading": {
+        "title": "Caricamento API",
+        "content": "Prima di usare qualsiasi componente mappa, devi caricare Google Maps JavaScript API. Ci sono due approcci:\n\n1. **LoadScript** - Caricamento globale a livello app\n2. **JsApiLoader** - Caricamento dinamico nei componenti"
+      },
+      "googleMap": {
+        "title": "GoogleMap",
+        "content": "Il componente GoogleMap è il componente principale che renderizza una Google Map. Tutti gli altri componenti mappa devono essere figli di GoogleMap.\n\n**Caratteristiche:**\n- Completamente controllato via props\n- Supporta tutti gli eventi mappa\n- Accesso all'istanza mappa via callback onLoad"
+      },
+      "marker": {
+        "title": "Marker",
+        "content": "Il componente Marker renderizza un marker sulla mappa. I marker possono essere personalizzati con icone, etichette, animazioni e handler eventi.\n\n**Nota:** Marker è deprecato in favore di AdvancedMarkerElement, ma rimane ampiamente usato."
+      },
+      "infoWindow": {
+        "title": "InfoWindow",
+        "content": "InfoWindow mostra contenuto in una finestra popup sopra la mappa. Può essere ancorato a un marker o posizionato a coordinate."
+      },
+      "polyline": {
+        "title": "Polyline",
+        "content": "Polyline disegna una linea sulla mappa connettendo una serie di coordinate. Utile per percorsi, sentieri e confini."
+      },
+      "polygon": {
+        "title": "Polygon",
+        "content": "Polygon disegna una forma chiusa sulla mappa. Utile per evidenziare aree, regioni o zone."
+      },
+      "rectangle": {
+        "title": "Rectangle",
+        "content": "Rectangle disegna una forma rettangolare sulla mappa definita da limiti."
+      },
+      "circle": {
+        "title": "Circle",
+        "content": "Circle disegna una forma circolare sulla mappa definita da centro e raggio."
+      },
+      "drawingManager": {
+        "title": "DrawingManager",
+        "content": "DrawingManager permette agli utenti di disegnare forme (marker, cerchi, polygon, ecc.) direttamente sulla mappa.\n\n**Richiede:** libreria `drawing`"
+      },
+      "trafficLayer": {
+        "title": "TrafficLayer",
+        "content": "TrafficLayer mostra le condizioni del traffico in tempo reale sulla mappa."
+      },
+      "bicyclingLayer": {
+        "title": "BicyclingLayer",
+        "content": "BicyclingLayer mostra piste ciclabili e strade bike-friendly sulla mappa."
+      },
+      "transitLayer": {
+        "title": "TransitLayer",
+        "content": "TransitLayer mostra percorsi e stazioni del trasporto pubblico sulla mappa."
+      },
+      "heatmapLayer": {
+        "title": "HeatmapLayer",
+        "content": "HeatmapLayer visualizza l'intensità dei dati con gradienti di colore.\n\n**Richiede:** libreria `visualization`"
+      },
+      "kmlLayer": {
+        "title": "KmlLayer",
+        "content": "KmlLayer renderizza file KML/KMZ sulla mappa."
+      },
+      "directions": {
+        "title": "Directions",
+        "content": "DirectionsService calcola i percorsi e DirectionsRenderer li mostra sulla mappa."
+      },
+      "distanceMatrix": {
+        "title": "DistanceMatrixService",
+        "content": "DistanceMatrixService calcola distanza e tempo di viaggio per multiple origini e destinazioni."
+      },
+      "autocomplete": {
+        "title": "Autocomplete",
+        "content": "Autocomplete fornisce suggerimenti indirizzi/luoghi mentre l'utente digita.\n\n**Richiede:** libreria `places`"
+      },
+      "searchBox": {
+        "title": "StandaloneSearchBox",
+        "content": "StandaloneSearchBox fornisce una casella di ricerca luoghi senza richiedere una mappa.\n\n**Richiede:** libreria `places`"
+      },
+      "overlayView": {
+        "title": "OverlayView",
+        "content": "OverlayView renderizza componenti React personalizzati come overlay mappa a coordinate specifiche."
+      },
+      "groundOverlay": {
+        "title": "GroundOverlay",
+        "content": "GroundOverlay mostra un'immagine sulla mappa entro limiti specificati."
+      },
+      "streetViewPanorama": {
+        "title": "StreetViewPanorama",
+        "content": "StreetViewPanorama mostra le immagini Google Street View."
+      },
+      "streetViewService": {
+        "title": "StreetViewService",
+        "content": "StreetViewService fornisce metadati sulla copertura Street View."
+      },
+      "markerClusterer": {
+        "title": "MarkerClusterer",
+        "content": "MarkerClusterer raggruppa marker vicini in cluster per migliori prestazioni e UX con molti marker."
+      },
+      "infoBox": {
+        "title": "InfoBox",
+        "content": "InfoBox è un'alternativa personalizzabile a InfoWindow con più opzioni di stile."
+      }
+    },
+    "navigation": {
+      "title": "Documentazione",
+      "sections": {
+        "gettingStarted": "Per Iniziare",
+        "loading": "Caricamento API",
+        "googleMap": "GoogleMap",
+        "components": "Componenti",
+        "marker": "Marker",
+        "infoWindow": "InfoWindow",
+        "polyline": "Polyline",
+        "polygon": "Polygon",
+        "rectangle": "Rectangle",
+        "circle": "Circle",
+        "drawingManager": "DrawingManager",
+        "layers": "Layer",
+        "trafficLayer": "TrafficLayer",
+        "bicyclingLayer": "BicyclingLayer",
+        "transitLayer": "TransitLayer",
+        "heatmapLayer": "HeatmapLayer",
+        "kmlLayer": "KmlLayer",
+        "services": "Servizi",
+        "directions": "Directions",
+        "distanceMatrix": "DistanceMatrix",
+        "places": "Luoghi",
+        "autocomplete": "Autocomplete",
+        "searchBox": "StandaloneSearchBox",
+        "overlays": "Overlay",
+        "overlayView": "OverlayView",
+        "groundOverlay": "GroundOverlay",
+        "streetView": "Street View",
+        "streetViewPanorama": "StreetViewPanorama",
+        "streetViewService": "StreetViewService",
+        "addons": "Addon",
+        "markerClusterer": "MarkerClusterer",
+        "infoBox": "InfoBox"
+      },
+      "sectionNames": {
+        "drawing": "Disegno",
+        "layers": "Layer",
+        "services": "Servizi",
+        "places": "Luoghi",
+        "overlays": "Overlay",
+        "streetView": "Street View",
+        "addons": "Addon"
+      }
+    }
+  }
+}

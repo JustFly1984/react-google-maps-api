@@ -11,7 +11,7 @@ import { ResetPasswordSchema } from '../../shared/schemas.ts';
 import { styles } from '../styles.ts';
 
 const successContainerClasses = clsx(styles.card, styles.p8, styles.textCenter);
-const successIconClasses = clsx(styles.iconXl, styles.textGreen600);
+const successIconClasses = clsx(styles.iconXl, 'text-theme-success');
 const successTitleClasses = clsx(
   styles.text2xl,
   styles.fontBold,
@@ -19,7 +19,7 @@ const successTitleClasses = clsx(
   styles.mb2,
 );
 const successTextClasses = clsx(styles.textThemeSecondary, styles.mb6);
-const successLinkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styles.fontMedium);
+const successLinkClasses = clsx('text-theme-link', styles.fontMedium);
 const headerClasses = clsx(styles.textCenter, styles.mb8);
 const titleClasses = clsx(styles.text3xl, styles.fontBold, styles.textThemePrimary);
 const subtitleClasses = clsx(styles.mt2, styles.textThemeSecondary);

@@ -20,7 +20,7 @@ type License = {
 };
 
 const containerClasses = clsx(styles.pageMaxW, styles.textCenter);
-const successIconClasses = clsx(styles.iconXl, styles.textGreen600);
+const successIconClasses = clsx(styles.iconXl, 'text-theme-success');
 const successTitleClasses = clsx(
   styles.text2xl,
   styles.fontBold,
@@ -58,7 +58,7 @@ const successIconContainerClasses = clsx(
   styles.w16,
   styles.h16,
   styles.roundedFull,
-  styles.bgGreen100,
+  'bg-theme-success-light',
   styles.mb6,
 );
 const licenseCardClasses = clsx(styles.card, styles.p6, styles.mb8, styles.textLeft);

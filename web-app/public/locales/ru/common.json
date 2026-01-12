@@ -46,6 +46,13 @@
       "fullName": "Иван Иванов",
       "search": "Поиск...",
       "searchPlace": "Поиск места"
+    },
+    "accessibility": {
+      "selectLanguage": "Выбрать язык",
+      "switchToLightMode": "Переключить на светлую тему",
+      "switchToDarkMode": "Переключить на тёмную тему",
+      "copyCode": "Копировать код",
+      "copied": "Скопировано!"
     }
   },
   "auth": {
@@ -58,7 +65,9 @@
       "noAccount": "Нет аккаунта?",
       "signUpLink": "Зарегистрироваться",
       "signingIn": "Вход...",
-      "validationError": "Пожалуйста, введите корректный email и пароль"
+      "validationError": "Пожалуйста, введите корректный email и пароль",
+      "failed": "Ошибка входа",
+      "invalidResponse": "Неверный ответ от сервера"
     },
     "signup": {
       "title": "Регистрация",
@@ -70,7 +79,9 @@
       "hasAccount": "Уже есть аккаунт?",
       "signInLink": "Войти",
       "creatingAccount": "Создание аккаунта...",
-      "passwordsDoNotMatch": "Пароли не совпадают"
+      "passwordsDoNotMatch": "Пароли не совпадают",
+      "failed": "Ошибка регистрации",
+      "invalidResponse": "Неверный ответ от сервера"
     },
     "forgotPassword": {
       "title": "Сброс пароля",
