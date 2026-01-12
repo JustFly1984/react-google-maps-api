@@ -14,7 +14,7 @@ export default function LocaleLayout(): JSX.Element {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    if (lang && isSupportedLocale(lang) && i18n.language !== lang) {
+    if (typeof lang !== 'undefined' && isSupportedLocale(lang) && i18n.language !== lang) {
       i18n.changeLanguage(lang);
     }
   }, [lang, i18n]);

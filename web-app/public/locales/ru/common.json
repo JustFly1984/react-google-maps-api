@@ -9,7 +9,13 @@
     },
     "features": {
       "title": "Почему React Google Maps API?",
-      "subtitle": "Всё что нужно для создания профессиональных картографических приложений"
+      "subtitle": "Всё что нужно для создания профессиональных картографических приложений",
+      "easyIntegration": "Простая интеграция",
+      "easyIntegrationDescription": "Готовые React компоненты для Google Maps с полной поддержкой TypeScript.",
+      "highPerformance": "Высокая производительность",
+      "highPerformanceDescription": "Оптимизировано для производительности с ленивой загрузкой и эффективными перерисовками.",
+      "commercialLicense": "Коммерческая лицензия",
+      "commercialLicenseDescription": "Доступная годовая лицензия для коммерческого использования с приоритетной поддержкой."
     },
     "cta": {
       "title": "Готовы начать?",
@@ -159,5 +165,238 @@
     "dashboard": "В панель управления",
     "viewDocs": "Документация",
     "validUntil": "Действительна до"
+  },
+  "docs": {
+    "examples": {
+      "title": "Пример",
+      "props": "Свойства"
+    },
+    "autocomplete": {
+      "searchPlace": "Поиск места"
+    },
+    "searchBox": {
+      "search": "Поиск..."
+    },
+    "props": {
+      "googleMapsApiKey": "Ваш Google Maps API ключ",
+      "arrayOfLibraries": "Массив библиотек для загрузки: places, drawing, geometry, visualization",
+      "language": "Язык для интерфейса карты",
+      "region": "Регион для геокодирования",
+      "version": "Версия API (по умолчанию: weekly)",
+      "mapIds": "ID карт для облачного стилизации",
+      "inputElement": "Элемент ввода",
+      "countryRestrictions": "Ограничения стран",
+      "placeTypes": "Типы мест для возврата",
+      "dataFields": "Поля данных мест для получения",
+      "placeSelectionCallback": "Callback выбора места",
+      "loadCallback": "Callback загрузки",
+      "mapContainerStyle": "Объект стиля для контейнера карты",
+      "mapContainerClassName": "CSS класс для контейнера карты",
+      "initialCenterPosition": "Начальная центральная позиция",
+      "initialZoomLevel": "Начальный уровень масштаба (0-22)",
+      "mapOptionsObject": "Объект опций карты",
+      "mapClickHandler": "Обработчик клика по карте",
+      "mapDragHandler": "Обработчик перетаскивания карты",
+      "zoomChangeHandler": "Обработчик изменения масштаба",
+      "calledWhenMapIsLoaded": "Вызывается при загрузке карты",
+      "calledWhenMapIsUnmounted": "Вызывается при размонтировании карты",
+      "markerPosition": "Позиция маркера (обязательно)",
+      "customMarkerIcon": "Пользовательская иконка маркера",
+      "markerLabel": "Метка маркера",
+      "hoverTooltipText": "Текст всплывающей подсказки",
+      "allowMarkerToBeDragged": "Разрешить перетаскивание маркера",
+      "markerVisibility": "Видимость маркера",
+      "dropOrBounceAnimation": "Анимация DROP или BOUNCE",
+      "markerClustererInstance": "Экземпляр MarkerClusterer",
+      "clickHandler": "Обработчик клика",
+      "dragEndHandler": "Обработчик окончания перетаскивания",
+      "positionRequiredIfNoAnchor": "Позиция (обязательно если нет якоря)",
+      "anchorToAMarker": "Привязать к маркеру",
+      "contentToDisplay": "Содержимое для отображения",
+      "closeButtonClickHandler": "Обработчик клика по кнопке закрытия",
+      "arrayOfCoordinates": "Массив координат",
+      "polylineStylingOptions": "Опции стилизации полилинии",
+      "allowPolylineToBeDragged": "Разрешить перетаскивание полилинии",
+      "allowEditingVertices": "Разрешить редактирование вершин",
+      "arrayOfCoordinateArrays": "Массив массивов координат",
+      "polygonStylingOptions": "Опции стилизации полигона",
+      "allowPolygonToBeDragged": "Разрешить перетаскивание полигона",
+      "rectangleBounds": "Границы прямоугольника (обязательно)",
+      "rectangleStylingOptions": "Опции стилизации прямоугольника",
+      "allowRectangleToBeDragged": "Разрешить перетаскивание прямоугольника",
+      "allowResizing": "Разрешить изменение размера",
+      "circleCenter": "Центр круга (обязательно)",
+      "radiusInMeters": "Радиус в метрах",
+      "circleStylingOptions": "Опции стилизации круга",
+      "allowCircleToBeDragged": "Разрешить перетаскивание круга",
+      "activeDrawingMode": "Активный режим рисования",
+      "drawingManagerOptions": "Опции менеджера рисования",
+      "markerDrawnCallback": "Callback рисования маркера",
+      "circleDrawnCallback": "Callback рисования круга",
+      "polygonDrawnCallback": "Callback рисования полигона",
+      "polylineDrawnCallback": "Callback рисования полилинии",
+      "rectangleDrawnCallback": "Callback рисования прямоугольника",
+      "unmountCallback": "Callback размонтирования",
+      "heatmapDataPoints": "Точки данных тепловой карты",
+      "heatmapStylingOptions": "Опции стилизации тепловой карты",
+      "kmlLayerUrl": "URL к KML файлу",
+      "kmlLayerOptions": "Опции KML слоя",
+      "groundOverlayUrl": "URL к изображению оверлея",
+      "groundOverlayBounds": "Границы изображения оверлея",
+      "groundOverlayOpacity": "Прозрачность оверлея",
+      "infoBoxOptions": "Опции InfoBox",
+      "infoBoxPosition": "Позиция",
+      "infoBoxContentToDisplay": "Содержимое для отображения",
+      "infoBoxCloseCallback": "Callback закрытия",
+      "infoBoxLoadCallback": "Callback загрузки"
+    },
+    "content": {
+      "gettingStarted": {
+        "title": "Начало работы",
+        "content": "React Google Maps API предоставляет комплексный набор React компонентов для Google Maps JavaScript API.\n\nЭта библиотека позволяет декларативно создавать карты, маркеры, оверлеи и многое другое используя знакомые паттерны React.\n\n**Установка**"
+      },
+      "loading": {
+        "title": "Загрузка API",
+        "content": "Перед использованием любых компонентов карты, вам нужно загрузить Google Maps JavaScript API. Есть два подхода:\n\n1. **LoadScript** - Глобальная загрузка на уровне приложения\n2. **JsApiLoader** - Динамическая загрузка в компонентах"
+      },
+      "googleMap": {
+        "title": "GoogleMap",
+        "content": "Компонент GoogleMap является основным компонентом, который рендерит Google Карту. Все другие компоненты карты должны быть дочерними элементами GoogleMap.\n\n**Возможности:**\n- Полностью контролируется через props\n- Поддерживает все события карты\n- Доступ к экземпляру карты через onLoad callback"
+      },
+      "marker": {
+        "title": "Marker",
+        "content": "Компонент Marker рендерит маркер на карте. Маркеры могут быть настроены с иконками, метками, анимациями и обработчиками событий.\n\n**Примечание:** Marker устарел в пользу AdvancedMarkerElement, но все еще широко используется."
+      },
+      "infoWindow": {
+        "title": "InfoWindow",
+        "content": "InfoWindow отображает содержимое во всплывающем окне над картой. Он может быть привязан к маркеру или позиционирован по координатам."
+      },
+      "polyline": {
+        "title": "Polyline",
+        "content": "Polyline рисует линию на карте, соединяя серию координат. Полезно для маршрутов, путей и границ."
+      },
+      "polygon": {
+        "title": "Polygon",
+        "content": "Polygon рисует замкнутую фигуру на карте. Полезно для выделения областей, регионов или зон."
+      },
+      "rectangle": {
+        "title": "Rectangle",
+        "content": "Rectangle рисует прямоугольную фигуру на карте, определенную границами."
+      },
+      "circle": {
+        "title": "Circle",
+        "content": "Circle рисует круглую фигуру на карте, определенную центром и радиусом."
+      },
+      "drawingManager": {
+        "title": "DrawingManager",
+        "content": "DrawingManager позволяет пользователям рисовать фигуры (маркеры, круги, полигоны и т.д.) непосредственно на карте.\n\n**Требуется:** библиотека `drawing`"
+      },
+      "trafficLayer": {
+        "title": "TrafficLayer",
+        "content": "TrafficLayer отображает условия дорожного движения в реальном времени на карте."
+      },
+      "bicyclingLayer": {
+        "title": "BicyclingLayer",
+        "content": "BicyclingLayer отображает велосипедные дорожки и дороги, дружественные к велосипедам, на карте."
+      },
+      "transitLayer": {
+        "title": "TransitLayer",
+        "content": "TransitLayer отображает маршруты и станции общественного транспорта на карте."
+      },
+      "heatmapLayer": {
+        "title": "HeatmapLayer",
+        "content": "HeatmapLayer визуализирует интенсивность данных с помощью цветовых градиентов.\n\n**Требуется:** библиотека `visualization`"
+      },
+      "kmlLayer": {
+        "title": "KmlLayer",
+        "content": "KmlLayer рендерит KML/KMZ файлы на карте."
+      },
+      "directions": {
+        "title": "Directions",
+        "content": "DirectionsService рассчитывает маршруты, а DirectionsRenderer отображает их на карте."
+      },
+      "distanceMatrix": {
+        "title": "DistanceMatrixService",
+        "content": "DistanceMatrixService рассчитывает расстояние и время путешествия для нескольких точек отправления и назначения."
+      },
+      "autocomplete": {
+        "title": "Autocomplete",
+        "content": "Autocomplete предоставляет предложения адресов/мест по мере ввода пользователем.\n\n**Требуется:** библиотека `places`"
+      },
+      "searchBox": {
+        "title": "StandaloneSearchBox",
+        "content": "StandaloneSearchBox предоставляет поле поиска для мест без требования карты.\n\n**Требуется:** библиотека `places`"
+      },
+      "overlayView": {
+        "title": "OverlayView",
+        "content": "OverlayView рендерит пользовательские React компоненты как оверлеи карты в определенных координатах."
+      },
+      "groundOverlay": {
+        "title": "GroundOverlay",
+        "content": "GroundOverlay отображает изображение на карте в указанных границах."
+      },
+      "streetViewPanorama": {
+        "title": "StreetViewPanorama",
+        "content": "StreetViewPanorama отображает изображения Google Улица."
+      },
+      "streetViewService": {
+        "title": "StreetViewService",
+        "content": "StreetViewService предоставляет метаданные о покрытии Улица."
+      },
+      "markerClusterer": {
+        "title": "MarkerClusterer",
+        "content": "MarkerClusterer группирует близлежащие маркеры в кластеры для лучшей производительности и UX с большим количеством маркеров."
+      },
+      "infoBox": {
+        "title": "InfoBox",
+        "content": "InfoBox это настраиваемая альтернатива InfoBox с большим количеством опций стилизации."
+      }
+    },
+    "navigation": {
+      "title": "Документация",
+      "sections": {
+        "gettingStarted": "Начало работы",
+        "loading": "Загрузка API",
+        "googleMap": "GoogleMap",
+        "components": "Компоненты",
+        "marker": "Marker",
+        "infoWindow": "InfoWindow",
+        "polyline": "Polyline",
+        "polygon": "Polygon",
+        "rectangle": "Rectangle",
+        "circle": "Circle",
+        "drawingManager": "DrawingManager",
+        "layers": "Слои",
+        "trafficLayer": "TrafficLayer",
+        "bicyclingLayer": "BicyclingLayer",
+        "transitLayer": "TransitLayer",
+        "heatmapLayer": "HeatmapLayer",
+        "kmlLayer": "KmlLayer",
+        "services": "Сервисы",
+        "directions": "Directions",
+        "distanceMatrix": "DistanceMatrix",
+        "places": "Места",
+        "autocomplete": "Autocomplete",
+        "searchBox": "StandaloneSearchBox",
+        "overlays": "Оверлеи",
+        "overlayView": "OverlayView",
+        "groundOverlay": "GroundOverlay",
+        "streetView": "Улица",
+        "streetViewPanorama": "StreetViewPanorama",
+        "streetViewService": "StreetViewService",
+        "addons": "Дополнения",
+        "markerClusterer": "MarkerClusterer",
+        "infoBox": "InfoBox"
+      },
+      "sectionNames": {
+        "drawing": "Рисование",
+        "layers": "Слои",
+        "services": "Сервисы",
+        "places": "Места",
+        "overlays": "Оверлеи",
+        "streetView": "Улица",
+        "addons": "Дополнения"
+      }
+    }
   }
 }

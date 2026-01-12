@@ -1,25 +1,25 @@
 import clsx from 'clsx';
 import { ArrowRight, Code, Map, Shield, Zap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import type { JSX } from 'react';
-import { homeTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
 
 const features = [
   {
-    name: 'Easy Integration',
-    description: 'Drop-in React components for Google Maps with full TypeScript support.',
+    name: 'home.features.easyIntegration',
+    description: 'home.features.easyIntegrationDescription',
     icon: Code,
   },
   {
-    name: 'High Performance',
-    description: 'Optimized for performance with lazy loading and efficient re-renders.',
+    name: 'home.features.highPerformance',
+    description: 'home.features.highPerformanceDescription',
     icon: Zap,
   },
   {
-    name: 'Commercial License',
-    description: 'Affordable yearly license for commercial use with priority support.',
+    name: 'home.features.commercialLicense',
+    description: 'home.features.commercialLicenseDescription',
     icon: Shield,
   },
 ];
@@ -120,6 +120,8 @@ const ctaSecondaryButtonClasses = clsx(
 );
 
 export default function HomePage(): JSX.Element {
+  const { t } = useTranslation();
+
   return (
     <div>
       <section className={styles.heroSection}>
@@ -127,17 +129,17 @@ export default function HomePage(): JSX.Element {
           <div className={styles.textCenter}>
             <div className={heroBadgeClasses}>
               <Map className={styles.iconSm} />
-              {homeTexts.hero.badge}
+              {t('home.hero.badge')}
             </div>
-            <h1 className={heroTitleClasses}>{homeTexts.hero.title}</h1>
-            <p className={heroSubtitleClasses}>{homeTexts.hero.subtitle}</p>
+            <h1 className={heroTitleClasses}>{t('home.hero.title')}</h1>
+            <p className={heroSubtitleClasses}>{t('home.hero.subtitle')}</p>
             <div className={heroActionsClasses}>
               <LocaleLink to="/docs" className={getStartedButtonClasses}>
-                {homeTexts.hero.getStarted}
+                {t('home.hero.getStarted')}
                 <ArrowRight className={arrowIconClasses} />
               </LocaleLink>
               <LocaleLink to="/pricing" className={pricingButtonClasses}>
-                {homeTexts.hero.viewPricing}
+                {t('home.hero.viewPricing')}
               </LocaleLink>
             </div>
           </div>
@@ -147,8 +149,8 @@ export default function HomePage(): JSX.Element {
       <section className={featuresSectionClasses}>
         <div className={featuresContainerClasses}>
           <div className={featuresHeaderClasses}>
-            <h2 className={featuresTitleClasses}>{homeTexts.features.title}</h2>
-            <p className={featuresSubtitleClasses}>{homeTexts.features.subtitle}</p>
+            <h2 className={featuresTitleClasses}>{t('home.features.title')}</h2>
+            <p className={featuresSubtitleClasses}>{t('home.features.subtitle')}</p>
           </div>
           <div className={featuresGridClasses}>
             {features.map((feature) => (
@@ -156,8 +158,8 @@ export default function HomePage(): JSX.Element {
                 <div className={featureIconContainerClasses}>
                   <feature.icon className={featureIconClasses} />
                 </div>
-                <h3 className={featureNameClasses}>{feature.name}</h3>
-                <p className={featureDescClasses}>{feature.description}</p>
+                <h3 className={featureNameClasses}>{t(feature.name)}</h3>
+                <p className={featureDescClasses}>{t(feature.description)}</p>
               </div>
             ))}
           </div>
@@ -167,14 +169,14 @@ export default function HomePage(): JSX.Element {
       <section className={ctaSectionClasses}>
         <div className={featuresContainerClasses}>
           <div className={ctaCardClasses}>
-            <h2 className={ctaTitleClasses}>{homeTexts.cta.title}</h2>
-            <p className={ctaDescClasses}>{homeTexts.cta.subtitle}</p>
+            <h2 className={ctaTitleClasses}>{t('home.cta.title')}</h2>
+            <p className={ctaDescClasses}>{t('home.cta.subtitle')}</p>
             <div className={ctaActionsClasses}>
               <LocaleLink to="/signup" className={ctaPrimaryButtonClasses}>
-                {homeTexts.cta.getStarted}
+                {t('home.cta.getStarted')}
               </LocaleLink>
               <LocaleLink to="/docs" className={ctaSecondaryButtonClasses}>
-                {homeTexts.cta.viewPricing}
+                {t('home.cta.viewPricing')}
               </LocaleLink>
             </div>
           </div>

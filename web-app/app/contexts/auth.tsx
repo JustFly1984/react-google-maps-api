@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (typeof window === 'undefined') {
       setLoading(false);
     } else {
-      validateSession();
+      void validateSession();
     }
   }, [validateSession]);
 

@@ -2,13 +2,13 @@ import clsx from 'clsx';
 import { Check, CheckCircle, Copy, Key } from 'lucide-react';
 import type { JSX } from 'react';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
 
 import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { LicenseResponseSchema } from '../../shared/schemas.ts';
-import { checkoutSuccessTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
 
 type License = {
@@ -79,6 +79,7 @@ const actionsContainerClasses = clsx(
 );
 
 export default function CheckoutSuccessPage(): JSX.Element {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const [license, setLicense] = useState<License | null>(null);
   const [loading, setLoading] = useState(true);
@@ -143,14 +144,14 @@ export default function CheckoutSuccessPage(): JSX.Element {
           <CheckCircle className={successIconClasses} />
         </div>
 
-        <h1 className={successTitleClasses}>{checkoutSuccessTexts.title}</h1>
-        <p className={successTextClasses}>{checkoutSuccessTexts.subtitle}</p>
+        <h1 className={successTitleClasses}>{t('checkoutSuccess.title')}</h1>
+        <p className={successTextClasses}>{t('checkoutSuccess.subtitle')}</p>
 
         {license ? (
           <div className={licenseCardClasses}>
             <div className={licenseHeaderClasses}>
               <Key className={styles.iconSm} />
-              {checkoutSuccessTexts.licenseKey}
+              {t('checkoutSuccess.licenseKey')}
             </div>
             <div className={licenseKeyContainerClasses}>
               <code className={licenseCodeClasses}>{license.serialNumber}</code>
@@ -163,17 +164,17 @@ export default function CheckoutSuccessPage(): JSX.Element {
               </button>
             </div>
             <p className={licenseValidityClasses}>
-              {checkoutSuccessTexts.validUntil} {new Date(license.expiryDate).toLocaleDateString()}
+              {t('checkoutSuccess.validUntil')} {new Date(license.expiryDate).toLocaleDateString()}
             </p>
           </div>
         ) : null}
 
         <div className={actionsContainerClasses}>
           <LocaleLink to="/dashboard" className={styles.btnPrimary}>
-            {checkoutSuccessTexts.dashboard}
+            {t('checkoutSuccess.dashboard')}
           </LocaleLink>
           <LocaleLink to="/docs" className={styles.btnSecondary}>
-            {checkoutSuccessTexts.viewDocs}
+            {t('checkoutSuccess.viewDocs')}
           </LocaleLink>
         </div>
       </div>

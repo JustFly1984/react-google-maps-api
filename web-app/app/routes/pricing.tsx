@@ -1,12 +1,10 @@
 import clsx from 'clsx';
 import { Check } from 'lucide-react';
-import type { JSX } from 'react';
+import { useMemo, type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
-import { pricingTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
-
-const features = pricingTexts.license.features;
 
 const headerClasses = clsx(styles.textCenter, styles.mb16);
 const titleClasses = clsx(styles.text4xl, styles.fontBold, styles.textThemePrimary);
@@ -57,23 +55,35 @@ const openSourceTitleClasses = clsx(
 const openSourceDescClasses = clsx(styles.textThemeSecondary, styles.maxW2xl, styles.mxAuto);
 
 export default function PricingPage(): JSX.Element {
+  const { t } = useTranslation();
+  const features = useMemo(() => {
+    return [
+      t('pricing.license.features.fullAccess'),
+      t('pricing.license.features.commercialUse'),
+      t('pricing.license.features.prioritySupport'),
+      t('pricing.license.features.premiumExamples'),
+      t('pricing.license.features.oneYearUpdates'),
+      t('pricing.license.features.unlimitedProjects'),
+    ];
+  }, []);
+
   return (
     <div className={styles.py20}>
       <div className={styles.containerMaxW7xl}>
         <div className={headerClasses}>
-          <h1 className={titleClasses}>{pricingTexts.title}</h1>
-          <p className={subtitleClasses}>{pricingTexts.subtitle}</p>
+          <h1 className={titleClasses}>{t('pricing.title')}</h1>
+          <p className={subtitleClasses}>{t('pricing.subtitle')}</p>
         </div>
 
         <div className={pricingContainerClasses}>
           <div className={pricingCardClasses}>
             <div className={pricingBadgeClasses} />
-            <h2 className={pricingTitleClasses}>{pricingTexts.license.name}</h2>
-            <p className={pricingSubtitleClasses}>{pricingTexts.license.subtitle}</p>
+            <h2 className={pricingTitleClasses}>{t('pricing.license.name')}</h2>
+            <p className={pricingSubtitleClasses}>{t('pricing.license.subtitle')}</p>
 
             <div className={styles.mt6}>
-              <span className={priceAmountClasses}>{pricingTexts.license.price}</span>
-              <span className={styles.textGray600}>{pricingTexts.license.period}</span>
+              <span className={priceAmountClasses}>{t('pricing.license.price')}</span>
+              <span className={styles.textGray600}>{t('pricing.license.period')}</span>
             </div>
 
             <ul className={featuresListClasses}>
@@ -86,16 +96,16 @@ export default function PricingPage(): JSX.Element {
             </ul>
 
             <LocaleLink to="/signup" className={buttonClasses}>
-              {pricingTexts.license.buttonText}
+              {t('pricing.license.buttonText')}
             </LocaleLink>
 
-            <p className={guaranteeClasses}>{pricingTexts.license.guarantee}</p>
+            <p className={guaranteeClasses}>{t('pricing.license.guarantee')}</p>
           </div>
         </div>
 
         <div className={openSourceSectionClasses}>
-          <h3 className={openSourceTitleClasses}>{pricingTexts.openSource.title}</h3>
-          <p className={openSourceDescClasses}>{pricingTexts.openSource.description}</p>
+          <h3 className={openSourceTitleClasses}>{t('pricing.openSource.title')}</h3>
+          <p className={openSourceDescClasses}>{t('pricing.openSource.description')}</p>
         </div>
       </div>
     </div>

@@ -1,17 +1,17 @@
 import clsx from 'clsx';
 import { Calendar, Check, Copy, Key, ShoppingCart } from 'lucide-react';
 import { type JSX, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { CheckoutResponseSchema, LicensesResponseSchema } from '../../shared/schemas.ts';
-import { dashboardTexts } from '../constants/texts.ts';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 
-const YEARLY_LICENSE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID || '';
+const YEARLY_LICENSE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID;
 
 type License = {
   id: string;
@@ -113,6 +113,7 @@ const docsLinkClasses = clsx(styles.wFull, styles.btnSecondary, styles.block, st
 const purchaseIconClasses = clsx(styles.mr2, styles.h4, styles.w4);
 
 export default function DashboardPage(): JSX.Element {
+  const { t } = useTranslation();
   const { user, loading: authLoading } = useAuth();
 
   const navigate = useNavigate();
@@ -209,15 +210,15 @@ export default function DashboardPage(): JSX.Element {
     <div className={styles.py12}>
       <div className={containerClasses}>
         <div className={styles.mb8}>
-          <h1 className={titleClasses}>{dashboardTexts.title}</h1>
-          <p className={subtitleClasses}>{dashboardTexts.subtitle}</p>
+          <h1 className={titleClasses}>{t('dashboard.title')}</h1>
+          <p className={subtitleClasses}>{t('dashboard.subtitle')}</p>
         </div>
 
         <div className={gridClasses}>
           <div className={styles.lgColSpan2}>
             <div className={styles.card}>
               <div className={cardHeaderClasses}>
-                <h2 className={cardTitleClasses}>{dashboardTexts.licenses.title}</h2>
+                <h2 className={cardTitleClasses}>{t('dashboard.licenses.title')}</h2>
               </div>
               <div className={styles.p6}>
                 {loading ? (
@@ -227,8 +228,8 @@ export default function DashboardPage(): JSX.Element {
                 ) : licenses.length === 0 ? (
                   <div className={emptyStateClasses}>
                     <Key className={iconClasses} />
-                    <h3 className={emptyTitleClasses}>{dashboardTexts.licenses.empty.title}</h3>
-                    <p className={emptyTextClasses}>{dashboardTexts.licenses.empty.description}</p>
+                    <h3 className={emptyTitleClasses}>{t('dashboard.licenses.empty.title')}</h3>
+                    <p className={emptyTextClasses}>{t('dashboard.licenses.empty.description')}</p>
                     <button
                       type="button"
                       onClick={handlePurchase}
@@ -237,8 +238,8 @@ export default function DashboardPage(): JSX.Element {
                     >
                       <ShoppingCart className={cartIconClasses} />
                       {purchaseLoading
-                        ? dashboardTexts.sidebar.processing
-                        : dashboardTexts.licenses.empty.button}
+                        ? t('dashboard.sidebar.processing')
+                        : t('dashboard.licenses.empty.button')}
                     </button>
                   </div>
                 ) : (
@@ -265,7 +266,8 @@ export default function DashboardPage(): JSX.Element {
                             <div className={licenseMetaClasses}>
                               <span className={calendarClasses}>
                                 <Calendar className={calendarIconClasses} />
-                                Expires: {new Date(license.expiryDate).toLocaleDateString()}
+                                {t('dashboard.licenses.expiryDate')}:{' '}
+                                {new Date(license.expiryDate).toLocaleDateString()}
                               </span>
                             </div>
                           </div>
@@ -277,8 +279,8 @@ export default function DashboardPage(): JSX.Element {
                             }
                           >
                             {license.isActive
-                              ? dashboardTexts.licenses.status.active
-                              : dashboardTexts.licenses.status.inactive}
+                              ? t('dashboard.licenses.status.active')
+                              : t('dashboard.licenses.status.inactive')}
                           </span>
                         </div>
                       </div>
@@ -291,7 +293,7 @@ export default function DashboardPage(): JSX.Element {
 
           <div>
             <div className={sidebarCardClasses}>
-              <h3 className={sidebarTitleClasses}>{dashboardTexts.sidebar.title}</h3>
+              <h3 className={sidebarTitleClasses}>{t('dashboard.sidebar.title')}</h3>
               <div className={styles.spaceY3}>
                 <button
                   type="button"
@@ -301,11 +303,11 @@ export default function DashboardPage(): JSX.Element {
                 >
                   <ShoppingCart className={purchaseIconClasses} />
                   {purchaseLoading
-                    ? dashboardTexts.sidebar.processing
-                    : dashboardTexts.sidebar.purchaseLicense}
+                    ? t('dashboard.sidebar.processing')
+                    : t('dashboard.sidebar.purchaseLicense')}
                 </button>
                 <LocaleLink to="/docs" className={docsLinkClasses}>
-                  {dashboardTexts.sidebar.viewDocs}
+                  {t('dashboard.sidebar.viewDocs')}
                 </LocaleLink>
               </div>
             </div>

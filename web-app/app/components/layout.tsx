@@ -4,12 +4,16 @@ import { type JSX, ReactNode, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
 
-import { navigation } from '../constants/texts.ts';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 import { LocaleLink } from '../utils/locale-link.tsx';
 import { Logo } from './logo.tsx';
 import { ThemeToggle } from './theme-toggle.tsx';
+export const navigation = [
+  { name: 'Home', href: '/' },
+  { name: 'Documentation', href: '/docs' },
+  { name: 'Pricing', href: '/pricing' },
+] as const;
 
 const navigationKeyByHref: Record<(typeof navigation)[number]['href'], string> = {
   '/': 'navigation.home',

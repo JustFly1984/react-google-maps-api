@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import type { ChangeEvent, FormEvent, JSX } from 'react';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { ResetPasswordSchema } from '../../shared/schemas.ts';
-import { authTexts, commonTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
 
 const successContainerClasses = clsx(styles.card, styles.p8, styles.textCenter);
@@ -27,6 +27,7 @@ const cardClasses = clsx(styles.card, styles.p8);
 const buttonClasses = clsx(styles.wFull, styles.btnPrimary, styles.py3);
 
 export default function ResetPasswordPage(): JSX.Element {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [password, setPassword] = useState('');
@@ -49,7 +50,7 @@ export default function ResetPasswordPage(): JSX.Element {
       setError(null);
 
       if (password !== confirmPassword) {
-        setError(authTexts.resetPassword.passwordsDoNotMatch);
+        setError(t('auth.resetPassword.passwordsDoNotMatch'));
 
         return;
       }
@@ -73,7 +74,7 @@ export default function ResetPasswordPage(): JSX.Element {
         const data = await response.json();
 
         if (!response.ok) {
-          setError(data.error || authTexts.resetPassword.genericError);
+          setError(data.error || t('auth.resetPassword.genericError'));
           setLoading(false);
           return;
         }
@@ -81,7 +82,7 @@ export default function ResetPasswordPage(): JSX.Element {
         setSuccess(true);
         setTimeout(() => navigate('/login'), 3000);
       } catch {
-        setError(authTexts.resetPassword.error);
+        setError(t('auth.resetPassword.error'));
       } finally {
         setLoading(false);
       }
@@ -109,10 +110,10 @@ export default function ResetPasswordPage(): JSX.Element {
                 />
               </svg>
             </div>
-            <h1 className={successTitleClasses}>{authTexts.resetPassword.successTitle}</h1>
-            <p className={successTextClasses}>{authTexts.resetPassword.successText}</p>
+            <h1 className={successTitleClasses}>{t('auth.resetPassword.successTitle')}</h1>
+            <p className={successTextClasses}>{t('auth.resetPassword.successText')}</p>
             <LocaleLink to="/login" className={successLinkClasses}>
-              {authTexts.resetPassword.backToLogin}
+              {t('auth.resetPassword.backToLogin')}
             </LocaleLink>
           </div>
         </div>
@@ -124,8 +125,8 @@ export default function ResetPasswordPage(): JSX.Element {
     <div className={styles.pageContainer}>
       <div className={styles.pageMaxW}>
         <div className={headerClasses}>
-          <h1 className={titleClasses}>{authTexts.resetPassword.title}</h1>
-          <p className={subtitleClasses}>{authTexts.resetPassword.subtitle}</p>
+          <h1 className={titleClasses}>{t('auth.resetPassword.title')}</h1>
+          <p className={subtitleClasses}>{t('auth.resetPassword.subtitle')}</p>
         </div>
 
         <div className={cardClasses}>
@@ -134,7 +135,7 @@ export default function ResetPasswordPage(): JSX.Element {
 
             <div>
               <label htmlFor="password" className={styles.label}>
-                {authTexts.resetPassword.newPassword}
+                {t('auth.resetPassword.newPassword')}
               </label>
               <input
                 id="password"
@@ -142,7 +143,7 @@ export default function ResetPasswordPage(): JSX.Element {
                 value={password}
                 onChange={handlePasswordChange}
                 className={styles.input}
-                placeholder={commonTexts.placeholders.password}
+                placeholder={t('common.placeholders.password')}
                 minLength={6}
                 required
               />
@@ -150,7 +151,7 @@ export default function ResetPasswordPage(): JSX.Element {
 
             <div>
               <label htmlFor="confirmPassword" className={styles.label}>
-                {authTexts.resetPassword.confirmPassword}
+                {t('auth.resetPassword.confirmPassword')}
               </label>
               <input
                 id="confirmPassword"
@@ -158,14 +159,14 @@ export default function ResetPasswordPage(): JSX.Element {
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
                 className={styles.input}
-                placeholder={commonTexts.placeholders.password}
+                placeholder={t('common.placeholders.password')}
                 minLength={6}
                 required
               />
             </div>
 
             <button type="submit" disabled={loading} className={buttonClasses}>
-              {loading ? authTexts.resetPassword.resetting : authTexts.resetPassword.submit}
+              {loading ? t('auth.resetPassword.resetting') : t('auth.resetPassword.submit')}
             </button>
           </form>
         </div>

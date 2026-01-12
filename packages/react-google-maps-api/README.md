@@ -227,11 +227,11 @@ function MapWithMarkers() {
         />
       ))}
 
-      {selected && (
+      {selected ? (
         <InfoWindow position={selected} onCloseClick={onCloseClick}>
           <div>Selected location</div>
         </InfoWindow>
-      )}
+      ) : null}
     </GoogleMap>
   );
 }
@@ -271,10 +271,11 @@ function MapWithDirections() {
 
   return (
     <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={8}>
-      {!directions && (
+      {directions ? (
+        <DirectionsRenderer directions={directions} />
+      ) : (
         <DirectionsService options={directionsOptions} callback={directionsCallback} />
       )}
-      {directions && <DirectionsRenderer directions={directions} />}
     </GoogleMap>
   );
 }

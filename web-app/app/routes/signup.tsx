@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { useCallback, useState, type ChangeEvent, type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { SignupSchema } from '../../shared/schemas.ts';
-import { authTexts, commonTexts } from '../constants/texts.ts';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 
@@ -19,6 +19,7 @@ const footerClasses = clsx(styles.mt6, styles.textCenter, styles.textSm, styles.
 const linkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styles.fontMedium);
 
 export default function SignUpPage(): JSX.Element {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -50,7 +51,7 @@ export default function SignUpPage(): JSX.Element {
       setError(null);
 
       if (password !== confirmPassword) {
-        setError(authTexts.signup.passwordsDoNotMatch);
+        setError(t('auth.signup.passwordsDoNotMatch'));
         return;
       }
 
@@ -79,17 +80,17 @@ export default function SignUpPage(): JSX.Element {
     <div className={styles.pageContainer}>
       <div className={styles.pageMaxW}>
         <div className={headerClasses}>
-          <h1 className={titleClasses}>{authTexts.signup.title}</h1>
-          <p className={subtitleClasses}>{authTexts.signup.subtitle}</p>
+          <h1 className={titleClasses}>{t('auth.signup.title')}</h1>
+          <p className={subtitleClasses}>{t('auth.signup.subtitle')}</p>
         </div>
 
         <div className={cardClasses}>
           <form onSubmit={handleSubmit} className={styles.spaceY6}>
-            {error && <div className={styles.formError}>{error}</div>}
+            {error ? <div className={styles.formError}>{error}</div> : null}
 
             <div>
               <label htmlFor="fullName" className={styles.label}>
-                {authTexts.signup.fullName}
+                {t('auth.signup.fullName')}
               </label>
               <input
                 id="fullName"
@@ -97,13 +98,13 @@ export default function SignUpPage(): JSX.Element {
                 value={fullName}
                 onChange={handleFullNameChange}
                 className={styles.input}
-                placeholder={commonTexts.placeholders.fullName}
+                placeholder={t('common.placeholders.fullName')}
               />
             </div>
 
             <div>
               <label htmlFor="email" className={styles.label}>
-                {authTexts.signup.email}
+                {t('auth.signup.email')}
               </label>
               <input
                 id="email"
@@ -111,14 +112,14 @@ export default function SignUpPage(): JSX.Element {
                 value={email}
                 onChange={handleEmailChange}
                 className={styles.input}
-                placeholder={commonTexts.placeholders.email}
+                placeholder={t('common.placeholders.email')}
                 required
               />
             </div>
 
             <div>
               <label htmlFor="password" className={styles.label}>
-                {authTexts.signup.password}
+                {t('auth.signup.password')}
               </label>
               <input
                 id="password"
@@ -126,7 +127,7 @@ export default function SignUpPage(): JSX.Element {
                 value={password}
                 onChange={handlePasswordChange}
                 className={styles.input}
-                placeholder={commonTexts.placeholders.password}
+                placeholder={t('common.placeholders.password')}
                 required
                 minLength={6}
               />
@@ -134,7 +135,7 @@ export default function SignUpPage(): JSX.Element {
 
             <div>
               <label htmlFor="confirmPassword" className={styles.label}>
-                {authTexts.signup.confirmPassword}
+                {t('auth.signup.confirmPassword')}
               </label>
               <input
                 id="confirmPassword"
@@ -142,20 +143,20 @@ export default function SignUpPage(): JSX.Element {
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
                 className={styles.input}
-                placeholder={commonTexts.placeholders.password}
+                placeholder={t('common.placeholders.password')}
                 required
               />
             </div>
 
             <button type="submit" disabled={loading} className={buttonClasses}>
-              {loading ? authTexts.signup.creatingAccount : authTexts.signup.title}
+              {loading ? t('auth.signup.creatingAccount') : t('auth.signup.title')}
             </button>
           </form>
 
           <p className={footerClasses}>
-            {authTexts.signup.hasAccount}{' '}
+            {t('auth.signup.hasAccount')}{' '}
             <LocaleLink to="/login" className={linkClasses}>
-              {authTexts.signup.signInLink}
+              {t('auth.signup.signInLink')}
             </LocaleLink>
           </p>
         </div>

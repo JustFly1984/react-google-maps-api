@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import type { ChangeEvent, JSX } from 'react';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { ForgotPasswordSchema } from '../../shared/schemas.ts';
-import { authTexts, commonTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
 
 const pageContainerClasses = styles.pageContainer;
@@ -37,6 +37,7 @@ const footerLinkClasses = clsx(
 const buttonClasses = clsx(styles.wFull, styles.btnPrimary, styles.py3);
 
 export default function ForgotPasswordPage(): JSX.Element {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -55,7 +56,7 @@ export default function ForgotPasswordPage(): JSX.Element {
       const result = v.safeParse(ForgotPasswordSchema, { email });
 
       if (!result.success) {
-        setError(authTexts.forgotPassword.validationError);
+        setError(t('auth.forgotPassword.validationError'));
         return;
       }
 
@@ -72,14 +73,14 @@ export default function ForgotPasswordPage(): JSX.Element {
         const data = await response.json();
 
         if (!response.ok) {
-          setError(data.error || authTexts.forgotPassword.genericError);
+          setError(data.error || t('auth.forgotPassword.genericError'));
           setLoading(false);
           return;
         }
 
         setSuccess(true);
       } catch {
-        setError(authTexts.forgotPassword.sendError);
+        setError(t('auth.forgotPassword.sendError'));
       } finally {
         setLoading(false);
       }
@@ -108,12 +109,12 @@ export default function ForgotPasswordPage(): JSX.Element {
               </svg>
             </div>
 
-            <h1 className={successTitleClasses}>{authTexts.forgotPassword.successTitle}</h1>
+            <h1 className={successTitleClasses}>{t('auth.forgotPassword.successTitle')}</h1>
 
-            <p className={successTextClasses}>{authTexts.forgotPassword.successText}</p>
+            <p className={successTextClasses}>{t('auth.forgotPassword.successText')}</p>
 
             <LocaleLink to="/login" className={successLinkClasses}>
-              {authTexts.forgotPassword.backToLogin}
+              {t('auth.forgotPassword.backToLogin')}
             </LocaleLink>
           </div>
         </div>
@@ -125,17 +126,17 @@ export default function ForgotPasswordPage(): JSX.Element {
     <div className={pageContainerClasses}>
       <div className={pageMaxWClasses}>
         <div className={headerClasses}>
-          <h1 className={titleClasses}>{authTexts.forgotPassword.title}</h1>
-          <p className={subtitleClasses}>{authTexts.forgotPassword.subtitle}</p>
+          <h1 className={titleClasses}>{t('auth.forgotPassword.title')}</h1>
+          <p className={subtitleClasses}>{t('auth.forgotPassword.subtitle')}</p>
         </div>
 
         <div className={cardClasses}>
           <form onSubmit={handleSubmit} className={styles.spaceY6}>
-            {error && <div className={styles.formError}>{error}</div>}
+            {error ? <div className={styles.formError}>{error}</div> : null}
 
             <div>
               <label htmlFor="email" className={styles.label}>
-                {authTexts.forgotPassword.email}
+                {t('auth.forgotPassword.email')}
               </label>
               <input
                 id="email"
@@ -143,20 +144,20 @@ export default function ForgotPasswordPage(): JSX.Element {
                 value={email}
                 onChange={handleEmailChange}
                 className={styles.input}
-                placeholder={commonTexts.placeholders.email}
+                placeholder={t('common.placeholders.email')}
                 required
               />
             </div>
 
             <button type="submit" disabled={loading} className={buttonClasses}>
-              {loading ? authTexts.forgotPassword.sending : authTexts.forgotPassword.submit}
+              {loading ? t('auth.forgotPassword.sending') : t('auth.forgotPassword.submit')}
             </button>
           </form>
 
           <p className={footerClasses}>
-            {commonTexts.footer.rememberPassword}{' '}
+            {t('common.footer.rememberPassword')}{' '}
             <LocaleLink to="/login" className={footerLinkClasses}>
-              {commonTexts.buttons.signIn}
+              {t('common.buttons.signIn')}
             </LocaleLink>
           </p>
         </div>

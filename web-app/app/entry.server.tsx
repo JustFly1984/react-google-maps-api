@@ -40,7 +40,7 @@ export default async function handleRequest(
       },
     });
 
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     let shellRendered = false;
     const userAgent = request.headers.get('user-agent');
 

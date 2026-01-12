@@ -31,7 +31,7 @@ export async function onRequestPost(context: EventContext<Env, any, Record<strin
         const session = event.data.object as Stripe.Checkout.Session;
         const userId = session.metadata?.['userId'];
 
-        if (userId && session.subscription) {
+        if (typeof userId !== 'undefined' && session.subscription) {
           const id = generateId();
           const serialNumber = generateSerialNumber();
           const expiryDate = calculateExpiryDate();

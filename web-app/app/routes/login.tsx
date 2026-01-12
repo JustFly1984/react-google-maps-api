@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { type ChangeEvent, type JSX, useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { LoginSchema } from '../../shared/schemas.ts';
-import { authTexts, commonTexts } from '../constants/texts.ts';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 
@@ -26,6 +26,7 @@ const signUpLinkClasses = clsx(styles.textBlue600, styles.hoverTextBlue700, styl
 const footerClasses = clsx(styles.mt4, styles.textCenter, styles.textSm, styles.textThemeSecondary);
 
 export default function LoginPage(): JSX.Element {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +49,7 @@ export default function LoginPage(): JSX.Element {
 
       const result = v.safeParse(LoginSchema, { email, password });
       if (!result.success) {
-        setError(authTexts.login.validationError);
+        setError(t('auth.login.validationError'));
         return;
       }
 
@@ -71,8 +72,8 @@ export default function LoginPage(): JSX.Element {
     <div className={styles.pageContainer}>
       <div className={styles.pageMaxW}>
         <div className={headerClasses}>
-          <h1 className={titleClasses}>{authTexts.login.title}</h1>
-          <p className={subtitleClasses}>{authTexts.login.subtitle}</p>
+          <h1 className={titleClasses}>{t('auth.login.title')}</h1>
+          <p className={subtitleClasses}>{t('auth.login.subtitle')}</p>
         </div>
 
         <div className={cardClasses}>
@@ -81,7 +82,7 @@ export default function LoginPage(): JSX.Element {
 
             <div>
               <label htmlFor="email" className={styles.label}>
-                {authTexts.login.email}
+                {t('auth.login.email')}
               </label>
               <input
                 id="email"
@@ -89,14 +90,14 @@ export default function LoginPage(): JSX.Element {
                 value={email}
                 onChange={handleEmailChange}
                 className={styles.input}
-                placeholder={commonTexts.placeholders.email}
+                placeholder={t('common.placeholders.email')}
                 required
               />
             </div>
 
             <div>
               <label htmlFor="password" className={styles.label}>
-                {authTexts.login.password}
+                {t('auth.login.password')}
               </label>
               <input
                 id="password"
@@ -104,26 +105,26 @@ export default function LoginPage(): JSX.Element {
                 value={password}
                 onChange={handlePasswordChange}
                 className={styles.input}
-                placeholder={commonTexts.placeholders.password}
+                placeholder={t('common.placeholders.password')}
                 required
               />
             </div>
 
             <button type="submit" disabled={loading} className={buttonClasses}>
-              {loading ? authTexts.login.signingIn : authTexts.login.title}
+              {loading ? t('auth.login.signingIn') : t('auth.login.title')}
             </button>
           </form>
 
           <div className={signUpContainerClasses}>
             <LocaleLink to="/forgot-password" className={forgotPasswordClasses}>
-              {authTexts.login.forgotPassword}
+              {t('auth.login.forgotPassword')}
             </LocaleLink>
           </div>
 
           <p className={footerClasses}>
-            {authTexts.login.noAccount}{' '}
+            {t('auth.login.noAccount')}{' '}
             <LocaleLink to="/signup" className={signUpLinkClasses}>
-              {authTexts.login.signUpLink}
+              {t('auth.login.signUpLink')}
             </LocaleLink>
           </p>
         </div>
