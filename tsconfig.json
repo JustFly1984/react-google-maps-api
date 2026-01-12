@@ -1,13 +1,25 @@
 {
   "baseUrl": ".",
-  "exclude": ["node_modules"],
-  "types": ["googlemaps", "jest", "invariant", "react-dom", "eslint", "estree", "webpack"],
+  "exclude": [
+    "node_modules"
+  ],
+  "types": [
+    "googlemaps",
+    "jest",
+    "invariant",
+    "react-dom",
+    "eslint",
+    "estree",
+    "webpack"
+  ],
   "compilerOptions": {
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es2015",
     "jsx": "react-jsx",
-    "lib": ["dom"],
+    "lib": [
+      "dom"
+    ],
     "rootDir": "packages",
     "declaration": true,
     "declarationDir": "dist",
@@ -35,7 +47,7 @@
     "pretty": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": true,
     "ignoreDeprecations": "5.0"
   }
 }

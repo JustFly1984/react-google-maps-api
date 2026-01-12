@@ -33,9 +33,9 @@
     "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start && cd ../..",
     "prestart:gatsby": "yarn build:clusterer && yarn build:infobox && yarn build:api",
     "clean": "rimraf ./yarn.lock ./package-lock.json ./node_modules/ && yarn",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "sb dev -p 6006",
     "bootstrap": "lerna bootstrap",
-    "build-storybook": "build-storybook"
+    "build-storybook": "sb build"
   },
   "lint-staged": {
     "*.{ts|tsx}": [
@@ -83,8 +83,9 @@
     "@storybook/addon-essentials": "7.6.14",
     "@storybook/addon-links": "7.6.14",
     "@storybook/builder-webpack5": "7.6.14",
-    "@storybook/manager-webpack5": "6.5.16",
-    "@storybook/react": "7.1.1",
+    "@storybook/react": "7.6.14",
+    "@storybook/react-webpack5": "7.6.14",
+    "@storybook/cli": "7.6.14",
     "@svgr/webpack": "8.1.0",
     "@testing-library/dom": "9.3.4",
     "@types/google.maps": "3.55.2",
