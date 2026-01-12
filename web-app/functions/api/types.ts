@@ -16,6 +16,7 @@ export type User = {
   email: string;
   password_hash: string;
   full_name: string | null;
+  locale: string;
   created_at: string;
   updated_at: string;
 };

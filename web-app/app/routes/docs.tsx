@@ -19,6 +19,7 @@ import { useParams } from 'react-router';
 
 import { useTranslation } from 'react-i18next';
 import { CodeHighlight } from '../components/code-highlight.tsx';
+import { SEO } from '../components/seo.tsx';
 import { styles } from '../styles.ts';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
@@ -1631,6 +1632,7 @@ function MapWithInfoBox(): JSX.Element {
 
   return (
     <div className={styles.py12}>
+      <SEO title={t('seo.docs.title')} description={t('seo.docs.description')} />
       <div className={containerClasses}>
         <div className={layoutClasses}>
           <aside className={sidebarClasses}>

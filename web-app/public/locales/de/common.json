@@ -1,4 +1,42 @@
 {
+  "seo": {
+    "home": {
+      "title": "React Google Maps API - Google Maps Komponenten für React",
+      "description": "Die beliebteste React-Bibliothek für Google Maps. Erstellen Sie schöne, interaktive Karten mit TypeScript-Unterstützung, einfacher Integration und umfassender Dokumentation."
+    },
+    "pricing": {
+      "title": "Preise - Kommerzielle Lizenz",
+      "description": "Erhalten Sie eine kommerzielle Lizenz für React Google Maps API. Einmalige Zahlung, lebenslange Updates, Prioritäts-Support und unbegrenzte Projekte."
+    },
+    "docs": {
+      "title": "Dokumentation",
+      "description": "Umfassende Dokumentation für React Google Maps API. Lernen Sie, wie Sie Google Maps in Ihre React-Anwendung integrieren, mit Beispielen und API-Referenz."
+    },
+    "login": {
+      "title": "Anmelden",
+      "description": "Melden Sie sich bei Ihrem React Google Maps API-Konto an, um auf Ihr Dashboard zuzugreifen und Ihre Lizenzen zu verwalten."
+    },
+    "signup": {
+      "title": "Konto erstellen",
+      "description": "Erstellen Sie ein React Google Maps API-Konto, um Lizenzen zu kaufen, auf Premium-Funktionen zuzugreifen und Prioritäts-Support zu erhalten."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Verwalten Sie Ihre React Google Maps API-Lizenzen, sehen Sie die Nutzung ein und greifen Sie auf Ihre Kontoeinstellungen zu."
+    },
+    "forgotPassword": {
+      "title": "Passwort vergessen",
+      "description": "Setzen Sie das Passwort Ihres React Google Maps API-Kontos zurück."
+    },
+    "resetPassword": {
+      "title": "Passwort zurücksetzen",
+      "description": "Erstellen Sie ein neues Passwort für Ihr React Google Maps API-Konto."
+    },
+    "checkoutSuccess": {
+      "title": "Kauf abgeschlossen",
+      "description": "Vielen Dank für den Kauf einer React Google Maps API-Lizenz. Ihr Lizenzschlüssel ist einsatzbereit."
+    }
+  },
   "navigation": {
     "home": "Startseite",
     "documentation": "Dokumentation",

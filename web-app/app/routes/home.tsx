@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import type { JSX } from 'react';
+import { SEO } from '../components/seo.tsx';
 import { styles } from '../styles.ts';
 
 const features = [
@@ -125,6 +126,7 @@ export default function HomePage(): JSX.Element {
 
   return (
     <div>
+      <SEO title={t('seo.home.title')} description={t('seo.home.description')} />
       <section className={clsx(styles.heroSection, 'hero-bg')}>
         <div className={heroContainerClasses}>
           <div className={styles.textCenter}>

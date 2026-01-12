@@ -1,4 +1,42 @@
 {
+  "seo": {
+    "home": {
+      "title": "React Google Maps API - React用Google Mapsコンポーネント",
+      "description": "Google Maps用の最も人気のあるReactライブラリ。TypeScriptサポート、簡単な統合、包括的なドキュメントで美しいインタラクティブマップを作成。"
+    },
+    "pricing": {
+      "title": "価格 - 商用ライセンス",
+      "description": "React Google Maps APIの商用ライセンスを取得。一回払い、永久アップデート、優先サポート、無制限プロジェクト。"
+    },
+    "docs": {
+      "title": "ドキュメント",
+      "description": "React Google Maps APIの包括的なドキュメント。例とAPIリファレンスでReactアプリケーションにGoogle Mapsを統合する方法を学ぶ。"
+    },
+    "login": {
+      "title": "ログイン",
+      "description": "React Google Maps APIアカウントにログインしてダッシュボードにアクセスし、ライセンスを管理。"
+    },
+    "signup": {
+      "title": "アカウント作成",
+      "description": "React Google Maps APIアカウントを作成してライセンスを購入、プレミアム機能にアクセス、優先サポートを取得。"
+    },
+    "dashboard": {
+      "title": "ダッシュボード",
+      "description": "React Google Maps APIライセンスを管理、使用状況を確認、アカウント設定にアクセス。"
+    },
+    "forgotPassword": {
+      "title": "パスワードを忘れた",
+      "description": "React Google Maps APIアカウントのパスワードをリセット。"
+    },
+    "resetPassword": {
+      "title": "パスワードリセット",
+      "description": "React Google Maps APIアカウントの新しいパスワードを作成。"
+    },
+    "checkoutSuccess": {
+      "title": "購入完了",
+      "description": "React Google Maps APIライセンスをご購入いただきありがとうございます。ライセンスキーはすぐにご利用いただけます。"
+    }
+  },
   "home": {
     "hero": {
       "badge": "React Google Maps API",

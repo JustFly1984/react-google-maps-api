@@ -4,6 +4,7 @@ export const SignupSchema = v.object({
   email: v.pipe(v.string(), v.email()),
   password: v.pipe(v.string(), v.minLength(6)),
   fullName: v.optional(v.string()),
+  locale: v.optional(v.string()),
 });
 
 export const LoginSchema = v.object({
@@ -13,6 +14,7 @@ export const LoginSchema = v.object({
 
 export const ForgotPasswordSchema = v.object({
   email: v.pipe(v.string(), v.email()),
+  locale: v.optional(v.string()),
 });
 
 export const ResetPasswordSchema = v.object({

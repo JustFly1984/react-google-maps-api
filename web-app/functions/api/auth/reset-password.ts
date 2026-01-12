@@ -1,6 +1,7 @@
 import type { EventContext } from '@cloudflare/workers-types';
 import * as v from 'valibot';
 
+import { sendPasswordChangedEmail } from '../email.ts';
 import type { Env } from '../types.ts';
 import {
   checkRateLimit,
@@ -20,6 +21,7 @@ const ResetPasswordBodySchema = v.object({
 type ResetTokenData = {
   userId: string;
   email: string;
+  locale?: string | undefined;
 };
 
 function getResetTokenFromCookie<T extends { headers: { get(name: string): string | null } }>(
@@ -93,6 +95,14 @@ export async function onRequestPost(
       .run();
 
     await context.env.PASSWORD_RESET.delete(`reset:${token}`);
+
+    // Send password changed confirmation email
+    sendPasswordChangedEmail(
+      context.env.RESEND_API_KEY,
+      tokenData.email,
+      context.env.APP_URL,
+      tokenData.locale || 'en',
+    ).catch((err: unknown) => console.error('Failed to send password changed email:', err));
 
     const clearCookie = `${RESET_TOKEN_COOKIE}=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0`;
 

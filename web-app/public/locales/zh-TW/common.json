@@ -1,4 +1,42 @@
 {
+  "seo": {
+    "home": {
+      "title": "React Google Maps API - React的Google地圖元件",
+      "description": "最受歡迎的Google Maps React函式庫。使用TypeScript支援、簡單整合和完整文件建立美麗的互動式地圖。"
+    },
+    "pricing": {
+      "title": "價格 - 商業授權",
+      "description": "取得React Google Maps API商業授權。一次性付款、終身更新、優先支援和無限專案。"
+    },
+    "docs": {
+      "title": "文件",
+      "description": "React Google Maps API完整文件。透過範例和API參考學習如何將Google Maps整合到您的React應用程式中。"
+    },
+    "login": {
+      "title": "登入",
+      "description": "登入您的React Google Maps API帳戶以存取儀表板並管理您的授權。"
+    },
+    "signup": {
+      "title": "建立帳戶",
+      "description": "建立React Google Maps API帳戶以購買授權、存取進階功能並取得優先支援。"
+    },
+    "dashboard": {
+      "title": "儀表板",
+      "description": "管理您的React Google Maps API授權、檢視使用情況並存取帳戶設定。"
+    },
+    "forgotPassword": {
+      "title": "忘記密碼",
+      "description": "重設您的React Google Maps API帳戶密碼。"
+    },
+    "resetPassword": {
+      "title": "重設密碼",
+      "description": "為您的React Google Maps API帳戶建立新密碼。"
+    },
+    "checkoutSuccess": {
+      "title": "購買完成",
+      "description": "感謝您購買React Google Maps API授權。您的授權金鑰已準備好使用。"
+    }
+  },
   "home": {
     "hero": {
       "badge": "React Google Maps API",

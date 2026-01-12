@@ -4,6 +4,7 @@ import { useMemo, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
+import { SEO } from '../components/seo.tsx';
 import { styles } from '../styles.ts';
 
 const pageClasses = clsx(
@@ -142,6 +143,7 @@ export default function PricingPage(): JSX.Element {
 
   return (
     <div className={pageClasses}>
+      <SEO title={t('seo.pricing.title')} description={t('seo.pricing.description')} />
       <div className={styles.containerMaxW7xl}>
         <div className={headerClasses}>
           <h1 className={titleClasses}>{t('pricing.title')}</h1>

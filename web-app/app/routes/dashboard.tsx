@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import * as v from 'valibot';
-import { LocaleLink } from '../utils/locale-link.tsx';
-
 import { CheckoutResponseSchema, LicensesResponseSchema } from '../../shared/schemas.ts';
+import { SEO } from '../components/seo.tsx';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
+import { LocaleLink } from '../utils/locale-link.tsx';
 
 const YEARLY_LICENSE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID;
 
@@ -208,6 +208,7 @@ export default function DashboardPage(): JSX.Element {
 
   return (
     <div className={styles.py12}>
+      <SEO title={t('seo.dashboard.title')} description={t('seo.dashboard.description')} noIndex />
       <div className={containerClasses}>
         <div className={styles.mb8}>
           <h1 className={titleClasses}>{t('dashboard.title')}</h1>

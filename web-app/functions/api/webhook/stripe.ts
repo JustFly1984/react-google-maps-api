@@ -1,7 +1,8 @@
 import type { EventContext } from '@cloudflare/workers-types';
 import Stripe from 'stripe';
 
-import type { Env } from '../types.ts';
+import { sendPurchaseConfirmationEmail } from '../email.ts';
+import type { Env, User } from '../types.ts';
 import { calculateExpiryDate, generateId, generateSerialNumber } from '../utils.ts';
 
 export async function onRequestPost(context: EventContext<Env, any, Record<string, unknown>>) {
@@ -56,6 +57,23 @@ export async function onRequestPost(context: EventContext<Env, any, Record<strin
             .run();
 
           console.log(`License created for user ${userId}: ${serialNumber}`);
+
+          const user = await context.env.DB.prepare('SELECT email, locale FROM users WHERE id = ?')
+            .bind(userId)
+            .first<User>();
+
+          if (user?.email) {
+            sendPurchaseConfirmationEmail(
+              context.env.RESEND_API_KEY,
+              user.email,
+              serialNumber,
+              expiryDate,
+              context.env.APP_URL,
+              user.locale || 'en',
+            ).catch((err: unknown) => {
+              console.error('Failed to send purchase email:', err);
+            });
+          }
         }
         break;
       }

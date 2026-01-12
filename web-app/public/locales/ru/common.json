@@ -1,4 +1,42 @@
 {
+  "seo": {
+    "home": {
+      "title": "React Google Maps API - Компоненты Google Maps для React",
+      "description": "Самая популярная библиотека React для Google Maps. Создавайте красивые интерактивные карты с поддержкой TypeScript, простой интеграцией и полной документацией."
+    },
+    "pricing": {
+      "title": "Цены - Коммерческая лицензия",
+      "description": "Получите коммерческую лицензию React Google Maps API. Единоразовый платёж, пожизненные обновления, приоритетная поддержка и неограниченное количество проектов."
+    },
+    "docs": {
+      "title": "Документация",
+      "description": "Полная документация React Google Maps API. Узнайте, как интегрировать Google Maps в ваше React-приложение с примерами и справочником API."
+    },
+    "login": {
+      "title": "Вход",
+      "description": "Войдите в свой аккаунт React Google Maps API для доступа к панели управления и управления лицензиями."
+    },
+    "signup": {
+      "title": "Регистрация",
+      "description": "Создайте аккаунт React Google Maps API для покупки лицензий, доступа к премиум-функциям и приоритетной поддержки."
+    },
+    "dashboard": {
+      "title": "Панель управления",
+      "description": "Управляйте лицензиями React Google Maps API, просматривайте использование и настройки аккаунта."
+    },
+    "forgotPassword": {
+      "title": "Забыли пароль",
+      "description": "Сбросьте пароль от аккаунта React Google Maps API."
+    },
+    "resetPassword": {
+      "title": "Сброс пароля",
+      "description": "Создайте новый пароль для аккаунта React Google Maps API."
+    },
+    "checkoutSuccess": {
+      "title": "Покупка завершена",
+      "description": "Спасибо за покупку лицензии React Google Maps API. Ваш лицензионный ключ готов к использованию."
+    }
+  },
   "home": {
     "hero": {
       "badge": "React Google Maps API",

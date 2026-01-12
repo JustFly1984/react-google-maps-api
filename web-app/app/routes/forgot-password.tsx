@@ -6,6 +6,7 @@ import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { ForgotPasswordSchema } from '../../shared/schemas.ts';
+import { SEO } from '../components/seo.tsx';
 import { styles } from '../styles.ts';
 
 const pageContainerClasses = styles.pageContainer;
@@ -124,6 +125,10 @@ export default function ForgotPasswordPage(): JSX.Element {
 
   return (
     <div className={pageContainerClasses}>
+      <SEO
+        title={t('seo.forgotPassword.title')}
+        description={t('seo.forgotPassword.description')}
+      />
       <div className={pageMaxWClasses}>
         <div className={headerClasses}>
           <h1 className={titleClasses}>{t('auth.forgotPassword.title')}</h1>

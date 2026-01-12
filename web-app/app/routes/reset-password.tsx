@@ -8,6 +8,7 @@ import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { ResetPasswordSchema } from '../../shared/schemas.ts';
+import { SEO } from '../components/seo.tsx';
 import { styles } from '../styles.ts';
 
 const successContainerClasses = clsx(styles.card, styles.p8, styles.textCenter);
@@ -126,6 +127,7 @@ export default function ResetPasswordPage(): JSX.Element {
 
   return (
     <div className={styles.pageContainer}>
+      <SEO title={t('seo.resetPassword.title')} description={t('seo.resetPassword.description')} />
       <div className={styles.pageMaxW}>
         <div className={headerClasses}>
           <h1 className={titleClasses}>{t('auth.resetPassword.title')}</h1>

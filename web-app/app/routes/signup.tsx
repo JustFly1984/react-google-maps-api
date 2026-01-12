@@ -11,6 +11,7 @@ import { SignupSchema } from '../../shared/schemas.ts';
 import { styles } from '../styles.ts';
 
 import { UserResponseSchema } from '../../shared/schemas.ts';
+import { SEO } from '../components/seo.tsx';
 import { useAuth } from '../contexts/auth.tsx';
 
 const UserLoginResponseSchema = v.object({ user: UserResponseSchema });
@@ -37,7 +38,12 @@ export default function SignUpPage(): JSX.Element {
   const isSigningUpRef = useRef(false);
 
   const signUp = useCallback(
-    async (email: string, password: string, fullName: string): Promise<string | undefined> => {
+    async (
+      email: string,
+      password: string,
+      fullName: string,
+      locale: string,
+    ): Promise<string | undefined> => {
       if (loading) {
         return;
       }
@@ -53,7 +59,7 @@ export default function SignUpPage(): JSX.Element {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password, fullName }),
+          body: JSON.stringify({ email, password, fullName, locale }),
         });
 
         if (!response.ok) {
@@ -111,7 +117,12 @@ export default function SignUpPage(): JSX.Element {
         return;
       }
 
-      const result = v.safeParse(SignupSchema, { email, password, fullName });
+      const result = v.safeParse(SignupSchema, {
+        email,
+        password,
+        fullName,
+        locale: i18n.language,
+      });
 
       if (!result.success) {
         setError(result.issues[0].message);
@@ -121,7 +132,7 @@ export default function SignUpPage(): JSX.Element {
 
       setLoading(true);
 
-      const signUpError = await signUp(email, password, fullName);
+      const signUpError = await signUp(email, password, fullName, i18n.language);
 
       if (typeof signUpError !== 'undefined') {
         setError(signUpError);
@@ -138,6 +149,7 @@ export default function SignUpPage(): JSX.Element {
 
   return (
     <div className={styles.pageContainer}>
+      <SEO title={t('seo.signup.title')} description={t('seo.signup.description')} />
       <div className={styles.pageMaxW}>
         <div className={headerClasses}>
           <h1 className={titleClasses}>{t('auth.signup.title')}</h1>

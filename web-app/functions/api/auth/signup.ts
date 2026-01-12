@@ -2,6 +2,7 @@ import type { EventContext } from '@cloudflare/workers-types';
 import * as v from 'valibot';
 
 import { SignupSchema } from '../../../shared/schemas.ts';
+import { sendWelcomeEmail } from '../email.ts';
 import type { Env } from '../types.ts';
 
 import {
@@ -49,7 +50,8 @@ export async function onRequestPost(
       return Response.json({ error: result.issues[0].message }, { status: 400, headers });
     }
 
-    const { email, password, fullName } = result.output;
+    const { email, password, fullName, locale } = result.output;
+    const userLocale = locale || 'en';
 
     const existing = await context.env.DB.prepare('SELECT id FROM users WHERE email = ?')
       .bind(email.toLowerCase())
@@ -66,15 +68,24 @@ export async function onRequestPost(
     const now = new Date().toISOString();
 
     await context.env.DB.prepare(
-      'INSERT INTO users (id, email, password_hash, full_name, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO users (id, email, password_hash, full_name, locale, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
     )
-      .bind(id, email.toLowerCase(), passwordHash, fullName || null, now, now)
+      .bind(id, email.toLowerCase(), passwordHash, fullName || null, userLocale, now, now)
       .run();
 
     const token = await createToken(
       { userId: id, email: email.toLowerCase() },
       context.env.JWT_SECRET,
     );
+
+    // Send welcome email (don't await - fire and forget)
+    sendWelcomeEmail(
+      context.env.RESEND_API_KEY,
+      email.toLowerCase(),
+      fullName || null,
+      context.env.APP_URL,
+      userLocale,
+    ).catch((err: unknown) => console.error('Failed to send welcome email:', err));
 
     return Response.json(
       {

@@ -1,4 +1,42 @@
 {
+  "seo": {
+    "home": {
+      "title": "React Google Maps API - Google Maps Components for React",
+      "description": "The most popular React library for Google Maps. Build beautiful, interactive maps with TypeScript support, easy integration, and comprehensive documentation."
+    },
+    "pricing": {
+      "title": "Pricing - Commercial License",
+      "description": "Get a commercial license for React Google Maps API. One-time payment, lifetime updates, priority support, and unlimited projects."
+    },
+    "docs": {
+      "title": "Documentation",
+      "description": "Comprehensive documentation for React Google Maps API. Learn how to integrate Google Maps into your React application with examples and API reference."
+    },
+    "login": {
+      "title": "Sign In",
+      "description": "Sign in to your React Google Maps API account to access your dashboard and manage your licenses."
+    },
+    "signup": {
+      "title": "Create Account",
+      "description": "Create a React Google Maps API account to purchase licenses, access premium features, and get priority support."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Manage your React Google Maps API licenses, view usage, and access your account settings."
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "description": "Reset your React Google Maps API account password."
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "description": "Create a new password for your React Google Maps API account."
+    },
+    "checkoutSuccess": {
+      "title": "Purchase Complete",
+      "description": "Thank you for purchasing a React Google Maps API license. Your license key is ready to use."
+    }
+  },
   "home": {
     "hero": {
       "badge": "React Google Maps API",

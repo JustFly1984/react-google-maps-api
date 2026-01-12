@@ -9,6 +9,7 @@ import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { LicenseResponseSchema } from '../../shared/schemas.ts';
+import { SEO } from '../components/seo.tsx';
 import { styles } from '../styles.ts';
 
 type License = {
@@ -139,6 +140,11 @@ export default function CheckoutSuccessPage(): JSX.Element {
 
   return (
     <div className={styles.pageContainer}>
+      <SEO
+        title={t('seo.checkoutSuccess.title')}
+        description={t('seo.checkoutSuccess.description')}
+        noIndex
+      />
       <div className={containerClasses}>
         <div className={successIconContainerClasses}>
           <CheckCircle className={successIconClasses} />

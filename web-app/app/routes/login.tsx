@@ -7,6 +7,7 @@ import * as v from 'valibot';
 import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { LoginSchema, UserResponseSchema } from '../../shared/schemas.ts';
+import { SEO } from '../components/seo.tsx';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 
@@ -106,6 +107,7 @@ export default function LoginPage(): JSX.Element {
 
   return (
     <div className={styles.pageContainer}>
+      <SEO title={t('seo.login.title')} description={t('seo.login.description')} />
       <div className={styles.pageMaxW}>
         <div className={headerClasses}>
           <h1 className={titleClasses}>{t('auth.login.title')}</h1>
