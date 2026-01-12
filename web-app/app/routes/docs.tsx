@@ -2,101 +2,112 @@ import clsx from 'clsx';
 import {
   Book,
   Box,
+  Circle,
   Code,
   Compass,
+  Component,
   Layers,
+  LucideProps,
   Map,
   Pencil,
   Route,
   Search,
   StretchHorizontal,
 } from 'lucide-react';
-import type { JSX } from 'react';
+import type { ForwardRefExoticComponent, JSX, RefAttributes } from 'react';
 import { Link, useParams } from 'react-router';
 
 import { CodeHighlight } from '../components/code-highlight.tsx';
+import { docsContentTexts, docsNavigationTexts, docsTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
 
 type Section = {
   id: string;
   name: string;
-  icon: typeof Book;
-  children?: { id: string; name: string }[] | undefined;
+  icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>;
+  children?:
+    | {
+        id: string;
+        name: string;
+        icon?: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>;
+      }[]
+    | undefined;
 };
 
 const sections: Section[] = [
-  { id: 'getting-started', name: 'Getting Started', icon: Book },
-  { id: 'loading', name: 'Loading the API', icon: Code },
-  { id: 'google-map', name: 'GoogleMap', icon: Map },
+  { id: 'getting-started', name: docsNavigationTexts.sections.gettingStarted, icon: Book },
+  { id: 'loading', name: docsNavigationTexts.sections.loading, icon: Code },
+  { id: 'google-map', name: docsNavigationTexts.sections.googleMap, icon: Map },
   {
     id: 'drawing',
-    name: 'Drawing',
+    name: docsNavigationTexts.sectionNames.drawing,
     icon: Pencil,
     children: [
-      { id: 'marker', name: 'Marker' },
-      { id: 'info-window', name: 'InfoWindow' },
-      { id: 'polyline', name: 'Polyline' },
-      { id: 'polygon', name: 'Polygon' },
-      { id: 'rectangle', name: 'Rectangle' },
-      { id: 'circle', name: 'Circle' },
-      { id: 'drawing-manager', name: 'DrawingManager' },
+      { id: 'marker', name: docsNavigationTexts.sections.marker, icon: Map },
+      { id: 'info-window', name: docsNavigationTexts.sections.infoWindow, icon: Pencil },
+      { id: 'polyline', name: docsNavigationTexts.sections.polyline, icon: Route },
+      { id: 'polygon', name: docsNavigationTexts.sections.polygon, icon: Pencil },
+      { id: 'rectangle', name: docsNavigationTexts.sections.rectangle, icon: Box },
+      { id: 'circle', name: docsNavigationTexts.sections.circle, icon: Circle },
+      { id: 'drawing-manager', name: docsNavigationTexts.sections.drawingManager, icon: Pencil },
     ],
   },
   {
     id: 'layers',
-    name: 'Layers',
+    name: docsNavigationTexts.sections.layers,
     icon: Layers,
     children: [
-      { id: 'traffic-layer', name: 'TrafficLayer' },
-      { id: 'bicycling-layer', name: 'BicyclingLayer' },
-      { id: 'transit-layer', name: 'TransitLayer' },
-      { id: 'heatmap-layer', name: 'HeatmapLayer' },
-      { id: 'kml-layer', name: 'KmlLayer' },
+      { id: 'traffic-layer', name: docsNavigationTexts.sections.trafficLayer },
+      { id: 'bicycling-layer', name: docsNavigationTexts.sections.bicyclingLayer },
+      { id: 'transit-layer', name: docsNavigationTexts.sections.transitLayer },
+      { id: 'heatmap-layer', name: docsNavigationTexts.sections.heatmapLayer },
+      { id: 'kml-layer', name: docsNavigationTexts.sections.kmlLayer },
     ],
   },
   {
     id: 'services',
-    name: 'Services',
+    name: docsNavigationTexts.sectionNames.services,
     icon: Route,
     children: [
-      { id: 'directions', name: 'Directions' },
-      { id: 'distance-matrix', name: 'DistanceMatrix' },
+      { id: 'directions', name: docsNavigationTexts.sections.directions },
+      { id: 'distance-matrix', name: docsNavigationTexts.sections.distanceMatrix },
     ],
   },
   {
     id: 'places',
-    name: 'Places',
+    name: docsNavigationTexts.sectionNames.places,
     icon: Search,
     children: [
-      { id: 'autocomplete', name: 'Autocomplete' },
-      { id: 'search-box', name: 'StandaloneSearchBox' },
+      { id: 'components', name: docsNavigationTexts.sections.components, icon: Component },
+      { id: 'search-box', name: docsNavigationTexts.sections.searchBox },
+      { id: 'autocomplete', name: docsNavigationTexts.sections.autocomplete },
     ],
   },
   {
     id: 'overlays',
-    name: 'Overlays',
+    name: docsNavigationTexts.sectionNames.overlays,
     icon: Box,
     children: [
-      { id: 'overlay-view', name: 'OverlayView' },
-      { id: 'ground-overlay', name: 'GroundOverlay' },
+      { id: 'overlay-view', name: docsNavigationTexts.sections.overlayView },
+      { id: 'ground-overlay', name: docsNavigationTexts.sections.groundOverlay },
     ],
   },
   {
     id: 'street-view',
-    name: 'Street View',
+    name: docsNavigationTexts.sectionNames.streetView,
     icon: Compass,
     children: [
-      { id: 'street-view-panorama', name: 'StreetViewPanorama' },
-      { id: 'street-view-service', name: 'StreetViewService' },
+      { id: 'street-view-panorama', name: docsNavigationTexts.sections.streetViewPanorama },
+      { id: 'street-view-service', name: docsNavigationTexts.sections.streetViewService },
     ],
   },
   {
     id: 'addons',
-    name: 'Addons',
+    name: docsNavigationTexts.sectionNames.addons,
     icon: StretchHorizontal,
     children: [
-      { id: 'marker-clusterer', name: 'MarkerClusterer' },
-      { id: 'info-box', name: 'InfoBox' },
+      { id: 'marker-clusterer', name: docsNavigationTexts.sections.markerClusterer },
+      { id: 'info-box', name: docsNavigationTexts.sections.infoBox },
     ],
   },
 ];
@@ -106,17 +117,13 @@ const content: Record<
   {
     title: string;
     content: string;
-    code?: string;
-    props?: { name: string; type: string; description: string }[];
+    code?: string | undefined;
+    props?: Array<{ name: string; type: string; description: string }> | undefined;
   }
 > = {
   'getting-started': {
-    title: 'Getting Started',
-    content: `React Google Maps API provides a comprehensive set of React components for the Google Maps JavaScript API.
-
-This library allows you to declaratively create maps, markers, overlays, and more using familiar React patterns.
-
-**Installation**`,
+    title: docsContentTexts.gettingStarted.title,
+    content: docsContentTexts.gettingStarted.content,
     code: `npm install @react-google-maps/api
 
 # or with yarn
@@ -126,14 +133,8 @@ yarn add @react-google-maps/api
 bun add @react-google-maps/api`,
   },
   loading: {
-    title: 'Loading the API',
-    content: `Before using any map components, you need to load the Google Maps JavaScript API. There are two approaches:
-
-**1. useJsApiLoader Hook (Recommended)**
-A hook-based approach that gives you more control over the loading state.
-
-**2. LoadScript Component**
-A component-based approach that wraps your map components.`,
+    title: docsContentTexts.loading.title,
+    content: docsContentTexts.loading.content,
     code: `// Using useJsApiLoader (Recommended)
 import { useJsApiLoader, GoogleMap } from '@react-google-maps/api';
 import { useMemo } from 'react';
@@ -182,27 +183,21 @@ function MyMap() {
   );
 }`,
     props: [
-      { name: 'googleMapsApiKey', type: 'string', description: 'Your Google Maps API key' },
+      { name: 'googleMapsApiKey', type: 'string', description: docsTexts.props.googleMapsApiKey },
       {
         name: 'libraries',
         type: 'Libraries[]',
-        description: 'Array of libraries to load: places, drawing, geometry, visualization',
+        description: docsTexts.props.arrayOfLibraries,
       },
-      { name: 'language', type: 'string', description: 'Language for the map UI' },
-      { name: 'region', type: 'string', description: 'Region bias for geocoding' },
-      { name: 'version', type: 'string', description: 'API version (default: weekly)' },
-      { name: 'mapIds', type: 'string[]', description: 'Map IDs for cloud-based map styling' },
+      { name: 'language', type: 'string', description: docsTexts.props.language },
+      { name: 'region', type: 'string', description: docsTexts.props.region },
+      { name: 'version', type: 'string', description: docsTexts.props.version },
+      { name: 'mapIds', type: 'string[]', description: docsTexts.props.mapIds },
     ],
   },
   'google-map': {
-    title: 'GoogleMap',
-    content: `The GoogleMap component is the core component that renders a Google Map. All other map components must be children of GoogleMap.
-
-**Features:**
-- Fully controlled via props
-- Supports all map events
-- Access map instance via onLoad callback
-- Use useGoogleMap() hook to access map from child components`,
+    title: docsContentTexts.googleMap.title,
+    content: docsContentTexts.googleMap.content,
     code: `import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { useCallback, useMemo, useState } from 'react';
 
@@ -254,32 +249,46 @@ function MyMap() {
       {
         name: 'mapContainerStyle',
         type: 'CSSProperties',
-        description: 'Style object for the map container',
+        description: docsTexts.props.mapContainerStyle,
       },
       {
         name: 'mapContainerClassName',
         type: 'string',
-        description: 'CSS class for the map container',
+        description: docsTexts.props.mapContainerClassName,
       },
-      { name: 'center', type: 'LatLng | LatLngLiteral', description: 'Initial center position' },
-      { name: 'zoom', type: 'number', description: 'Initial zoom level (0-22)' },
-      { name: 'options', type: 'google.maps.MapOptions', description: 'Map options object' },
-      { name: 'onClick', type: '(e: MapMouseEvent) => void', description: 'Map click handler' },
-      { name: 'onDrag', type: '() => void', description: 'Map drag handler' },
-      { name: 'onZoomChanged', type: '() => void', description: 'Zoom change handler' },
-      { name: 'onLoad', type: '(map: Map) => void', description: 'Called when map is loaded' },
+      {
+        name: 'center',
+        type: 'LatLng | LatLngLiteral',
+        description: docsTexts.props.initialCenterPosition,
+      },
+      { name: 'zoom', type: 'number', description: docsTexts.props.initialZoomLevel },
+      {
+        name: 'options',
+        type: 'google.maps.MapOptions',
+        description: docsTexts.props.mapOptionsObject,
+      },
+      {
+        name: 'onClick',
+        type: '(e: MapMouseEvent) => void',
+        description: docsTexts.props.mapClickHandler,
+      },
+      { name: 'onDrag', type: '() => void', description: docsTexts.props.mapDragHandler },
+      { name: 'onZoomChanged', type: '() => void', description: docsTexts.props.zoomChangeHandler },
+      {
+        name: 'onLoad',
+        type: '(map: Map) => void',
+        description: docsTexts.props.calledWhenMapIsLoaded,
+      },
       {
         name: 'onUnmount',
         type: '(map: Map) => void',
-        description: 'Called when map is unmounted',
+        description: docsTexts.props.calledWhenMapIsUnmounted,
       },
     ],
   },
   marker: {
     title: 'Marker',
-    content: `The Marker component renders a marker on the map. Markers can be customized with icons, labels, animations, and event handlers.
-
-**Note:** Marker is deprecated in favor of AdvancedMarkerElement, but remains widely used.`,
+    content: docsContentTexts.marker.content,
     code: `import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import { useCallback, useMemo, useState } from 'react';
 
@@ -316,14 +325,14 @@ function MapWithMarkers() {
         />
       ))}
 
-      {selected && (
+      {selected ? (
         <InfoWindow
           position={selected.position}
           onCloseClick={onCloseClick}
         >
           <div>{selected.title}</div>
         </InfoWindow>
-      )}
+      ) : null}
     </GoogleMap>
   );
 }`,
@@ -331,23 +340,43 @@ function MapWithMarkers() {
       {
         name: 'position',
         type: 'LatLng | LatLngLiteral',
-        description: 'Marker position (required)',
+        description: docsTexts.props.markerPosition,
       },
-      { name: 'icon', type: 'string | Icon | Symbol', description: 'Custom marker icon' },
-      { name: 'label', type: 'string | MarkerLabel', description: 'Marker label' },
-      { name: 'title', type: 'string', description: 'Hover tooltip text' },
-      { name: 'draggable', type: 'boolean', description: 'Allow marker to be dragged' },
-      { name: 'visible', type: 'boolean', description: 'Marker visibility' },
-      { name: 'animation', type: 'Animation', description: 'DROP or BOUNCE animation' },
-      { name: 'clusterer', type: 'Clusterer', description: 'MarkerClusterer instance' },
-      { name: 'onClick', type: '(e: MapMouseEvent) => void', description: 'Click handler' },
-      { name: 'onDragEnd', type: '(e: MapMouseEvent) => void', description: 'Drag end handler' },
-      { name: 'onLoad', type: '(marker: Marker) => void', description: 'Load callback' },
+      {
+        name: 'icon',
+        type: 'string | Icon | Symbol',
+        description: docsTexts.props.customMarkerIcon,
+      },
+      { name: 'label', type: 'string | MarkerLabel', description: docsTexts.props.markerLabel },
+      { name: 'title', type: 'string', description: docsTexts.props.hoverTooltipText },
+      { name: 'draggable', type: 'boolean', description: docsTexts.props.allowMarkerToBeDragged },
+      { name: 'visible', type: 'boolean', description: docsTexts.props.markerVisibility },
+      { name: 'animation', type: 'Animation', description: docsTexts.props.dropOrBounceAnimation },
+      {
+        name: 'clusterer',
+        type: 'Clusterer',
+        description: docsTexts.props.markerClustererInstance,
+      },
+      {
+        name: 'onClick',
+        type: '(e: MapMouseEvent) => void',
+        description: docsTexts.props.clickHandler,
+      },
+      {
+        name: 'onDragEnd',
+        type: '(e: MapMouseEvent) => void',
+        description: docsTexts.props.dragEndHandler,
+      },
+      {
+        name: 'onLoad',
+        type: '(marker: Marker) => void',
+        description: docsTexts.props.loadCallback,
+      },
     ],
   },
   'info-window': {
     title: 'InfoWindow',
-    content: `InfoWindow displays content in a popup window above the map. It can be anchored to a marker or positioned at coordinates.`,
+    content: docsContentTexts.infoWindow.content,
     code: `import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import { useCallback, useMemo, useState } from 'react';
 
@@ -386,17 +415,25 @@ function MapWithInfoWindow() {
       {
         name: 'position',
         type: 'LatLng | LatLngLiteral',
-        description: 'Position (required if no anchor)',
+        description: docsTexts.props.positionRequiredIfNoAnchor,
       },
-      { name: 'anchor', type: 'MVCObject', description: 'Anchor to a marker' },
-      { name: 'children', type: 'ReactNode', description: 'Content to display' },
-      { name: 'onCloseClick', type: '() => void', description: 'Close button click handler' },
-      { name: 'onLoad', type: '(infoWindow: InfoWindow) => void', description: 'Load callback' },
+      { name: 'anchor', type: 'MVCObject', description: docsTexts.props.anchorToAMarker },
+      { name: 'children', type: 'ReactNode', description: docsTexts.props.contentToDisplay },
+      {
+        name: 'onCloseClick',
+        type: '() => void',
+        description: docsTexts.props.closeButtonClickHandler,
+      },
+      {
+        name: 'onLoad',
+        type: '(infoWindow: InfoWindow) => void',
+        description: docsTexts.props.loadCallback,
+      },
     ],
   },
   polyline: {
     title: 'Polyline',
-    content: `Polyline draws a line on the map connecting a series of coordinates. Useful for routes, paths, and boundaries.`,
+    content: docsContentTexts.polyline.content,
     code: `import { GoogleMap, Polyline } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -429,17 +466,33 @@ function MapWithPolyline() {
   );
 }`,
     props: [
-      { name: 'path', type: 'LatLng[] | LatLngLiteral[]', description: 'Array of coordinates' },
-      { name: 'options', type: 'PolylineOptions', description: 'Polyline styling options' },
-      { name: 'draggable', type: 'boolean', description: 'Allow polyline to be dragged' },
-      { name: 'editable', type: 'boolean', description: 'Allow editing vertices' },
-      { name: 'onClick', type: '(e: PolyMouseEvent) => void', description: 'Click handler' },
-      { name: 'onLoad', type: '(polyline: Polyline) => void', description: 'Load callback' },
+      {
+        name: 'path',
+        type: 'LatLng[] | LatLngLiteral[]',
+        description: docsTexts.props.arrayOfCoordinates,
+      },
+      {
+        name: 'options',
+        type: 'PolylineOptions',
+        description: docsTexts.props.polylineStylingOptions,
+      },
+      { name: 'draggable', type: 'boolean', description: docsTexts.props.allowPolylineToBeDragged },
+      { name: 'editable', type: 'boolean', description: docsTexts.props.allowEditingVertices },
+      {
+        name: 'onClick',
+        type: '(e: PolyMouseEvent) => void',
+        description: docsTexts.props.clickHandler,
+      },
+      {
+        name: 'onLoad',
+        type: '(polyline: Polyline) => void',
+        description: docsTexts.props.loadCallback,
+      },
     ],
   },
   polygon: {
     title: 'Polygon',
-    content: `Polygon draws a closed shape on the map. Useful for highlighting areas, regions, or zones.`,
+    content: docsContentTexts.polygon.content,
     code: `import { GoogleMap, Polygon } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -476,18 +529,30 @@ function MapWithPolygon() {
       {
         name: 'paths',
         type: 'LatLng[][] | LatLngLiteral[][]',
-        description: 'Array of coordinate arrays',
+        description: docsTexts.props.arrayOfCoordinateArrays,
       },
-      { name: 'options', type: 'PolygonOptions', description: 'Polygon styling options' },
-      { name: 'draggable', type: 'boolean', description: 'Allow polygon to be dragged' },
-      { name: 'editable', type: 'boolean', description: 'Allow editing vertices' },
-      { name: 'onClick', type: '(e: PolyMouseEvent) => void', description: 'Click handler' },
-      { name: 'onLoad', type: '(polygon: Polygon) => void', description: 'Load callback' },
+      {
+        name: 'options',
+        type: 'PolygonOptions',
+        description: docsTexts.props.polygonStylingOptions,
+      },
+      { name: 'draggable', type: 'boolean', description: docsTexts.props.allowPolygonToBeDragged },
+      { name: 'editable', type: 'boolean', description: docsTexts.props.allowEditingVertices },
+      {
+        name: 'onClick',
+        type: '(e: PolyMouseEvent) => void',
+        description: docsTexts.props.clickHandler,
+      },
+      {
+        name: 'onLoad',
+        type: '(polygon: Polygon) => void',
+        description: docsTexts.props.loadCallback,
+      },
     ],
   },
   rectangle: {
     title: 'Rectangle',
-    content: `Rectangle draws a rectangular shape on the map defined by bounds.`,
+    content: docsContentTexts.rectangle.content,
     code: `import { GoogleMap, Rectangle } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -524,18 +589,34 @@ function MapWithRectangle() {
       {
         name: 'bounds',
         type: 'LatLngBounds | LatLngBoundsLiteral',
-        description: 'Rectangle bounds (required)',
+        description: docsTexts.props.rectangleBounds,
       },
-      { name: 'options', type: 'RectangleOptions', description: 'Rectangle styling options' },
-      { name: 'draggable', type: 'boolean', description: 'Allow rectangle to be dragged' },
-      { name: 'editable', type: 'boolean', description: 'Allow resizing' },
-      { name: 'onClick', type: '(e: MapMouseEvent) => void', description: 'Click handler' },
-      { name: 'onLoad', type: '(rectangle: Rectangle) => void', description: 'Load callback' },
+      {
+        name: 'options',
+        type: 'RectangleOptions',
+        description: docsTexts.props.rectangleStylingOptions,
+      },
+      {
+        name: 'draggable',
+        type: 'boolean',
+        description: docsTexts.props.allowRectangleToBeDragged,
+      },
+      { name: 'editable', type: 'boolean', description: docsTexts.props.allowResizing },
+      {
+        name: 'onClick',
+        type: '(e: MapMouseEvent) => void',
+        description: docsTexts.props.clickHandler,
+      },
+      {
+        name: 'onLoad',
+        type: '(rectangle: Rectangle) => void',
+        description: docsTexts.props.loadCallback,
+      },
     ],
   },
   circle: {
     title: 'Circle',
-    content: `Circle draws a circular shape on the map defined by a center and radius.`,
+    content: docsContentTexts.circle.content,
     code: `import { GoogleMap, Circle } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -564,20 +645,26 @@ function MapWithCircle() {
   );
 }`,
     props: [
-      { name: 'center', type: 'LatLng | LatLngLiteral', description: 'Circle center (required)' },
-      { name: 'radius', type: 'number', description: 'Radius in meters' },
-      { name: 'options', type: 'CircleOptions', description: 'Circle styling options' },
-      { name: 'draggable', type: 'boolean', description: 'Allow circle to be dragged' },
-      { name: 'editable', type: 'boolean', description: 'Allow resizing' },
-      { name: 'onClick', type: '(e: MapMouseEvent) => void', description: 'Click handler' },
-      { name: 'onLoad', type: '(circle: Circle) => void', description: 'Load callback' },
+      { name: 'center', type: 'LatLng | LatLngLiteral', description: docsTexts.props.circleCenter },
+      { name: 'radius', type: 'number', description: docsTexts.props.radiusInMeters },
+      { name: 'options', type: 'CircleOptions', description: docsTexts.props.circleStylingOptions },
+      { name: 'draggable', type: 'boolean', description: docsTexts.props.allowCircleToBeDragged },
+      { name: 'editable', type: 'boolean', description: docsTexts.props.allowResizing },
+      {
+        name: 'onClick',
+        type: '(e: MapMouseEvent) => void',
+        description: docsTexts.props.clickHandler,
+      },
+      {
+        name: 'onLoad',
+        type: '(circle: Circle) => void',
+        description: docsTexts.props.loadCallback,
+      },
     ],
   },
   'drawing-manager': {
     title: 'DrawingManager',
-    content: `DrawingManager enables users to draw shapes (markers, circles, polygons, etc.) directly on the map.
-
-**Requires:** \`drawing\` library`,
+    content: docsContentTexts.drawingManager.content,
     code: `import { GoogleMap, DrawingManager } from '@react-google-maps/api';
 import { useCallback, useMemo } from 'react';
 
@@ -618,38 +705,42 @@ function MapWithDrawing() {
   );
 }`,
     props: [
-      { name: 'drawingMode', type: 'OverlayType', description: 'Active drawing mode' },
-      { name: 'options', type: 'DrawingManagerOptions', description: 'Drawing manager options' },
+      { name: 'drawingMode', type: 'OverlayType', description: docsTexts.props.activeDrawingMode },
+      {
+        name: 'options',
+        type: 'DrawingManagerOptions',
+        description: docsTexts.props.drawingManagerOptions,
+      },
       {
         name: 'onMarkerComplete',
         type: '(marker: Marker) => void',
-        description: 'Marker drawn callback',
+        description: docsTexts.props.markerDrawnCallback,
       },
       {
         name: 'onCircleComplete',
         type: '(circle: Circle) => void',
-        description: 'Circle drawn callback',
+        description: docsTexts.props.circleDrawnCallback,
       },
       {
         name: 'onPolygonComplete',
         type: '(polygon: Polygon) => void',
-        description: 'Polygon drawn callback',
+        description: docsTexts.props.polygonDrawnCallback,
       },
       {
         name: 'onPolylineComplete',
         type: '(polyline: Polyline) => void',
-        description: 'Polyline drawn callback',
+        description: docsTexts.props.polylineDrawnCallback,
       },
       {
         name: 'onRectangleComplete',
         type: '(rectangle: Rectangle) => void',
-        description: 'Rectangle drawn callback',
+        description: docsTexts.props.rectangleDrawnCallback,
       },
     ],
   },
   'traffic-layer': {
     title: 'TrafficLayer',
-    content: `TrafficLayer displays real-time traffic conditions on the map.`,
+    content: docsContentTexts.trafficLayer.content,
     code: `import { GoogleMap, TrafficLayer } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -668,13 +759,21 @@ function MapWithTraffic() {
   );
 }`,
     props: [
-      { name: 'onLoad', type: '(layer: TrafficLayer) => void', description: 'Load callback' },
-      { name: 'onUnmount', type: '(layer: TrafficLayer) => void', description: 'Unmount callback' },
+      {
+        name: 'onLoad',
+        type: '(layer: TrafficLayer) => void',
+        description: docsTexts.props.loadCallback,
+      },
+      {
+        name: 'onUnmount',
+        type: '(layer: TrafficLayer) => void',
+        description: docsTexts.props.unmountCallback,
+      },
     ],
   },
   'bicycling-layer': {
     title: 'BicyclingLayer',
-    content: `BicyclingLayer displays bike paths and bike-friendly roads on the map.`,
+    content: docsContentTexts.bicyclingLayer.content,
     code: `import { GoogleMap, BicyclingLayer } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -693,17 +792,21 @@ function MapWithBicycling() {
   );
 }`,
     props: [
-      { name: 'onLoad', type: '(layer: BicyclingLayer) => void', description: 'Load callback' },
+      {
+        name: 'onLoad',
+        type: '(layer: BicyclingLayer) => void',
+        description: docsTexts.props.loadCallback,
+      },
       {
         name: 'onUnmount',
         type: '(layer: BicyclingLayer) => void',
-        description: 'Unmount callback',
+        description: docsTexts.props.unmountCallback,
       },
     ],
   },
   'transit-layer': {
-    title: 'TransitLayer',
-    content: `TransitLayer displays public transit routes and stations on the map.`,
+    title: docsContentTexts.transitLayer.title,
+    content: docsContentTexts.transitLayer.content,
     code: `import { GoogleMap, TransitLayer } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -722,15 +825,21 @@ function MapWithTransit() {
   );
 }`,
     props: [
-      { name: 'onLoad', type: '(layer: TransitLayer) => void', description: 'Load callback' },
-      { name: 'onUnmount', type: '(layer: TransitLayer) => void', description: 'Unmount callback' },
+      {
+        name: 'onLoad',
+        type: '(layer: TransitLayer) => void',
+        description: docsTexts.props.loadCallback,
+      },
+      {
+        name: 'onUnmount',
+        type: '(layer: TransitLayer) => void',
+        description: docsTexts.props.unmountCallback,
+      },
     ],
   },
   'heatmap-layer': {
-    title: 'HeatmapLayer',
-    content: `HeatmapLayer visualizes data intensity with color gradients.
-
-**Requires:** \`visualization\` library`,
+    title: docsContentTexts.heatmapLayer.title,
+    content: docsContentTexts.heatmapLayer.content,
     code: `import { GoogleMap, HeatmapLayer } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -762,18 +871,26 @@ function MapWithHeatmap() {
   );
 }`,
     props: [
-      { name: 'data', type: 'LatLng[] | WeightedLocation[]', description: 'Heatmap data points' },
+      {
+        name: 'data',
+        type: 'LatLng[] | WeightedLocation[]',
+        description: docsTexts.props.heatmapDataPoints,
+      },
       {
         name: 'options',
         type: 'HeatmapLayerOptions',
-        description: 'Heatmap options (radius, opacity, gradient)',
+        description: docsTexts.props.heatmapStylingOptions,
       },
-      { name: 'onLoad', type: '(layer: HeatmapLayer) => void', description: 'Load callback' },
+      {
+        name: 'onLoad',
+        type: '(layer: HeatmapLayer) => void',
+        description: docsTexts.props.loadCallback,
+      },
     ],
   },
   'kml-layer': {
-    title: 'KmlLayer',
-    content: `KmlLayer renders KML/KMZ files on the map.`,
+    title: docsContentTexts.kmlLayer.title,
+    content: docsContentTexts.kmlLayer.content,
     code: `import { GoogleMap, KmlLayer } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -798,15 +915,23 @@ function MapWithKml() {
   );
 }`,
     props: [
-      { name: 'url', type: 'string', description: 'URL to KML/KMZ file (required)' },
-      { name: 'options', type: 'KmlLayerOptions', description: 'KML layer options' },
-      { name: 'onClick', type: '(e: KmlMouseEvent) => void', description: 'Click handler' },
-      { name: 'onLoad', type: '(layer: KmlLayer) => void', description: 'Load callback' },
+      { name: 'url', type: 'string', description: docsTexts.props.kmlLayerUrl },
+      { name: 'options', type: 'KmlLayerOptions', description: docsTexts.props.kmlLayerOptions },
+      {
+        name: 'onClick',
+        type: '(e: KmlMouseEvent) => void',
+        description: docsTexts.props.clickHandler,
+      },
+      {
+        name: 'onLoad',
+        type: '(layer: KmlLayer) => void',
+        description: docsTexts.props.loadCallback,
+      },
     ],
   },
   directions: {
-    title: 'Directions',
-    content: `DirectionsService calculates routes and DirectionsRenderer displays them on the map.`,
+    title: docsContentTexts.directions.title,
+    content: docsContentTexts.directions.content,
     code: `import { GoogleMap, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { useState, useCallback, useMemo } from 'react';
 
@@ -856,18 +981,22 @@ function MapWithDirections() {
   );
 }`,
     props: [
-      { name: 'options', type: 'DirectionsRequest', description: 'Directions request options' },
-      { name: 'callback', type: '(result, status) => void', description: 'Response callback' },
+      { name: 'options', type: 'DirectionsRequest', description: docsTexts.props.mapOptionsObject },
+      {
+        name: 'callback',
+        type: '(result, status) => void',
+        description: docsTexts.props.placeSelectionCallback,
+      },
       {
         name: 'directions',
         type: 'DirectionsResult',
-        description: 'Directions result (for renderer)',
+        description: docsTexts.props.arrayOfCoordinates,
       },
     ],
   },
   'distance-matrix': {
-    title: 'DistanceMatrixService',
-    content: `DistanceMatrixService calculates travel distance and time for multiple origins and destinations.`,
+    title: docsContentTexts.distanceMatrix.title,
+    content: docsContentTexts.distanceMatrix.content,
     code: `import { DistanceMatrixService } from '@react-google-maps/api';
 
 function DistanceCalculator() {
@@ -886,16 +1015,26 @@ function DistanceCalculator() {
   return <DistanceMatrixService onLoad={onLoad} />;
 }`,
     props: [
-      { name: 'options', type: 'DistanceMatrixRequest', description: 'Request options' },
-      { name: 'callback', type: '(response, status) => void', description: 'Response callback' },
-      { name: 'onLoad', type: '(service) => void', description: 'Load callback' },
+      {
+        name: 'options',
+        type: 'DistanceMatrixRequest',
+        description: docsTexts.props.mapOptionsObject,
+      },
+      {
+        name: 'callback',
+        type: '(response, status) => void',
+        description: docsTexts.props.placeSelectionCallback,
+      },
+      {
+        name: 'onLoad',
+        type: '(circle: Circle) => void',
+        description: docsTexts.props.loadCallback,
+      },
     ],
   },
   autocomplete: {
-    title: 'Autocomplete',
-    content: `Autocomplete provides address/place suggestions as users type.
-
-**Requires:** \`places\` library`,
+    title: docsContentTexts.autocomplete.title,
+    content: docsContentTexts.autocomplete.content,
     code: `import { Autocomplete } from '@react-google-maps/api';
 import { useState, useCallback, useMemo } from 'react';
 
@@ -930,19 +1069,29 @@ function PlaceAutocomplete() {
   );
 }`,
     props: [
-      { name: 'children', type: 'ReactElement<InputHTMLAttributes>', description: 'Input element' },
-      { name: 'restrictions', type: 'ComponentRestrictions', description: 'Country restrictions' },
-      { name: 'types', type: 'string[]', description: 'Place types to return' },
-      { name: 'fields', type: 'string[]', description: 'Place data fields to fetch' },
-      { name: 'onPlaceChanged', type: '() => void', description: 'Place selection callback' },
-      { name: 'onLoad', type: '(autocomplete) => void', description: 'Load callback' },
+      {
+        name: 'children',
+        type: 'ReactElement<InputHTMLAttributes>',
+        description: docsTexts.props.inputElement,
+      },
+      {
+        name: 'restrictions',
+        type: 'ComponentRestrictions',
+        description: docsTexts.props.countryRestrictions,
+      },
+      { name: 'types', type: 'string[]', description: docsTexts.props.placeTypes },
+      { name: 'fields', type: 'string[]', description: docsTexts.props.dataFields },
+      {
+        name: 'onPlaceChanged',
+        type: '() => void',
+        description: docsTexts.props.placeSelectionCallback,
+      },
+      { name: 'onLoad', type: '(autocomplete) => void', description: docsTexts.props.loadCallback },
     ],
   },
   'search-box': {
-    title: 'StandaloneSearchBox',
-    content: `StandaloneSearchBox provides a search box for places without requiring a map.
-
-**Requires:** \`places\` library`,
+    title: docsContentTexts.searchBox.title,
+    content: docsContentTexts.searchBox.content,
     code: `import { StandaloneSearchBox } from '@react-google-maps/api';
 import { useState, useCallback } from 'react';
 
@@ -974,15 +1123,23 @@ function SearchBox() {
   );
 }`,
     props: [
-      { name: 'children', type: 'ReactElement<InputHTMLAttributes>', description: 'Input element' },
-      { name: 'bounds', type: 'LatLngBounds', description: 'Search bias bounds' },
-      { name: 'onPlacesChanged', type: '() => void', description: 'Places changed callback' },
-      { name: 'onLoad', type: '(searchBox) => void', description: 'Load callback' },
+      {
+        name: 'children',
+        type: 'ReactElement<InputHTMLAttributes>',
+        description: docsTexts.props.inputElement,
+      },
+      { name: 'bounds', type: 'LatLngBounds', description: docsTexts.props.countryRestrictions },
+      {
+        name: 'onPlacesChanged',
+        type: '() => void',
+        description: docsTexts.props.placeSelectionCallback,
+      },
+      { name: 'onLoad', type: '(infoBox) => void', description: docsTexts.props.loadCallback },
     ],
   },
   'overlay-view': {
-    title: 'OverlayView',
-    content: `OverlayView renders custom React components as map overlays at specific coordinates.`,
+    title: docsContentTexts.overlayView.title,
+    content: docsContentTexts.overlayView.content,
     code: `import { GoogleMap, OverlayView, OVERLAY_MOUSE_TARGET } from '@react-google-maps/api';
 import { useCallback, useMemo } from 'react';
 
@@ -1019,25 +1176,25 @@ function MapWithCustomOverlay() {
       {
         name: 'position',
         type: 'LatLng | LatLngLiteral',
-        description: 'Overlay position (required)',
+        description: docsTexts.props.positionRequiredIfNoAnchor,
       },
       {
         name: 'mapPaneName',
         type: 'string',
-        description: 'Pane to render in (OVERLAY_MOUSE_TARGET, etc.)',
+        description: docsTexts.props.mapContainerClassName,
       },
-      { name: 'children', type: 'ReactNode', description: 'Content to render' },
+      { name: 'children', type: 'ReactNode', description: docsTexts.props.contentToDisplay },
       {
         name: 'getPixelPositionOffset',
         type: '(w, h) => {x, y}',
-        description: 'Offset calculation',
+        description: docsTexts.props.positionRequiredIfNoAnchor,
       },
-      { name: 'onLoad', type: '(overlay) => void', description: 'Load callback' },
+      { name: 'onLoad', type: '(overlay) => void', description: docsTexts.props.loadCallback },
     ],
   },
   'ground-overlay': {
-    title: 'GroundOverlay',
-    content: `GroundOverlay displays an image on the map within specified bounds.`,
+    title: docsContentTexts.groundOverlay.title,
+    content: docsContentTexts.groundOverlay.content,
     code: `import { GoogleMap, GroundOverlay } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -1066,19 +1223,19 @@ function MapWithGroundOverlay() {
   );
 }`,
     props: [
-      { name: 'url', type: 'string', description: 'Image URL (required)' },
+      { name: 'url', type: 'string', description: docsTexts.props.groundOverlayUrl },
       {
         name: 'bounds',
         type: 'LatLngBounds | LatLngBoundsLiteral',
-        description: 'Image bounds (required)',
+        description: docsTexts.props.groundOverlayBounds,
       },
-      { name: 'opacity', type: 'number', description: 'Opacity (0-1)' },
-      { name: 'onLoad', type: '(overlay) => void', description: 'Load callback' },
+      { name: 'opacity', type: 'number', description: docsTexts.props.groundOverlayOpacity },
+      { name: 'onLoad', type: '(overlay) => void', description: docsTexts.props.loadCallback },
     ],
   },
   'street-view-panorama': {
-    title: 'StreetViewPanorama',
-    content: `StreetViewPanorama displays Google Street View imagery.`,
+    title: docsContentTexts.streetViewPanorama.title,
+    content: docsContentTexts.streetViewPanorama.content,
     code: `import { GoogleMap, StreetViewPanorama } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -1105,16 +1262,24 @@ function MapWithStreetView() {
   );
 }`,
     props: [
-      { name: 'position', type: 'LatLng | LatLngLiteral', description: 'Panorama position' },
-      { name: 'pov', type: 'StreetViewPov', description: 'Point of view (heading, pitch)' },
-      { name: 'visible', type: 'boolean', description: 'Visibility' },
-      { name: 'options', type: 'StreetViewPanoramaOptions', description: 'Panorama options' },
-      { name: 'onLoad', type: '(panorama) => void', description: 'Load callback' },
+      {
+        name: 'position',
+        type: 'LatLng | LatLngLiteral',
+        description: docsTexts.props.initialCenterPosition,
+      },
+      { name: 'pov', type: 'StreetViewPov', description: docsTexts.props.mapOptionsObject },
+      { name: 'visible', type: 'boolean', description: docsTexts.props.markerVisibility },
+      {
+        name: 'options',
+        type: 'StreetViewPanoramaOptions',
+        description: docsTexts.props.mapOptionsObject,
+      },
+      { name: 'onLoad', type: '(panorama) => void', description: docsTexts.props.loadCallback },
     ],
   },
   'street-view-service': {
-    title: 'StreetViewService',
-    content: `StreetViewService provides metadata about Street View coverage.`,
+    title: docsContentTexts.streetViewService.title,
+    content: docsContentTexts.streetViewService.content,
     code: `import { StreetViewService } from '@react-google-maps/api';
 
 function StreetViewChecker() {
@@ -1131,11 +1296,13 @@ function StreetViewChecker() {
 
   return <StreetViewService onLoad={onLoad} />;
 }`,
-    props: [{ name: 'onLoad', type: '(service) => void', description: 'Load callback' }],
+    props: [
+      { name: 'onLoad', type: '(service) => void', description: docsTexts.props.loadCallback },
+    ],
   },
   'marker-clusterer': {
-    title: 'MarkerClusterer',
-    content: `MarkerClusterer groups nearby markers into clusters for better performance and UX with many markers.`,
+    title: docsContentTexts.markerClusterer.title,
+    content: docsContentTexts.markerClusterer.content,
     code: `import { GoogleMap, MarkerClusterer, Marker } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
@@ -1173,25 +1340,25 @@ function MapWithClusters() {
       {
         name: 'children',
         type: '(clusterer) => ReactNode',
-        description: 'Render function for markers',
+        description: docsTexts.props.contentToDisplay,
       },
-      { name: 'options', type: 'ClustererOptions', description: 'Clusterer options' },
+      { name: 'options', type: 'ClustererOptions', description: docsTexts.props.mapOptionsObject },
       {
         name: 'averageCenter',
         type: 'boolean',
-        description: 'Center clusters at average position',
+        description: docsTexts.props.initialCenterPosition,
       },
       {
         name: 'minimumClusterSize',
         type: 'number',
-        description: 'Minimum markers to form cluster',
+        description: docsTexts.props.markerPosition,
       },
-      { name: 'onLoad', type: '(clusterer) => void', description: 'Load callback' },
+      { name: 'onLoad', type: '(clusterer) => void', description: docsTexts.props.loadCallback },
     ],
   },
   'info-box': {
-    title: 'InfoBox',
-    content: `InfoBox is a customizable alternative to InfoWindow with more styling options.`,
+    title: docsContentTexts.infoBox.title,
+    content: docsContentTexts.infoBox.content,
     code: `import { GoogleMap, Marker, InfoBox } from '@react-google-maps/api';
 import { useCallback, useMemo, useState } from 'react';
 
@@ -1233,11 +1400,23 @@ function MapWithInfoBox() {
   );
 }`,
     props: [
-      { name: 'position', type: 'LatLng | LatLngLiteral', description: 'Position' },
-      { name: 'options', type: 'InfoBoxOptions', description: 'InfoBox options' },
-      { name: 'children', type: 'ReactNode', description: 'Content to display' },
-      { name: 'onCloseClick', type: '() => void', description: 'Close callback' },
-      { name: 'onLoad', type: '(infoBox) => void', description: 'Load callback' },
+      {
+        name: 'position',
+        type: 'LatLng | LatLngLiteral',
+        description: docsTexts.props.infoBoxPosition,
+      },
+      { name: 'options', type: 'InfoBoxOptions', description: docsTexts.props.infoBoxOptions },
+      { name: 'children', type: 'ReactNode', description: docsTexts.props.contentToDisplay },
+      {
+        name: 'onCloseClick',
+        type: '() => void',
+        description: docsTexts.props.infoBoxCloseCallback,
+      },
+      {
+        name: 'onLoad',
+        type: '(infoBox) => void',
+        description: docsTexts.props.infoBoxLoadCallback,
+      },
     ],
   },
 };
@@ -1380,14 +1559,14 @@ export default function DocsPage(): JSX.Element {
 
               {currentContent.code ? (
                 <div className={styles.mb8}>
-                  <h3 className={codeTitleClasses}>Example</h3>
+                  <h3 className={codeTitleClasses}>{docsTexts.examples.title}</h3>
                   <CodeHighlight code={currentContent.code} language="tsx" />
                 </div>
               ) : null}
 
               {currentContent.props && currentContent.props.length > 0 ? (
                 <div>
-                  <h3 className={propsTitleClasses}>Props</h3>
+                  <h3 className={propsTitleClasses}>{docsTexts.examples.props}</h3>
                   <div className={styles.overflowXAuto}>
                     <table className={tableClasses}>
                       <thead>

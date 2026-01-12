@@ -3,16 +3,11 @@ import { LogOut, Menu, User, X } from 'lucide-react';
 import { type JSX, ReactNode, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 
+import { commonTexts, navigation } from '../constants/texts.ts';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 import { Logo } from './logo.tsx';
 import { ThemeToggle } from './theme-toggle.tsx';
-
-const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Documentation', href: '/docs' },
-  { name: 'Pricing', href: '/pricing' },
-];
 
 const layoutClasses = clsx(styles.minHScreen, styles.flex, styles.flexCol);
 const logoContainerClasses = clsx(styles.flex, styles.itemsCenter, styles.gap8);
@@ -124,20 +119,20 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
                 <>
                   <Link to="/dashboard" className={userLinkClasses}>
                     <User className={styles.iconSm} />
-                    Dashboard
+                    {commonTexts.buttons.dashboard}
                   </Link>
                   <button onClick={handleSignOut} className={signOutButtonClasses}>
                     <LogOut className={styles.iconSm} />
-                    Sign Out
+                    {commonTexts.buttons.signOut}
                   </button>
                 </>
               ) : (
                 <>
                   <Link to="/login" className={styles.btnSecondary}>
-                    Sign In
+                    {commonTexts.buttons.signIn}
                   </Link>
                   <Link to="/signup" className={styles.btnPrimary}>
-                    Get Started
+                    {commonTexts.buttons.signUp}
                   </Link>
                 </>
               )}
@@ -211,7 +206,7 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
               <span className={footerTextClasses}>React Google Maps API</span>
             </div>
             <p className={styles.textSm}>
-              © {new Date().getFullYear()} React Google Maps API. All rights reserved.
+              {commonTexts.footer.copyright(new Date().getFullYear())}
             </p>
           </div>
         </div>

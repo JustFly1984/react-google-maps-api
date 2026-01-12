@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router';
 import * as v from 'valibot';
 
 import { ResetPasswordSchema } from '../../shared/schemas.ts';
+import { authTexts, commonTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
 
 const successContainerClasses = clsx(styles.card, styles.p8, styles.textCenter);
@@ -46,7 +47,7 @@ export default function ResetPasswordPage(): JSX.Element {
       setError(null);
 
       if (password !== confirmPassword) {
-        setError('Passwords do not match');
+        setError(authTexts.resetPassword.passwordsDoNotMatch);
 
         return;
       }
@@ -70,7 +71,7 @@ export default function ResetPasswordPage(): JSX.Element {
         const data = await response.json();
 
         if (!response.ok) {
-          setError(data.error || 'Something went wrong');
+          setError(data.error || authTexts.resetPassword.genericError);
           setLoading(false);
           return;
         }
@@ -78,7 +79,7 @@ export default function ResetPasswordPage(): JSX.Element {
         setSuccess(true);
         setTimeout(() => navigate('/login'), 3000);
       } catch {
-        setError('Failed to reset password. Please try again.');
+        setError(authTexts.resetPassword.error);
       } finally {
         setLoading(false);
       }
@@ -106,12 +107,10 @@ export default function ResetPasswordPage(): JSX.Element {
                 />
               </svg>
             </div>
-            <h1 className={successTitleClasses}>Password Reset!</h1>
-            <p className={successTextClasses}>
-              Your password has been successfully reset. Redirecting to sign in...
-            </p>
+            <h1 className={successTitleClasses}>{authTexts.resetPassword.successTitle}</h1>
+            <p className={successTextClasses}>{authTexts.resetPassword.successText}</p>
             <Link to="/login" className={successLinkClasses}>
-              Sign In Now
+              {authTexts.resetPassword.backToLogin}
             </Link>
           </div>
         </div>
@@ -123,8 +122,8 @@ export default function ResetPasswordPage(): JSX.Element {
     <div className={styles.pageContainer}>
       <div className={styles.pageMaxW}>
         <div className={headerClasses}>
-          <h1 className={titleClasses}>Reset Password</h1>
-          <p className={subtitleClasses}>Enter your new password below.</p>
+          <h1 className={titleClasses}>{authTexts.resetPassword.title}</h1>
+          <p className={subtitleClasses}>{authTexts.resetPassword.subtitle}</p>
         </div>
 
         <div className={cardClasses}>
@@ -133,7 +132,7 @@ export default function ResetPasswordPage(): JSX.Element {
 
             <div>
               <label htmlFor="password" className={styles.label}>
-                New Password
+                {authTexts.resetPassword.newPassword}
               </label>
               <input
                 id="password"
@@ -141,7 +140,7 @@ export default function ResetPasswordPage(): JSX.Element {
                 value={password}
                 onChange={handlePasswordChange}
                 className={styles.input}
-                placeholder="••••••••"
+                placeholder={commonTexts.placeholders.password}
                 minLength={6}
                 required
               />
@@ -149,7 +148,7 @@ export default function ResetPasswordPage(): JSX.Element {
 
             <div>
               <label htmlFor="confirmPassword" className={styles.label}>
-                Confirm Password
+                {authTexts.resetPassword.confirmPassword}
               </label>
               <input
                 id="confirmPassword"
@@ -157,14 +156,14 @@ export default function ResetPasswordPage(): JSX.Element {
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
                 className={styles.input}
-                placeholder="••••••••"
+                placeholder={commonTexts.placeholders.password}
                 minLength={6}
                 required
               />
             </div>
 
             <button type="submit" disabled={loading} className={buttonClasses}>
-              {loading ? 'Resetting...' : 'Reset Password'}
+              {loading ? authTexts.resetPassword.resetting : authTexts.resetPassword.submit}
             </button>
           </form>
         </div>

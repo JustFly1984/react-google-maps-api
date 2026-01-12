@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import * as v from 'valibot';
 
 import { ForgotPasswordSchema } from '../../shared/schemas.ts';
+import { authTexts, commonTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
 
 const pageContainerClasses = styles.pageContainer;
@@ -54,7 +55,7 @@ export default function ForgotPasswordPage(): JSX.Element {
       const result = v.safeParse(ForgotPasswordSchema, { email });
 
       if (!result.success) {
-        setError('Please enter a valid email address');
+        setError(authTexts.forgotPassword.validationError);
         return;
       }
 
@@ -71,14 +72,14 @@ export default function ForgotPasswordPage(): JSX.Element {
         const data = await response.json();
 
         if (!response.ok) {
-          setError(data.error || 'Something went wrong');
+          setError(data.error || authTexts.forgotPassword.genericError);
           setLoading(false);
           return;
         }
 
         setSuccess(true);
       } catch {
-        setError('Failed to send reset email. Please try again.');
+        setError(authTexts.forgotPassword.sendError);
       } finally {
         setLoading(false);
       }
@@ -107,14 +108,12 @@ export default function ForgotPasswordPage(): JSX.Element {
               </svg>
             </div>
 
-            <h1 className={successTitleClasses}>Check Your Email</h1>
+            <h1 className={successTitleClasses}>{authTexts.forgotPassword.successTitle}</h1>
 
-            <p className={successTextClasses}>
-              If an account exists for {email}, you will receive a password reset link shortly.
-            </p>
+            <p className={successTextClasses}>{authTexts.forgotPassword.successText}</p>
 
             <Link to="/login" className={successLinkClasses}>
-              Back to Sign In
+              {authTexts.forgotPassword.backToLogin}
             </Link>
           </div>
         </div>
@@ -126,8 +125,8 @@ export default function ForgotPasswordPage(): JSX.Element {
     <div className={pageContainerClasses}>
       <div className={pageMaxWClasses}>
         <div className={headerClasses}>
-          <h1 className={titleClasses}>Forgot Password?</h1>
-          <p className={subtitleClasses}>Enter your email and we'll send you a reset link.</p>
+          <h1 className={titleClasses}>{authTexts.forgotPassword.title}</h1>
+          <p className={subtitleClasses}>{authTexts.forgotPassword.subtitle}</p>
         </div>
 
         <div className={cardClasses}>
@@ -136,7 +135,7 @@ export default function ForgotPasswordPage(): JSX.Element {
 
             <div>
               <label htmlFor="email" className={styles.label}>
-                Email
+                {authTexts.forgotPassword.email}
               </label>
               <input
                 id="email"
@@ -144,20 +143,20 @@ export default function ForgotPasswordPage(): JSX.Element {
                 value={email}
                 onChange={handleEmailChange}
                 className={styles.input}
-                placeholder="you@example.com"
+                placeholder={commonTexts.placeholders.email}
                 required
               />
             </div>
 
             <button type="submit" disabled={loading} className={buttonClasses}>
-              {loading ? 'Sending...' : 'Send Reset Link'}
+              {loading ? authTexts.forgotPassword.sending : authTexts.forgotPassword.submit}
             </button>
           </form>
 
           <p className={footerClasses}>
-            Remember your password?{' '}
+            {commonTexts.footer.rememberPassword}{' '}
             <Link to="/login" className={footerLinkClasses}>
-              Sign in
+              {commonTexts.buttons.signIn}
             </Link>
           </p>
         </div>

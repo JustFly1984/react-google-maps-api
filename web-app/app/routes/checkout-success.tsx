@@ -6,6 +6,7 @@ import { Link, useSearchParams } from 'react-router';
 import * as v from 'valibot';
 
 import { LicenseResponseSchema } from '../../shared/schemas.ts';
+import { checkoutSuccessTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
 
 type License = {
@@ -140,16 +141,14 @@ export default function CheckoutSuccessPage(): JSX.Element {
           <CheckCircle className={successIconClasses} />
         </div>
 
-        <h1 className={successTitleClasses}>Payment Successful!</h1>
-        <p className={successTextClasses}>
-          Thank you for your purchase. Your license is now active.
-        </p>
+        <h1 className={successTitleClasses}>{checkoutSuccessTexts.title}</h1>
+        <p className={successTextClasses}>{checkoutSuccessTexts.subtitle}</p>
 
-        {license && (
+        {license ? (
           <div className={licenseCardClasses}>
             <div className={licenseHeaderClasses}>
               <Key className={styles.iconSm} />
-              License Key
+              {checkoutSuccessTexts.licenseKey}
             </div>
             <div className={licenseKeyContainerClasses}>
               <code className={licenseCodeClasses}>{license.serialNumber}</code>
@@ -162,17 +161,17 @@ export default function CheckoutSuccessPage(): JSX.Element {
               </button>
             </div>
             <p className={licenseValidityClasses}>
-              Valid until {new Date(license.expiryDate).toLocaleDateString()}
+              {checkoutSuccessTexts.validUntil} {new Date(license.expiryDate).toLocaleDateString()}
             </p>
           </div>
-        )}
+        ) : null}
 
         <div className={actionsContainerClasses}>
           <Link to="/dashboard" className={styles.btnPrimary}>
-            Go to Dashboard
+            {checkoutSuccessTexts.dashboard}
           </Link>
           <Link to="/docs" className={styles.btnSecondary}>
-            View Documentation
+            {checkoutSuccessTexts.viewDocs}
           </Link>
         </div>
       </div>

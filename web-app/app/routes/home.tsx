@@ -3,6 +3,7 @@ import { ArrowRight, Code, Map, Shield, Zap } from 'lucide-react';
 import { Link } from 'react-router';
 
 import type { JSX } from 'react';
+import { homeTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
 
 const features = [
@@ -126,22 +127,17 @@ export default function HomePage(): JSX.Element {
           <div className={styles.textCenter}>
             <div className={heroBadgeClasses}>
               <Map className={styles.iconSm} />
-              React Google Maps API
+              {homeTexts.hero.badge}
             </div>
-            <h1 className={heroTitleClasses}>
-              Google Maps for <span className={styles.textBlue600}>React</span>
-            </h1>
-            <p className={heroSubtitleClasses}>
-              The most popular React library for Google Maps. Build beautiful, interactive maps with
-              ease using our comprehensive component library.
-            </p>
+            <h1 className={heroTitleClasses}>{homeTexts.hero.title}</h1>
+            <p className={heroSubtitleClasses}>{homeTexts.hero.subtitle}</p>
             <div className={heroActionsClasses}>
               <Link to="/docs" className={getStartedButtonClasses}>
-                Get Started
+                {homeTexts.hero.getStarted}
                 <ArrowRight className={arrowIconClasses} />
               </Link>
               <Link to="/pricing" className={pricingButtonClasses}>
-                View Pricing
+                {homeTexts.hero.viewPricing}
               </Link>
             </div>
           </div>
@@ -151,10 +147,8 @@ export default function HomePage(): JSX.Element {
       <section className={featuresSectionClasses}>
         <div className={featuresContainerClasses}>
           <div className={featuresHeaderClasses}>
-            <h2 className={featuresTitleClasses}>Why Choose React Google Maps API?</h2>
-            <p className={featuresSubtitleClasses}>
-              Built for modern React applications with developer experience in mind.
-            </p>
+            <h2 className={featuresTitleClasses}>{homeTexts.features.title}</h2>
+            <p className={featuresSubtitleClasses}>{homeTexts.features.subtitle}</p>
           </div>
           <div className={featuresGridClasses}>
             {features.map((feature) => (
@@ -173,16 +167,14 @@ export default function HomePage(): JSX.Element {
       <section className={ctaSectionClasses}>
         <div className={featuresContainerClasses}>
           <div className={ctaCardClasses}>
-            <h2 className={ctaTitleClasses}>Ready to Get Started?</h2>
-            <p className={ctaDescClasses}>
-              Start building beautiful maps today with our comprehensive documentation and examples.
-            </p>
+            <h2 className={ctaTitleClasses}>{homeTexts.cta.title}</h2>
+            <p className={ctaDescClasses}>{homeTexts.cta.subtitle}</p>
             <div className={ctaActionsClasses}>
               <Link to="/signup" className={ctaPrimaryButtonClasses}>
-                Create Account
+                {homeTexts.cta.getStarted}
               </Link>
               <Link to="/docs" className={ctaSecondaryButtonClasses}>
-                Read Documentation
+                {homeTexts.cta.viewPricing}
               </Link>
             </div>
           </div>

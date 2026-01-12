@@ -3,16 +3,10 @@ import { Check } from 'lucide-react';
 import type { JSX } from 'react';
 import { Link } from 'react-router';
 
+import { pricingTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
 
-const features = [
-  'Full access to all components',
-  'Commercial use license',
-  'Priority email support',
-  'Access to premium examples',
-  'One year of updates',
-  'Unlimited projects',
-];
+const features = pricingTexts.license.features;
 
 const headerClasses = clsx(styles.textCenter, styles.mb16);
 const titleClasses = clsx(styles.text4xl, styles.fontBold, styles.textThemePrimary);
@@ -67,21 +61,19 @@ export default function PricingPage(): JSX.Element {
     <div className={styles.py20}>
       <div className={styles.containerMaxW7xl}>
         <div className={headerClasses}>
-          <h1 className={titleClasses}>Simple, Transparent Pricing</h1>
-          <p className={subtitleClasses}>
-            Get a commercial license to use React Google Maps API in your production applications.
-          </p>
+          <h1 className={titleClasses}>{pricingTexts.title}</h1>
+          <p className={subtitleClasses}>{pricingTexts.subtitle}</p>
         </div>
 
         <div className={pricingContainerClasses}>
           <div className={pricingCardClasses}>
             <div className={pricingBadgeClasses} />
-            <h2 className={pricingTitleClasses}>Commercial License</h2>
-            <p className={pricingSubtitleClasses}>Perfect for production apps</p>
+            <h2 className={pricingTitleClasses}>{pricingTexts.license.name}</h2>
+            <p className={pricingSubtitleClasses}>{pricingTexts.license.subtitle}</p>
 
             <div className={styles.mt6}>
-              <span className={priceAmountClasses}>$12</span>
-              <span className={styles.textGray600}>/year</span>
+              <span className={priceAmountClasses}>{pricingTexts.license.price}</span>
+              <span className={styles.textGray600}>{pricingTexts.license.period}</span>
             </div>
 
             <ul className={featuresListClasses}>
@@ -94,19 +86,16 @@ export default function PricingPage(): JSX.Element {
             </ul>
 
             <Link to="/signup" className={buttonClasses}>
-              Get Started
+              {pricingTexts.license.buttonText}
             </Link>
 
-            <p className={guaranteeClasses}>30-day money-back guarantee</p>
+            <p className={guaranteeClasses}>{pricingTexts.license.guarantee}</p>
           </div>
         </div>
 
         <div className={openSourceSectionClasses}>
-          <h3 className={openSourceTitleClasses}>Open Source Usage</h3>
-          <p className={openSourceDescClasses}>
-            React Google Maps API is free for open source projects. If you're building something for
-            the community, you can use it without a license.
-          </p>
+          <h3 className={openSourceTitleClasses}>{pricingTexts.openSource.title}</h3>
+          <p className={openSourceDescClasses}>{pricingTexts.openSource.description}</p>
         </div>
       </div>
     </div>

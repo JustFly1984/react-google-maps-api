@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router';
 import * as v from 'valibot';
 
 import { CheckoutResponseSchema, LicensesResponseSchema } from '../../shared/schemas.ts';
+import { dashboardTexts } from '../constants/texts.ts';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 
@@ -206,15 +207,15 @@ export default function DashboardPage(): JSX.Element {
     <div className={styles.py12}>
       <div className={containerClasses}>
         <div className={styles.mb8}>
-          <h1 className={titleClasses}>Dashboard</h1>
-          <p className={subtitleClasses}>Welcome back, {user.fullName || user.email}!</p>
+          <h1 className={titleClasses}>{dashboardTexts.title}</h1>
+          <p className={subtitleClasses}>{dashboardTexts.subtitle}</p>
         </div>
 
         <div className={gridClasses}>
           <div className={styles.lgColSpan2}>
             <div className={styles.card}>
               <div className={cardHeaderClasses}>
-                <h2 className={cardTitleClasses}>Your Licenses</h2>
+                <h2 className={cardTitleClasses}>{dashboardTexts.licenses.title}</h2>
               </div>
               <div className={styles.p6}>
                 {loading ? (
@@ -224,10 +225,8 @@ export default function DashboardPage(): JSX.Element {
                 ) : licenses.length === 0 ? (
                   <div className={emptyStateClasses}>
                     <Key className={iconClasses} />
-                    <h3 className={emptyTitleClasses}>No licenses yet</h3>
-                    <p className={emptyTextClasses}>
-                      Purchase a commercial license to use React Google Maps API in your projects.
-                    </p>
+                    <h3 className={emptyTitleClasses}>{dashboardTexts.licenses.empty.title}</h3>
+                    <p className={emptyTextClasses}>{dashboardTexts.licenses.empty.description}</p>
                     <button
                       type="button"
                       onClick={handlePurchase}
@@ -235,7 +234,9 @@ export default function DashboardPage(): JSX.Element {
                       className={purchaseButtonClasses}
                     >
                       <ShoppingCart className={cartIconClasses} />
-                      {purchaseLoading ? 'Processing...' : 'Purchase License'}
+                      {purchaseLoading
+                        ? dashboardTexts.sidebar.processing
+                        : dashboardTexts.licenses.empty.button}
                     </button>
                   </div>
                 ) : (
@@ -273,7 +274,9 @@ export default function DashboardPage(): JSX.Element {
                                 : licenseBadgeInactiveClasses
                             }
                           >
-                            {license.isActive ? 'Active' : 'Inactive'}
+                            {license.isActive
+                              ? dashboardTexts.licenses.status.active
+                              : dashboardTexts.licenses.status.inactive}
                           </span>
                         </div>
                       </div>
@@ -286,7 +289,7 @@ export default function DashboardPage(): JSX.Element {
 
           <div>
             <div className={sidebarCardClasses}>
-              <h3 className={sidebarTitleClasses}>Quick Actions</h3>
+              <h3 className={sidebarTitleClasses}>{dashboardTexts.sidebar.title}</h3>
               <div className={styles.spaceY3}>
                 <button
                   type="button"
@@ -295,10 +298,12 @@ export default function DashboardPage(): JSX.Element {
                   className={sidebarButtonClasses}
                 >
                   <ShoppingCart className={purchaseIconClasses} />
-                  {purchaseLoading ? 'Processing...' : 'Purchase License'}
+                  {purchaseLoading
+                    ? dashboardTexts.sidebar.processing
+                    : dashboardTexts.sidebar.purchaseLicense}
                 </button>
                 <Link to="/docs" className={docsLinkClasses}>
-                  View Documentation
+                  {dashboardTexts.sidebar.viewDocs}
                 </Link>
               </div>
             </div>

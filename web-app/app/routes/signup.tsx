@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router';
 import * as v from 'valibot';
 
 import { SignupSchema } from '../../shared/schemas.ts';
+import { authTexts, commonTexts } from '../constants/texts.ts';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 
@@ -47,7 +48,7 @@ export default function SignUpPage(): JSX.Element {
       setError(null);
 
       if (password !== confirmPassword) {
-        setError('Passwords do not match');
+        setError(authTexts.signup.passwordsDoNotMatch);
         return;
       }
 
@@ -76,8 +77,8 @@ export default function SignUpPage(): JSX.Element {
     <div className={styles.pageContainer}>
       <div className={styles.pageMaxW}>
         <div className={headerClasses}>
-          <h1 className={titleClasses}>Create Account</h1>
-          <p className={subtitleClasses}>Get started with React Google Maps API today.</p>
+          <h1 className={titleClasses}>{authTexts.signup.title}</h1>
+          <p className={subtitleClasses}>{authTexts.signup.subtitle}</p>
         </div>
 
         <div className={cardClasses}>
@@ -86,7 +87,7 @@ export default function SignUpPage(): JSX.Element {
 
             <div>
               <label htmlFor="fullName" className={styles.label}>
-                Full Name
+                {authTexts.signup.fullName}
               </label>
               <input
                 id="fullName"
@@ -94,13 +95,13 @@ export default function SignUpPage(): JSX.Element {
                 value={fullName}
                 onChange={handleFullNameChange}
                 className={styles.input}
-                placeholder="John Doe"
+                placeholder={commonTexts.placeholders.fullName}
               />
             </div>
 
             <div>
               <label htmlFor="email" className={styles.label}>
-                Email
+                {authTexts.signup.email}
               </label>
               <input
                 id="email"
@@ -108,14 +109,14 @@ export default function SignUpPage(): JSX.Element {
                 value={email}
                 onChange={handleEmailChange}
                 className={styles.input}
-                placeholder="you@example.com"
+                placeholder={commonTexts.placeholders.email}
                 required
               />
             </div>
 
             <div>
               <label htmlFor="password" className={styles.label}>
-                Password
+                {authTexts.signup.password}
               </label>
               <input
                 id="password"
@@ -123,7 +124,7 @@ export default function SignUpPage(): JSX.Element {
                 value={password}
                 onChange={handlePasswordChange}
                 className={styles.input}
-                placeholder="••••••••"
+                placeholder={commonTexts.placeholders.password}
                 required
                 minLength={6}
               />
@@ -131,7 +132,7 @@ export default function SignUpPage(): JSX.Element {
 
             <div>
               <label htmlFor="confirmPassword" className={styles.label}>
-                Confirm Password
+                {authTexts.signup.confirmPassword}
               </label>
               <input
                 id="confirmPassword"
@@ -139,20 +140,20 @@ export default function SignUpPage(): JSX.Element {
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
                 className={styles.input}
-                placeholder="••••••••"
+                placeholder={commonTexts.placeholders.password}
                 required
               />
             </div>
 
             <button type="submit" disabled={loading} className={buttonClasses}>
-              {loading ? 'Creating account...' : 'Create Account'}
+              {loading ? authTexts.signup.creatingAccount : authTexts.signup.title}
             </button>
           </form>
 
           <p className={footerClasses}>
-            Already have an account?{' '}
+            {authTexts.signup.hasAccount}{' '}
             <Link to="/login" className={linkClasses}>
-              Sign in
+              {authTexts.signup.signInLink}
             </Link>
           </p>
         </div>

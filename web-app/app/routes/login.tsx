@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router';
 import * as v from 'valibot';
 
 import { LoginSchema } from '../../shared/schemas.ts';
+import { authTexts, commonTexts } from '../constants/texts.ts';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
 
@@ -45,7 +46,7 @@ export default function LoginPage(): JSX.Element {
 
       const result = v.safeParse(LoginSchema, { email, password });
       if (!result.success) {
-        setError('Please enter a valid email and password');
+        setError(authTexts.login.validationError);
         return;
       }
 
@@ -68,17 +69,17 @@ export default function LoginPage(): JSX.Element {
     <div className={styles.pageContainer}>
       <div className={styles.pageMaxW}>
         <div className={headerClasses}>
-          <h1 className={titleClasses}>Welcome Back</h1>
-          <p className={subtitleClasses}>Sign in to access your dashboard and licenses.</p>
+          <h1 className={titleClasses}>{authTexts.login.title}</h1>
+          <p className={subtitleClasses}>{authTexts.login.subtitle}</p>
         </div>
 
         <div className={cardClasses}>
           <form onSubmit={handleSubmit} className={styles.spaceY6}>
-            {error && <div className={styles.formError}>{error}</div>}
+            {error ? <div className={styles.formError}>{error}</div> : null}
 
             <div>
               <label htmlFor="email" className={styles.label}>
-                Email
+                {authTexts.login.email}
               </label>
               <input
                 id="email"
@@ -86,14 +87,14 @@ export default function LoginPage(): JSX.Element {
                 value={email}
                 onChange={handleEmailChange}
                 className={styles.input}
-                placeholder="you@example.com"
+                placeholder={commonTexts.placeholders.email}
                 required
               />
             </div>
 
             <div>
               <label htmlFor="password" className={styles.label}>
-                Password
+                {authTexts.login.password}
               </label>
               <input
                 id="password"
@@ -101,26 +102,26 @@ export default function LoginPage(): JSX.Element {
                 value={password}
                 onChange={handlePasswordChange}
                 className={styles.input}
-                placeholder="••••••••"
+                placeholder={commonTexts.placeholders.password}
                 required
               />
             </div>
 
             <button type="submit" disabled={loading} className={buttonClasses}>
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? authTexts.login.signingIn : authTexts.login.title}
             </button>
           </form>
 
           <div className={signUpContainerClasses}>
             <Link to="/forgot-password" className={forgotPasswordClasses}>
-              Forgot your password?
+              {authTexts.login.forgotPassword}
             </Link>
           </div>
 
           <p className={footerClasses}>
-            Don't have an account?{' '}
+            {authTexts.login.noAccount}{' '}
             <Link to="/signup" className={signUpLinkClasses}>
-              Sign up
+              {authTexts.login.signUpLink}
             </Link>
           </p>
         </div>
