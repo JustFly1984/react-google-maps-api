@@ -1,8 +1,10 @@
 import clsx from 'clsx';
 import type { ChangeEvent, FormEvent, JSX } from 'react';
 import { useCallback, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+
 import * as v from 'valibot';
+import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { ResetPasswordSchema } from '../../shared/schemas.ts';
 import { authTexts, commonTexts } from '../constants/texts.ts';
@@ -109,9 +111,9 @@ export default function ResetPasswordPage(): JSX.Element {
             </div>
             <h1 className={successTitleClasses}>{authTexts.resetPassword.successTitle}</h1>
             <p className={successTextClasses}>{authTexts.resetPassword.successText}</p>
-            <Link to="/login" className={successLinkClasses}>
+            <LocaleLink to="/login" className={successLinkClasses}>
               {authTexts.resetPassword.backToLogin}
-            </Link>
+            </LocaleLink>
           </div>
         </div>
       </div>

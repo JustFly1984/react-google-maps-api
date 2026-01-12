@@ -118,9 +118,14 @@
     @apply p-2 rounded-lg transition-colors;
     background-color: transparent;
     color: var(--color-text-secondary);
+    pointer-events: visible;
   }
   .theme-toggle:hover {
     background-color: var(--color-surface-tertiary);
+  }
+
+  .theme-toggle svg {
+    pointer-events: none;
   }
 
   .text-theme-primary {

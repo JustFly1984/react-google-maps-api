@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
   type JSX,
   type ReactNode,
@@ -28,40 +29,45 @@ export function ThemeProvider({ children }: { children: ReactNode }): JSX.Elemen
     if (stored === 'light' || stored === 'dark') {
       setThemeState(stored);
     } else {
-      // Default to dark
       setThemeState('dark');
     }
   }, []);
 
   useEffect(() => {
     const root = document.documentElement;
+
     if (theme === 'dark') {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
     }
+
     localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
-    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    setThemeState((prev) => {
+      return prev === 'dark' ? 'light' : 'dark';
+    });
   }, []);
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
   }, []);
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  const value = useMemo(() => {
+    return { theme, toggleTheme, setTheme };
+  }, [theme, toggleTheme, setTheme]);
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme(): ThemeContextType {
   const context = useContext(ThemeContext);
-  if (!context) {
+
+  if (context === null) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
+
   return context;
 }

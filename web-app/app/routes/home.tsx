@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { ArrowRight, Code, Map, Shield, Zap } from 'lucide-react';
-import { Link } from 'react-router';
+import { LocaleLink } from '../utils/locale-link.tsx';
 
 import type { JSX } from 'react';
 import { homeTexts } from '../constants/texts.ts';
@@ -132,13 +132,13 @@ export default function HomePage(): JSX.Element {
             <h1 className={heroTitleClasses}>{homeTexts.hero.title}</h1>
             <p className={heroSubtitleClasses}>{homeTexts.hero.subtitle}</p>
             <div className={heroActionsClasses}>
-              <Link to="/docs" className={getStartedButtonClasses}>
+              <LocaleLink to="/docs" className={getStartedButtonClasses}>
                 {homeTexts.hero.getStarted}
                 <ArrowRight className={arrowIconClasses} />
-              </Link>
-              <Link to="/pricing" className={pricingButtonClasses}>
+              </LocaleLink>
+              <LocaleLink to="/pricing" className={pricingButtonClasses}>
                 {homeTexts.hero.viewPricing}
-              </Link>
+              </LocaleLink>
             </div>
           </div>
         </div>
@@ -170,12 +170,12 @@ export default function HomePage(): JSX.Element {
             <h2 className={ctaTitleClasses}>{homeTexts.cta.title}</h2>
             <p className={ctaDescClasses}>{homeTexts.cta.subtitle}</p>
             <div className={ctaActionsClasses}>
-              <Link to="/signup" className={ctaPrimaryButtonClasses}>
+              <LocaleLink to="/signup" className={ctaPrimaryButtonClasses}>
                 {homeTexts.cta.getStarted}
-              </Link>
-              <Link to="/docs" className={ctaSecondaryButtonClasses}>
+              </LocaleLink>
+              <LocaleLink to="/docs" className={ctaSecondaryButtonClasses}>
                 {homeTexts.cta.viewPricing}
-              </Link>
+              </LocaleLink>
             </div>
           </div>
         </div>

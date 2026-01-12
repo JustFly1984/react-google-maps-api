@@ -1,15 +1,22 @@
 import { Moon, Sun } from 'lucide-react';
-import type { JSX } from 'react';
+import { ComponentType, memo, useCallback, type JSX } from 'react';
 
 import { useTheme } from '../contexts/theme.tsx';
 
-export function ThemeToggle(): JSX.Element {
+function ThemeToggleF(): JSX.Element {
   const { theme, toggleTheme } = useTheme();
+
+  console.info('ThemeToggle', theme);
+
+  const onClick = useCallback(() => {
+    console.log('ThemeToggle clicked');
+    toggleTheme();
+  }, []);
 
   return (
     <button
       type="button"
-      onClick={toggleTheme}
+      onClick={onClick}
       className="theme-toggle"
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
     >
@@ -17,3 +24,5 @@ export function ThemeToggle(): JSX.Element {
     </button>
   );
 }
+
+export const ThemeToggle: ComponentType = memo(ThemeToggleF);

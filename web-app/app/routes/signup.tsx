@@ -1,7 +1,9 @@
 import clsx from 'clsx';
 import { useCallback, useState, type ChangeEvent, type JSX } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+
 import * as v from 'valibot';
+import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { SignupSchema } from '../../shared/schemas.ts';
 import { authTexts, commonTexts } from '../constants/texts.ts';
@@ -152,9 +154,9 @@ export default function SignUpPage(): JSX.Element {
 
           <p className={footerClasses}>
             {authTexts.signup.hasAccount}{' '}
-            <Link to="/login" className={linkClasses}>
+            <LocaleLink to="/login" className={linkClasses}>
               {authTexts.signup.signInLink}
-            </Link>
+            </LocaleLink>
           </p>
         </div>
       </div>

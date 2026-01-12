@@ -1,0 +1,163 @@
+{
+  "home": {
+    "hero": {
+      "badge": "React Google Maps API",
+      "title": "Google Maps for React",
+      "subtitle": "The most popular React library for Google Maps. Build beautiful, interactive maps with ease using our comprehensive component library.",
+      "getStarted": "Get Started",
+      "viewPricing": "View Pricing"
+    },
+    "features": {
+      "title": "Why Choose React Google Maps API?",
+      "subtitle": "Everything you need to build professional map applications"
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Join thousands of developers using React Google Maps API",
+      "getStarted": "Create Account",
+      "viewPricing": "View Pricing"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "documentation": "Documentation",
+    "pricing": "Pricing"
+  },
+  "common": {
+    "buttons": {
+      "signIn": "Sign In",
+      "signUp": "Get Started",
+      "signOut": "Sign Out",
+      "dashboard": "Dashboard"
+    },
+    "footer": {
+      "copyright": "© {{year}} React Google Maps API. All rights reserved.",
+      "rememberPassword": "Remember your password?"
+    },
+    "placeholders": {
+      "email": "you@example.com",
+      "password": "••••••••",
+      "fullName": "John Doe",
+      "search": "Search...",
+      "searchPlace": "Search for a place"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign In",
+      "subtitle": "Welcome back! Please sign in to your account.",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot your password?",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign up",
+      "signingIn": "Signing in...",
+      "validationError": "Please enter a valid email and password"
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Join us today! Create your account to get started.",
+      "fullName": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "hasAccount": "Already have an account?",
+      "signInLink": "Sign in",
+      "creatingAccount": "Creating account...",
+      "passwordsDoNotMatch": "Passwords do not match"
+    },
+    "forgotPassword": {
+      "title": "Reset Password",
+      "subtitle": "Enter your email address and we will send you a link to reset your password.",
+      "email": "Email",
+      "submit": "Send Reset Link",
+      "sending": "Sending...",
+      "successTitle": "Reset Link Sent",
+      "successText": "Check your email for a link to reset your password.",
+      "backToLogin": "Back to Sign In",
+      "validationError": "Please enter a valid email address",
+      "sendError": "Failed to send reset email. Please try again.",
+      "genericError": "Something went wrong"
+    },
+    "resetPassword": {
+      "title": "Set New Password",
+      "subtitle": "Enter your new password below.",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Update Password",
+      "resetting": "Resetting...",
+      "successTitle": "Password Updated",
+      "successText": "Your password has been successfully updated.",
+      "backToLogin": "Back to Sign In",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "genericError": "Something went wrong",
+      "error": "Failed to reset password. Please try again."
+    }
+  },
+  "pricing": {
+    "title": "Simple, Transparent Pricing",
+    "subtitle": "Get a commercial license to use React Google Maps API in your production applications.",
+    "license": {
+      "name": "Commercial License",
+      "subtitle": "Perfect for production apps",
+      "price": "$12",
+      "period": "/year",
+      "buttonText": "Purchase License",
+      "features": {
+        "fullAccess": "Full access to all components",
+        "commercialUse": "Commercial use license",
+        "prioritySupport": "Priority email support",
+        "premiumExamples": "Access to premium examples",
+        "oneYearUpdates": "One year of updates",
+        "unlimitedProjects": "Unlimited projects"
+      },
+      "guarantee": "30-day money-back guarantee"
+    },
+    "openSource": {
+      "title": "Open Source Usage",
+      "description": "React Google Maps API is free for open source projects. If you're building something for the community, you can use it without a license."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Manage your licenses and account settings",
+    "licenses": {
+      "title": "Your Licenses",
+      "empty": {
+        "title": "No licenses found",
+        "description": "You haven't purchased any licenses yet. Get started by purchasing a commercial license.",
+        "button": "Purchase License"
+      },
+      "serialNumber": "Serial Number",
+      "purchaseDate": "Purchase Date",
+      "expiryDate": "Expiry Date",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "copy": "Copy",
+      "copied": "Copied!"
+    },
+    "sidebar": {
+      "title": "Quick Actions",
+      "purchaseLicense": "Purchase License",
+      "viewDocs": "View Documentation",
+      "processing": "Processing..."
+    }
+  },
+  "checkoutSuccess": {
+    "title": "Payment Successful!",
+    "subtitle": "Thank you for your purchase. Your license has been generated.",
+    "licenseKey": "License Key",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "serialNumber": "Serial Number",
+    "purchaseDate": "Purchase Date",
+    "expiryDate": "Expiry Date",
+    "status": "Status",
+    "active": "Active",
+    "dashboard": "Go to Dashboard",
+    "viewDocs": "View Documentation",
+    "validUntil": "Valid until"
+  }
+}

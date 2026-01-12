@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Check } from 'lucide-react';
 import type { JSX } from 'react';
-import { Link } from 'react-router';
+import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { pricingTexts } from '../constants/texts.ts';
 import { styles } from '../styles.ts';
@@ -85,9 +85,9 @@ export default function PricingPage(): JSX.Element {
               ))}
             </ul>
 
-            <Link to="/signup" className={buttonClasses}>
+            <LocaleLink to="/signup" className={buttonClasses}>
               {pricingTexts.license.buttonText}
-            </Link>
+            </LocaleLink>
 
             <p className={guaranteeClasses}>{pricingTexts.license.guarantee}</p>
           </div>

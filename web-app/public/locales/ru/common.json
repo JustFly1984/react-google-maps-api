@@ -1,0 +1,163 @@
+{
+  "home": {
+    "hero": {
+      "badge": "React Google Maps API",
+      "title": "Google Карты для React",
+      "subtitle": "Самая популярная React библиотека для Google Maps. Создавайте красивые, интерактивные карты с лёгкостью используя нашу библиотеку компонентов.",
+      "getStarted": "Начать",
+      "viewPricing": "Цены"
+    },
+    "features": {
+      "title": "Почему React Google Maps API?",
+      "subtitle": "Всё что нужно для создания профессиональных картографических приложений"
+    },
+    "cta": {
+      "title": "Готовы начать?",
+      "subtitle": "Присоединяйтесь к тысячам разработчиков использующих React Google Maps API",
+      "getStarted": "Создать аккаунт",
+      "viewPricing": "Цены"
+    }
+  },
+  "navigation": {
+    "home": "Главная",
+    "documentation": "Документация",
+    "pricing": "Цены"
+  },
+  "common": {
+    "buttons": {
+      "signIn": "Войти",
+      "signUp": "Начать",
+      "signOut": "Выйти",
+      "dashboard": "Панель управления"
+    },
+    "footer": {
+      "copyright": "© {{year}} React Google Maps API. Все права защищены.",
+      "rememberPassword": "Помните пароль?"
+    },
+    "placeholders": {
+      "email": "you@example.com",
+      "password": "••••••••",
+      "fullName": "Иван Иванов",
+      "search": "Поиск...",
+      "searchPlace": "Поиск места"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Вход",
+      "subtitle": "С возвращением! Пожалуйста, войдите в свой аккаунт.",
+      "email": "Email",
+      "password": "Пароль",
+      "forgotPassword": "Забыли пароль?",
+      "noAccount": "Нет аккаунта?",
+      "signUpLink": "Зарегистрироваться",
+      "signingIn": "Вход...",
+      "validationError": "Пожалуйста, введите корректный email и пароль"
+    },
+    "signup": {
+      "title": "Регистрация",
+      "subtitle": "Присоединяйтесь! Создайте аккаунт чтобы начать.",
+      "fullName": "Полное имя",
+      "email": "Email",
+      "password": "Пароль",
+      "confirmPassword": "Подтвердите пароль",
+      "hasAccount": "Уже есть аккаунт?",
+      "signInLink": "Войти",
+      "creatingAccount": "Создание аккаунта...",
+      "passwordsDoNotMatch": "Пароли не совпадают"
+    },
+    "forgotPassword": {
+      "title": "Сброс пароля",
+      "subtitle": "Введите ваш email и мы отправим вам ссылку для сброса пароля.",
+      "email": "Email",
+      "submit": "Отправить ссылку",
+      "sending": "Отправка...",
+      "successTitle": "Ссылка отправлена",
+      "successText": "Проверьте вашу почту для ссылки сброса пароля.",
+      "backToLogin": "Вернуться к входу",
+      "validationError": "Пожалуйста, введите корректный email",
+      "sendError": "Не удалось отправить email. Попробуйте снова.",
+      "genericError": "Что-то пошло не так"
+    },
+    "resetPassword": {
+      "title": "Новый пароль",
+      "subtitle": "Введите новый пароль ниже.",
+      "newPassword": "Новый пароль",
+      "confirmPassword": "Подтвердите пароль",
+      "submit": "Обновить пароль",
+      "resetting": "Сброс...",
+      "successTitle": "Пароль обновлён",
+      "successText": "Ваш пароль был успешно обновлён.",
+      "backToLogin": "Вернуться к входу",
+      "passwordsDoNotMatch": "Пароли не совпадают",
+      "genericError": "Что-то пошло не так",
+      "error": "Не удалось сбросить пароль. Попробуйте снова."
+    }
+  },
+  "pricing": {
+    "title": "Простые и прозрачные цены",
+    "subtitle": "Получите коммерческую лицензию для использования React Google Maps API в ваших приложениях.",
+    "license": {
+      "name": "Коммерческая лицензия",
+      "subtitle": "Идеально для продакшн приложений",
+      "price": "$12",
+      "period": "/год",
+      "buttonText": "Купить лицензию",
+      "features": {
+        "fullAccess": "Полный доступ ко всем компонентам",
+        "commercialUse": "Лицензия для коммерческого использования",
+        "prioritySupport": "Приоритетная email поддержка",
+        "premiumExamples": "Доступ к премиум примерам",
+        "oneYearUpdates": "Год обновлений",
+        "unlimitedProjects": "Неограниченное количество проектов"
+      },
+      "guarantee": "30-дневная гарантия возврата денег"
+    },
+    "openSource": {
+      "title": "Open Source использование",
+      "description": "React Google Maps API бесплатен для open source проектов. Если вы создаёте что-то для сообщества, вы можете использовать его без лицензии."
+    }
+  },
+  "dashboard": {
+    "title": "Панель управления",
+    "subtitle": "Управление лицензиями и настройками аккаунта",
+    "licenses": {
+      "title": "Ваши лицензии",
+      "empty": {
+        "title": "Лицензии не найдены",
+        "description": "Вы ещё не приобрели лицензии. Начните с покупки коммерческой лицензии.",
+        "button": "Купить лицензию"
+      },
+      "serialNumber": "Серийный номер",
+      "purchaseDate": "Дата покупки",
+      "expiryDate": "Дата окончания",
+      "status": {
+        "active": "Активна",
+        "inactive": "Неактивна"
+      },
+      "copy": "Копировать",
+      "copied": "Скопировано!"
+    },
+    "sidebar": {
+      "title": "Быстрые действия",
+      "purchaseLicense": "Купить лицензию",
+      "viewDocs": "Документация",
+      "processing": "Обработка..."
+    }
+  },
+  "checkoutSuccess": {
+    "title": "Оплата успешна!",
+    "subtitle": "Спасибо за покупку. Ваша лицензия сгенерирована.",
+    "licenseKey": "Лицензионный ключ",
+    "copy": "Копировать",
+    "copied": "Скопировано!",
+    "serialNumber": "Серийный номер",
+    "purchaseDate": "Дата покупки",
+    "expiryDate": "Дата окончания",
+    "status": "Статус",
+    "active": "Активна",
+    "dashboard": "В панель управления",
+    "viewDocs": "Документация",
+    "validUntil": "Действительна до"
+  }
+}

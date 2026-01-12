@@ -1,13 +1,21 @@
 import clsx from 'clsx';
 import { LogOut, Menu, User, X } from 'lucide-react';
 import { type JSX, ReactNode, useCallback, useState } from 'react';
-import { Link, useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router';
 
-import { commonTexts, navigation } from '../constants/texts.ts';
+import { navigation } from '../constants/texts.ts';
 import { useAuth } from '../contexts/auth.tsx';
 import { styles } from '../styles.ts';
+import { LocaleLink } from '../utils/locale-link.tsx';
 import { Logo } from './logo.tsx';
 import { ThemeToggle } from './theme-toggle.tsx';
+
+const navigationKeyByHref: Record<(typeof navigation)[number]['href'], string> = {
+  '/': 'navigation.home',
+  '/docs': 'navigation.documentation',
+  '/pricing': 'navigation.pricing',
+};
 
 const layoutClasses = clsx(styles.minHScreen, styles.flex, styles.flexCol);
 const logoContainerClasses = clsx(styles.flex, styles.itemsCenter, styles.gap8);
@@ -19,6 +27,17 @@ const navLinkClasses = clsx(styles.textSm, styles.fontMedium, styles.transitionC
 const navLinkActiveClasses = clsx(navLinkClasses, styles.textThemeAccent);
 const navLinkInactiveClasses = clsx(navLinkClasses, styles.textThemeSecondary);
 const userMenuClasses = clsx(styles.hidden, styles.lgFlex, styles.itemsCenter, styles.gap4);
+const headerControlsClasses = clsx(styles.flex, styles.itemsCenter, styles.gap2);
+const languageButtonBaseClasses = clsx(
+  styles.px2,
+  styles.py1,
+  styles.roundedLg,
+  styles.textSm,
+  styles.border,
+  styles.transitionColors,
+);
+const languageButtonActiveClasses = clsx(languageButtonBaseClasses, styles.borderAccent);
+const languageButtonInactiveClasses = clsx(languageButtonBaseClasses, 'border-theme-secondary');
 const userLinkClasses = clsx(
   styles.flex,
   styles.itemsCenter,
@@ -65,6 +84,18 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const location = useLocation();
+  const { t, i18n } = useTranslation();
+
+  const navigate = useNavigate();
+
+  const setLanguage = useCallback(
+    (lng: string): void => {
+      const currentPath = location.pathname;
+      const pathWithoutLocale = currentPath.replace(/^\/(en|ru)/, '') || '/';
+      navigate(`/${lng}${pathWithoutLocale}`);
+    },
+    [location.pathname, navigate],
+  );
 
   const handleSignOut = useCallback((): void => {
     signOut();
@@ -83,22 +114,32 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
     setMobileMenuOpen(false);
   }, [signOut]);
 
+  const onEnClick = useCallback(() => {
+    console.info('setLanguage', 'en');
+    return setLanguage('en');
+  }, [setLanguage]);
+
+  const onRuClick = useCallback(() => {
+    console.info('setLanguage', 'ru');
+    return setLanguage('ru');
+  }, [setLanguage]);
+
   return (
     <div className={layoutClasses}>
       <header className={'header'}>
         <nav className={styles.containerMaxW7xl}>
           <div className={styles.h16Flex}>
             <div className={logoContainerClasses}>
-              <Link to="/" className={logoLinkClasses}>
+              <LocaleLink to="/" className={logoLinkClasses}>
                 <span className={logoBoxClasses}>
                   <Logo />
                 </span>
                 <span className={logoTextClasses}>React Google Maps</span>
-              </Link>
+              </LocaleLink>
               <div className={navDesktopClasses}>
                 {navigation.map((item) => (
-                  <Link
-                    key={item.name}
+                  <LocaleLink
+                    key={item.href}
                     to={item.href}
                     className={
                       location.pathname === item.href
@@ -106,86 +147,115 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
                         : navLinkInactiveClasses
                     }
                   >
-                    {item.name}
-                  </Link>
+                    {t(navigationKeyByHref[item.href])}
+                  </LocaleLink>
                 ))}
               </div>
             </div>
 
-            <div className={userMenuClasses}>
+            <div className={headerControlsClasses}>
               <ThemeToggle />
 
-              {user !== null ? (
-                <>
-                  <Link to="/dashboard" className={userLinkClasses}>
-                    <User className={styles.iconSm} />
-                    {commonTexts.buttons.dashboard}
-                  </Link>
-                  <button onClick={handleSignOut} className={signOutButtonClasses}>
-                    <LogOut className={styles.iconSm} />
-                    {commonTexts.buttons.signOut}
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link to="/login" className={styles.btnSecondary}>
-                    {commonTexts.buttons.signIn}
-                  </Link>
-                  <Link to="/signup" className={styles.btnPrimary}>
-                    {commonTexts.buttons.signUp}
-                  </Link>
-                </>
-              )}
-            </div>
+              <button
+                type="button"
+                onClick={onEnClick}
+                className={
+                  i18n.language === 'en'
+                    ? languageButtonActiveClasses
+                    : languageButtonInactiveClasses
+                }
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={onRuClick}
+                className={
+                  i18n.language === 'ru'
+                    ? languageButtonActiveClasses
+                    : languageButtonInactiveClasses
+                }
+              >
+                RU
+              </button>
 
-            <button className={mobileMenuButtonClasses} onClick={toggleMobileMenu}>
-              {mobileMenuOpen ? (
-                <X className={styles.iconLg} />
-              ) : (
-                <Menu className={styles.iconLg} />
-              )}
-            </button>
+              <div className={userMenuClasses}>
+                {user !== null ? (
+                  <>
+                    <LocaleLink to="/dashboard" className={userLinkClasses}>
+                      <User className={styles.iconSm} />
+                      {t('common.buttons.dashboard')}
+                    </LocaleLink>
+                    <button onClick={handleSignOut} className={signOutButtonClasses}>
+                      <LogOut className={styles.iconSm} />
+                      {t('common.buttons.signOut')}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <LocaleLink to="/login" className={styles.btnSecondary}>
+                      {t('common.buttons.signIn')}
+                    </LocaleLink>
+                    <LocaleLink to="/signup" className={styles.btnPrimary}>
+                      {t('common.buttons.signUp')}
+                    </LocaleLink>
+                  </>
+                )}
+              </div>
+
+              <button className={mobileMenuButtonClasses} onClick={toggleMobileMenu}>
+                {mobileMenuOpen ? (
+                  <X className={styles.iconLg} />
+                ) : (
+                  <Menu className={styles.iconLg} />
+                )}
+              </button>
+            </div>
           </div>
 
           {mobileMenuOpen ? (
             <div className={mobileMenuClasses}>
               <div className={mobileNavClasses}>
                 {navigation.map((item) => (
-                  <Link
+                  <LocaleLink
                     key={item.name}
                     to={item.href}
                     className={mobileNavLinkClasses}
                     onClick={closeMobileMenu}
                   >
-                    {item.name}
-                  </Link>
+                    {t(navigationKeyByHref[item.href])}
+                  </LocaleLink>
                 ))}
 
                 {user !== null ? (
                   <>
-                    <Link
+                    <LocaleLink
                       to="/dashboard"
                       className={mobileUserLinkClasses}
                       onClick={closeMobileMenu}
                     >
-                      Dashboard
-                    </Link>
+                      {t('common.buttons.dashboard')}
+                    </LocaleLink>
                     <button onClick={handleMobileSignOut} className={mobileSignOutButtonClasses}>
-                      Sign Out
+                      {t('common.buttons.signOut')}
                     </button>
                   </>
                 ) : (
                   <>
-                    <Link to="/login" className={mobileSignInLinkClasses} onClick={closeMobileMenu}>
-                      Sign In
-                    </Link>
-                    <Link
+                    <LocaleLink
+                      to="/login"
+                      className={mobileSignInLinkClasses}
+                      onClick={closeMobileMenu}
+                    >
+                      {t('common.buttons.signIn')}
+                    </LocaleLink>
+                    <LocaleLink
                       to="/signup"
                       className={mobileSignUpLinkClasses}
                       onClick={closeMobileMenu}
                     >
-                      Get Started
-                    </Link>
+                      {t('common.buttons.signUp')}
+                    </LocaleLink>
                   </>
                 )}
               </div>
@@ -206,7 +276,7 @@ export function Layout({ children }: { children: ReactNode }): JSX.Element {
               <span className={footerTextClasses}>React Google Maps API</span>
             </div>
             <p className={styles.textSm}>
-              {commonTexts.footer.copyright(new Date().getFullYear())}
+              {t('common.footer.copyright', { year: new Date().getFullYear() })}
             </p>
           </div>
         </div>

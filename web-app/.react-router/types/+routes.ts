@@ -40,48 +40,125 @@ type Pages = {
   "/checkout/success": {
     params: {};
   };
+  "/:lang": {
+    params: {
+      "lang": string;
+    };
+  };
+  "/:lang/docs/:section?": {
+    params: {
+      "lang": string;
+      "section"?: string;
+    };
+  };
+  "/:lang/pricing": {
+    params: {
+      "lang": string;
+    };
+  };
+  "/:lang/login": {
+    params: {
+      "lang": string;
+    };
+  };
+  "/:lang/signup": {
+    params: {
+      "lang": string;
+    };
+  };
+  "/:lang/forgot-password": {
+    params: {
+      "lang": string;
+    };
+  };
+  "/:lang/reset-password": {
+    params: {
+      "lang": string;
+    };
+  };
+  "/:lang/dashboard": {
+    params: {
+      "lang": string;
+    };
+  };
+  "/:lang/checkout/success": {
+    params: {
+      "lang": string;
+    };
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/docs/:section?" | "/pricing" | "/login" | "/signup" | "/forgot-password" | "/reset-password" | "/dashboard" | "/checkout/success";
+    page: "/" | "/docs/:section?" | "/pricing" | "/login" | "/signup" | "/forgot-password" | "/reset-password" | "/dashboard" | "/checkout/success" | "/:lang" | "/:lang/docs/:section?" | "/:lang/pricing" | "/:lang/login" | "/:lang/signup" | "/:lang/forgot-password" | "/:lang/reset-password" | "/:lang/dashboard" | "/:lang/checkout/success";
   };
   "routes/home.tsx": {
     id: "routes/home";
     page: "/";
+  } | {
+    id: "routes/home-localized";
+    page: "/:lang";
   };
   "routes/docs.tsx": {
     id: "routes/docs";
     page: "/docs/:section?";
+  } | {
+    id: "routes/docs-localized";
+    page: "/:lang/docs/:section?";
   };
   "routes/pricing.tsx": {
     id: "routes/pricing";
     page: "/pricing";
+  } | {
+    id: "routes/pricing-localized";
+    page: "/:lang/pricing";
   };
   "routes/login.tsx": {
     id: "routes/login";
     page: "/login";
+  } | {
+    id: "routes/login-localized";
+    page: "/:lang/login";
   };
   "routes/signup.tsx": {
     id: "routes/signup";
     page: "/signup";
+  } | {
+    id: "routes/signup-localized";
+    page: "/:lang/signup";
   };
   "routes/forgot-password.tsx": {
     id: "routes/forgot-password";
     page: "/forgot-password";
+  } | {
+    id: "routes/forgot-password-localized";
+    page: "/:lang/forgot-password";
   };
   "routes/reset-password.tsx": {
     id: "routes/reset-password";
     page: "/reset-password";
+  } | {
+    id: "routes/reset-password-localized";
+    page: "/:lang/reset-password";
   };
   "routes/dashboard.tsx": {
     id: "routes/dashboard";
     page: "/dashboard";
+  } | {
+    id: "routes/dashboard-localized";
+    page: "/:lang/dashboard";
   };
   "routes/checkout-success.tsx": {
     id: "routes/checkout-success";
     page: "/checkout/success";
+  } | {
+    id: "routes/checkout-success-localized";
+    page: "/:lang/checkout/success";
+  };
+  "routes/locale-layout.tsx": {
+    id: "routes/locale-layout";
+    page: "/:lang" | "/:lang/docs/:section?" | "/:lang/pricing" | "/:lang/login" | "/:lang/signup" | "/:lang/forgot-password" | "/:lang/reset-password" | "/:lang/dashboard" | "/:lang/checkout/success";
   };
 };
 
@@ -96,4 +173,14 @@ type RouteModules = {
   "routes/reset-password": typeof import("./app/routes/reset-password.tsx");
   "routes/dashboard": typeof import("./app/routes/dashboard.tsx");
   "routes/checkout-success": typeof import("./app/routes/checkout-success.tsx");
+  "routes/locale-layout": typeof import("./app/routes/locale-layout.tsx");
+  "routes/home-localized": typeof import("./app/routes/home.tsx");
+  "routes/docs-localized": typeof import("./app/routes/docs.tsx");
+  "routes/pricing-localized": typeof import("./app/routes/pricing.tsx");
+  "routes/login-localized": typeof import("./app/routes/login.tsx");
+  "routes/signup-localized": typeof import("./app/routes/signup.tsx");
+  "routes/forgot-password-localized": typeof import("./app/routes/forgot-password.tsx");
+  "routes/reset-password-localized": typeof import("./app/routes/reset-password.tsx");
+  "routes/dashboard-localized": typeof import("./app/routes/dashboard.tsx");
+  "routes/checkout-success-localized": typeof import("./app/routes/checkout-success.tsx");
 };

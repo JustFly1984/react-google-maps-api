@@ -15,6 +15,15 @@ type Matches = [{
 }, {
   id: "routes/signup";
   module: typeof import("../signup.js");
+}] | [{
+  id: "root";
+  module: typeof import("../../root.js");
+}, {
+  id: "routes/locale-layout";
+  module: typeof import("../locale-layout.js");
+}, {
+  id: "routes/signup-localized";
+  module: typeof import("../signup.js");
 }];
 
 type Annotations = GetAnnotations<Info & { module: Module, matches: Matches }, false>;

@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import type { ChangeEvent, JSX } from 'react';
 import { useCallback, useState } from 'react';
-import { Link } from 'react-router';
 import * as v from 'valibot';
+import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { ForgotPasswordSchema } from '../../shared/schemas.ts';
 import { authTexts, commonTexts } from '../constants/texts.ts';
@@ -112,9 +112,9 @@ export default function ForgotPasswordPage(): JSX.Element {
 
             <p className={successTextClasses}>{authTexts.forgotPassword.successText}</p>
 
-            <Link to="/login" className={successLinkClasses}>
+            <LocaleLink to="/login" className={successLinkClasses}>
               {authTexts.forgotPassword.backToLogin}
-            </Link>
+            </LocaleLink>
           </div>
         </div>
       </div>
@@ -155,9 +155,9 @@ export default function ForgotPasswordPage(): JSX.Element {
 
           <p className={footerClasses}>
             {commonTexts.footer.rememberPassword}{' '}
-            <Link to="/login" className={footerLinkClasses}>
+            <LocaleLink to="/login" className={footerLinkClasses}>
               {commonTexts.buttons.signIn}
-            </Link>
+            </LocaleLink>
           </p>
         </div>
       </div>

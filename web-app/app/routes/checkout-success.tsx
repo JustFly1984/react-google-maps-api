@@ -2,8 +2,10 @@ import clsx from 'clsx';
 import { Check, CheckCircle, Copy, Key } from 'lucide-react';
 import type { JSX } from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router';
+import { useSearchParams } from 'react-router';
+
 import * as v from 'valibot';
+import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { LicenseResponseSchema } from '../../shared/schemas.ts';
 import { checkoutSuccessTexts } from '../constants/texts.ts';
@@ -167,12 +169,12 @@ export default function CheckoutSuccessPage(): JSX.Element {
         ) : null}
 
         <div className={actionsContainerClasses}>
-          <Link to="/dashboard" className={styles.btnPrimary}>
+          <LocaleLink to="/dashboard" className={styles.btnPrimary}>
             {checkoutSuccessTexts.dashboard}
-          </Link>
-          <Link to="/docs" className={styles.btnSecondary}>
+          </LocaleLink>
+          <LocaleLink to="/docs" className={styles.btnSecondary}>
             {checkoutSuccessTexts.viewDocs}
-          </Link>
+          </LocaleLink>
         </div>
       </div>
     </div>

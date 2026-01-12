@@ -1,8 +1,10 @@
 import clsx from 'clsx';
 import { Calendar, Check, Copy, Key, ShoppingCart } from 'lucide-react';
 import { type JSX, useCallback, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+
 import * as v from 'valibot';
+import { LocaleLink } from '../utils/locale-link.tsx';
 
 import { CheckoutResponseSchema, LicensesResponseSchema } from '../../shared/schemas.ts';
 import { dashboardTexts } from '../constants/texts.ts';
@@ -302,9 +304,9 @@ export default function DashboardPage(): JSX.Element {
                     ? dashboardTexts.sidebar.processing
                     : dashboardTexts.sidebar.purchaseLicense}
                 </button>
-                <Link to="/docs" className={docsLinkClasses}>
+                <LocaleLink to="/docs" className={docsLinkClasses}>
                   {dashboardTexts.sidebar.viewDocs}
-                </Link>
+                </LocaleLink>
               </div>
             </div>
           </div>
