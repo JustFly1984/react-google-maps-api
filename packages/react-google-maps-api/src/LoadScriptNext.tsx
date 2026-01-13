@@ -1,19 +1,19 @@
-import { memo, ReactElement, useEffect } from 'react'
+import { memo, useEffect, type ComponentType, type JSX, type ReactElement } from 'react';
 
-import { DefaultLoadingElement } from './LoadScript'
-import { useLoadScript, UseLoadScriptOptions } from './useLoadScript'
+import { DefaultLoadingElement } from './LoadScript.js';
+import { useLoadScript, type UseLoadScriptOptions } from './useLoadScript.js';
 
-export interface LoadScriptNextProps extends UseLoadScriptOptions {
-  loadingElement?: ReactElement | undefined
-  onLoad?: (() => void) | undefined
-  onError?: ((error: Error) => void) | undefined
-  onUnmount?: (() => void) | undefined
-  children: ReactElement
-}
+export type LoadScriptNextProps = UseLoadScriptOptions & {
+  loadingElement?: ReactElement | undefined;
+  onLoad?: (() => void) | undefined;
+  onError?: ((error: Error) => void) | undefined;
+  onUnmount?: (() => void) | undefined;
+  children: ReactElement;
+};
 
-const defaultLoadingElement = <DefaultLoadingElement />
+const defaultLoadingElement = <DefaultLoadingElement />;
 
-function LoadScriptNext({
+function LoadScriptNextFunctional({
   loadingElement,
   onLoad,
   onError,
@@ -21,38 +21,32 @@ function LoadScriptNext({
   children,
   ...hookOptions
 }: LoadScriptNextProps): JSX.Element {
-  const { isLoaded, loadError } = useLoadScript(hookOptions)
+  const { isLoaded, loadError } = useLoadScript(hookOptions);
 
-  useEffect(
-    function handleOnLoad() {
-      if (isLoaded && typeof onLoad === 'function') {
-        onLoad()
+  useEffect((): void => {
+    if (isLoaded && typeof onLoad === 'function') {
+      onLoad();
+    }
+  }, [isLoaded, onLoad]);
+
+  useEffect((): void => {
+    if (loadError && typeof onError === 'function') {
+      onError(loadError);
+    }
+  }, [loadError, onError]);
+
+  useEffect((): (() => void) => {
+    return (): void => {
+      if (onUnmount) {
+        onUnmount();
       }
-    },
-    [isLoaded, onLoad]
-  )
+    };
+  }, [onUnmount]);
 
-  useEffect(
-    function handleOnError() {
-      if (loadError && typeof onError === 'function') {
-        onError(loadError)
-      }
-    },
-    [loadError, onError]
-  )
-
-  useEffect(
-    function handleOnUnmount() {
-      return () => {
-        if (onUnmount) {
-          onUnmount()
-        }
-      }
-    },
-    [onUnmount]
-  )
-
-  return isLoaded ? children : loadingElement || defaultLoadingElement
+  return isLoaded ? children : loadingElement || defaultLoadingElement;
 }
 
-export default memo(LoadScriptNext)
+export const LoadScriptNextF: ComponentType<LoadScriptNextProps> =
+  memo<LoadScriptNextProps>(LoadScriptNextFunctional);
+
+export const LoadScriptNext = LoadScriptNextF;

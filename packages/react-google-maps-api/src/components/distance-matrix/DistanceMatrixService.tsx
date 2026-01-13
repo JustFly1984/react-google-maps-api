@@ -1,75 +1,60 @@
-import { PureComponent } from 'react'
+import { type ComponentType, memo, useEffect, useRef } from 'react';
 
-import invariant from 'invariant'
+import invariant from 'invariant';
 
-interface DistanceMatrixServiceState {
-  distanceMatrixService: google.maps.DistanceMatrixService | null
-}
-
-export interface DistanceMatrixServiceProps {
-  // required for default functionality
-  options: google.maps.DistanceMatrixRequest
-
-  // required for default functionality
+export type DistanceMatrixServiceProps = {
+  options: google.maps.DistanceMatrixRequest;
   callback: (
-    // required
-    /** The response to a DistanceMatrixService request, consisting of the formatted origin and destination addresses, and a sequence of DistanceMatrixResponseRows, one for each corresponding origin address. */
     response: google.maps.DistanceMatrixResponse | null,
-    // required
-    /** The top-level status about the request in general returned by the DistanceMatrixService upon completion of a distance matrix request. Specify these by value, or by using the constant's name. For example, 'OK' or google.maps.DistanceMatrixStatus.OK. */
-    status: google.maps.DistanceMatrixStatus
-  ) => void
-  /** This callback is called when the distanceMatrixService instance has loaded. It is called with the distanceMatrixService instance. */
-  onLoad?: ((distanceMatrixService: google.maps.DistanceMatrixService) => void) | undefined
-  /** This callback is called when the component unmounts. It is called with the distanceMatrixService instance. */
-  onUnmount?: ((distanceMatrixService: google.maps.DistanceMatrixService) => void) | undefined
-}
+    status: google.maps.DistanceMatrixStatus,
+  ) => void;
+  onLoad?: ((distanceMatrixService: google.maps.DistanceMatrixService) => void) | undefined;
+  onUnmount?: ((distanceMatrixService: google.maps.DistanceMatrixService) => void) | undefined;
+};
 
-export class DistanceMatrixService extends PureComponent<
-  DistanceMatrixServiceProps,
-  DistanceMatrixServiceState
-> {
-  override state: DistanceMatrixServiceState = {
-    distanceMatrixService: null,
-  }
+function DistanceMatrixServiceFunctional({
+  options,
+  callback,
+  onLoad,
+  onUnmount,
+}: DistanceMatrixServiceProps): null {
+  const distanceMatrixServiceRef = useRef<google.maps.DistanceMatrixService | null>(null);
 
-  setDistanceMatrixServiceCallback = (): void => {
-    if (this.state.distanceMatrixService !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.distanceMatrixService)
-    }
-  }
-
-  override componentDidMount(): void {
+  useEffect(() => {
     invariant(
-      !!this.props.options,
+      !!options,
       'DistanceMatrixService expected options object as parameter, but go %s',
-      this.props.options
-    )
+      options,
+    );
 
-    const distanceMatrixService = new google.maps.DistanceMatrixService()
+    const distanceMatrixService = new google.maps.DistanceMatrixService();
+    distanceMatrixServiceRef.current = distanceMatrixService;
 
-    this.setState(function setDistanceMatrixService() {
-      return {
-        distanceMatrixService,
+    if (onLoad) {
+      onLoad(distanceMatrixService);
+    }
+
+    return (): void => {
+      if (distanceMatrixServiceRef.current !== null) {
+        if (onUnmount) {
+          onUnmount(distanceMatrixServiceRef.current);
+        }
+
+        distanceMatrixServiceRef.current = null;
       }
-    }, this.setDistanceMatrixServiceCallback)
-  }
+    };
+  }, []);
 
-  override componentDidUpdate(): void {
-    if (this.state.distanceMatrixService !== null) {
-      this.state.distanceMatrixService.getDistanceMatrix(this.props.options, this.props.callback)
+  useEffect(() => {
+    if (distanceMatrixServiceRef.current !== null) {
+      distanceMatrixServiceRef.current.getDistanceMatrix(options, callback);
     }
-  }
+  }, [options, callback]);
 
-  override componentWillUnmount(): void {
-    if (this.state.distanceMatrixService !== null && this.props.onUnmount) {
-      this.props.onUnmount(this.state.distanceMatrixService)
-    }
-  }
-
-  override render(): null {
-    return null
-  }
+  return null;
 }
 
-export default DistanceMatrixService
+export const DistanceMatrixServiceF: ComponentType<DistanceMatrixServiceProps> =
+  memo<DistanceMatrixServiceProps>(DistanceMatrixServiceFunctional);
+
+export const DistanceMatrixService = DistanceMatrixServiceF;

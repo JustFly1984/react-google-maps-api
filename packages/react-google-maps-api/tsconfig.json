@@ -3,13 +3,14 @@
   "rootDir": ".",
   "include": ["src/**/*"],
   "exclude": ["node_modules"],
-  "types": ["googlemaps", "jest", "invariant", "react-dom", "eslint", "estree", "webpack"],
+  "types": [
+    "googlemaps",
+    "invariant",
+    "react-dom",
+    "estree",
+  ],
   "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "node",
     "jsx": "react-jsx",
-    "target": "es5",
-    "lib": ["dom", "es2017"],
     "rootDir": "src",
     "declaration": true,
     "declarationDir": "dist"

@@ -1,139 +1,146 @@
-import { Children, type ContextType, createRef, PureComponent, type ReactChild, type RefObject } from 'react'
+import invariant from 'invariant';
+import { memo, useEffect, useRef, type ComponentType, type JSX, type ReactNode } from 'react';
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+export type AutocompleteProps = {
+  children: ReactNode;
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined;
+  restrictions?: google.maps.places.ComponentRestrictions | undefined;
+  fields?: string[] | undefined;
+  options?: google.maps.places.AutocompleteOptions | undefined;
+  types?: string[] | undefined;
+  onPlaceChanged?: (() => void) | undefined;
+  onLoad?: ((autocomplete: google.maps.places.Autocomplete) => void) | undefined;
+  onUnmount?: ((autocomplete: google.maps.places.Autocomplete) => void) | undefined;
+  className?: string;
+};
 
-import MapContext from '../../map-context'
+function AutocompleteFunctional({
+  children,
+  bounds,
+  restrictions,
+  fields,
+  options,
+  types,
+  onPlaceChanged,
+  onLoad,
+  onUnmount,
+  className = '',
+}: AutocompleteProps): JSX.Element {
+  const containerElementRef = useRef<HTMLDivElement>(null);
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const registeredEventsRef = useRef<google.maps.MapsEventListener[]>([]);
 
-import invariant from 'invariant'
-
-const eventMap = {
-  onPlaceChanged: 'place_changed',
-}
-
-const updaterMap = {
-  bounds(
-    instance: google.maps.places.Autocomplete,
-    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral
-  ): void {
-    instance.setBounds(bounds)
-  },
-  restrictions(
-    instance: google.maps.places.Autocomplete,
-    restrictions: google.maps.places.ComponentRestrictions
-  ): void {
-    instance.setComponentRestrictions(restrictions)
-  },
-  fields(instance: google.maps.places.Autocomplete, fields: string[]): void {
-    instance.setFields(fields)
-  },
-  options(
-    instance: google.maps.places.Autocomplete,
-    options: google.maps.places.AutocompleteOptions
-  ): void {
-    instance.setOptions(options)
-  },
-  types(instance: google.maps.places.Autocomplete, types: string[]): void {
-    instance.setTypes(types)
-  },
-}
-
-interface AutocompleteState {
-  autocomplete: google.maps.places.Autocomplete | null
-}
-
-export interface AutocompleteProps {
-  // required
-  children: ReactChild
-  /** The area in which to search for places. */
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined
-  /** The component restrictions. Component restrictions are used to restrict predictions to only those within the parent component. For example, the country. */
-  restrictions?: google.maps.places.ComponentRestrictions | undefined
-  /** Fields to be included for the Place in the details response when the details are successfully retrieved. For a list of fields see PlaceResult. Nested fields can be specified with dot-paths (for example, "geometry.location"). */
-  fields?: string[] | undefined
-  options?: google.maps.places.AutocompleteOptions | undefined
-  /** The types of predictions to be returned. For a list of supported types, see the developer's guide. If nothing is specified, all types are returned. In general only a single type is allowed. The exception is that you can safely mix the 'geocode' and 'establishment' types, but note that this will have the same effect as specifying no types. */
-  types?: string[] | undefined
-  /** This event is fired when a PlaceResult is made available for a Place the user has selected. If the user enters the name of a Place that was not suggested by the control and presses the Enter key, or if a Place Details request fails, the PlaceResult contains the user input in the name property, with no other properties defined. */
-  onPlaceChanged?: (() => void) | undefined
-  /** This callback is called when the autocomplete instance has loaded. It is called with the autocomplete instance. */
-  onLoad?: ((autocomplete: google.maps.places.Autocomplete) => void) | undefined
-  /** This callback is called when the component unmounts. It is called with the autocomplete instance. */
-  onUnmount?: ((autocomplete: google.maps.places.Autocomplete) => void) | undefined
-  className?: string | undefined
-}
-
-export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteState> {
-  static defaultProps = {
-    className: ''
-  }
-
-  static override contextType = MapContext
-  declare context: ContextType<typeof MapContext>
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-  containerElement: RefObject<HTMLDivElement> = createRef()
-
-  override state: AutocompleteState = {
-    autocomplete: null,
-  }
-
-  setAutocompleteCallback = (): void => {
-    if (this.state.autocomplete !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.autocomplete)
-    }
-  }
-
-  override componentDidMount(): void {
+  useEffect(() => {
     invariant(
       !!google.maps.places,
-      'You need to provide libraries={["places"]} prop to <LoadScript /> component %s',
-      google.maps.places
-    )
+      'You need to provide libraries={"places"} prop to <LoadScript /> component %s',
+      google.maps.places,
+    );
 
-    // TODO: why current could be equal null?
-
-    const input = this.containerElement.current?.querySelector('input')
+    const input = containerElementRef.current?.querySelector('input');
 
     if (input) {
-      const autocomplete = new google.maps.places.Autocomplete(input, this.props.options)
+      const autocomplete = new google.maps.places.Autocomplete(input, options);
+      autocompleteRef.current = autocomplete;
 
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: autocomplete,
-      })
+      if (typeof bounds !== 'undefined') {
+        autocomplete.setBounds(bounds);
+      }
 
-      this.setState(() => {
-        return {
-          autocomplete,
+      if (typeof restrictions !== 'undefined') {
+        autocomplete.setComponentRestrictions(restrictions);
+      }
+
+      if (typeof fields !== 'undefined') {
+        autocomplete.setFields(fields);
+      }
+
+      if (typeof types !== 'undefined') {
+        autocomplete.setTypes(types);
+      }
+
+      const eventListeners: google.maps.MapsEventListener[] = [];
+
+      if (onPlaceChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged),
+        );
+      }
+
+      registeredEventsRef.current = eventListeners;
+
+      if (onLoad) {
+        onLoad(autocomplete);
+      }
+    }
+
+    return (): void => {
+      if (autocompleteRef.current !== null) {
+        if (onUnmount) {
+          onUnmount(autocompleteRef.current);
         }
-      }, this.setAutocompleteCallback)
+
+        registeredEventsRef.current.forEach((event) => event.remove());
+        registeredEventsRef.current = [];
+
+        autocompleteRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const autocomplete = autocompleteRef.current;
+
+    if (autocomplete !== null) {
+      if (typeof bounds !== 'undefined') {
+        autocomplete.setBounds(bounds);
+      }
+
+      if (typeof restrictions !== 'undefined') {
+        autocomplete.setComponentRestrictions(restrictions);
+      }
+
+      if (typeof fields !== 'undefined') {
+        autocomplete.setFields(fields);
+      }
+
+      if (typeof types !== 'undefined') {
+        autocomplete.setTypes(types);
+      }
+
+      if (typeof options !== 'undefined') {
+        autocomplete.setOptions(options);
+      }
     }
-  }
+  }, [bounds, restrictions, fields, types, options]);
 
-  override componentDidUpdate(prevProps: AutocompleteProps): void {
-    unregisterEvents(this.registeredEvents)
+  useEffect(() => {
+    const autocomplete = autocompleteRef.current;
 
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps,
-      nextProps: this.props,
-      instance: this.state.autocomplete,
-    })
-  }
+    if (autocomplete !== null) {
+      registeredEventsRef.current.forEach((event) => event.remove());
+      registeredEventsRef.current = [];
 
-  override componentWillUnmount(): void {
-    if (this.state.autocomplete !== null) {
-      unregisterEvents(this.registeredEvents)
+      const eventListeners: google.maps.MapsEventListener[] = [];
+
+      if (onPlaceChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged),
+        );
+      }
+
+      registeredEventsRef.current = eventListeners;
     }
-  }
+  }, [onPlaceChanged]);
 
-  override render(): JSX.Element {
-    return <div ref={this.containerElement} className={this.props.className}>{Children.only(this.props.children)}</div>
-  }
+  return (
+    <div ref={containerElementRef} className={className}>
+      {children}
+    </div>
+  );
 }
 
-export default Autocomplete
+export const AutocompleteF: ComponentType<AutocompleteProps> =
+  memo<AutocompleteProps>(AutocompleteFunctional);
+
+export const Autocomplete = AutocompleteF;

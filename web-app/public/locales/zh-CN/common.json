@@ -1,0 +1,451 @@
+{
+  "seo": {
+    "home": {
+      "title": "React Google Maps API - React的Google地图组件",
+      "description": "最受欢迎的Google Maps React库。使用TypeScript支持、简单集成和全面文档创建美丽的交互式地图。"
+    },
+    "pricing": {
+      "title": "价格 - 商业许可",
+      "description": "获取React Google Maps API商业许可。一次性付款、终身更新、优先支持和无限项目。"
+    },
+    "docs": {
+      "title": "文档",
+      "description": "React Google Maps API完整文档。通过示例和API参考学习如何将Google Maps集成到您的React应用程序中。"
+    },
+    "login": {
+      "title": "登录",
+      "description": "登录您的React Google Maps API帐户以访问仪表板并管理您的许可证。"
+    },
+    "signup": {
+      "title": "创建帐户",
+      "description": "创建React Google Maps API帐户以购买许可证、访问高级功能并获得优先支持。"
+    },
+    "dashboard": {
+      "title": "仪表板",
+      "description": "管理您的React Google Maps API许可证、查看使用情况并访问帐户设置。"
+    },
+    "forgotPassword": {
+      "title": "忘记密码",
+      "description": "重置您的React Google Maps API帐户密码。"
+    },
+    "resetPassword": {
+      "title": "重置密码",
+      "description": "为您的React Google Maps API帐户创建新密码。"
+    },
+    "checkoutSuccess": {
+      "title": "购买完成",
+      "description": "感谢您购买React Google Maps API许可证。您的许可证密钥已准备好使用。"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "React Google Maps API",
+      "title": "React的Google地图",
+      "subtitle": "最流行的Google Maps React库。使用我们全面的组件库轻松构建美观、交互式的地图。",
+      "getStarted": "开始使用",
+      "viewPricing": "查看价格"
+    },
+    "features": {
+      "title": "为什么选择React Google Maps API？",
+      "subtitle": "构建专业地图应用所需的一切",
+      "easyIntegration": "简单集成",
+      "easyIntegrationDescription": "完全支持TypeScript的Google Maps即插即用React组件。",
+      "highPerformance": "高性能",
+      "highPerformanceDescription": "通过懒加载和高效重渲染优化性能。",
+      "commercialLicense": "商业许可",
+      "commercialLicenseDescription": "提供优先支持的实惠年度商业许可。"
+    },
+    "cta": {
+      "title": "准备好开始了吗？",
+      "subtitle": "加入数千名使用React Google Maps API的开发者",
+      "getStarted": "创建账户",
+      "viewPricing": "查看价格"
+    }
+  },
+  "navigation": {
+    "home": "首页",
+    "documentation": "文档",
+    "pricing": "价格"
+  },
+  "common": {
+    "buttons": {
+      "signIn": "登录",
+      "signUp": "开始使用",
+      "signOut": "退出",
+      "dashboard": "控制面板"
+    },
+    "footer": {
+      "copyright": "© {{year}} React Google Maps API. 保留所有权利。",
+      "rememberPassword": "记得密码？"
+    },
+    "placeholders": {
+      "email": "you@example.com",
+      "password": "••••••••",
+      "fullName": "张三",
+      "search": "搜索...",
+      "searchPlace": "搜索地点"
+    },
+    "accessibility": {
+      "selectLanguage": "选择语言",
+      "switchToLightMode": "切换到浅色模式",
+      "switchToDarkMode": "切换到深色模式",
+      "copyCode": "复制代码",
+      "copied": "已复制！"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "登录",
+      "subtitle": "欢迎回来！请登录您的账户。",
+      "email": "邮箱",
+      "password": "密码",
+      "forgotPassword": "忘记密码？",
+      "noAccount": "没有账户？",
+      "signUpLink": "注册",
+      "signingIn": "登录中...",
+      "validationError": "请输入有效的邮箱和密码",
+      "failed": "登录失败",
+      "invalidResponse": "服务器响应无效"
+    },
+    "signup": {
+      "title": "创建账户",
+      "subtitle": "今天就加入我们！创建您的账户开始使用。",
+      "fullName": "姓名",
+      "email": "邮箱",
+      "password": "密码",
+      "confirmPassword": "确认密码",
+      "hasAccount": "已有账户？",
+      "signInLink": "登录",
+      "creatingAccount": "创建账户中...",
+      "passwordsDoNotMatch": "密码不匹配",
+      "failed": "注册失败",
+      "invalidResponse": "服务器响应无效"
+    },
+    "forgotPassword": {
+      "title": "重置密码",
+      "subtitle": "输入您的邮箱地址，我们将向您发送重置密码的链接。",
+      "email": "邮箱",
+      "submit": "发送链接",
+      "sending": "发送中...",
+      "successTitle": "链接已发送",
+      "successText": "请查看您的邮箱获取重置密码链接。",
+      "backToLogin": "返回登录",
+      "validationError": "请输入有效的邮箱地址",
+      "sendError": "发送邮件失败，请重试。",
+      "genericError": "出错了"
+    },
+    "resetPassword": {
+      "title": "设置新密码",
+      "subtitle": "在下方输入您的新密码。",
+      "newPassword": "新密码",
+      "confirmPassword": "确认密码",
+      "submit": "更新密码",
+      "resetting": "重置中...",
+      "successTitle": "密码已更新",
+      "successText": "您的密码已成功更新。",
+      "backToLogin": "返回登录",
+      "passwordsDoNotMatch": "密码不匹配",
+      "genericError": "出错了",
+      "error": "重置密码失败，请重试。"
+    }
+  },
+  "pricing": {
+    "title": "简单透明的价格",
+    "subtitle": "获取商业许可，在您的生产应用中使用React Google Maps API。",
+    "license": {
+      "name": "商业许可",
+      "subtitle": "适合生产应用",
+      "price": "$12",
+      "period": "/年",
+      "buttonText": "购买许可",
+      "features": {
+        "fullAccess": "完全访问所有组件",
+        "commercialUse": "商业使用许可",
+        "prioritySupport": "优先邮件支持",
+        "premiumExamples": "访问高级示例",
+        "oneYearUpdates": "一年更新",
+        "unlimitedProjects": "无限项目"
+      },
+      "guarantee": "30天退款保证"
+    },
+    "openSource": {
+      "title": "开源使用",
+      "description": "React Google Maps API对开源项目免费。如果您正在为社区构建项目，可以无需许可使用。"
+    }
+  },
+  "dashboard": {
+    "title": "控制面板",
+    "subtitle": "管理您的许可证和账户设置",
+    "licenses": {
+      "title": "您的许可证",
+      "empty": {
+        "title": "未找到许可证",
+        "description": "您还没有购买任何许可证。从购买商业许可开始。",
+        "button": "购买许可"
+      },
+      "serialNumber": "序列号",
+      "purchaseDate": "购买日期",
+      "expiryDate": "到期日期",
+      "status": {
+        "active": "有效",
+        "inactive": "无效"
+      },
+      "copy": "复制",
+      "copied": "已复制！"
+    },
+    "sidebar": {
+      "title": "快捷操作",
+      "purchaseLicense": "购买许可",
+      "viewDocs": "查看文档",
+      "processing": "处理中..."
+    }
+  },
+  "checkoutSuccess": {
+    "title": "支付成功！",
+    "subtitle": "感谢您的购买。您的许可证已生成。",
+    "licenseKey": "许可证密钥",
+    "copy": "复制",
+    "copied": "已复制！",
+    "serialNumber": "序列号",
+    "purchaseDate": "购买日期",
+    "expiryDate": "到期日期",
+    "status": "状态",
+    "active": "有效",
+    "dashboard": "前往控制面板",
+    "viewDocs": "查看文档",
+    "validUntil": "有效期至"
+  },
+  "docs": {
+    "examples": {
+      "title": "示例",
+      "props": "属性"
+    },
+    "autocomplete": {
+      "searchPlace": "搜索地点"
+    },
+    "searchBox": {
+      "search": "搜索..."
+    },
+    "props": {
+      "googleMapsApiKey": "您的Google Maps API密钥",
+      "arrayOfLibraries": "要加载的库数组：places, drawing, geometry, visualization",
+      "language": "地图UI语言",
+      "region": "地理编码区域",
+      "version": "API版本（默认：weekly）",
+      "mapIds": "云端地图样式的地图ID",
+      "inputElement": "输入元素",
+      "countryRestrictions": "国家限制",
+      "placeTypes": "返回的地点类型",
+      "dataFields": "获取的地点数据字段",
+      "placeSelectionCallback": "地点选择回调",
+      "loadCallback": "加载回调",
+      "mapContainerStyle": "地图容器样式对象",
+      "mapContainerClassName": "地图容器CSS类",
+      "initialCenterPosition": "初始中心位置",
+      "initialZoomLevel": "初始缩放级别（0-22）",
+      "mapOptionsObject": "地图选项对象",
+      "mapClickHandler": "地图点击处理器",
+      "mapDragHandler": "地图拖动处理器",
+      "zoomChangeHandler": "缩放变化处理器",
+      "calledWhenMapIsLoaded": "地图加载时调用",
+      "calledWhenMapIsUnmounted": "地图卸载时调用",
+      "markerPosition": "标记位置（必需）",
+      "customMarkerIcon": "自定义标记图标",
+      "markerLabel": "标记标签",
+      "hoverTooltipText": "悬停提示文本",
+      "allowMarkerToBeDragged": "允许拖动标记",
+      "markerVisibility": "标记可见性",
+      "dropOrBounceAnimation": "DROP或BOUNCE动画",
+      "markerClustererInstance": "MarkerClusterer实例",
+      "clickHandler": "点击处理器",
+      "dragEndHandler": "拖动结束处理器",
+      "positionRequiredIfNoAnchor": "位置（无锚点时必需）",
+      "anchorToAMarker": "锚定到标记",
+      "contentToDisplay": "显示内容",
+      "closeButtonClickHandler": "关闭按钮点击处理器",
+      "arrayOfCoordinates": "坐标数组",
+      "polylineStylingOptions": "折线样式选项",
+      "allowPolylineToBeDragged": "允许拖动折线",
+      "allowEditingVertices": "允许编辑顶点",
+      "arrayOfCoordinateArrays": "坐标数组的数组",
+      "polygonStylingOptions": "多边形样式选项",
+      "allowPolygonToBeDragged": "允许拖动多边形",
+      "rectangleBounds": "矩形边界（必需）",
+      "rectangleStylingOptions": "矩形样式选项",
+      "allowRectangleToBeDragged": "允许拖动矩形",
+      "allowResizing": "允许调整大小",
+      "circleCenter": "圆心（必需）",
+      "radiusInMeters": "半径（米）",
+      "circleStylingOptions": "圆形样式选项",
+      "allowCircleToBeDragged": "允许拖动圆形",
+      "activeDrawingMode": "活动绘制模式",
+      "drawingManagerOptions": "绘图管理器选项",
+      "markerDrawnCallback": "标记绘制回调",
+      "circleDrawnCallback": "圆形绘制回调",
+      "polygonDrawnCallback": "多边形绘制回调",
+      "polylineDrawnCallback": "折线绘制回调",
+      "rectangleDrawnCallback": "矩形绘制回调",
+      "unmountCallback": "卸载回调",
+      "heatmapDataPoints": "热力图数据点",
+      "heatmapStylingOptions": "热力图样式选项",
+      "kmlLayerUrl": "KML文件URL",
+      "kmlLayerOptions": "KML图层选项",
+      "groundOverlayUrl": "叠加图像URL",
+      "groundOverlayBounds": "叠加图像边界",
+      "groundOverlayOpacity": "叠加不透明度",
+      "infoBoxOptions": "InfoBox选项",
+      "infoBoxPosition": "位置",
+      "infoBoxContentToDisplay": "显示内容",
+      "infoBoxCloseCallback": "关闭回调",
+      "infoBoxLoadCallback": "加载回调"
+    },
+    "content": {
+      "gettingStarted": {
+        "title": "入门",
+        "content": "React Google Maps API为Google Maps JavaScript API提供了一套全面的React组件。\n\n这个库允许您使用熟悉的React模式声明式地创建地图、标记、叠加层等。\n\n**安装**"
+      },
+      "loading": {
+        "title": "加载API",
+        "content": "在使用任何地图组件之前，您需要加载Google Maps JavaScript API。有两种方法：\n\n1. **LoadScript** - 在应用级别全局加载\n2. **JsApiLoader** - 在组件中动态加载"
+      },
+      "googleMap": {
+        "title": "GoogleMap",
+        "content": "GoogleMap组件是渲染Google地图的核心组件。所有其他地图组件都必须是GoogleMap的子组件。\n\n**特性：**\n- 完全通过props控制\n- 支持所有地图事件\n- 通过onLoad回调访问地图实例"
+      },
+      "marker": {
+        "title": "Marker",
+        "content": "Marker组件在地图上渲染标记。标记可以使用图标、标签、动画和事件处理器进行自定义。\n\n**注意：** Marker已弃用，建议使用AdvancedMarkerElement，但仍被广泛使用。"
+      },
+      "infoWindow": {
+        "title": "InfoWindow",
+        "content": "InfoWindow在地图上的弹出窗口中显示内容。它可以锚定到标记或定位到坐标。"
+      },
+      "polyline": {
+        "title": "Polyline",
+        "content": "Polyline在地图上绘制连接一系列坐标的线。适用于路线、路径和边界。"
+      },
+      "polygon": {
+        "title": "Polygon",
+        "content": "Polygon在地图上绘制闭合形状。适用于突出显示区域、地区或区域。"
+      },
+      "rectangle": {
+        "title": "Rectangle",
+        "content": "Rectangle在地图上绘制由边界定义的矩形形状。"
+      },
+      "circle": {
+        "title": "Circle",
+        "content": "Circle在地图上绘制由中心和半径定义的圆形形状。"
+      },
+      "drawingManager": {
+        "title": "DrawingManager",
+        "content": "DrawingManager使用户能够直接在地图上绘制形状（标记、圆形、多边形等）。\n\n**需要：** `drawing`库"
+      },
+      "trafficLayer": {
+        "title": "TrafficLayer",
+        "content": "TrafficLayer在地图上显示实时交通状况。"
+      },
+      "bicyclingLayer": {
+        "title": "BicyclingLayer",
+        "content": "BicyclingLayer在地图上显示自行车道和自行车友好道路。"
+      },
+      "transitLayer": {
+        "title": "TransitLayer",
+        "content": "TransitLayer在地图上显示公共交通路线和站点。"
+      },
+      "heatmapLayer": {
+        "title": "HeatmapLayer",
+        "content": "HeatmapLayer使用颜色渐变可视化数据强度。\n\n**需要：** `visualization`库"
+      },
+      "kmlLayer": {
+        "title": "KmlLayer",
+        "content": "KmlLayer在地图上渲染KML/KMZ文件。"
+      },
+      "directions": {
+        "title": "Directions",
+        "content": "DirectionsService计算路线，DirectionsRenderer在地图上显示它们。"
+      },
+      "distanceMatrix": {
+        "title": "DistanceMatrixService",
+        "content": "DistanceMatrixService计算多个起点和目的地的行程距离和时间。"
+      },
+      "autocomplete": {
+        "title": "Autocomplete",
+        "content": "Autocomplete在用户输入时提供地址/地点建议。\n\n**需要：** `places`库"
+      },
+      "searchBox": {
+        "title": "StandaloneSearchBox",
+        "content": "StandaloneSearchBox提供一个不需要地图的地点搜索框。\n\n**需要：** `places`库"
+      },
+      "overlayView": {
+        "title": "OverlayView",
+        "content": "OverlayView在特定坐标将自定义React组件渲染为地图叠加层。"
+      },
+      "groundOverlay": {
+        "title": "GroundOverlay",
+        "content": "GroundOverlay在指定边界内的地图上显示图像。"
+      },
+      "streetViewPanorama": {
+        "title": "StreetViewPanorama",
+        "content": "StreetViewPanorama显示Google街景图像。"
+      },
+      "streetViewService": {
+        "title": "StreetViewService",
+        "content": "StreetViewService提供街景覆盖的元数据。"
+      },
+      "markerClusterer": {
+        "title": "MarkerClusterer",
+        "content": "MarkerClusterer将附近的标记分组为集群，以便在有许多标记时获得更好的性能和用户体验。"
+      },
+      "infoBox": {
+        "title": "InfoBox",
+        "content": "InfoBox是InfoWindow的可自定义替代品，提供更多样式选项。"
+      }
+    },
+    "navigation": {
+      "title": "文档",
+      "sections": {
+        "gettingStarted": "入门",
+        "loading": "加载API",
+        "googleMap": "GoogleMap",
+        "components": "组件",
+        "marker": "Marker",
+        "infoWindow": "InfoWindow",
+        "polyline": "Polyline",
+        "polygon": "Polygon",
+        "rectangle": "Rectangle",
+        "circle": "Circle",
+        "drawingManager": "DrawingManager",
+        "layers": "图层",
+        "trafficLayer": "TrafficLayer",
+        "bicyclingLayer": "BicyclingLayer",
+        "transitLayer": "TransitLayer",
+        "heatmapLayer": "HeatmapLayer",
+        "kmlLayer": "KmlLayer",
+        "services": "服务",
+        "directions": "Directions",
+        "distanceMatrix": "DistanceMatrix",
+        "places": "地点",
+        "autocomplete": "Autocomplete",
+        "searchBox": "StandaloneSearchBox",
+        "overlays": "叠加层",
+        "overlayView": "OverlayView",
+        "groundOverlay": "GroundOverlay",
+        "streetView": "街景",
+        "streetViewPanorama": "StreetViewPanorama",
+        "streetViewService": "StreetViewService",
+        "addons": "附加组件",
+        "markerClusterer": "MarkerClusterer",
+        "infoBox": "InfoBox"
+      },
+      "sectionNames": {
+        "drawing": "绘制",
+        "layers": "图层",
+        "services": "服务",
+        "places": "地点",
+        "overlays": "叠加层",
+        "streetView": "街景",
+        "addons": "附加组件"
+      }
+    }
+  }
+}

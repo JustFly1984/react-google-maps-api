@@ -1,4 +1,4 @@
-export interface InfoBoxOptions {
+export type InfoBoxOptions = {
   alignBottom?: boolean | undefined
   boxClass?: string | undefined
   boxStyle?: Partial<CSSStyleDeclaration> | undefined

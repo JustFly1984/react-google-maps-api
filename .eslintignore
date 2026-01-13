@@ -1,8 +1,0 @@
-lib/
-esm/
-umd/
-dist/
-node_modules/
-types/
-
-styleguide.config.js

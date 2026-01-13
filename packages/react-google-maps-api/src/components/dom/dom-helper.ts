@@ -12,10 +12,8 @@ export function getOffsetOverride(
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createLatLng(inst: any, Type: any): any { return new Type(inst.lat, inst.lng) }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createLatLngBounds(inst: any, Type: any): any {
   return new Type(
     new google.maps.LatLng(inst.ne.lat, inst.ne.lng),
@@ -23,25 +21,20 @@ function createLatLngBounds(inst: any, Type: any): any {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ensureOfType(
   inst: google.maps.LatLng | google.maps.LatLngLiteral | undefined,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   type: any,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   factory: (inst: google.maps.LatLng | google.maps.LatLngLiteral | undefined, type: any) => any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any {
   return inst instanceof type ? inst : factory(inst, type)
 }
 
 function ensureOfTypeBounds(
   inst: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   type: any,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   factory: (inst: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, type: any) => any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any {
   return inst instanceof type ? inst : factory(inst, type)
 }
@@ -70,7 +63,7 @@ function getLayoutStylesByBounds(
   }
 }
 
-function getLayoutStylesByPosition  (
+function getLayoutStylesByPosition(
   mapCanvasProjection: google.maps.MapCanvasProjection,
   offset: { x: number; y: number },
   position: google.maps.LatLng
@@ -92,22 +85,22 @@ function getLayoutStylesByPosition  (
   }
 }
 
-export function getLayoutStyles (
+export function getLayoutStyles(
   mapCanvasProjection: google.maps.MapCanvasProjection,
   offset: { x: number; y: number },
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined,
   position?: google.maps.LatLng | google.maps.LatLngLiteral | undefined
 ): PositionDrawProps {
-  return bounds !== undefined
-    ? getLayoutStylesByBounds(
-        mapCanvasProjection,
-        offset,
-        ensureOfTypeBounds(bounds, google.maps.LatLngBounds, createLatLngBounds)
-      )
-    : getLayoutStylesByPosition(
+  return typeof bounds === 'undefined'
+    ? getLayoutStylesByPosition(
         mapCanvasProjection,
         offset,
         ensureOfType(position, google.maps.LatLng, createLatLng)
+      )
+    : getLayoutStylesByBounds(
+        mapCanvasProjection,
+        offset,
+        ensureOfTypeBounds(bounds, google.maps.LatLngBounds, createLatLngBounds)
       )
 }
 

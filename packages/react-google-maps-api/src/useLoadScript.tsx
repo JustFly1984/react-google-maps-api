@@ -1,21 +1,21 @@
-/* eslint-disable filenames/match-regex */
-import { useEffect, useRef, useState } from 'react'
-import invariant from 'invariant'
+import invariant from 'invariant';
+import { useEffect, useRef, useState } from 'react';
 
-import { isBrowser } from './utils/isbrowser'
-import { injectScript } from './utils/injectscript'
-import { preventGoogleFonts } from './utils/prevent-google-fonts'
-import { makeLoadScriptUrl, LoadScriptUrlOptions } from './utils/make-load-script-url'
+import { injectScript } from './utils/injectscript.js';
+import { isBrowser } from './utils/isbrowser.js';
+import { makeLoadScriptUrl, type LoadScriptUrlOptions } from './utils/make-load-script-url.js';
+import { preventGoogleFonts } from './utils/prevent-google-fonts.js';
 
-import { defaultLoadScriptProps } from './LoadScript'
+import { defaultLoadScriptProps } from './LoadScript.js';
 
-export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
-  id?: string | undefined
-  nonce?: string | undefined
-  preventGoogleFontsLoading?: boolean | undefined
-}
+export type UseLoadScriptOptions = LoadScriptUrlOptions & {
+  id?: string | undefined;
+  nonce?: string | undefined;
+  preventGoogleFontsLoading?: boolean | undefined;
+  apiUrl?: string;
+};
 
-let previouslyLoadedUrl: string
+let previouslyLoadedUrl: string;
 
 export function useLoadScript({
   id = defaultLoadScriptProps.id,
@@ -30,42 +30,37 @@ export function useLoadScript({
   channel,
   mapIds,
   authReferrerPolicy,
+  apiUrl = 'https://maps.googleapis.com',
 }: UseLoadScriptOptions): {
-  isLoaded: boolean
-  loadError: Error | undefined
-  url: string
+  isLoaded: boolean;
+  loadError: Error | undefined;
+  url: string;
 } {
-  const isMounted = useRef(false)
-  const [isLoaded, setLoaded] = useState(false)
-  const [loadError, setLoadError] = useState<Error | undefined>(undefined)
+  const isMounted = useRef(false);
+  const [isLoaded, setLoaded] = useState(false);
+  const [loadError, setLoadError] = useState<Error | undefined>(undefined);
 
-  useEffect(function trackMountedState() {
-    isMounted.current = true
+  useEffect((): (() => void) => {
+    isMounted.current = true;
     return (): void => {
-      isMounted.current = false
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect((): void => {
+    if (isBrowser && preventGoogleFontsLoading) {
+      preventGoogleFonts();
     }
-  }, [])
+  }, [preventGoogleFontsLoading]);
 
-  useEffect(
-    function applyPreventGoogleFonts() {
-      if (isBrowser && preventGoogleFontsLoading) {
-        preventGoogleFonts()
-      }
-    },
-    [preventGoogleFontsLoading]
-  )
-
-  useEffect(
-    function validateLoadedState() {
-      if (isLoaded) {
-        invariant(
-          !!window.google,
-          'useLoadScript was marked as loaded, but window.google is not present. Something went wrong.'
-        )
-      }
-    },
-    [isLoaded]
-  )
+  useEffect((): void => {
+    if (isLoaded) {
+      invariant(
+        !!window.google,
+        'useLoadScript was marked as loaded, but window.google is not present. Something went wrong.',
+      );
+    }
+  }, [isLoaded]);
 
   const url = makeLoadScriptUrl({
     version,
@@ -76,57 +71,53 @@ export function useLoadScript({
     libraries,
     channel,
     mapIds,
-    authReferrerPolicy
-  })
+    authReferrerPolicy,
+    apiUrl,
+  });
 
-  useEffect(
-    function loadScriptAndModifyLoadedState() {
-      if (!isBrowser) {
-        return
+  useEffect((): void => {
+    if (!isBrowser) {
+      return;
+    }
+
+    function setLoadedIfMounted(): void {
+      if (isMounted.current) {
+        setLoaded(true);
+        previouslyLoadedUrl = url;
       }
+    }
 
-      function setLoadedIfMounted(): void {
+    if (window.google && window.google.maps && previouslyLoadedUrl === url) {
+      setLoadedIfMounted();
+      return;
+    }
+
+    void injectScript({ id, url, nonce })
+      .then(setLoadedIfMounted)
+      .catch(function handleInjectError(err) {
         if (isMounted.current) {
-          setLoaded(true)
-          previouslyLoadedUrl = url
+          setLoadError(err);
         }
-      }
-
-      if (window.google && window.google.maps && previouslyLoadedUrl === url) {
-        setLoadedIfMounted()
-        return
-      }
-
-      injectScript({ id, url, nonce })
-        .then(setLoadedIfMounted)
-        .catch(function handleInjectError(err) {
-          if (isMounted.current) {
-            setLoadError(err)
-          }
-          console.warn(`
-        There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${googleMapsApiKey ||
-          '-'}) or Client ID (${googleMapsClientId || '-'})
+        console.warn(`
+        There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${
+          googleMapsApiKey || '-'
+        }) or Client ID (${googleMapsClientId || '-'})
         Otherwise it is a Network issue.
-      `)
-          console.error(err)
-        })
-    },
-    [id, url, nonce]
-  )
+      `);
+        console.error(err);
+      });
+  }, [id, url, nonce]);
 
-  const prevLibraries = useRef<undefined | string[]>()
+  const prevLibraries = useRef<undefined | string[]>(undefined);
 
-  useEffect(
-    function checkPerformance() {
-      if (prevLibraries.current && libraries !== prevLibraries.current) {
-        console.warn(
-          'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables'
-        )
-      }
-      prevLibraries.current = libraries
-    },
-    [libraries]
-  )
+  useEffect((): void => {
+    if (prevLibraries.current && libraries !== prevLibraries.current) {
+      console.warn(
+        'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables',
+      );
+    }
+    prevLibraries.current = libraries;
+  }, [libraries]);
 
-  return { isLoaded, loadError, url }
+  return { isLoaded, loadError, url };
 }

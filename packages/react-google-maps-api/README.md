@@ -1,166 +1,321 @@
 # @react-google-maps/api
 
+<div align="center">
+
 ![logo](https://raw.githubusercontent.com/JustFly1984/react-google-maps-api/master/logo.png)
 
 [![npm package](https://img.shields.io/npm/v/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![npm downloads](https://img.shields.io/npm/dt/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
-[![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/react-google-maps)
-[![DeepScan grade](https://deepscan.io/api/teams/6449/projects/8455/branches/101268/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=6449&pid=8455&bid=101268)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
-@react-google-maps/api
+</div>
 
-You can donate or became a sponsor of the project here: [https://opencollective.com/react-google-maps-api#category-CONTRIBUTE](https://opencollective.com/react-google-maps-api#category-CONTRIBUTE)
+React components and hooks for the Google Maps JavaScript API.
 
-> This library requires React v16.6 or later. To use the latest features (including hooks) requires React v16.8+. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)
+## Requirements
 
-This is complete re-write of the (sadly unmaintained) `react-google-maps` library. We thank [tomchentw](https://github.com/tomchentw/) for his great work that made possible.
+- React 16.8+ (hooks support required)
+- React 19 supported since v2.20.0
 
-@react-google-maps/api provides very simple bindings to the google maps api and lets you use it in your app as React components.
+## Commercial License
 
-Here are the main additions to react-google-maps that were the motivation behind this re-write
+**Version 3.x and later** of `@react-google-maps/api` is commercial software. For licensing information and pricing, visit our documentation:
 
-## Install @react-google-maps/api
+- **[Documentation & Licensing](https://react-google-maps-api.ospm.app)** - Complete API reference and commercial licensing details
 
-with NPM
+For open-source use, please see our [GitHub repository](https://github.com/JustFly1984/react-google-maps-api) for community-supported versions.
 
-```#!/bin/bash
-npm i -S @react-google-maps/api
-```
+## Installation
 
-or Yarn
+```bash
+# npm
+npm install @react-google-maps/api
 
-```#!/bin/bash
+# yarn
 yarn add @react-google-maps/api
+
+# bun
+bun add @react-google-maps/api
 ```
 
-```jsx
-import React from 'react'
+## Basic Usage
+
+```tsx
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { useMemo, useCallback, useState, type JSX } from 'react';
 
-const containerStyle = {
-  width: '400px',
-  height: '400px'
-};
-
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
-
-function MyComponent() {
+function MyMap(): JSX.Element {
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: "YOUR_API_KEY"
-  })
+    googleMapsApiKey: 'YOUR_API_KEY',
+  });
 
-  const [map, setMap] = React.useState(null)
+  const [map, setMap] = useState<google.maps.Map | null>(null);
 
-  const onLoad = React.useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+  const containerStyle = useMemo(() => ({
+    width: '100%',
+    height: '400px',
+  }), []);
 
-    setMap(map)
-  }, [])
+  const center = useMemo(() => ({
+    lat: 40.7128,
+    lng: -74.006,
+  }), []);
 
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
+  const onLoad = useCallback((map: google.maps.Map) => {
+    setMap(map);
+  }, []);
 
-  return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
-  ) : <></>
+  const onUnmount = useCallback(() => {
+    setMap(null);
+  }, []);
+
+  if (!isLoaded) return <div>Loading...</div>;
+
+  return (
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={center}
+      zoom={12}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+    >
+      {/* Markers, InfoWindows, etc. */}
+    </GoogleMap>
+  );
 }
-
-export default React.memo(MyComponent)
 ```
 
-## Migration from react-google-maps@9.4.5
+> **Important:** Always use `useMemo` for objects/arrays and `useCallback` for functions passed as props to prevent unnecessary re-renders.
 
-if you need an access to map object, instead of `ref` prop, you need to use `onLoad` callback on `<GoogleMap />` component.
+## Loading the API
 
-Before:
+### useJsApiLoader Hook (Recommended)
 
-```jsx
-// before - don't do this!
-<GoogleMap
-  ref={map => {
-    const bounds = new window.google.maps.LatLngBounds();
+```tsx
+import { useJsApiLoader } from '@react-google-maps/api';
+import { type JSX } from 'react';
 
-    map.fitBounds(bounds);
-  }}
-/>
+const libraries = ['places', 'drawing'];
+
+function App(): JSX.Element {
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: 'YOUR_API_KEY',
+    libraries,
+  });
+
+  if (loadError) return <div>Error loading maps</div>;
+  if (!isLoaded) return <div>Loading...</div>;
+
+  return <MyMap />;
+}
 ```
 
-After:
+### LoadScript Component
 
-```jsx
-<GoogleMap
-  onLoad={map => {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
-  }}
-  onUnmount={map => {
-    // do your stuff before map is unmounted
-  }}
-/>
+```tsx
+import { LoadScript, GoogleMap } from '@react-google-maps/api';
+import { type JSX } from 'react'
+
+function App(): JSX.Element {
+  return (
+    <LoadScript googleMapsApiKey="YOUR_API_KEY" libraries={['places']}>
+      <MyMap />
+    </LoadScript>
+  );
+}
 ```
 
-If you want to use `window.google` object, you need to extract GoogleMap in separate module, so it is lazy executed then `google-maps-api` script is loaded and executed by `<LoadScript />`. If you try to use `window.google` before it is loaded it will be undefined and you'll get a TypeError.
+## Components
 
-## Main features
+### Drawing
 
-- Simplified API
-- Uses the new Context API
-- Supports async React (StrictMode compliant)
-- Removes lodash dependency =>
-  smaller bundle size `12.4kb` gzip, tree-shakeable [https://bundlephobia.com/result?p=@react-google-maps/api](https://bundlephobia.com/result?p=@react-google-maps/api)
-- forbids loading of Roboto fonts, if you set property preventGoogleFonts on `<LoadScript preventGoogleFonts />` component
+| Component | Description |
+|-----------|-------------|
+| `Marker` | Display markers on the map |
+| `InfoWindow` | Popup windows for markers |
+| `Polyline` | Draw lines connecting coordinates |
+| `Polygon` | Draw closed shapes |
+| `Rectangle` | Draw rectangles |
+| `Circle` | Draw circles |
+| `DrawingManager` | Interactive drawing tools |
 
-## Examples
+### Layers
 
-Examples can be found in two places:
+| Component | Description |
+|-----------|-------------|
+| `TrafficLayer` | Real-time traffic conditions |
+| `BicyclingLayer` | Bike paths and routes |
+| `TransitLayer` | Public transit routes |
+| `HeatmapLayer` | Data intensity visualization |
+| `KmlLayer` | KML/KMZ file rendering |
 
-1. [Official docs](https://react-google-maps-api-docs.netlify.app/) (powered by [react-styleguidist](https://github.com/styleguidist/react-styleguidist).
-2. A Gatsby app including some examples. See the [examples](https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api-gatsby-example/src/examples) folder
-3. [Gatsby.js Demo](https://react-google-maps-api-gatsby-demo.netlify.app/)
+### Services
 
-## Advice
+| Component | Description |
+|-----------|-------------|
+| `DirectionsService` | Route calculation |
+| `DirectionsRenderer` | Route display |
+| `DistanceMatrixService` | Distance/time calculations |
+| `Autocomplete` | Place autocomplete input |
+| `StandaloneSearchBox` | Place search box |
 
-> Using the examples requires you to generate a google maps api key. For instructions on how to do that please see the following [guide](https://developers.google.com/maps/documentation/embed/get-api-key)
+### Overlays
 
-## Community Help Resource
+| Component | Description |
+|-----------|-------------|
+| `OverlayView` | Custom React components on map |
+| `GroundOverlay` | Image overlays |
+| `StreetViewPanorama` | Street View integration |
 
-You can join the community at [Spectrum.chat](https://spectrum.chat/react-google-maps) to ask questions and help others with your experience or join our [Slack channel](https://join.slack.com/t/react-google-maps-api/shared_invite/enQtODc5ODU1NTY5MzQ4LTBiNTYzZmY1YmVjYzJhZThkMGU0YzUwZjJkNGJmYjk4YjQyYjZhMDk2YThlZGEzNDc0M2RhNjBmMWE4ZTJiMjQ)
+### Addons
 
-## Contribute
+| Component | Description |
+|-----------|-------------|
+| `MarkerClusterer` | Cluster nearby markers |
+| `InfoBox` | Customizable info windows |
 
-Maintainers and contributors are very welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.
+## Hooks
 
-## How to test changes locally
+### useGoogleMap
 
-When working on a feature/fix, you're probably gonna want to test your changes. This workflow is a work in progress. Please feel free to improve it!
+Access the map instance from child components:
 
-1. In the file `packages/react-google-maps-api/package.json` change `main` to `"src/index.ts"`
-2. In the same file, delete the `module` field
-3. You can now use the package `react-google-maps-api-gatsby-example` to test your changes. Just make sure you change the import from `@react-google-maps/api` to `../../../react-google-maps-api`
+```tsx
+import { useGoogleMap } from '@react-google-maps/api';
+import { type JSX } from 'react';
 
-Since 1.2.0 you can use onLoad and onMount props for each @react-google-maps/api component, ref does not contain API methods anymore.
+function MapControls(): JSX.Element {
+  const map = useGoogleMap();
 
-Since version 1.2.2 We added useGoogleMap hook, which is working only with React@16.8.1 and later versions.
+  const panTo = useCallback(() => {
+    map?.panTo({ lat: 40.7128, lng: -74.006 });
+  }, [map]);
 
-## Websites made with @react-google-maps-api
+  return <button onClick={panTo}>Pan to NYC</button>;
+}
+```
 
-[nycmesh.net](https://nycmesh.net) Network topography visualized on the map [(Github)](https://github.com/meshcenter/network-map)
+## Example: Markers with InfoWindow
 
-add your website by making PR!
+```tsx
+import { GoogleMap, Marker, InfoWindow, useJsApiLoader } from '@react-google-maps/api';
+import { useMemo, useCallback, useState, type JSX } from 'react';
+
+function MapWithMarkers(): JSX.Element {
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: 'YOUR_API_KEY',
+  });
+
+  const [selected, setSelected] = useState<{ lat: number; lng: number } | null>(null);
+
+  const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
+  const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
+  const markers = useMemo(() => [
+    { lat: 40.7128, lng: -74.006 },
+    { lat: 40.7580, lng: -73.9855 },
+  ], []);
+
+  const onCloseClick = useCallback(() => setSelected(null), []);
+
+  if (!isLoaded) return null;
+
+  return (
+    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
+      {markers.map((pos, i) => (
+        <Marker
+          key={i}
+          position={pos}
+          onClick={() => setSelected(pos)}
+        />
+      ))}
+
+      {selected ? (
+        <InfoWindow position={selected} onCloseClick={onCloseClick}>
+          <div>Selected location</div>
+        </InfoWindow>
+      ) : null}
+    </GoogleMap>
+  );
+}
+```
+
+## Example: Directions
+
+```tsx
+import { GoogleMap, DirectionsService, DirectionsRenderer, useJsApiLoader } from '@react-google-maps/api';
+import { useMemo, useCallback, useState, type JSX } from 'react';
+
+function MapWithDirections(): JSX.Element {
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: 'YOUR_API_KEY',
+  });
+
+  const [directions, setDirections] = useState<google.maps.DirectionsResult | null>(null);
+
+  const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), []);
+  const center = useMemo(() => ({ lat: 40.7128, lng: -74.006 }), []);
+  const directionsOptions = useMemo(() => ({
+    destination: 'Boston, MA',
+    origin: 'New York, NY',
+    travelMode: google.maps.TravelMode.DRIVING,
+  }), []);
+
+  const directionsCallback = useCallback((
+    result: google.maps.DirectionsResult | null,
+    status: google.maps.DirectionsStatus
+  ) => {
+    if (status === 'OK' && result) {
+      setDirections(result);
+    }
+  }, []);
+
+  if (!isLoaded) return null;
+
+  return (
+    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={8}>
+      {directions ? (
+        <DirectionsRenderer directions={directions} />
+      ) : (
+        <DirectionsService options={directionsOptions} callback={directionsCallback} />
+      )}
+    </GoogleMap>
+  );
+}
+```
+
+## Features
+
+- **Simplified API** - Declarative React components
+- **Context API** - Access map instance from any child component
+- **StrictMode compliant** - Works with React's strict mode
+- **Small bundle** - ~12kb gzipped, tree-shakeable
+- **No Roboto fonts** - Use `<LoadScript preventGoogleFonts />` to prevent font loading
+
+## API Key
+
+Get your Google Maps API key from the [Google Cloud Console](https://console.cloud.google.com/google/maps-apis/credentials).
+
+Required APIs:
+
+- Maps JavaScript API
+- Places API (if using autocomplete/search)
+- Directions API (if using directions)
+
+## Documentation
+
+- [Live Documentation](https://react-google-maps-api.ospm.app) - Interactive component explorer
+- [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript) - Official Google docs
+
+## Community
+
+- [Slack Channel](https://join.slack.com/t/react-google-maps-api/shared_invite/enQtODc5ODU1NTY5MzQ4LTBiNTYzZmY1YmVjYzJhZThkMGU0YzUwZjJkNGJmYjk4YjQyYjZhMDk2YThlZGEzNDc0M2RhNjBmMWE4ZTJiMjQ) - Get help and discuss
+- [GitHub Issues](https://github.com/JustFly1984/react-google-maps-api/issues) - Report bugs and request features
+
+## Contributing
+
+Contributions welcome! See [this issue](https://github.com/JustFly1984/react-google-maps-api/issues/18) to get started.
+
+## Support
+
+[Sponsor the project](https://opencollective.com/react-google-maps-api#category-CONTRIBUTE)

@@ -1,114 +1,110 @@
-import { type ContextType, PureComponent } from 'react'
+import { type ComponentType, memo, useContext, useEffect, useRef } from 'react';
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
-import MapContext from '../../map-context'
+import { MapContext } from '../../map-context.js';
 
-const eventMap = {
-  onClick: 'click',
-  onDefaultViewportChanged: 'defaultviewport_changed',
-  onStatusChanged: 'status_changed',
-}
+export type KmlLayerProps = {
+  options?: google.maps.KmlLayerOptions | undefined;
+  url?: string | undefined;
+  zIndex?: number | undefined;
+  onClick?: ((e: google.maps.MapMouseEvent) => void) | undefined;
+  onDefaultViewportChanged?: (() => void) | undefined | undefined;
+  onStatusChanged?: (() => void) | undefined | undefined;
+  onLoad?: ((kmlLayer: google.maps.KmlLayer) => void) | undefined;
+  onUnmount?: ((kmlLayer: google.maps.KmlLayer) => void) | undefined;
+};
 
-const updaterMap = {
-  options(instance: google.maps.KmlLayer, options: google.maps.KmlLayerOptions): void {
-    instance.setOptions(options)
-  },
-  url(instance: google.maps.KmlLayer, url: string): void {
-    instance.setUrl(url)
-  },
-  zIndex(instance: google.maps.KmlLayer, zIndex: number): void {
-    instance.setZIndex(zIndex)
-  },
-}
+function KmlLayerFunctional({
+  options,
+  url,
+  zIndex,
+  onClick,
+  onDefaultViewportChanged,
+  onStatusChanged,
+  onLoad,
+  onUnmount,
+}: KmlLayerProps): null {
+  const map = useContext(MapContext);
+  const kmlLayerRef = useRef<google.maps.KmlLayer | null>(null);
+  const registeredEventsRef = useRef<google.maps.MapsEventListener[]>([]);
 
-interface KmlLayerState {
-  kmlLayer: google.maps.KmlLayer | null
-}
-
-export interface KmlLayerProps {
-  options?: google.maps.KmlLayerOptions | undefined
-  /** The URL of the KML document to display. */
-  url?: string | undefined
-  /** The z-index of the layer. */
-  zIndex?: number | undefined
-  /** This event is fired when a feature in the layer is clicked. */
-  onClick?: ((e: google.maps.MapMouseEvent) => void) | undefined
-  /** This event is fired when the KML layers default viewport has changed. */
-  onDefaultViewportChanged?: (() => void) | undefined | undefined
-  /** This event is fired when the KML layer has finished loading. At this point it is safe to read the status property to determine if the layer loaded successfully. */
-  onStatusChanged?: (() => void) | undefined | undefined
-  /** This callback is called when the kmlLayer instance has loaded. It is called with the kmlLayer instance. */
-  onLoad?: ((kmlLayer: google.maps.KmlLayer) => void) | undefined
-  /** This callback is called when the component unmounts. It is called with the kmlLayer instance. */
-  onUnmount?: ((kmlLayer: google.maps.KmlLayer) => void) | undefined
-}
-
-export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
-  static override contextType = MapContext
-  declare context: ContextType<typeof MapContext>
-
-  registeredEvents: google.maps.MapsEventListener[] = []
-
-  override state: KmlLayerState = {
-    kmlLayer: null,
-  }
-
-  setKmlLayerCallback = (): void => {
-    if (this.state.kmlLayer !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.kmlLayer)
-    }
-  }
-
-  override componentDidMount(): void {
+  useEffect(() => {
     const kmlLayer = new google.maps.KmlLayer({
-      ...this.props.options,
-      map: this.context,
-    })
+      ...options,
+      map,
+    });
 
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps: {},
-      nextProps: this.props,
-      instance: kmlLayer,
-    })
+    kmlLayerRef.current = kmlLayer;
 
-    this.setState(function setLmlLayer() {
-      return {
-        kmlLayer,
+    return (): void => {
+      if (kmlLayerRef.current !== null) {
+        if (onUnmount) {
+          onUnmount(kmlLayerRef.current);
+        }
+
+        registeredEventsRef.current.forEach((event) => event.remove());
+        registeredEventsRef.current = [];
+
+        kmlLayerRef.current.setMap(null);
+
+        kmlLayerRef.current = null;
       }
-    }, this.setKmlLayerCallback)
-  }
+    };
+  }, []);
 
-  override componentDidUpdate(prevProps: KmlLayerProps): void {
-    if (this.state.kmlLayer !== null) {
-      unregisterEvents(this.registeredEvents)
+  useEffect(() => {
+    const kmlLayer = kmlLayerRef.current;
 
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.kmlLayer,
-      })
-    }
-  }
+    if (kmlLayer !== null) {
+      registeredEventsRef.current.forEach((event) => event.remove());
+      registeredEventsRef.current = [];
 
-  override componentWillUnmount(): void {
-    if (this.state.kmlLayer !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.kmlLayer)
+      const eventListeners: google.maps.MapsEventListener[] = [];
+
+      if (onClick) {
+        eventListeners.push(google.maps.event.addListener(kmlLayer, 'click', onClick));
       }
 
-      unregisterEvents(this.registeredEvents)
+      if (onDefaultViewportChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(
+            kmlLayer,
+            'defaultviewport_changed',
+            onDefaultViewportChanged,
+          ),
+        );
+      }
 
-      this.state.kmlLayer.setMap(null)
+      if (onStatusChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(kmlLayer, 'status_changed', onStatusChanged),
+        );
+      }
+
+      registeredEventsRef.current = eventListeners;
+
+      if (typeof url !== 'undefined') {
+        kmlLayer.setUrl(url);
+      }
+
+      if (typeof zIndex !== 'undefined') {
+        kmlLayer.setZIndex(zIndex);
+      }
+
+      if (typeof options !== 'undefined') {
+        kmlLayer.setOptions(options);
+      }
     }
-  }
+  }, [url, zIndex, options, onClick, onDefaultViewportChanged, onStatusChanged]);
 
-  override render():null {
-    return null
-  }
+  useEffect(() => {
+    if (kmlLayerRef.current !== null && typeof onLoad === 'function') {
+      onLoad(kmlLayerRef.current);
+    }
+  }, [onLoad]);
+
+  return null;
 }
 
-export default KmlLayer
+export const KmlLayerF: ComponentType<KmlLayerProps> = memo<KmlLayerProps>(KmlLayerFunctional);
+
+export const KmlLayer = KmlLayerF;

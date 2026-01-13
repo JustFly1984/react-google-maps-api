@@ -1,110 +1,109 @@
 /* global google */
-/* eslint-disable filenames/match-regex */
-import type { Cluster } from './Cluster'
+import type { Cluster } from './Cluster';
 
-import type { ClusterIconStyle, ClusterIconInfo } from './types'
+import type { ClusterIconInfo, ClusterIconStyle } from './types';
 
 export class ClusterIcon {
-  cluster: Cluster
-  className: string
-  clusterClassName: string
-  styles: ClusterIconStyle[]
-  center: google.maps.LatLng | undefined
-  div: HTMLDivElement | null
-  sums: ClusterIconInfo | null
-  visible: boolean
-  url: string
-  height: number
-  width: number
-  anchorText: [number, number]
-  anchorIcon: [number, number]
-  textColor: string
-  textSize: number
-  textDecoration: string
-  fontWeight: string
-  fontStyle: string
-  fontFamily: string
-  backgroundPosition: string
-  cMouseDownInCluster: boolean | null
-  cDraggingMapByCluster: boolean | null
-  timeOut: number | null
+  cluster: Cluster;
+  className: string;
+  clusterClassName: string;
+  styles: ClusterIconStyle[];
+  center: google.maps.LatLng | undefined;
+  div: HTMLDivElement | null;
+  sums: ClusterIconInfo | null;
+  visible: boolean;
+  url: string;
+  height: number;
+  width: number;
+  anchorText: [number, number];
+  anchorIcon: [number, number];
+  textColor: string;
+  textSize: number;
+  textDecoration: string;
+  fontWeight: string;
+  fontStyle: string;
+  fontFamily: string;
+  backgroundPosition: string;
+  cMouseDownInCluster: boolean | null;
+  cDraggingMapByCluster: boolean | null;
+  timeOut: number | null;
 
-  boundsChangedListener: google.maps.MapsEventListener | null
+  boundsChangedListener: google.maps.MapsEventListener | null;
 
   constructor(cluster: Cluster, styles: ClusterIconStyle[]) {
-    cluster.getClusterer().extend(ClusterIcon, google.maps.OverlayView)
+    cluster.getClusterer().extend(ClusterIcon, google.maps.OverlayView);
 
-    this.cluster = cluster
+    this.cluster = cluster;
 
-    this.clusterClassName = this.cluster.getClusterer().getClusterClass()
+    this.clusterClassName = this.cluster.getClusterer().getClusterClass();
 
-    this.className = this.clusterClassName
+    this.className = this.clusterClassName;
 
-    this.styles = styles
+    this.styles = styles;
 
-    this.center = undefined
+    this.center = undefined;
 
-    this.div = null
+    this.div = null;
 
-    this.sums = null
+    this.sums = null;
 
-    this.visible = false
+    this.visible = false;
 
-    this.boundsChangedListener = null
+    this.boundsChangedListener = null;
 
-    this.url = ''
+    this.url = '';
 
-    this.height = 0
-    this.width = 0
+    this.height = 0;
+    this.width = 0;
 
-    this.anchorText = [0, 0]
-    this.anchorIcon = [0, 0]
+    this.anchorText = [0, 0];
+    this.anchorIcon = [0, 0];
 
-    this.textColor = 'black'
-    this.textSize = 11
-    this.textDecoration = 'none'
-    this.fontWeight = 'bold'
-    this.fontStyle = 'normal'
-    this.fontFamily = 'Arial,sans-serif'
+    this.textColor = 'black';
+    this.textSize = 11;
+    this.textDecoration = 'none';
+    this.fontWeight = 'bold';
+    this.fontStyle = 'normal';
+    this.fontFamily = 'Arial,sans-serif';
 
-    this.backgroundPosition = '0 0'
+    this.backgroundPosition = '0 0';
 
-    this.cMouseDownInCluster = null
-    this.cDraggingMapByCluster = null
+    this.cMouseDownInCluster = null;
+    this.cDraggingMapByCluster = null;
     this.timeOut = null;
 
-    (this as unknown as google.maps.OverlayView).setMap(cluster.getMap()) // Note: this causes onAdd to be called
+    (this as unknown as google.maps.OverlayView).setMap(cluster.getMap()); // Note: this causes onAdd to be called
 
-    this.onBoundsChanged = this.onBoundsChanged.bind(this)
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onClick = this.onClick.bind(this)
-    this.onMouseOver = this.onMouseOver.bind(this)
-    this.onMouseOut = this.onMouseOut.bind(this)
-    this.onAdd = this.onAdd.bind(this)
-    this.onRemove = this.onRemove.bind(this)
-    this.draw = this.draw.bind(this)
-    this.hide = this.hide.bind(this)
-    this.show = this.show.bind(this)
-    this.useStyle = this.useStyle.bind(this)
-    this.setCenter = this.setCenter.bind(this)
-    this.getPosFromLatLng = this.getPosFromLatLng.bind(this)
+    this.onBoundsChanged = this.onBoundsChanged.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+    this.onAdd = this.onAdd.bind(this);
+    this.onRemove = this.onRemove.bind(this);
+    this.draw = this.draw.bind(this);
+    this.hide = this.hide.bind(this);
+    this.show = this.show.bind(this);
+    this.useStyle = this.useStyle.bind(this);
+    this.setCenter = this.setCenter.bind(this);
+    this.getPosFromLatLng = this.getPosFromLatLng.bind(this);
   }
 
-  onBoundsChanged() {
-    this.cDraggingMapByCluster = this.cMouseDownInCluster
+  onBoundsChanged(): void {
+    this.cDraggingMapByCluster = this.cMouseDownInCluster;
   }
 
-  onMouseDown() {
-    this.cMouseDownInCluster = true
+  onMouseDown(): void {
+    this.cMouseDownInCluster = true;
 
-    this.cDraggingMapByCluster = false
+    this.cDraggingMapByCluster = false;
   }
 
-  onClick(event: Event) {
-    this.cMouseDownInCluster = false
+  onClick(event: Event): void {
+    this.cMouseDownInCluster = false;
 
     if (!this.cDraggingMapByCluster) {
-      const markerClusterer = this.cluster.getClusterer()
+      const markerClusterer = this.cluster.getClusterer();
 
       /**
        * This event is fired when a cluster marker is clicked.
@@ -112,259 +111,257 @@ export class ClusterIcon {
        * @param {Cluster} c The cluster that was clicked.
        * @event
        */
-      google.maps.event.trigger(markerClusterer, 'click', this.cluster)
-      google.maps.event.trigger(markerClusterer, 'clusterclick', this.cluster) // deprecated name
+      google.maps.event.trigger(markerClusterer, 'click', this.cluster);
+      google.maps.event.trigger(markerClusterer, 'clusterclick', this.cluster); // deprecated name
 
       // The default click handler follows. Disable it by setting
       // the zoomOnClick property to false.
       if (markerClusterer.getZoomOnClick()) {
         // Zoom into the cluster.
-        const maxZoom = markerClusterer.getMaxZoom()
+        const maxZoom = markerClusterer.getMaxZoom();
 
-        const bounds = this.cluster.getBounds()
+        const bounds = this.cluster.getBounds();
 
-        const map = (markerClusterer as unknown as google.maps.OverlayView).getMap()
+        const map = (markerClusterer as unknown as google.maps.OverlayView).getMap();
 
         if (map !== null && 'fitBounds' in map) {
-          map.fitBounds(bounds)
+          map.fitBounds(bounds);
         }
-
 
         // There is a fix for Issue 170 here:
         this.timeOut = window.setTimeout(() => {
-          const map = (markerClusterer as unknown as google.maps.OverlayView).getMap()
+          const map = (markerClusterer as unknown as google.maps.OverlayView).getMap();
 
           if (map !== null) {
             if ('fitBounds' in map) {
-              map.fitBounds(bounds)
+              map.fitBounds(bounds);
             }
 
-            const zoom = map.getZoom() || 0
+            const zoom = map.getZoom() || 0;
 
             // Don't zoom beyond the max zoom level
-            if (
-              maxZoom !== null &&
-              zoom > maxZoom
-            ) {
-              map.setZoom(maxZoom + 1)
+            if (maxZoom !== null && zoom > maxZoom) {
+              map.setZoom(maxZoom + 1);
             }
           }
-        }, 100)
+        }, 100);
       }
 
       // Prevent event propagation to the map:
-      event.cancelBubble = true
+      event.cancelBubble = true;
 
       if (event.stopPropagation) {
-        event.stopPropagation()
+        event.stopPropagation();
       }
     }
   }
 
-  onMouseOver() {
+  onMouseOver(): void {
     /**
      * This event is fired when the mouse moves over a cluster marker.
      * @name MarkerClusterer#mouseover
      * @param {Cluster} c The cluster that the mouse moved over.
      * @event
      */
-    google.maps.event.trigger(
-      this.cluster.getClusterer(),
-      'mouseover',
-      this.cluster
-    )
+    google.maps.event.trigger(this.cluster.getClusterer(), 'mouseover', this.cluster);
   }
 
-  onMouseOut() {
+  onMouseOut(): void {
     /**
      * This event is fired when the mouse moves out of a cluster marker.
      * @name MarkerClusterer#mouseout
      * @param {Cluster} c The cluster that the mouse moved out of.
      * @event
      */
-    google.maps.event.trigger(
-      this.cluster.getClusterer(),
-      'mouseout',
-      this.cluster
-    )
+    google.maps.event.trigger(this.cluster.getClusterer(), 'mouseout', this.cluster);
   }
 
-  onAdd() {
-    this.div = document.createElement('div')
+  onAdd(): void {
+    this.div = document.createElement('div');
 
-    this.div.className = this.className
+    this.div.className = this.className;
 
     if (this.visible) {
-      this.show()
+      this.show();
     }
 
-    ;(this as unknown as google.maps.OverlayView).getPanes()?.overlayMouseTarget.appendChild(this.div)
+    (this as unknown as google.maps.OverlayView)
+      .getPanes()
+      ?.overlayMouseTarget.appendChild(this.div);
 
-    const map = (this as unknown as google.maps.OverlayView).getMap()
+    const map = (this as unknown as google.maps.OverlayView).getMap();
 
     if (map !== null) {
       // Fix for Issue 157
       this.boundsChangedListener = google.maps.event.addListener(
         map,
         'bounds_changed',
-        this.onBoundsChanged
-      )
+        this.onBoundsChanged,
+      );
 
-      this.div.addEventListener('mousedown', this.onMouseDown)
+      this.div.addEventListener('mousedown', this.onMouseDown);
 
-      this.div.addEventListener('click', this.onClick)
+      this.div.addEventListener('click', this.onClick);
 
-      this.div.addEventListener('mouseover', this.onMouseOver)
+      this.div.addEventListener('mouseover', this.onMouseOver);
 
-      this.div.addEventListener('mouseout', this.onMouseOut)
+      this.div.addEventListener('mouseout', this.onMouseOut);
     }
   }
 
-  onRemove() {
+  onRemove(): void {
     if (this.div && this.div.parentNode) {
-      this.hide()
+      this.hide();
 
       if (this.boundsChangedListener !== null) {
-        google.maps.event.removeListener(this.boundsChangedListener)
+        google.maps.event.removeListener(this.boundsChangedListener);
       }
 
-      this.div.removeEventListener('mousedown', this.onMouseDown)
+      this.div.removeEventListener('mousedown', this.onMouseDown);
 
-      this.div.removeEventListener('click', this.onClick)
+      this.div.removeEventListener('click', this.onClick);
 
-      this.div.removeEventListener('mouseover', this.onMouseOver)
+      this.div.removeEventListener('mouseover', this.onMouseOver);
 
-      this.div.removeEventListener('mouseout', this.onMouseOut)
+      this.div.removeEventListener('mouseout', this.onMouseOut);
 
-      this.div.parentNode.removeChild(this.div)
+      this.div.parentNode.removeChild(this.div);
 
       if (this.timeOut !== null) {
-        window.clearTimeout(this.timeOut)
+        window.clearTimeout(this.timeOut);
 
-        this.timeOut = null
+        this.timeOut = null;
       }
 
-      this.div = null
+      this.div = null;
     }
   }
 
-  draw() {
+  draw(): void {
     if (this.visible && this.div !== null && this.center) {
-      const pos = this.getPosFromLatLng(this.center)
+      const pos = this.getPosFromLatLng(this.center);
 
-      this.div.style.top = pos !== null ? `${pos.y}px` : '0'
-      this.div.style.left = pos !== null ? `${pos.x}px` : '0'
+      this.div.style.top = pos !== null ? `${pos.y}px` : '0';
+      this.div.style.left = pos !== null ? `${pos.x}px` : '0';
     }
   }
 
-  hide() {
+  hide(): void {
     if (this.div) {
-      this.div.style.display = 'none'
+      this.div.style.display = 'none';
     }
 
-    this.visible = false
+    this.visible = false;
   }
 
-  show() {
+  show(): void {
     if (this.div && this.center) {
-      const divTitle = this.sums === null ||
-      typeof this.sums.title === 'undefined' ||
-      this.sums.title === '' ? this.cluster.getClusterer().getTitle() :  this.sums.title
+      const divTitle =
+        this.sums === null || typeof this.sums.title === 'undefined' || this.sums.title === ''
+          ? this.cluster.getClusterer().getTitle()
+          : this.sums.title;
 
       // NOTE: values must be specified in px units
-      const bp = this.backgroundPosition.split(' ')
+      const bp = this.backgroundPosition.split(' ');
 
-      const spriteH = parseInt(bp[0]?.replace(/^\s+|\s+$/g, '') || '0', 10)
-      const spriteV = parseInt(bp[1]?.replace(/^\s+|\s+$/g, '') || '0', 10)
+      const spriteH = parseInt(bp[0]?.replace(/^\s+|\s+$/g, '') || '0', 10);
+      const spriteV = parseInt(bp[1]?.replace(/^\s+|\s+$/g, '') || '0', 10);
 
-      const pos = this.getPosFromLatLng(this.center)
+      const pos = this.getPosFromLatLng(this.center);
 
-      this.div.className = this.className
-      this.div .setAttribute('style', `cursor: pointer; position: absolute; top: ${pos !== null ? `${pos.y}px` : '0'}; left: ${pos !== null ? `${pos.x}px` : '0'}; width: ${this.width}px; height: ${this.height}px; `)
+      this.div.className = this.className;
+      this.div.setAttribute(
+        'style',
+        `cursor: pointer; position: absolute; top: ${pos !== null ? `${pos.y}px` : '0'}; left: ${pos !== null ? `${pos.x}px` : '0'}; width: ${this.width}px; height: ${this.height}px; `,
+      );
 
-      const img = document.createElement('img')
+      const img = document.createElement('img');
 
-      img.alt = divTitle
-      img.src = this.url
-      img.width = this.width
-      img.height = this.height
-      img.setAttribute('style', `position: absolute; top: ${spriteV}px; left: ${spriteH}px`)
+      img.alt = divTitle;
+      img.src = this.url;
+      img.width = this.width;
+      img.height = this.height;
+      img.setAttribute('style', `position: absolute; top: ${spriteV}px; left: ${spriteH}px`);
 
       if (!this.cluster.getClusterer().enableRetinaIcons) {
         img.style.clip = `rect(-${spriteV}px, -${spriteH + this.width}px, -${
           spriteV + this.height
-        }, -${spriteH})`
+        }, -${spriteH})`;
       }
 
-      const textElm = document.createElement('div')
+      const textElm = document.createElement('div');
 
-      textElm .setAttribute('style', `position: absolute; top: ${this.anchorText[0]}px; left: ${this.anchorText[1]}px; color: ${this.textColor}; font-size: ${this.textSize}px; font-family: ${this.fontFamily}; font-weight: ${this.fontWeight}; fontStyle: ${this.fontStyle}; text-decoration: ${this.textDecoration}; text-align: center; width: ${this.width}px; line-height: ${this.height}px`)
+      textElm.setAttribute(
+        'style',
+        `position: absolute; top: ${this.anchorText[0]}px; left: ${this.anchorText[1]}px; color: ${this.textColor}; font-size: ${this.textSize}px; font-family: ${this.fontFamily}; font-weight: ${this.fontWeight}; fontStyle: ${this.fontStyle}; text-decoration: ${this.textDecoration}; text-align: center; width: ${this.width}px; line-height: ${this.height}px`,
+      );
 
-      if (this.sums?.text) textElm.innerText = `${this.sums?.text}`
-      if (this.sums?.html) textElm.innerHTML = `${this.sums?.html}`
+      if (this.sums?.text) textElm.innerText = `${this.sums?.text}`;
+      if (this.sums?.html) textElm.innerHTML = `${this.sums?.html}`;
 
-      this.div.innerHTML = ''
+      this.div.innerHTML = '';
 
-      this.div.appendChild(img)
-      this.div.appendChild(textElm)
+      this.div.appendChild(img);
+      this.div.appendChild(textElm);
 
-      this.div.title = divTitle
+      this.div.title = divTitle;
 
-      this.div.style.display = ''
+      this.div.style.display = '';
     }
 
-    this.visible = true
+    this.visible = true;
   }
 
-  useStyle(sums: ClusterIconInfo) {
-    this.sums = sums
+  useStyle(sums: ClusterIconInfo): void {
+    this.sums = sums;
 
-    const styles = this.cluster.getClusterer().getStyles()
+    const styles = this.cluster.getClusterer().getStyles();
 
-    const style =
-      styles[Math.min(styles.length - 1, Math.max(0, sums.index - 1))]
+    const style = styles[Math.min(styles.length - 1, Math.max(0, sums.index - 1))];
 
     if (style) {
-      this.url = style.url
-      this.height = style.height
-      this.width = style.width
+      this.url = style.url;
+      this.height = style.height;
+      this.width = style.width;
 
       if (style.className) {
-        this.className = `${this.clusterClassName} ${style.className}`
+        this.className = `${this.clusterClassName} ${style.className}`;
       }
 
-      this.anchorText = style.anchorText || [0, 0]
-      this.anchorIcon = style.anchorIcon || [this.height / 2, this.width / 2]
+      this.anchorText = style.anchorText || [0, 0];
+      this.anchorIcon = style.anchorIcon || [this.height / 2, this.width / 2];
 
-      this.textColor = style.textColor || 'black'
+      this.textColor = style.textColor || 'black';
 
-      this.textSize = style.textSize || 11
+      this.textSize = style.textSize || 11;
 
-      this.textDecoration = style.textDecoration || 'none'
+      this.textDecoration = style.textDecoration || 'none';
 
-      this.fontWeight = style.fontWeight || 'bold'
+      this.fontWeight = style.fontWeight || 'bold';
 
-      this.fontStyle = style.fontStyle || 'normal'
+      this.fontStyle = style.fontStyle || 'normal';
 
-      this.fontFamily = style.fontFamily || 'Arial,sans-serif'
+      this.fontFamily = style.fontFamily || 'Arial,sans-serif';
 
-      this.backgroundPosition = style.backgroundPosition || '0 0'
+      this.backgroundPosition = style.backgroundPosition || '0 0';
     }
   }
 
-  setCenter(center: google.maps.LatLng) {
-    this.center = center
+  setCenter(center: google.maps.LatLng): void {
+    this.center = center;
   }
 
   getPosFromLatLng(latlng: google.maps.LatLng): google.maps.Point | null {
-    const pos = (this as unknown as google.maps.OverlayView).getProjection().fromLatLngToDivPixel(latlng)
+    const pos = (this as unknown as google.maps.OverlayView)
+      .getProjection()
+      .fromLatLngToDivPixel(latlng);
 
     if (pos !== null) {
-      pos.x -= this.anchorIcon[1]
+      pos.x -= this.anchorIcon[1];
 
-      pos.y -= this.anchorIcon[0]
+      pos.y -= this.anchorIcon[0];
     }
 
-    return pos
+    return pos;
   }
 }

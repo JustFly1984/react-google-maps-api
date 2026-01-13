@@ -3,16 +3,17 @@ import invariant from 'invariant'
 
 export type Libraries = Library[]
 
-export interface LoadScriptUrlOptions {
-  googleMapsApiKey: string | ""
+export type LoadScriptUrlOptions = {
+  googleMapsApiKey: string
   googleMapsClientId?: string | undefined
-  version?: string | undefined
   language?: string | undefined
   region?: string | undefined
   libraries?: Libraries | undefined
   channel?: string | undefined
   mapIds?: string[] | undefined
   authReferrerPolicy?: 'origin' | undefined
+  version?: string
+  apiUrl?: string
 }
 
 export function makeLoadScriptUrl({
@@ -24,12 +25,14 @@ export function makeLoadScriptUrl({
   libraries,
   channel,
   mapIds,
-  authReferrerPolicy
+  authReferrerPolicy,
+  apiUrl = 'https://maps.googleapis.com',
 }: LoadScriptUrlOptions): string {
-  const params = []
+  const params: string[] = []
 
   invariant(
-    (googleMapsApiKey && googleMapsClientId) || !(googleMapsApiKey && googleMapsClientId),
+    (googleMapsApiKey && googleMapsClientId) ||
+      !(googleMapsApiKey && googleMapsClientId),
     'You need to specify either googleMapsApiKey or googleMapsClientId for @react-google-maps/api load script to work. You cannot use both at the same time.'
   )
 
@@ -67,7 +70,8 @@ export function makeLoadScriptUrl({
     params.push(`auth_referrer_policy=${authReferrerPolicy}`)
   }
 
+  params.push('loading=async')
   params.push('callback=initMap')
 
-  return `https://maps.googleapis.com/maps/api/js?${params.join('&')}`
+  return `${apiUrl}/maps/api/js?${params.join('&')}`
 }

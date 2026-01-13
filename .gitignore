@@ -52,15 +52,16 @@ packages/react-google-maps-api/lib
 packages/react-google-maps-api/umd
 packages/react-google-maps-api/esm
 packages/react-google-maps-api/dist
-packages/react-google-maps-api/styleguide
-packages/react-google-maps-api/src/docs/googleMapKey.ts
 
 lib/
 dist/
-googleMapKey.js
 
 .rts2_cache*
 .dccache
 
 # Hide secret Google Maps API Config
-.storybook/maps.config.ts
+packages/react-google-maps-api/.rollup.cache
+react-google-maps-api-gatsby-example
+packages/react-google-maps-api/tsconfig.tsbuildinfo
+web-app/.env
+web-app/.wrangler

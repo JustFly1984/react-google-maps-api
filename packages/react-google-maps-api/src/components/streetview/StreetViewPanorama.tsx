@@ -1,156 +1,206 @@
-import { type ContextType, PureComponent } from 'react'
+import { type ComponentType, memo, useContext, useEffect, useRef } from 'react';
 
-import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
+import { MapContext } from '../../map-context.js';
 
-import MapContext from '../../map-context'
-
-const eventMap = {
-  onCloseClick: 'closeclick',
-  onPanoChanged: 'pano_changed',
-  onPositionChanged: 'position_changed',
-  onPovChanged: 'pov_changed',
-  onResize: 'resize',
-  onStatusChanged: 'status_changed',
-  onVisibleChanged: 'visible_changed',
-  onZoomChanged: 'zoom_changed',
-}
-
-const updaterMap = {
-  register(
-    instance: google.maps.StreetViewPanorama,
-    provider: (input: string) => google.maps.StreetViewPanoramaData,
-    options: google.maps.PanoProviderOptions
-  ): void {
-    instance.registerPanoProvider(provider, options)
-  },
-  links(instance: google.maps.StreetViewPanorama, links: google.maps.StreetViewLink[]): void {
-    instance.setLinks(links)
-  },
-  motionTracking(instance: google.maps.StreetViewPanorama, motionTracking: boolean): void {
-    instance.setMotionTracking(motionTracking)
-  },
-  options(
-    instance: google.maps.StreetViewPanorama,
-    options: google.maps.StreetViewPanoramaOptions
-  ): void {
-    instance.setOptions(options)
-  },
-  pano(instance: google.maps.StreetViewPanorama, pano: string): void {
-    instance.setPano(pano)
-  },
-  position(
-    instance: google.maps.StreetViewPanorama,
-    position: google.maps.LatLng | google.maps.LatLngLiteral
-  ): void {
-    instance.setPosition(position)
-  },
-  pov(instance: google.maps.StreetViewPanorama, pov: google.maps.StreetViewPov): void {
-    instance.setPov(pov)
-  },
-  visible(instance: google.maps.StreetViewPanorama, visible: boolean): void {
-    instance.setVisible(visible)
-  },
-  zoom(instance: google.maps.StreetViewPanorama, zoom: number): void {
-    instance.setZoom(zoom)
-  },
-}
-
-interface StreetViewPanoramaState {
-  streetViewPanorama: google.maps.StreetViewPanorama | null
-}
-
-export interface StreetViewPanoramaProps {
-  options?: google.maps.StreetViewPanoramaOptions | undefined
+export type StreetViewPanoramaProps = {
+  options?: google.maps.StreetViewPanoramaOptions | undefined;
   /** This event is fired when the close button is clicked. */
-  onCloseclick?: ((event: google.maps.MapMouseEvent) => void) | undefined
+  onCloseclick?: ((event: google.maps.MapMouseEvent) => void) | undefined;
   /** This event is fired when the panorama's pano id changes. The pano may change as the user navigates through the panorama or the position is manually set. Note that not all position changes trigger a pano_changed. */
-  onPanoChanged?: (() => void) | undefined
+  onPanoChanged?: (() => void) | undefined;
   /** This event is fired when the panorama's position changes. The position changes as the user navigates through the panorama or the position is set manually. */
-  onPositionChanged?: (() => void) | undefined
+  onPositionChanged?: (() => void) | undefined;
   /** This event is fired when the panorama's point-of-view changes. The point of view changes as the pitch, zoom, or heading changes. */
-  onPovChanged?: (() => void) | undefined
+  onPovChanged?: (() => void) | undefined;
   /** Developers should trigger this event on the panorama when its div changes size: google.maps.event.trigger(panorama, 'resize'). */
-  onResize?: (() => void) | undefined
+  onResize?: (() => void) | undefined;
   /** This event is fired after every panorama lookup by id or location, via setPosition() or setPano(). */
-  onStatusChanged?: (() => void) | undefined
+  onStatusChanged?: (() => void) | undefined;
   /** This event is fired when the panorama's visibility changes. The visibility is changed when the Pegman is dragged onto the map, the close button is clicked, or setVisible() is called. */
-  onVisibleChanged?: (() => void) | undefined
+  onVisibleChanged?: (() => void) | undefined;
   /** This event is fired when the panorama's zoom level changes. */
-  onZoomChange?: (() => void) | undefined
+  onZoomChange?: (() => void) | undefined;
   /** This callback is called when the streetViewPanorama instance has loaded. It is called with the streetViewPanorama instance. */
-  onLoad?: ((streetViewPanorama: google.maps.StreetViewPanorama) => void) | undefined
+  onLoad?: ((streetViewPanorama: google.maps.StreetViewPanorama) => void) | undefined;
   /** This callback is called when the component unmounts. It is called with the streetViewPanorama instance. */
-  onUnmount?: ((streetViewPanorama: google.maps.StreetViewPanorama) => void) | undefined
-}
+  onUnmount?: ((streetViewPanorama: google.maps.StreetViewPanorama) => void) | undefined;
+};
 
-export class StreetViewPanorama extends PureComponent<
-  StreetViewPanoramaProps,
-  StreetViewPanoramaState
-> {
-  static override contextType = MapContext
+function StreetViewPanoramaFunctional({
+  options,
+  onCloseclick,
+  onPanoChanged,
+  onPositionChanged,
+  onPovChanged,
+  onResize,
+  onStatusChanged,
+  onVisibleChanged,
+  onZoomChange,
+  onLoad,
+  onUnmount,
+}: StreetViewPanoramaProps): null {
+  const map = useContext(MapContext);
+  const streetViewPanoramaRef = useRef<google.maps.StreetViewPanorama | null>(null);
+  const registeredEventsRef = useRef<google.maps.MapsEventListener[]>([]);
 
-  declare context: ContextType<typeof MapContext>
+  useEffect(() => {
+    const streetViewPanorama = map?.getStreetView() ?? null;
+    streetViewPanoramaRef.current = streetViewPanorama;
 
-  registeredEvents: google.maps.MapsEventListener[] = []
+    const eventListeners: google.maps.MapsEventListener[] = [];
 
-  override state: StreetViewPanoramaState = {
-    streetViewPanorama: null,
-  }
-
-  setStreetViewPanoramaCallback = (): void => {
-    if (this.state.streetViewPanorama !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.streetViewPanorama)
-    }
-  }
-
-  override componentDidMount(): void {
-
-    const streetViewPanorama = this.context?.getStreetView() ?? null
-
-    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-      updaterMap,
-      eventMap,
-      prevProps: {},
-      nextProps: this.props,
-      instance: streetViewPanorama,
-    })
-
-    this.setState(() => {
-      return {
-        streetViewPanorama,
-      }
-    }, this.setStreetViewPanoramaCallback)
-  }
-
-  override componentDidUpdate(prevProps: StreetViewPanoramaProps): void {
-    if (this.state.streetViewPanorama !== null) {
-      unregisterEvents(this.registeredEvents)
-
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.streetViewPanorama,
-      })
-    }
-  }
-
-  override componentWillUnmount(): void {
-    if (this.state.streetViewPanorama !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.streetViewPanorama)
+    if (streetViewPanorama !== null) {
+      if (onCloseclick) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'closeclick', onCloseclick),
+        );
       }
 
-      unregisterEvents(this.registeredEvents)
+      if (onPanoChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'pano_changed', onPanoChanged),
+        );
+      }
 
-      this.state.streetViewPanorama.setVisible(false)
+      if (onPositionChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'position_changed', onPositionChanged),
+        );
+      }
+
+      if (onPovChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'pov_changed', onPovChanged),
+        );
+      }
+
+      if (onResize) {
+        eventListeners.push(google.maps.event.addListener(streetViewPanorama, 'resize', onResize));
+      }
+
+      if (onStatusChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'status_changed', onStatusChanged),
+        );
+      }
+
+      if (onVisibleChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'visible_changed', onVisibleChanged),
+        );
+      }
+
+      if (onZoomChange) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'zoom_changed', onZoomChange),
+        );
+      }
     }
-  }
 
-  override render(): null {
-    return null
-  }
+    registeredEventsRef.current = eventListeners;
+
+    if (typeof onLoad === 'function' && streetViewPanorama !== null) {
+      onLoad(streetViewPanorama);
+    }
+
+    return (): void => {
+      if (streetViewPanoramaRef.current !== null) {
+        if (onUnmount) {
+          onUnmount(streetViewPanoramaRef.current);
+        }
+
+        registeredEventsRef.current.forEach((event) => event.remove());
+        registeredEventsRef.current = [];
+
+        streetViewPanoramaRef.current.setVisible(false);
+
+        streetViewPanoramaRef.current = null;
+      }
+    };
+  }, [map]);
+
+  useEffect(() => {
+    const streetViewPanorama = streetViewPanoramaRef.current;
+
+    if (streetViewPanorama !== null) {
+      if (typeof options !== 'undefined') {
+        streetViewPanorama.setOptions(options);
+      }
+    }
+  }, [options]);
+
+  useEffect(() => {
+    const streetViewPanorama = streetViewPanoramaRef.current;
+
+    if (streetViewPanorama !== null) {
+      registeredEventsRef.current.forEach((event) => event.remove());
+      registeredEventsRef.current = [];
+
+      const eventListeners: google.maps.MapsEventListener[] = [];
+
+      if (onCloseclick) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'closeclick', onCloseclick),
+        );
+      }
+
+      if (onPanoChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'pano_changed', onPanoChanged),
+        );
+      }
+
+      if (onPositionChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'position_changed', onPositionChanged),
+        );
+      }
+
+      if (onPovChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'pov_changed', onPovChanged),
+        );
+      }
+
+      if (onResize) {
+        eventListeners.push(google.maps.event.addListener(streetViewPanorama, 'resize', onResize));
+      }
+
+      if (onStatusChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'status_changed', onStatusChanged),
+        );
+      }
+
+      if (onVisibleChanged) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'visible_changed', onVisibleChanged),
+        );
+      }
+
+      if (onZoomChange) {
+        eventListeners.push(
+          google.maps.event.addListener(streetViewPanorama, 'zoom_changed', onZoomChange),
+        );
+      }
+
+      registeredEventsRef.current = eventListeners;
+    }
+  }, [
+    onCloseclick,
+    onPanoChanged,
+    onPositionChanged,
+    onPovChanged,
+    onResize,
+    onStatusChanged,
+    onVisibleChanged,
+    onZoomChange,
+  ]);
+
+  return null;
 }
 
-export default StreetViewPanorama
+export const StreetViewPanoramaF: ComponentType<StreetViewPanoramaProps> =
+  memo<StreetViewPanoramaProps>(StreetViewPanoramaFunctional);
+
+export const StreetViewPanorama = StreetViewPanoramaF;

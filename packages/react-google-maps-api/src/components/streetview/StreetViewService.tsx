@@ -1,55 +1,48 @@
-import { PureComponent } from 'react'
+import {
+  type ComponentType,
+  memo,
+  useEffect,
+  useRef,
+} from 'react'
 
-import MapContext from '../../map-context'
-
-export interface StreetViewServiceProps {
-  /** This callback is called when the streetViewService instance has loaded. It is called with the streetViewService instance. */
-  onLoad?: ((streetViewService: google.maps.StreetViewService | null) => void) | undefined
-  /** This callback is called when the component unmounts. It is called with the streetViewService instance. */
-  onUnmount?: ((streetViewService: google.maps.StreetViewService | null) => void) | undefined
+export type StreetViewServiceProps = {
+  onLoad?:
+    | ((streetViewService: google.maps.StreetViewService | null) => void)
+    | undefined
+  onUnmount?:
+    | ((streetViewService: google.maps.StreetViewService | null) => void)
+    | undefined
 }
 
-interface StreetViewServiceState {
-  streetViewService: google.maps.StreetViewService | null
-}
+function StreetViewServiceFunctional({
+  onLoad,
+  onUnmount,
+}: StreetViewServiceProps): null {
+  const streetViewServiceRef = useRef<google.maps.StreetViewService | null>(null)
 
-export class StreetViewService extends PureComponent<
-  StreetViewServiceProps,
-  StreetViewServiceState
-> {
-  static override contextType = MapContext
-
-  declare context: React.ContextType<typeof MapContext>
-
-  override state = {
-    streetViewService: null,
-  }
-
-  setStreetViewServiceCallback = (): void => {
-    if (this.state.streetViewService !== null && this.props.onLoad) {
-      this.props.onLoad(this.state.streetViewService)
-    }
-  }
-
-  override componentDidMount(): void {
+  useEffect(() => {
     const streetViewService = new google.maps.StreetViewService()
 
-    this.setState(function setStreetViewService() {
-      return {
-        streetViewService,
-      }
-    }, this.setStreetViewServiceCallback)
-  }
+    streetViewServiceRef.current = streetViewService
 
-  override componentWillUnmount(): void {
-    if (this.state.streetViewService !== null && this.props.onUnmount) {
-      this.props.onUnmount(this.state.streetViewService)
+    if (onLoad) {
+      onLoad(streetViewService)
     }
-  }
 
-  override render(): null {
-    return null
-  }
+    return (): void => {
+      if (streetViewServiceRef.current !== null) {
+        if (onUnmount) {
+          onUnmount(streetViewServiceRef.current)
+        }
+
+        streetViewServiceRef.current = null
+      }
+    }
+  }, [])
+
+  return null
 }
 
-export default StreetViewService
+export const StreetViewServiceF: ComponentType<StreetViewServiceProps> = memo<StreetViewServiceProps>(StreetViewServiceFunctional)
+
+export const StreetViewService = StreetViewServiceF

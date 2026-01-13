@@ -1,0 +1,451 @@
+{
+  "seo": {
+    "home": {
+      "title": "React Google Maps API - Google Maps Components for React",
+      "description": "The most popular React library for Google Maps. Build beautiful, interactive maps with TypeScript support, easy integration, and comprehensive documentation."
+    },
+    "pricing": {
+      "title": "Pricing - Commercial License",
+      "description": "Get a commercial license for React Google Maps API. One-time payment, lifetime updates, priority support, and unlimited projects."
+    },
+    "docs": {
+      "title": "Documentation",
+      "description": "Comprehensive documentation for React Google Maps API. Learn how to integrate Google Maps into your React application with examples and API reference."
+    },
+    "login": {
+      "title": "Sign In",
+      "description": "Sign in to your React Google Maps API account to access your dashboard and manage your licenses."
+    },
+    "signup": {
+      "title": "Create Account",
+      "description": "Create a React Google Maps API account to purchase licenses, access premium features, and get priority support."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Manage your React Google Maps API licenses, view usage, and access your account settings."
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "description": "Reset your React Google Maps API account password."
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "description": "Create a new password for your React Google Maps API account."
+    },
+    "checkoutSuccess": {
+      "title": "Purchase Complete",
+      "description": "Thank you for purchasing a React Google Maps API license. Your license key is ready to use."
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "React Google Maps API",
+      "title": "Google Maps for React",
+      "subtitle": "The most popular React library for Google Maps. Build beautiful, interactive maps with ease using our comprehensive component library.",
+      "getStarted": "Get Started",
+      "viewPricing": "View Pricing"
+    },
+    "features": {
+      "title": "Why Choose React Google Maps API?",
+      "subtitle": "Everything you need to build professional map applications",
+      "easyIntegration": "Easy Integration",
+      "easyIntegrationDescription": "Drop-in React components for Google Maps with full TypeScript support.",
+      "highPerformance": "High Performance",
+      "highPerformanceDescription": "Optimized for performance with lazy loading and efficient re-renders.",
+      "commercialLicense": "Commercial License",
+      "commercialLicenseDescription": "Affordable yearly license for commercial use with priority support."
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Join thousands of developers using React Google Maps API",
+      "getStarted": "Create Account",
+      "viewPricing": "View Pricing"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "documentation": "Documentation",
+    "pricing": "Pricing"
+  },
+  "common": {
+    "buttons": {
+      "signIn": "Sign In",
+      "signUp": "Get Started",
+      "signOut": "Sign Out",
+      "dashboard": "Dashboard"
+    },
+    "footer": {
+      "copyright": "© {{year}} React Google Maps API. All rights reserved.",
+      "rememberPassword": "Remember your password?"
+    },
+    "placeholders": {
+      "email": "you@example.com",
+      "password": "••••••••",
+      "fullName": "John Doe",
+      "search": "Search...",
+      "searchPlace": "Search for a place"
+    },
+    "accessibility": {
+      "selectLanguage": "Select language",
+      "switchToLightMode": "Switch to light mode",
+      "switchToDarkMode": "Switch to dark mode",
+      "copyCode": "Copy code",
+      "copied": "Copied!"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign In",
+      "subtitle": "Welcome back! Please sign in to your account.",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot your password?",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign up",
+      "signingIn": "Signing in...",
+      "validationError": "Please enter a valid email and password",
+      "failed": "Sign in failed",
+      "invalidResponse": "Invalid response from server"
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Join us today! Create your account to get started.",
+      "fullName": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "hasAccount": "Already have an account?",
+      "signInLink": "Sign in",
+      "creatingAccount": "Creating account...",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "failed": "Sign up failed",
+      "invalidResponse": "Invalid response from server"
+    },
+    "forgotPassword": {
+      "title": "Reset Password",
+      "subtitle": "Enter your email address and we will send you a link to reset your password.",
+      "email": "Email",
+      "submit": "Send Reset Link",
+      "sending": "Sending...",
+      "successTitle": "Reset Link Sent",
+      "successText": "Check your email for a link to reset your password.",
+      "backToLogin": "Back to Sign In",
+      "validationError": "Please enter a valid email address",
+      "sendError": "Failed to send reset email. Please try again.",
+      "genericError": "Something went wrong"
+    },
+    "resetPassword": {
+      "title": "Set New Password",
+      "subtitle": "Enter your new password below.",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Update Password",
+      "resetting": "Resetting...",
+      "successTitle": "Password Updated",
+      "successText": "Your password has been successfully updated.",
+      "backToLogin": "Back to Sign In",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "genericError": "Something went wrong",
+      "error": "Failed to reset password. Please try again."
+    }
+  },
+  "pricing": {
+    "title": "Simple, Transparent Pricing",
+    "subtitle": "Get a commercial license to use React Google Maps API in your production applications.",
+    "license": {
+      "name": "Commercial License",
+      "subtitle": "Perfect for production apps",
+      "price": "$12",
+      "period": "/year",
+      "buttonText": "Purchase License",
+      "features": {
+        "fullAccess": "Full access to all components",
+        "commercialUse": "Commercial use license",
+        "prioritySupport": "Priority email support",
+        "premiumExamples": "Access to premium examples",
+        "oneYearUpdates": "One year of updates",
+        "unlimitedProjects": "Unlimited projects"
+      },
+      "guarantee": "30-day money-back guarantee"
+    },
+    "openSource": {
+      "title": "Open Source Usage",
+      "description": "React Google Maps API is free for open source projects. If you're building something for the community, you can use it without a license."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Manage your licenses and account settings",
+    "licenses": {
+      "title": "Your Licenses",
+      "empty": {
+        "title": "No licenses found",
+        "description": "You haven't purchased any licenses yet. Get started by purchasing a commercial license.",
+        "button": "Purchase License"
+      },
+      "serialNumber": "Serial Number",
+      "purchaseDate": "Purchase Date",
+      "expiryDate": "Expiry Date",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "copy": "Copy",
+      "copied": "Copied!"
+    },
+    "sidebar": {
+      "title": "Quick Actions",
+      "purchaseLicense": "Purchase License",
+      "viewDocs": "View Documentation",
+      "processing": "Processing..."
+    }
+  },
+  "checkoutSuccess": {
+    "title": "Payment Successful!",
+    "subtitle": "Thank you for your purchase. Your license has been generated.",
+    "licenseKey": "License Key",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "serialNumber": "Serial Number",
+    "purchaseDate": "Purchase Date",
+    "expiryDate": "Expiry Date",
+    "status": "Status",
+    "active": "Active",
+    "dashboard": "Go to Dashboard",
+    "viewDocs": "View Documentation",
+    "validUntil": "Valid until"
+  },
+  "docs": {
+    "examples": {
+      "title": "Example",
+      "props": "Props"
+    },
+    "autocomplete": {
+      "searchPlace": "Search for a place"
+    },
+    "searchBox": {
+      "search": "Search..."
+    },
+    "props": {
+      "googleMapsApiKey": "Your Google Maps API key",
+      "arrayOfLibraries": "Array of libraries to load: places, drawing, geometry, visualization",
+      "language": "Language for the map UI",
+      "region": "Region bias for geocoding",
+      "version": "API version (default: weekly)",
+      "mapIds": "Map IDs for cloud-based map styling",
+      "inputElement": "Input element",
+      "countryRestrictions": "Country restrictions",
+      "placeTypes": "Place types to return",
+      "dataFields": "Place data fields to fetch",
+      "placeSelectionCallback": "Place selection callback",
+      "loadCallback": "Load callback",
+      "mapContainerStyle": "Style object for the map container",
+      "mapContainerClassName": "CSS class for the map container",
+      "initialCenterPosition": "Initial center position",
+      "initialZoomLevel": "Initial zoom level (0-22)",
+      "mapOptionsObject": "Map options object",
+      "mapClickHandler": "Map click handler",
+      "mapDragHandler": "Map drag handler",
+      "zoomChangeHandler": "Zoom change handler",
+      "calledWhenMapIsLoaded": "Called when map is loaded",
+      "calledWhenMapIsUnmounted": "Called when map is unmounted",
+      "markerPosition": "Marker position (required)",
+      "customMarkerIcon": "Custom marker icon",
+      "markerLabel": "Marker label",
+      "hoverTooltipText": "Hover tooltip text",
+      "allowMarkerToBeDragged": "Allow marker to be dragged",
+      "markerVisibility": "Marker visibility",
+      "dropOrBounceAnimation": "DROP or BOUNCE animation",
+      "markerClustererInstance": "MarkerClusterer instance",
+      "clickHandler": "Click handler",
+      "dragEndHandler": "Drag end handler",
+      "positionRequiredIfNoAnchor": "Position (required if no anchor)",
+      "anchorToAMarker": "Anchor to a marker",
+      "contentToDisplay": "Content to display",
+      "closeButtonClickHandler": "Close button click handler",
+      "arrayOfCoordinates": "Array of coordinates",
+      "polylineStylingOptions": "Polyline styling options",
+      "allowPolylineToBeDragged": "Allow polyline to be dragged",
+      "allowEditingVertices": "Allow editing vertices",
+      "arrayOfCoordinateArrays": "Array of coordinate arrays",
+      "polygonStylingOptions": "Polygon styling options",
+      "allowPolygonToBeDragged": "Allow polygon to be dragged",
+      "rectangleBounds": "Rectangle bounds (required)",
+      "rectangleStylingOptions": "Rectangle styling options",
+      "allowRectangleToBeDragged": "Allow rectangle to be dragged",
+      "allowResizing": "Allow resizing",
+      "circleCenter": "Circle center (required)",
+      "radiusInMeters": "Radius in meters",
+      "circleStylingOptions": "Circle styling options",
+      "allowCircleToBeDragged": "Allow circle to be dragged",
+      "activeDrawingMode": "Active drawing mode",
+      "drawingManagerOptions": "Drawing manager options",
+      "markerDrawnCallback": "Marker drawn callback",
+      "circleDrawnCallback": "Circle drawn callback",
+      "polygonDrawnCallback": "Polygon drawn callback",
+      "polylineDrawnCallback": "Polyline drawn callback",
+      "rectangleDrawnCallback": "Rectangle drawn callback",
+      "unmountCallback": "Unmount callback",
+      "heatmapDataPoints": "Heatmap data points",
+      "heatmapStylingOptions": "Heatmap styling options",
+      "kmlLayerUrl": "URL to KML file",
+      "kmlLayerOptions": "KML layer options",
+      "groundOverlayUrl": "URL to overlay image",
+      "groundOverlayBounds": "Overlay image bounds",
+      "groundOverlayOpacity": "Overlay opacity",
+      "infoBoxOptions": "InfoBox options",
+      "infoBoxPosition": "Position",
+      "infoBoxContentToDisplay": "Content to display",
+      "infoBoxCloseCallback": "Close callback",
+      "infoBoxLoadCallback": "Load callback"
+    },
+    "content": {
+      "gettingStarted": {
+        "title": "Getting Started",
+        "content": "React Google Maps API provides a comprehensive set of React components for the Google Maps JavaScript API.\n\nThis library allows you to declaratively create maps, markers, overlays, and more using familiar React patterns.\n\n**Installation**"
+      },
+      "loading": {
+        "title": "Loading the API",
+        "content": "Before using any map components, you need to load the Google Maps JavaScript API. There are two approaches:\n\n1. **LoadScript** - Load globally at app level\n2. **JsApiLoader** - Load dynamically in components"
+      },
+      "googleMap": {
+        "title": "GoogleMap",
+        "content": "The GoogleMap component is the core component that renders a Google Map. All other map components must be children of GoogleMap.\n\n**Features:**\n- Fully controlled via props\n- Supports all map events\n- Access map instance via onLoad callback"
+      },
+      "marker": {
+        "title": "Marker",
+        "content": "The Marker component renders a marker on the map. Markers can be customized with icons, labels, animations, and event handlers.\n\n**Note:** Marker is deprecated in favor of AdvancedMarkerElement, but remains widely used."
+      },
+      "infoWindow": {
+        "title": "InfoWindow",
+        "content": "InfoWindow displays content in a popup window above the map. It can be anchored to a marker or positioned at coordinates."
+      },
+      "polyline": {
+        "title": "Polyline",
+        "content": "Polyline draws a line on the map connecting a series of coordinates. Useful for routes, paths, and boundaries."
+      },
+      "polygon": {
+        "title": "Polygon",
+        "content": "Polygon draws a closed shape on the map. Useful for highlighting areas, regions, or zones."
+      },
+      "rectangle": {
+        "title": "Rectangle",
+        "content": "Rectangle draws a rectangular shape on the map defined by bounds."
+      },
+      "circle": {
+        "title": "Circle",
+        "content": "Circle draws a circular shape on the map defined by a center and radius."
+      },
+      "drawingManager": {
+        "title": "DrawingManager",
+        "content": "DrawingManager enables users to draw shapes (markers, circles, polygons, etc.) directly on the map.\n\n**Requires:** `drawing` library"
+      },
+      "trafficLayer": {
+        "title": "TrafficLayer",
+        "content": "TrafficLayer displays real-time traffic conditions on the map."
+      },
+      "bicyclingLayer": {
+        "title": "BicyclingLayer",
+        "content": "BicyclingLayer displays bike paths and bike-friendly roads on the map."
+      },
+      "transitLayer": {
+        "title": "TransitLayer",
+        "content": "TransitLayer displays public transit routes and stations on the map."
+      },
+      "heatmapLayer": {
+        "title": "HeatmapLayer",
+        "content": "HeatmapLayer visualizes data intensity with color gradients.\n\n**Requires:** `visualization` library"
+      },
+      "kmlLayer": {
+        "title": "KmlLayer",
+        "content": "KmlLayer renders KML/KMZ files on the map."
+      },
+      "directions": {
+        "title": "Directions",
+        "content": "DirectionsService calculates routes and DirectionsRenderer displays them on the map."
+      },
+      "distanceMatrix": {
+        "title": "DistanceMatrixService",
+        "content": "DistanceMatrixService calculates travel distance and time for multiple origins and destinations."
+      },
+      "autocomplete": {
+        "title": "Autocomplete",
+        "content": "Autocomplete provides address/place suggestions as users type.\n\n**Requires:** `places` library"
+      },
+      "searchBox": {
+        "title": "StandaloneSearchBox",
+        "content": "StandaloneSearchBox provides a search box for places without requiring a map.\n\n**Requires:** `places` library"
+      },
+      "overlayView": {
+        "title": "OverlayView",
+        "content": "OverlayView renders custom React components as map overlays at specific coordinates."
+      },
+      "groundOverlay": {
+        "title": "GroundOverlay",
+        "content": "GroundOverlay displays an image on the map within specified bounds."
+      },
+      "streetViewPanorama": {
+        "title": "StreetViewPanorama",
+        "content": "StreetViewPanorama displays Google Street View imagery."
+      },
+      "streetViewService": {
+        "title": "StreetViewService",
+        "content": "StreetViewService provides metadata about Street View coverage."
+      },
+      "markerClusterer": {
+        "title": "MarkerClusterer",
+        "content": "MarkerClusterer groups nearby markers into clusters for better performance and UX with many markers."
+      },
+      "infoBox": {
+        "title": "InfoBox",
+        "content": "InfoBox is a customizable alternative to InfoWindow with more styling options."
+      }
+    },
+    "navigation": {
+      "title": "Documentation",
+      "sections": {
+        "gettingStarted": "Getting Started",
+        "loading": "Loading the API",
+        "googleMap": "GoogleMap",
+        "components": "Components",
+        "marker": "Marker",
+        "infoWindow": "InfoWindow",
+        "polyline": "Polyline",
+        "polygon": "Polygon",
+        "rectangle": "Rectangle",
+        "circle": "Circle",
+        "drawingManager": "DrawingManager",
+        "layers": "Layers",
+        "trafficLayer": "TrafficLayer",
+        "bicyclingLayer": "BicyclingLayer",
+        "transitLayer": "TransitLayer",
+        "heatmapLayer": "HeatmapLayer",
+        "kmlLayer": "KmlLayer",
+        "services": "Services",
+        "directions": "Directions",
+        "distanceMatrix": "DistanceMatrix",
+        "places": "Places",
+        "autocomplete": "Autocomplete",
+        "searchBox": "StandaloneSearchBox",
+        "overlays": "Overlays",
+        "overlayView": "OverlayView",
+        "groundOverlay": "GroundOverlay",
+        "streetView": "Street View",
+        "streetViewPanorama": "StreetViewPanorama",
+        "streetViewService": "StreetViewService",
+        "addons": "Addons",
+        "markerClusterer": "MarkerClusterer",
+        "infoBox": "InfoBox"
+      },
+      "sectionNames": {
+        "drawing": "Drawing",
+        "layers": "Layers",
+        "services": "Services",
+        "places": "Places",
+        "overlays": "Overlays",
+        "streetView": "Street View",
+        "addons": "Addons"
+      }
+    }
+  }
+}

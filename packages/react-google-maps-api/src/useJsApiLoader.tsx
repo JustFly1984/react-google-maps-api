@@ -1,19 +1,19 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Loader } from '@googlemaps/js-api-loader'
+import { Loader, type Library } from '@googlemaps/js-api-loader';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { isBrowser } from './utils/isbrowser'
-import { preventGoogleFonts } from './utils/prevent-google-fonts'
-import type { LoadScriptUrlOptions, Libraries } from './utils/make-load-script-url'
+import { isBrowser } from './utils/isbrowser.js';
+import type { Libraries, LoadScriptUrlOptions } from './utils/make-load-script-url.js';
+import { preventGoogleFonts } from './utils/prevent-google-fonts.js';
 
-import { defaultLoadScriptProps } from './LoadScript'
+import { defaultLoadScriptProps } from './LoadScript.js';
 
-export interface UseLoadScriptOptions extends LoadScriptUrlOptions {
-  id?: string | undefined
-  nonce?: string | undefined
-  preventGoogleFontsLoading?: boolean | undefined
-}
+export type UseLoadScriptOptions = LoadScriptUrlOptions & {
+  id?: string | undefined;
+  nonce?: string | undefined;
+  preventGoogleFontsLoading?: boolean | undefined;
+};
 
-const defaultLibraries: Libraries = ['maps']
+const defaultLibraries: Libraries = ['maps'];
 
 export function useJsApiLoader({
   id = defaultLoadScriptProps.id,
@@ -29,19 +29,19 @@ export function useJsApiLoader({
   mapIds,
   authReferrerPolicy,
 }: UseLoadScriptOptions): {
-  isLoaded: boolean
-  loadError: Error | undefined
+  isLoaded: boolean;
+  loadError: Error | undefined;
 } {
-  const isMounted = useRef(false)
-  const [isLoaded, setLoaded] = useState(false)
-  const [loadError, setLoadError] = useState<Error | undefined>(undefined)
+  const mountedRef = useRef(false);
+  const [isLoaded, setLoaded] = useState(false);
+  const [loadError, setLoadError] = useState<Error | undefined>(undefined);
 
-  useEffect(function trackMountedState() {
-    isMounted.current = true
+  useEffect(() => {
+    mountedRef.current = true;
     return (): void => {
-      isMounted.current = false
-    }
-  }, [])
+      mountedRef.current = false;
+    };
+  }, []);
 
   const loader = useMemo(() => {
     return new Loader({
@@ -54,47 +54,57 @@ export function useJsApiLoader({
       mapIds: mapIds || [],
       nonce: nonce || '',
       authReferrerPolicy: authReferrerPolicy || 'origin',
-    })
-  }, [id, googleMapsApiKey, version, libraries, language, region, mapIds, nonce, authReferrerPolicy])
+    });
+  }, [
+    id,
+    googleMapsApiKey,
+    version,
+    libraries,
+    language,
+    region,
+    mapIds,
+    nonce,
+    authReferrerPolicy,
+  ]);
 
-  useEffect(function effect() {
+  useEffect(() => {
     if (isLoaded) {
-      return
-    } else {
-      loader.load().then(() => {
-        if (isMounted.current) {setLoaded(true)}
-
-        return
-      })
-      .catch((error) => {
-        setLoadError(error)
-      })
+      return;
     }
-  }, [])
 
+    void Promise.all(
+      libraries.map((library: Library) => {
+        loader.importLibrary(library);
+      }),
+    )
+      .then(() => {
+        if (mountedRef.current) {
+          setLoaded(true);
+        }
 
-  useEffect(
-    () => {
-      if (isBrowser && preventGoogleFontsLoading) {
-        preventGoogleFonts()
-      }
-    },
-    [preventGoogleFontsLoading]
-  )
+        return;
+      })
+      .catch((error: unknown) => {
+        setLoadError(error as Error);
+      });
+  }, []);
 
-  const prevLibraries = useRef<undefined | Libraries>()
+  useEffect(() => {
+    if (isBrowser && preventGoogleFontsLoading) {
+      preventGoogleFonts();
+    }
+  }, [preventGoogleFontsLoading]);
 
-  useEffect(
-    () => {
-      if (prevLibraries.current && libraries !== prevLibraries.current) {
-        console.warn(
-          'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables'
-        )
-      }
-      prevLibraries.current = libraries
-    },
-    [libraries]
-  )
+  const prevLibraries = useRef<undefined | Libraries>();
 
-  return { isLoaded, loadError }
+  useEffect(() => {
+    if (prevLibraries.current && libraries !== prevLibraries.current) {
+      console.warn(
+        'Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables',
+      );
+    }
+    prevLibraries.current = libraries;
+  }, [libraries]);
+
+  return { isLoaded, loadError };
 }
