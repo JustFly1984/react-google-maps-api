@@ -1,4 +1,4 @@
-import type { D1Database, KVNamespace } from '@cloudflare/workers-types';
+import type { D1Database, Fetcher, KVNamespace } from '@cloudflare/workers-types';
 
 export type Env = {
   DB: D1Database;
@@ -9,6 +9,7 @@ export type Env = {
   STRIPE_WEBHOOK_SECRET: string;
   RESEND_API_KEY: string;
   APP_URL: string;
+  ASSETS: Fetcher;
 };
 
 export type User = {

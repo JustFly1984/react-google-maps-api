@@ -1,0 +1,336 @@
+{
+  "seo": {
+    "home": {
+      "title": "React Google Maps API - Google Maps Komponenten für React",
+      "description": "Die beliebteste React-Bibliothek für Google Maps. Erstellen Sie schöne, interaktive Karten mit TypeScript-Unterstützung, einfacher Integration und umfassender Dokumentation."
+    },
+    "pricing": {
+      "title": "Preise - Kommerzielle Lizenz",
+      "description": "Erhalten Sie eine kommerzielle Lizenz für React Google Maps API. Einmalige Zahlung, lebenslange Updates, Prioritäts-Support und unbegrenzte Projekte."
+    },
+    "docs": {
+      "title": "Dokumentation",
+      "description": "Umfassende Dokumentation für React Google Maps API. Lernen Sie, wie Sie Google Maps in Ihre React-Anwendung integrieren, mit Beispielen und API-Referenz."
+    },
+    "login": {
+      "title": "Anmelden",
+      "description": "Melden Sie sich bei Ihrem React Google Maps API-Konto an, um auf Ihr Dashboard zuzugreifen und Ihre Lizenzen zu verwalten."
+    },
+    "signup": {
+      "title": "Konto erstellen",
+      "description": "Erstellen Sie ein React Google Maps API-Konto, um Lizenzen zu kaufen, auf Premium-Funktionen zuzugreifen und Prioritäts-Support zu erhalten."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Verwalten Sie Ihre React Google Maps API-Lizenzen, sehen Sie die Nutzung ein und greifen Sie auf Ihre Kontoeinstellungen zu."
+    },
+    "forgotPassword": {
+      "title": "Passwort vergessen",
+      "description": "Setzen Sie das Passwort Ihres React Google Maps API-Kontos zurück."
+    },
+    "resetPassword": {
+      "title": "Passwort zurücksetzen",
+      "description": "Erstellen Sie ein neues Passwort für Ihr React Google Maps API-Konto."
+    },
+    "checkoutSuccess": {
+      "title": "Kauf abgeschlossen",
+      "description": "Vielen Dank für den Kauf einer React Google Maps API-Lizenz. Ihr Lizenzschlüssel ist einsatzbereit."
+    }
+  },
+  "navigation": {
+    "home": "Startseite",
+    "documentation": "Dokumentation",
+    "pricing": "Preise"
+  },
+  "common": {
+    "buttons": {
+      "signIn": "Anmelden",
+      "signUp": "Loslegen",
+      "signOut": "Abmelden",
+      "dashboard": "Dashboard"
+    },
+    "footer": {
+      "copyright": "© {{year}} React Google Maps API. Alle Rechte vorbehalten.",
+      "rememberPassword": "Passwort gemerkt?"
+    },
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "active": "Aktiv",
+    "dashboard": "Zum Dashboard",
+    "viewDocs": "Dokumentation ansehen",
+    "validUntil": "Gültig bis",
+    "placeholders": {
+      "email": "du@beispiel.com",
+      "password": "••••••••",
+      "fullName": "Max Mustermann",
+      "search": "Suchen...",
+      "searchPlace": "Ort suchen"
+    },
+    "accessibility": {
+      "selectLanguage": "Sprache auswählen",
+      "switchToLightMode": "Zum hellen Modus wechseln",
+      "switchToDarkMode": "Zum dunklen Modus wechseln",
+      "copyCode": "Code kopieren",
+      "copied": "Kopiert!"
+    }
+  },
+  "docs": {
+    "examples": {
+      "title": "Beispiel",
+      "props": "Props"
+    },
+    "autocomplete": {
+      "searchPlace": "Ort suchen"
+    },
+    "searchBox": {
+      "search": "Suchen..."
+    },
+    "navigation": {
+      "title": "Dokumentation",
+      "sections": {
+        "gettingStarted": "Erste Schritte",
+        "loading": "API laden",
+        "googleMap": "GoogleMap",
+        "components": "Komponenten",
+        "marker": "Marker",
+        "infoWindow": "InfoWindow",
+        "polyline": "Polyline",
+        "polygon": "Polygon",
+        "rectangle": "Rectangle",
+        "circle": "Circle",
+        "drawingManager": "DrawingManager",
+        "trafficLayer": "TrafficLayer",
+        "bicyclingLayer": "BicyclingLayer",
+        "transitLayer": "TransitLayer",
+        "heatmapLayer": "HeatmapLayer",
+        "kmlLayer": "KmlLayer",
+        "directions": "Directions",
+        "distanceMatrix": "DistanceMatrix",
+        "autocomplete": "Autocomplete",
+        "searchBox": "SearchBox",
+        "overlayView": "OverlayView",
+        "groundOverlay": "GroundOverlay",
+        "streetViewPanorama": "StreetViewPanorama",
+        "streetViewService": "StreetViewService",
+        "markerClusterer": "MarkerClusterer",
+        "infoBox": "InfoBox"
+      },
+      "sectionNames": {
+        "drawing": "Zeichnen",
+        "layers": "Ebenen",
+        "services": "Dienste",
+        "places": "Orte",
+        "overlays": "Overlays",
+        "streetView": "Street View",
+        "addons": "Add-ons"
+      }
+    },
+    "content": {
+      "gettingStarted": {
+        "title": "Erste Schritte",
+        "content": "React Google Maps API bietet eine einfache und deklarative Möglichkeit, Google Maps in Ihre React-Anwendungen zu integrieren."
+      },
+      "loading": {
+        "title": "API laden",
+        "content": "Sie können die Google Maps API mit dem useJsApiLoader Hook oder der LoadScript Komponente laden."
+      },
+      "googleMap": {
+        "title": "GoogleMap",
+        "content": "Die GoogleMap Komponente ist die Hauptkomponente, die eine Google Maps Karte darstellt."
+      }
+    },
+    "props": {
+      "googleMapsApiKey": "Ihr Google Maps API Schlüssel",
+      "arrayOfLibraries": "Array zu ladender Bibliotheken: places, drawing, geometry, visualization",
+      "language": "Sprache für die Karten-Benutzeroberfläche",
+      "region": "Region Bias für Geocoding",
+      "version": "API Version (Standard: weekly)",
+      "mapIds": "Map IDs für Cloud-basierte Kartenstile",
+      "inputElement": "Input Element",
+      "countryRestrictions": "Ländereinschränkungen",
+      "placeTypes": "Ortstypen zur Rückgabe",
+      "dataFields": "Ortsdatenfelder zum Abrufen",
+      "mapContainerStyle": "CSS Stile für den Kartencontainer",
+      "mapContainerClassName": "CSS Klassenname für den Kartencontainer",
+      "initialCenterPosition": "Anfängliche Mittelposition",
+      "initialZoomLevel": "Anfänglicher Zoom-Level",
+      "mapOptionsObject": "Kartenoptionen Objekt",
+      "mapClickHandler": "Karten-Klick-Handler",
+      "mapDragHandler": "Karten-Zieh-Handler",
+      "zoomChangeHandler": "Zoom-Änderungs-Handler",
+      "calledWhenMapIsLoaded": "Wird aufgerufen, wenn die Karte geladen ist",
+      "calledWhenMapIsUnmounted": "Wird aufgerufen, wenn die Karte unmontiert wird"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "React Google Maps API",
+      "title": "React Komponenten für Google Maps",
+      "subtitle": "Eine einfache und deklarative Möglichkeit, Google Maps in Ihre React-Anwendungen zu integrieren.",
+      "getStarted": "Loslegen",
+      "viewPricing": "Preise ansehen"
+    },
+    "features": {
+      "title": "Warum React Google Maps API?",
+      "subtitle": "Alles, was Sie für professionelle Kartenanwendungen benötigen",
+      "easyIntegration": "Einfache Integration",
+      "easyIntegrationDescription": "Fertige React-Komponenten für Google Maps mit vollständiger TypeScript-Unterstützung.",
+      "highPerformance": "Hohe Leistung",
+      "highPerformanceDescription": "Optimiert für Leistung mit Lazy Loading und effizienten Re-Renders.",
+      "commercialLicense": "Kommerzielle Lizenz",
+      "commercialLicenseDescription": "Erschwingliche Jahreslizenz für kommerzielle Nutzung mit Prioritätssupport."
+    },
+    "cta": {
+      "title": "Bereit, etwas Erstaunliches zu erstellen?",
+      "subtitle": "Beginnen Sie heute mit React Google Maps API",
+      "getStarted": "Kostenlos starten",
+      "viewPricing": "Pläne ansehen"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Anmelden",
+      "subtitle": "Willkommen zurück! Bitte melden Sie sich bei Ihrem Konto an.",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "forgotPassword": "Passwort vergessen?",
+      "noAccount": "Haben Sie kein Konto?",
+      "signUpLink": "Registrieren",
+      "signingIn": "Anmelden...",
+      "validationError": "Bitte geben Sie eine gültige E-Mail und ein Passwort ein",
+      "failed": "Anmeldung fehlgeschlagen",
+      "invalidResponse": "Ungültige Antwort vom Server"
+    },
+    "signup": {
+      "title": "Konto erstellen",
+      "subtitle": "Treten Sie uns heute bei! Erstellen Sie Ihr Konto, um zu beginnen.",
+      "fullName": "Vollständiger Name",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "hasAccount": "Haben Sie bereits ein Konto?",
+      "signInLink": "Anmelden",
+      "creatingAccount": "Konto wird erstellt...",
+      "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
+      "failed": "Registrierung fehlgeschlagen",
+      "invalidResponse": "Ungültige Antwort vom Server"
+    },
+    "signUp": {
+      "title": "Konto erstellen",
+      "subtitle": "Treten Sie uns heute bei",
+      "fullName": "Vollständiger Name",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "agreeTerms": "Ich stimme den Geschäftsbedingungen zu",
+      "hasAccount": "Haben Sie bereits ein Konto?",
+      "signIn": "Anmelden",
+      "submit": "Konto erstellen",
+      "error": "Fehler beim Erstellen des Kontos"
+    },
+    "forgotPassword": {
+      "title": "Passwort zurücksetzen",
+      "subtitle": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen.",
+      "email": "E-Mail",
+      "submit": "Link senden",
+      "sending": "Wird gesendet...",
+      "successTitle": "Link gesendet",
+      "successText": "Überprüfen Sie Ihre E-Mail für den Reset-Link.",
+      "backToLogin": "Zurück zur Anmeldung",
+      "validationError": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "sendError": "Fehler beim Senden der E-Mail. Bitte versuchen Sie es erneut.",
+      "genericError": "Etwas ist schiefgelaufen"
+    },
+    "resetPassword": {
+      "title": "Neues Passwort festlegen",
+      "subtitle": "Geben Sie unten Ihr neues Passwort ein.",
+      "newPassword": "Neues Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "submit": "Passwort aktualisieren",
+      "resetting": "Wird zurückgesetzt...",
+      "successTitle": "Passwort aktualisiert",
+      "successText": "Ihr Passwort wurde erfolgreich aktualisiert.",
+      "backToLogin": "Zurück zur Anmeldung",
+      "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
+      "genericError": "Etwas ist schiefgelaufen",
+      "error": "Passwort konnte nicht zurückgesetzt werden. Bitte versuchen Sie es erneut."
+    }
+  },
+  "pricing": {
+    "title": "Einfache, transparente Preise",
+    "subtitle": "Erhalten Sie eine kommerzielle Lizenz zur Verwendung von React Google Maps API in Ihren Produktionsanwendungen.",
+    "license": {
+      "name": "Kommerzielle Lizenz",
+      "subtitle": "Perfekt für Produktions-Apps",
+      "price": "$12",
+      "period": "/Jahr",
+      "buttonText": "Lizenz kaufen",
+      "features": {
+        "fullAccess": "Vollzugang zu allen Komponenten",
+        "commercialUse": "Kommerzielle Nutzungslizenz",
+        "prioritySupport": "Prioritärer E-Mail-Support",
+        "premiumExamples": "Zugang zu Premium-Beispielen",
+        "oneYearUpdates": "Ein Jahr Updates",
+        "unlimitedProjects": "Unbegrenzte Projekte"
+      },
+      "guarantee": "30-Tage-Geld-zurück-Garantie"
+    },
+    "openSource": {
+      "title": "Open Source Nutzung",
+      "description": "React Google Maps API ist kostenlos für Open-Source-Projekte. Wenn Sie etwas für die Community erstellen, können Sie es ohne Lizenz verwenden."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Verwalten Sie Ihre Lizenzen und Kontoeinstellungen",
+    "licenses": {
+      "title": "Ihre Lizenzen",
+      "empty": {
+        "title": "Keine Lizenzen gefunden",
+        "description": "Sie haben noch keine Lizenzen erworben. Beginnen Sie mit dem Kauf einer kommerziellen Lizenz.",
+        "button": "Lizenz kaufen"
+      },
+      "serialNumber": "Seriennummer",
+      "purchaseDate": "Kaufdatum",
+      "expiryDate": "Ablaufdatum",
+      "status": {
+        "active": "Aktiv",
+        "inactive": "Inaktiv"
+      },
+      "copy": "Kopieren",
+      "copied": "Kopiert!"
+    },
+    "sidebar": {
+      "title": "Schnellaktionen",
+      "purchaseLicense": "Lizenz kaufen",
+      "viewDocs": "Dokumentation ansehen",
+      "processing": "Verarbeitung..."
+    }
+  },
+  "checkoutSuccess": {
+    "title": "Zahlung erfolgreich!",
+    "subtitle": "Vielen Dank für Ihren Kauf. Ihre Lizenz wurde generiert.",
+    "licenseKey": "Lizenzschlüssel",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "serialNumber": "Seriennummer",
+    "purchaseDate": "Kaufdatum",
+    "expiryDate": "Ablaufdatum",
+    "status": "Status",
+    "active": "Aktiv",
+    "dashboard": "Zum Dashboard",
+    "viewDocs": "Dokumentation ansehen",
+    "validUntil": "Gültig bis"
+  }
+}

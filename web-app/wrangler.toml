@@ -1,11 +1,10 @@
 name = "react-google-maps-api"
+main = "./functions/api/[[route]].ts"
 compatibility_date = "2026-01-01"
-pages_build_output_dir = "./build/client"
 
 [assets]
 directory = "./build/client"
-not_found_handling = "single-page-application"
-run_worker_first = ["/api/*"]
+binding = "ASSETS"
 
 [vars]
 APP_URL = "https://react-google-maps-api.ospm.app"

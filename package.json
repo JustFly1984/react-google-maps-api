@@ -37,8 +37,8 @@
     "clean": "rimraf ./bun.lockb ./node_modules/ && bun install"
   },
   "devDependencies": {
-    "oxlint": "1.38.0",
-    "oxfmt": "0.23.0",
+    "goatfmt": "0.44.0",
+    "goatlint": "1.59.4",
     "rimraf": "6.1.2",
     "typescript": "5.9.3"
   }

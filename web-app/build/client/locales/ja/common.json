@@ -1,0 +1,451 @@
+{
+  "seo": {
+    "home": {
+      "title": "React Google Maps API - React用Google Mapsコンポーネント",
+      "description": "Google Maps用の最も人気のあるReactライブラリ。TypeScriptサポート、簡単な統合、包括的なドキュメントで美しいインタラクティブマップを作成。"
+    },
+    "pricing": {
+      "title": "価格 - 商用ライセンス",
+      "description": "React Google Maps APIの商用ライセンスを取得。一回払い、永久アップデート、優先サポート、無制限プロジェクト。"
+    },
+    "docs": {
+      "title": "ドキュメント",
+      "description": "React Google Maps APIの包括的なドキュメント。例とAPIリファレンスでReactアプリケーションにGoogle Mapsを統合する方法を学ぶ。"
+    },
+    "login": {
+      "title": "ログイン",
+      "description": "React Google Maps APIアカウントにログインしてダッシュボードにアクセスし、ライセンスを管理。"
+    },
+    "signup": {
+      "title": "アカウント作成",
+      "description": "React Google Maps APIアカウントを作成してライセンスを購入、プレミアム機能にアクセス、優先サポートを取得。"
+    },
+    "dashboard": {
+      "title": "ダッシュボード",
+      "description": "React Google Maps APIライセンスを管理、使用状況を確認、アカウント設定にアクセス。"
+    },
+    "forgotPassword": {
+      "title": "パスワードを忘れた",
+      "description": "React Google Maps APIアカウントのパスワードをリセット。"
+    },
+    "resetPassword": {
+      "title": "パスワードリセット",
+      "description": "React Google Maps APIアカウントの新しいパスワードを作成。"
+    },
+    "checkoutSuccess": {
+      "title": "購入完了",
+      "description": "React Google Maps APIライセンスをご購入いただきありがとうございます。ライセンスキーはすぐにご利用いただけます。"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "React Google Maps API",
+      "title": "React用Google Maps",
+      "subtitle": "Google Maps用の最も人気のあるReactライブラリ。包括的なコンポーネントライブラリを使用して、美しくインタラクティブな地図を簡単に構築できます。",
+      "getStarted": "始める",
+      "viewPricing": "料金を見る"
+    },
+    "features": {
+      "title": "なぜReact Google Maps APIを選ぶのか？",
+      "subtitle": "プロフェッショナルな地図アプリケーションを構築するために必要なすべて",
+      "easyIntegration": "簡単な統合",
+      "easyIntegrationDescription": "完全なTypeScriptサポート付きのGoogle Maps用ドロップインReactコンポーネント。",
+      "highPerformance": "高パフォーマンス",
+      "highPerformanceDescription": "遅延読み込みと効率的な再レンダリングでパフォーマンスを最適化。",
+      "commercialLicense": "商用ライセンス",
+      "commercialLicenseDescription": "優先サポート付きの手頃な年間商用ライセンス。"
+    },
+    "cta": {
+      "title": "始める準備はできましたか？",
+      "subtitle": "React Google Maps APIを使用する何千人もの開発者に参加しましょう",
+      "getStarted": "アカウント作成",
+      "viewPricing": "料金を見る"
+    }
+  },
+  "navigation": {
+    "home": "ホーム",
+    "documentation": "ドキュメント",
+    "pricing": "料金"
+  },
+  "common": {
+    "buttons": {
+      "signIn": "ログイン",
+      "signUp": "始める",
+      "signOut": "ログアウト",
+      "dashboard": "ダッシュボード"
+    },
+    "footer": {
+      "copyright": "© {{year}} React Google Maps API. All rights reserved.",
+      "rememberPassword": "パスワードを覚えていますか？"
+    },
+    "placeholders": {
+      "email": "you@example.com",
+      "password": "••••••••",
+      "fullName": "山田太郎",
+      "search": "検索...",
+      "searchPlace": "場所を検索"
+    },
+    "accessibility": {
+      "selectLanguage": "言語を選択",
+      "switchToLightMode": "ライトモードに切り替え",
+      "switchToDarkMode": "ダークモードに切り替え",
+      "copyCode": "コードをコピー",
+      "copied": "コピーしました！"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "ログイン",
+      "subtitle": "おかえりなさい！アカウントにログインしてください。",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "signUpLink": "登録する",
+      "signingIn": "ログイン中...",
+      "validationError": "有効なメールアドレスとパスワードを入力してください",
+      "failed": "ログインに失敗しました",
+      "invalidResponse": "サーバーからの無効な応答"
+    },
+    "signup": {
+      "title": "アカウント作成",
+      "subtitle": "今日から始めましょう！アカウントを作成してください。",
+      "fullName": "氏名",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "confirmPassword": "パスワード確認",
+      "hasAccount": "すでにアカウントをお持ちですか？",
+      "signInLink": "ログイン",
+      "creatingAccount": "アカウント作成中...",
+      "passwordsDoNotMatch": "パスワードが一致しません",
+      "failed": "登録に失敗しました",
+      "invalidResponse": "サーバーからの無効な応答"
+    },
+    "forgotPassword": {
+      "title": "パスワードリセット",
+      "subtitle": "メールアドレスを入力してください。パスワードリセット用のリンクをお送りします。",
+      "email": "メールアドレス",
+      "submit": "リンクを送信",
+      "sending": "送信中...",
+      "successTitle": "リンクを送信しました",
+      "successText": "パスワードリセット用のリンクをメールで確認してください。",
+      "backToLogin": "ログインに戻る",
+      "validationError": "有効なメールアドレスを入力してください",
+      "sendError": "メールの送信に失敗しました。もう一度お試しください。",
+      "genericError": "エラーが発生しました"
+    },
+    "resetPassword": {
+      "title": "新しいパスワードを設定",
+      "subtitle": "以下に新しいパスワードを入力してください。",
+      "newPassword": "新しいパスワード",
+      "confirmPassword": "パスワード確認",
+      "submit": "パスワードを更新",
+      "resetting": "リセット中...",
+      "successTitle": "パスワードを更新しました",
+      "successText": "パスワードが正常に更新されました。",
+      "backToLogin": "ログインに戻る",
+      "passwordsDoNotMatch": "パスワードが一致しません",
+      "genericError": "エラーが発生しました",
+      "error": "パスワードのリセットに失敗しました。もう一度お試しください。"
+    }
+  },
+  "pricing": {
+    "title": "シンプルで透明な料金",
+    "subtitle": "本番アプリケーションでReact Google Maps APIを使用するための商用ライセンスを取得してください。",
+    "license": {
+      "name": "商用ライセンス",
+      "subtitle": "本番アプリに最適",
+      "price": "$12",
+      "period": "/年",
+      "buttonText": "ライセンスを購入",
+      "features": {
+        "fullAccess": "すべてのコンポーネントへのフルアクセス",
+        "commercialUse": "商用利用ライセンス",
+        "prioritySupport": "優先メールサポート",
+        "premiumExamples": "プレミアム例へのアクセス",
+        "oneYearUpdates": "1年間のアップデート",
+        "unlimitedProjects": "無制限のプロジェクト"
+      },
+      "guarantee": "30日間返金保証"
+    },
+    "openSource": {
+      "title": "オープンソース利用",
+      "description": "React Google Maps APIはオープンソースプロジェクトでは無料です。コミュニティのために何かを構築している場合、ライセンスなしで使用できます。"
+    }
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "subtitle": "ライセンスとアカウント設定を管理",
+    "licenses": {
+      "title": "あなたのライセンス",
+      "empty": {
+        "title": "ライセンスが見つかりません",
+        "description": "まだライセンスを購入していません。商用ライセンスを購入して始めましょう。",
+        "button": "ライセンスを購入"
+      },
+      "serialNumber": "シリアル番号",
+      "purchaseDate": "購入日",
+      "expiryDate": "有効期限",
+      "status": {
+        "active": "有効",
+        "inactive": "無効"
+      },
+      "copy": "コピー",
+      "copied": "コピーしました！"
+    },
+    "sidebar": {
+      "title": "クイックアクション",
+      "purchaseLicense": "ライセンスを購入",
+      "viewDocs": "ドキュメントを見る",
+      "processing": "処理中..."
+    }
+  },
+  "checkoutSuccess": {
+    "title": "支払い完了！",
+    "subtitle": "ご購入ありがとうございます。ライセンスが生成されました。",
+    "licenseKey": "ライセンスキー",
+    "copy": "コピー",
+    "copied": "コピーしました！",
+    "serialNumber": "シリアル番号",
+    "purchaseDate": "購入日",
+    "expiryDate": "有効期限",
+    "status": "ステータス",
+    "active": "有効",
+    "dashboard": "ダッシュボードへ",
+    "viewDocs": "ドキュメントを見る",
+    "validUntil": "有効期限"
+  },
+  "docs": {
+    "examples": {
+      "title": "例",
+      "props": "プロパティ"
+    },
+    "autocomplete": {
+      "searchPlace": "場所を検索"
+    },
+    "searchBox": {
+      "search": "検索..."
+    },
+    "props": {
+      "googleMapsApiKey": "Google Maps APIキー",
+      "arrayOfLibraries": "読み込むライブラリの配列: places, drawing, geometry, visualization",
+      "language": "マップUIの言語",
+      "region": "ジオコーディングのリージョン",
+      "version": "APIバージョン（デフォルト: weekly）",
+      "mapIds": "クラウドベースのマップスタイリング用マップID",
+      "inputElement": "入力要素",
+      "countryRestrictions": "国制限",
+      "placeTypes": "返す場所タイプ",
+      "dataFields": "取得する場所データフィールド",
+      "placeSelectionCallback": "場所選択コールバック",
+      "loadCallback": "読み込みコールバック",
+      "mapContainerStyle": "マップコンテナのスタイルオブジェクト",
+      "mapContainerClassName": "マップコンテナのCSSクラス",
+      "initialCenterPosition": "初期中心位置",
+      "initialZoomLevel": "初期ズームレベル（0-22）",
+      "mapOptionsObject": "マップオプションオブジェクト",
+      "mapClickHandler": "マップクリックハンドラ",
+      "mapDragHandler": "マップドラッグハンドラ",
+      "zoomChangeHandler": "ズーム変更ハンドラ",
+      "calledWhenMapIsLoaded": "マップ読み込み時に呼び出される",
+      "calledWhenMapIsUnmounted": "マップアンマウント時に呼び出される",
+      "markerPosition": "マーカー位置（必須）",
+      "customMarkerIcon": "カスタムマーカーアイコン",
+      "markerLabel": "マーカーラベル",
+      "hoverTooltipText": "ホバーツールチップテキスト",
+      "allowMarkerToBeDragged": "マーカーのドラッグを許可",
+      "markerVisibility": "マーカーの可視性",
+      "dropOrBounceAnimation": "DROPまたはBOUNCEアニメーション",
+      "markerClustererInstance": "MarkerClustererインスタンス",
+      "clickHandler": "クリックハンドラ",
+      "dragEndHandler": "ドラッグ終了ハンドラ",
+      "positionRequiredIfNoAnchor": "位置（アンカーがない場合は必須）",
+      "anchorToAMarker": "マーカーにアンカー",
+      "contentToDisplay": "表示するコンテンツ",
+      "closeButtonClickHandler": "閉じるボタンクリックハンドラ",
+      "arrayOfCoordinates": "座標の配列",
+      "polylineStylingOptions": "ポリラインスタイリングオプション",
+      "allowPolylineToBeDragged": "ポリラインのドラッグを許可",
+      "allowEditingVertices": "頂点の編集を許可",
+      "arrayOfCoordinateArrays": "座標配列の配列",
+      "polygonStylingOptions": "ポリゴンスタイリングオプション",
+      "allowPolygonToBeDragged": "ポリゴンのドラッグを許可",
+      "rectangleBounds": "矩形の境界（必須）",
+      "rectangleStylingOptions": "矩形スタイリングオプション",
+      "allowRectangleToBeDragged": "矩形のドラッグを許可",
+      "allowResizing": "リサイズを許可",
+      "circleCenter": "円の中心（必須）",
+      "radiusInMeters": "半径（メートル）",
+      "circleStylingOptions": "円スタイリングオプション",
+      "allowCircleToBeDragged": "円のドラッグを許可",
+      "activeDrawingMode": "アクティブな描画モード",
+      "drawingManagerOptions": "描画マネージャーオプション",
+      "markerDrawnCallback": "マーカー描画コールバック",
+      "circleDrawnCallback": "円描画コールバック",
+      "polygonDrawnCallback": "ポリゴン描画コールバック",
+      "polylineDrawnCallback": "ポリライン描画コールバック",
+      "rectangleDrawnCallback": "矩形描画コールバック",
+      "unmountCallback": "アンマウントコールバック",
+      "heatmapDataPoints": "ヒートマップデータポイント",
+      "heatmapStylingOptions": "ヒートマップスタイリングオプション",
+      "kmlLayerUrl": "KMLファイルURL",
+      "kmlLayerOptions": "KMLレイヤーオプション",
+      "groundOverlayUrl": "オーバーレイ画像URL",
+      "groundOverlayBounds": "オーバーレイ画像境界",
+      "groundOverlayOpacity": "オーバーレイ不透明度",
+      "infoBoxOptions": "InfoBoxオプション",
+      "infoBoxPosition": "位置",
+      "infoBoxContentToDisplay": "表示するコンテンツ",
+      "infoBoxCloseCallback": "閉じるコールバック",
+      "infoBoxLoadCallback": "読み込みコールバック"
+    },
+    "content": {
+      "gettingStarted": {
+        "title": "はじめに",
+        "content": "React Google Maps APIは、Google Maps JavaScript API用の包括的なReactコンポーネントセットを提供します。\n\nこのライブラリを使用すると、使い慣れたReactパターンを使用して、マップ、マーカー、オーバーレイなどを宣言的に作成できます。\n\n**インストール**"
+      },
+      "loading": {
+        "title": "APIの読み込み",
+        "content": "マップコンポーネントを使用する前に、Google Maps JavaScript APIを読み込む必要があります。2つのアプローチがあります：\n\n1. **LoadScript** - アプリレベルでグローバルに読み込み\n2. **JsApiLoader** - コンポーネント内で動的に読み込み"
+      },
+      "googleMap": {
+        "title": "GoogleMap",
+        "content": "GoogleMapコンポーネントは、Google Mapをレンダリングするコアコンポーネントです。他のすべてのマップコンポーネントはGoogleMapの子である必要があります。\n\n**機能：**\n- propsで完全に制御\n- すべてのマップイベントをサポート\n- onLoadコールバックでマップインスタンスにアクセス"
+      },
+      "marker": {
+        "title": "Marker",
+        "content": "Markerコンポーネントはマップ上にマーカーをレンダリングします。マーカーはアイコン、ラベル、アニメーション、イベントハンドラでカスタマイズできます。\n\n**注意：** MarkerはAdvancedMarkerElementに置き換えられましたが、まだ広く使用されています。"
+      },
+      "infoWindow": {
+        "title": "InfoWindow",
+        "content": "InfoWindowはマップ上にポップアップウィンドウでコンテンツを表示します。マーカーにアンカーするか、座標に配置できます。"
+      },
+      "polyline": {
+        "title": "Polyline",
+        "content": "Polylineは座標を結ぶ線をマップ上に描画します。ルート、パス、境界に便利です。"
+      },
+      "polygon": {
+        "title": "Polygon",
+        "content": "Polygonはマップ上に閉じた形状を描画します。エリア、地域、ゾーンのハイライトに便利です。"
+      },
+      "rectangle": {
+        "title": "Rectangle",
+        "content": "Rectangleは境界で定義された矩形をマップ上に描画します。"
+      },
+      "circle": {
+        "title": "Circle",
+        "content": "Circleは中心と半径で定義された円形をマップ上に描画します。"
+      },
+      "drawingManager": {
+        "title": "DrawingManager",
+        "content": "DrawingManagerを使用すると、ユーザーはマップ上に直接形状（マーカー、円、ポリゴンなど）を描画できます。\n\n**必要：** `drawing`ライブラリ"
+      },
+      "trafficLayer": {
+        "title": "TrafficLayer",
+        "content": "TrafficLayerはマップ上にリアルタイムの交通状況を表示します。"
+      },
+      "bicyclingLayer": {
+        "title": "BicyclingLayer",
+        "content": "BicyclingLayerはマップ上に自転車道と自転車フレンドリーな道路を表示します。"
+      },
+      "transitLayer": {
+        "title": "TransitLayer",
+        "content": "TransitLayerはマップ上に公共交通機関のルートと駅を表示します。"
+      },
+      "heatmapLayer": {
+        "title": "HeatmapLayer",
+        "content": "HeatmapLayerはカラーグラデーションでデータ強度を視覚化します。\n\n**必要：** `visualization`ライブラリ"
+      },
+      "kmlLayer": {
+        "title": "KmlLayer",
+        "content": "KmlLayerはマップ上にKML/KMZファイルをレンダリングします。"
+      },
+      "directions": {
+        "title": "Directions",
+        "content": "DirectionsServiceはルートを計算し、DirectionsRendererはそれをマップ上に表示します。"
+      },
+      "distanceMatrix": {
+        "title": "DistanceMatrixService",
+        "content": "DistanceMatrixServiceは複数の出発地と目的地の移動距離と時間を計算します。"
+      },
+      "autocomplete": {
+        "title": "Autocomplete",
+        "content": "Autocompleteはユーザーが入力するとアドレス/場所の提案を提供します。\n\n**必要：** `places`ライブラリ"
+      },
+      "searchBox": {
+        "title": "StandaloneSearchBox",
+        "content": "StandaloneSearchBoxはマップなしで場所の検索ボックスを提供します。\n\n**必要：** `places`ライブラリ"
+      },
+      "overlayView": {
+        "title": "OverlayView",
+        "content": "OverlayViewは特定の座標でカスタムReactコンポーネントをマップオーバーレイとしてレンダリングします。"
+      },
+      "groundOverlay": {
+        "title": "GroundOverlay",
+        "content": "GroundOverlayは指定された境界内のマップ上に画像を表示します。"
+      },
+      "streetViewPanorama": {
+        "title": "StreetViewPanorama",
+        "content": "StreetViewPanoramaはGoogleストリートビュー画像を表示します。"
+      },
+      "streetViewService": {
+        "title": "StreetViewService",
+        "content": "StreetViewServiceはストリートビューカバレッジに関するメタデータを提供します。"
+      },
+      "markerClusterer": {
+        "title": "MarkerClusterer",
+        "content": "MarkerClustererは多くのマーカーでより良いパフォーマンスとUXのために近くのマーカーをクラスターにグループ化します。"
+      },
+      "infoBox": {
+        "title": "InfoBox",
+        "content": "InfoBoxはより多くのスタイリングオプションを持つInfoWindowのカスタマイズ可能な代替です。"
+      }
+    },
+    "navigation": {
+      "title": "ドキュメント",
+      "sections": {
+        "gettingStarted": "はじめに",
+        "loading": "APIの読み込み",
+        "googleMap": "GoogleMap",
+        "components": "コンポーネント",
+        "marker": "Marker",
+        "infoWindow": "InfoWindow",
+        "polyline": "Polyline",
+        "polygon": "Polygon",
+        "rectangle": "Rectangle",
+        "circle": "Circle",
+        "drawingManager": "DrawingManager",
+        "layers": "レイヤー",
+        "trafficLayer": "TrafficLayer",
+        "bicyclingLayer": "BicyclingLayer",
+        "transitLayer": "TransitLayer",
+        "heatmapLayer": "HeatmapLayer",
+        "kmlLayer": "KmlLayer",
+        "services": "サービス",
+        "directions": "Directions",
+        "distanceMatrix": "DistanceMatrix",
+        "places": "場所",
+        "autocomplete": "Autocomplete",
+        "searchBox": "StandaloneSearchBox",
+        "overlays": "オーバーレイ",
+        "overlayView": "OverlayView",
+        "groundOverlay": "GroundOverlay",
+        "streetView": "ストリートビュー",
+        "streetViewPanorama": "StreetViewPanorama",
+        "streetViewService": "StreetViewService",
+        "addons": "アドオン",
+        "markerClusterer": "MarkerClusterer",
+        "infoBox": "InfoBox"
+      },
+      "sectionNames": {
+        "drawing": "描画",
+        "layers": "レイヤー",
+        "services": "サービス",
+        "places": "場所",
+        "overlays": "オーバーレイ",
+        "streetView": "ストリートビュー",
+        "addons": "アドオン"
+      }
+    }
+  }
+}
